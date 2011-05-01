@@ -54,6 +54,8 @@ $(function(){
 		
 		initialize : function(){
 			_.bindAll(this, "onSubmit");
+                        
+                        $this.el.append = "<b>Testing some appending in init</b>";
 		},
 		
 		// Simply takes the vals from the input fields and 
@@ -71,8 +73,26 @@ $(function(){
 			});
 		}
 	});
-	
-	// Represents an comment entry
+        
+        var EditFieldView = Backbone.View.extend({
+                tagName : "p",
+
+                initialize : function(){
+                        _.bindAll(this, "render");
+                },
+                
+                render : function(){ 
+                        var content = this.model.toJSON();
+                        $(this.el).html(this.template(content));
+                        return this;
+                }
+        });
+
+        var EditTextFieldView = EditFieldView.extend({
+                template : _.template($("#input-text").html()),
+        });
+
+        // Represents an comment entry
 	var EntryView = Backbone.View.extend({
 		tagName : "tr",
 		

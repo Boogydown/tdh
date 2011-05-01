@@ -99,6 +99,8 @@ $(function(){
                                 template: "input-submit"
                             }
                         ];
+
+                        FormView.protoype.initialize();
                 },
                 
                 // Simply takes the vals from the input fields and 

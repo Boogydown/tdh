@@ -100,7 +100,7 @@ $(function(){
                             }
                         ];
 
-                        FormView.prototype.initialize.call();
+                        FormView.prototype.initialize.call(this);
                 },
                 
                 // Simply takes the vals from the input fields and 

@@ -56,7 +56,7 @@ $(function(){
 			_.bindAll(this, "onSubmit");
                         
                         var name = new EditFieldView({
-                            id: "name",
+                            field_id: "name",
                             description: "Name",
                             placeholder: "Your name",
                             template: "input-text"
@@ -64,7 +64,7 @@ $(function(){
                         this.el.append(name.render().el);
 
                         var text = new EditFieldView({
-                            id: "text",
+                            field_id: "text",
                             description: "Text",
                             placeholder: "Your text",
                             template: "input-textarea"
@@ -72,7 +72,7 @@ $(function(){
                         this.el.append(text.render().el);
 
                         var submit = new EditFieldView({
-                            id: "submit",
+                            field_id: "submit",
                             template: "input-submit"
                         });
                         this.el.append(submit.render().el);
@@ -101,7 +101,6 @@ $(function(){
                         
                         this.options.template = this.options.template || "input-text";
                         this.template = _.template($("#" + this.options.template).html());
-                        unset this.id;
                 },
                 
                 render : function(){ 

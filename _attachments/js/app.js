@@ -55,20 +55,11 @@ $(function(){
 		initialize : function(){
                         _.bindAll(this, "onSubmit");
 
-                        var fields = this.options.fields;
-                        
-                        _.each(fields, function(field) {
+                        // Add each field to the form in turn
+                        _.each(this.options.fields, function(field) {
                             var foo = new EditFieldView(field);
                             this.el.append(foo.render().el);
                         }, this);
-/*                        var name = new EditFieldView(fields.name);
-                        this.el.append(name.render().el);
-
-                        var text = new EditFieldView(fields.text);
-                        this.el.append(text.render().el);
-
-                        var submit = new EditFieldView(fields.submit);
-                        this.el.append(submit.render().el);*/
 		},
 		
 		// Simply takes the vals from the input fields and 
@@ -187,24 +178,24 @@ $(function(){
 		}
 	});
 	
-        var fields = {
-            name: {
+        var fields = [
+            {
                 field_id: "name",
                 description: "Name",
                 placeholder: "Your name",
                 template: "input-text"
             },
-            text: {
+            {
                 field_id: "text",
                 description: "Text",
                 placeholder: "Your text",
                 template: "input-textarea"
             },
-            submit: {
+            {
                 field_id: "send",
                 template: "input-submit"
             }
-        };
+        ];
 
 
 	new EditView({ fields: fields });

@@ -45,39 +45,17 @@ $(function(){
 	var Comments = new CommentList();
 	
 	// This view is responsible for creating the add/edit fields
-	var EditView = Backbone.View.extend({
-		el : $("#edit"),
-		
-		events : {
-			"click #send" : "onSubmit"
-		},
-		
+	var FormView = Backbone.View.extend({
 		initialize : function(){
-                        _.bindAll(this, "onSubmit");
-
                         // Add each field to the form in turn
                         _.each(this.options.fields, function(field) {
-                            var foo = new EditFieldView(field);
+                            var foo = new FormFieldView(field);
                             this.el.append(foo.render().el);
                         }, this);
 		},
-		
-		// Simply takes the vals from the input fields and 
-		// creates a new Comment.
-		onSubmit : function(){
-			var name = $("#name").val();
-			var text = $("#text").val();
-			// sanitize user input...you never know ;)
-			name = name.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
-			text = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
-			Comments.create({
-				"name" : name,
-				"text" : text
-			});
-		}
 	});
 	
-        var EditFieldView = Backbone.View.extend({
+        var FormFieldView = Backbone.View.extend({
                 tagName : "p",
 
                 initialize : function(){
@@ -93,6 +71,51 @@ $(function(){
                 }
         });
 
+        var CommentEditView = FormView.extend({
+                el : $("#edit"),
+                
+                events : {
+                        "click #send" : "onSubmit"
+                },
+                
+                initialize : function(){
+                        _.bindAll(this, "onSubmit");
+        
+                        this.options.fields = [
+                            {
+                                field_id: "name",
+                                description: "Name",
+                                placeholder: "Your name",
+                                template: "input-text"
+                            },
+                            {
+                                field_id: "text",
+                                description: "Text",
+                                placeholder: "Your text",
+                                template: "input-textarea"
+                            },
+                            {
+                                field_id: "send",
+                                template: "input-submit"
+                            }
+                        ];
+                },
+                
+                // Simply takes the vals from the input fields and 
+                // creates a new Comment.
+                onSubmit : function(){
+                        var name = $("#name").val();
+                        var text = $("#text").val();
+                        // sanitize user input...you never know ;)
+                        name = name.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
+                        text = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
+                        Comments.create({
+                                "name" : name,
+                                "text" : text
+                        });
+                }
+        });
+        
 	// Represents an comment entry
 	var EntryView = Backbone.View.extend({
 		tagName : "tr",
@@ -177,28 +200,9 @@ $(function(){
 			Comments.fetch();
 		}
 	});
-	
-        var fields = [
-            {
-                field_id: "name",
-                description: "Name",
-                placeholder: "Your name",
-                template: "input-text"
-            },
-            {
-                field_id: "text",
-                description: "Text",
-                placeholder: "Your text",
-                template: "input-textarea"
-            },
-            {
-                field_id: "send",
-                template: "input-submit"
-            }
-        ];
 
 
-	new EditView({ fields: fields });
+	new CommentEditView();
 	new CommentsTable();
 	new App();
 

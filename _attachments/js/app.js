@@ -87,7 +87,7 @@ $(function(){
                         _.bindAll(this, "render");
                         
                         this.options.template = this.options.template || "input-text";
-                        this.template = _.template($("#" + this.options.template).html()),
+                        this.template = _.template($("#" + this.options.template).html());
                 },
                 
                 render : function(){ 

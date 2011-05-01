@@ -55,14 +55,27 @@ $(function(){
 		initialize : function(){
 			_.bindAll(this, "onSubmit");
                         
-                        var fieldModel = {
+                        var name = new EditFieldView({
                             id: "name",
                             description: "Name",
                             placeholder: "Your name",
                             template: "input-text"
-                        };
-                        var name = new EditFieldView( fieldModel );
+                        });
                         this.el.append(name.render().el);
+
+                        var text = new EditFieldView({
+                            id: "text",
+                            description: "Text",
+                            placeholder: "Your text",
+                            template: "input-textarea"
+                        });
+                        this.el.append(text.render().el);
+
+                        var submit = new EditFieldView({
+                            id: "submit",
+                            template: "input-submit"
+                        });
+                        this.el.append(submit.render().el);
 		},
 		
 		// Simply takes the vals from the input fields and 

@@ -44,7 +44,7 @@ $(function(){
 	
 	var Comments = new CommentList();
 	
-	// This view is responsible for creating the Comment fields.
+	// This view is responsible for creating the add/edit fields
 	var EditView = Backbone.View.extend({
 		el : $("#edit"),
 		
@@ -55,26 +55,14 @@ $(function(){
 		initialize : function(){
                         _.bindAll(this, "onSubmit");
 
-                        var name = new EditFieldView({
-                            field_id: "name",
-                            description: "Name",
-                            placeholder: "Your name",
-                            template: "input-text"
-                        });
+                        var fields = this.options.fields;
+                        var name = new EditFieldView(fields.name);
                         this.el.append(name.render().el);
 
-                        var text = new EditFieldView({
-                            field_id: "text",
-                            description: "Text",
-                            placeholder: "Your text",
-                            template: "input-textarea"
-                        });
+                        var text = new EditFieldView(fields.text);
                         this.el.append(text.render().el);
 
-                        var submit = new EditFieldView({
-                            field_id: "send",
-                            template: "input-submit"
-                        });
+                        var submit = new EditFieldView(fields.submit);
                         this.el.append(submit.render().el);
 		},
 		
@@ -194,7 +182,27 @@ $(function(){
 		}
 	});
 	
-	new EditView();
+        var fields = {
+            name: {
+                field_id: "name",
+                description: "Name",
+                placeholder: "Your name",
+                template: "input-text"
+            },
+            text: {
+                field_id: "text",
+                description: "Text",
+                placeholder: "Your text",
+                template: "input-textarea"
+            },
+            submit: {
+                field_id: "send",
+                template: "input-submit"
+            }
+        };
+
+
+	new EditView({ fields: fields });
 	new CommentsTable();
 	new App();
 

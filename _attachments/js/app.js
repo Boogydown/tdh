@@ -6,7 +6,7 @@ $(function(){
 	Backbone.couchConnector.viewName = "byCollection";
 	// If set to true, the connector will listen to the changes feed
 	// and will provide your models with real time remote updates.
-	Backbone.couchConnector.enableChanges = true;
+	Backbone.couchConnector.enableChanges = false;
 	
 	// Enables Mustache.js-like templating.
 	_.templateSettings = {
@@ -67,10 +67,28 @@ $(function(){
 			Comments.create({
 				"name" : name,
 				"text" : text,
-				"date" : new Date().getTime()
 			});
 		}
 	});
+
+
+        var EditFieldView = Backbone.View.extend({
+                tagName : "p",
+
+                initialize : function(){
+                        _.bindAll(this, "render");
+                },
+                
+                render : function(){ 
+                        var content = this.model.toJSON();
+                        $(this.el).html(this.template(content));
+                        return this;
+                }
+        });
+
+        var EditTextFieldView = EditFieldView.extend({
+                template : _.template($("#input-text").html()),
+        });
 	
 	// Represents an comment entry
 	var EntryView = Backbone.View.extend({
@@ -115,6 +133,7 @@ $(function(){
 	// The view for all comments
 	var CommentsTable = Backbone.View.extend({
 		el: $("#comments"),
+                rowView: new EntryView();
 		
 		initialize : function(){
 			_.bindAll(this, 'refreshed', 'addRow', 'deleted');
@@ -126,8 +145,8 @@ $(function(){
 		
 		// Prepends an entry row 
 		addRow : function(comment){
-			var view = new EntryView({model: comment});
-			var rendered = view.render().el;
+			this.rowView.model = comment;
+			var rendered = this.rowView.render().el;
 			this.el.prepend(rendered);
 		},
 		

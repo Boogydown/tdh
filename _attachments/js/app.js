@@ -91,6 +91,7 @@ $(function(){
                             {
                                 field_id: "text",
                                 description: "Text",
+                                placeholder: "Your text",
                                 template: "input-textarea"
                             },
                             {

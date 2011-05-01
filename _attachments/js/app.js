@@ -53,6 +53,8 @@ $(function(){
 		},
 		
 		initialize : function(){
+                        _.bindAll(this, "onSubmit");
+
                         var name = new EditFieldView({
                             field_id: "name",
                             description: "Name",
@@ -70,12 +72,10 @@ $(function(){
                         this.el.append(text.render().el);
 
                         var submit = new EditFieldView({
-                            field_id: "submit",
+                            field_id: "send",
                             template: "input-submit"
                         });
                         this.el.append(submit.render().el);
-
-                        _.bindAll(this, "onSubmit");
 		},
 		
 		// Simply takes the vals from the input fields and 

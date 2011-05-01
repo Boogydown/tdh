@@ -101,6 +101,7 @@ $(function(){
                         
                         this.options.template = this.options.template || "input-text";
                         this.template = _.template($("#" + this.options.template).html());
+                        unset this.id;
                 },
                 
                 render : function(){ 

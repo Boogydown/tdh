@@ -56,14 +56,19 @@ $(function(){
                         _.bindAll(this, "onSubmit");
 
                         var fields = this.options.fields;
-                        var name = new EditFieldView(fields.name);
+                        
+                        _.each(fields, function(field) {
+                            var foo = new EditFieldView(field);
+                            this.el.append(foo.render().el);
+                        }, this);
+/*                        var name = new EditFieldView(fields.name);
                         this.el.append(name.render().el);
 
                         var text = new EditFieldView(fields.text);
                         this.el.append(text.render().el);
 
                         var submit = new EditFieldView(fields.submit);
-                        this.el.append(submit.render().el);
+                        this.el.append(submit.render().el);*/
 		},
 		
 		// Simply takes the vals from the input fields and 

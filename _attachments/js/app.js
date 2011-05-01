@@ -18,7 +18,7 @@ $(function(){
 	var CommentModel = Backbone.Model.extend({
 		initialize : function(){
 			if(!this.get("name")){
-				this.set({"name": "Anonimous"});
+				this.set({"name": "Anonymous"});
 			}
 			if(!this.get("text")){
 				this.set({"text": "Nothing"});

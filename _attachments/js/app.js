@@ -61,7 +61,7 @@ $(function(){
                             placeholder: "Your name"
                         };
                         var name = new EditTextFieldView({model: fieldModel});
-                        this.el.prepend(name.render);
+                        this.el.prepend(name.render().el);
 		},
 		
 		// Simply takes the vals from the input fields and 

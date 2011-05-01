@@ -58,9 +58,10 @@ $(function(){
                         var fieldModel = {
                             id: "name",
                             description: "Name",
-                            placeholder: "Your name"
+                            placeholder: "Your name",
+                            template: "input-text"
                         };
-                        var name = new EditTextFieldView({json: fieldModel});
+                        var name = new EditFieldView( fieldModel );
                         this.el.append(name.render().el);
 		},
 		
@@ -84,18 +85,15 @@ $(function(){
 
                 initialize : function(){
                         _.bindAll(this, "render");
+                        
+                        this.options.template = this.options.template || "input-text";
+                        this.template = _.template($("#" + this.options.template).html()),
                 },
                 
                 render : function(){ 
-//                         var content = this.model.toJSON();
-                        var content = this.options.json;
-                        $(this.el).html(this.template(content));
+                        $(this.el).html(this.template(this.options));
                         return this;
                 }
-        });
-
-        var EditTextFieldView = EditFieldView.extend({
-                template : _.template($("#input-text").html()),
         });
 
 	// Represents an comment entry

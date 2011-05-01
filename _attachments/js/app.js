@@ -88,7 +88,7 @@ $(function(){
                 
                 render : function(){ 
 //                         var content = this.model.toJSON();
-                        var content = this.json;
+                        var content = this.options.json;
                         $(this.el).html(this.template(content));
                         return this;
                 }

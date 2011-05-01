@@ -60,8 +60,8 @@ $(function(){
                             description: "Name",
                             placeholder: "Your name"
                         };
-                        var name = new EditTextFieldView({model: fieldModel});
-                        this.el.prepend(name.render().el);
+                        var name = new EditTextFieldView({json: fieldModel});
+                        this.el.append(name.render().el);
 		},
 		
 		// Simply takes the vals from the input fields and 
@@ -87,7 +87,8 @@ $(function(){
                 },
                 
                 render : function(){ 
-                        var content = this.model.toJSON();
+//                         var content = this.model.toJSON();
+                        var content = this.json;
                         $(this.el).html(this.template(content));
                         return this;
                 }

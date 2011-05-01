@@ -54,6 +54,14 @@ $(function(){
 		
 		initialize : function(){
 			_.bindAll(this, "onSubmit");
+                        
+                        var fieldModel = {
+                            id: "name",
+                            description: "Name",
+                            placeholder: "Your name"
+                        };
+                        var name = new EditTextFieldView({model: fieldModel});
+                        this.el.prepend(name.render);
 		},
 		
 		// Simply takes the vals from the input fields and 
@@ -66,12 +74,11 @@ $(function(){
 			text = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
 			Comments.create({
 				"name" : name,
-				"text" : text,
+				"text" : text
 			});
 		}
 	});
-
-
+	
         var EditFieldView = Backbone.View.extend({
                 tagName : "p",
 
@@ -89,7 +96,7 @@ $(function(){
         var EditTextFieldView = EditFieldView.extend({
                 template : _.template($("#input-text").html()),
         });
-	
+
 	// Represents an comment entry
 	var EntryView = Backbone.View.extend({
 		tagName : "tr",
@@ -133,7 +140,6 @@ $(function(){
 	// The view for all comments
 	var CommentsTable = Backbone.View.extend({
 		el: $("#comments"),
-                rowView: new EntryView();
 		
 		initialize : function(){
 			_.bindAll(this, 'refreshed', 'addRow', 'deleted');
@@ -145,8 +151,8 @@ $(function(){
 		
 		// Prepends an entry row 
 		addRow : function(comment){
-			this.rowView.model = comment;
-			var rendered = this.rowView.render().el;
+			var view = new EntryView({model: comment});
+			var rendered = view.render().el;
 			this.el.prepend(rendered);
 		},
 		

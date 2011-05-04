@@ -45,7 +45,6 @@ $(function(){
 	var Comments = new CommentList();
 
         var DustView = Backbone.View.extend({
-                
                 registerTemplate: function(name) {
                         dust.compileFn( $('#'+name).html() , name);
                         this.template = name;
@@ -73,20 +72,15 @@ $(function(){
 		},
 	});
 	
-        var FormFieldView = Backbone.View.extend({
+        var FormFieldView = DustView.extend({
                 tagName : "p",
 
                 initialize : function(){
                         _.bindAll(this, "render");
                         
                         this.options.template = this.options.template || "input-text";
-                        this.template = _.template($("#" + this.options.template).html());
-                },
-                
-                render : function(){ 
-                        $(this.el).html(this.template(this.options));
-                        return this;
-                }
+                        this.registerTemplate(this.options.template);
+                }               
         });
 
         var CommentEditView = FormView.extend({

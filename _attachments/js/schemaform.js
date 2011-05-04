@@ -45,7 +45,7 @@ var FormFieldView = DustView.extend({
 });
 
 var SchemaForm = FormView.extend({
-    el : $("#model_edit"),
+//     el : $("#model_edit"),
 
     events : {
             "click #send" : "onSubmit"

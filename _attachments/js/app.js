@@ -145,10 +145,12 @@ $(function(){
 		
 		render : function(){ 
                         var content_json = this.model.toJSON();
-                        var content_html = dust.renderSource(this.template, content_json, function (err,out) {
-                            $(this.el).html("TESTING");
+                        var content_html = '';
+                        dust.renderSource(this.template, content_json, function (err,out) {
+                            content_html = out;
                         } );
-			return this;
+                        $(this.el).html(content_html);
+                        return this;
 		},
 		
 		// Fade out the element and destroy the model

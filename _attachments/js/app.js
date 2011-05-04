@@ -87,7 +87,7 @@ $(function(){
         });
 
         var CommentEditView = FormView.extend({
-                el : $("#model_edit"),
+                el : $("#edit"),
                 
                 events : {
                         "click #send" : "onSubmit"
@@ -167,7 +167,7 @@ $(function(){
 	
 	// The view for all comments
 	var CommentsTable = Backbone.View.extend({
-		el: $("model_table"),
+		el: $("#comments"),
 		
 		initialize : function(){
 			_.bindAll(this, 'refreshed', 'addRow', 'deleted');
@@ -181,13 +181,13 @@ $(function(){
 		addRow : function(comment){
 			var view = new EntryView({model: comment});
 			var rendered = view.render().el;
-			$("model_table").prepend(rendered);
+			this.el.prepend(rendered);
 		},
 		
 		// Renders all comments into the table
 		refreshed : function(){
 			// reset the table
-			$("model_table").html("");
+			$("#comments").html("");
 			if(Comments.length > 0){
 				// add each element
 				Comments.each(this.addRow);

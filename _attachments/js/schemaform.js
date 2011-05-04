@@ -1,8 +1,18 @@
-var SchemaForm = function () {
-};
+$(function(){
+    var Schema = {};
 
-if (typeof exports !== "undefined") {
-//     module.exports.SchemaForm = SchemaForm;
-//     module.exports.SchemaTable = SchemaTable;
-//     module.exports.SchemaApp = SchemaApp;
-}
+    var Schema.Form = function () {
+        alert("this is a test");
+    };
+
+    if (typeof exports !== "undefined") {
+        module.exports.SchemaForm = Schema.Form;
+        module.exports.SchemaTable = Schema.Table;
+        module.exports.SchemaApp = Schema.App;
+    }
+    else {
+        SchemaForm = Schema.Form;
+//         SchemaTable = Schema.Table;
+//         SchemaApp = Schema.App;
+    }
+});

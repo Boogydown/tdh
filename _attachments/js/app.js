@@ -122,7 +122,8 @@ $(function(){
 	var EntryView = Backbone.View.extend({
 		tagName : "tr",
 		
-		template : _.template($("#entry-template").html()),
+// 		template : _.template($("#entry-template").html()),
+                template : dust.compileFn($("#entry-template").html()),
 		
 		// Clicking the `X` leads to a deletion
 		events : {

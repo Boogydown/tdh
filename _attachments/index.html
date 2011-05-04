@@ -14,16 +14,16 @@
     </table>
 
   </body>
-  <script type="text/dust" id="entry-template">
+  <script type="application/dust-template" id="entry">
     <td>{name}</td><td>{text}</td><td class="delete">X</td>
   </script>
-  <script type="text/template" id="input-text">
+  <script type="application/dust-template" id="input-text">
     <label for="{field_id}">{description}: </label><input type="text" placeholder="{placeholder}" id="{field_id}" />
   </script>
-  <script type="text/template" id="input-textarea">
+  <script type="application/dust-template" id="input-textarea">
     <label for="{field_id}">{description}: </label><textarea rows="5" cols="20" placeholder="{placeholder}" id="{field_id}" />
   </script>
-  <script type="text/template" id="input-submit">
+  <script type="application/dust-template" id="input-submit">
     <input type="submit" id="{field_id}" />
   </script>
   <script type="text/javascript" src="vendor/couchapp/loader.js"></script>

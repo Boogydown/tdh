@@ -45,18 +45,19 @@ $(function(){
 	var Comments = new CommentList();
 
         var DustView = Backbone.View.extend({
-                registerTemplate: function(name) {
+                registerTemplate : function(name) {
+                        # Relies on inline templates on the page
                         dust.compileFn( $('#'+name).html() , name);
                         this.template = name;
                 },
                 
-                toJSON : function(){
+                getData : function(){
                     return this.model.toJSON();
                 },
                 
                 render : function(){ 
                         var result = '';
-                        dust.render(this.template, this.toJSON(), function (err,out) {
+                        dust.render(this.template, this.getData(), function (err,out) {
                             if (err) result = err;
                             else result = out;
                         } );
@@ -86,7 +87,7 @@ $(function(){
                         this.registerTemplate(this.options.template);
                 },
                 
-                toJSON : function(){
+                getData : function(){
                     return this.options;
                 }
         });
@@ -111,7 +112,6 @@ $(function(){
                             {
                                 field_id: "text",
                                 description: "Text",
-                                placeholder: "Your text",
                                 template: "input-textarea"
                             },
                             {

@@ -211,12 +211,8 @@ $(function(){
 	});
 
 
-        editor = CommentSchemaEdit || CommentEditView;
-        viewer = CommentsSchemaTable || CommentsTable;
-        controller = SchemaController || App;
-
-        new editor();
-	new viewer();
-	new controller();
+	new CommentEditView();
+	new CommentsTable();
+	new App();
 
 });

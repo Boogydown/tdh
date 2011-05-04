@@ -1,7 +1,3 @@
-var Schema = {
-    Form : function () {
+var SchemaForm = function () {
         alert("this is a test");
-    };
 };
-
-var SchemaForm = Schema.Form;

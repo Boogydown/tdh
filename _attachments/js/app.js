@@ -139,8 +139,7 @@ $(function(){
 		},
                 
                 registerTemplate: function(name) {
-                        var source = $('#'+this.template).html();
-                        dust.compileFn(source, name);
+                        dust.compileFn( $('#'+name).html() , name);
                         this.template = name;
                 },
 		

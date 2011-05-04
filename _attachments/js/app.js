@@ -46,7 +46,7 @@ $(function(){
 
         var DustView = Backbone.View.extend({
                 registerTemplate : function(name) {
-                        # Relies on inline templates on the page
+                        // Relies on inline templates on the page
                         dust.compileFn( $('#'+name).html() , name);
                         this.template = name;
                 },
@@ -106,12 +106,12 @@ $(function(){
                             {
                                 field_id: "name",
                                 description: "Name",
-                                placeholder: "Your name",
                                 template: "input-text"
                             },
                             {
                                 field_id: "text",
                                 description: "Text",
+                                placeholder: "Your text",
                                 template: "input-textarea"
                             },
                             {

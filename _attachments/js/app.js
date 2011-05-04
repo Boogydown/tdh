@@ -139,7 +139,9 @@ $(function(){
 		},
                 
                 registerTemplate: function(name) {
-                        this.template = $("#entry-template").html();
+                        this.template = name;
+                        var template = $('#'+this.template).html();
+                        dust.compileFn(template, name);
                 },
 		
 		dummyFetch : function(){
@@ -151,7 +153,7 @@ $(function(){
 		render : function(){ 
                         var content_json = this.model.toJSON();
                         var content_html = '';
-                        dust.renderSource(this.template, content_json, function (err,out) {
+                        dust.render(this.template, content_json, function (err,out) {
                             if (err) content_html = err;
                             else content_html = out;
                         } );

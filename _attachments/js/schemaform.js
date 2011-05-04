@@ -1,5 +1,7 @@
-var exports.SchemaForm = function () {
+var SchemaForm = function () {
     alert("This is a test");
 };
 
-module.exports = exports;
+if (typeof exports !== "undefined") {
+  module.exports.SchemaForm = SchemaForm;
+}

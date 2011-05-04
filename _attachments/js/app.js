@@ -154,8 +154,8 @@ $(function(){
                         dust.render(this.template, this.model.toJSON(), function (err,out) {
                             if (err) result = err;
                             else result = out;
-                            $(this.el).html(result);
                         } );
+                        $(this.el).html(result);
                         return this;
 		},
 		

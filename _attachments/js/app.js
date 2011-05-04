@@ -43,10 +43,13 @@ $(function(){
 	});
 	
 	var Comments = new CommentList();
-	
-	// This view is responsible for creating the add/edit fields
-	var FormView = Backbone.View.extend({
-		initialize : function(){
+
+        var DustView = Backbone.View.extend({
+        });
+        
+        // This view is responsible for creating the add/edit fields
+        var FormView = DustView.extend({
+                initialize : function(){
                         // Add each field to the form in turn
                         _.each(this.options.fields, function(field) {
                             var foo = new FormFieldView(field);
@@ -119,11 +122,8 @@ $(function(){
         });
         
 	// Represents an comment entry
-	var EntryView = Backbone.View.extend({
+	var EntryView = DustView.extend({
 		tagName : "tr",
-		
-// 		template : _.template($("#entry-template").html()),
-//                 template : $("#entry-template").html(),
 		
 		// Clicking the `X` leads to a deletion
 		events : {

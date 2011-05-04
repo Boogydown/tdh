@@ -83,8 +83,8 @@ $(function(){
                 initialize : function(){
                         _.bindAll(this, "render");
                         
-                        this.options.template = this.options.template || "input-text";
-                        this.registerTemplate(this.options.template);
+                        this.options.type = this.options.type || "text";
+                        this.registerTemplate("input-" + this.options.type);
                 },
                 
                 getData : function(){
@@ -106,17 +106,17 @@ $(function(){
                             {
                                 field_id: "name",
                                 description: "Name",
-                                template: "input-text"
+                                type: "text"
                             },
                             {
                                 field_id: "text",
                                 description: "Text",
                                 placeholder: "Your text",
-                                template: "input-textarea"
+                                type: "textarea"
                             },
                             {
                                 field_id: "send",
-                                template: "input-submit"
+                                type: "submit"
                             }
                         ];
 

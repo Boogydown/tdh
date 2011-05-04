@@ -139,7 +139,7 @@ $(function(){
 		},
                 
                 registerTemplate: function(name) {
-                        this.template = $("#entry-template").html(),
+                        this.template = $("#entry-template").html();
                 },
 		
 		dummyFetch : function(){

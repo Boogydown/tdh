@@ -13,6 +13,8 @@ couchapp_load([
   "js/lib/backbone.js",
   "js/lib/backbone-couchdb.js",
   "js/lib/dustjs/dist/dust-full-0.3.0.js",
+  "js/lib/yahoo-dom-event.js",
+  "js/lib/inputex/build/inputex.js",
   "js/schemaform.js",
   "js/app.js"
 ]);

@@ -44,8 +44,8 @@ var FormFieldView = DustView.extend({
         }
 });
 
-var SchemaForm1 = FormView.extend({
-//     el : $("#model_edit"),
+var SchemaForm = FormView.extend({
+    el : $("#model_edit"),
 
     events : {
             "click #send" : "onSubmit"
@@ -53,6 +53,22 @@ var SchemaForm1 = FormView.extend({
 
     initialize : function(){
             _.bindAll(this, "onSubmit");
+            
+            this.options.schema = {
+                "description":"A comment",
+                "type":"object",
+                "properties":{
+                    "name":{
+                        "description":"Name",
+                        "type":"string"
+                    },
+                    "text":{
+                        "description":"Comment",
+                        "placeholder": "Your text",
+                        "type":"text"
+                    }
+                }
+            };
 
             this.options.fields = [
                 {

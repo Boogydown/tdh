@@ -1,3 +1,6 @@
 [submodule "_attachments/js/lib/dustjs"]
 	path = _attachments/js/lib/dustjs
 	url = https://github.com/akdubya/dustjs.git
+[submodule "_attachments/js/lib/inputex"]
+	path = _attachments/js/lib/inputex
+	url = https://github.com/neyric/inputex.git

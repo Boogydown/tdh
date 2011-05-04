@@ -123,7 +123,7 @@ $(function(){
 		tagName : "tr",
 		
 // 		template : _.template($("#entry-template").html()),
-                template : dust.compileFn($("#entry-template").html()),
+                template : $("#entry-template").html(),
 		
 		// Clicking the `X` leads to a deletion
 		events : {
@@ -144,7 +144,7 @@ $(function(){
 		},
 		
 		render : function(){ 
-			var content_html = this.template(this.model.toJSON());
+			var content_html = dust.renderSource(this.template, this.model.toJSON());
 			$(this.el).html(content_html);
 			return this;
 		},

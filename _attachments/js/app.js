@@ -139,9 +139,9 @@ $(function(){
 		},
                 
                 registerTemplate: function(name) {
+                        var source = $('#'+this.template).html();
+                        dust.compileFn(source, name);
                         this.template = name;
-                        var template = $('#'+this.template).html();
-                        dust.compileFn(template, name);
                 },
 		
 		dummyFetch : function(){
@@ -151,13 +151,13 @@ $(function(){
 		},
 		
 		render : function(){ 
-                        var content_json = this.model.toJSON();
                         var content_html = '';
-                        dust.render(this.template, content_json, function (err,out) {
-                            if (err) content_html = err;
-                            else content_html = out;
+                        dust.render(this.template, this.model.toJSON(), function (err,out) {
+                            var result;
+                            if (err) result = err;
+                            else result = out;
+                            $(this.el).html(result);
                         } );
-                        $(this.el).html(content_html);
                         return this;
 		},
 		

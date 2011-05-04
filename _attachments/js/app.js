@@ -151,13 +151,12 @@ $(function(){
 		},
 		
 		render : function(){ 
-                        var content_html = '';
+                        var result = '';
                         dust.render(this.template, this.model.toJSON(), function (err,out) {
-                            var result;
                             if (err) result = err;
                             else result = out;
-                            $(this.el).html(result);
                         } );
+                        $(this.el).html(result);
                         return this;
 		},
 		

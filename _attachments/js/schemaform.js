@@ -1,5 +1,5 @@
 var Schema = {
-    var Form = function () {
+    Form : function () {
         alert("this is a test");
     };
 };

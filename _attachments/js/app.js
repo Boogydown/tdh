@@ -81,8 +81,6 @@ $(function(){
                 tagName : "p",
 
                 initialize : function(){
-                        _.bindAll(this, "render");
-                        
                         this.options.type = this.options.type || "text";
                         this.registerTemplate("input-" + this.options.type);
                 },

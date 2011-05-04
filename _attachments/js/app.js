@@ -45,6 +45,21 @@ $(function(){
 	var Comments = new CommentList();
 
         var DustView = Backbone.View.extend({
+                
+                registerTemplate: function(name) {
+                        dust.compileFn( $('#'+name).html() , name);
+                        this.template = name;
+                },
+                
+                render : function(){ 
+                        var result = '';
+                        dust.render(this.template, this.model.toJSON(), function (err,out) {
+                            if (err) result = err;
+                            else result = out;
+                        } );
+                        $(this.el).html(result);
+                        return this;
+                },
         });
         
         // This view is responsible for creating the add/edit fields
@@ -137,26 +152,11 @@ $(function(){
 			this.model.bind('change', this.render);
                         this.registerTemplate('entry-template');
 		},
-                
-                registerTemplate: function(name) {
-                        dust.compileFn( $('#'+name).html() , name);
-                        this.template = name;
-                },
 		
 		dummyFetch : function(){
 			// Fetch the state of the model from the server.
 			// Used this to test the model sync.
 			this.model.fetch();
-		},
-		
-		render : function(){ 
-                        var result = '';
-                        dust.render(this.template, this.model.toJSON(), function (err,out) {
-                            if (err) result = err;
-                            else result = out;
-                        } );
-                        $(this.el).html(result);
-                        return this;
 		},
 		
 		// Fade out the element and destroy the model

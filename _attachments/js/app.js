@@ -210,7 +210,10 @@ $(function(){
 		}
 	});
 
-        var test_table = CommentsTable;
+        var test_table;
+        if CommentsTable {
+            test_table = CommentsTable;
+        };
 
 	new CommentEditView();
 	new test_table();

@@ -181,13 +181,13 @@ $(function(){
 		addRow : function(comment){
 			var view = new EntryView({model: comment});
 			var rendered = view.render().el;
-			this.el.prepend(rendered);
+			$(this.el).prepend(rendered);
 		},
 		
 		// Renders all comments into the table
 		refreshed : function(){
 			// reset the table
-			$("#model_table").html("");
+			$(this.el).html("");
 			if(Comments.length > 0){
 				// add each element
 				Comments.each(this.addRow);

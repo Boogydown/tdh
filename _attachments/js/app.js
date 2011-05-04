@@ -210,7 +210,6 @@ $(function(){
 		}
 	});
 
-        table = SchemaTableView || CommentsTable;
 
 	new CommentEditView();
 	new CommentsTable();

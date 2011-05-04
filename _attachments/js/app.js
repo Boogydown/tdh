@@ -210,9 +210,9 @@ $(function(){
 		}
 	});
 
-        var test_table;
-        if (typeof CommentsTable != 'undefined') {
-            test_table = CommentsTable;
+        var test_table = CommentsTable;
+        if (typeof SchemaTable != 'undefined') {
+            test_table = SchemaTable;
         };
 
 	new CommentEditView();

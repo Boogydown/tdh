@@ -144,8 +144,8 @@ $(function(){
 		},
 		
 		render : function(){ 
-			var content = this.model.toJSON();
-			$(this.el).html(this.template(content));
+			var content_html = this.template(this.model.toJSON());
+			$(this.el).html(content_html);
 			return this;
 		},
 		

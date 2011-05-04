@@ -167,7 +167,7 @@ $(function(){
 	
 	// The view for all comments
 	var CommentsTable = Backbone.View.extend({
-		el: $("#comments"),
+		el: $("#model_table"),
 		
 		initialize : function(){
 			_.bindAll(this, 'refreshed', 'addRow', 'deleted');
@@ -187,7 +187,7 @@ $(function(){
 		// Renders all comments into the table
 		refreshed : function(){
 			// reset the table
-			$("#comments").html("");
+			$("#model_table").html("");
 			if(Comments.length > 0){
 				// add each element
 				Comments.each(this.addRow);

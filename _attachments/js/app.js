@@ -123,7 +123,7 @@ $(function(){
 		tagName : "tr",
 		
 // 		template : _.template($("#entry-template").html()),
-                template : $("#entry-template").html(),
+//                 template : $("#entry-template").html(),
 		
 		// Clicking the `X` leads to a deletion
 		events : {
@@ -135,7 +135,12 @@ $(function(){
 		initialize : function(){
 			_.bindAll(this, 'render', 'deleteMe', 'dummyFetch');
 			this.model.bind('change', this.render);
+                        this.registerTemplate('entry-template');
 		},
+                
+                registerTemplate: function(name) {
+                        this.template = $("#entry-template").html(),
+                },
 		
 		dummyFetch : function(){
 			// Fetch the state of the model from the server.

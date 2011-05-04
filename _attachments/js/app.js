@@ -87,7 +87,7 @@ $(function(){
         });
 
         var CommentEditView = FormView.extend({
-                el : $("#edit"),
+                el : $("#model_edit"),
                 
                 events : {
                         "click #send" : "onSubmit"
@@ -210,13 +210,23 @@ $(function(){
 		}
 	});
 
+        var test_edit = CommentEditView;
         var test_table = CommentsTable;
+        var test_app = App;
+        
+        if (typeof SchemaForm != 'undefined') {
+            test_edit = SchemaForm;
+        };
         if (typeof SchemaTable != 'undefined') {
             test_table = SchemaTable;
         };
+        if (typeof SchemaApp != 'undefined') {
+            test_app = SchemaApp;
+        };
 
-	new CommentEditView();
+
+	new test_edit();
 	new test_table();
-	new App();
+	new test_app();
 
 });

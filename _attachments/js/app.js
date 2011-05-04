@@ -213,7 +213,7 @@ $(function(){
         table = SchemaTableView || CommentsTable;
 
 	new CommentEditView();
-	new table();
+	new CommentsTable();
 	new App();
 
 });

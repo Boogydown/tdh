@@ -50,15 +50,19 @@ $(function(){
                         this.template = name;
                 },
                 
+                toJSON : function(){
+                    return this.model.toJSON();
+                },
+                
                 render : function(){ 
                         var result = '';
-                        dust.render(this.template, this.model.toJSON(), function (err,out) {
+                        dust.render(this.template, this.toJSON(), function (err,out) {
                             if (err) result = err;
                             else result = out;
                         } );
                         $(this.el).html(result);
                         return this;
-                },
+                }
         });
         
         // This view is responsible for creating the add/edit fields
@@ -69,7 +73,7 @@ $(function(){
                             var foo = new FormFieldView(field);
                             this.el.append(foo.render().el);
                         }, this);
-		},
+		}
 	});
 	
         var FormFieldView = DustView.extend({
@@ -80,7 +84,11 @@ $(function(){
                         
                         this.options.template = this.options.template || "input-text";
                         this.registerTemplate(this.options.template);
-                }               
+                },
+                
+                toJSON : function(){
+                    return this.options;
+                }
         });
 
         var CommentEditView = FormView.extend({

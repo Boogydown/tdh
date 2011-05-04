@@ -144,7 +144,8 @@ $(function(){
 		},
 		
 		render : function(){ 
-			var content_html = dust.renderSource(this.template, this.model.toJSON(), function () {} );
+                        var content_json = this.model.toJSON();
+			var content_html = dust.renderSource(this.template, content_json, function () {} );
 			$(this.el).html(content_html);
 			return this;
 		},

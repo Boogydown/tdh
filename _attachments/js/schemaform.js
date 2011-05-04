@@ -1,9 +1,8 @@
-var SchemaTable = function () {
-    alert("This is a test");
+var SchemaForm = function () {
 };
 
 if (typeof exports !== "undefined") {
-//   module.exports.SchemaForm = SchemaForm;
-   module.exports.SchemaTable = SchemaTable;
-//   module.exports.SchemaApp = SchemaApp;
+//     module.exports.SchemaForm = SchemaForm;
+//     module.exports.SchemaTable = SchemaTable;
+//     module.exports.SchemaApp = SchemaApp;
 }

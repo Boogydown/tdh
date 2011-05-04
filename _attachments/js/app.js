@@ -8,10 +8,6 @@ $(function(){
 	// and will provide your models with real time remote updates.
 	Backbone.couchConnector.enableChanges = false;
 	
-	// Enables Mustache.js-like templating.
-	_.templateSettings = {
-		interpolate : /\{\{(.+?)\}\}/g
-	};
 	
 	// The model for a comment is kinda simple.
 	// We only need a name, a text and a date.
@@ -215,8 +211,12 @@ $(function(){
 	});
 
 
-	new CommentEditView();
-	new CommentsTable();
-	new App();
+        editor = CommentSchemaEdit || CommentEditView;
+        viewer = CommentsSchemaTable || CommentsTable;
+        controller = SchemaController || App;
+
+        new editor();
+	new viewer();
+	new controller();
 
 });

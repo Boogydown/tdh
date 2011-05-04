@@ -147,7 +147,8 @@ $(function(){
                         var content_json = this.model.toJSON();
                         var content_html = '';
                         dust.renderSource(this.template, content_json, function (err,out) {
-                            content_html = out;
+                            if (err) content_html = err;
+                            else content_html = out;
                         } );
                         $(this.el).html(content_html);
                         return this;

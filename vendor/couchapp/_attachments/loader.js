@@ -12,6 +12,6 @@ couchapp_load([
   "js/lib/underscore.js",
   "js/lib/backbone.js",
   "js/lib/backbone-couchdb.js",
-  "js/lib/dustjs/dist/dust-full-0.3.0.min.js",
+  "js/lib/dustjs/dist/dust-full-0.3.0.js",
   "js/app.js"
 ]);

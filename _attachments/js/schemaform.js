@@ -2,4 +2,4 @@ var Schema.Form = function () {
     alert("this is a test");
 };
 
-SchemaForm = Schema.Form;
+var SchemaForm = Schema.Form;

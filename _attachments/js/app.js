@@ -152,7 +152,7 @@ $(function(){
 		initialize : function(){
 			_.bindAll(this, 'render', 'deleteMe', 'dummyFetch');
 			this.model.bind('change', this.render);
-                        this.registerTemplate('entry-template');
+                        this.registerTemplate('entry');
 		},
 		
 		dummyFetch : function(){

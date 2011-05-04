@@ -145,9 +145,10 @@ $(function(){
 		
 		render : function(){ 
                         var content_json = this.model.toJSON();
-			dust.renderSource(this.template, content_json, function (error,output) {
-                            console.log(output);
+                        var content_html = dust.renderSource(this.template, content_json, function (error,output) {
+                            return output;
                         } );
+                        $(this.el).html(content_html);
 			return this;
 		},
 		

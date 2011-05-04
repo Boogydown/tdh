@@ -211,7 +211,7 @@ $(function(){
 	});
 
         var test_table;
-        if CommentsTable {
+        if (typeof CommentsTable != 'undefined') {
             test_table = CommentsTable;
         };
 

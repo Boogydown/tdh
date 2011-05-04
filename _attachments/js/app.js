@@ -210,7 +210,7 @@ $(function(){
 		}
 	});
 
-        var test_table = BlahBlah ? BlahBlah : CommentsTable;
+        var test_table = CommentsTable;
 
 	new CommentEditView();
 	new test_table();

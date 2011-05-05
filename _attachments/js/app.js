@@ -210,18 +210,28 @@ $(function(){
 		}
 	});
 
-        var test_edit = CommentEditView;
-        var test_table = CommentsTable;
-        var test_app = App;
-        
+        useSchemaForm = true;
+        if (useSchemaForm) {
+            comment_schema = {
+                "description":"A comment",
+                "type":"object",
+                "properties":{
+                    "name":{
+                        "description":"Name",
+                        "type":"string"
+                    },
+                    "text":{
+                        "description":"Comment",
+                        "placeholder": "Your text",
+                        "type":"text"
+                    }
+                }
+            };
+            new SchemaForm({ schema : comment_schema });
+        }
+        else CommentEditView()
 
-        test_edit = SchemaForm;
-//         test_table = SchemaTable;
-//         test_app = SchemaApp;
-
-
-	new test_edit();
-	new test_table();
-	new test_app();
+	new CommentsTable();
+	new App();
 
 });

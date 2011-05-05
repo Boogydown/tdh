@@ -1,26 +1,4 @@
-var schemaIdentifierMap = {
-    "Comment" : {
-        "description":"A comment",
-        "type":"object",
-        "properties":{
-            "name":{
-                "description":"Name",
-                "type":"string"
-            },
-            "text":{
-                "description":"Comment",
-                "placeholder": "Your text",
-                "type":"text"
-            }
-        }
-    }
-};
-
 var schemaBuilder = new inputEx.JsonSchema.Builder(); 
-// var schemaBuilder = new inputEx.JsonSchema.Builder({ 
-//     'schemaIdentifierMap': schemaIdentifierMap 
-// }); 
-
 
 var SchemaForm = Backbone.View.extend({
 //     el : $("#model_edit"),
@@ -36,7 +14,7 @@ var SchemaForm = Backbone.View.extend({
     
     render : function(){
         // Get the inputEx field definition from the "Comment" object 
-        var inputExDefinition = schemaBuilder.schemaToInputEx(schemaIdentifierMap["Comment"]);
+        var inputExDefinition = schemaBuilder.schemaToInputEx(this.options.schema);
 
         // Add 'container1' as parent element 
         inputExDefinition.parentEl = 'model_edit';

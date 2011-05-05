@@ -30,6 +30,7 @@ var SchemaForm = Backbone.View.extend({
 
     initialize : function(){
         _.bindAll(this, "onSubmit");
+        this.render();
     },
     
     render : function(){

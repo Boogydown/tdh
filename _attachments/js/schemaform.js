@@ -42,6 +42,7 @@ var SchemaForm = Backbone.View.extend({
 
         // Create the form 
         var f = inputEx(inputExDefinition);
+        return this;
     },
 
     // Simply takes the vals from the input fields and 

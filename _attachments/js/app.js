@@ -215,7 +215,7 @@ $(function(){
         var test_app = App;
         
 
-//         test_edit = SchemaForm;
+        test_edit = SchemaForm;
 //         test_table = SchemaTable;
 //         test_app = SchemaApp;
 

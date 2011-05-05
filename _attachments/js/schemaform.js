@@ -16,9 +16,10 @@ var schemaIdentifierMap = {
     }
 };
 
-var schemaBuilder = new inputEx.JsonSchema.Builder({ 
-    'schemaIdentifierMap': schemaIdentifierMap 
-}); 
+var schemaBuilder = new inputEx.JsonSchema.Builder(); 
+// var schemaBuilder = new inputEx.JsonSchema.Builder({ 
+//     'schemaIdentifierMap': schemaIdentifierMap 
+// }); 
 
 
 var SchemaForm = Backbone.View.extend({

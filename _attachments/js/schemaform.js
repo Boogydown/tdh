@@ -22,7 +22,7 @@ var schemaBuilder = new inputEx.JsonSchema.Builder({
 
 
 var SchemaForm = Backbone.View.extend({
-    el : $("#model_edit"),
+//     el : $("#model_edit"),
 
     events : {
         "click #send" : "onSubmit"
@@ -37,8 +37,8 @@ var SchemaForm = Backbone.View.extend({
         // Get the inputEx field definition from the "Comment" object 
         var inputExDefinition = schemaBuilder.schemaToInputEx(schemaIdentifierMap["Comment"]);
 
-//         // Add 'container1' as parent element 
-//         inputExDefinition.parentEl = 'container1';
+        // Add 'container1' as parent element 
+        inputExDefinition.parentEl = 'model_edit';
 
         // Create the form 
         var f = inputEx(inputExDefinition);

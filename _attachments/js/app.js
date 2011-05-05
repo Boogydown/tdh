@@ -168,15 +168,15 @@ $(function(){
         var test_table = CommentsTable;
         var test_app = App;
         
-        if (typeof SchemaForm != 'undefined') {
-            test_edit = SchemaForm;
-        };
-        if (typeof SchemaTable != 'undefined') {
-            test_table = SchemaTable;
-        };
-        if (typeof SchemaApp != 'undefined') {
-            test_app = SchemaApp;
-        };
+//         if (typeof SchemaForm != 'undefined') {
+//             test_edit = SchemaForm;
+//         };
+//         if (typeof SchemaTable != 'undefined') {
+//             test_table = SchemaTable;
+//         };
+//         if (typeof SchemaApp != 'undefined') {
+//             test_app = SchemaApp;
+//         };
 
 
 	new test_edit();

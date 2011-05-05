@@ -293,6 +293,8 @@ $(function(){
                             }
                         }
                     },
+                    "adr":{"$ref" : "http://json-schema.org/address"},
+                    "geo":{"$ref" : "http://json-schema.org/geo"},
                     "tz":{
                         "type":"string"
                     },
@@ -332,7 +334,7 @@ $(function(){
                 }
             };
             
-            new SchemaForm({ schema : card_schema });
+            new SchemaForm({ schema : comment_schema });
         }
         else CommentEditView()
 

@@ -42,7 +42,6 @@ var SchemaForm = Backbone.View.extend({
 
         // Create the form 
         var f = inputEx(inputExDefinition);
-        var whooo = 'breakpoint excuse';
         return this;
     },
 

@@ -34,8 +34,8 @@ var SchemaForm = Backbone.View.extend({
     },
     
     render : function(){
-        // Get the inputEx field definition from the "Person" object 
-        var inputExDefinition = schemaBuilder.schemaToInputEx(schemaIdentifierMap["Person"]);
+        // Get the inputEx field definition from the "Comment" object 
+        var inputExDefinition = schemaBuilder.schemaToInputEx(schemaIdentifierMap["Comment"]);
 
 //         // Add 'container1' as parent element 
 //         inputExDefinition.parentEl = 'container1';

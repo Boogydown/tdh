@@ -39,6 +39,52 @@ $(function(){
 	});
 	
 	var Comments = new CommentList();
+
+        var DustView = Backbone.View.extend({
+            registerTemplate : function(name) {
+                // Relies on inline templates on the page
+                dust.compileFn( $('#'+name).html() , name);
+                this.template = name;
+            },
+            
+            getData : function(){
+                return this.model.toJSON();
+            },
+            
+            render : function(){ 
+                var result = '';
+                dust.render(this.template, this.getData(), function (err,out) {
+                    if (err) result = err;
+                    else result = out;
+                } );
+                $(this.el).html(result);
+                return this;
+            }
+        });
+
+        // This view is responsible for creating the add/edit fields
+        var FormView = DustView.extend({
+                initialize : function(){
+                        // Add each field to the form in turn
+                        _.each(this.options.fields, function(field) {
+                            var foo = new FormFieldView(field);
+                            this.el.append(foo.render().el);
+                        }, this);
+                }
+        });
+
+        var FormFieldView = DustView.extend({
+                tagName : "p",
+
+                initialize : function(){
+                        this.options.type = this.options.type || "text";
+                        this.registerTemplate("input-" + this.options.type);
+                },
+                
+                getData : function(){
+                    return this.options;
+                }
+        });
         
         var CommentEditView = FormView.extend({
                 el : $("#model_edit"),
@@ -168,15 +214,10 @@ $(function(){
         var test_table = CommentsTable;
         var test_app = App;
         
-//         if (typeof SchemaForm != 'undefined') {
-//             test_edit = SchemaForm;
-//         };
-//         if (typeof SchemaTable != 'undefined') {
-//             test_table = SchemaTable;
-//         };
-//         if (typeof SchemaApp != 'undefined') {
-//             test_app = SchemaApp;
-//         };
+
+        test_edit = SchemaForm;
+//         test_table = SchemaTable;
+//         test_app = SchemaApp;
 
 
 	new test_edit();

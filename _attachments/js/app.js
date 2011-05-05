@@ -293,8 +293,6 @@ $(function(){
                             }
                         }
                     },
-                    "adr":{"$ref" : "http://json-schema.org/address"},
-                    "geo":{"$ref" : "http://json-schema.org/geo"},
                     "tz":{
                         "type":"string"
                     },

@@ -336,7 +336,7 @@ $(function(){
             
             new SchemaForm({ schema : comment_schema });
         }
-        else CommentEditView()
+        else new CommentEditView()
 
 	new CommentsTable();
 	new App();

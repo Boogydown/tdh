@@ -26,7 +26,7 @@ var SchemaForm = Backbone.View.extend({
         
         // Create the form 
         inputEx(fields);
-        inputEx.widget.Button({
+        new inputEx.widget.Button({
             id: 'send',
             className: 'submit-button',
             parentEl: 'model_edit',

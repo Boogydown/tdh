@@ -23,7 +23,7 @@ var SchemaForm = Backbone.View.extend({
 
         // Add a submit button
         layout.buttons  = [ {
-            class: 'submit-button',
+            className: 'submit-button',
             type: 'submit',
             value: 'Send'
         } ];

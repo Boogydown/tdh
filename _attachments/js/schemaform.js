@@ -4,7 +4,7 @@ var SchemaForm = Backbone.View.extend({
 //     el : $("#model_edit"),
 
     events : {
-        "click #send" : "onSubmit"
+        "click .submit-button" : "onSubmit"
     },
 
     initialize : function(){
@@ -23,6 +23,7 @@ var SchemaForm = Backbone.View.extend({
 
         // Add a submit button
         layout.buttons  = [ {
+            class: 'submit-button',
             type: 'submit',
             value: 'Send'
         } ];

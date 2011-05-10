@@ -4,12 +4,12 @@ var SchemaForm = Backbone.View.extend({
     el : $("#model_edit"),
 
     events : {
-        "click" : "onSubmit"
+        "click #send" : "onSubmit"
     },
 
     initialize : function(){
         _.bindAll(this, "onSubmit");
-        this.render();
+//         this.render();
     },
     
     render : function(){
@@ -30,7 +30,7 @@ var SchemaForm = Backbone.View.extend({
 //             onClick: this.onSubmit,
             value: 'Send'
         });
-        this.delegateEvents(); // Bind events to the rendered form elements
+//         this.delegateEvents(); // Bind events to the rendered form elements
         return this;
     },
 

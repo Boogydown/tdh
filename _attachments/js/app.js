@@ -141,9 +141,9 @@ $(function(){
 
         
         
-        var schemaBuilder = new inputEx.JsonSchema.Builder(); 
-
         var SchemaForm = Backbone.View.extend({
+            builder: new inputEx.JsonSchema.Builder(),
+
             el : $("#model_edit"),
 
             initialize : function(){
@@ -153,7 +153,7 @@ $(function(){
             
             render : function(){
                 // Get the inputEx field definition from the "Comment" object 
-                var fields = schemaBuilder.schemaToInputEx(this.options.schema);
+                var fields = this.builder.schemaToInputEx(this.options.schema);
                 
                 // Add 'model_edit' as parent element 
                 fields.parentEl = 'model_edit';

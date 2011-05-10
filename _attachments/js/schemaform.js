@@ -8,8 +8,8 @@ var SchemaForm = Backbone.View.extend({
     },
 
     initialize : function(){
-        _.bindAll(this, "onSubmit");
         this.render();
+        _.bindAll(this, "onSubmit");
     },
     
     render : function(){
@@ -31,6 +31,7 @@ var SchemaForm = Backbone.View.extend({
         
         // Create the form 
         this.form = inputEx(layout);
+        this.delegateEvents(); // Bind events to the rendered form elements
         return this;
     },
 

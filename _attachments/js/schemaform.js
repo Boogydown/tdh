@@ -14,24 +14,26 @@ var SchemaForm = Backbone.View.extend({
     
     render : function(){
         // Get the inputEx field definition from the "Comment" object 
-        var layout = schemaBuilder.schemaToInputEx(this.options.schema);
+        var fields = schemaBuilder.schemaToInputEx(this.options.schema);
         
-        layout.type = 'form';
+        fields.type = 'form';
 
         // Add 'model_edit' as parent element 
-        layout.parentEl = 'model_edit';
+        fields.parentEl = 'model_edit';
 
-        // Add a submit button
-        layout.buttons  = [ {
-            id: 'send',
-            className: 'submit-button',
-            type: 'submit',
-            value: 'Send'
-        } ];
+/*        // Add a submit button
+        buttons  = [  ];*/
         
         // Create the form 
-        this.form = inputEx(layout);
-        this.delegateEvents(); // Bind events to the rendered form elements
+        inputEx(fields);
+        inputEx.widget.Button({
+            id: 'send',
+            className: 'submit-button',
+            parentEl: 'model_edit',
+            type: 'submit',
+            value: 'Send'
+        });
+//         this.delegateEvents(); // Bind events to the rendered form elements
         return this;
     },
 

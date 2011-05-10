@@ -244,7 +244,7 @@ $(function(){
         //             onClick: this.onSubmit,
                     value: 'Send'
                 });
-        //         this.delegateEvents(); // Bind events to the rendered form elements
+                this.delegateEvents(); // Bind events to the rendered form elements
                 return this;
             },
 

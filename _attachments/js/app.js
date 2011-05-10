@@ -223,7 +223,7 @@ $(function(){
 
             initialize : function(){
                 _.bindAll(this, "onSubmit");
-        //         this.render();
+                this.render();
             },
             
             render : function(){

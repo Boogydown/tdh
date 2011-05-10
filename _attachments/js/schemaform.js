@@ -45,6 +45,6 @@ var SchemaForm = Backbone.View.extend({
             "name" : name,
             "text" : text
         });
-        
+        return false;
     }
 });

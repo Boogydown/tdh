@@ -15,6 +15,8 @@ var SchemaForm = Backbone.View.extend({
     render : function(){
         // Get the inputEx field definition from the "Comment" object 
         var layout = schemaBuilder.schemaToInputEx(this.options.schema);
+        
+        layout.type = 'form';
 
         // Add 'model_edit' as parent element 
         layout.parentEl = 'model_edit';

@@ -171,7 +171,7 @@ $(function(){
             // Simply takes the vals from the input fields and 
             // creates a new Comment.
             onSubmit : function(){
-                var key, values, selector;
+                var key, values = {}, selector;
 
                 for (key in this.options.schema.properties)
                 {

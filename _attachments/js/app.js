@@ -218,7 +218,7 @@ $(function(){
             el : $("#model_edit"),
 
             events : {
-                "click" : "onSubmit"
+//                 "click" : "onSubmit"
             },
 
             initialize : function(){
@@ -241,10 +241,10 @@ $(function(){
                     id: 'send',
                     parentEl: 'model_edit',
                     type: 'submit',
-        //             onClick: this.onSubmit,
+                    onClick: this.onSubmit,
                     value: 'Send'
                 });
-                this.delegateEvents(); // Bind events to the rendered form elements
+//                 this.delegateEvents(); // Bind events to the rendered form elements
                 return this;
             },
 

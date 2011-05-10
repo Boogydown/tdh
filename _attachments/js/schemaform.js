@@ -14,28 +14,35 @@ var SchemaForm = Backbone.View.extend({
     
     render : function(){
         // Get the inputEx field definition from the "Comment" object 
-        var inputExDefinition = schemaBuilder.schemaToInputEx(this.options.schema);
+        var layout = schemaBuilder.schemaToInputEx(this.options.schema);
 
         // Add 'model_edit' as parent element 
-        inputExDefinition.parentEl = 'model_edit';
+        layout.parentEl = 'model_edit';
 
+        // Add a submit button
+        layout.buttons  = [ {
+            id: '#send',
+            type: 'submit',
+            value: 'Send'
+        } ];
+        
         // Create the form 
-        this.form = inputEx(inputExDefinition);
+        this.form = inputEx(layout);
         return this;
     },
 
     // Simply takes the vals from the input fields and 
     // creates a new Comment.
     onSubmit : function(){
-//         var name = $("#name").val();
-//         var text = $("#text").val();
-//         // sanitize user input...you never know ;)
-//         name = name.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
-//         text = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
-//         Comments.create({
-//             "name" : name,
-//             "text" : text
-//         });
+        var name = $("#name").val();
+        var text = $("#text").val();
+        // sanitize user input...you never know ;)
+        name = name.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
+        text = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
+        Comments.create({
+            "name" : name,
+            "text" : text
+        });
         
     }
 });

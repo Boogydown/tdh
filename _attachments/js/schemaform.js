@@ -1,7 +1,7 @@
 var schemaBuilder = new inputEx.JsonSchema.Builder(); 
 
 var SchemaForm = Backbone.View.extend({
-//     el : $("#model_edit"),
+     el : $("#model_edit"),
 
     events : {
         "click #send" : "onSubmit"

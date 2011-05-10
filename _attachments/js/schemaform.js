@@ -1,15 +1,15 @@
 var schemaBuilder = new inputEx.JsonSchema.Builder(); 
 
 var SchemaForm = Backbone.View.extend({
-     el : $("#model_edit"),
+    el : $("#model_edit"),
 
     events : {
         "click #send" : "onSubmit"
     },
 
     initialize : function(){
-        this.render();
         _.bindAll(this, "onSubmit");
+        this.render();
     },
     
     render : function(){
@@ -37,8 +37,8 @@ var SchemaForm = Backbone.View.extend({
     // Simply takes the vals from the input fields and 
     // creates a new Comment.
     onSubmit : function(){
-        var name = $("#name").val();
-        var text = $("#text").val();
+        var name = $("input[name='name']").val();
+        var text = $("input[name='text']").val();
         // sanitize user input...you never know ;)
         name = name.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
         text = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');

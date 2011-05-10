@@ -20,9 +20,6 @@ var SchemaForm = Backbone.View.extend({
 
         // Add 'model_edit' as parent element 
         fields.parentEl = 'model_edit';
-
-/*        // Add a submit button
-        buttons  = [  ];*/
         
         // Create the form 
         inputEx(fields);
@@ -33,7 +30,7 @@ var SchemaForm = Backbone.View.extend({
             type: 'submit',
             value: 'Send'
         });
-//         this.delegateEvents(); // Bind events to the rendered form elements
+        this.delegateEvents(); // Bind events to the rendered form elements
         return this;
     },
 

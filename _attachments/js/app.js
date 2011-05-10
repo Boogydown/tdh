@@ -152,14 +152,12 @@ $(function(){
             },
             
             render : function(){
-                // Get the inputEx field definition from the "Comment" object 
                 var fields = this.builder.schemaToInputEx(this.options.schema);
-                
-                // Add 'model_edit' as parent element 
                 fields.parentEl = 'model_edit';
-                
-                // Create the form 
                 inputEx(fields);
+                // YUI onClick used rather than Backbone delegateEvents, because
+                //      it started working first. There's probably something simple
+                //      I'm missing, but I don't really care at the moment.
                 new inputEx.widget.Button({
                     id: 'send',
                     parentEl: 'model_edit',
@@ -173,13 +171,22 @@ $(function(){
             // Simply takes the vals from the input fields and 
             // creates a new Comment.
             onSubmit : function(){
-                var name = $("#model_edit [name='name']").val();
-                var text = $("#model_edit [name='text']").val();
-                Comments.create({
-                    "name" : name,
-                    "text" : text
-                });
-                return false;
+                var key, values, selector;
+
+                for (key in this.options.schema.properties)
+                {
+                    selector = "#model_edit [name='" + key + "']";
+                    values[key] = $(selector).val();
+                }
+                this.collection.create(values);
+                
+//                 var name = $("#model_edit [name='name']").val();
+//                 var text = $("#model_edit [name='text']").val();
+//                 Comments.create({
+//                     "name" : name,
+//                     "text" : text
+//                 });
+//                 return false;
             }
         });
 
@@ -200,7 +207,7 @@ $(function(){
                 }
             }
         };
-        new SchemaForm({ schema : comment_schema });
+        new SchemaForm({ schema : comment_schema, collection: Comments });
 	new CommentsTable();
 	new App();
 

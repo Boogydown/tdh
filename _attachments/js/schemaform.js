@@ -4,7 +4,7 @@ var SchemaForm = Backbone.View.extend({
 //     el : $("#model_edit"),
 
     events : {
-        "click .submit-button" : "onSubmit"
+        "click #send" : "onSubmit"
     },
 
     initialize : function(){

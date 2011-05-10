@@ -210,7 +210,7 @@ $(function(){
 		}
 	});
 
-        useSchemaForm = true;
+        useSchemaForm = false;
         if (useSchemaForm) {
             comment_schema = {
                 "description":"A comment",

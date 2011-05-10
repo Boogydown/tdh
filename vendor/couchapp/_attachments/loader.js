@@ -17,6 +17,6 @@ couchapp_load([
   "js/lib/inputex/lib/yui/dom/dom.js",
   "js/lib/inputex/lib/yui/event/event.js",
   "js/lib/inputex/build/inputex.js",
-  "js/schemaform.js",
+//   "js/schemaform.js",
   "js/app.js"
 ]);

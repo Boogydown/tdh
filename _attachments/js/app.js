@@ -210,16 +210,13 @@ $(function(){
 		}
 	});
 
-        // Temporary insertion of SchemaForm to determine if its the anonymous wrapper
-        //   which is making Comments inaccessible
+
+        
+        
         var schemaBuilder = new inputEx.JsonSchema.Builder(); 
 
         var SchemaForm = Backbone.View.extend({
             el : $("#model_edit"),
-
-            events : {
-//                 "click" : "onSubmit"
-            },
 
             initialize : function(){
                 _.bindAll(this, "onSubmit");
@@ -230,8 +227,6 @@ $(function(){
                 // Get the inputEx field definition from the "Comment" object 
                 var fields = schemaBuilder.schemaToInputEx(this.options.schema);
                 
-        //         fields.type = 'form';
-
                 // Add 'model_edit' as parent element 
                 fields.parentEl = 'model_edit';
                 
@@ -244,7 +239,6 @@ $(function(){
                     onClick: this.onSubmit,
                     value: 'Send'
                 });
-//                 this.delegateEvents(); // Bind events to the rendered form elements
                 return this;
             },
 
@@ -283,112 +277,6 @@ $(function(){
                 }
             };
 
-            card_schema = {
-                "description":"A representation of a person, company, organization, or place",
-                "type":"object",
-                "properties":{
-                    "fn":{
-                        "description":"Formatted Name",
-                        "type":"string"
-                    },
-                    "familyName":{
-                        "type":"string",
-                        "required":true
-                    },
-                    "givenName":{
-                        "type":"string",
-                        "required":true
-                    },
-                    "additionalName":{
-                        "type":"array",
-                        "items":{
-                            "type":"string"
-                        }
-                    },
-                    "honorificPrefix":{
-                        "type":"array",
-                        "items":{
-                            "type":"string"
-                        }
-                    },
-                    "honorificSuffix":{
-                        "type":"array",
-                        "items":{
-                            "type":"string"
-                        }
-                    },
-                    "nickname":{
-                        "type":"string"
-                    },
-                    "url":{
-                        "type":"string",
-                        "format":"url"
-                    },
-                    "email":{
-                        "type":"object",
-                        "properties":{
-                            "type":{
-                            "type":"string"
-                            },
-                            "value":{
-                            "type":"string",
-                            "format":"email"
-                            }
-                        }
-                    },
-                    "tel":{
-                        "type":"object",
-                        "properties":{
-                            "type":{
-                            "type":"string"
-                            },
-                            "value":{
-                            "type":"string",
-                            "format":"phone"
-                            }
-                        }
-                    },
-                    "adr":{"$ref" : "http://json-schema.org/address"},
-                    "geo":{"$ref" : "http://json-schema.org/geo"},
-                    "tz":{
-                        "type":"string"
-                    },
-                    "photo":{
-                        "format":"image",
-                        "type":"string"
-                    },
-                    "logo":{
-                        "format":"image",
-                        "type":"string"
-                    },
-                    "sound":{
-                        "format":"attachment",
-                        "type":"string"
-                    },
-                    "bday":{
-                        "type":"string",
-                        "format":"date"
-                    },
-                    "title":{
-                        "type":"string"
-                    },
-                    "role":{
-                        "type":"string"
-                    },
-                    "org":{
-                        "type":"object",
-                        "properties":{
-                            "organizationName":{
-                            "type":"string"
-                            },
-                            "organizationUnit":{
-                            "type":"string"
-                            }
-                        }
-                    }
-                }
-            };
-            
             new SchemaForm({ schema : comment_schema });
         }
         else new CommentEditView();

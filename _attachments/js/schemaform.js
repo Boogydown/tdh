@@ -26,13 +26,13 @@ var SchemaForm = Backbone.View.extend({
         
         // Create the form 
         inputEx(fields);
-/*        inputEx.widget.Button({
+        inputEx.widget.Button({
             id: 'send',
             className: 'submit-button',
             parentEl: 'model_edit',
             type: 'submit',
             value: 'Send'
-        });*/
+        });
 //         this.delegateEvents(); // Bind events to the rendered form elements
         return this;
     },

@@ -37,8 +37,8 @@ var SchemaForm = Backbone.View.extend({
     // Simply takes the vals from the input fields and 
     // creates a new Comment.
     onSubmit : function(){
-        var name = $("#model_edit > [name='name']").val();
-        var text = $("#model_edit > [name='text']").val();
+        var name = $("#model_edit [name='name']").val();
+        var text = $("#model_edit [name='text']").val();
         // sanitize user input...you never know ;)
         name = name.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
         text = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');

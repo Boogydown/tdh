@@ -218,7 +218,7 @@ $(function(){
             el : $("#model_edit"),
 
             events : {
-                "click #send" : "onSubmit"
+                "click" : "onSubmit"
             },
 
             initialize : function(){

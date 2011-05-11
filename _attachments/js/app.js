@@ -179,16 +179,15 @@ $(function(){
             _.bindAll(this, 'render');
         },
         render: function(){
-            var header, cell, fields;
-            header = this.make('tr');
+            var header, cells = [], fields;
             fields = this.options.schema.properties;
 
             for (key in fields)
             {
-                cell = this.make('th',{},fields[key].description);
-                header.append(cell);
+                cells.push( this.make('th',{},fields[key].description) );
             }
             this.el.html("");
+            header = this.make('tr',{},cells);
             this.el.append(header);
         }
     });

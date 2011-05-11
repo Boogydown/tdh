@@ -214,19 +214,18 @@ $(function(){
     });
     
     var SchemaTableRow = Backbone.View.extend({
+        tagName : "tr",
+
         render: function(){
             var row, 
-                cells = [], 
                 fields = this.options.schema.properties;
 
             this.el.html("");
             
             for (key in fields)
             {
-                cells.push( this.make('td',{},fields[key].description) );
+                this.el.append( this.make('td',{},fields[key].description) );
             }
-            row = this.make('tr',{},cells);
-            this.el.append(row);
         }
     });
 

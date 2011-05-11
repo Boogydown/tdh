@@ -178,6 +178,10 @@ $(function(){
 
         initialize : function(){
             _.bindAll(this, 'render');
+
+            this.collection.bind("refresh", this.refreshed);
+            this.collection.bind("add", this.addRow);
+            this.collection.bind("remove", this.deleted);
         },
 
         render: function(){
@@ -247,7 +251,7 @@ $(function(){
     schemaForm = new SchemaForm({ schema : comment_schema, collection: Comments });
     new CommentsTable();
     new App();
-//     schemaTable = new SchemaTable({ schema : comment_schema, collection: Comments });
-//     schemaTable.render();
+    schemaTable = new SchemaTable({ schema : comment_schema, collection: Comments });
+    schemaTable.render();
 
 });

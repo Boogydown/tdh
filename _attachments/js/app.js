@@ -208,7 +208,8 @@ $(function(){
         // Prepends an entry row 
         addRow : function(model){
             var view = new SchemaTableRow({model: model, schema: this.options.schema});
-            this.el.append(view.render().el);
+            var rendered = view.render().el;
+            this.el.prepend(rendered);
         }
     });
     

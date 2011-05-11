@@ -175,6 +175,19 @@ $(function(){
             }
         });
 
+        var SchemaTable = Backbone.View.extend({
+            render: function(){
+                var header, cell;
+                header = this.make('tr');
+
+                for (key in this.options.schema.properties)
+                {
+                    cell = this.make('th',this.options.schema[key]);
+                    header.append(cell);
+                }
+                $("#model_table").html("");
+            }
+        });
         
         var Comments = new CommentCollection();
         comment_schema = {
@@ -193,6 +206,7 @@ $(function(){
             }
         };
         new SchemaForm({ schema : comment_schema, collection: Comments });
+//         new SchemaTable({ schema : comment_schema, collection: Comments });
         new CommentsTable();
         new App();
 

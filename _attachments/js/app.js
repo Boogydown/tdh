@@ -221,7 +221,7 @@ $(function(){
 
             for (key in fields)
             {
-                this.el.appendChild( this.make( 'td',{},model.get(key) ) );
+                this.el.appendChild( this.make( 'td', {}, this.model.get(key) ) );
             }
             return this;
         }

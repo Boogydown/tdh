@@ -204,7 +204,6 @@ $(function(){
             }
         },
         
-        
         // Prepends an entry row 
         addRow : function(model){
             var view = new SchemaTableRow({model: model, schema: this.options.schema});
@@ -222,7 +221,7 @@ $(function(){
 
             for (key in fields)
             {
-                this.el.append( this.make('td',{},fields[key].description) );
+                this.el.appendChild( this.make('td',{},fields[key].description) );
             }
         }
     });

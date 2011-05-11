@@ -223,6 +223,7 @@ $(function(){
             {
                 this.el.appendChild( this.make('td',{},fields[key].description) );
             }
+            return this;
         }
     });
 

@@ -176,12 +176,13 @@ $(function(){
     var SchemaTable = Backbone.View.extend({
         el: $("#model_table"),
         render: function(){
-            var header, cell;
+            var header, cell, fields;
             header = this.make('tr');
+            fields = this.options.schema.properties;
 
-            for (key in this.options.schema.properties)
+            for (key in fields)
             {
-                cell = this.make('th',this.options.schema[key]);
+                cell = this.make('th',fields[key].description);
                 header.append(cell);
             }
             this.el.html("");

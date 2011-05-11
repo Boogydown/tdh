@@ -108,7 +108,7 @@ $(function(){
                 // Renders all comments into the table
                 refreshed : function(){
                         // reset the table
-                        $("#model_table").html("");
+                        this.el.html("");
                         if(Comments.length > 0){
                                 // add each element
                                 Comments.each(this.addRow);

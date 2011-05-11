@@ -185,7 +185,7 @@ $(function(){
 
             for (key in fields)
             {
-                cell = this.make('th',fields[key].description);
+                cell = this.make('th',{},fields[key].description);
                 header.append(cell);
             }
             this.el.html("");

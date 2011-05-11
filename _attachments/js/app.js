@@ -220,8 +220,6 @@ $(function(){
             var row, 
                 fields = this.options.schema.properties;
 
-            this.el.html("");
-            
             for (key in fields)
             {
                 this.el.append( this.make('td',{},fields[key].description) );

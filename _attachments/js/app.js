@@ -195,6 +195,7 @@ $(function(){
             {
                 cells.push( this.make('th',{},fields[key].description) );
             }
+            cells.push( this.make('th',{},"Edit") );
             cells.push( this.make('th',{},"Delete") );
 
             header = this.make('tr',{},cells);
@@ -229,6 +230,7 @@ $(function(){
             {
                 this.el.appendChild( this.make( 'td', {}, this.model.get(key) ) );
             }
+            this.el.appendChild( this.make( 'td', {className: 'edit'}, "?" ) );
             this.el.appendChild( this.make( 'td', {className: 'delete'}, "X" ) );
             return this;
         },

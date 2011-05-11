@@ -204,11 +204,11 @@ $(function(){
             }
         },
         
-        // Prepends an entry row 
+        // Appends an entry row 
         addRow : function(model){
             var view = new SchemaTableRow({model: model, schema: this.options.schema});
             var rendered = view.render().el;
-            this.el.prepend(rendered);
+            this.el.append(rendered);
         }
     });
     
@@ -221,7 +221,7 @@ $(function(){
 
             for (key in fields)
             {
-                this.el.appendChild( this.make('td',{},fields[key].description) );
+                this.el.appendChild( this.make( 'td',{},model.get(key) ) );
             }
             return this;
         }

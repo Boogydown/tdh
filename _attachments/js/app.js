@@ -246,8 +246,8 @@ $(function(){
     };
     schemaForm = new SchemaForm({ schema : comment_schema, collection: Comments });
     schemaTable = new SchemaTable({ schema : comment_schema, collection: Comments });
-    schemaTable.render();
 //     new CommentsTable();
     new App();
+    schemaTable.render();
 
 });

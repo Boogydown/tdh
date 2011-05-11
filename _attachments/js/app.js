@@ -175,23 +175,59 @@ $(function(){
 
     var SchemaTable = Backbone.View.extend({
         el: $("#model_table"),
+
         initialize : function(){
             _.bindAll(this, 'render');
         },
+
         render: function(){
-            var header, cells = [], fields;
-            fields = this.options.schema.properties;
+            var header, 
+                cells = [], 
+                fields = this.options.schema.properties;
+
+            this.el.html("");
 
             for (key in fields)
             {
                 cells.push( this.make('th',{},fields[key].description) );
             }
-            this.el.html("");
+
             header = this.make('tr',{},cells);
             this.el.append(header);
+
+            if(this.collection.length > 0){
+                this.collection.each(this.addRow);
+            }
+        },
+        
+        
+        // Prepends an entry row 
+        addRow : function(model){
+            var view = new SchemaTableRow({model: model, schema: this.options.schema});
+            this.el.append(view.render().el);
         }
     });
     
+    var SchemaTableRow = Backbone.View.extend({
+        render: function(){
+            var row, 
+                cells = [], 
+                fields = this.options.schema.properties;
+
+            this.el.html("");
+            
+            for (key in fields)
+            {
+                cells.push( this.make('td',{},fields[key].description) );
+            }
+            row = this.make('tr',{},cells);
+            this.el.append(row);
+        }
+    });
+
+
+
+
     var Comments = new CommentCollection();
     comment_schema = {
         "description":"A comment",

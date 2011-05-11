@@ -215,6 +215,11 @@ $(function(){
     
     var SchemaTableRow = Backbone.View.extend({
         tagName : "tr",
+        
+        // Clicking the `X` leads to a deletion
+        events : {
+            "click .delete" : "deleteMe",
+        },
 
         render: function(){
             var row, 
@@ -226,6 +231,15 @@ $(function(){
             }
             this.el.appendChild( this.make( 'td', {className: 'delete'}, "X" ) );
             return this;
+        },
+        
+        // Fade out the element and destroy the model
+        deleteMe : function(){
+            if(this.model)
+                this.model.destroy();
+            $(this.el).fadeOut("fast",function(){
+                $(this).remove();
+            });
         }
     });
 

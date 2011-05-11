@@ -244,10 +244,10 @@ $(function(){
             }
         }
     };
-    schemaForm = new SchemaForm({ schema : comment_schema, collection: Comments });
-    schemaTable = new SchemaTable({ schema : comment_schema, collection: Comments });
 //     new CommentsTable();
     new App();
+    schemaForm = new SchemaForm({ schema : comment_schema, collection: Comments });
+    schemaTable = new SchemaTable({ schema : comment_schema, collection: Comments });
     schemaTable.render();
 
 });

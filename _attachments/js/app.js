@@ -175,6 +175,9 @@ $(function(){
 
     var SchemaTable = Backbone.View.extend({
         el: $("#model_table"),
+        initialize : function(){
+            _.bindAll(this, 'render');
+        },
         render: function(){
             var header, cell, fields;
             header = this.make('tr');

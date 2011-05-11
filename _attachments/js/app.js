@@ -177,7 +177,7 @@ $(function(){
         el: $("#model_table"),
 
         initialize : function(){
-            _.bindAll(this, 'render');
+            _.bindAll(this, 'render', 'addRow');
 
             this.collection.bind("refresh", this.render);
             this.collection.bind("add", this.addRow);

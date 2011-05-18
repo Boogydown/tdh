@@ -3,7 +3,7 @@ $(function(){
     // `ddocName` is the name of your couchapp project.
     Backbone.couchConnector.databaseName = "tdh";
     Backbone.couchConnector.ddocName = "tdh_public";
-    Backbone.couchConnector.viewName = "";
+    Backbone.couchConnector.viewName = "events";
     // If set to true, the connector will listen to the changes feed
     // and will provide your models with real time remote updates.
     Backbone.couchConnector.enableChanges = false;

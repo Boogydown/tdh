@@ -1,5 +1,5 @@
 function(doc) {
   if (doc.type=="event") {
-    emit(doc, doc);
+    emit(doc._id, doc);
   }
 };

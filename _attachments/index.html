@@ -1,37 +1,38 @@
 <!DOCTYPE html>
 <html>
+	
   <head>
     <title>TDH User Interface v0.0.2</title>
     <link rel="stylesheet" href="style/main.css" type="text/css">
+    <link rel="stylesheet" href="style/tdhgeneral.css" type="text/css">
   </head>
+  
   <body>
     <label for="model_table">Table:</label>
-    <table id="model_table">
-
-    </table>
-
+    <table id="model_table"></table>
+	<div class="box"></div>
   </body>
+  
   <script type="application/dust-template" id="eventEntry">
 	<tr><td>{hall}</td><td><img class="bandphoto" src="{hallPic}" </td></tr>
   </script>
+  
+  <script type="application/dust-template" id="eventEntry">
+	<div id="listing">
+		<h2>Thursday, April 7th</h2>
+		<div id="details">
+			<a href="#?w=630" rel="band_popup" class="slowpopup"><img class="bandphoto" src="images/bandphoto.jpg" /></a><br/>
+			<div id="bandinfo">blahblakjhdsgh</div>
+			<div class="atvenue">9pm<br/>@</div>
+
+			<a href="#?w=630" rel="hall_popup" class="slowpopup"><img class="venuephoto" src="images/venuephoto.jpg" /></a><br/>
+			<div id="venueinfo">scooby sdlh doo</div>
+			<img class="twostepphoto" src="images/twostepphoto.jpg" />
+		</div>
+	</div>
+  </script>
   <script type="text/javascript" src="vendor/couchapp/loader.js"></script>
+  
 </html>
 
-<!--
-<td><img src="" </td>
-<tr>
-	<td>
-		<div class="box">
-			<div class="listing">
-				<img class="bandphoto" src="images/bandphoto.jpg" />
-				<div class="atvenue">@</div>
-				<a href="#?w=630" rel="hall_popup" class="slowpopup">
-					<img class="venuephoto" src="images/venuephoto.jpg" />
-				</a>
-				<div class="listingdate">THU<br/>4-7<br/>9pm</div>
-				<img class="twostepphoto" src="images/twostepphoto.jpg" />
-			</div>
-		</div>
-	</td>
-</tr>
--->
+

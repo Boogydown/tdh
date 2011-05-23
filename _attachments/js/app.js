@@ -3,7 +3,7 @@ $(function(){
     // `ddocName` is the name of your couchapp project.
     Backbone.couchConnector.databaseName = "tdh";
     Backbone.couchConnector.ddocName = "tdh_public";
-    Backbone.couchConnector.viewName = "events";
+    Backbone.couchConnector.viewName = "byCollection";
     // If set to true, the connector will listen to the changes feed
     // and will provide your models with real time remote updates.
     Backbone.couchConnector.enableChanges = false;
@@ -59,7 +59,7 @@ $(function(){
         // The couchdb-connector is capable of mapping the url scheme
         // proposed by the authors of Backbone to documents in your database,
         // so that you don't have to change existing apps when you switch the sync-strategy
-        url : "/byCollection",
+        url : "/events",
         model : EventModel,
         // The events should be ordered by date
         comparator : function(event){

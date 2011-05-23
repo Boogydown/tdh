@@ -1,7 +1,7 @@
 function(doc) {
 	// only events, happening today or later
-	if (doc.type=="event") 
+	if (doc.type=="event" && new Date (doc.date) > new Date()) 
 	{
-		emit(doc, doc);
+		emit(doc._id, doc);
 	}
 };

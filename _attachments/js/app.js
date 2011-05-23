@@ -120,7 +120,7 @@ $(function(){
 
         initialize : function(){
             _.bindAll(this, 'render', 'addRow');
-
+			
             this.collection.bind("refresh", this.render);
             this.collection.bind("add", this.addRow);
             this.collection.bind("remove", this.deleted);
@@ -154,6 +154,9 @@ $(function(){
 /////////////////////////////////////////////////////////////////////////////
 	// create our collection of event models
 	var Events = new EventCollection();
+	
+	// create our main list view and attach the collection to it
+	var MainListView = new EventListView({collection:Events});
 	
 	// when this inits, it should call Events.fetch(), which should in theory fetch all
 	//	of its data; each model is updated and then triggers a change event which is bound to 

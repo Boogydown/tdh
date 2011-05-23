@@ -1,5 +1,5 @@
 function(doc) {
-  if (doc.type) {
-    emit(doc, doc);
+  if (doc.collection) {
+    emit(doc.collection, doc);
   }
 };

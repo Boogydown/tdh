@@ -1,22 +1,38 @@
 <!DOCTYPE html>
 <html>
+	
   <head>
-    <title>TDH User Interface v0.0.1</title>
+    <title>TDH User Interface v0.0.2</title>
     <link rel="stylesheet" href="style/main.css" type="text/css">
+    <link rel="stylesheet" href="style/tdhgeneral.css" type="text/css">
   </head>
+  
   <body>
-    <label for="model_edit">Add/Edit:</label>
-    <div id="model_edit">
-    </div>
-    
     <label for="model_table">Table:</label>
-    <table id="model_table">
-
-    </table>
-
+    <table id="model_table"></table>
+	<div class="box"></div>
   </body>
-  <script type="application/dust-template" id="entry">
-    <td>{name}</td><td>{text}</td><td class="delete">X</td>
+  
+  <script type="application/dust-template" id="eventEntry">
+	<tr><td>{hall}</td><td><img class="bandphoto" src="{hallPic}" </td></tr>
+  </script>
+  
+  <script type="application/dust-template" id="mockupEventEntry">
+	<div id="listing">
+		<h2>{date}</h2>
+		<div id="details">
+			<a href="#?w=630" rel="band_popup" class="slowpopup"><img class="bandphoto" src="images/bandphoto.jpg" /></a><br/>
+			<div id="bandinfo">blahblakjhdsgh</div>
+			<div class="atvenue">9pm<br/>@</div>
+
+			<a href="#?w=630" rel="hall_popup" class="slowpopup"><img class="venuephoto" src="images/venuephoto.jpg" /></a><br/>
+			<div id="venueinfo">scooby sdlh doo</div>
+			<img class="twostepphoto" src="images/twostepphoto.jpg" />
+		</div>
+	</div>
   </script>
   <script type="text/javascript" src="vendor/couchapp/loader.js"></script>
+  
 </html>
+
+

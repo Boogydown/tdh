@@ -54,30 +54,30 @@ $(function(){
 		},
 		
 		loadRefs: function () {
-/*			if ( this.get("band") != "" ) {
-				var bandRef = new BandModel( { id: this.get("band") });
+			if ( this.get("band") != "" ) {
+				var bandRef = new BandModel( { id: this.get("band")[0] });
 				bandRef.bind( "change", this.setBandLink ); //TODO: facilitate more than one band
 				bandRef.fetch();
 				Bands.add( bandRef );
-			}*/
+			}
 			if ( this.get("hall") != "" ) {
 				var hallRef = new VenueModel( { id: this.get("hall")[0] });
-				Halls.add( hallRef );
 				hallRef.bind( "change", this.setHallLink ); //TODO: facilitate more than one band
 				hallRef.fetch();
+				Halls.add( hallRef );
 			}
 		},
 		
-/*		setBandLink: function () {
-			var bandID = this.get( "band" );
+		setBandLink: function () {
+			var bandID = this.get( "band" )[0];
 			var myBand = Bands.get( bandID );
 			var bandPic = myBand.get("image");
 			if ( bandPic )
 				bandPic = "../../" + bandID + "/thumbs/" + encodeURI( bandPic );
 			else 
 				this.get("bandPic");
-			this.set( {"band": myBand.get("name"), "bandPic": bandPic } );
-		},*/
+			this.set( {"band": myBand.get("bandName"), "bandPic": bandPic } );
+		},
 		setHallLink: function () {
 			var hallID = this.get( "hall" )[0];
 			var myHall = Halls.get( hallID );

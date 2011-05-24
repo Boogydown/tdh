@@ -58,13 +58,13 @@ $(function(){
 				var bandRef = new BandModel( { id: this.get("band")[0] });
 				Bands.add( bandRef );
 				bandRef.bind( "change", this.setBandLink ); //TODO: facilitate more than one band
-				bandRef.fetch();
+				//bandRef.fetch();
 			}
 			if ( this.get("hall") != "" ) {
 				var hallRef = new VenueModel( { id: this.get("hall")[0] });
 				Halls.add( hallRef );
 				hallRef.bind( "change", this.setHallLink ); //TODO: facilitate more than one band
-				hallRef.fetch();
+				//hallRef.fetch();
 			}
 		},
 		
@@ -72,21 +72,17 @@ $(function(){
 			var bandID = this.get( "band" )[0];
 			var myBand = Bands.get( bandID );
 			var bandPic = myBand.get("image");
-			if ( bandPic )
+			if ( bandPic.substr(0,4) != "http" )
 				bandPic = "../../" + bandID + "/thumbs/" + encodeURI( bandPic );
-			else 
-				this.get("bandPic");
 			this.set( {"band": myBand.get("bandName"), "bandPic": bandPic } );
 		},
 		setHallLink: function () {
 			var hallID = this.get( "hall" )[0];
 			var myHall = Halls.get( hallID );
 			var hallPic = myHall.get("images")[0].image;
-			if ( hallPic )
+			if ( hallPic.substr(0,4) != "http" )
 				hallPic = "../../" + hallID + "/thumbs/" + encodeURI( hallPic );
 				// TODO: check to see if this URL exists... ?  perhaps try <img src.... onerror=""/>
-			else 
-				this.get("hallPic");
 			this.set( {"hall": myHall.get("danceHallName"), "hallPic": hallPic } );
 		},
 		
@@ -223,6 +219,7 @@ $(function(){
     var AppController = Backbone.Controller.extend({
         initialize : function(){
             Events.fetch();
+			Events.refresh();
         }
     });
 

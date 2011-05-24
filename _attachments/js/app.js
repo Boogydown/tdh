@@ -95,7 +95,7 @@ $(function(){
 
     // Represents an event entry in an event listing; is a dust template
     var EventEntryView = DustView.extend({
-		
+
         // Clicking the feet adds it to the dance card
         events : {
             "click .feet" : "addToDanceCard",
@@ -117,7 +117,7 @@ $(function(){
 	// The view for the primary event list container
     var EventListView = Backbone.View.extend({
         el: $("#mockup_div"),
-
+		nextY: 10,
         initialize : function(){
             _.bindAll(this, 'render', 'addRow');
 			
@@ -134,6 +134,7 @@ $(function(){
         
         // Appends an entry row 
         addRow : function(model){
+			model.set( {"topY":nextY+=105} );
             var view = new EventEntryView( { model: model } );
             this.el.append( view.render().el );
         }

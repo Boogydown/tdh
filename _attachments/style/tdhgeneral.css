@@ -1,0 +1,301 @@
+@charset "UTF-8";
+/* CSS Document */
+
+.maincontainer{
+	font-family:Verdana, Geneva, sans-serif;
+	width:765px;
+	background:#000;
+	position:absolute;
+	top:200px;
+	
+}
+a#caltab, div.tabbutton{
+	text-align:center;
+	width:150px;
+	height:40px;
+	margin-left:10px;
+	line-height:2em;
+	font-size:20px;
+	color:#CCCCCC;
+	text-decoration:none;
+	background-color: #3d3d45;
+	border-radius: 0px 0px 20px 20px;
+	-moz-border-radius: 0px 0px 20px 20px;
+	-webkit-border-bottom-right-radius: 20px;
+	-webkit-border-bottom-left-radius: 20px;
+}
+
+a#caltab div.tabbutton:hover{
+	text-align:center;
+	width:150px;
+	height:40px;
+	margin-left:10px;
+	line-height:2em;
+	font-size:20px;
+	color:#CCCCCC;
+	text-decoration:underline;
+	background-color: #3d3d45;
+	border-radius: 0px 0px 20px 20px;
+	-moz-border-radius: 0px 0px 20px 20px;
+	-webkit-border-bottom-right-radius: 20px;
+	-webkit-border-bottom-left-radius: 20px;
+}
+
+a#caltab div.tabbutton:active{
+	text-align:center;
+	width:150px;
+	height:40px;
+	margin-left:10px;
+	line-height:2em;
+	font-size:20px;
+	color:#000;
+	text-decoration:underline;
+	background-color: #3d3d45;
+	border-radius: 0px 0px 20px 20px;
+	-moz-border-radius: 0px 0px 20px 20px;
+	-webkit-border-bottom-right-radius: 20px;
+	-webkit-border-bottom-left-radius: 20px;
+}
+
+.tabs{
+	position:absolute;
+	left:42px;
+}
+
+.box{
+	position:relative;
+	top:50px;
+	width:350px;
+	height:370px;
+	margin-left:15px;
+	background-color: #CCCCCC;
+	border-radius: 20px;
+	-moz-border-radius: 20px;
+	-webkit-border-radius: 20px;
+}
+
+
+.map{
+	background:url(../images/googlemap.png);
+	position:relative;
+	top:50px;
+	width:350px;
+	height:370px;
+	margin-right:10px;
+	border-radius: 20px;
+	-moz-border-radius: 20px;
+	-webkit-border-radius: 20px;
+}
+.title{
+	font-size:24px;
+	color:#CCCCCC;
+
+}
+
+
+/*All Classes that follow are used to formulate the listing inside the featured events box */
+#listing{
+	width:330px;
+	height:100px;
+	left:10px;
+	position:absolute;
+	top:10px;
+	background-color: #000;
+	border-radius: 10px;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+
+}
+
+h2{
+	width:315px;
+	background-color:rgba(255,0,0,0.4);;
+	position:relative;
+	left:8px;
+	top:-10px;
+	text-align:center;
+	font-size:16px;
+	height:1.4em;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+
+}
+
+#details{
+	position:absolute;
+	top:13px;
+	left:10px;
+}
+.bandphoto{
+	width:60px;
+	height:40px;
+	border:0px;
+	position:absolute;
+	left:10px;
+	top:15px;
+
+}
+
+.atvenue{
+	text-align:center;
+	color:#CCCCCC;
+	position:absolute;
+	left:78px;
+	top:23px;
+	font-size:18px;
+}
+
+.venuephoto{
+	width:60px;
+	height:40px;
+	border:0px;
+	position:absolute;
+	left:128px;
+	top:15px;
+
+}
+
+#bandinfo{
+	width:60px;
+	text-align:center;
+	font-size:10px;
+	position:absolute;
+	top:60px;
+	left:10px;
+	word-wrap: break-word;
+	
+}
+
+#venueinfo{
+	width:60px;
+	text-align:center;
+	font-size:10px;
+	position:absolute;
+	top:60px;
+	left:129px;
+	word-wrap: break-word;
+}
+
+
+.twostepphoto, .twostepphoto:hover{
+	width:35px;
+	height:35px;
+	border:0px;
+	position:absolute;
+	left:220px;
+	top:25px;
+}
+
+.twostepphoto:hover{
+	rotation: 90deg;
+	-webkit-transform: rotate(90deg);
+	-moz-transform: rotate(90deg);
+	filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=1);
+}
+/*End of featured events box related classes*/
+
+/*Popup classes*/
+
+.detailphoto{
+	float:left;
+}
+
+.detailphoto img{
+	margin-right:10px;
+	width:350px;
+	height:200px;
+	border:0px;
+}
+	
+#popuplisting{
+	position:absolute;
+	top:10px;
+	left:10px;
+	width:330px;
+	height:100px;
+	background-color: #000;
+	border-radius: 10px;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+
+}
+
+#popupbandinfo{
+	width:70px;
+	top:20px;
+	text-align:center;
+	font-size:16px;
+	position:absolute;
+	word-wrap: break-word;
+	
+}
+
+#popupvenueinfo{
+	width:70px;
+	top:20px;
+	text-align:center;
+	font-size:16px;
+	position:absolute;
+	left:129px;
+	word-wrap: break-word;
+}
+
+.detailmap{
+	background:url(../images/googlemap.png);
+	position:absolute;
+	margin-left:30px;
+	width:250px;
+	height:200px;
+	top:230px;
+	left:350px;
+	border-radius: 20px;
+	-moz-border-radius: 20px;
+	-webkit-border-radius: 20px;
+}
+
+.detailtext{
+	font-size:18px;
+	color:#000;
+	font-family:Verdana, Geneva, sans-serif;
+}
+
+.popupbox{
+	width:350px;
+	height:200px;
+	position:relative;
+	top:10px;
+	background-color: #3d3d45;
+	border-radius: 20px;
+	-moz-border-radius: 20px;
+	-webkit-border-radius: 20px;
+}
+
+/*End of Popup classes */
+
+.triangle {
+	position:relative;
+	top:55px;
+border-color: #3d3d45 transparent transparent transparent;
+border-style:solid;
+border-width: 45px 80px 0px 80px;
+height: 0px;
+width: 0px;
+}
+
+.foldbutton{
+	font-size:14px;
+	color:#CCCCCC;
+	position:relative;
+	top:-46px;
+	left:-30px;
+	
+}
+div.foldbutton:hover{
+	font-size:14px;
+	color:#000;
+	position:relative;
+	top:-46px;
+	left:-30px;
+	
+}

@@ -134,7 +134,7 @@ $(function(){
         
         // Appends an entry row 
         addRow : function(model){
-			model.set( {"topY":nextY+=105} );
+			model.set( {"topY":this.nextY+=105} );
             var view = new EventEntryView( { model: model } );
             this.el.append( view.render().el );
         }

@@ -54,8 +54,8 @@ $(function(){
 		},
 		
 		loadRefs: function () {
-			this.loadRef( "band", Bands );
-			this.loadRef( "hall", Halls );
+			this.loadRef( "band", Bands, this.setBandLink );
+			this.loadRef( "hall", Halls, this.setHallLink );
 		},
 		
 		loadRef: function( type, coll ) {
@@ -66,7 +66,7 @@ $(function(){
 					myRef = new coll.model( { id: myID });
 					coll.add( myRef );
 				}
-				myRef.bind( "change", this.setBandLink ); //TODO: facilitate more than one band
+				myRef.bind( "change", callback ); //TODO: facilitate more than one band
 				//bandRef.fetch();
 			}
 			/*

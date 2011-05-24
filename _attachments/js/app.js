@@ -42,6 +42,31 @@ $(function(){
 			"topY": 10
         },
 		
+		initialize: function () {
+			_.bindAll( this, "loadRefs" );
+			this.bind ( "change", this.loadRefs );
+		},
+		
+		loadRefs: function () {
+			if ( this.get("band") != "" ) {
+				var bandRef = new BandModel( { id: this.get("band") });
+				bandRef.bind( "change", this.setBandLink ); //TODO: facilitate more than one band
+				bandRef.fetch();
+				Bands.add( bandRef );
+			}
+		},
+		
+		setBandLink: function () {
+			var bandID = this.get( "band" );
+			var myBand = Bands.get( bandID );
+			var bandPic = myBand.get("image");
+			if ( bandPic )
+				bandPic = "../../" + bandID + "/thumbs/" + encodeURI( bandPic );
+			else 
+				this.get("bandPic");
+			this.set( {"band": myBand.get("name"), "bandPic": bandPic } );
+		},
+		
 /*		toJSON : function() {
 			//TODO: override to JSON to extract band and hall info
 			if ( this.get("hall") ) 
@@ -67,12 +92,20 @@ $(function(){
             return event.get("date");
         }
     });
+	
+	var BandCollection = Backbone.Collection.extend({
+		url : "band",
+		model : BandModel,
+		comparator : function(band){
+			return band.get("name");
+		}
+	});
 
 /////////////////////////////////////////////////////////////////////////////
 /// VIEWS DECLARATION ///////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
 	// This is the base class for any View using a dust template
-    var DustView = Backbone.View.extend({
+    var DustView = Backbone.View.extend({		
         registerTemplate : function(name) {
             // Relies on inline templates on the page
             dust.compileFn( $('#'+name).html() , name);
@@ -158,7 +191,7 @@ $(function(){
     // The App controller initializes the app by calling `Comments.fetch()`
     var AppController = Backbone.Controller.extend({
         initialize : function(){
-            Events.fetch({add:true});
+            Events.fetch();
         }
     });
 
@@ -167,6 +200,7 @@ $(function(){
 /////////////////////////////////////////////////////////////////////////////
 	// create our collection of event models
 	var Events = new EventCollection();
+	var Bands = new BandCollection();
 	
 	// create our main list view and attach the collection to it
 	var MainListView = new EventListView({collection:Events});

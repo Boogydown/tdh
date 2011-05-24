@@ -61,7 +61,7 @@ $(function(){
 				Bands.add( bandRef );
 			}*/
 			if ( this.get("hall") != "" ) {
-				var hallRef = new VenueModel( { id: this.get("hall") });
+				var hallRef = new VenueModel( { id: this.get("hall")[0] });
 				Halls.add( hallRef );
 				hallRef.bind( "change", this.setHallLink ); //TODO: facilitate more than one band
 				hallRef.fetch();
@@ -79,7 +79,7 @@ $(function(){
 			this.set( {"band": myBand.get("name"), "bandPic": bandPic } );
 		},*/
 		setHallLink: function () {
-			var hallID = this.get( "hall" );
+			var hallID = this.get( "hall" )[0];
 			var myHall = Halls.get( hallID );
 			var hallPic = myHall.get("images")["image"];
 			if ( hallPic )

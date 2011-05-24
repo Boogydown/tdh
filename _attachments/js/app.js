@@ -58,7 +58,7 @@ $(function(){
 			this.loadRef( "hall", Halls, this.setHallLink );
 		},
 		
-		loadRef: function( type, coll ) {
+		loadRef: function( type, coll, callback ) {
 			if ( this.get( type ).length > 0 ) {
 				var myID = this.get( type )[0];
 				var myRef = coll.get( myID );

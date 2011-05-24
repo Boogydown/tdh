@@ -105,7 +105,7 @@ $(function(){
         initialize : function(){
             _.bindAll(this, 'render', "addToDanceCard");
             this.model.bind('change', this.render);
-            this.registerTemplate('eventEntry'); // is the "this" valid for this func?  or does it need to be included in the _bindAll ?
+            this.registerTemplate('mockupEventEntry'); // is the "this" valid for this func?  or does it need to be included in the _bindAll ?
         },
         
         // Adds this event to the danceCard collection
@@ -116,7 +116,7 @@ $(function(){
 
 	// The view for the primary event list container
     var EventListView = Backbone.View.extend({
-        el: $("#model_table"),
+        el: $("#mockup_div"),
 
         initialize : function(){
             _.bindAll(this, 'render', 'addRow');

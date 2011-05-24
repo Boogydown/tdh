@@ -10,7 +10,7 @@
   <body>
     <label for="model_table">Table:</label>
     <table id="model_table"></table>
-	<div class="box"></div>
+	<div class="box" id="mockup_div"></div>
   </body>
   
   <script type="application/dust-template" id="eventEntry">
@@ -21,12 +21,12 @@
 	<div id="listing">
 		<h2>{date}</h2>
 		<div id="details">
-			<a href="#?w=630" rel="band_popup" class="slowpopup"><img class="bandphoto" src="images/bandphoto.jpg" /></a><br/>
-			<div id="bandinfo">blahblakjhdsgh</div>
+			<a href="#?w=630" rel="band_popup" class="slowpopup"><img class="bandphoto" src="{bandPic}" /></a><br/>
+			<div id="bandinfo">{band}</div>
 			<div class="atvenue">9pm<br/>@</div>
 
-			<a href="#?w=630" rel="hall_popup" class="slowpopup"><img class="venuephoto" src="images/venuephoto.jpg" /></a><br/>
-			<div id="venueinfo">scooby sdlh doo</div>
+			<a href="#?w=630" rel="hall_popup" class="slowpopup"><img class="venuephoto" src="{hallPic}" /></a><br/>
+			<div id="venueinfo">{hall}</div>
 			<img class="twostepphoto" src="images/twostepphoto.jpg" />
 		</div>
 	</div>

@@ -103,6 +103,8 @@ $(function(){
 		update : function () {
 			this.collection.each( function (model) { model.fetch() } );
 		}
+	});
+	
     // Now let's define a new Collection of Events
     var EventCollection = Backbone.Collection.extend({
         // The couchdb-connector is capable of mapping the url scheme

@@ -180,6 +180,7 @@ $(function(){
         el: $("#mockup_div"),
 		nextY: 10,
 		curDate: null,
+		firstPass: true,
         initialize : function(){
             _.bindAll(this, 'render', 'addRow');
 			
@@ -192,6 +193,10 @@ $(function(){
             if(this.collection.length > 0){
                 this.collection.each(this.addRow);
             }
+			if ( this.firstPass ) {
+				this.collection.refresh();
+				this.firstPass = false;
+			}
         },
         
         // Appends an entry row 
@@ -219,7 +224,6 @@ $(function(){
     var AppController = Backbone.Controller.extend({
         initialize : function(){
             Events.fetch();
-			Events.refresh();
         }
     });
 

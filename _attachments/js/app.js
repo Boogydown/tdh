@@ -56,15 +56,15 @@ $(function(){
 		loadRefs: function () {
 			if ( this.get("band") != "" ) {
 				var bandRef = new BandModel( { id: this.get("band")[0] });
+				Bands.add( bandRef );
 				bandRef.bind( "change", this.setBandLink ); //TODO: facilitate more than one band
 				bandRef.fetch();
-				Bands.add( bandRef );
 			}
 			if ( this.get("hall") != "" ) {
 				var hallRef = new VenueModel( { id: this.get("hall")[0] });
+				Halls.add( hallRef );
 				hallRef.bind( "change", this.setHallLink ); //TODO: facilitate more than one band
 				hallRef.fetch();
-				Halls.add( hallRef );
 			}
 		},
 		

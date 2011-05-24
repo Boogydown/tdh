@@ -31,7 +31,7 @@ $(function(){
 
     // Event model
     var EventModel = Backbone.Model.extend({
-        defaults : function(){
+        defaults : {
             "name": "Some generic event",
             "description": "Go here for fun!",
             "hall": "Generic Hall",

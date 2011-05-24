@@ -209,7 +209,7 @@ $(function(){
 
 	// The view for the primary event list container
     var EventListView = Backbone.View.extend({
-        el: $("#mockup_div"),
+        el: $("#list"),
 		nextY: 10,
 		curDate: null,
 		firstPass: true,

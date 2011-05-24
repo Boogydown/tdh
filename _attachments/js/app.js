@@ -54,13 +54,13 @@ $(function(){
 		},
 		
 		loadRefs: function () {
-			if ( this.get("band") != "" ) {
+			if ( this.get("band").length > 0 ) {
 				var bandRef = new BandModel( { id: this.get("band")[0] });
 				Bands.add( bandRef );
 				bandRef.bind( "change", this.setBandLink ); //TODO: facilitate more than one band
 				//bandRef.fetch();
 			}
-			if ( this.get("hall") != "" ) {
+			if ( this.get("hall").length > 0 ) {
 				var hallRef = new VenueModel( { id: this.get("hall")[0] });
 				Halls.add( hallRef );
 				hallRef.bind( "change", this.setHallLink ); //TODO: facilitate more than one band
@@ -99,6 +99,10 @@ $(function(){
 /////////////////////////////////////////////////////////////////////////////
 /// COLLECTIONS DECLARATION /////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
+	var UpdateableCollection = Backbone.Collection.extend({
+		update : function () {
+			this.collection.each( function (model) { model.fetch() } );
+		}
     // Now let's define a new Collection of Events
     var EventCollection = Backbone.Collection.extend({
         // The couchdb-connector is capable of mapping the url scheme
@@ -112,7 +116,7 @@ $(function(){
         }
     });
 	
-	var BandCollection = Backbone.Collection.extend({
+	var BandCollection = UpdateableCollection.extend({
 		url : "band",
 		model : BandModel,
 		comparator : function(band){
@@ -120,7 +124,7 @@ $(function(){
 		}
 	});	
 	
-	var HallCollection = Backbone.Collection.extend({
+	var HallCollection = UpdateableCollection.extend({
 		url : "dancehall",
 		model : VenueModel,
 		comparator : function(hall){
@@ -228,8 +232,8 @@ $(function(){
     });
 
 	var secondPassFetch = function() {
-		Bands.fetch();
-		Halls.fetch();
+		Bands.update();
+		Halls.update();
 	}
 /////////////////////////////////////////////////////////////////////////////
 /// INSTACIATION & EXECUTION ////////////////////////////////////////////////

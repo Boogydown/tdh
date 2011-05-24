@@ -101,7 +101,7 @@ $(function(){
 /////////////////////////////////////////////////////////////////////////////
 	var UpdateableCollection = Backbone.Collection.extend({
 		update : function () {
-			this.collection.each( function (model) { model.fetch() } );
+			this.each( function (model) { model.fetch() } );
 		}
 	});
 	

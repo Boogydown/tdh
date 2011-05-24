@@ -38,7 +38,8 @@ $(function(){
             "hallPic": "http://malhotrarealestate.com/assets/images/generic_house_photo03.jpg",
             "band": "Generic Band",
             "bandPic": "http://images.woome.com/sitemedia/img/picGenericProfile.png",
-			"date": new Date().getTime()
+			"date": new Date().getTime(),
+			"topY": 10
         },
 		
 /*		toJSON : function() {
@@ -134,7 +135,7 @@ $(function(){
         
         // Appends an entry row 
         addRow : function(model){
-			model.set( {"topY":this.nextY+=105} );
+			model.set( {"topY":String(this.nextY+=105)} );
             var view = new EventEntryView( { model: model } );
             this.el.append( view.render().el );
         }

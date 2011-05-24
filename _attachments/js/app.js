@@ -54,24 +54,42 @@ $(function(){
 		},
 		
 		loadRefs: function () {
+			this.loadRef( "band", Bands );
+			this.loadRef( "hall", Halls );
+		},
+		
+		loadRef: function( type, coll ) {
+			if ( this.get( type ).length > 0 ) {
+				var myID = this.get( type )[0];
+				var myRef = coll.get( myID );
+				if ( ! myRef ){
+					myRef = new coll.model( { id: myID });
+					coll.add( myRef );
+				}
+				myRef.bind( "change", this.setBandLink ); //TODO: facilitate more than one band
+				//bandRef.fetch();
+			}
+			/*
 			if ( this.get("band").length > 0 ) {
 				var bandID = this.get("band")[0];
-				if ( ! Bands.get(bandID) ){
-					var bandRef = new BandModel( { id: bandID });
+				var bandRef = Bands.get( bandID );
+				if ( ! bandRef ){
+					bandRef = new BandModel( { id: bandID });
 					Bands.add( bandRef );
-					bandRef.bind( "change", this.setBandLink ); //TODO: facilitate more than one band
-					//bandRef.fetch();
 				}
+				bandRef.bind( "change", this.setBandLink ); //TODO: facilitate more than one band
+				//bandRef.fetch();
 			}
 			if ( this.get("hall").length > 0 ) {
 				var hallID = this.get("hall")[0];
-				if ( ! Halls.get(hallID) ){
-					var hallRef = new VenueModel( { id: hallID });
+				var hallRef = Halls.get( hallID );
+				if ( ! hallRef ){
+					hallRef = new VenueModel( { id: hallID });
 					Halls.add( hallRef );
-					hallRef.bind( "change", this.setHallLink ); //TODO: facilitate more than one band
-					//hallRef.fetch();
 				}
-			}
+				hallRef.bind( "change", this.setHallLink ); //TODO: facilitate more than one band
+				//hallRef.fetch();
+			}*/
 		},
 		
 		setBandLink: function () {

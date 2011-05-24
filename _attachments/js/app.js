@@ -15,7 +15,7 @@ $(function(){
 	var BandModel = Backbone.Model.extend({
 		defaults : {
 			"bandName" : "Generic Band",
-			"picURL" : "http://images.woome.com/sitemedia/img/picGenericProfile.png",
+			"image" : "http://images.woome.com/sitemedia/img/picGenericProfile.png",
 			"bio" : "They play musical instruments."
 		},
 /*		url : function () { 
@@ -55,16 +55,22 @@ $(function(){
 		
 		loadRefs: function () {
 			if ( this.get("band").length > 0 ) {
-				var bandRef = new BandModel( { id: this.get("band")[0] });
-				Bands.add( bandRef );
-				bandRef.bind( "change", this.setBandLink ); //TODO: facilitate more than one band
-				//bandRef.fetch();
+				var bandID = this.get("band")[0];
+				if ( ! Bands.get(bandID) ){
+					var bandRef = new BandModel( { id: bandID });
+					Bands.add( bandRef );
+					bandRef.bind( "change", this.setBandLink ); //TODO: facilitate more than one band
+					//bandRef.fetch();
+				}
 			}
 			if ( this.get("hall").length > 0 ) {
-				var hallRef = new VenueModel( { id: this.get("hall")[0] });
-				Halls.add( hallRef );
-				hallRef.bind( "change", this.setHallLink ); //TODO: facilitate more than one band
-				//hallRef.fetch();
+				var hallID = this.get("hall")[0];
+				if ( ! Halls.get(hallID) ){
+					var hallRef = new VenueModel( { id: hallID });
+					Halls.add( hallRef );
+					hallRef.bind( "change", this.setHallLink ); //TODO: facilitate more than one band
+					//hallRef.fetch();
+				}
 			}
 		},
 		
@@ -234,8 +240,8 @@ $(function(){
     });
 
 	var secondPassFetch = function() {
-		Bands.update();
 		Halls.update();
+		Bands.update();
 	}
 /////////////////////////////////////////////////////////////////////////////
 /// INSTACIATION & EXECUTION ////////////////////////////////////////////////

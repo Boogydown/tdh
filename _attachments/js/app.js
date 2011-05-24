@@ -81,7 +81,7 @@ $(function(){
 		setHallLink: function () {
 			var hallID = this.get( "hall" )[0];
 			var myHall = Halls.get( hallID );
-			var hallPic = myHall.get("images")["image"];
+			var hallPic = myHall.get("images")[0].image;
 			if ( hallPic )
 				hallPic = "../../" + hallID + "/thumbs/" + encodeURI( hallPic );
 			else 

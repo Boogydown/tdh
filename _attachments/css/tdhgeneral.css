@@ -1,7 +1,10 @@
+/**************** Overall Styles ****************/
 div {
 	color:#cccccc;
 }
 
+
+/**************** Main Container & Tabs ****************/
 .maincontainer {
     background: none repeat scroll 0 0 #000000;
     font-family: Verdana,Geneva,sans-serif;
@@ -10,36 +13,12 @@ div {
 	bottom:50px;
     width: 780px;
 }
+
 #tabs {
     left: 17px;
     position: absolute;
     text-align: center;
     width: 715px;
-}
-
-#info {
-    display: inline;
-    left: 5px;
-    position: absolute;
-}
-
-.box {
-    background-color: #CCCCCC;
-    border-radius: 20px 20px 20px 20px;
-    width: 370px;
-    position: absolute;
-    top: 50px;
-    bottom: 10px;
-}
-
-#mockup_div {
-	left: 10px;
-	overflow: auto;
-}
-
-#map {
-    background: url("../images/googlemap.png") repeat scroll 0 0 transparent;
-    right: 10px;
 }
 
 div.tabbutton {
@@ -52,23 +31,43 @@ div.tabbutton {
     text-align: center;
 	width: 178px;
 }
-a.caltab, a.caltab div {
-    color: #CCCCCC;
+
+div.tabbutton:hover {
+	background-color:#880011;
+}
+
+#info {
     display: inline;
-    text-decoration: none;
+    left: 5px;
+    position: absolute;
 }
-a.caltab div:hover {
-    color: #CCCCCC;
-    text-decoration: underline;
+
+/**************** App Boxes ****************/
+.box {
+    background-color: #CCCCCC;
+    border-radius: 20px 20px 20px 20px;
+    width: 370px;
+    position: absolute;
+    top: 50px;
+    bottom: 10px;
 }
-a.caltab div:active {
-    color: #000000;
-    text-decoration: underline;
+
+#list {
+	left: 10px;
+	overflow: auto;
 }
+
+#map {
+    background: url("../images/googlemap.png") repeat scroll 0 0 transparent;
+    right: 10px;
+}
+
+/**************** Event Listings ****************/
 .title {
     color: #CCCCCC;
     font-size: 24px;
 }
+
 #listing {
     background-color: #000000;
     border-radius: 10px 10px 10px 10px;
@@ -78,6 +77,7 @@ a.caltab div:active {
     top: 10px;
     width: 315px;
 }
+
 h2 {
     background-color: rgba(255, 0, 0, 0.4);
     border-radius: 3px 3px 3px 3px;
@@ -89,11 +89,13 @@ h2 {
     top: -10px;
     width: 300px;
 }
+
 #details {
     left: 10px;
     position: absolute;
     top: 13px;
 }
+
 .bandphoto {
     border: 0 none;
     height: 40px;
@@ -102,6 +104,7 @@ h2 {
     top: 15px;
     width: 60px;
 }
+
 .atvenue {
     color: #CCCCCC;
     font-size: 18px;
@@ -110,6 +113,7 @@ h2 {
     text-align: center;
     top: 23px;
 }
+
 .venuephoto {
     border: 0 none;
     height: 40px;
@@ -118,6 +122,7 @@ h2 {
     top: 15px;
     width: 60px;
 }
+
 #bandinfo {
     font-size: 10px;
     left: 10px;
@@ -127,6 +132,7 @@ h2 {
     width: 60px;
     word-wrap: break-word;
 }
+
 #venueinfo {
     font-size: 10px;
     left: 129px;
@@ -136,6 +142,7 @@ h2 {
     width: 60px;
     word-wrap: break-word;
 }
+
 .twostepphoto, .twostepphoto:hover {
     border: 0 none;
     height: 35px;
@@ -144,18 +151,23 @@ h2 {
     top: 25px;
     width: 35px;
 }
+
 .twostepphoto:hover {
     -moz-transform: rotate(90deg);
 }
+
 .detailphoto {
     float: left;
 }
+
 .detailphoto img {
     border: 0 none;
     height: 200px;
     margin-right: 10px;
     width: 350px;
 }
+
+/**************** Popup Listings ****************/
 #popuplisting {
     background-color: #000000;
     border-radius: 10px 10px 10px 10px;
@@ -206,6 +218,7 @@ h2 {
     width: 350px;
 }
 
+/**************** Fold Bug ****************/
 div .foldBug {	
     position: fixed;
 	bottom : -10px;
@@ -232,7 +245,6 @@ div .foldBug {
 	position:absolute;
 	bottom:18px;
 }
-
 
 #foldTriangle:hover {
     border-color: #880011 transparent transparent;

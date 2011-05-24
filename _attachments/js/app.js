@@ -67,7 +67,7 @@ $(function(){
 					coll.add( myRef );
 				}
 				myRef.bind( "change", callback ); //TODO: facilitate more than one band
-				//bandRef.fetch();
+				//myRef.fetch();
 			}
 			/*
 			if ( this.get("band").length > 0 ) {
@@ -93,6 +93,7 @@ $(function(){
 		},
 		
 		setBandLink: function () {
+			this.unbind("change", this.setBandLink );
 			var bandID = this.get( "band" )[0];
 			var myBand = Bands.get( bandID );
 			var bandPic = myBand.get("image");
@@ -101,6 +102,7 @@ $(function(){
 			this.set( {"band": myBand.get("bandName"), "bandPic": bandPic } );
 		},
 		setHallLink: function () {
+			this.unbind("change", this.setHallLink );
 			var hallID = this.get( "hall" )[0];
 			var myHall = Halls.get( hallID );
 			var hallPic = myHall.get("images")[0].image;

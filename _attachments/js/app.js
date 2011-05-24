@@ -158,7 +158,7 @@ $(function(){
     // The App controller initializes the app by calling `Comments.fetch()`
     var AppController = Backbone.Controller.extend({
         initialize : function(){
-            Events.fetch();
+            Events.fetch({add:true});
         }
     });
 

@@ -14,18 +14,24 @@ $(function(){
 	// Band model
 	var BandModel = Backbone.Model.extend({
 		defaults : {
-			"name" : "Generic Band",
+			"bandName" : "Generic Band",
 			"picURL" : "http://images.woome.com/sitemedia/img/picGenericProfile.png",
 			"bio" : "They play musical instruments."
+		},
+		url : function () { 
+			return "https://dev.vyncup.t9productions.com:44384/tdh/" + this.id;
 		}
 	});
 
 	// Vanue model
 	var VenueModel = Backbone.Model.extend({
 		defaults : {
-			"name" : "Generic Hall",
-			"picURL": "http://malhotrarealestate.com/assets/images/generic_house_photo03.jpg",
-			"bio": "Has four walls and a roof."
+			"danceHallName" : "Generic Hall",
+			"images": [{"credit":"generic", "image":"http://malhotrarealestate.com/assets/images/generic_house_photo03.jpg"}],
+			"description": "Has four walls and a roof."
+		},
+		url : function () { 
+			return "https://dev.vyncup.t9productions.com:44384/tdh/" + this.id;
 		}
 	});
 
@@ -48,15 +54,21 @@ $(function(){
 		},
 		
 		loadRefs: function () {
-			if ( this.get("band") != "" ) {
+/*			if ( this.get("band") != "" ) {
 				var bandRef = new BandModel( { id: this.get("band") });
 				bandRef.bind( "change", this.setBandLink ); //TODO: facilitate more than one band
 				bandRef.fetch();
 				Bands.add( bandRef );
+			}*/
+			if ( this.get("hall") != "" ) {
+				var hallRef = new VenueModel( { id: this.get("hall") });
+				hallRef.bind( "change", this.setHallLink ); //TODO: facilitate more than one band
+				hallRef.fetch();
+				Halls.add( hallRef );
 			}
 		},
 		
-		setBandLink: function () {
+/*		setBandLink: function () {
 			var bandID = this.get( "band" );
 			var myBand = Bands.get( bandID );
 			var bandPic = myBand.get("image");
@@ -65,6 +77,16 @@ $(function(){
 			else 
 				this.get("bandPic");
 			this.set( {"band": myBand.get("name"), "bandPic": bandPic } );
+		},*/
+		setHallLink: function () {
+			var hallID = this.get( "hall" );
+			var myHall = Halls.get( hallID );
+			var hallPic = myHall.get("images")["image"];
+			if ( hallPic )
+				hallPic = "../../" + hallID + "/thumbs/" + encodeURI( hallPic );
+			else 
+				this.get("hallPic");
+			this.set( {"hall": myHall.get("danceHallName"), "hallPic": hallPic } );
 		},
 		
 /*		toJSON : function() {
@@ -97,7 +119,15 @@ $(function(){
 		url : "band",
 		model : BandModel,
 		comparator : function(band){
-			return band.get("name");
+			return band.get("bandName");
+		}
+	});	
+	
+	var HallCollection = Backbone.Collection.extend({
+		url : "hall",
+		model : HallModel,
+		comparator : function(band){
+			return hall.get("danceHallName");
 		}
 	});
 
@@ -201,6 +231,7 @@ $(function(){
 	// create our collection of event models
 	var Events = new EventCollection();
 	var Bands = new BandCollection();
+	var Halls = new HallCollection();
 	
 	// create our main list view and attach the collection to it
 	var MainListView = new EventListView({collection:Events});

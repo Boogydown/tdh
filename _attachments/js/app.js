@@ -72,7 +72,7 @@ $(function(){
 			var bandID = this.get( "band" )[0];
 			var myBand = Bands.get( bandID );
 			var bandPic = myBand.get("image");
-			if ( bandPic.substr(0,4) != "http" )
+			if ( bandPic && bandPic.substr(0,4) != "http" )
 				bandPic = "../../" + bandID + "/thumbs/" + encodeURI( bandPic );
 			this.set( {"band": myBand.get("bandName"), "bandPic": bandPic } );
 		},
@@ -80,7 +80,7 @@ $(function(){
 			var hallID = this.get( "hall" )[0];
 			var myHall = Halls.get( hallID );
 			var hallPic = myHall.get("images")[0].image;
-			if ( hallPic.substr(0,4) != "http" )
+			if ( hallPic && hallPic.substr(0,4) != "http" )
 				hallPic = "../../" + hallID + "/thumbs/" + encodeURI( hallPic );
 				// TODO: check to see if this URL exists... ?  perhaps try <img src.... onerror=""/>
 			this.set( {"hall": myHall.get("danceHallName"), "hallPic": hallPic } );

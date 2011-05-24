@@ -22,11 +22,11 @@ div {
 }
 .box {
     background-color: #CCCCCC;
-    border-radius: 20px 20px 20px 20px;
-    height: 370px;
-    margin-left: 15px;
-    position: absolute;
-    top: 50px;
+    border-radius: 20px 20px 20px 20px;    
+    position: fixed;
+    top: 10px;
+	bottom: 10px;
+    left: 15px;
     width: 350px;
 	overflow: auto;
 }

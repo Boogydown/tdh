@@ -138,12 +138,17 @@ $(function(){
         addRow : function(model){
 			model.set( { "topY" : String(this.nextY) } );
 			if ( model.get( "date" ) == this.curDate )
+			{
 				model.set( { "date" : "" } );
+				this.nextY += 82;
+			}
 			else
+			{
 				this.curDate = model.get( "date" );
+				this.nextY += 105;
+			}
             var view = new EventEntryView( { model: model } );
             this.el.append( view.render().el );
-			this.nextY += 105;
         }
     });
     

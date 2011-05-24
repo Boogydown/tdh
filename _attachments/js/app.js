@@ -126,7 +126,7 @@ $(function(){
 	var HallCollection = Backbone.Collection.extend({
 		url : "hall",
 		model : VenueModel,
-		comparator : function(band){
+		comparator : function(hall){
 			return hall.get("danceHallName");
 		}
 	});

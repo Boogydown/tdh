@@ -119,6 +119,7 @@ $(function(){
     var EventListView = Backbone.View.extend({
         el: $("#mockup_div"),
 		nextY: 10,
+		curDate: null,
         initialize : function(){
             _.bindAll(this, 'render', 'addRow');
 			
@@ -135,7 +136,11 @@ $(function(){
         
         // Appends an entry row 
         addRow : function(model){
-			model.set( {"topY":String(this.nextY)} );
+			model.set( { "topY" : String(this.nextY) } );
+			if ( model.get( "date" ) == this.curDate )
+				model.set( { "date" : "" } );
+			else
+				this.curDate = model.get( "date" );
             var view = new EventEntryView( { model: model } );
             this.el.append( view.render().el );
 			this.nextY += 105;

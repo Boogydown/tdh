@@ -194,8 +194,8 @@ $(function(){
                 this.collection.each(this.addRow);
             }
 			if ( this.firstPass ) {
-				this.collection.refresh();
 				this.firstPass = false;
+				this.trigger( "firstPassDone" );
 			}
         },
         
@@ -227,6 +227,10 @@ $(function(){
         }
     });
 
+	var secondPassFetch = function() {
+		Bands.fetch();
+		Halls.fetch();
+	}
 /////////////////////////////////////////////////////////////////////////////
 /// INSTACIATION & EXECUTION ////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
@@ -237,6 +241,7 @@ $(function(){
 	
 	// create our main list view and attach the collection to it
 	var MainListView = new EventListView({collection:Events});
+	MainListView.bind( "firstPassDone", secondPassFetch );
 	
 	// when this inits, it should call Events.fetch(), which should in theory fetch all
 	//	of its data; each model is updated and then triggers a change event which is bound to 

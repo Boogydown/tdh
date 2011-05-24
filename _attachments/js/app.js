@@ -3,7 +3,7 @@ $(function(){
     // `ddocName` is the name of your couchapp project.
     Backbone.couchConnector.databaseName = "tdh";
     Backbone.couchConnector.ddocName = "tdh_public";
-    Backbone.couchConnector.viewName = "byType";
+    Backbone.couchConnector.viewName = "events";
     // If set to true, the connector will listen to the changes feed
     // and will provide your models with real time remote updates.
     Backbone.couchConnector.enableChanges = false;
@@ -13,32 +13,32 @@ $(function(){
 /////////////////////////////////////////////////////////////////////////////
 	// Band model
 	var BandModel = Backbone.Model.extend({
-		initialize : function() {
-			if (!this.get("name")) this.set({"name": "Generic Band"});
-			if (!this.get("picURL")) this.set({"picURL": "http://images.woome.com/sitemedia/img/picGenericProfile.png"});
-			if (!this.get("bio")) this.set({"bio": "They play musical instruments."});
+		defaults : {
+			"name" : "Generic Band",
+			"picURL" : "http://images.woome.com/sitemedia/img/picGenericProfile.png",
+			"bio" : "They play musical instruments."
 		}
 	});
 
 	// Vanue model
 	var VenueModel = Backbone.Model.extend({
-		initialize : function() {
-			if (!this.get("name")) this.set({"name": "Generic Hall"});
-			if (!this.get("picURL")) this.set({"picURL": "http://malhotrarealestate.com/assets/images/generic_house_photo03.jpg"});
-			if (!this.get("bio")) this.set({"bio": "Has four walls and a roof."});
+		defaults : {
+			"name" : "Generic Hall",
+			"picURL": "http://malhotrarealestate.com/assets/images/generic_house_photo03.jpg",
+			"bio": "Has four walls and a roof."
 		}
 	});
 
     // Event model
     var EventModel = Backbone.Model.extend({
-        initialize : function(){
-            if(!this.get("name")) this.set({"name": "Some generic event"});
-            if(!this.get("description")) this.set({"description": "Go here for fun!"});
-            if(!this.get("hall")) this.set({"hall": "Generic Hall"});
-            if(!this.get("hallPic")) this.set({"hallPic": "http://malhotrarealestate.com/assets/images/generic_house_photo03.jpg"});
-            if(!this.get("band")) this.set({"band": "Generic Band"});
-            if(!this.get("bandPic")) this.set({"bandPic": "http://images.woome.com/sitemedia/img/picGenericProfile.png"});
-			if(!this.get("date")) this.set({"date": new Date().getTime()});
+        defaults : function(){
+            "name": "Some generic event",
+            "description": "Go here for fun!",
+            "hall": "Generic Hall",
+            "hallPic": "http://malhotrarealestate.com/assets/images/generic_house_photo03.jpg",
+            "band": "Generic Band",
+            "bandPic": "http://images.woome.com/sitemedia/img/picGenericProfile.png",
+			"date": new Date().getTime()
         },
 		
 /*		toJSON : function() {

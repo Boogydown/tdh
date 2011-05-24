@@ -3,7 +3,7 @@ $(function(){
     // `ddocName` is the name of your couchapp project.
     Backbone.couchConnector.databaseName = "tdh";
     Backbone.couchConnector.ddocName = "tdh_public";
-    Backbone.couchConnector.viewName = "events";
+    Backbone.couchConnector.viewName = "byType";
     // If set to true, the connector will listen to the changes feed
     // and will provide your models with real time remote updates.
     Backbone.couchConnector.enableChanges = false;
@@ -18,10 +18,10 @@ $(function(){
 			"picURL" : "http://images.woome.com/sitemedia/img/picGenericProfile.png",
 			"bio" : "They play musical instruments."
 		},
-		url : function () { 
+/*		url : function () { 
 			return "https://dev.vyncup.t9productions.com:44384/tdh/" + this.id;
 		}
-	});
+*/	});
 
 	// Vanue model
 	var VenueModel = Backbone.Model.extend({
@@ -30,10 +30,10 @@ $(function(){
 			"images": [{"credit":"generic", "image":"http://malhotrarealestate.com/assets/images/generic_house_photo03.jpg"}],
 			"description": "Has four walls and a roof."
 		},
-		url : function () { 
+/*		url : function () { 
 			return "https://dev.vyncup.t9productions.com:44384/tdh/" + this.id;
 		}
-	});
+*/	});
 
     // Event model
     var EventModel = Backbone.Model.extend({
@@ -62,9 +62,9 @@ $(function(){
 			}*/
 			if ( this.get("hall") != "" ) {
 				var hallRef = new VenueModel( { id: this.get("hall") });
+				Halls.add( hallRef );
 				hallRef.bind( "change", this.setHallLink ); //TODO: facilitate more than one band
 				hallRef.fetch();
-				Halls.add( hallRef );
 			}
 		},
 		
@@ -124,7 +124,7 @@ $(function(){
 	});	
 	
 	var HallCollection = Backbone.Collection.extend({
-		url : "hall",
+		url : "dancehall",
 		model : VenueModel,
 		comparator : function(hall){
 			return hall.get("danceHallName");

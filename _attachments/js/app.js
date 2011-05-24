@@ -83,12 +83,11 @@ $(function(){
 			var myHall = Halls.get( hallID );
 			var hallPic = myHall.get("images")[0].image;
 			if ( hallPic )
-				hallPic = "../../" + hallID + "/thumbs/" + encodeURI( hallPic );
+				hallPic = "../../" + hallID + "/files/" + encodeURI( hallPic );
 				// TODO: check to see if this URL exists... ?  perhaps try <img src.... onerror=""/>
 			else 
 				this.get("hallPic");
 			this.set( {"hall": myHall.get("danceHallName"), "hallPic": hallPic } );
-			this.render();
 		},
 		
 /*		toJSON : function() {

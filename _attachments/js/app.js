@@ -67,7 +67,7 @@ $(function(){
 					coll.add( myRef );
 				}
 				myRef.bind( "change", callback ); //TODO: facilitate more than one band
-				myRef.fetch( { that:this } );
+				myRef.fetch( { targetEvent:this } );
 			}
 			/*
 			if ( this.get("band").length > 0 ) {
@@ -93,22 +93,22 @@ $(function(){
 		},
 		
 		setBandLink: function ( targetBand, options ) {
-			//this.unbind("change", this.setBandLink );
+			//options.targetEvent.unbind("change", this.setBandLink );
 			var bandID = targetBand.id;
 			var bandPic = targetBand.get("image");
 			if ( bandPic && bandPic.substr(0,4) != "http" )
 				bandPic = "../../" + bandID + "/thumbs/" + encodeURI( bandPic );
-			options.that.set( {"band": targetBand.get("bandName"), "bandPic": bandPic } );
+			options.targetEvent.set( {"band": targetBand.get("bandName"), "bandPic": bandPic } );
 		},
-		setHallLink: function () {
-			this.unbind("change", this.setHallLink );
-			var hallID = this.get( "hall" )[0];
-			var myHall = Halls.get( hallID );
-			var hallPic = myHall.get("images")[0].image;
+		
+		setHallLink: function ( targetHall, options ) {
+			//options.targetEvent.unbind("change", this.setHallLink );
+			var hallID = targetHall.id;
+			var hallPic = targetHall.get("images")[0].image;
 			if ( hallPic && hallPic.substr(0,4) != "http" )
 				hallPic = "../../" + hallID + "/thumbs/" + encodeURI( hallPic );
 				// TODO: check to see if this URL exists... ?  perhaps try <img src.... onerror=""/>
-			this.set( {"hall": myHall.get("danceHallName"), "hallPic": hallPic } );
+			options.targetEvent.set( {"hall": targetHall.get("danceHallName"), "hallPic": hallPic } );
 		},
 		
 /*		toJSON : function() {

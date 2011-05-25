@@ -50,7 +50,7 @@ $(function(){
 		
 		initialize: function () {
 			_.bindAll( this, "loadRefs", "setHallLink" /*, "setBandLink"*/ );
-			_.bind( this.setBandLink, this, this.get("band")[0] );
+			_.bind( this.setBandLink, this, this.get("band")[0], this );
 			this.bind ( "change", this.loadRefs );
 		},
 		
@@ -93,7 +93,7 @@ $(function(){
 			}*/
 		},
 		
-		setBandLink: function () {
+		setBandLink: function (bID, bt) {
 			this.unbind("change", this.setBandLink );
 			var bandID = this.get( "band" )[0];
 			var myBand = Bands.get( bandID );

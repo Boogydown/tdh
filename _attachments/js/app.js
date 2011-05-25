@@ -93,7 +93,7 @@ $(function(){
 		},
 		
 		setBandLink: function ( targetBand, options ) {
-			//options.targetEvent.unbind("change", this.setBandLink );
+			options.targetEvent.unbind("change", this.setBandLink );
 			var bandID = targetBand.id;
 			var bandPic = targetBand.get("image");
 			if ( bandPic && bandPic.substr(0,4) != "http" )
@@ -102,7 +102,7 @@ $(function(){
 		},
 		
 		setHallLink: function ( targetHall, options ) {
-			//options.targetEvent.unbind("change", this.setHallLink );
+			options.targetEvent.unbind("change", this.setHallLink );
 			var hallID = targetHall.id;
 			var hallPic = targetHall.get("images")[0].image;
 			if ( hallPic && hallPic.substr(0,4) != "http" )

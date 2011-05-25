@@ -49,8 +49,7 @@ $(function(){
         },
 		
 		initialize: function () {
-			_.bindAll( this, "loadRefs", "setHallLink" /*, "setBandLink"*/ );
-			_.bind( this.setBandLink, this, this.get("band")[0], this );
+			_.bindAll( this, "loadRefs", "setHallLink", "setBandLink" );
 			this.bind ( "change", this.loadRefs );
 		},
 		
@@ -68,7 +67,7 @@ $(function(){
 					coll.add( myRef );
 				}
 				myRef.bind( "change", callback ); //TODO: facilitate more than one band
-				//myRef.fetch();
+				myRef.fetch( { that:this } );
 			}
 			/*
 			if ( this.get("band").length > 0 ) {
@@ -93,14 +92,13 @@ $(function(){
 			}*/
 		},
 		
-		setBandLink: function (bID, bt, by, bx) {
-			this.unbind("change", this.setBandLink );
-			var bandID = this.get( "band" )[0];
-			var myBand = Bands.get( bandID );
-			var bandPic = myBand.get("image");
+		setBandLink: function ( targetBand, options ) {
+			//this.unbind("change", this.setBandLink );
+			var bandID = targetBand.id;
+			var bandPic = targetBand.get("image");
 			if ( bandPic && bandPic.substr(0,4) != "http" )
 				bandPic = "../../" + bandID + "/thumbs/" + encodeURI( bandPic );
-			this.set( {"band": myBand.get("bandName"), "bandPic": bandPic } );
+			options.that.set( {"band": targetBand.get("bandName"), "bandPic": bandPic } );
 		},
 		setHallLink: function () {
 			this.unbind("change", this.setHallLink );
@@ -261,8 +259,8 @@ $(function(){
     });
 
 	var secondPassFetch = function() {
-		Halls.update();
-		Bands.update();
+		//Halls.update();
+		//Bands.update();
 	}
 /////////////////////////////////////////////////////////////////////////////
 /// INSTACIATION & EXECUTION ////////////////////////////////////////////////

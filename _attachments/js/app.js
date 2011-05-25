@@ -93,7 +93,7 @@ $(function(){
 			}*/
 		},
 		
-		setBandLink: function (bID, bt) {
+		setBandLink: function (bID, bt, by, bx) {
 			this.unbind("change", this.setBandLink );
 			var bandID = this.get( "band" )[0];
 			var myBand = Bands.get( bandID );

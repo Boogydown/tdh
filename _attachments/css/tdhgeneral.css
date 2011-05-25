@@ -75,7 +75,7 @@ div.tabbutton:hover {
     left: 10px;
     position: absolute;
     top: 10px;
-    width: 335px;
+    width: 355px;
 }
 
 h2 {
@@ -108,7 +108,7 @@ h2 {
 .atvenue {
     color: #CCCCCC;
     font-size: 18px;
-    left: 82px;
+    left: 90px;
     position: absolute;
     text-align: center;
     top: 23px;
@@ -129,7 +129,7 @@ h2 {
     position: absolute;
     text-align: center;
     top: 60px;
-    width: 60px;
+    width: 90px;
     word-wrap: break-word;
 }
 

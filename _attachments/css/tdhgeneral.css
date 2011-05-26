@@ -126,7 +126,7 @@ h2 {
 
 #bandinfo {
     font-size: 10px;
-    left: 0px;
+    left: -15px;
     position: absolute;
     text-align: center;
     top: 60px;
@@ -136,7 +136,7 @@ h2 {
 
 #venueinfo {
     font-size: 10px;
-    left: 129px;
+    left: 120px;
     position: absolute;
     text-align: center;
     top: 60px;

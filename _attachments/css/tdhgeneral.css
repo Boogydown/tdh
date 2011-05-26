@@ -75,7 +75,7 @@ div.tabbutton:hover {
     left: 10px;
     position: absolute;
     top: 10px;
-    width: 355px;
+    width: 335px;
 }
 
 h2 {
@@ -91,7 +91,7 @@ h2 {
 }
 
 #details {
-    left: 10px;
+    left: 20px;
     position: absolute;
     top: 13px;
 }

@@ -2,20 +2,6 @@
 div {
 	color:#cccccc;
 }
-html {
-overflow-y: auto;
-background-color: transparent;
-}
-
-body   {
-position: absolute;
-top: 0;
-left: 0;
-bottom: 0;
-right: 10px;
-overflow-y: scroll;
-overflow-x: hidden;
-}
 
 
 
@@ -270,27 +256,3 @@ div .foldBug {
 }
 
 /**************Scrollbar***************/
-::-webkit-scrollbar {
-width: 10px;
-height: 10px;
-}
-::-webkit-scrollbar-button:start:decrement,
-::-webkit-scrollbar-button:end:increment  {
-height: 30px;
-display: block;
-background-color: transparent;
-}
-
-::-webkit-scrollbar-track-piece  {
-background-color: #3b3b3b;
--webkit-border-radius: 6px;
-}
-
-::-webkit-scrollbar-thumb:vertical {
-height: 50px;
-background-color: #666;
-border: 1px solid #eee;
--webkit-border-radius: 6px;
-}
-
-

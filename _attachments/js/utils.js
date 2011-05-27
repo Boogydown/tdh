@@ -34,14 +34,14 @@ function popupHandler( popDocID, popID, popWidth ) {
 	$('#fade').css({'filter' : 'alpha(opacity=80)'}).fadeIn(); //Fade in the fade layer - .css({'filter' : 'alpha(opacity=80)'}) is used to fix the IE Bug on fading transparencies 
 
 	return false;
-	
-	this.init = function () {
-		//Set up Close for Popup and Fade for all future instances
-		$('a.close, #fade').live('click', function() { //When clicked to close or fade layer...
-			$('#fade , .popup_block').fadeOut(function() {
-				$('#fade, a.close').remove();  //fade them both out
-			});
-			return false;
+}
+
+function popupInit () {
+	//Set up Close for Popup and Fade for all future instances
+	$('a.close, #fade').live('click', function() { //When clicked to close or fade layer...
+		$('#fade , .popup_block').fadeOut(function() {
+			$('#fade, a.close').remove();  //fade them both out
 		});
+		return false;
 	};
 }

@@ -254,11 +254,11 @@ $(function(){
     // The App controller initializes the app by calling `Comments.fetch()`
     var AppController = Backbone.Controller.extend({
         initialize : function(){
+			// kick off the initial fetch
             Events.fetch();
-				// init the Popup handler
-	PopupHandler();
-	
-
+			
+			// init the Popup handler to attach to the existing pics
+			popupHandler.init();
         }
     });
 

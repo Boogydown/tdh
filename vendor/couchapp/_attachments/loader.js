@@ -9,15 +9,10 @@ couchapp_load([
   "/_utils/script/json2.js",
   "/_utils/script/jquery.js",
   "/_utils/script/jquery.couch.js",
-  "js/smoothpopup.js",
   "js/lib/underscore.js",
   "js/lib/backbone.js",
   "js/lib/backbone-couchdb.js",
   "js/lib/dustjs/dist/dust-full-0.3.0.js",
-  "js/lib/inputex/lib/yui/yuiloader/yuiloader.js",
-  "js/lib/inputex/lib/yui/dom/dom.js",
-  "js/lib/inputex/lib/yui/event/event.js",
-  "js/lib/inputex/build/inputex.js",
-//   "js/schemaform.js",
   "js/app.js"
+  "js/utils.js",
 ]);

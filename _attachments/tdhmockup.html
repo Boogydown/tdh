@@ -29,14 +29,14 @@
 	<script type="application/dust-template" id="mockupEventEntry">
 	<div id="listing" style="top:{topY}px{?date}"><h2>{date}</h2><div id="details" >{:else};height:77px">
 		<div id="details" style="top:-10px">{/date}
-			<a href="#?w=630" rel="band_popup" class="slowpopup"><img class="bandphoto" src="{bandPic}" /></a><br/>
+			<a onclick="popupHandler( {bandID}, 'band_popup', 630 );" class="slowpopup"><img class="bandphoto" src="{bandPic}" /></a><br/>
 			<div id="bandinfo">{band}</div>
 			<div class="atvenue">@</div>
-			<a href="#?w=630" rel="hall_popup" class="slowpopup"><img class="venuephoto" src="{hallPic}" /></a><br/>
+			<a onclick="popupHandler( {hallID}, 'hall_popup', 630 );" class="slowpopup"><img class="venuephoto" src="{hallPic}" /></a><br/>
 			<div id="venueinfo">{hall}</div>
-			<img class="twostepphoto" src="http://www.menelaosprokos.com/dev/tdhapp/images/twostepphoto.jpg" />
+			<img class="twostepphoto" src="images/twostepphoto.jpg" />
 		</div>
-	</div>{~n}
+	</div>{~n}{~n}
 	</script>
 	<!-- TEMPLATES END -->
 

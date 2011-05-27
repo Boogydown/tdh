@@ -36,4 +36,4 @@ var PopupHandler = function() {
 		});
 		return false;
 	});
-});
+};

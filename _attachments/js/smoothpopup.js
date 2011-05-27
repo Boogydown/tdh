@@ -1,5 +1,6 @@
-var PopupHandler = function() {
+function PopupHandler () {
 	//When you click on a link with class slowpopup and href starts with # 
+	window.alert("Initializing Popup");
 	$('a.slowpopup[href^=#]').click(function() {
 		var popID = $(this).attr('rel'); //Get Popup Name
 		var popURL = $(this).attr('href'); //Get Popup href which defines its size

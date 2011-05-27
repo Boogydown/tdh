@@ -45,5 +45,3 @@ function popupHandler( popDocID, popID, popWidth ) {
 		});
 	};
 }
-
-};

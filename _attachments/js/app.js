@@ -1,7 +1,4 @@
 $(function(){
-	// init the Popup handler
-	PopupHandler();
-	
     // Fill this with your database information.
     // `ddocName` is the name of your couchapp project.
     Backbone.couchConnector.databaseName = "tdh";
@@ -258,6 +255,10 @@ $(function(){
     var AppController = Backbone.Controller.extend({
         initialize : function(){
             Events.fetch();
+				// init the Popup handler
+	PopupHandler();
+	
+
         }
     });
 

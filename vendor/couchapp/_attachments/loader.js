@@ -9,6 +9,7 @@ couchapp_load([
   "/_utils/script/json2.js",
   "/_utils/script/jquery.js",
   "/_utils/script/jquery.couch.js",
+  "js/smoothpopup.js",
   "js/lib/underscore.js",
   "js/lib/backbone.js",
   "js/lib/backbone-couchdb.js",

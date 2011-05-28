@@ -102,7 +102,7 @@ $(function(){
 					myRef = new coll.model( { id: myID });
 					coll.add( myRef );
 					myRef.bind( "change", callback );
-					myRef.fetch( { "targetEventID":eventID } );
+					myRef.fetch();
 					console.log( "fetch " + myRef.id + " for " + this.id );
 				} else {
 					myRef.bind( "change", callback );
@@ -138,7 +138,7 @@ $(function(){
 		setBandLink: function ( targetBand, options ) {
 			//options.targetEvent.unbind("change", this.setBandLink );
 			targetBand.fetched = true;
-			targetEvent = Events.get( options.targetEventID );
+			targetEvent = this;
 			var bandID = targetBand.id;
 			console.log( "callback " + bandID + ", " + targetEvent.id + " (" + this.id + ")" );
 			var bandPic = targetBand.get("image");
@@ -150,7 +150,7 @@ $(function(){
 		setHallLink: function ( targetHall, options ) {
 			//options.targetEvent.unbind("change", this.setHallLink );
 			targetHall.fetched = true;
-			targetEvent = Events.get( options.targetEventID );
+			targetEvent = this;
 			var hallID = targetHall.id;
 			console.log( "callback " + hallID + ", " + targetEvent.id + " (" + this.id + ")" );
 			var hallPic = targetHall.get("images")[0].image;

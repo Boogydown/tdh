@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>VyncUp schema_form v0.0.3</title>
+    <link rel="stylesheet" href="style/main.css" type="text/css">
+    <link rel="stylesheet" type="text/css" href="js/lib/inputex/css/inputEx.css" />
+  </head>
+  <body>
+    <label for="model_edit">Add/Edit:</label>
+    <form id="model_edit">
+    </form>
+    
+    <label for="model_table">Table:</label>
+    <table id="model_table">
+    </table>
+
+  </body>
+  <script type="application/dust-template" id="table-header">
+    <tr>
+        {#fields}<th>{.}</th>{/fields}
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+  </script>
+  <script type="application/dust-template" id="table-row">
+    <tr>
+        {#fields}<td>{.}</td>{/fields}
+        <td class="edit">?</td>
+        <td class="delete">X</td>
+    </tr>
+  </script>
+  <script type="text/javascript" src="vendor/couchapp/loader.js"></script>
+</html>

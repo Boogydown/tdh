@@ -78,9 +78,8 @@ $(function(){
 		},
 		
 		loadRefs: function () {
-			var that = this.model;
-			console.log( "changed: " + that.id );
-			this.unbind( "change", that.loadRefs );
+			console.log( "changed: " + this.id );
+			this.unbind( "change", this.loadRefs );
 			this.loadRef( "band", Bands, this.setBandLink );
 			this.loadRef( "hall", Halls, this.setHallLink );
 		},

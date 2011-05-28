@@ -78,6 +78,7 @@ $(function(){
 		},
 		
 		loadRefs: function () {
+			this.unbind( "change", this.loadRefs );
 			this.loadRef( "band", Bands, this.setBandLink );
 			this.loadRef( "hall", Halls, this.setHallLink );
 		},

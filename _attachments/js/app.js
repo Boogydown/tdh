@@ -103,7 +103,7 @@ $(function(){
 					myRef.fetch( { targetEvent:this } );
 				} else {
 					myRef.bind( "change", callback );
-					if ( myRef.hasChanged() )
+					if ( myRef.fetched !== undefined )
 						callback( myRef, { targetEvent:this});
 				}
 				
@@ -133,6 +133,7 @@ $(function(){
 		
 		setBandLink: function ( targetBand, options ) {
 			//options.targetEvent.unbind("change", this.setBandLink );
+			targetBand.fetched = true;
 			var bandID = targetBand.id;
 			var bandPic = targetBand.get("image");
 			if ( bandPic && bandPic.substr(0,4) != "http" )
@@ -142,6 +143,7 @@ $(function(){
 		
 		setHallLink: function ( targetHall, options ) {
 			//options.targetEvent.unbind("change", this.setHallLink );
+			targetHall.fetched = true;
 			var hallID = targetHall.id;
 			var hallPic = targetHall.get("images")[0].image;
 			if ( hallPic && hallPic.substr(0,4) != "http" )

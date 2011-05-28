@@ -20,8 +20,8 @@ $(function(){
 		},
 /*		url : function () { 
 			return "https://dev.vyncup.t9productions.com:44384/tdh/" + this.id;
-		}
-*/	});
+		},*/
+	});
 
 	// Venue model
 	var VenueModel = Backbone.Model.extend({
@@ -29,34 +29,10 @@ $(function(){
 			"danceHallName" : "Generic Hall",
 			"images": [{"credit":"generic", "image":"http://malhotrarealestate.com/assets/images/generic_house_photo03.jpg"}],
 			"description": "Has four walls and a roof."
-		},
-
-		listeners : [],
-		
-		initialize : function () {
-			//_.bindAll( this, "updateListeners" );
-			//this.bind( "change", this.updateListeners );
-		},
-		
+		},	
 /*		url : function () { 
 			return "https://dev.vyncup.t9productions.com:44384/tdh/" + this.id;
 		},*/
-		
-/*		fetch : function ( options ){
-			if ( options.requestor !== undefined )
-				this.listeners.push( options.requestor );
-			Backbone.Model.prototype.fetch( options );
-		},*/
-		
-		updateListeners : function () {
-			if ( this.listeners.length > 0 ) {
-				for ( var i in this.listeners ) {
-					this.listeners[i].updateVenue( this );
-					delete this.listeners[i];
-				}
-			}
-		}
-		
 	});
 
     // Event model
@@ -79,18 +55,11 @@ $(function(){
 		
 		loadRefs: function () {
 			console.log( "changed: " + this.id );
+			// TODO: remove this unbind and just add a condition to skip this if .collection.fetching 
+			//	(which is set to true at fetch, and false at refresh)
 			this.unbind( "change", this.loadRefs );
 			this.loadRef( "band", Bands, this.setBandLink );
 			this.loadRef( "hall", Halls, this.setHallLink );
-		},
-		
-		updateVenue : function ( venueModel ) {
-			var hallID = venueModel.id;
-			var hallPic = venueModel.get("images")[0].image;
-			if ( hallPic && hallPic.substr(0,4) != "http" )
-				hallPic = "../../" + hallID + "/thumbs/" + encodeURI( hallPic );
-				// TODO: check to see if this URL exists... ?  perhaps try <img src.... onerror=""/>
-			this.set( {"hall": targetHall.get("danceHallName"), "hallPic": hallPic } );
 		},
 		
 		loadRef: function( type, coll, callback ) {
@@ -107,32 +76,11 @@ $(function(){
 				} else {
 					myRef.bind( "change", callback );
 					console.log( "pull " + myRef.id + " for " + this.id );
+					// if already fetched then just pull the data
 					if ( myRef.fetched !== undefined )
 						callback( myRef, { "targetEventID":eventID });
-				}
-				
+				}	
 			}
-			/*
-			if ( this.get("band").length > 0 ) {
-				var bandID = this.get("band")[0];
-				var bandRef = Bands.get( bandID );
-				if ( ! bandRef ){
-					bandRef = new BandModel( { id: bandID });
-					Bands.add( bandRef );
-				}
-				bandRef.bind( "change", this.setBandLink ); //TODO: facilitate more than one band
-				//bandRef.fetch();
-			}
-			if ( this.get("hall").length > 0 ) {
-				var hallID = this.get("hall")[0];
-				var hallRef = Halls.get( hallID );
-				if ( ! hallRef ){
-					hallRef = new VenueModel( { id: hallID });
-					Halls.add( hallRef );
-				}
-				hallRef.bind( "change", this.setHallLink ); //TODO: facilitate more than one band
-				//hallRef.fetch();
-			}*/
 		},
 		
 		setBandLink: function ( targetBand, options ) {
@@ -143,6 +91,8 @@ $(function(){
 			var bandPic = targetBand.get("image");
 			if ( bandPic && bandPic.substr(0,4) != "http" )
 				bandPic = "../../" + bandID + "/thumbs/" + encodeURI( bandPic );
+			else
+				bandPic = targetBand.defaults.image;
 			this.set( {"band": targetBand.get("bandName"), "bandPic": bandPic } );
 		},
 		
@@ -151,12 +101,12 @@ $(function(){
 			targetHall.fetched = true;
 			var hallID = targetHall.id;
 			console.log( "callback " + hallID + ", " + this.id );
-			var hallPic = targetHall.get("images");
-			if ( hallPic.length > 0 ) 
+			var hallPic = targetHall.get("images")[0];
+			if ( hallPic )
 				hallPic = hallPic[0].image;
 			else 
-				hallPic = false;
-			if ( hallPic && hallPic.substr(0,4) != "http" )
+				hallPic = targetHall.defaults.images[0].image;
+			if ( hallPic.substr(0,4) != "http" )
 				hallPic = "../../" + hallID + "/thumbs/" + encodeURI( hallPic );
 				// TODO: check to see if this URL exists... ?  perhaps try <img src.... onerror=""/>
 			this.set( {"hall": targetHall.get("danceHallName"), "hallPic": hallPic } );

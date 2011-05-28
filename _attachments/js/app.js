@@ -41,11 +41,11 @@ $(function(){
 				type: "POST",
 				succes: this.setFromGoogleImage
 			});
-		}
+		},
 		
 		setFromGoogleImage : function( results ) {
 			console.log( results );
-		}
+		},
 	});
 
 	// Venue model

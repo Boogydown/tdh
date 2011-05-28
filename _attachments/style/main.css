@@ -85,3 +85,7 @@ td.delete:hover{
 	opacity: .9;
 	cursor: pointer;
 }
+
+td {
+    border: 1px solid #AAAAAA;
+}

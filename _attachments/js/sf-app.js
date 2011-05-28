@@ -23,13 +23,9 @@ $(function(){
             name: "Some generic event",
             description: "Go here for fun!",
             hall: "dancehall0",
-			hallName: "Generic Hall",
-            hallPic: "images/genericHall.JPG",
-            band: "band0",
-            bandName: "Generic Band",
-            bandPic: "images/genericSilhouette.jpg",
+            band: ["band0"],
 			date: new Date().getTime(),
-			topY: 10
+			type: "event"
 		}
 	});
 
@@ -397,7 +393,7 @@ $(function(){
             },
             "band":{
                 "description": "Band ID",
-                "type":"string",
+                "type":"array",
                 "required":true
             },
             "date":{
@@ -412,8 +408,8 @@ $(function(){
             },
             "hall":{
                 "description": "Dancehall ID",
-                "type":"string",
-                "optional":true
+                "type":"array",
+                "required":true
             }
 		}
 	};

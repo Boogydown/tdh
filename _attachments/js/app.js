@@ -102,10 +102,10 @@ $(function(){
 					coll.add( myRef );
 					myRef.bind( "change", callback );
 					myRef.fetch( { targetEvent:this } );
-					console.log( "fetch " + this.id );
+					console.log( "fetch " + myRef.id + " for " + this.id );
 				} else {
 					myRef.bind( "change", callback );
-					console.log( "pull " + this.id );
+					console.log( "pull " + myRef.id + " for " + this.id );
 					if ( myRef.fetched !== undefined )
 						callback( myRef, { targetEvent:this});
 				}
@@ -138,7 +138,7 @@ $(function(){
 			//options.targetEvent.unbind("change", this.setBandLink );
 			targetBand.fetched = true;
 			var bandID = targetBand.id;
-			console.log( "callback " + bandID + ", " + options.targetEvent.id );
+			console.log( "callback " + bandID + ", " + options.targetEvent.id + " (" + this.id + ")");
 			var bandPic = targetBand.get("image");
 			if ( bandPic && bandPic.substr(0,4) != "http" )
 				bandPic = "../../" + bandID + "/thumbs/" + encodeURI( bandPic );
@@ -149,7 +149,7 @@ $(function(){
 			//options.targetEvent.unbind("change", this.setHallLink );
 			targetHall.fetched = true;
 			var hallID = targetHall.id;
-			console.log( "callback " + hallID + ", " + options.targetEvent.id );
+			console.log( "callback " + hallID + ", " + options.targetEvent.id + " (" + this.id + ")");
 			var hallPic = targetHall.get("images")[0].image;
 			if ( hallPic && hallPic.substr(0,4) != "http" )
 				hallPic = "../../" + hallID + "/thumbs/" + encodeURI( hallPic );

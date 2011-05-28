@@ -12,7 +12,7 @@ $(function(){
 /// MODEL DECLARATION ///////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////{
 	// An entity that has events associated to it
-	var EventsContainerModel = Backbone.Mode.extend({
+	var EventsContainerModel = Backbone.Model.extend({
 		myType : "",
 		
 		loadEvents : function ( eventsCollection ) {

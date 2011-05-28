@@ -73,12 +73,14 @@ $(function(){
         },
 		
 		initialize: function () {
-			_.bindAll( this, "loadRefs" );//, "setBandLink", "setHallLink" );
+			//_.bindAll( this, "loadRefs" );//, "setBandLink", "setHallLink" );
 			this.bind ( "change", this.loadRefs );
 		},
 		
 		loadRefs: function () {
-			this.unbind( "change", this.loadRefs );
+			var that = this.model;
+			console.log( "changed: " + that.id );
+			this.unbind( "change", that.loadRefs );
 			this.loadRef( "band", Bands, this.setBandLink );
 			this.loadRef( "hall", Halls, this.setHallLink );
 		},

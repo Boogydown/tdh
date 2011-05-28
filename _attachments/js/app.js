@@ -34,6 +34,18 @@ $(function(){
 		
 		initialize : function () { this.myType = "band"; },
 		//url : function () { return "https://dev.vyncup.t9productions.com:44384/tdh/" + this.id; },
+		
+		getGoogleImage : function () {
+			$.ajax( "https://ajax.googleapis.com/ajax/services/search/images?v=1.0&q=" + encodeURL( this.get("bandName") ), {
+				dataType: "json",
+				type: "POST",
+				succes: this.setFromGoogleImage
+			});
+		}
+		
+		setFromGoogleImage : function( results ) {
+			console.log( results );
+		}
 	});
 
 	// Venue model
@@ -107,7 +119,10 @@ $(function(){
 			if ( bandPic && bandPic != targetBand.defaults.image )
 				bandPic = "../../" + bandID + "/thumbs/" + encodeURI( bandPic );
 			else
+			{
 				bandPic = targetBand.defaults.image;
+				targetBand.getGoogleImage();
+			}
 			targetBand.set( { mainPic: bandPic.replace( "\/thumbs\/", "\/files\/" ) }, { silent: true } );
 			this.set( {"bandName": targetBand.get("bandName"), "bandPic": bandPic } );
 		},

@@ -26,16 +26,15 @@
 		
 	<!-- TEMPLATES START -->
 	<script type="application/dust-template" id="mainEventEntryTemplate">
-		<div id="listing" style="top:{topY}px{?date}"><h2>{date}</h2><div id="details" >{:else};height:77px">
-			<div id="details" style="top:-10px">{/date}
-				<a onclick="window.utils.popupHandler( '{band}', 'band', 630 );" class="slowpopup"><img class="bandphoto" src="{bandPic}" /></a><br/>
-				<div id="bandinfo">{bandName}</div>
-				<div class="atvenue">@</div>
-				<a onclick="window.utils.popupHandler( '{hall}', 'hall', 630 );" class="slowpopup"><img class="venuephoto" src="{hallPic}" /></a><br/>
-				<div id="venueinfo">{hallName}</div>
-				<img class="twostepphoto" src="images/twostepphoto.jpg" />
-			</div>
-		</div>{~n}{~n}
+	<div id="listing" style="top:{topY}px{?date}"><h2>{date}</h2><div id="details" >{:else};height:77px">
+		<div id="details" style="top:-10px">{/date}
+			<a onclick="window.utils.popupHandler( {band}, 'band_popup', 630 );" class="slowpopup"><img class="bandphoto" src="{bandPic}" /></a><br/>
+			<div id="bandinfo">{bandName}</div>
+			<div class="atvenue">@</div>
+			<a onclick="window.utils.popupHandler( {hall}, 'hall_popup', 630 );" class="slowpopup"><img class="venuephoto" src="{hallPic}" /></a><br/>
+			<div id="venueinfo">{hallName}</div>
+			<img class="twostepphoto" src="images/twostepphoto.jpg" />
+	</div>{~n}{~n}
 	</script>
 	
 	<script type="application/dust-template" id="hallPopupTemplate">
@@ -101,7 +100,7 @@
 		</div>
 
 	<!-- Popups (hidden) -->
-		<div id="popup_block"></div>
+		<div id="popup_block" class="popup_block"></div>
 
 <!--		
 		<div id="band_popup" class="popup_block">

@@ -197,7 +197,7 @@ window.main = function(){
         initialize : function(){
             _.bindAll(this, 'render', "addToDanceCard");
             this.model.bind('change', this.render);
-            this.registerTemplate("mainEventEntryTemplate");
+            this.registerTemplate('mainEventEntryTemplate');
         },
         
         // Adds this event to the danceCard collection

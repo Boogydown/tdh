@@ -73,7 +73,7 @@ $(function(){
         },
 		
 		initialize: function () {
-			_.bindAll( this, "loadRefs", "setBandLink", "setHallLink" );
+			_.bindAll( this, "loadRefs" );//, "setBandLink", "setHallLink" );
 			this.bind ( "change", this.loadRefs );
 		},
 		

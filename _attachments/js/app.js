@@ -30,10 +30,34 @@ $(function(){
 			"images": [{"credit":"generic", "image":"http://malhotrarealestate.com/assets/images/generic_house_photo03.jpg"}],
 			"description": "Has four walls and a roof."
 		},
+
+		listeners : [],
+		
+		initialize : function () {
+			_.bindAll( this, "updateListeners" );
+			this.bind( "change", this.updateListeners );
+		},
+		
 /*		url : function () { 
 			return "https://dev.vyncup.t9productions.com:44384/tdh/" + this.id;
+		},*/
+		
+		fetch : function ( options ){
+			if ( options.requestor !== undefined )
+				this.listeners.push( options.requestor );
+			Backbone.Model.prototype.fetch( options );
+		},
+		
+		updateListeners : function () {
+			if ( this.listeners.length > 0 ) {
+				for ( var i in this.listeners ) {
+					this.listeners[i].updateVenue( this );
+					delete this.listeners[i];
+				}
+			}
 		}
-*/	});
+		
+	});
 
     // Event model
     var EventModel = Backbone.Model.extend({
@@ -58,6 +82,15 @@ $(function(){
 			this.loadRef( "hall", Halls, this.setHallLink );
 		},
 		
+		updateVenue : function ( venueModel ) {
+			var hallID = venueModel.id;
+			var hallPic = venueModel.get("images")[0].image;
+			if ( hallPic && hallPic.substr(0,4) != "http" )
+				hallPic = "../../" + hallID + "/thumbs/" + encodeURI( hallPic );
+				// TODO: check to see if this URL exists... ?  perhaps try <img src.... onerror=""/>
+			this.set( {"hall": targetHall.get("danceHallName"), "hallPic": hallPic } );
+		},
+		
 		loadRef: function( type, coll, callback ) {
 			if ( this.get( type ).length > 0 ) {
 				var myID = this.get( type )[0];
@@ -66,8 +99,8 @@ $(function(){
 					myRef = new coll.model( { id: myID });
 					coll.add( myRef );
 				}
-				myRef.bind( "change", callback ); //TODO: facilitate more than one band
-				myRef.fetch( { targetEvent:this } );
+				//myRef.bind( "change", callback ); //BUG: these callbacks and their this's seem to get skewed when queueing in the bind list?
+				myRef.fetch( { requestor:this } );
 			}
 			/*
 			if ( this.get("band").length > 0 ) {

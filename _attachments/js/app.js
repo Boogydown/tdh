@@ -73,7 +73,7 @@ $(function(){
         },
 		
 		initialize: function () {
-			_.bindAll( this, /*"loadRefs",*/ "setBandLink", "setHallLink" );
+			_.bindAll( this, "loadRefs", "setBandLink", "setHallLink" );
 			this.bind ( "change", this.loadRefs );
 		},
 		
@@ -138,26 +138,26 @@ $(function(){
 		setBandLink: function ( targetBand, options ) {
 			//options.targetEvent.unbind("change", this.setBandLink );
 			targetBand.fetched = true;
-			targetEvent = this;
 			var bandID = targetBand.id;
 			console.log( "callback " + bandID + ", " + targetEvent.id + " (" + this.id + ")" );
 			var bandPic = targetBand.get("image");
 			if ( bandPic && bandPic.substr(0,4) != "http" )
 				bandPic = "../../" + bandID + "/thumbs/" + encodeURI( bandPic );
-			targetEvent.set( {"band": targetBand.get("bandName"), "bandPic": bandPic } );
+			this.set( {"band": targetBand.get("bandName"), "bandPic": bandPic } );
 		},
 		
 		setHallLink: function ( targetHall, options ) {
 			//options.targetEvent.unbind("change", this.setHallLink );
 			targetHall.fetched = true;
-			targetEvent = this;
 			var hallID = targetHall.id;
 			console.log( "callback " + hallID + ", " + targetEvent.id + " (" + this.id + ")" );
-			var hallPic = targetHall.get("images")[0].image;
+			var hallPic = targetHall.get("images");
+			if ( hallPic.length > 0 ) 
+				hallPic = hallPic[0].image;
 			if ( hallPic && hallPic.substr(0,4) != "http" )
 				hallPic = "../../" + hallID + "/thumbs/" + encodeURI( hallPic );
 				// TODO: check to see if this URL exists... ?  perhaps try <img src.... onerror=""/>
-			targetEvent.set( {"hall": targetHall.get("danceHallName"), "hallPic": hallPic } );
+			this.set( {"hall": targetHall.get("danceHallName"), "hallPic": hallPic } );
 		},
 		
 /*		toJSON : function() {

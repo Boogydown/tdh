@@ -243,6 +243,7 @@ $(function(){
 	//var PopupView = DustView.extend({
 	
 	var BandView = DustView.extend({
+		el : $("#popup_block"), 
         initialize : function(){
             _.bindAll(this, 'render');
             this.model.bind('change', this.render);

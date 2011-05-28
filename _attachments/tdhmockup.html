@@ -43,7 +43,7 @@
 			<b>{danceHallName}</b>{?dateBuilt}, {dateBuilt}{/dateBuild}<br/>
 			{description}<br/>
 			{address}<br/>
-			{website}
+			<a href="{website}">{website}</a>
 		</div><br/>
 		<div class="popupbox">
 				<div id="popuplisting">
@@ -63,8 +63,8 @@
 		<div class="detailphoto"><img src="{mainPic}"/></div>
 		<div class="detailtext">
 			<b>{bandName}</b>
-			{stylesPlayed}<br/>
-			{website}
+			{#stylesPlayed}., {/stylesPlayed}<br/>
+			<a href="{website}">{website}</a>
 		</div><br/>
 		<div class="popupbox">
 				<div id="popuplisting">

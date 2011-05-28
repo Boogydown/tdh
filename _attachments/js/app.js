@@ -1,5 +1,5 @@
 // Run main when page is loaded
-$(window.main);
+$(window.main());
 window.main = function(){
     // Fill this with your database information.
     // `ddocName` is the name of your couchapp project.

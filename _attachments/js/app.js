@@ -154,6 +154,8 @@ $(function(){
 			var hallPic = targetHall.get("images");
 			if ( hallPic.length > 0 ) 
 				hallPic = hallPic[0].image;
+			else 
+				hallPic = false;
 			if ( hallPic && hallPic.substr(0,4) != "http" )
 				hallPic = "../../" + hallID + "/thumbs/" + encodeURI( hallPic );
 				// TODO: check to see if this URL exists... ?  perhaps try <img src.... onerror=""/>

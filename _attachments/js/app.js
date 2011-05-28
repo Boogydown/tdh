@@ -139,7 +139,7 @@ $(function(){
 			//options.targetEvent.unbind("change", this.setBandLink );
 			targetBand.fetched = true;
 			var bandID = targetBand.id;
-			console.log( "callback " + bandID + ", " + targetEvent.id + " (" + this.id + ")" );
+			console.log( "callback " + bandID + ", " + this.id );
 			var bandPic = targetBand.get("image");
 			if ( bandPic && bandPic.substr(0,4) != "http" )
 				bandPic = "../../" + bandID + "/thumbs/" + encodeURI( bandPic );
@@ -150,7 +150,7 @@ $(function(){
 			//options.targetEvent.unbind("change", this.setHallLink );
 			targetHall.fetched = true;
 			var hallID = targetHall.id;
-			console.log( "callback " + hallID + ", " + targetEvent.id + " (" + this.id + ")" );
+			console.log( "callback " + hallID + ", " + this.id );
 			var hallPic = targetHall.get("images");
 			if ( hallPic.length > 0 ) 
 				hallPic = hallPic[0].image;

@@ -89,7 +89,7 @@ $(function(){
 			var bandID = targetBand.id;
 			console.log( "callback " + bandID + ", " + this.id );
 			var bandPic = targetBand.get("image");
-			if ( bandPic && bandPic.substr(0,4) != "http" )
+			if ( bandPic && bandPic != targetBand.defaults.image )
 				bandPic = "../../" + bandID + "/thumbs/" + encodeURI( bandPic );
 			else
 				bandPic = targetBand.defaults.image;
@@ -106,7 +106,7 @@ $(function(){
 				hallPic = hallPic.image;
 			else 
 				hallPic = targetHall.defaults.images[0].image;
-			if ( hallPic.substr(0,4) != "http" )
+			if ( hallPic != targetHall.defaults.images[0].image )
 				hallPic = "../../" + hallID + "/thumbs/" + encodeURI( hallPic );
 				// TODO: check to see if this URL exists... ?  perhaps try <img src.... onerror=""/>
 			this.set( {"hall": targetHall.get("danceHallName"), "hallPic": hallPic } );

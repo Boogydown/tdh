@@ -135,6 +135,7 @@ $(function(){
 			//options.targetEvent.unbind("change", this.setBandLink );
 			targetBand.fetched = true;
 			var bandID = targetBand.id;
+			console.log( "band callback " + bandID );
 			var bandPic = targetBand.get("image");
 			if ( bandPic && bandPic.substr(0,4) != "http" )
 				bandPic = "../../" + bandID + "/thumbs/" + encodeURI( bandPic );
@@ -145,6 +146,7 @@ $(function(){
 			//options.targetEvent.unbind("change", this.setHallLink );
 			targetHall.fetched = true;
 			var hallID = targetHall.id;
+			console.log( "hall callback " + hallID );
 			var hallPic = targetHall.get("images")[0].image;
 			if ( hallPic && hallPic.substr(0,4) != "http" )
 				hallPic = "../../" + hallID + "/thumbs/" + encodeURI( hallPic );

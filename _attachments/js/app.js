@@ -242,7 +242,7 @@ $(function(){
 	
 	//var PopupView = DustView.extend({
 	
-	var BandView = DustView.extend({
+	BandView = DustView.extend({
 		el : $("#popup_block"), 
         initialize : function(){
             _.bindAll(this, 'render');
@@ -252,7 +252,7 @@ $(function(){
         },	
 	});
 
-	var HallView = DustView.extend({
+	HallView = DustView.extend({
 		el : $("#popup_block"), 
         initialize : function(){
             _.bindAll(this, 'render');
@@ -270,6 +270,9 @@ $(function(){
         initialize : function(){
 			// kick off the initial fetch
             Events.fetch();
+
+			// init the Popup handler to attach to the existing pics
+			window.utils.popupInit( this );
         }
     });
 
@@ -277,9 +280,9 @@ $(function(){
 /// INSTACIATION & EXECUTION ////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////{
 	// create our collection of event models
-	var Events = new EventCollection();
-	var Bands = new BandCollection();
-	var Halls = new HallCollection();
+	Events = new EventCollection();
+	Bands = new BandCollection();
+	Halls = new HallCollection();
 	
 	// create our main list view and attach the collection to it
 	var mainListView = new EventListView({collection:Events});
@@ -292,8 +295,6 @@ $(function(){
 	// FIXME: this implies, then, that each Model is rendered twice...!?
 	var App = new AppController();
 
-	// init the Popup handler to attach to the existing pics
-	window.utils.popupInit( this );
 });
 /////////////////////////////////////////////////////////////////////////////}
 

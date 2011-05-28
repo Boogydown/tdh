@@ -124,7 +124,7 @@ $(function(){
 			if ( hallPic != targetHall.defaults.images[0].image )
 				hallPic = "../../" + hallID + "/thumbs/" + encodeURI( hallPic );
 				// TODO: check to see if this URL exists... ?  perhaps try <img src.... onerror=""/>
-			targetHall.set( { mainPic: hallic.replace( "\/thumbs\/", "\/files\/" ) }, { silent: true } );
+			targetHall.set( { mainPic: hallPic.replace( "\/thumbs\/", "\/files\/" ) }, { silent: true } );
 			this.set( {"hallName": targetHall.get("danceHallName"), "hallPic": hallPic } );
 		},
     });

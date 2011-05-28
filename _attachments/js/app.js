@@ -101,8 +101,10 @@ $(function(){
 					coll.add( myRef );
 					myRef.bind( "change", callback );
 					myRef.fetch( { targetEvent:this } );
+					console.log( "fetch " + targetEvent.id );
 				} else {
 					myRef.bind( "change", callback );
+					console.log( "pull " + targetEvent.id );
 					if ( myRef.fetched !== undefined )
 						callback( myRef, { targetEvent:this});
 				}

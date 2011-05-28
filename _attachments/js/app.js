@@ -108,6 +108,7 @@ $(function(){
 				bandPic = "../../" + bandID + "/thumbs/" + encodeURI( bandPic );
 			else
 				bandPic = targetBand.defaults.image;
+			targetBand.set( { mainPic: bandPic }, { silent: true } );
 			this.set( {"bandName": targetBand.get("bandName"), "bandPic": bandPic } );
 		},
 		
@@ -123,6 +124,7 @@ $(function(){
 			if ( hallPic != targetHall.defaults.images[0].image )
 				hallPic = "../../" + hallID + "/thumbs/" + encodeURI( hallPic );
 				// TODO: check to see if this URL exists... ?  perhaps try <img src.... onerror=""/>
+			targetHall.set( { mainPic: hallPic }, { silent: true } );
 			this.set( {"hallName": targetHall.get("danceHallName"), "hallPic": hallPic } );
 		},
     });

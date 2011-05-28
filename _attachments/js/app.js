@@ -1,4 +1,4 @@
-$(function(){
+window.mainApp = function(){
     // Fill this with your database information.
     // `ddocName` is the name of your couchapp project.
     Backbone.couchConnector.databaseName = "tdh";
@@ -281,5 +281,7 @@ $(function(){
 	//	then kicks off the collection's render.
 	// FIXME: this implies, then, that each Model is rendered twice...!?
 	var App = new AppController();
-});
+};
 /////////////////////////////////////////////////////////////////////////////}
+
+$(window.mainApp());

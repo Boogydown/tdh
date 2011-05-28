@@ -1,6 +1,5 @@
 // Useful get-var parser by Josh Fraser
-function $_GET(q,s) 
-{
+var $_GET = function (q,s) {
 	s = (s) ? s : window.location.search;
 	var re = new RegExp('&'+q+'=([^&]*)','i');
 	return (s=s.replace(/^\?/,'&').match(re)) ? s=s[1] : s='';
@@ -12,7 +11,7 @@ function $_GET(q,s)
  * @param popID - id of the div of the popup we want
  * @param popWidth - width of the popup
  **/
-function popupHandler( popDocID, popID, popWidth ) {
+var this.popupHandler = function ( popDocID, popID, popWidth ) {
 	// TODO: populate popup with popDocID's data
 	
 	
@@ -36,7 +35,7 @@ function popupHandler( popDocID, popID, popWidth ) {
 	return false;
 }
 
-function popupInit () {
+var this.popupInit = function() {
 	//Set up Close for Popup and Fade for all future instances
 	$('a.close, #fade').live('click', function() { //When clicked to close or fade layer...
 		$('#fade , .popup_block').fadeOut(function() {

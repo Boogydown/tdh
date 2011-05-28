@@ -39,7 +39,12 @@
 	
 	<script type="application/dust-template" id="hallPopupTemplate">
 		<div class="detailphoto"><img src="{mainPic}"/></div>
-		<div class="detailtext">{description}</div>
+		<div class="detailtext">
+			<b>{danceHallName}</b>{?dateBuilt}, {dateBuilt}{/dateBuild}<br/>
+			{description}<br/>
+			{address}<br/>
+			{website}
+		</div><br/>
 		<div class="popupbox">
 				<div id="popuplisting">
 					<h2>Thursday, April 7th</h2>
@@ -52,6 +57,28 @@
 				</div>
 		</div>
 		<div class="detailmap"></div>	
+	</script>
+	
+	<script type="application/dust-template" id="bandPopupTemplate">
+		<div class="detailphoto"><img src="{mainPic}"/></div>
+		<div class="detailtext">
+			<b>{bandName}</b>
+			{stylesPlayed}<br/>
+			{website}
+		</div><br/>
+		<div class="popupbox">
+				<div id="popuplisting">
+					<h2>Thursday, April 7th</h2>
+					<div id="details">
+						<div id="popupbandinfo">I am a great band</div>
+						<div class="atvenue">9pm<br/>@</div>
+						<div id="popupvenueinfo">I am a great venue</div>
+						<img class="twostepphoto" src="images/twostepphoto.jpg" />
+					</div>
+				</div>
+		</div>
+		<div class="detailmap"></div>
+
 	</script>
 	<!-- TEMPLATES END -->
 
@@ -99,29 +126,9 @@
 			<div id="foldText">SEE&nbsp;ALL<br/>&nbsp;BANDS</div>
 		</div>
 
-	<!-- Popups (hidden) -->
+	<!-- Popup (hidden) -->
 		<div id="popup_block" class="popup_block"></div>
 
-<!--		
-		<div id="band_popup" class="popup_block">
-			<div class="detailphoto"><img src="images/bandphoto.jpg"/></div>
-			<div class="detailtext">
-			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque tincidunt neque mauris, non sagittis urna. Integer dictum rhoncus pretium. Suspendisse rhoncus sollicitudin odio et pretium. Maecenas tristique eros sit amet sem viv
-			</div>
-			<div class="popupbox">
-					<div id="popuplisting">
-						<h2>Thursday, April 7th</h2>
-						<div id="details">
-							<div id="popupbandinfo">I am a great band</div>
-							<div class="atvenue">9pm<br/>@</div>
-							<div id="popupvenueinfo">I am a great venue</div>
-							<img class="twostepphoto" src="images/twostepphoto.jpg" />
-						</div>
-					</div>
-			</div>
-			<div class="detailmap"></div>
-		</div>
--->
 <!--=========== END MAIN APP ===========-->
 
 <!--=========== START ORIGINAL HTML ===========-->	  

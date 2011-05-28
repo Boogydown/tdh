@@ -103,7 +103,7 @@ $(function(){
 			console.log( "callback " + hallID + ", " + this.id );
 			var hallPic = targetHall.get("images")[0];
 			if ( hallPic )
-				hallPic = hallPic[0].image;
+				hallPic = hallPic.image;
 			else 
 				hallPic = targetHall.defaults.images[0].image;
 			if ( hallPic.substr(0,4) != "http" )

@@ -173,7 +173,10 @@ $(function(){
 
             for (key in fields)
             {
-                this.el.appendChild( this.make( 'td', {}, this.model.get(key) ) );
+				var val = this.model.get(key);
+				if ( val instanceof Array )
+					val = val[0];
+                this.el.appendChild( this.make( 'td', {}, val ) );
             }
             this.el.appendChild( this.make( 'td', {className: 'edit'}, "?" ) );
             this.el.appendChild( this.make( 'td', {className: 'delete'}, "X" ) );

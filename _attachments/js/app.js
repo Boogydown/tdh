@@ -34,19 +34,19 @@ $(function(){
 		listeners : [],
 		
 		initialize : function () {
-			_.bindAll( this, "updateListeners" );
-			this.bind( "change", this.updateListeners );
+			//_.bindAll( this, "updateListeners" );
+			//this.bind( "change", this.updateListeners );
 		},
 		
 /*		url : function () { 
 			return "https://dev.vyncup.t9productions.com:44384/tdh/" + this.id;
 		},*/
 		
-		fetch : function ( options ){
+/*		fetch : function ( options ){
 			if ( options.requestor !== undefined )
 				this.listeners.push( options.requestor );
 			Backbone.Model.prototype.fetch( options );
-		},
+		},*/
 		
 		updateListeners : function () {
 			if ( this.listeners.length > 0 ) {
@@ -98,9 +98,13 @@ $(function(){
 				if ( ! myRef ){
 					myRef = new coll.model( { id: myID });
 					coll.add( myRef );
+					myRef.bind( "change", callback );
+					myRef.fetch( { targetEvent:this } );
+				} else {
+					myRef.bind( "change", callback );
+					updateFunc( myRef );
 				}
-				//myRef.bind( "change", callback ); //BUG: these callbacks and their this's seem to get skewed when queueing in the bind list?
-				myRef.fetch( { requestor:this } );
+				
 			}
 			/*
 			if ( this.get("band").length > 0 ) {

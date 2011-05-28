@@ -125,7 +125,7 @@ $(function(){
             this.collection.bind("refresh", this.render);
             this.collection.bind("add", this.addRow);
             this.collection.bind("remove", this.deleted);
-			this.fetch();
+			this.collection.fetch();
         },
 
         render: function(){

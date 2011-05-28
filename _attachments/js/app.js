@@ -1,4 +1,4 @@
-window.main = function(){
+$(function(){
     // Fill this with your database information.
     // `ddocName` is the name of your couchapp project.
     Backbone.couchConnector.databaseName = "tdh";
@@ -270,9 +270,6 @@ window.main = function(){
         initialize : function(){
 			// kick off the initial fetch
             Events.fetch();
-			
-			// init the Popup handler to attach to the existing pics
-			window.utils.popupInit();
         }
     });
 
@@ -294,8 +291,9 @@ window.main = function(){
 	//	then kicks off the collection's render.
 	// FIXME: this implies, then, that each Model is rendered twice...!?
 	var App = new AppController();
-};
+
+	// init the Popup handler to attach to the existing pics
+	window.utils.popupInit( this );
+});
 /////////////////////////////////////////////////////////////////////////////}
 
-// run main first thing
-$(window.main);

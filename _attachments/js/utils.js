@@ -1,6 +1,8 @@
 // Useful get-var parser by Josh Fraser
 
 window.utils = {
+	mainContext : null,
+	
 	$_GET : function (q,s) {
 		s = (s) ? s : window.location.search;
 		var re = new RegExp('&'+q+'=([^&]*)','i');
@@ -18,10 +20,10 @@ window.utils = {
 		var myPopupView;
 		switch ( popType ) {
 			case "band" : 
-				myPopupView = new window.main.BandView( { model: window.main.Bands.get( popDocID ) } );
+				myPopupView = new mainContext.BandView( { model: mainContext.Bands.get( popDocID ) } );
 				break;
 			case "hall" :
-				myPopupView = new window.main.HallView( { model: window.main.Halls.get( popDocID ) } );
+				myPopupView = new mainContext.HallView( { model: mainContext.Halls.get( popDocID ) } );
 				break;
 		};
 		
@@ -47,7 +49,8 @@ window.utils = {
 		return false;
 	},
 
-	popupInit : function() {
+	popupInit : function( mainContext ) {
+		this.mainContext = mainContext;
 		//Set up Close for Popup and Fade for all future instances
 		$('a.close, #fade').live('click', function() { //When clicked to close or fade layer...
 			$('#fade , .popup_block').fadeOut(function() {

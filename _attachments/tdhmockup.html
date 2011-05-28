@@ -25,7 +25,7 @@
 	<script type="text/javascript" src="vendor/couchapp/loader.js"></script>
 		
 	<!-- TEMPLATES START -->
-	<script type="application/dust-template" id="mainEventEntryTemplate">
+	<script type="application/dust-template" id="mockupEventEntry">
 	<div id="listing" style="top:{topY}px{?date}"><h2>{date}</h2><div id="details" >{:else};height:77px">
 		<div id="details" style="top:-10px">{/date}
 			<a onclick="window.utils.popupHandler( {band}, 'band_popup', 630 );" class="slowpopup"><img class="bandphoto" src="{bandPic}" /></a><br/>
@@ -34,24 +34,8 @@
 			<a onclick="window.utils.popupHandler( {hall}, 'hall_popup', 630 );" class="slowpopup"><img class="venuephoto" src="{hallPic}" /></a><br/>
 			<div id="venueinfo">{hallName}</div>
 			<img class="twostepphoto" src="images/twostepphoto.jpg" />
-	</div>{~n}{~n}
-	</script>
-	
-	<script type="application/dust-template" id="hallPopupTemplate">
-		<div class="detailphoto"><img src="{hallPic}"/></div>
-		<div class="detailtext">{description}</div>
-		<div class="popupbox">
-				<div id="popuplisting">
-					<h2>Thursday, April 7th</h2>
-					<div id="details">
-						<div id="popupbandinfo">I am a great band</div>
-						<div class="atvenue">9pm<br/>@</div>
-						<div id="popupvenueinfo">I am a great venue</div>
-						<img class="twostepphoto" src="images/twostepphoto.jpg" />
-					</div>
-				</div>
 		</div>
-		<div class="detailmap"></div>	
+	</div>{~n}{~n}
 	</script>
 	<!-- TEMPLATES END -->
 
@@ -100,9 +84,25 @@
 		</div>
 
 	<!-- Popups (hidden) -->
-		<div id="popup_block" class="popup_block"></div>
+		<div id="hall_popup" class="popup_block">
+			<div class="detailphoto"><img src="images/venuephoto.jpg"/></div>
+			<div class="detailtext">
+			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque tincidunt neque mauris, non sagittis urna. Integer dictum rhoncus pretium. Suspendisse rhoncus sollicitudin odio et pretium. Maecenas tristique eros sit amet sem viv
+			</div>
+			<div class="popupbox">
+					<div id="popuplisting">
+						<h2>Thursday, April 7th</h2>
+						<div id="details">
+							<div id="popupbandinfo">I am a great band</div>
+							<div class="atvenue">9pm<br/>@</div>
+							<div id="popupvenueinfo">I am a great venue</div>
+							<img class="twostepphoto" src="images/twostepphoto.jpg" />
+						</div>
+					</div>
+			</div>
+			<div class="detailmap"></div>
+		</div>
 
-<!--		
 		<div id="band_popup" class="popup_block">
 			<div class="detailphoto"><img src="images/bandphoto.jpg"/></div>
 			<div class="detailtext">
@@ -121,7 +121,6 @@
 			</div>
 			<div class="detailmap"></div>
 		</div>
--->
 <!--=========== END MAIN APP ===========-->
 
 <!--=========== START ORIGINAL HTML ===========-->	  

@@ -97,17 +97,18 @@ $(function(){
 			if ( this.get( type ).length > 0 ) {
 				var myID = this.get( type )[0];
 				var myRef = coll.get( myID );
+				var eventID = this.id;
 				if ( ! myRef ){
 					myRef = new coll.model( { id: myID });
 					coll.add( myRef );
 					myRef.bind( "change", callback );
-					myRef.fetch( { targetEventID:this.id } );
+					myRef.fetch( { "targetEventID":eventID } );
 					console.log( "fetch " + myRef.id + " for " + this.id );
 				} else {
 					myRef.bind( "change", callback );
 					console.log( "pull " + myRef.id + " for " + this.id );
 					if ( myRef.fetched !== undefined )
-						callback( myRef, { targetEventID:this.id });
+						callback( myRef, { "targetEventID":eventID });
 				}
 				
 			}

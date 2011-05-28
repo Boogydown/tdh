@@ -103,7 +103,8 @@ $(function(){
 					myRef.fetch( { targetEvent:this } );
 				} else {
 					myRef.bind( "change", callback );
-					callback( myRef, { targetEvent:this});
+					if ( myRef.hasChanged() )
+						callback( myRef, { targetEvent:this});
 				}
 				
 			}

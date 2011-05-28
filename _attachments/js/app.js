@@ -73,7 +73,7 @@ $(function(){
         },
 		
 		initialize: function () {
-			//_.bindAll( this, "loadRefs" );//, "setBandLink", "setHallLink" );
+			_.bindAll( this, /*"loadRefs",*/ "setBandLink", "setHallLink" );
 			this.bind ( "change", this.loadRefs );
 		},
 		
@@ -140,7 +140,7 @@ $(function(){
 			targetBand.fetched = true;
 			targetEvent = Events.get( options.targetEventID );
 			var bandID = targetBand.id;
-			console.log( "callback " + bandID + ", " + targetEvent.id );
+			console.log( "callback " + bandID + ", " + targetEvent.id + " (" + this.id + ")" );
 			var bandPic = targetBand.get("image");
 			if ( bandPic && bandPic.substr(0,4) != "http" )
 				bandPic = "../../" + bandID + "/thumbs/" + encodeURI( bandPic );
@@ -152,7 +152,7 @@ $(function(){
 			targetHall.fetched = true;
 			targetEvent = Events.get( options.targetEventID );
 			var hallID = targetHall.id;
-			console.log( "callback " + hallID + ", " + targetEvent.id );
+			console.log( "callback " + hallID + ", " + targetEvent.id + " (" + this.id + ")" );
 			var hallPic = targetHall.get("images")[0].image;
 			if ( hallPic && hallPic.substr(0,4) != "http" )
 				hallPic = "../../" + hallID + "/thumbs/" + encodeURI( hallPic );

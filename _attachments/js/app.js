@@ -37,8 +37,6 @@ $(function(){
 		
 		getGoogleImage : function () {
 			$.ajax( "https://ajax.googleapis.com/ajax/services/search/images?v=1.0&q=" + encodeURI( this.get("bandName") ), {
-				dataType: "json",
-				type: "POST",
 				succes: this.setFromGoogleImage
 			});
 		},

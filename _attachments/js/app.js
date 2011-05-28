@@ -10,29 +10,42 @@ $(function(){
 
 /////////////////////////////////////////////////////////////////////////////
 /// MODEL DECLARATION ///////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////
-	// Band model
-	var BandModel = Backbone.Model.extend({
-		defaults : {
-			"bandName" : "Generic Band",
-			"image" : "images/genericSilhouette.jpg",
-			"bio" : "They play musical instruments."
+/////////////////////////////////////////////////////////////////////////////{
+	// An entity that has events associated to it
+	var EventsContainerModel = Backbone.Mode.extend({
+		myType : "",
+		
+		loadEvents : function ( eventsCollection ) {
+			this.set( {events: new EventCollection( _.select( eventsCollection.models, function ( eventModel ) {
+				return eventModel.get( this.myType ) == this.id;
+			} ) ) } );
 		},
-/*		url : function () { 
-			return "https://dev.vyncup.t9productions.com:44384/tdh/" + this.id;
-		},*/
+	});
+
+	// Band model
+	var BandModel = EventsContainerModel.extend({
+		defaults : {
+			bandName: "Generic Band",
+			image: "images/genericSilhouette.jpg",
+			bio: "They play musical instruments.",
+			events: null
+		},
+		
+		initialize : function () { this.myType = "band"; },
+		//url : function () { return "https://dev.vyncup.t9productions.com:44384/tdh/" + this.id; },
 	});
 
 	// Venue model
 	var VenueModel = Backbone.Model.extend({
 		defaults : {
-			"danceHallName" : "Generic Hall",
-			"images": [{"credit":"generic", "image":"images/genericHall.JPG"}],
-			"description": "Has four walls and a roof."
+			danceHallName: "Generic Hall",
+			images: [{"credit":"generic", "image":"images/genericHall.JPG"}],
+			description: "Has four walls and a roof.",
+			events: null
 		},	
-/*		url : function () { 
-			return "https://dev.vyncup.t9productions.com:44384/tdh/" + this.id;
-		},*/
+
+		initialize : function () { this.myType = "hall"; },
+		//url : function () { return "https://dev.vyncup.t9productions.com:44384/tdh/" + this.id; }
 	});
 
     // Event model
@@ -40,9 +53,11 @@ $(function(){
         defaults : {
             "name": "Some generic event",
             "description": "Go here for fun!",
-            "hall": "Generic Hall",
+            "hall": "dancehall0",
+			"hallName": "Generic Hall",
             "hallPic": "http://malhotrarealestate.com/assets/images/generic_house_photo03.jpg",
-            "band": "Generic Band",
+            "band": "band0",
+            "bandName": "Generic Band",
             "bandPic": "http://images.woome.com/sitemedia/img/picGenericProfile.png",
 			"date": new Date().getTime(),
 			"topY": 10
@@ -89,7 +104,7 @@ $(function(){
 				bandPic = "../../" + bandID + "/thumbs/" + encodeURI( bandPic );
 			else
 				bandPic = targetBand.defaults.image;
-			this.set( {"band": targetBand.get("bandName"), "bandPic": bandPic } );
+			this.set( {"bandName": targetBand.get("bandName"), "bandPic": bandPic } );
 		},
 		
 		setHallLink: function ( targetHall, options ) {
@@ -104,19 +119,13 @@ $(function(){
 			if ( hallPic != targetHall.defaults.images[0].image )
 				hallPic = "../../" + hallID + "/thumbs/" + encodeURI( hallPic );
 				// TODO: check to see if this URL exists... ?  perhaps try <img src.... onerror=""/>
-			this.set( {"hall": targetHall.get("danceHallName"), "hallPic": hallPic } );
+			this.set( {"hallName": targetHall.get("danceHallName"), "hallPic": hallPic } );
 		},
     });
 	
-/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////}
 /// COLLECTIONS DECLARATION /////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////
-	var UpdateableCollection = Backbone.Collection.extend({
-		update : function () {
-			this.each( function (model) { model.fetch() } );
-		}
-	});
-	
+/////////////////////////////////////////////////////////////////////////////{
     // Now let's define a new Collection of Events
     var EventCollection = Backbone.Collection.extend({
         // The couchdb-connector is capable of mapping the url scheme
@@ -126,11 +135,11 @@ $(function(){
         model : EventModel,
         // The events should be ordered by date
         comparator : function(event){
-            return event.get("date");
+            return new Date( event.get("date") ).getTime();
         }
     });
 	
-	var BandCollection = UpdateableCollection.extend({
+	var BandCollection = Backbone.Collection.extend({
 		url : "band",
 		model : BandModel,
 		comparator : function(band){
@@ -138,7 +147,7 @@ $(function(){
 		}
 	});	
 	
-	var HallCollection = UpdateableCollection.extend({
+	var HallCollection = Backbone.Collection.extend({
 		url : "dancehall",
 		model : VenueModel,
 		comparator : function(hall){
@@ -146,9 +155,9 @@ $(function(){
 		}
 	});
 
-/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////}
 /// VIEWS DECLARATION ///////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////{
 	// This is the base class for any View using a dust template
     var DustView = Backbone.View.extend({		
         registerTemplate : function(name) {
@@ -184,7 +193,7 @@ $(function(){
         initialize : function(){
             _.bindAll(this, 'render', "addToDanceCard");
             this.model.bind('change', this.render);
-            this.registerTemplate('mockupEventEntry'); // is the "this" valid for this func?  or does it need to be included in the _bindAll ?
+            this.registerTemplate('mockupEventEntry');
         },
         
         // Adds this event to the danceCard collection
@@ -198,23 +207,15 @@ $(function(){
         el: $("#list"),
 		nextY: 10,
 		curDate: null,
-		firstPass: true,
         initialize : function(){
             _.bindAll(this, 'render', 'addRow');
-			
             this.collection.bind("refresh", this.render);
             this.collection.bind("add", this.addRow);
             this.collection.bind("remove", this.deleted);
         },
 
         render: function(){
-            if(this.collection.length > 0){
-                this.collection.each(this.addRow);
-            }
-			if ( this.firstPass ) {
-				this.firstPass = false;
-				this.trigger( "firstPassDone" );
-			}
+            if(this.collection.length > 0) this.collection.each(this.addRow);
         },
         
         // Appends an entry row 
@@ -234,10 +235,23 @@ $(function(){
             this.el.append( view.render().el );
         }
     });
+	
+	var BandView = DustView.extend({
+        // If there's a change in our model, rerender it
+        initialize : function(){
+            _.bindAll(this, 'render', "addToDanceCard");
+            this.model.bind('change', this.render);
+            this.registerTemplate('band_popup'); 
+			//this.bandEventsView = new EventListView( { 
+					
+        },
+		
+		
+	});
     
-/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////}
 /// URL CONTROLLER //////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////{
     // The App controller initializes the app by calling `Comments.fetch()`
     var AppController = Backbone.Controller.extend({
         initialize : function(){
@@ -249,21 +263,16 @@ $(function(){
         }
     });
 
-	var secondPassFetch = function() {
-		//Halls.update();
-		//Bands.update();
-	}
-/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////}
 /// INSTACIATION & EXECUTION ////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////{
 	// create our collection of event models
 	var Events = new EventCollection();
 	var Bands = new BandCollection();
 	var Halls = new HallCollection();
 	
 	// create our main list view and attach the collection to it
-	var MainListView = new EventListView({collection:Events});
-	MainListView.bind( "firstPassDone", secondPassFetch );
+	var mainListView = new EventListView({collection:Events});
 	
 	// when this inits, it should call Events.fetch(), which should in theory fetch all
 	//	of its data; each model is updated and then triggers a change event which is bound to 
@@ -273,3 +282,4 @@ $(function(){
 	// FIXME: this implies, then, that each Model is rendered twice...!?
 	var App = new AppController();
 });
+/////////////////////////////////////////////////////////////////////////////}

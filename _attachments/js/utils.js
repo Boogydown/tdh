@@ -20,10 +20,10 @@ window.utils = {
 		var myPopupView;
 		switch ( popType ) {
 			case "band" : 
-				myPopupView = new mainContext.BandView( { model: mainContext.Bands.get( popDocID ) } );
+				myPopupView = new this.mainContext.BandView( { model: this.mainContext.Bands.get( popDocID ) } );
 				break;
 			case "hall" :
-				myPopupView = new mainContext.HallView( { model: mainContext.Halls.get( popDocID ) } );
+				myPopupView = new this.mainContext.HallView( { model: this.mainContext.Halls.get( popDocID ) } );
 				break;
 		};
 		

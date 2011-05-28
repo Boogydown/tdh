@@ -30,14 +30,15 @@ window.utils = {
 		myPopupView.render();
 		
 		//Fade Popup in and add close button
-		$('#popup_block').fadeIn().css({ 'width': Number( popWidth ) }).prepend('<a href="#" class="close"><img src="images/button-x.png" width="21" border="0" class="close_popup" title="Close Window" alt="Close" /></a>');
+		var myPopupDiv = $('#popup_block');
+		myPopupDiv.fadeIn().css({ 'width': Number( popWidth ) }).prepend('<a href="#" class="close"><img src="images/button-x.png" width="21" border="0" class="close_popup" title="Close Window" alt="Close" /></a>');
 
 		//Margin defines center alignment (vertical and horizontal) - add 80px to the height/width for the padding  and border width as defined in the css
-		var popMargTop = ($('#' + popID).height() + 80) / 2;
-		var popMargLeft = ($('#' + popID).width() + 80) / 2;
+		var popMargTop = (myPopupDiv.height() + 80) / 2;
+		var popMargLeft = (myPopupDiv.width() + 80) / 2;
 
 		//Margin for Popup
-		$('#' + popID).css({
+		myPopupDiv.css({
 			'margin-top' : -popMargTop,
 			'margin-left' : -popMargLeft
 		});

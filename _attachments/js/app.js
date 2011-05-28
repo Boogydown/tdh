@@ -101,13 +101,13 @@ $(function(){
 					myRef = new coll.model( { id: myID });
 					coll.add( myRef );
 					myRef.bind( "change", callback );
-					myRef.fetch( { targetEvent:this } );
+					myRef.fetch( { targetEventID:this.id } );
 					console.log( "fetch " + myRef.id + " for " + this.id );
 				} else {
 					myRef.bind( "change", callback );
 					console.log( "pull " + myRef.id + " for " + this.id );
 					if ( myRef.fetched !== undefined )
-						callback( myRef, { targetEvent:this});
+						callback( myRef, { targetEventID:this.id });
 				}
 				
 			}
@@ -137,24 +137,26 @@ $(function(){
 		setBandLink: function ( targetBand, options ) {
 			//options.targetEvent.unbind("change", this.setBandLink );
 			targetBand.fetched = true;
+			targetEvent = Events.get( options.targetEventID );
 			var bandID = targetBand.id;
-			console.log( "callback " + bandID + ", " + options.targetEvent.id + " (" + this.id + ")");
+			console.log( "callback " + bandID + ", " + targetEvent.id );
 			var bandPic = targetBand.get("image");
 			if ( bandPic && bandPic.substr(0,4) != "http" )
 				bandPic = "../../" + bandID + "/thumbs/" + encodeURI( bandPic );
-			options.targetEvent.set( {"band": targetBand.get("bandName"), "bandPic": bandPic } );
+			targetEvent.set( {"band": targetBand.get("bandName"), "bandPic": bandPic } );
 		},
 		
 		setHallLink: function ( targetHall, options ) {
 			//options.targetEvent.unbind("change", this.setHallLink );
 			targetHall.fetched = true;
+			targetEvent = Events.get( options.targetEventID );
 			var hallID = targetHall.id;
-			console.log( "callback " + hallID + ", " + options.targetEvent.id + " (" + this.id + ")");
+			console.log( "callback " + hallID + ", " + targetEvent.id );
 			var hallPic = targetHall.get("images")[0].image;
 			if ( hallPic && hallPic.substr(0,4) != "http" )
 				hallPic = "../../" + hallID + "/thumbs/" + encodeURI( hallPic );
 				// TODO: check to see if this URL exists... ?  perhaps try <img src.... onerror=""/>
-			options.targetEvent.set( {"hall": targetHall.get("danceHallName"), "hallPic": hallPic } );
+			targetEvent.set( {"hall": targetHall.get("danceHallName"), "hallPic": hallPic } );
 		},
 		
 /*		toJSON : function() {

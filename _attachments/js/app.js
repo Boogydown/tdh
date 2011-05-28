@@ -73,7 +73,7 @@ $(function(){
         },
 		
 		initialize: function () {
-			_.bindAll( this, "loadRefs" );
+			_.bindAll( this, "loadRefs", "setBandLink", "setHallLink" );
 			this.bind ( "change", this.loadRefs );
 		},
 		
@@ -102,7 +102,7 @@ $(function(){
 					myRef.fetch( { targetEvent:this } );
 				} else {
 					myRef.bind( "change", callback );
-					updateFunc( myRef );
+					callback( myRef, { targetEvent:this});
 				}
 				
 			}

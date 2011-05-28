@@ -23,7 +23,7 @@ $(function(){
 		}
 */	});
 
-	// Vanue model
+	// Venue model
 	var VenueModel = Backbone.Model.extend({
 		defaults : {
 			"danceHallName" : "Generic Hall",

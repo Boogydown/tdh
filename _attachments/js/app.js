@@ -15,7 +15,7 @@ $(function(){
 	var BandModel = Backbone.Model.extend({
 		defaults : {
 			"bandName" : "Generic Band",
-			"image" : "http://images.woome.com/sitemedia/img/picGenericProfile.png",
+			"image" : "images/genericSilhouette.jpg",
 			"bio" : "They play musical instruments."
 		},
 /*		url : function () { 
@@ -27,7 +27,7 @@ $(function(){
 	var VenueModel = Backbone.Model.extend({
 		defaults : {
 			"danceHallName" : "Generic Hall",
-			"images": [{"credit":"generic", "image":"http://malhotrarealestate.com/assets/images/generic_house_photo03.jpg"}],
+			"images": [{"credit":"generic", "image":"images/genericHall.JPG"}],
 			"description": "Has four walls and a roof."
 		},	
 /*		url : function () { 

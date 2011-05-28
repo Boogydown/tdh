@@ -258,7 +258,7 @@ $(function(){
             Events.fetch();
 			
 			// init the Popup handler to attach to the existing pics
-			popupInit();
+			window.utils.popupInit();
         }
     });
 

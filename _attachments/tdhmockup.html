@@ -23,16 +23,15 @@
 	<link href="css/tdhgeneral.css" rel="stylesheet" type="text/css">
 	<link href="css/smoothpopup.css" rel="stylesheet" type="text/css">
 	<script type="text/javascript" src="vendor/couchapp/loader.js"></script>
-	<script type="text/javascript" src="scripts/smoothpopup.js"></script>
 		
 	<!-- TEMPLATES START -->
 	<script type="application/dust-template" id="mockupEventEntry">
 	<div id="listing" style="top:{topY}px{?date}"><h2>{date}</h2><div id="details" >{:else};height:77px">
 		<div id="details" style="top:-10px">{/date}
-			<a onclick="popupHandler( 'event11', 'band_popup', 630 );" class="slowpopup"><img class="bandphoto" src="{bandPic}" /></a><br/>
+			<a onclick="window.utils.popupHandler( 'event11', 'band_popup', 630 );" class="slowpopup"><img class="bandphoto" src="{bandPic}" /></a><br/>
 			<div id="bandinfo">{band}</div>
 			<div class="atvenue">@</div>
-			<a onclick="popupHandler( 'hall11', 'hall_popup', 630 );" class="slowpopup"><img class="venuephoto" src="{hallPic}" /></a><br/>
+			<a onclick="window.utils.popupHandler( 'hall11', 'hall_popup', 630 );" class="slowpopup"><img class="venuephoto" src="{hallPic}" /></a><br/>
 			<div id="venueinfo">{hall}</div>
 			<img class="twostepphoto" src="images/twostepphoto.jpg" />
 		</div>

@@ -54,7 +54,6 @@ $(function(){
 		},
 		
 		loadRefs: function () {
-			console.log( "changed: " + this.id );
 			// TODO: remove this unbind and just add a condition to skip this if .collection.fetching 
 			//	(which is set to true at fetch, and false at refresh)
 			this.unbind( "change", this.loadRefs );
@@ -72,10 +71,8 @@ $(function(){
 					coll.add( myRef );
 					myRef.bind( "change", callback );
 					myRef.fetch();
-					console.log( "fetch " + myRef.id + " for " + this.id );
 				} else {
 					myRef.bind( "change", callback );
-					console.log( "pull " + myRef.id + " for " + this.id );
 					// if already fetched then just pull the data
 					if ( myRef.fetched !== undefined )
 						callback( myRef, { "targetEventID":eventID });
@@ -87,7 +84,6 @@ $(function(){
 			//options.targetEvent.unbind("change", this.setBandLink );
 			targetBand.fetched = true;
 			var bandID = targetBand.id;
-			console.log( "callback " + bandID + ", " + this.id );
 			var bandPic = targetBand.get("image");
 			if ( bandPic && bandPic != targetBand.defaults.image )
 				bandPic = "../../" + bandID + "/thumbs/" + encodeURI( bandPic );
@@ -100,7 +96,6 @@ $(function(){
 			//options.targetEvent.unbind("change", this.setHallLink );
 			targetHall.fetched = true;
 			var hallID = targetHall.id;
-			console.log( "callback " + hallID + ", " + this.id );
 			var hallPic = targetHall.get("images")[0];
 			if ( hallPic )
 				hallPic = hallPic.image;
@@ -111,15 +106,6 @@ $(function(){
 				// TODO: check to see if this URL exists... ?  perhaps try <img src.... onerror=""/>
 			this.set( {"hall": targetHall.get("danceHallName"), "hallPic": hallPic } );
 		},
-		
-/*		toJSON : function() {
-			//TODO: override to JSON to extract band and hall info
-			if ( this.get("hall") ) 
-			{
-				
-				this.set({"hall":
-			}
-		}*/
     });
 	
 /////////////////////////////////////////////////////////////////////////////

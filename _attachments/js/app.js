@@ -1,4 +1,6 @@
-$(function(){
+// Run main when page is loaded
+$(window.main);
+window.main = function(){
     // Fill this with your database information.
     // `ddocName` is the name of your couchapp project.
     Backbone.couchConnector.databaseName = "tdh";
@@ -15,6 +17,7 @@ $(function(){
 	var EventsContainerModel = Backbone.Model.extend({
 		myType : "",
 		
+		// load all events that have a band or hall (myType) of this id
 		loadEvents : function ( eventsCollection ) {
 			this.set( {events: new EventCollection( _.select( eventsCollection.models, function ( eventModel ) {
 				return eventModel.get( this.myType ) == this.id;
@@ -36,7 +39,7 @@ $(function(){
 	});
 
 	// Venue model
-	var VenueModel = Backbone.Model.extend({
+	var VenueModel = EventsContainerModel.extend({
 		defaults : {
 			danceHallName: "Generic Hall",
 			images: [{"credit":"generic", "image":"images/genericHall.JPG"}],
@@ -51,16 +54,16 @@ $(function(){
     // Event model
     var EventModel = Backbone.Model.extend({
         defaults : {
-            "name": "Some generic event",
-            "description": "Go here for fun!",
-            "hall": "dancehall0",
-			"hallName": "Generic Hall",
-            "hallPic": "http://malhotrarealestate.com/assets/images/generic_house_photo03.jpg",
-            "band": "band0",
-            "bandName": "Generic Band",
-            "bandPic": "http://images.woome.com/sitemedia/img/picGenericProfile.png",
-			"date": new Date().getTime(),
-			"topY": 10
+            name: "Some generic event",
+            description: "Go here for fun!",
+            hall: "dancehall0",
+			hallName: "Generic Hall",
+            hallPic: "images/genericHall.JPG",
+            band: "band0",
+            bandName: "Generic Band",
+            bandPic: "images/genericSilhouette.jpg",
+			date: new Date().getTime(),
+			topY: 10
         },
 		
 		initialize: function () {
@@ -69,7 +72,7 @@ $(function(){
 		},
 		
 		loadRefs: function () {
-			// TODO: remove this unbind and just add a condition to skip this if .collection.fetching 
+			// TODO: remove this unbind and just add a condition to skip this if (this.collection.fetching)
 			//	(which is set to true at fetch, and false at refresh)
 			this.unbind( "change", this.loadRefs );
 			this.loadRef( "band", Bands, this.setBandLink );
@@ -81,11 +84,13 @@ $(function(){
 				var myID = this.get( type )[0];
 				var myRef = coll.get( myID );
 				var eventID = this.id;
+				// if no band/hall created, yet, then make it
 				if ( ! myRef ){
 					myRef = new coll.model( { id: myID });
 					coll.add( myRef );
 					myRef.bind( "change", callback );
 					myRef.fetch();
+				// otherwise, load the old one
 				} else {
 					myRef.bind( "change", callback );
 					// if already fetched then just pull the data
@@ -95,6 +100,7 @@ $(function(){
 			}
 		},
 		
+		//TODO: consider making these methods belong to the actual Model for proper encapsulation
 		setBandLink: function ( targetBand, options ) {
 			//options.targetEvent.unbind("change", this.setBandLink );
 			targetBand.fetched = true;
@@ -193,7 +199,7 @@ $(function(){
         initialize : function(){
             _.bindAll(this, 'render', "addToDanceCard");
             this.model.bind('change', this.render);
-            this.registerTemplate('mockupEventEntry');
+            this.registerTemplate("mainEventEntryTemplate");
         },
         
         // Adds this event to the danceCard collection
@@ -236,17 +242,25 @@ $(function(){
         }
     });
 	
+	//var PopupView = DustView.extend({
+	
 	var BandView = DustView.extend({
-        // If there's a change in our model, rerender it
         initialize : function(){
-            _.bindAll(this, 'render', "addToDanceCard");
+            _.bindAll(this, 'render');
             this.model.bind('change', this.render);
-            this.registerTemplate('band_popup'); 
+            this.registerTemplate( "bandPopupTemplate" ); 
 			//this.bandEventsView = new EventListView( { 
-					
-        },
-		
-		
+        },	
+	});
+
+	var HallView = DustView.extend({
+		el : $("#popup_block"), 
+        initialize : function(){
+            _.bindAll(this, 'render');
+            this.model.bind('change', this.render);
+            this.registerTemplate( "hallPopupTemplate" ); 
+			//this.bandEventsView = new EventListView( { 
+        },	
 	});
     
 /////////////////////////////////////////////////////////////////////////////}
@@ -281,5 +295,5 @@ $(function(){
 	//	then kicks off the collection's render.
 	// FIXME: this implies, then, that each Model is rendered twice...!?
 	var App = new AppController();
-});
+};
 /////////////////////////////////////////////////////////////////////////////}

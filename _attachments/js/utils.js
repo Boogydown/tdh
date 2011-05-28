@@ -13,12 +13,22 @@ window.utils = {
 	 * @param popID - id of the div of the popup we want
 	 * @param popWidth - width of the popup
 	 **/
-	popupHandler : function ( popDocID, popID, popWidth ) {
+	popupHandler : function ( popDocID, popType, popWidth ) {
 		// TODO: populate popup with popDocID's data
+		var myPopupView;
+		switch ( popType ) {
+			case "band" : 
+				myPopupView = new window.main.BandView( { model: window.main.Bands.get( popDocID ) } );
+				break;
+			case "hall" :
+				myPopupView = new window.main.HallView( { model: window.main.Halls.get( popDocID ) } );
+				break;
+		};
 		
+		myPopupView.render();
 		
 		//Fade Popup in and add close button
-		$('#' + popID).fadeIn().css({ 'width': Number( popWidth ) }).prepend('<a href="#" class="close"><img src="images/button-x.png" width="21" border="0" class="close_popup" title="Close Window" alt="Close" /></a>');
+		$('#popup_block').fadeIn().css({ 'width': Number( popWidth ) }).prepend('<a href="#" class="close"><img src="images/button-x.png" width="21" border="0" class="close_popup" title="Close Window" alt="Close" /></a>');
 
 		//Margin defines center alignment (vertical and horizontal) - add 80px to the height/width for the padding  and border width as defined in the css
 		var popMargTop = ($('#' + popID).height() + 80) / 2;

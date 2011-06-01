@@ -121,8 +121,17 @@ h2 {
     width: 70px;
     word-wrap: break-word;
 }
-.twostepphoto, .twostepphoto:hover, .twostepphoto:active {
+.twostepphoto {
 	background: url("../images/shoes1.png");
+    border: 0px;
+    height: 35px;
+    width: 28px;
+    left: 220px;
+    position: absolute;
+    top: 25px;
+}
+
+.twostepphoto:hover, .twostepphoto:active {
     border: 0px;
     height: 35px;
     width: 28px;

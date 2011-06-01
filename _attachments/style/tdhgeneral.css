@@ -121,7 +121,7 @@ h2 {
     width: 70px;
     word-wrap: break-word;
 }
-.twostepphoto {
+.twostepphoto:link {
 	background: url("../images/shoes1.png");
     border: 0px;
     height: 35px;

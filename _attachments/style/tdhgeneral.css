@@ -121,7 +121,7 @@ h2 {
     width: 70px;
     word-wrap: break-word;
 }
-.twostepphoto, .twostepphoto:hover, .twostepphoto:active {
+div.twostepphoto, div.twostepphoto:hover, div.twostepphoto:active {
 	background: url("../images/shoes1.png") repeat scroll 0 0 transparent;
     border: 0px;
     height: 35px;
@@ -131,11 +131,11 @@ h2 {
     top: 25px;
 }
 
-.twostepphoto:hover {
+div.twostepphoto:hover {
 	background: url("../images/shoes2.png") repeat scroll 0 0 transparent;
 }
 
-.twostepphoto:active {
+div.twostepphoto:active {
 	background: url("../images/shoes3.png") repeat scroll 0 0 transparent;
 }
 

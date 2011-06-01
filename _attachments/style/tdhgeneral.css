@@ -121,7 +121,8 @@ h2 {
     width: 70px;
     word-wrap: break-word;
 }
-.twostepphoto, .twostepphoto:hover {
+.twostepphoto, .twostepphoto:hover, .twostepphoto:active {
+	background-image: ../images/shoes1.png;
     border: 0 none;
     height: 35px;
     left: 220px;
@@ -129,9 +130,15 @@ h2 {
     top: 25px;
     width: 35px;
 }
+
 .twostepphoto:hover {
-    -moz-transform: rotate(90deg);
+	background-image: ../images/shoes2.png;
 }
+
+.twostepphoto:active {
+	background-image: ../images/shoes3.png;
+}
+
 .detailphoto {
     float: left;
 }

@@ -123,8 +123,9 @@ h2 {
 }
 .twostepphoto, .twostepphoto:hover, .twostepphoto:active {
 	background: url("../images/shoes1.png");
-    border: 0 none;
+    border: 0px;
     height: 35px;
+    width: 28px;
     left: 220px;
     position: absolute;
     top: 25px;

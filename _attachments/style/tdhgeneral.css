@@ -141,7 +141,7 @@ div.twostepphoto:hover span{
 	color: rgba(255, 0, 0, 0.4);
 	border: 0px;
     width: 28px;
-    left: 240px;
+    left: 0px;
     position: absolute;
     top: 30px;
 }

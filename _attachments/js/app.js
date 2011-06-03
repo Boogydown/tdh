@@ -49,7 +49,10 @@ $(function(){
 		
 		searchComplete : function() {
 			if ( this.imageSearch.results && this.imageSearch.results.length > 0 )
+			{
 				this.set( {image: this.imageSearch.results[0].tbUrl} );
+				this.set( {mainPic: this.imageSearch.results[0].Url} );
+			}
 		}
 	});
 
@@ -125,7 +128,8 @@ $(function(){
 				bandPic = "../../" + bandID + "/thumbs/" + encodeURI( bandPic );
 			else
 				targetBand.getGoogleImage();
-			targetBand.set( { mainPic: bandPic.replace( "\/thumbs\/", "\/files\/" ) }, { silent: true } );
+			if ( ! targetBand.get( "mainPic" ) )
+				targetBand.set( { mainPic: bandPic.replace( "\/thumbs\/", "\/files\/" ) }, { silent: true } );
 			this.set( {"bandName": targetBand.get("bandName"), "bandPic": bandPic } );
 		},
 		

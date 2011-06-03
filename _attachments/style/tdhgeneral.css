@@ -138,9 +138,9 @@ div.twostepphoto div{
 
 div.twostepphoto:hover div{
 	display:inline;
-	color: #3D3D45;
+	color: #880011;
     width: 100px;
-    right: 56px;
+    right: 0px;
     position: absolute;
     top: 33px;
 }

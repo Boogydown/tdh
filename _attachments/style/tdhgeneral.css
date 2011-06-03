@@ -126,11 +126,25 @@ div.twostepphoto, div.twostepphoto:hover, div.twostepphoto:active {
     border: 0px;
     height: 35px;
     width: 28px;
-    left: 235px;
+    left: 240px;
     position: absolute;
     top: 20px;
 }
 
+div.twostepphoto span{
+	display:none;
+    
+}
+
+div.twostepphoto:hover span{
+	display:inline;
+	color: rgba(255, 0, 0, 0.4);
+	border: 0px;
+    width: 28px;
+    left: 240px;
+    position: absolute;
+    top: 30px;
+}
 div.twostepphoto:hover {
 	background: url("../images/shoes2.png") repeat scroll 0 0 transparent;
 }

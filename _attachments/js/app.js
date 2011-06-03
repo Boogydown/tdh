@@ -42,11 +42,11 @@ $(function(){
 		getGoogleImage : function () {
 			$.ajax( {
 				url: "http://ajax.googleapis.com/ajax/services/search/images", 
-				data: { v: "1.0", q: encodeURI( this.get("bandName") ) },
+				data: { v: "1.0", rsz: "2", start: "1", callback: "?", q: encodeURI( this.get("bandName") ) },
 				dataType: 'json',
 				succes: this.setFromGoogleImage
 			});
-		$.getJSON( "http://ajax.googleapis.com/ajax/services/search/images?v=1.0&q=" + encodeURI( this.get("bandName") ), {}, this.setFromGoogleimage );
+		$.getJSON( "http://ajax.googleapis.com/ajax/services/search/images?v=1.0&rsz=2&start=1&callback=?&q=" + encodeURI( this.get("bandName") ), {}, this.setFromGoogleimage );
 		},
 		
 		setFromGoogleImage : function( results ) {

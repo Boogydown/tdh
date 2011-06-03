@@ -131,17 +131,17 @@ div.twostepphoto, div.twostepphoto:hover, div.twostepphoto:active {
     top: 20px;
 }
 
-div.twostepphoto span{
+div.twostepphoto div{
 	display:none;
     
 }
 
-div.twostepphoto:hover span{
+div.twostepphoto:hover div{
 	color: #3D3D45;
     width: 100px;
-    left: -50px;
+    right: 50px;
     position: absolute;
-    top: 30px;
+    top: 33px;
 }
 div.twostepphoto:hover {
 	background: url("../images/shoes2.png") repeat scroll 0 0 transparent;

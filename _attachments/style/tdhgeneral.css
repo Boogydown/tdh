@@ -90,7 +90,7 @@ h2 {
 .atvenue {
     color: #CCCCCC;
     font-size: 18px;
-    left: 90px;
+    left: 95px;
     position: absolute;
     text-align: center;
     top: 23px;
@@ -98,7 +98,7 @@ h2 {
 .venuephoto {
     border: 0 none;
     height: 40px;
-    left: 128px;
+    left: 138px;
     position: absolute;
     top: 15px;
     width: 60px;
@@ -118,7 +118,7 @@ h2 {
     position: absolute;
     text-align: center;
     top: 60px;
-    width: 70px;
+    width: 100px;
     word-wrap: break-word;
 }
 div.twostepphoto, div.twostepphoto:hover, div.twostepphoto:active {
@@ -126,9 +126,9 @@ div.twostepphoto, div.twostepphoto:hover, div.twostepphoto:active {
     border: 0px;
     height: 35px;
     width: 28px;
-    left: 220px;
+    left: 235px;
     position: absolute;
-    top: 25px;
+    top: 20px;
 }
 
 div.twostepphoto:hover {

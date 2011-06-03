@@ -43,8 +43,10 @@ $(function(){
 			$.ajax( {
 				url: "http://ajax.googleapis.com/ajax/services/search/images", 
 				data: { v: "1.0", q: encodeURI( this.get("bandName") ) },
+				dataType: 'json',
 				succes: this.setFromGoogleImage
 			});
+		$.getJSON( "http://ajax.googleapis.com/ajax/services/search/images?v=1.0&q=" + encodeURI( this.get("bandName") ), {}, this.setFromGoogleimage );
 		},
 		
 		setFromGoogleImage : function( results ) {

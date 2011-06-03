@@ -137,12 +137,13 @@ div.twostepphoto div{
 }
 
 div.twostepphoto:hover div{
+	text-align:center;
 	display:inline;
 	color: #880011;
     width: 100px;
-    right: 0px;
+    left: 20px;
     position: absolute;
-    top: 33px;
+    top: 35px;
 }
 div.twostepphoto:hover {
 	background: url("../images/shoes2.png") repeat scroll 0 0 transparent;

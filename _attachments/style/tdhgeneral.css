@@ -138,7 +138,11 @@ div.twostepphoto div{
 
 div.twostepphoto:hover div{
 	display:inline;
-	right:50px;
+	color: #3D3D45;
+    width: 100px;
+    right: 50px;
+    position: absolute;
+    top: 33px;
 }
 div.twostepphoto:hover {
 	background: url("../images/shoes2.png") repeat scroll 0 0 transparent;

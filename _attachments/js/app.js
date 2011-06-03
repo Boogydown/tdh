@@ -42,14 +42,14 @@ $(function(){
 		getGoogleImage : function () {
 			$.ajax( {
 				url: "http://ajax.googleapis.com/ajax/services/search/images", 
-				data: { v: "1.0", rsz: "2", start: "1", callback: "?", q: encodeURI( this.get("bandName") ) },
+				data: { v: "1.0", callback: "?", q: encodeURI( this.get("bandName") ) },
 				dataType: 'json',
-				succes: this.setFromGoogleImage
+				succes: function (a, b, c ) { console.log( a ); }
 			});
 		$.getJSON( "http://ajax.googleapis.com/ajax/services/search/images?v=1.0&rsz=2&start=1&callback=?&q=" + encodeURI( this.get("bandName") ), {}, this.setFromGoogleimage );
 		},
 		
-		setFromGoogleImage : function( results ) {
+		setFromGoogleImage : function( results, xhr, hr ) {
 			console.log( results );
 		},
 	});

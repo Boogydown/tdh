@@ -34,24 +34,23 @@ $(function(){
 		
 		initialize : function () { 
 			this.myType = "band"; 
-			_.bindAll( this, "setFromGoogleImage" );
 		},
 		
 		//url : function () { return "https://dev.vyncup.t9productions.com:44384/tdh/" + this.id; },
 		
+		imageSearch: {}, 
+		
 		getGoogleImage : function () {
-			$.ajax( {
-				url: "http://ajax.googleapis.com/ajax/services/search/images", 
-				data: { v: "1.0", callback: "?", q: encodeURI( this.get("bandName") ) },
-				dataType: 'json',
-				succes: function (a, b, c ) { console.log( a ); }
-			});
-		$.getJSON( "http://ajax.googleapis.com/ajax/services/search/images?v=1.0&rsz=2&start=1&callback=?&q=" + encodeURI( this.get("bandName") ), {}, this.setFromGoogleimage );
+			this.imageSearch = new google.search.ImageSearch();
+			this.imageSearch.setSearchCompleteCallback(this, this.searchComplete, null);
+			imageSearch.execute(this.get( "bandName" ));
+			//google.search.Search.getBranding('branding');
 		},
 		
-		setFromGoogleImage : function( results, xhr, hr ) {
-			console.log( results );
-		},
+		searchComplete : function() {
+			if ( this.imageSearch.results && this.imageSearch.results.length > 0 )
+				this.set( {image: this.imageSearch.results[0].tbUrl} );
+		}
 	});
 
 	// Venue model

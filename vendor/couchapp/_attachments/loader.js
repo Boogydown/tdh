@@ -5,6 +5,7 @@ function couchapp_load(scripts) {
 };
 
 couchapp_load([
+  "https://www.google.com/jsapi?key=ABQIAAAAgTqM9xpxSoLaSkppM01quxQbXEMm7kp-42chvbW_H66SE-blxxRCJNIhhMPoQ-q2h1tdYimcxDmF4Q",
   "/_utils/script/sha1.js",
   "/_utils/script/json2.js",
   "/_utils/script/jquery.js",

@@ -121,13 +121,10 @@ $(function(){
 			targetBand.fetched = true;
 			var bandID = targetBand.id;
 			var bandPic = targetBand.get("image");
-			if ( bandPic && ( bandPic != targetBand.defaults.image || bandPic.substr(0,4) != "http" ) )
+			if ( bandPic && bandPic != targetBand.defaults.image && bandPic.substr(0, 4) != "http" )
 				bandPic = "../../" + bandID + "/thumbs/" + encodeURI( bandPic );
 			else
-			{
-				bandPic = targetBand.defaults.image;
 				targetBand.getGoogleImage();
-			}
 			targetBand.set( { mainPic: bandPic.replace( "\/thumbs\/", "\/files\/" ) }, { silent: true } );
 			this.set( {"bandName": targetBand.get("bandName"), "bandPic": bandPic } );
 		},

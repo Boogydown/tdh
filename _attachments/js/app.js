@@ -50,8 +50,9 @@ $(function(){
 		searchComplete : function() {
 			if ( this.imageSearch.results && this.imageSearch.results.length > 0 )
 			{
-				this.set( {image: this.imageSearch.results[0].tbUrl} );
-				this.set( {mainPic: this.imageSearch.results[0].url} );
+				var result = this.imageSearch.results[0];
+				this.set( {image: result.tbUrl} );
+				this.set( {mainPic: result.url} );
 			}
 		}
 	});

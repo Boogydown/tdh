@@ -49,7 +49,7 @@ $(function(){
 		
 		searchComplete : function() {
 			if ( this.imageSearch.results && this.imageSearch.results.length > 0 )
-				this.set( {image: this.imageSearch.results[0].tbUrl} );
+				this.set( {image: this.imageSearch.results[0].url} );
 		}
 	});
 
@@ -121,7 +121,7 @@ $(function(){
 			targetBand.fetched = true;
 			var bandID = targetBand.id;
 			var bandPic = targetBand.get("image");
-			if ( bandPic && bandPic != targetBand.defaults.image )
+			if ( bandPic && ( bandPic != targetBand.defaults.image || bandPic.substr(0,4) != "http" ) )
 				bandPic = "../../" + bandID + "/thumbs/" + encodeURI( bandPic );
 			else
 			{

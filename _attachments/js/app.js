@@ -301,9 +301,6 @@ $(function(){
 /////////////////////////////////////////////////////////////////////////////}
 /// INSTACIATION & EXECUTION ////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////{
-	// start our google api
-	google.load( 'search', '1' );
-
 	// create our collection of event models
 	Events = new EventCollection();
 	Bands = new BandCollection();
@@ -319,6 +316,8 @@ $(function(){
 	//	then kicks off the collection's render.
 	// FIXME: this implies, then, that each Model is rendered twice...!?
 	var App = new AppController();
+	// start our google api
+	google.load( 'search', '1' );
 
 });
 /////////////////////////////////////////////////////////////////////////////}

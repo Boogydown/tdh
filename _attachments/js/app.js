@@ -43,7 +43,7 @@ $(function(){
 		getGoogleImage : function () {
 			this.imageSearch = new google.search.ImageSearch();
 			this.imageSearch.setSearchCompleteCallback(this, this.searchComplete, null);
-			imageSearch.execute(this.get( "bandName" ));
+			this.imageSearch.execute(this.get( "bandName" ));
 			//google.search.Search.getBranding('branding');
 		},
 		

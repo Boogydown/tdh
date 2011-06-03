@@ -137,7 +137,6 @@ div.twostepphoto span{
 }
 
 div.twostepphoto:hover span{
-	display:normal;
 	color: #3D3D45;
     width: 100px;
     left: -50px;

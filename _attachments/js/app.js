@@ -32,18 +32,29 @@ $(function(){
 			events: null
 		},
 		
-		initialize : function () { this.myType = "band"; },
+		initialize : function () { 
+			this.myType = "band"; 
+		},
+		
 		//url : function () { return "https://dev.vyncup.t9productions.com:44384/tdh/" + this.id; },
 		
+		imageSearch: {}, 
+		
 		getGoogleImage : function () {
-			$.ajax( "https://ajax.googleapis.com/ajax/services/search/images?v=1.0&q=" + encodeURI( this.get("bandName") ), {
-				succes: this.setFromGoogleImage
-			});
+			this.imageSearch = new google.search.ImageSearch();
+			this.imageSearch.setSearchCompleteCallback(this, this.searchComplete, null);
+			this.imageSearch.execute(this.get( "bandName" ));
+			//google.search.Search.getBranding('branding');
 		},
 		
-		setFromGoogleImage : function( results ) {
-			console.log( results );
-		},
+		searchComplete : function() {
+			if ( this.imageSearch.results && this.imageSearch.results.length > 0 )
+			{
+				var result = this.imageSearch.results[0];
+				this.set( {image: result.tbUrl} );
+				this.set( {mainPic: result.url} );
+			}
+		}
 	});
 
 	// Venue model
@@ -114,14 +125,12 @@ $(function(){
 			targetBand.fetched = true;
 			var bandID = targetBand.id;
 			var bandPic = targetBand.get("image");
-			if ( bandPic && bandPic != targetBand.defaults.image )
+			if ( bandPic && bandPic != targetBand.defaults.image && bandPic.substr(0, 4) != "http" )
 				bandPic = "../../" + bandID + "/thumbs/" + encodeURI( bandPic );
 			else
-			{
-				bandPic = targetBand.defaults.image;
 				targetBand.getGoogleImage();
-			}
-			targetBand.set( { mainPic: bandPic.replace( "\/thumbs\/", "\/files\/" ) }, { silent: true } );
+			if ( ! targetBand.get( "mainPic" ) )
+				targetBand.set( { mainPic: bandPic.replace( "\/thumbs\/", "\/files\/" ) }, { silent: true } );
 			this.set( {"bandName": targetBand.get("bandName"), "bandPic": bandPic } );
 		},
 		

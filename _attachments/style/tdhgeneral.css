@@ -137,7 +137,6 @@ div.twostepphoto span{
 }
 
 div.twostepphoto:hover span{
-	text-align:center;
 	display:inline;
 	color: rgba(255, 0, 0, 0.9);
 	border: 0px;

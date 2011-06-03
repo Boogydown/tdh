@@ -141,7 +141,7 @@ div.twostepphoto:hover div{
 	display:inline;
 	color: #880011;
     width: 100px;
-    left: 1px;
+    left: -15px;
     position: absolute;
     top: 35px;
 }

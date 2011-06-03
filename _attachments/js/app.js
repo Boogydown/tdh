@@ -36,8 +36,9 @@ $(function(){
 		//url : function () { return "https://dev.vyncup.t9productions.com:44384/tdh/" + this.id; },
 		
 		getGoogleImage : function () {
-			$.ajax( "https://ajax.googleapis.com/ajax/services/search/images?v=1.0&q=" + encodeURI( this.get("bandName") ), {
-				succes: this.setFromGoogleImage
+			$.ajax( "https://ajax.googleapis.com/ajax/services/search/images", {
+				data: { v: 1.0, q: encodeURI( this.get("bandName") },				
+				succes: this.setFromGoogleImage				
 			});
 		},
 		

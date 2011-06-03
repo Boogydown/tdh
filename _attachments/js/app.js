@@ -49,7 +49,7 @@ $(function(){
 		
 		searchComplete : function() {
 			if ( this.imageSearch.results && this.imageSearch.results.length > 0 )
-				this.set( {image: this.imageSearch.results[0].url} );
+				this.set( {image: this.imageSearch.results[0].tbUrl} );
 		}
 	});
 

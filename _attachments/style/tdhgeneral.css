@@ -45,8 +45,8 @@ div.tabbutton:hover {
     left: 10px;
     overflow: auto;
 }
-#map {
-    background: url("../images/googlemap.png") repeat scroll 0 0 transparent;
+#main-map {
+    /*background: url("../images/googlemap.png") repeat scroll 0 0 transparent;*/
     right: 10px;
 }
 .title {

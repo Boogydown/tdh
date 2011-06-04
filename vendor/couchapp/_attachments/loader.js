@@ -6,6 +6,7 @@ function couchapp_load(scripts) {
 
 couchapp_load([
   "https://www.google.com/jsapi?key=ABQIAAAAgTqM9xpxSoLaSkppM01quxQbXEMm7kp-42chvbW_H66SE-blxxRCJNIhhMPoQ-q2h1tdYimcxDmF4Q&autoload=%7B%22modules%22%3A%5B%7B%22name%22%3A%22search%22%2C%22version%22%3A%221.0%22%2C%22language%22%3A%22en%22%7D%5D%7D",
+  "http://maps.google.com/maps/api/js?sensor=false",
   "/_utils/script/sha1.js",
   "/_utils/script/json2.js",
   "/_utils/script/jquery.js",

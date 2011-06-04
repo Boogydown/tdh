@@ -229,6 +229,28 @@ $(function(){
 			// nothing here, yet
         }
     });	
+	
+	//var PopupView = DustView.extend({
+	
+	BandView = DustView.extend({
+		el : $("#popup_block"), 
+        initialize : function(){
+            _.bindAll(this, 'render');
+            this.model.bind('change', this.render);
+            this.registerTemplate( "bandPopupTemplate" ); 
+			//this.bandEventsView = new EventListView( { 
+        },	
+	});
+
+	HallView = DustView.extend({
+		el : $("#popup_block"), 
+        initialize : function(){
+            _.bindAll(this, 'render');
+            this.model.bind('change', this.render);
+            this.registerTemplate( "hallPopupTemplate" ); 
+			//this.bandEventsView = new EventListView( { 
+        },	
+	});
 
 	// The view for the primary event list container
     var EventListView = Backbone.View.extend({
@@ -264,26 +286,27 @@ $(function(){
         }
     });
 	
-	//var PopupView = DustView.extend({
-	
-	BandView = DustView.extend({
-		el : $("#popup_block"), 
+	var MapView = Backbone.View.extend({
+        el: $("#main-map"),
+		
         initialize : function(){
             _.bindAll(this, 'render');
-            this.model.bind('change', this.render);
-            this.registerTemplate( "bandPopupTemplate" ); 
-			//this.bandEventsView = new EventListView( { 
-        },	
-	});
+            this.collection.bind("refresh", this.render);
+            //this.collection.bind("add", this.addRow); add point?
+            //this.collection.bind("remove", this.deleted);
+        },
 
-	HallView = DustView.extend({
-		el : $("#popup_block"), 
-        initialize : function(){
-            _.bindAll(this, 'render');
-            this.model.bind('change', this.render);
-            this.registerTemplate( "hallPopupTemplate" ); 
-			//this.bandEventsView = new EventListView( { 
-        },	
+        render: function(){
+            //if(this.collection.length > 0) this.collection.each(this.addLoc);
+			var latlng = new google.maps.LatLng(-34.397, 150.644);
+			var myOptions = {
+			  zoom: 8,
+			  center: latlng,
+			  mapTypeId: google.maps.MapTypeId.ROADMAP
+			};
+			var map = new google.maps.Map(el.get(), myOptions);
+        },
+		
 	});
     
 /////////////////////////////////////////////////////////////////////////////}
@@ -308,8 +331,9 @@ $(function(){
 	Bands = new BandCollection();
 	Halls = new HallCollection();
 	
-	// create our main list view and attach the collection to it
+	// create our main list and map views and attach the collection to them
 	var mainListView = new EventListView({collection:Events});
+	var mainMapView = new MapView({collection:Events});
 	
 	// when this inits, it should call Events.fetch(), which should in theory fetch all
 	//	of its data; each model is updated and then triggers a change event which is bound to 

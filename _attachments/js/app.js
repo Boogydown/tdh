@@ -318,7 +318,7 @@ $(function(){
 		
 		addChange: function( hall ) {
 			hall.bind( "change" , this.addMarker );
-		}
+		},
 		
 		// TODO: if marker var needs to stay alive then put into hall model
 		addMarker : function ( hall ) {

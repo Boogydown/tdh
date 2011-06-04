@@ -293,7 +293,8 @@ $(function(){
 		
         initialize : function(){
             _.bindAll(this, 'render');
-            this.collection.bind("refresh", this.render);
+			this.notifier.bind("refresh", this.render);
+            //this.collection.bind("change", this.render);
             //this.collection.bind("add", this.addRow); add point?
             //this.collection.bind("remove", this.deleted);
         },
@@ -355,7 +356,7 @@ $(function(){
 	
 	// create our main list and map views and attach the collection to them
 	var mainListView = new EventListView({collection:Events});
-	var mainMapView = new MapView({collection:Halls});
+	var mainMapView = new MapView({collection:Halls, notifier:Events});
 	
 	// when this inits, it should call Events.fetch(), which should in theory fetch all
 	//	of its data; each model is updated and then triggers a change event which is bound to 

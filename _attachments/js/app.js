@@ -317,10 +317,10 @@ $(function(){
 		// TODO: if marker var needs to stay alive then put into hall model
 		addMarker : function ( hall ) {
 			var address = hall.get( "address" );
-			geocoder.geocode( { 'address': address}, function(results, status) {
+			this.geocoder.geocode( { 'address': address}, function(results, status) {
 			  if (status == google.maps.GeocoderStatus.OK) {
 				var marker = new google.maps.Marker({
-					map: map, 
+					map: this.map, 
 					position: results[0].geometry.location
 				});
 			  } else {

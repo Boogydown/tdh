@@ -293,7 +293,7 @@ $(function(){
 		
         initialize : function(){
             _.bindAll(this, 'render');
-			this.notifier.bind("refresh", this.render);
+			this.options.notifier.bind("refresh", this.render);
             //this.collection.bind("change", this.render);
             //this.collection.bind("add", this.addRow); add point?
             //this.collection.bind("remove", this.deleted);

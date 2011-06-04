@@ -293,7 +293,7 @@ $(function(){
 		geocoder: null,
 		
         initialize : function(){
-            _.bindAll(this, 'render', "addChange", "addMarker");
+            _.bindAll(this, 'render', "addChange", "addMarker", "attachToMap");
 			var latlng = new google.maps.LatLng(30.274338, -97.744675);
 			var myOptions = {
 			  zoom: 6,
@@ -324,7 +324,10 @@ $(function(){
 		addMarker : function ( hall ) {
 			var address = hall.get( "address" );
 			console.log("finding " + address );
-			this.geocoder.geocode( { 'address': address}, function(results, status) {
+			this.geocoder.geocode( { 'address': address}, this.attachToMap );
+		},
+		
+		attachToMap: function(results, status) {
 			  if (status == google.maps.GeocoderStatus.OK) {
 				var marker = new google.maps.Marker({
 					map: this.map, 
@@ -333,7 +336,6 @@ $(function(){
 			  } else {
 				console.log("Geocode could not find address because: " + status);
 			  }
-			});
 		}
 		
 	});

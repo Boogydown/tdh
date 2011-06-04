@@ -289,17 +289,11 @@ $(function(){
 	var MapView = Backbone.View.extend({
         el: $("#main-map"),
 		map: null, 
+		totalMapped: 0,
 		geocoder: null,
 		
         initialize : function(){
             _.bindAll(this, 'render');
-			this.options.notifier.bind("refresh", this.render);
-            //this.collection.bind("change", this.render);
-            //this.collection.bind("add", this.addRow); add point?
-            //this.collection.bind("remove", this.deleted);
-        },
-
-        render: function(){
 			var latlng = new google.maps.LatLng(30.274338, -97.744675);
 			var myOptions = {
 			  zoom: 6,
@@ -309,15 +303,23 @@ $(function(){
 			this.map = new google.maps.Map(document.getElementById("main-map"), myOptions);
 			this.geocoder = new google.maps.Geocoder();
 			
+            //this.collection.bind("change", this.render);
+            this.collection.bind("add", this.addMarker );
+            //this.collection.bind("remove", this.deleted);
+        },
+
+        render: function(){
+			//
 			// now add the first 10 markers
-			if(this.collection.length > 0) 
-				for ( var i = 0; i++ < 5; )
-					this.addMarker( this.collection.at(i) );
+			//if(this.collection.length > 0) 
+				//for ( var i = 0; i++ < 5; )
+					//this.addMarker( this.collection.at(i) );
         },
 		
 		// TODO: if marker var needs to stay alive then put into hall model
 		addMarker : function ( hall ) {
 			var address = hall.get( "address" );
+			address = address.replace("\r\n", " ");
 			this.geocoder.geocode( { 'address': address}, function(results, status) {
 			  if (status == google.maps.GeocoderStatus.OK) {
 				var marker = new google.maps.Marker({

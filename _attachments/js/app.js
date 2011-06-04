@@ -288,6 +288,8 @@ $(function(){
 	
 	var MapView = Backbone.View.extend({
         el: $("#main-map"),
+		map: null, 
+		geocoder: null,
 		
         initialize : function(){
             _.bindAll(this, 'render');
@@ -297,15 +299,35 @@ $(function(){
         },
 
         render: function(){
-            //if(this.collection.length > 0) this.collection.each(this.addLoc);
-			var latlng = new google.maps.LatLng(-34.397, 150.644);
+			var latlng = new google.maps.LatLng(30.274338, -97.744675);
 			var myOptions = {
-			  zoom: 8,
+			  zoom: 6,
 			  center: latlng,
 			  mapTypeId: google.maps.MapTypeId.ROADMAP
 			};
-			var map = new google.maps.Map(document.getElementById("main-map"), myOptions);
+			this.map = new google.maps.Map(document.getElementById("main-map"), myOptions);
+			this.geocoder = new google.maps.Geocoder();
+			
+			// now add the first 10 markers
+			if(this.collection.length > 0) 
+				for ( var i = 0; i++ < 10; )
+					this.addMarker( this.collection.at(i) );
         },
+		
+		// TODO: if marker var needs to stay alive then put into hall model
+		function addMarker( hall ) {
+			var address = hall.get( "address" );
+			geocoder.geocode( { 'address': address}, function(results, status) {
+			  if (status == google.maps.GeocoderStatus.OK) {
+				var marker = new google.maps.Marker({
+					map: map, 
+					position: results[0].geometry.location
+				});
+			  } else {
+				console.log("Geocode could not find address because: " + status);
+			  }
+			});
+		}
 		
 	});
     

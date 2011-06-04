@@ -304,7 +304,7 @@ $(function(){
 			  center: latlng,
 			  mapTypeId: google.maps.MapTypeId.ROADMAP
 			};
-			var map = new google.maps.Map(el.get(), myOptions);
+			var map = new google.maps.Map(this.el.get(), myOptions);
         },
 		
 	});

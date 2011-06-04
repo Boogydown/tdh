@@ -310,7 +310,7 @@ $(function(){
 			
 			// now add the first 10 markers
 			if(this.collection.length > 0) 
-				for ( var i = 0; i++ < 10; )
+				for ( var i = 0; i++ < 5; )
 					this.addMarker( this.collection.at(i) );
         },
 		
@@ -355,7 +355,7 @@ $(function(){
 	
 	// create our main list and map views and attach the collection to them
 	var mainListView = new EventListView({collection:Events});
-	var mainMapView = new MapView({collection:Events});
+	var mainMapView = new MapView({collection:Halls});
 	
 	// when this inits, it should call Events.fetch(), which should in theory fetch all
 	//	of its data; each model is updated and then triggers a change event which is bound to 

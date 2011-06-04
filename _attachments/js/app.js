@@ -293,7 +293,7 @@ $(function(){
 		geocoder: null,
 		
         initialize : function(){
-            _.bindAll(this, 'render');
+            _.bindAll(this, 'render', "addChange", "addMarker");
 			var latlng = new google.maps.LatLng(30.274338, -97.744675);
 			var myOptions = {
 			  zoom: 6,
@@ -304,7 +304,7 @@ $(function(){
 			this.geocoder = new google.maps.Geocoder();
 			
             //this.collection.bind("change", this.render);
-            this.collection.bind("add", this.addMarker );
+            this.collection.bind("add", this.addChange );
             //this.collection.bind("remove", this.deleted);
         },
 
@@ -316,10 +316,13 @@ $(function(){
 					//this.addMarker( this.collection.at(i) );
         },
 		
+		addChange: function( hall ) {
+			hall.bind( "change" , this.addMarker );
+		}
+		
 		// TODO: if marker var needs to stay alive then put into hall model
 		addMarker : function ( hall ) {
 			var address = hall.get( "address" );
-			address = address.replace("\r\n", " ");
 			this.geocoder.geocode( { 'address': address}, function(results, status) {
 			  if (status == google.maps.GeocoderStatus.OK) {
 				var marker = new google.maps.Marker({

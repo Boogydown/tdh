@@ -319,7 +319,12 @@ $(function(){
                         "image": {
                             "description":"Image file",
                             "type":"file",
+                            "enctype":"multipart/form-data",
                             "required":true,
+                            "buttons": {
+			        "type": "submit", 
+			        "value": "Upload"
+			    } 
                         },
                         "credit": {
                             "description": "Image credit",

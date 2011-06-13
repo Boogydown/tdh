@@ -16,5 +16,8 @@ couchapp_load([
   "js/lib/backbone-couchdb.js",
   "js/lib/dustjs/dist/dust-full-0.3.0.js",
   "js/utils.js",
+  "js/models.js",
+  "js/collections.js",
+  "js/bbViews.js",
   "js/app.js"
 ]);

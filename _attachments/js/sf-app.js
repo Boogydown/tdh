@@ -71,9 +71,6 @@ $(function(){
             Comments.fetch();
         }
     });
-
-
-    
     
     var SchemaForm = Backbone.View.extend({
         builder: new inputEx.JsonSchema.Builder(),

@@ -89,3 +89,7 @@ td.delete:hover{
 td {
     border: 1px solid #AAAAAA;
 }
+
+#model_table {
+	border:4px solid #f5f5ff;
+}

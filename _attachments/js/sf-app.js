@@ -85,7 +85,7 @@ $(function(){
         
         // Appends an entry row 
         addRow : function(model){
-			model.loadRefs();
+			model.trigger("change");
             var view = new SchemaTableRow({model: model, schema: this.options.schema});
             var rendered = view.render().el;
             this.el.append(rendered);

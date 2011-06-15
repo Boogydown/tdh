@@ -84,7 +84,6 @@ VU.EventListView = Backbone.View.extend({
 	
 	// Appends an entry row 
 	addRow : function(model){
-		model.loadRefs();
 		model.set( { "topY" : String(this.nextY) } );
 		if ( model.get( "date" ) == this.curDate )
 		{

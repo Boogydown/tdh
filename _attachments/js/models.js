@@ -43,10 +43,12 @@ VU.BandModel = VU.EventsContainerModel.extend({
 	imageSearch: {}, 
 	
 	getGoogleImage : function () {
-		this.imageSearch = new google.search.ImageSearch();
-		this.imageSearch.setSearchCompleteCallback(this, this.searchComplete, null);
-		this.imageSearch.execute(this.get( "bandName" ));
-		//google.search.Search.getBranding('branding');
+		if ( google ) {
+			this.imageSearch = new google.search.ImageSearch();
+			this.imageSearch.setSearchCompleteCallback(this, this.searchComplete, null);
+			this.imageSearch.execute(this.get( "bandName" ));
+			//google.search.Search.getBranding('branding');
+		}
 	},
 	
 	searchComplete : function() {

@@ -141,7 +141,8 @@ $(function(){
 /////////////////////////////////////////////////////////////////////////////{    
 	VU.init();
 
-    var Dancehalls = new VU.HallCollection();
+	var Bands = new VU.BandCollection();
+    var Halls = new VU.HallCollection();
     var dancehall_schema_full = {
         "description":"A dancehall is a venue dedicated to musical performances and dancing",
         "type":"object",

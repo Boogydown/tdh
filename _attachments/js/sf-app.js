@@ -85,7 +85,7 @@ $(function(){
         
         // Appends an entry row 
         addRow : function(model){
-			model.set({dud:true});
+			model.loadRefs();
             var view = new SchemaTableRow({model: model, schema: this.options.schema});
             var rendered = view.render().el;
             this.el.append(rendered);
@@ -143,8 +143,8 @@ $(function(){
 /////////////////////////////////////////////////////////////////////////////{    
 	VU.init();
 
-	var Bands = new VU.BandCollection();
-    var Halls = new VU.HallCollection();
+	var bands = new VU.BandCollection();
+    var halls = new VU.HallCollection();
     var dancehall_schema_full = {
         "description":"A dancehall is a venue dedicated to musical performances and dancing",
         "type":"object",
@@ -336,7 +336,7 @@ $(function(){
         }
     };
    
-	var Events = new VU.EventCollection();
+	var events = new VU.EventCollection(null, {bandColl:bands, hallsColl:halls});
     var event_schema_full = {
         "description":"A basic event is an attraction, a venues, a time",
         "type":"object",
@@ -400,7 +400,7 @@ $(function(){
 		}
 	}; 
 	
-	schemaForm = new SchemaForm({ schema : event_schema_full, collection: Events });
-    schemaTable = new SchemaTable({ schema : event_schema_admin, collection: Events });  
+	schemaForm = new SchemaForm({ schema : event_schema_full, collection: events });
+    schemaTable = new SchemaTable({ schema : event_schema_admin, collection: events });  
 
 });

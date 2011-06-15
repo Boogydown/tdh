@@ -25,6 +25,26 @@ VU.DustView = Backbone.View.extend({
 	}
 });
 
+VU.BandView = VU.DustView.extend({
+	el : $("#popup_block"), 
+	initialize : function(){
+		_.bindAll(this, 'render');
+		this.model.bind('change', this.render);
+		this.registerTemplate( "bandPopupTemplate" ); 
+		//this.bandEventsView = new EventListView( { 
+	},	
+});
+
+VU.HallView = VU.DustView.extend({
+	el : $("#popup_block"), 
+	initialize : function(){
+		_.bindAll(this, 'render');
+		this.model.bind('change', this.render);
+		this.registerTemplate( "hallPopupTemplate" ); 
+		//this.bandEventsView = new EventListView( { 
+	},	
+});
+
 // Represents an event entry in an event listing; is a dust template
 VU.EventEntryView = VU.DustView.extend({
 
@@ -46,28 +66,6 @@ VU.EventEntryView = VU.DustView.extend({
 	}
 });	
 
-//var PopupView = DustView.extend({
-
-VU.BandView = VU.DustView.extend({
-	el : $("#popup_block"), 
-	initialize : function(){
-		_.bindAll(this, 'render');
-		this.model.bind('change', this.render);
-		this.registerTemplate( "bandPopupTemplate" ); 
-		//this.bandEventsView = new EventListView( { 
-	},	
-});
-
-VU.HallView = VU.DustView.extend({
-	el : $("#popup_block"), 
-	initialize : function(){
-		_.bindAll(this, 'render');
-		this.model.bind('change', this.render);
-		this.registerTemplate( "hallPopupTemplate" ); 
-		//this.bandEventsView = new EventListView( { 
-	},	
-});
-
 // The view for the primary event list container
 VU.EventListView = Backbone.View.extend({
 	el: $("#list"),
@@ -86,6 +84,7 @@ VU.EventListView = Backbone.View.extend({
 	
 	// Appends an entry row 
 	addRow : function(model){
+		model.loadRefs();
 		model.set( { "topY" : String(this.nextY) } );
 		if ( model.get( "date" ) == this.curDate )
 		{

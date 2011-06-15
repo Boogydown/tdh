@@ -1,3 +1,8 @@
 (function () {
-	var VU = this.VU = {};
-}).call(this);	
+	var VU = window.VU = {};
+	
+	VU.init = function () {
+		for ( var method in VU )
+			VU[method].call( window );
+	}
+}).call(window);

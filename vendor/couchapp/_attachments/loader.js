@@ -15,6 +15,7 @@ couchapp_load([
   "js/lib/backbone.js",
   "js/lib/backbone-couchdb.js",
   "js/lib/dustjs/dist/dust-full-0.3.0.js",
+  "js/vu.js",
   "js/utils.js",
   "js/models.js",
   "js/collections.js",

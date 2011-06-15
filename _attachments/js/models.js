@@ -2,8 +2,19 @@
 /////////////////////////////////////////////////////////////////////////////
 /// MODEL DECLARATION ///////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////{
+// A model that holds all of the current filtering/sorting state data
+VU.FilterModel = Backbone.Model.extend({
+	defaults : {
+		tab: "dances",
+		mapCoords: [0,0],
+		genreTags: [""],
+		danceCard: { selectedEvents: [] },
+		
+	},
+});
+
 // An entity that has events associated to it
-var EventsContainerModel = Backbone.Model.extend({
+VU.EventsContainerModel = Backbone.Model.extend({
 	myType : "",
 	
 	// load all events that have a band or hall (myType) of this id
@@ -15,7 +26,7 @@ var EventsContainerModel = Backbone.Model.extend({
 });
 
 // Band model
-var BandModel = EventsContainerModel.extend({
+VU.BandModel = VU.EventsContainerModel.extend({
 	defaults : {
 		bandName: "Generic Band",
 		image: "images/genericSilhouette.jpg",
@@ -49,7 +60,7 @@ var BandModel = EventsContainerModel.extend({
 });
 
 // Venue model
-var VenueModel = EventsContainerModel.extend({
+VU.VenueModel = VU.EventsContainerModel.extend({
 	defaults : {
 		danceHallName: "Generic Hall",
 		images: [{"credit":"generic", "image":"images/genericHall.JPG"}],
@@ -62,7 +73,7 @@ var VenueModel = EventsContainerModel.extend({
 });
 
 // Event model
-var EventModel = Backbone.Model.extend({
+VU.EventModel = Backbone.Model.extend({
 	defaults : {
 		name: "Some generic event",
 		description: "Go here for fun!",

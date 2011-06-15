@@ -26,13 +26,13 @@ $(function(){
 /// INSTACIATION & EXECUTION ////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////{
 	// create our collection of event models
-	Events = new EventCollection();
-	Bands = new BandCollection();
-	Halls = new HallCollection();
+	Events = new VU.EventCollection();
+	Bands = new VU.BandCollection();
+	Halls = new VU.HallCollection();
 	
 	// create our main list and map views and attach the collection to them
-	var mainListView = new EventListView({collection:Events});
-	var mainMapView = new MapView({collection:Halls, notifier:Events});
+	var mainListView = new VU.EventListView({collection:Events});
+	var mainMapView = new VU.MapView({collection:Halls, notifier:Events});
 	
 	// when this inits, it should call Events.fetch(), which should in theory fetch all
 	//	of its data; each model is updated and then triggers a change event which is bound to 

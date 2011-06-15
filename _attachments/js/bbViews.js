@@ -3,7 +3,7 @@
 /// VIEWS DECLARATION ///////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////{
 // This is the base class for any View using a dust template
-var DustView = Backbone.View.extend({		
+VU.DustView = Backbone.View.extend({		
 	registerTemplate : function(name) {
 		// Relies on inline templates on the page
 		dust.compileFn( $('#'+name).html() , name);
@@ -26,7 +26,7 @@ var DustView = Backbone.View.extend({
 });
 
 // Represents an event entry in an event listing; is a dust template
-var EventEntryView = DustView.extend({
+VU.EventEntryView = VU.DustView.extend({
 
 	// Clicking the feet adds it to the dance card
 	events : {
@@ -48,7 +48,7 @@ var EventEntryView = DustView.extend({
 
 //var PopupView = DustView.extend({
 
-BandView = DustView.extend({
+VU.BandView = VU.DustView.extend({
 	el : $("#popup_block"), 
 	initialize : function(){
 		_.bindAll(this, 'render');
@@ -58,7 +58,7 @@ BandView = DustView.extend({
 	},	
 });
 
-HallView = DustView.extend({
+VU.HallView = VU.DustView.extend({
 	el : $("#popup_block"), 
 	initialize : function(){
 		_.bindAll(this, 'render');
@@ -69,7 +69,7 @@ HallView = DustView.extend({
 });
 
 // The view for the primary event list container
-var EventListView = Backbone.View.extend({
+VU.EventListView = Backbone.View.extend({
 	el: $("#list"),
 	nextY: 10,
 	curDate: null,
@@ -102,7 +102,7 @@ var EventListView = Backbone.View.extend({
 	}
 });
 
-var MapView = Backbone.View.extend({
+VU.MapView = Backbone.View.extend({
 	el: $("#main-map"),
 	map: null, 
 	totalMapped: 0,

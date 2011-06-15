@@ -336,7 +336,7 @@ $(function(){
         }
     };
    
-	var events = new VU.EventCollection(null, {bandColl:bands, hallsColl:halls});
+	var events = new VU.EventCollection(null, {bandsColl:bands, hallsColl:halls});
     var event_schema_full = {
         "description":"A basic event is an attraction, a venues, a time",
         "type":"object",

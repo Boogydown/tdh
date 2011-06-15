@@ -11,6 +11,15 @@ $(function(){
 /////////////////////////////////////////////////////////////////////////////
 /// MODEL DECLARATION ///////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////{
+	var FilterModel = Backbone.Model.extend({
+		defaults : {
+			tab: "dances",
+			mapCoords: [0,0],
+			genreTags: [""],
+			danceCard: { selectedEvents: [] },
+			
+		},
+	});
 	// An entity that has events associated to it
 	var EventsContainerModel = Backbone.Model.extend({
 		myType : "",

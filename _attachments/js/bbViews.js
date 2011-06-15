@@ -97,7 +97,7 @@ VU.EventListView = Backbone.View.extend({
 			this.curDate = model.get( "date" );
 			this.nextY += 105;
 		}
-		var view = new EventEntryView( { model: model } );
+		var view = new VU.EventEntryView( { model: model } );
 		this.el.append( view.render().el );
 	}
 });

@@ -9,6 +9,13 @@ VU.EventCollection = Backbone.Collection.extend({
 	// so that you don't have to change existing apps when you switch the sync-strategy
 	url : "event",
 	model : VU.EventModel,
+	initialize : function ( models, options ) {
+		if ( options ) {
+			this.bandsColl = options.bandsColl;
+			this.hallsColl = options.hallsColl;
+		}
+	},
+	
 	// The events should be ordered by date
 	comparator : function(event){
 		return new Date( event.get("date") ).getTime();

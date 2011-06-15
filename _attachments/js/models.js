@@ -96,10 +96,10 @@ VU.EventModel = Backbone.Model.extend({
 		// TODO: remove this unbind and just add a condition to skip this if (this.collection.fetching)
 		//	(which is set to true at fetch, and false at refresh)
 		//this.unbind( "change", this.loadRefs );
-		if ( this.collection.options.bands )
-			this.loadRef( "band", this.collection.options.bands, this.setBandLink );
-		if ( this.collection.options.halls )
-			this.loadRef( "hall", this.collection.options.halls, this.setHallLink );
+		if ( this.collection.bandsColl )
+			this.loadRef( "band", this.collection.bandsColl, this.setBandLink );
+		if ( this.collection.hallsColl )
+			this.loadRef( "hall", this.collection.hallsColl, this.setHallLink );
 	},
 	
 	loadRef: function( type, coll, callback ) {

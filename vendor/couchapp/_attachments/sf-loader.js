@@ -18,5 +18,9 @@ couchapp_load([
   "js/lib/inputex/lib/yui/event/event.js",
   "js/lib/inputex/build/inputex.js",
   "js/lib/inputex/js/fields/FileField.js",
+  "js/vu.js",
+  "js/models.js",
+  "js/collections.js",
+  "js/bbViews.js",
   "js/sf-app.js"
 ]);

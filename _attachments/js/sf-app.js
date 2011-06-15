@@ -1,5 +1,3 @@
-inputEx
-
 $(function(){
     // Fill this with your database information.
     // `ddocName` is the name of your couchapp project.
@@ -10,68 +8,9 @@ $(function(){
     // and will provide your models with real time remote updates.
     Backbone.couchConnector.enableChanges = false;
 
-    var DancehallModel = Backbone.Model.extend({
-    });
-
-    var DancehallCollection = Backbone.Collection.extend({
-        url : "/dancehall",
-        model : DancehallModel
-    });
-
-    var EventModel = Backbone.Model.extend({
-        defaults : {
-            name: "Some generic event",
-            description: "Go here for fun!",
-            hall: "dancehall0",
-            band: ["band0"],
-			date: new Date().getTime(),
-			type: "event"
-		}
-	});
-
-    // Now let's define a new Collection of Events
-    var EventCollection = Backbone.Collection.extend({
-        // The couchdb-connector is capable of mapping the url scheme
-        // proposed by the authors of Backbone to documents in your database,
-        // so that you don't have to change existing apps when you switch the sync-strategy
-        url : "event",
-        model : EventModel,
-        // The events should be ordered by date
-        comparator : function(event){
-            return new Date( event.get("date") ).getTime();
-        }
-    });
-
-    var DustView = Backbone.View.extend({
-        registerTemplate : function(name) {
-            // Relies on inline templates on the page
-            dust.compileFn( $('#'+name).html() , name);
-            this.template = name;
-        },
-        
-        getData : function(){
-            return this.model.toJSON();
-        },
-        
-        render : function(){ 
-            var result = '';
-            dust.render(this.template, this.getData(), function (err,out) {
-                if (err) result = err;
-                else result = out;
-            } );
-            $(this.el).html(result);
-            return this;
-        }
-    });
-    
-
-    // The App controller initializes the app by calling `Comments.fetch()`
-    var App = Backbone.Controller.extend({
-        initialize : function(){
-            Comments.fetch();
-        }
-    });
-    
+/////////////////////////////////////////////////////////////////////////////}
+/// VIEWS DECLARATION ///////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////{
     var SchemaForm = Backbone.View.extend({
         builder: new inputEx.JsonSchema.Builder(),
 
@@ -155,8 +94,9 @@ $(function(){
         tagName : "tr",
         
         events : {
-            // Clicking the `X` leads to a deletion
+			// Clicking the `?` leads to edit/update
             "click .edit"   : "editMe",
+            // Clicking the `X` leads to a deletion
             "click .delete" : "deleteMe"
         },
 
@@ -186,9 +126,21 @@ $(function(){
         }
     });
 
+/////////////////////////////////////////////////////////////////////////////}
+/// URL CONTROLLER //////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////{
+    // The App controller initializes the app by calling `Comments.fetch()`
+    var App = Backbone.Controller.extend({
+        initialize : function(){
+            //Comments.fetch();
+        }
+    });
 
-    var Dancehalls = new DancehallCollection();
-    var dancehall_schema = {
+/////////////////////////////////////////////////////////////////////////////}
+/// INSTACIATION & EXECUTION ////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////{    
+    var Dancehalls = new VU.HallCollection();
+    var dancehall_schema_full = {
         "description":"A dancehall is a venue dedicated to musical performances and dancing",
         "type":"object",
         "properties":{
@@ -379,8 +331,8 @@ $(function(){
         }
     };
    
-	var Events = new EventCollection();
-    var event_schema = {
+	var Events = new VU.EventCollection();
+    var event_schema_full = {
         "description":"A basic event is an attraction, a venues, a time",
         "type":"object",
         "properties":{
@@ -416,7 +368,34 @@ $(function(){
 		}
 	};
 	
-	schemaForm = new SchemaForm({ schema : event_schema, collection: Events });
-    schemaTable = new SchemaTable({ schema : event_schema, collection: Events });  
+	var event_schema_admin = {
+        "description":"A basic event is an attraction, a venues, a time",
+        "type":"object",
+        "properties":{
+            "bandName":{
+                "description": "Band Name",
+                "type":"array",
+                "required":true
+            },
+            "date":{
+                "description": "Date of event",
+                "type":"string",
+                "optional":true
+            },
+            "eventType":{
+                "description": "Type of event",
+                "type":"string",
+                "optional":true
+            },
+            "hallName":{
+                "description": "Dancehall Name",
+                "type":"array",
+                "required":true
+            }
+		}
+	}; 
+	
+	schemaForm = new SchemaForm({ schema : event_schema_full, collection: Events });
+    schemaTable = new SchemaTable({ schema : event_schema_admin, collection: Events });  
 
 });

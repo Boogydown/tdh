@@ -43,7 +43,7 @@ VU.BandModel = VU.EventsContainerModel.extend({
 	imageSearch: {}, 
 	
 	getGoogleImage : function () {
-		if ( google ) {
+		if ( google !== undefined ) {
 			this.imageSearch = new google.search.ImageSearch();
 			this.imageSearch.setSearchCompleteCallback(this, this.searchComplete, null);
 			this.imageSearch.execute(this.get( "bandName" ));

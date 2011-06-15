@@ -8,6 +8,7 @@ $(function(){
     // and will provide your models with real time remote updates.
     Backbone.couchConnector.enableChanges = false;
 	
+	// inits all in the VU namespace, specifically Backbone-View attachments to the HTML
 	VU.init();
     
 /////////////////////////////////////////////////////////////////////////////}

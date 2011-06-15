@@ -20,10 +20,10 @@ window.utils = {
 		var myPopupView;
 		switch ( popType ) {
 			case "band" : 
-				myPopupView = new BandView( { model: Bands.get( popDocID ) } );
+				myPopupView = new VU.BandView( { model: Bands.get( popDocID ) } );
 				break;
 			case "hall" :
-				myPopupView = new HallView( { model: Halls.get( popDocID ) } );
+				myPopupView = new VU.HallView( { model: Halls.get( popDocID ) } );
 				break;
 		};
 		

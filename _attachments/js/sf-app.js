@@ -11,6 +11,7 @@ $(function(){
 /////////////////////////////////////////////////////////////////////////////}
 /// VIEWS DECLARATION ///////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////{
+
     var SchemaForm = Backbone.View.extend({
         builder: new inputEx.JsonSchema.Builder(),
 
@@ -85,6 +86,7 @@ $(function(){
         // Appends an entry row 
         addRow : function(model){
             var view = new SchemaTableRow({model: model, schema: this.options.schema});
+			model.trigger( "change" );
             var rendered = view.render().el;
             this.el.append(rendered);
         }

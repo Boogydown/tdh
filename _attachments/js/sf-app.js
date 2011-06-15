@@ -92,9 +92,7 @@ $(function(){
         }
     });
     
-    var SchemaTableRow = Backbone.View.extend({
-        tagName : "tr",
-        
+    var SchemaTableRow = VU.DustView.extend({
         events : {
 			// Clicking the `?` leads to edit/update
             "click .edit"   : "editMe",
@@ -102,21 +100,16 @@ $(function(){
             "click .delete" : "deleteMe"
         },
 
-        render: function(){
-            var row, 
-                fields = this.options.schema.properties;
-
-            for (key in fields)
-            {
-				var val = this.model.get(key);
-				if ( val instanceof Array )
-					val = val[0];
-                this.el.appendChild( this.make( 'td', {}, val ) );
-            }
-            this.el.appendChild( this.make( 'td', {className: 'edit'}, "?" ) );
-            this.el.appendChild( this.make( 'td', {className: 'delete'}, "X" ) );
-            return this;
-        },
+		// If there's a change in our model, rerender it
+		initialize : function(){
+			_.bindAll(this, 'render', "editMe", "deleteMe");
+			this.model.bind('change', this.render);
+			this.registerTemplate('mainEventEntryTemplate');
+		},
+		
+		getData : function () {
+			return this.options.schema.properties;
+		},			
         
         // Fade out the element and destroy the model
         deleteMe : function(){

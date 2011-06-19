@@ -87,6 +87,8 @@ $(function(){
     });
     
     var SchemaTableRow = VU.DustView.extend({
+		el: "<tr/>",
+		
         events : {
             "click .edit"   : "editMe",
             "click .delete" : "deleteMe"

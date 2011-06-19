@@ -68,7 +68,7 @@ $(function(){
             var rowData = [], fields = this.options.schema.properties;
             for (key in fields)
 				rowData.push( fields[key].description );
-			return rowData;
+			return {fields:rowData};
 		},		
 
         render: function(){
@@ -103,7 +103,7 @@ $(function(){
             var rowData = [], fields = this.options.schema.properties;
             for (key in fields)
 				rowData.push( this.model.get(key) );
-			return rowData;
+			return {fields:rowData};
 		},
         
         // Fade out the element and destroy the model

@@ -52,54 +52,42 @@ $(function(){
         }
     });
 
-    var SchemaTable = Backbone.View.extend({
+    var SchemaTable = VU.DustView.extend({
         el: $("#model_table"),
 
         initialize : function(){
             _.bindAll(this, 'render', 'addRow');
-
             this.collection.bind("refresh", this.render);
             this.collection.bind("add", this.addRow);
             this.collection.bind("remove", this.deleted);
 			this.collection.fetch();
         },
 
-        render: function(){
-            var header, 
-                cells = [], 
-                fields = this.options.schema.properties;
-
-            this.el.html("");
-
+		getData : function () {
+            var rowData = [], fields = this.options.schema.properties;
             for (key in fields)
-            {
-                cells.push( this.make('th',{},fields[key].description) );
-            }
-            cells.push( this.make('th',{},"Edit") );
-            cells.push( this.make('th',{},"Delete") );
+				rowData.push( fields[key].description );
+			return rowData;
+		},		
 
-            header = this.make('tr',{},cells);
-            this.el.append(header);
-
-            if(this.collection.length > 0){
+        render: function(){
+			// render from our super
+			VU.DustView.render();
+            if(this.collection.length > 0)
                 this.collection.each(this.addRow);
-            }
         },
         
         // Appends an entry row 
         addRow : function(model){
 			model.trigger("change");
             var view = new SchemaTableRow({model: model, schema: this.options.schema});
-            var rendered = view.render().el;
-            this.el.append(rendered);
+            this.el.append(view.render().el);
         }
     });
     
     var SchemaTableRow = VU.DustView.extend({
         events : {
-			// Clicking the `?` leads to edit/update
             "click .edit"   : "editMe",
-            // Clicking the `X` leads to a deletion
             "click .delete" : "deleteMe"
         },
 
@@ -107,12 +95,15 @@ $(function(){
 		initialize : function(){
 			_.bindAll(this, 'render', "editMe", "deleteMe");
 			this.model.bind('change', this.render);
-			this.registerTemplate('mainEventEntryTemplate');
+			this.registerTemplate('table-row');
 		},
 		
 		getData : function () {
-			return this.options.schema.properties;
-		},			
+            var rowData = [], fields = this.options.schema.properties;
+            for (key in fields)
+				rowData.push( this.model.get(key) );
+			return rowData;
+		},
         
         // Fade out the element and destroy the model
         deleteMe : function(){

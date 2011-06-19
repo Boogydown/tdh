@@ -57,6 +57,7 @@ $(function(){
 
         initialize : function(){
             _.bindAll(this, 'render', 'addRow');
+			this.registerTemplate('table-header');			
             this.collection.bind("refresh", this.render);
             this.collection.bind("add", this.addRow);
             this.collection.bind("remove", this.deleted);

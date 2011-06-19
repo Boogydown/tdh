@@ -73,7 +73,7 @@ $(function(){
 
         render: function(){
 			// render from our super
-			VU.DustView.render();
+			VU.DustView.prototype.render.call(this);
             if(this.collection.length > 0)
                 this.collection.each(this.addRow);
         },

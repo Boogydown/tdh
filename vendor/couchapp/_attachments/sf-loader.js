@@ -20,6 +20,7 @@ couchapp_load([
   "js/lib/inputex/js/fields/FileField.js",
   "js/utils.js",
   "js/vu.js",
+  "js/schemas.js",
   "js/models.js",
   "js/collections.js",
   "js/bbViews.js",

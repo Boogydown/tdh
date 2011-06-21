@@ -134,9 +134,9 @@ $(function(){
 
 	var colls = {
 		bands : new VU.BandCollection(),
-		halls : new VU.HallCollection(),
-		events : new VU.EventCollection(null, {bandsColl:this.bands, hallsColl:this.halls})
+		halls : new VU.HallCollection()
 	};
+	colls.events = new VU.EventCollection(null, {bandsColl:colls.bands, hallsColl:colls.halls});
 
 	// c = collection (event, band, or hall)
 	// f = show form (0 or 1)

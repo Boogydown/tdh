@@ -142,7 +142,7 @@ $(function(){
 	// f = show form (0 or 1)
 	// d = show just one doc (doc ID)
 	var type = utils.$_GET( "c" ) || "event";
-	var schema = type + "_schema_" + (utils.$_GET( "s" ) || "full");
+	var schema = VU[type + "_schema_" + (utils.$_GET( "s" ) || "full")];
 	if ( utils.$_GET( "f" ) == "1" )
 		schemaForm = new SchemaForm({ schema : schema, collection: colls[type + "s"] });
 	var docID = utils.$_GET( "d" );

@@ -139,13 +139,17 @@ $(function(){
 	colls.events = new VU.EventCollection(null, {bandsColl:colls.bands, hallsColl:colls.halls});
 
 	// c = collection (event, band, or hall)
-	// f = show form (0 or 1)
-	// d = show just one doc (doc ID)
 	var type = utils.$_GET( "c" ) || "event";
-	var schema = VU[type + "_schema_" + (utils.$_GET( "s" ) || "full")];
-	if ( utils.$_GET( "f" ) == "1" )
-		schemaForm = new SchemaForm({ schema : schema, collection: colls[type + "s"] });
+	// f = show form using schema type (full, admin, user)
+	if ( utils.$_GET( "f" ) != "" )
+		schemaForm = new SchemaForm({ 
+			schema : VU[type + "_schema_" + (utils.$_GET( "f" ) || "full")], 
+			collection: colls[type + "s"] 
+		});
+	// d = show just one doc (doc ID)
 	var docID = utils.$_GET( "d" );
+	// s = show data using schema (full, admin, user)
+	var schema = VU[type + "_schema_" + (utils.$_GET( "s" ) || "full")];
 	if ( docID )
 		{}//TODO: show only a table of the given doc
 	else

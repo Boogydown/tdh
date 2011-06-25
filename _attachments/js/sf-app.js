@@ -166,7 +166,7 @@ $(function(){
 				   "all/:coll/:schema": "showColl",
 				   "all/:coll": "showColl",
 				   "form/:coll/:schema": "showForm",
-				   "form/:coll": "showForm"
+				   "form/:coll": "showForm",
 				   ":coll": "showColl"
 		},
 		

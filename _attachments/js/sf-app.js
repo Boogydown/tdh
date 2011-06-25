@@ -174,12 +174,11 @@ $(function(){
 		
         initialize : function(){
 			_.bindAll( this, "clearViews", "showDoc", "showColl", "showForm" );
-			var that = this;
 			this.colls = {
 				bands : new VU.BandCollection(),
-				halls : new VU.HallCollection(),
-				events : new VU.EventCollection( null, { bandsColl:that.colls.bands, hallsColl:that.colls.halls})
+				halls : new VU.HallCollection()
 			};
+			this.colls.events : new VU.EventCollection( null, { bandsColl:this.colls.bands, hallsColl:this.colls.halls})
         },
 
 		clearViews : function() {

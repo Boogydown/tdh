@@ -287,7 +287,6 @@ VU.event_schema_listing = {
                 "type":"array",
                 "required":true,
 				"linkRef": "bands"
-				}
             },
 			"bandName":{
                 "description": "Band Name",

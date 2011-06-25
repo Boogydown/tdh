@@ -53,7 +53,7 @@ VU.LinkingModel = Backbone.Model.extend({
 		for ( attr in this.linkRefs )
 		{
 			// this attribute's value in the model is the doc ID of the link
-			docID = this.model.get(attr);
+			docID = this.get(attr);
 			if ( docID )
 			{
 				if ( docID.length ) docID = docID[0];
@@ -101,12 +101,11 @@ VU.LinkingModel = Backbone.Model.extend({
 				{
 					// necessary trick to allow for variable key
 					srcAttr[destAttr] = linkRef.get( linkVals[destAttr].cell );
-					this.model.set( srcAttr );
+					this.set( srcAttr );
 				}
 			}
 		}
-	},
-	
+	},	
 });
 
 

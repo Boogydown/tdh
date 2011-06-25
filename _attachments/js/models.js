@@ -28,7 +28,7 @@ VU.EventsContainerModel = Backbone.Model.extend({
 VU.LinkingModel = Backbone.Model.extend({
 	linking:[ { collection: null,
 				modelID: "",
-				links: { myProp : theirProp } ],
+				links: { myProp : theirProp } } ],
 }
 	
 

@@ -113,7 +113,7 @@ $(function(){
 				if ( key=="bandName" || key=="hallName" )
 				{
 					var type = key.substr(0,4);
-					row.value = "<div class='linkable' _type + "\",\"" + this.model.get(type) + "\")'>" + row.value + "</div>";
+					row.value = '<div class="linkable" id="link_' + type + '">' + row.value + '</div>';
 				}
 				rowData.push( row );
 			}
@@ -197,9 +197,6 @@ $(function(){
 			console.log( "Route to showForm: " + param );
 			//this.schemaForm = new SchemaForm({ schema : VU[type + "_schema_" + (utils.$_GET( "f" ) || "full")], collection: sfSession.colls[type + "s"] 			
 		},
-		
-		
-		
     });
 
 /////////////////////////////////////////////////////////////////////////////}

@@ -119,7 +119,7 @@ VU.BandModel = VU.EventsContainerModel.extend({
 	
 	events : {
 		"change:image": this.normalizeImage,
-		"change:webpage": utils.normalizeWebpage
+		"change:webpage": this.normalizeWebpage
 	},
 	
 	initialize : function () { 
@@ -141,6 +141,10 @@ VU.BandModel = VU.EventsContainerModel.extend({
 		}
 		else
 			this.getGoogleImage();
+	},
+	
+	normalizeWebpage : function() {
+		this.set({ website: this.get("website").split("://").pop() });
 	},
 	
 	imageSearch: {}, 
@@ -199,7 +203,12 @@ VU.VenueModel = VU.EventsContainerModel.extend({
 			thumbPic: hallPic,
 			mainPic: hallPic.replace( "\/thumbs\/", "\/files\/" ) 
 		}, { silent: true } );
-	}		
+	},
+	
+	normalizeWebpage : function() {
+		this.set({ website: this.get("website").split("://").pop() });
+	},
+	
 });
 
 // Event model

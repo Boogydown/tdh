@@ -61,7 +61,7 @@ $(function(){
             this.collection.bind("refresh", this.render);
             this.collection.bind("add", this.addRow);
             this.collection.bind("remove", this.deleted);
-			this.collection.fetch();
+			this.collection.fetch( );
         },
 
 		getData : function () {
@@ -189,17 +189,17 @@ $(function(){
 		},
 		
 		showDoc : function( collName, docID, schemaName ){
-			var cs = validateCollSchema( collName, schemaName );
+			var cs = this.validateCollSchema( collName, schemaName );
 			this.schemaDoc = new SchemaDocSoloView({ schema: cs.schema, collection: cs.coll, docID:docID });
 		},
 
 		showColl : function( collName, schemaName ){
-			var cs = validateCollSchema( collName, schemaName );
+			var cs = this.validateCollSchema( collName, schemaName );
 			this.schemaTable = new SchemaTableView({ schema: cs.schema, collection: cs.coll });
 		},
 		
 		showForm : function( collName, schemaName ){
-			var cs = validateCollSchema( collName, schemaName );
+			var cs = this.validateCollSchema( collName, schemaName );
 			this.schemaForm = new SchemaFormView({ schema: cs.schema, collection: cs.coll });
 		},
 		

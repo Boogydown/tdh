@@ -32,8 +32,8 @@ $(function(){
 	var colls = {
 		bands : new VU.BandCollection(),
 		halls : new VU.HallCollection(),
-		events : new VU.EventCollection( null, {schema:VU.event_schema_listing, colls:this})
 	};
+	colls.events = new VU.EventCollection( null, {schema:VU.event_schema_listing, colls:colls});
 	
 	// create our main list and map views and attach the collection to them
 	var mainListView = new VU.EventListView({collection:colls.events});

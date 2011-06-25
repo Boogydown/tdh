@@ -18,7 +18,7 @@ $(function(){
     var AppController = Backbone.Controller.extend({
         initialize : function(){
 			// kick off the initial fetch
-            events.fetch();
+            events.fetch( {schema:VU.event_schema_listing});
 
 			// init the Popup handler to attach to the existing pics
 			window.utils.popupInit( this );

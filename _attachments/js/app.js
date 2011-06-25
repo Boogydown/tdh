@@ -45,7 +45,12 @@ $(function(){
 	// When all data is replaced in the collection, the refresh event is triggered which 
 	//	then kicks off the collection's render.
 	// FIXME: this implies, then, that each Model is rendered twice...!?
-	var App = new AppController();
+	//var App = new AppController();
+	// kick off the initial fetch
+	colls.events.fetch( {schema:VU.event_schema_listing});
+
+	// init the Popup handler to attach to the existing pics
+	window.utils.popupInit( this );
 
 });
 /////////////////////////////////////////////////////////////////////////////}

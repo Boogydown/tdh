@@ -57,7 +57,7 @@ VU.LinkingModel = Backbone.Model.extend({
 			if ( docID )
 			{
 				if ( docID.length ) docID = docID[0];
-				coll = collection[ this.linkRefs[attr] ];
+				coll = this.collection.colls[ this.linkRefs[attr] ];
 				if ( coll )
 				{
 					loadingQueue[attr] = {docID:docID, coll:coll};
@@ -65,6 +65,7 @@ VU.LinkingModel = Backbone.Model.extend({
 				}
 			}
 		}
+		// 2nd pass to load them
 		for ( attr in loadingQueue )
 		{	
 			//TODO: great opportunity to bulk load, here

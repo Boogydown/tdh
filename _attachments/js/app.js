@@ -36,8 +36,8 @@ $(function(){
 	};
 	
 	// create our main list and map views and attach the collection to them
-	var mainListView = new VU.EventListView({collection:events});
-	var mainMapView = new VU.MapView({collection:halls, notifier:events});
+	var mainListView = new VU.EventListView({collection:colls.events});
+	var mainMapView = new VU.MapView({collection:colls.halls, notifier:colls.events});
 	
 	// when this inits, it should call Events.fetch(), which should in theory fetch all
 	//	of its data; each model is updated and then triggers a change event which is bound to 

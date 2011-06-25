@@ -2,7 +2,7 @@ VU.InitSchemas = function () {
 /////////////////////////////////////////////////////////////////////////////
 /// SCHEMAS DECLARATION ///////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////{
-VU.hall_schema_full = {
+VU.halls_schema_full = {
         "description":"A dancehall is a venue dedicated to musical performances and dancing",
         "type":"object",
         "properties":{
@@ -193,7 +193,7 @@ VU.hall_schema_full = {
         }
     },
    
-VU.event_schema_full = {
+VU.events_schema_full = {
         "description":"A basic event is an attraction, a venues, a time",
         "type":"object",
         "properties":{

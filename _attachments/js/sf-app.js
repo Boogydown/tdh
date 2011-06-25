@@ -170,9 +170,9 @@ $(function(){
 		},
 		
 		events : { "route:showDoc": "showDoc",
-				   "route:showColl": "showColl"
+				   "route:showColl": "showColl",
 				   "route:showForm": "showForm"
-		},					
+		},
 		
         initialize : function(){
 			_.bindAll( this, "showDoc", "showColl" );

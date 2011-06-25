@@ -13,7 +13,12 @@ VU.EventCollection = Backbone.Collection.extend({
 	// The events should be ordered by date
 	comparator : function(event){
 		return new Date( event.get("date") ).getTime();
+	},
+	
+	initialize : function ( models, options ) {
+		this.schema = options.schema;
 	}
+	
 });
 
 VU.BandCollection = Backbone.Collection.extend({

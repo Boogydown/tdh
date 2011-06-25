@@ -35,7 +35,7 @@ VU.LinkingModel = Backbone.Model.extend({
 		this.bind ( "change", this.loadLinkRefs );
 		// Loads all of the refs and values from schema for processing later
 		var fields = this.options && this.options.schema && this.options.schema.properties || 
-					 this.collection.options && this.collection.options.schema && this.collection.options.schema.properties ||
+					 this.collection.schema && this.collection.schema.properties ||
 					 {};
 		for ( var attr in fields )
 		{

@@ -108,26 +108,68 @@
 
 <!--=========== START VYNC-UP ===========-->
 	<!-- Main App Container-->
-		<div class="maincontainer">
-        	<table class="tabs">
-            	<tr>
-                	<td><div class="tabbutton" onclick="">BANDS</div></td>
-                	<td><div class="tabbutton" onclick="">HALLS</div></td>
-                	<td><div class="tabbutton" onclick="">DATES</div></td>
-                	<td><div class="tabbutton" onclick="">DANCE CARD</div></td>
-                </tr>
-            </table>
-			<div class="box" id="list"></div>
-        	<div class="box" id="main-map"></div>
-		</div>
+		<div id="main-container">
+			<div id="nav-tabs">
+				<ul id="tab-list">
+					<li id="active-link"><a id="dances-button">Dances</a></li>
+					<li><a id="bands-button">Bands</a></li>
+					<li><a id="halls-button">Halls</a></li>
+				</ul>
+				<div id="dance-card">Dance Card</div>
+			</div>
+			<div id="info-area">
+				<div class="box" id="list">
+					<div id="listing">
+						<div class="standard"><!-- DEFINES WHETHER WILL BE FEATURED OR NOT -->
+							<div id="listing-date"><!-- HOLDS DATE DETAILS ON THE LEFT OF THE LISTING -->
+								<div class="date">WED</div><!-- HOLDS DAY OF EVENT -->
+								<div class="day">23</div><!-- HOLDS NUMERICAL DAY OF EVENT -->
+								<div class="date">JULY</div><!-- HOLDS MONTH OF EVENT -->
+							</div>
+							<div id="listing-time">10:15 PM</div>						
+						</div>
+						<div class="twostepphoto"></div>
+						
+					</div>
+					
+				
+				</div>
+				<div class="box" id="calendar"></div>
+				<div class="box" id="main-map"></div>
+			
+			</div>
 		
-        <div class="foldBug">
-			<div id="foldTriangle"></div>
-			<div id="foldText">SEE&nbsp;ALL<br/>&nbsp;BANDS</div>
 		</div>
 
 	<!-- Popup (hidden) -->
 		<div id="popup_block" class="popup_block"></div>
+		
+		<!-- ***************************CODE OF NEWLY DESIGNED POPUP********************* -->
+		<div id="band_popup" class="popup_block">
+            	<div id="info">
+            		<h2>This Is A Band Header</h2>
+            		<div class="detailtext">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque tincidunt neque mauris, non sagittis urna. Integer dictum rhoncus pretium. Suspendisse rhoncuum dolor sit amet, consectetur adipiscing elit. Quisque tincidunt neque mauris, non sagittis urna. Integer dictum rhoncus pretium. Suspendisse rhoncuum dolor sit amet, consectetur adipiscing elit. Quisque tincidunt neque mauris, non sagittis urna. Integer dictum rhoncus pretium. Suspendisse rhoncuum dolor sit amet, consectetur adipiscing elit. Quisque tincidunt neque mauris, non sagittis urna. Integer dictum rhoncus pretium. Suspendisse rhoncuum dolor sit amet, consectetur adipiscing elit. Quisque tincidunt neque mauris, non sagittis urna. Integer dictum rhoncus pretium. Suspendisse rhoncus sollicitudin odio et pretium. Maecenas tristique eros sit amet sem viv</div>
+            	</div>
+            	<div id="main-photo"></div>
+                <div class="box" id="popuplist">
+					<div id="listing">
+						<div class="detail-standard"><!-- DEFINES WHETHER WILL BE FEATURED OR NOT -->
+							<div id="listing-date"><!-- HOLDS DATE DETAILS ON THE LEFT OF THE LISTING -->
+								<div class="date">WED</div><!-- HOLDS DAY OF EVENT -->
+								<div class="day">23</div><!-- HOLDS NUMERICAL DAY OF EVENT -->
+								<div class="date">JULY</div><!-- HOLDS MONTH OF EVENT -->
+							</div>
+						
+						</div>
+						<div class="twostepphoto"></div>
+						
+					</div>
+					
+				
+				</div>
+        		<div class="detailmap"></div>
+		</div>
+		<!-- ***************************CODE OF NEWLY DESIGNED POPUP********************* -->
 
 <!--=========== END MAIN APP ===========-->
 

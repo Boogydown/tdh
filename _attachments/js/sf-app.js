@@ -165,7 +165,7 @@ $(function(){
 				   "doc/:coll/:docID": "showDoc",
 				   "all/:coll/:schema": "showColl",
 				   "all/:coll": "showColl",
-				   "form/:coll/:schema": "showForm"
+				   "form/:coll/:schema": "showForm",
 				   "form/:coll": "showForm"
 		},
 		

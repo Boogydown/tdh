@@ -29,7 +29,7 @@ VU.LinkingModel = Backbone.Model.extend({
 	linking:[ { collection: null,
 				modelID: "",
 				links: { myProp : theirProp } } ],
-}
+}),
 	
 
 // Band model
@@ -129,7 +129,7 @@ VU.EventModel = Backbone.Model.extend({
 				// if already fetched then just pull the data
 				if ( myRef.fetched !== undefined )
 					callback( myRef, { "targetEventID":eventID });
-			}	
+			}
 		}
 	},
 	

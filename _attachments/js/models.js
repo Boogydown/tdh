@@ -25,6 +25,13 @@ VU.EventsContainerModel = Backbone.Model.extend({
 	},
 });
 
+VU.LinkingModel = Backbone.Model.extend({
+	linking:[ { collection: null,
+				modelID: "",
+				links: { myProp : theirProp } ],
+}
+	
+
 // Band model
 VU.BandModel = VU.EventsContainerModel.extend({
 	defaults : {
@@ -49,7 +56,7 @@ VU.BandModel = VU.EventsContainerModel.extend({
 			this.imageSearch.execute(this.get( "bandName" ));
 			//google.search.Search.getBranding('branding');
 		}
-		catch (e) {console.log("Cannot loag Google Images API: " + e);}
+		catch (e) {console.log("Cannot load Google Images API: " + e);}
 	},
 	
 	searchComplete : function() {

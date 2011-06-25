@@ -9,15 +9,16 @@
     <label for="model_edit">Add/Edit:</label>
     <form id="model_edit">
     </form>
-    
-    <label for="model_table">Table:</label>
+    <label for="coll_table">Table:</label>
     <table>
-		<tbody id="model_table">
-			
+		<tbody id="coll_table">
 		</tbody>
     </table>
-
+	<div id="model_table">
+		<label for="model_table">Doc Table:</label>
+	</div>
   </body>
+  
   <script type="application/dust-template" id="table-header">
     <tr>
         {#fields}<th>{.}</th>{/fields}
@@ -26,9 +27,20 @@
     </tr>
   </script>
   <script type="application/dust-template" id="table-row">
-        {#fields}<td>{.}</td>{/fields}
+        {#fields}<td>{value}</td>{/fields}
         <td class="edit">?</td>
         <td class="delete">X</td>
+  </script>
+  <script type="application/dust-template" id="doc-table">
+		<table><tbody>
+			{#fields}
+			<tr>
+				<th>{key}</th><td>{value}</td>
+			</tr>
+			{/fields}
+			<tr><td class="edit">?</td></tr>
+			<tr><td class="delete">X</td></tr>
+		</tbody></table>
   </script>
   <script type="text/javascript" src="vendor/couchapp/sf-loader.js"></script>
 </html>

@@ -71,10 +71,12 @@ ul#tab-list li a{
 }
 
 ul#tab-list li#active-link a{
+	background: url(../images/cssSprite.png);
 	background-position: -200px -20px;
 }
 
 ul#tab-list li a:hover{
+	background: url(../images/cssSprite.png);
 	background-position: -100px -20px;
 }
 

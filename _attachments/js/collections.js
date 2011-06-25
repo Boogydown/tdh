@@ -17,7 +17,7 @@ VU.EventCollection = Backbone.Collection.extend({
 	
 	initialize : function ( models, options ) {
 		this.schema = options.schema;
-		this.cols = options.colls;
+		this.colls = options.colls;
 	}
 	
 });

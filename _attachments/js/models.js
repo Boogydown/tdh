@@ -57,7 +57,7 @@ VU.LinkingModel = Backbone.Model.extend({
 			if ( docID )
 			{
 				if ( docID.length ) docID = docID[0];
-				coll = window.app.colls[ this.linkRefs[attr] ];
+				coll = collection[ this.linkRefs[attr] ];
 				if ( coll )
 				{
 					loadingQueue[attr] = {docID:docID, coll:coll};

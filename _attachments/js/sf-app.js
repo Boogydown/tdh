@@ -167,6 +167,7 @@ $(function(){
 				   "all/:coll": "showColl",
 				   "form/:coll/:schema": "showForm",
 				   "form/:coll": "showForm"
+				   ":coll": "showColl"
 		},
 		
 		events : { "route:showDoc": "showDoc",
@@ -183,19 +184,29 @@ $(function(){
 			this.colls.events = new VU.EventCollection( null, { bandsColl:this.colls.bands, hallsColl:this.colls.halls});
         },
 		
-		showDoc : function( coll, docID, schema ){
-			console.log( "Route to showDoc: " + coll + ", " + docID + ", " + schema );
-			//this.schemaDoc = new SchemaDocSoloView({ schema: sfSession.schema, collection: sfSession.colls[type + "s"], docID:docID } ); 			
+		showDoc : function( collName, docID, schemaName ){
+			//console.log( "Route to showDoc: " + coll + ", " + docID + ", " + schema );
+			this.schemaDoc = new SchemaDocSoloView({ 
+				schema: VU[collName + "_schema_" + (schemaName || "full")],
+				collection: this.colls[collName],
+				docID:docID
+			});
 		},
 
-		showColl : function( coll, schema ){
-			console.log( "Route to showColl: " + coll + ", " + schema );
-			//this.schemaTable = new SchemaTable({ schema : sfSession.schema, collection: sfSession.colls[type + "s"] });  			
+		showColl : function( collName, schemaName ){
+			//console.log( "Route to showColl: " + coll + ", " + schema );
+			this.schemaTable = new SchemaTable({ 
+				schema: VU[(collName || "events") + "_schema_" + (schemaName || "full")],
+				collection: this.colls[collName]
+			});
 		},
 		
-		showForm : function( coll, schema ){
-			console.log( "Route to showForm: " + coll + ", " + schema );
-			//this.schemaForm = new SchemaForm({ schema : VU[type + "_schema_" + (utils.$_GET( "f" ) || "full")], collection: sfSession.colls[type + "s"] 			
+		showForm : function( collName, schemaName ){
+			//console.log( "Route to showForm: " + coll + ", " + schema );
+			this.schemaForm = new SchemaForm({ 
+				schema: VU[collName + "_schema_" + (schemaName || "full")],
+				collection: this.colls[collName]
+			});
 		},
     });
 

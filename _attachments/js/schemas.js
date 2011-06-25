@@ -239,7 +239,6 @@ VU.event_schema_admin = {
 			"type":"array",
 			"required":true,
 			"linkRef": "bands"
-			}
 		},
 		"bandName":{
 			"description": "Band Name",
@@ -274,7 +273,7 @@ VU.event_schema_admin = {
 				linkRef: "hall",
 				cell: "bandName"
 			}
-		},
+		}
 	}
 };
 
@@ -342,5 +341,4 @@ VU.event_schema_listing = {
 			}
 		}
 	}
-
 };

@@ -2,9 +2,10 @@ div {
     color: #CCCCCC;
 }
 .maincontainer {
-    background: none repeat scroll 0 0 #000000;
+    background-image: url('images/stripedGB.jpg');
+    background-repeat:repeat;
     bottom: 50px;
-    font-family: Verdana,Geneva,sans-serif;
+    font-family: Arial,sans-serif;
     position: fixed;
     top: 200px;
     width: 780px;

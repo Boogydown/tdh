@@ -15,7 +15,7 @@ $(function(){
 /// VIEWS DECLARATION ///////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////{
 
-    var SchemaForm = Backbone.View.extend({
+    var SchemaFormView = Backbone.View.extend({
         builder: new inputEx.JsonSchema.Builder(),
 
         el : $("#model_edit"),
@@ -52,13 +52,11 @@ $(function(){
         }
     });
 
-    var SchemaTable = VU.DustView.extend({
+    var SchemaTableView = VU.DustView.extend({
         el: $("#coll_table"),
 
         initialize : function(){
             _.bindAll(this, 'render', 'addRow');
-			this.el.show();
-			// TODO: hide solo doc view
 			this.registerTemplate('table-header');			
             this.collection.bind("refresh", this.render);
             this.collection.bind("add", this.addRow);
@@ -108,14 +106,14 @@ $(function(){
             var rowData = [], fields = this.options.schema.properties;
             for (key in fields)
 			{
-				var row = {key:key, value:this.model.get(key)};
-				//TODO: genercize this!  eep!
-				if ( key=="bandName" || key=="hallName" )
+				if ( ! fields[key].hidden )
 				{
-					var type = key.substr(0,4);
-					row.value = '<div class="linkable" id="link_' + type + '">' + row.value + '</div>';
+					var row = {key:key, value:this.model.get(key)};
+					if ( fields[key].linkRef )
+						//row.value = '<div class="linkable" id="link_' + fields[key].linkRef + '">' + row.value + '</div>';
+						row.value = '<a href="#/doc/' + fields[key].linkRef + '/' + row.value + '">' + row.value + '</a>';
+					rowData.push( row );
 				}
-				rowData.push( row );
 			}
 			return {fields:rowData};
 		},
@@ -132,16 +130,14 @@ $(function(){
 	
 	var SchemaDocSoloView = SchemaDocView.extend({
 		el:$("#model_table"),
-		
 		options : { templateName: "doc-table" },
+		
 		initialize : function() {
 			if ( options.docID != "" )
 			{
-				var myDoc = options.collection.get( options.docID );
+				this.model = window.app.colls.get( options.docID );
 				if ( myDoc )
-				{
-					
-				}					
+					SchemaDocView.prototype.initialize();
 			}
 			else
 				el.text( options.docID + " does not exist!");
@@ -149,7 +145,7 @@ $(function(){
 		}
 		// it looks for options.id, if !"" then checks coll for the id
 		// if found, fetches, if not, create
-		// hides list view (should be passed a ref to schemaTable?)
+		// hides list view (should be passed a ref to SchemaTableView?)
 		// shows its view
 		
 		
@@ -170,44 +166,53 @@ $(function(){
 				   ":coll": "showColl"
 		},
 		
-		events : { "route:showDoc": "showDoc",
+		events : { "route": "clearViews",
+				   "route:showDoc": "showDoc",
 				   "route:showColl": "showColl",
 				   "route:showForm": "showForm"
 		},
 		
         initialize : function(){
-			_.bindAll( this, "showDoc", "showColl" );
+			_.bindAll( this, "clearViews", "showDoc", "showColl", "showForm" );
+			var that = this;
 			this.colls = {
 				bands : new VU.BandCollection(),
-				halls : new VU.HallCollection()
+				halls : new VU.HallCollection(),
+				events : new VU.EventCollection( null, { bandsColl:that.colls.bands, hallsColl:that.colls.halls})
 			};
-			this.colls.events = new VU.EventCollection( null, { bandsColl:this.colls.bands, hallsColl:this.colls.halls});
         },
+
+		clearViews : function() {
+			this.schemaDoc && this.schemaDoc.remove();
+			this.schemaTable && this.schemaTable.remove();
+			this.schemaForm && this.schemaForm.remove();
+			this.schemaDoc = this.schemaTable = this.schemaForm = null;
+		},
 		
 		showDoc : function( collName, docID, schemaName ){
-			//console.log( "Route to showDoc: " + coll + ", " + docID + ", " + schema );
-			this.schemaDoc = new SchemaDocSoloView({ 
-				schema: VU[collName + "_schema_" + (schemaName || "full")],
-				collection: this.colls[collName],
-				docID:docID
-			});
+			var cs = validateCollSchema( collName, schemaName );
+			this.schemaDoc = new SchemaDocSoloView({ schema: cs.schema, collection: cs.coll, docID:docID });
 		},
 
 		showColl : function( collName, schemaName ){
-			//console.log( "Route to showColl: " + coll + ", " + schema );
-			this.schemaTable = new SchemaTable({ 
-				schema: VU[(collName || "events") + "_schema_" + (schemaName || "full")],
-				collection: this.colls[collName]
-			});
+			var cs = validateCollSchema( collName, schemaName );
+			this.schemaTable = new SchemaTableView({ schema: cs.schema, collection: cs.coll });
 		},
 		
 		showForm : function( collName, schemaName ){
-			//console.log( "Route to showForm: " + coll + ", " + schema );
-			this.schemaForm = new SchemaForm({ 
-				schema: VU[collName + "_schema_" + (schemaName || "full")],
-				collection: this.colls[collName]
-			});
+			var cs = validateCollSchema( collName, schemaName );
+			this.schemaForm = new SchemaFormView({ schema: cs.schema, collection: cs.coll });
 		},
+		
+		validateCollSchema : function( collName, schemaName ) {
+			// TODO: add proper error reporting/handling
+			var coll = this.colls[collName];
+			if ( !coll ) console.log( "Collection " + collName + " doesn't exist!" );
+			schemaName = collName + "_schema_" + (schemaName || "full");
+			var schema = VU[ schemaName ];
+			if ( !schema ) console.log( "Schema " + schemaName + " doesn't exist!" );
+			return { coll:coll, schema:schema };
+		}			
     });
 
 /////////////////////////////////////////////////////////////////////////////}

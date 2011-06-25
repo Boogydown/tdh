@@ -25,13 +25,88 @@ VU.EventsContainerModel = Backbone.Model.extend({
 	},
 });
 
-/*
+
 VU.LinkingModel = Backbone.Model.extend({
-	linking:[ { collection: null,
-				modelID: "",
-				links: { myProp : theirProp } } ],
-}),
-*/
+	linkRefs : {},
+	linkRefsCount : 0,
+	linkVals : {},
+	initialize : function () {
+		_.bindAll( this, "loadLinkRefs", "loadLinkVals" );
+		this.bind ( "change", this.loadLinkRefs );
+		// Loads all of the refs and values from schema for processing later
+		var fields = this.options.schema && this.options.schema.properties || {};
+		for ( var attr in fields )
+		{
+			if ( fields[attr].linkRef !== undefined )
+				this.linkRefs[attr] = fields[attr].linkRef;
+			if ( fields[attr].linkVal !== undefined )
+				this.linkVals[attr] = fields[attr].linkVal;
+		}
+	},
+	
+	loadLinkRefs : function () {
+		var attr, loadingQueue = {}, docID, coll, myRef, that = this;
+		// we're doing two passes: first to tally valid refs, 2nd to load them
+		// this'll prevent race conditions when dealing with linkRefsCount
+		for ( attr in this.linkRefs )
+		{
+			// this attribute's value in the model is the doc ID of the link
+			docID = this.model.get(attr);
+			if ( docID )
+			{
+				if ( docID.length ) docID = docID[0];
+				coll = window.app.colls[ this.linkRefs[attr] ];
+				if ( coll )
+				{
+					loadingQueue[attr] = {docID:docID, coll:coll};
+					this.linkRefsCount++;
+				}
+			}
+		}
+		for ( attr in loadingQueue )
+		{	
+			//TODO: great opportunity to bulk load, here
+			myRef = loadingQueue[attr].coll.get( loadingQueue[attr].docID );
+			// if reference not loaded yet, then create and fetch it
+			if ( ! myRef )
+				myRef = loadingQueue[attr].coll.create( { 
+					id:loadingQueue[attr].docID, 
+					events:{"change": that.loadLinkVals} 
+				}, {attr:attr} );
+			// otherwise, load the old one
+			else {
+				myRef.bind( "change", this.loadLinkVals );
+				// if already fetched then just pull the data
+				if ( myRef.fetched !== undefined )
+					this.loadLinkVals( myRef, {attr:attr} );
+			}
+		}
+	},
+	
+	loadLinkVals : function ( myRef, options ) {
+		myRef.fetched = true;
+		this.linkRefs[ options.attr ] = myRef;
+
+		// if gets down to zero then all models are loaded and stored in this.linkRefs and are ready to set the linked values
+		if ( ! --this.linkRefsCount )
+		{
+			var srcAttr, linkRef, destAttr;
+			for ( destAttr in this.linkVals )
+			{
+				srcAttr = {}; 
+				linkRef = this.linkRefs[ this.linkVals[destAttr].linkRef ];
+				if ( linkRef )
+				{
+					// necessary trick to allow for variable key
+					srcAttr[destAttr] = linkRef.get( linkVals[destAttr].cell );
+					this.model.set( srcAttr );
+				}
+			}
+		}
+	},
+	
+});
+
 
 // Band model
 VU.BandModel = VU.EventsContainerModel.extend({
@@ -42,11 +117,31 @@ VU.BandModel = VU.EventsContainerModel.extend({
 		events: null
 	},
 	
+	events : {
+		"change:image": this.normalizeImage,
+		"change:webpage": utils.normalizeWebpage
+	},
+	
 	initialize : function () { 
 		this.myType = "band"; 
+		_.bindAll( this, "normalizePics" );
 	},
 	
 	//url : function () { return "https://dev.vyncup.t9productions.com:44384/tdh/" + this.id; },
+
+	normalizeImage : function () {
+		var bandID = this.id;
+		var bandPic = this.get("image");
+		if ( bandPic && bandPic != this.defaults.image && bandPic.substr(0, 4) != "http" ) {
+			bandPic = "../../" + bandID + "/thumbs/" + encodeURI( bandPic );
+			this.set( { 
+				thumbPic: bandPic, 
+				mainPic: bandPic.replace( "\/thumbs\/", "\/files\/" ) 
+			}, { silent: true } );
+		}
+		else
+			this.getGoogleImage();
+	},
 	
 	imageSearch: {}, 
 	
@@ -61,10 +156,9 @@ VU.BandModel = VU.EventsContainerModel.extend({
 	},
 	
 	searchComplete : function() {
-		if ( this.imageSearch.results && this.imageSearch.results.length > 0 )
-		{
+		if ( this.imageSearch.results && this.imageSearch.results.length > 0 ) {
 			var result = this.imageSearch.results[0];
-			this.set( {image: result.tbUrl} );
+			this.set( {thumbPic: result.tbUrl} );
 			this.set( {mainPic: result.url} );
 		}
 	}
@@ -79,12 +173,37 @@ VU.VenueModel = VU.EventsContainerModel.extend({
 		events: null
 	},	
 
-	initialize : function () { this.myType = "hall"; },
+	events : {
+		"change:images": this.normalizeImages,
+		"change:webpage": utils.normalizeWebpage
+	},
+	
+	initialize : function () { 
+		this.myType = "hall"; 
+		
+	},
+	
 	//url : function () { return "https://dev.vyncup.t9productions.com:44384/tdh/" + this.id; }
+	
+	normalizeImages : function () {
+		var hallID = this.id;
+		var hallPic = this.get("images")[0];
+		if ( hallPic )
+			hallPic = hallPic.image;
+		else 
+			hallPic = this.defaults.images[0].image;
+		if ( hallPic != this.defaults.images[0].image )
+			hallPic = "../../" + hallID + "/thumbs/" + encodeURI( hallPic );
+			// TODO: check to see if this URL exists... ?  perhaps try <img src.... onerror=""/>
+		this.set( { 
+			thumbPic: hallPic,
+			mainPic: hallPic.replace( "\/thumbs\/", "\/files\/" ) 
+		}, { silent: true } );
+	}		
 });
 
 // Event model
-VU.EventModel = Backbone.Model.extend({
+VU.EventModel = VU.LinkingModel.extend({
 	defaults : {
 		name: "Some generic event",
 		description: "Go here for fun!",
@@ -96,73 +215,7 @@ VU.EventModel = Backbone.Model.extend({
 		bandPic: "images/genericSilhouette.jpg",
 		date: new Date().getTime(),
 		topY: 10
-	},
-	
-	initialize: function () {
-		_.bindAll( this, "loadRefs", "setBandLink", "setHallLink" );
-		this.bind ( "change", this.loadRefs );
-	},
-	
-	loadRefs: function () {
-		// TODO: remove this unbind and just add a condition to skip this if (this.collection.fetching)
-		//	(which is set to true at fetch, and false at refresh)
-		this.unbind( "change", this.loadRefs );
-		if ( this.collection.bandsColl )
-			this.loadRef( "band", this.collection.bandsColl, this.setBandLink );
-		if ( this.collection.hallsColl )
-			this.loadRef( "hall", this.collection.hallsColl, this.setHallLink );
-	},
-	
-	loadRef: function( type, coll, callback ) {
-		if ( this.get( type ).length > 0 ) {
-			var myID = this.get( type )[0];
-			var myRef = coll.get( myID );
-			var eventID = this.id;
-			// if no band/hall created, yet, then make it
-			if ( ! myRef ){
-				myRef = new coll.model( { id: myID });
-				coll.add( myRef );
-				myRef.bind( "change", callback );
-				myRef.fetch();
-			// otherwise, load the old one
-			} else {
-				myRef.bind( "change", callback );
-				// if already fetched then just pull the data
-				if ( myRef.fetched !== undefined )
-					callback( myRef, { "targetEventID":eventID });
-			}
-		}
-	},
-	
-	//TODO: consider making these methods belong to the actual Model for proper encapsulation
-	setBandLink: function ( targetBand, options ) {
-		//options.targetEvent.unbind("change", this.setBandLink );
-		targetBand.fetched = true;
-		var bandID = targetBand.id;
-		var bandPic = targetBand.get("image");
-		if ( bandPic && bandPic != targetBand.defaults.image && bandPic.substr(0, 4) != "http" )
-			bandPic = "../../" + bandID + "/thumbs/" + encodeURI( bandPic );
-		else
-			targetBand.getGoogleImage();
-		if ( ! targetBand.get( "mainPic" ) )
-			targetBand.set( { mainPic: bandPic.replace( "\/thumbs\/", "\/files\/" ) }, { silent: true } );
-		this.set( {"bandName": targetBand.get("bandName"), "bandPic": bandPic } );
-	},
-	
-	setHallLink: function ( targetHall, options ) {
-		//options.targetEvent.unbind("change", this.setHallLink );
-		targetHall.fetched = true;
-		var hallID = targetHall.id;
-		var hallPic = targetHall.get("images")[0];
-		if ( hallPic )
-			hallPic = hallPic.image;
-		else 
-			hallPic = targetHall.defaults.images[0].image;
-		if ( hallPic != targetHall.defaults.images[0].image )
-			hallPic = "../../" + hallID + "/thumbs/" + encodeURI( hallPic );
-			// TODO: check to see if this URL exists... ?  perhaps try <img src.... onerror=""/>
-		targetHall.set( { mainPic: hallPic.replace( "\/thumbs\/", "\/files\/" ) }, { silent: true } );
-		this.set( {"hallName": targetHall.get("danceHallName"), "hallPic": hallPic } );
-	},
+	}		
 });
+
 };

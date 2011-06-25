@@ -183,18 +183,18 @@ $(function(){
 			this.colls.events = new VU.EventCollection( null, { bandsColl:this.colls.bands, hallsColl:this.colls.halls});
         },
 		
-		showDoc : function( param ){
-			console.log( "Route to showDoc: " + param );
+		showDoc : function( coll, docID, schema ){
+			console.log( "Route to showDoc: " + coll + ", " + docID + ", " + schema );
 			//this.schemaDoc = new SchemaDocSoloView({ schema: sfSession.schema, collection: sfSession.colls[type + "s"], docID:docID } ); 			
 		},
 
-		showColl : function( param ){
-			console.log( "Route to showColl: " + param );
+		showColl : function( coll, schema ){
+			console.log( "Route to showColl: " + coll + ", " + schema );
 			//this.schemaTable = new SchemaTable({ schema : sfSession.schema, collection: sfSession.colls[type + "s"] });  			
 		},
 		
-		showForm : function( param ){
-			console.log( "Route to showForm: " + param );
+		showForm : function( coll, schema ){
+			console.log( "Route to showForm: " + coll + ", " + schema );
 			//this.schemaForm = new SchemaForm({ schema : VU[type + "_schema_" + (utils.$_GET( "f" ) || "full")], collection: sfSession.colls[type + "s"] 			
 		},
     });

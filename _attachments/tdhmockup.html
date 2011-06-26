@@ -46,57 +46,18 @@
 		</div>{~n}{~n}
 	</script>
 	
-	<script type="application/dust-template" id="popupTemplate_hall">
-		<div class="detailphoto"><img src="{mainPic}"/></div>
-		<div class="detailtext">
-			<b>{danceHallName}</b>{?dateBuilt}, {dateBuilt} {/dateBuilt}<br/>
-			{description}<br/>
-			{address}<br/>
-			<a href="http://{website}">{website}</a>
-		</div><br/>
-		<div class="popupbox">
-				<div id="popuplisting">
-					<h2>Thursday, April 7th</h2>
-					<div id="details">
-						<div id="popupbandinfo">I am a great band</div>
-						<div class="atvenue">9pm<br/>@</div>
-						<div id="popupvenueinfo">I am a great venue</div>
-						<div class="twostepphoto"></div>
-					</div>
-				</div>
-		</div>
-		<div class="detailmap"></div>	
-	</script>
-	
 	<script type="application/dust-template" id="popupTemplate_band">
-		<div class="detailphoto"><img src="{mainPic}"/></div>
-		<div class="detailtext">
-			<b>{bandName}</b>
-			{#stylesPlayed}., {/stylesPlayed}<br/>
-			<a href="http://{website}">{website}</a>
-		</div><br/>
-		<div class="popupbox">
-				<div id="popuplisting">
-					<h2>Thursday, April 7th</h2>
-					<div id="details">
-						<div id="popupbandinfo">I am a great band</div>
-						<div class="atvenue">9pm<br/>@</div>
-						<div id="popupvenueinfo">I am a great venue</div>
-						<div class="twostepphoto"></div>
-					</div>
-				</div>
-		</div>
-		<div class="detailmap"></div>
-
-	</script>
-
-	<script type="application/dust-template" id="popupTemplate">
 		<div id="band_popup" class="popup_block">
 			<div id="info">
-				<h2>This Is A Band Header</h2>
-				<div class="detailtext">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque tincidunt neque mauris, non sagittis urna. Integer dictum rhoncus pretium. Suspendisse rhoncuum dolor sit amet, consectetur adipiscing elit. Quisque tincidunt neque mauris, non sagittis urna. Integer dictum rhoncus pretium. Suspendisse rhoncuum dolor sit amet, consectetur adipiscing elit. Quisque tincidunt neque mauris, non sagittis urna. Integer dictum rhoncus pretium. Suspendisse rhoncuum dolor sit amet, consectetur adipiscing elit. Quisque tincidunt neque mauris, non sagittis urna. Integer dictum rhoncus pretium. Suspendisse rhoncuum dolor sit amet, consectetur adipiscing elit. Quisque tincidunt neque mauris, non sagittis urna. Integer dictum rhoncus pretium. Suspendisse rhoncus sollicitudin odio et pretium. Maecenas tristique eros sit amet sem viv</div>
+				<h2>{bandName}</h2>
+				<div class="detailtext">
+					{#stylesPlayed}{.}<br/>
+					{:stylesPlayed}<br/>
+					<a href="http://{website}">website</a><br/>
+					{description}
+				</div>
 			</div>
-			<div id="main-photo"></div>
+			<div id="main-photo"><img src="{mainPic}"/></div>
 			<div class="box" id="popuplist">
 				<div id="listing">
 					<div class="detail-standard"><!-- DEFINES WHETHER WILL BE FEATURED OR NOT -->
@@ -108,8 +69,33 @@
 					</div>
 					<div class="twostepphoto"></div>
 				</div>
-				
-			
+			</div>
+			<div class="detailmap"></div>
+		</div>
+	</script>
+	
+	<script type="application/dust-template" id="popupTemplate_hall">
+		<div id="band_popup" class="popup_block">
+			<div id="info">
+				<h2>{danceHallName}</h2> {yearBuilt}
+				<div class="detailtext">
+					<a href="http://{website}">website</a><br/>
+					{description}<br/>
+					{address}
+				</div>
+			</div>
+			<div id="main-photo"><img src="{mainPic}"/></div>
+			<div class="box" id="popuplist">
+				<div id="listing">
+					<div class="detail-standard"><!-- DEFINES WHETHER WILL BE FEATURED OR NOT -->
+						<div id="listing-date"><!-- HOLDS DATE DETAILS ON THE LEFT OF THE LISTING -->
+							<div class="date">WED</div><!-- HOLDS DAY OF EVENT -->
+							<div class="day">23</div><!-- HOLDS NUMERICAL DAY OF EVENT -->
+							<div class="date">JULY</div><!-- HOLDS MONTH OF EVENT -->
+						</div>
+					</div>
+					<div class="twostepphoto"></div>
+				</div>
 			</div>
 			<div class="detailmap"></div>
 		</div>

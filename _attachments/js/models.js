@@ -32,7 +32,7 @@ VU.LinkingModel = Backbone.Model.extend({
 	linkVals : {},
 	initialize : function () {
 		_.bindAll( this, "loadLinkRefs", "loadLinkVals" );
-		this.bind ( "change", this.loadLinkRefs );
+		//this.bind ( "change", this.loadLinkRefs );
 		// Loads all of the refs and values from schema for processing later
 		var fields = this.options && this.options.schema && this.options.schema.properties || 
 					 this.collection.schema && this.collection.schema.properties ||
@@ -47,7 +47,6 @@ VU.LinkingModel = Backbone.Model.extend({
 	},
 	
 	loadLinkRefs : function () {
-		this.unbind( "change", this.loadLinkRefs );
 		var attr, loadingQueue = {}, docID, coll, myRef, that = this;
 		// we're doing two passes: first to tally valid refs, 2nd to load them
 		// this'll prevent race conditions when dealing with linkRefsCount
@@ -85,7 +84,7 @@ VU.LinkingModel = Backbone.Model.extend({
 			else {
 				myRef.bind( "change", this.loadLinkVals );
 				// if already fetched then just pull the data
-				if ( myRef.fetched !== undefined )
+				if ( myRef.fetched )
 					this.loadLinkVals( myRef, {attr:attr} );
 			}
 		}
@@ -143,7 +142,7 @@ VU.BandModel = VU.EventsContainerModel.extend({
 			this.set( { 
 				thumbPic: bandPic, 
 				mainPic: bandPic.replace( "\/thumbs\/", "\/files\/" ),
-				website: this.get("website").split("://").pop()
+				website: (this.get("website")||"").split("://").pop()
 			}, { silent: true } );
 		}
 		else
@@ -203,7 +202,7 @@ VU.VenueModel = VU.EventsContainerModel.extend({
 		this.set( { 
 			thumbPic: hallPic,
 			mainPic: hallPic.replace( "\/thumbs\/", "\/files\/" ), 
-			website: this.get("website").split("://").pop()
+			website: (this.get("website")||"").split("://").pop()
 		}, { silent: true } );
 	},
 	

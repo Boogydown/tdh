@@ -51,7 +51,7 @@ $(function(){
 			if ( docModel )
 				this.popupView.openPopup( docModel, template );
 			else
-				alert("No such document " + docID + " in collection " + type);
+				alert("No such document " + docID + " in collection " + type + "s.");
 		}
     });
 

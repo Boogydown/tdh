@@ -127,29 +127,27 @@ VU.BandModel = VU.EventsContainerModel.extend({
 	
 	initialize : function () { 
 		this.myType = "band"; 
-		_.bindAll( this, "normalizeImages", "normalizeWebpage" );
-		this.bind( "change:images", this.normalizeImages );		
-		this.bind( "change:webpage", this.normalizeWebpage );
+		_.bindAll( this, "normalizeAttributes" );
+		//this.bind( "add", this.normalizeAttributes );		
+		this.bind( "change", this.normalizeAttributes );		
 	},
 	
 	//url : function () { return "https://dev.vyncup.t9productions.com:44384/tdh/" + this.id; },
 
-	normalizeImage : function () {
+	normalizeAttributes : function () {
+		// image and website
 		var bandID = this.id;
 		var bandPic = this.get("image");
 		if ( bandPic && bandPic != this.defaults.image && bandPic.substr(0, 4) != "http" ) {
 			bandPic = "../../" + bandID + "/thumbs/" + encodeURI( bandPic );
 			this.set( { 
 				thumbPic: bandPic, 
-				mainPic: bandPic.replace( "\/thumbs\/", "\/files\/" ) 
+				mainPic: bandPic.replace( "\/thumbs\/", "\/files\/" ),
+				website: this.get("website").split("://").pop()
 			}, { silent: true } );
 		}
 		else
 			this.getGoogleImage();
-	},
-	
-	normalizeWebpage : function() {
-		this.set({ website: this.get("website").split("://").pop() });
 	},
 	
 	imageSearch: {}, 
@@ -184,14 +182,15 @@ VU.VenueModel = VU.EventsContainerModel.extend({
 
 	initialize : function () { 
 		this.myType = "hall"; 
-		_.bindAll( this, "normalizeImages", "normalizeWebpage" );
-		this.bind( "change:images", this.normalizeImages );		
-		this.bind( "change:webpage", this.normalizeWebpage );
+		_.bindAll( this, "normalizeAttributes" );
+		//this.bind( "add", this.normalizeAttributes );		
+		this.bind( "change", this.normalizeAttributes );		
 	},
 	
 	//url : function () { return "https://dev.vyncup.t9productions.com:44384/tdh/" + this.id; }
 	
-	normalizeImages : function () {
+	normalizeAttributes : function () {
+		// images and website
 		var hallID = this.id;
 		var hallPic = this.get("images")[0];
 		if ( hallPic )
@@ -203,12 +202,9 @@ VU.VenueModel = VU.EventsContainerModel.extend({
 			// TODO: check to see if this URL exists... ?  perhaps try <img src.... onerror=""/>
 		this.set( { 
 			thumbPic: hallPic,
-			mainPic: hallPic.replace( "\/thumbs\/", "\/files\/" ) 
+			mainPic: hallPic.replace( "\/thumbs\/", "\/files\/" ), 
+			website: this.get("website").split("://").pop()
 		}, { silent: true } );
-	},
-	
-	normalizeWebpage : function() {
-		this.set({ website: this.get("website").split("://").pop() }, {silent:true});
 	},
 	
 });
@@ -231,6 +227,8 @@ VU.EventModel = VU.LinkingModel.extend({
 	initialize: function () {
 		_.bindAll( this, "normalizeDate" );
 		this.bind( "add", this.normalizeDate );
+		this.bind( "add", this.loadLinkRefs );
+		//this.bind( "change", this.normalizeDate );
 		VU.LinkingModel.prototype.initialize.call(this);
 	},
 	

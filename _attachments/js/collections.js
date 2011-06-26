@@ -16,16 +16,9 @@ VU.EventCollection = Backbone.Collection.extend({
 	},
 	
 	initialize : function ( models, options ) {
-		//this.bind( "add", this.updateModel );
 		this.schema = options.schema;
 		this.colls = options.colls;
 	},
-	
-	updateModel : function ( model )
-	{
-		model.trigger("change");
-	}
-	
 });
 
 VU.BandCollection = Backbone.Collection.extend({

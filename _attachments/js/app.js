@@ -17,7 +17,7 @@ $(function(){
     // The App controller initializes the app by calling `Comments.fetch()`
     var AppController = Backbone.Controller.extend({
 		routes : { 
-			"pop/*doc": "showPopup"
+			"pop/:type/:docID": "showPopup"
 			//TODO: default route should hide popup?
 		},
 		
@@ -45,11 +45,13 @@ $(function(){
             this.colls.events.fetch( {add: true} );
         },
 		
-		showPopup : function( popupParam ) {
-			var ppAry = popupParam.split("/");
-			var template = "popupTemplate_" + ppAry[0];
-			var docID = ppAry[1];
-			this.popupView.openPopup( docID, template );
+		showPopup : function( type, docID ) {
+			var template = "popupTemplate_" + type;
+			var docModel = this.colls[type + "s"] && this.colls[type + "s"].get( docID );
+			if ( docModel )
+				this.popupView.openPopup( docModel, template );
+			else
+				alert("No such document " + docID + " in collection " + type);
 		}
     });
 

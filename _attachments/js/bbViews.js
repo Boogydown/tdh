@@ -64,8 +64,9 @@ VU.PopupView = VU.DustView.extend({
 		});		
 	},
 	
-	openPopup : function ( popDocID, popTemplate ) {
+	openPopup : function ( model, popTemplate ) {
 		this.registerTemplate( popTemplate ); 
+		this.model = model;
 		this.render();
 		
 		//Fade Popup in and add close button

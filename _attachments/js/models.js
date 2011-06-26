@@ -235,24 +235,17 @@ VU.EventModel = VU.LinkingModel.extend({
 	},
 	
 	normalizeDate : function () {
-		var myDateStr = this.get("date"), myDate;
-		if ( myDate === undefined || myDate == null || myDate == "" )
-			alert( "Invalid Date!" )
-		else
-		{
-			if ( ! myDateStr instanceof Date )
-				myDate = new Date( myDateStr );
-			else
-				myDate = myDateStr;
-			if ( myDate == new Date(0) || myDate == new Date("") )
-				alert( "Invalid date: " + myDateStr );
-			else {
-				this.set({
-					dateDay: ["SUN","MON","TUE","WED","THU","FRI","SAT"][myDate.getDay()],
-					dateDate: myDate.getDate(),
-					dateMonth: ["JAN","FEB","MAR","APR","MAY","JUNE","JULY","AUG","SEPT","OCT","NOV","DEC"][myDate.getMonth()]
-				}, {silent:true});
-			}
+		var myDateStr = this.get("date");
+		var myDate = myDateStr instanceof Date ? myDateStr : new Date( myDateStr );
+		if ( myDate == new Date(0) || myDate == new Date("") ) {
+			console.log( "Invalid date: " + (myDateStr == "" ? "(empty string)" : myDateStr) + ".  Using today's date." );
+			myDate = new Date();
+		} else {
+			this.set({
+				dateDay: ["SUN","MON","TUE","WED","THU","FRI","SAT"][myDate.getDay()],
+				dateDate: myDate.getDate(),
+				dateMonth: ["JAN","FEB","MAR","APR","MAY","JUNE","JULY","AUG","SEPT","OCT","NOV","DEC"][myDate.getMonth()]
+			}, {silent:true});
 		}
 	}
 });

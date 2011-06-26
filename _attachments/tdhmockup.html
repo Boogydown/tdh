@@ -47,58 +47,54 @@
 	</script>
 	
 	<script type="application/dust-template" id="popupTemplate_band">
-		<div id="band_popup" class="popup_block">
-			<div id="info">
-				<h2>{bandName}</h2>
-				<div class="detailtext">
-					{#stylesPlayed}{.}<br/>
-					{:stylesPlayed}<br/>
-					<a href="http://{website}">website</a><br/>
-					{description}
-				</div>
+		<div id="info">
+			<h2>{bandName}</h2>
+			<div class="detailtext">
+				{#stylesPlayed}{.}<br/>
+				{:stylesPlayed}<br/>
+				<a href="http://{website}">website</a><br/>
+				{description}
 			</div>
-			<div id="main-photo"><img src="{mainPic}"/></div>
-			<div class="box" id="popuplist">
-				<div id="listing">
-					<div class="detail-standard"><!-- DEFINES WHETHER WILL BE FEATURED OR NOT -->
-						<div id="listing-date"><!-- HOLDS DATE DETAILS ON THE LEFT OF THE LISTING -->
-							<div class="date">WED</div><!-- HOLDS DAY OF EVENT -->
-							<div class="day">23</div><!-- HOLDS NUMERICAL DAY OF EVENT -->
-							<div class="date">JULY</div><!-- HOLDS MONTH OF EVENT -->
-						</div>
-					</div>
-					<div class="twostepphoto"></div>
-				</div>
-			</div>
-			<div class="detailmap"></div>
 		</div>
+		<div id="main-photo"><img src="{mainPic}"/></div>
+		<div class="box" id="popuplist">
+			<div id="listing">
+				<div class="detail-standard"><!-- DEFINES WHETHER WILL BE FEATURED OR NOT -->
+					<div id="listing-date"><!-- HOLDS DATE DETAILS ON THE LEFT OF THE LISTING -->
+						<div class="date">WED</div><!-- HOLDS DAY OF EVENT -->
+						<div class="day">23</div><!-- HOLDS NUMERICAL DAY OF EVENT -->
+						<div class="date">JULY</div><!-- HOLDS MONTH OF EVENT -->
+					</div>
+				</div>
+				<div class="twostepphoto"></div>
+			</div>
+		</div>
+		<div class="detailmap"></div>
 	</script>
 	
 	<script type="application/dust-template" id="popupTemplate_hall">
-		<div id="band_popup" class="popup_block">
-			<div id="info">
-				<h2>{danceHallName}</h2> {yearBuilt}
-				<div class="detailtext">
-					<a href="http://{website}">website</a><br/>
-					{description}<br/>
-					{address}
-				</div>
+		<div id="info">
+			<h2>{danceHallName}</h2> {yearBuilt}
+			<div class="detailtext">
+				<a href="http://{website}">website</a><br/>
+				{description}<br/>
+				{address}
 			</div>
-			<div id="main-photo"><img src="{mainPic}"/></div>
-			<div class="box" id="popuplist">
-				<div id="listing">
-					<div class="detail-standard"><!-- DEFINES WHETHER WILL BE FEATURED OR NOT -->
-						<div id="listing-date"><!-- HOLDS DATE DETAILS ON THE LEFT OF THE LISTING -->
-							<div class="date">WED</div><!-- HOLDS DAY OF EVENT -->
-							<div class="day">23</div><!-- HOLDS NUMERICAL DAY OF EVENT -->
-							<div class="date">JULY</div><!-- HOLDS MONTH OF EVENT -->
-						</div>
-					</div>
-					<div class="twostepphoto"></div>
-				</div>
-			</div>
-			<div class="detailmap"></div>
 		</div>
+		<div id="main-photo"><img src="{mainPic}"/></div>
+		<div class="box" id="popuplist">
+			<div id="listing">
+				<div class="detail-standard"><!-- DEFINES WHETHER WILL BE FEATURED OR NOT -->
+					<div id="listing-date"><!-- HOLDS DATE DETAILS ON THE LEFT OF THE LISTING -->
+						<div class="date">WED</div><!-- HOLDS DAY OF EVENT -->
+						<div class="day">23</div><!-- HOLDS NUMERICAL DAY OF EVENT -->
+						<div class="date">JULY</div><!-- HOLDS MONTH OF EVENT -->
+					</div>
+				</div>
+				<div class="twostepphoto"></div>
+			</div>
+		</div>
+		<div class="detailmap"></div>
 	</script>
 	
 	<!-- TEMPLATES END -->

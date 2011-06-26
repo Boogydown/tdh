@@ -165,7 +165,7 @@ VU.BandModel = VU.EventsContainerModel.extend({
 			this.set({
 				thumbPic: result.tbUrl,
 				mainPic: result.url
-			}, {silent:true});
+			});
 		}
 	}
 });

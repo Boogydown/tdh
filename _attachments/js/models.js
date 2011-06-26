@@ -107,9 +107,10 @@ VU.LinkingModel = Backbone.Model.extend({
 				{
 					// necessary trick to allow for variable key
 					srcAttr[destAttr] = linkRef.get( this.linkVals[destAttr].cell );
-					this.set( srcAttr );
+					this.set( srcAttr, {silent:true} ); //postpone change trigger til after all vals set
 				}
 			}
+			this.trigger("change");
 		}
 	},	
 });

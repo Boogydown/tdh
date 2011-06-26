@@ -124,7 +124,7 @@ VU.BandModel = VU.EventsContainerModel.extend({
 	
 	initialize : function () { 
 		this.myType = "band"; 
-		_.bindAll( this, "normalizeAttributes" );
+		_.bindAll( this, "normalizeAttributes", "searchComplete" );
 		//this.bind( "add", this.normalizeAttributes );		
 		this.bind( "change", this.normalizeAttributes );		
 	},
@@ -162,8 +162,10 @@ VU.BandModel = VU.EventsContainerModel.extend({
 	searchComplete : function() {
 		if ( this.imageSearch.results && this.imageSearch.results.length > 0 ) {
 			var result = this.imageSearch.results[0];
-			this.set( {thumbPic: result.tbUrl} );
-			this.set( {mainPic: result.url} );
+			this.set({
+				thumbPic: result.tbUrl,
+				mainPic: result.url
+			}, {silent:true});
 		}
 	}
 });

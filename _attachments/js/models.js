@@ -127,7 +127,7 @@ VU.BandModel = VU.EventsContainerModel.extend({
 	
 	events : {
 		"change:image": this.normalizeImage,
-		"change:webpage": this.normalizeWebpage
+		"change:webpage": this.normalizeWebpage,
 	},
 	
 	initialize : function () { 
@@ -214,7 +214,7 @@ VU.VenueModel = VU.EventsContainerModel.extend({
 	},
 	
 	normalizeWebpage : function() {
-		this.set({ website: this.get("website").split("://").pop() });
+		this.set({ website: this.get("website").split("://").pop() }, {silent:true});
 	},
 	
 });
@@ -232,7 +232,32 @@ VU.EventModel = VU.LinkingModel.extend({
 		bandPic: "images/genericSilhouette.jpg",
 		date: new Date().getTime(),
 		topY: 10
-	}		
+	},
+	events : {
+		"change:date", this.normalizeDate
+	},
+	
+	normalizeDate : function () {
+		var myDateStr = this.get("date"), myDate;
+		if ( myDate === undefined || myDate == null || myDate == "" )
+			alert( "Invalid Date!" )
+		else
+		{
+			if ( ! myDateStr instanceof Date )
+				myDate = new Date( myDateStr );
+			else
+				myDate = myDateStr;
+			if ( myDate == new Date(0) || myDate == new Date("") )
+				alert( "Invalid date: " + myDateStr );
+			else {
+				this.set({
+					dateDay: ["SUN","MON","TUE","WED","THU","FRI","SAT"][myDate.getDay()],
+					dateDate: myDate.getDate(),
+					dateMonth: ["JAN","FEB","MAR","APR","MAY","JUNE","JULY","AUG","SEPT","OCT","NOV","DEC"][myDate.getMonth()]
+				}, {silent:true});
+			}
+		}
+	}
 });
 
 };

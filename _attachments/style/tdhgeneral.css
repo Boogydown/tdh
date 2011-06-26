@@ -203,7 +203,7 @@ div.twostepphoto{
 	background-position: 0px -140px;
     height: 40px;
     width: 40px;
-    left: 290px;
+    left: 295px;
     top: 10px;
     position: absolute;
 
@@ -213,7 +213,7 @@ div.twostepphoto:hover{
 	background-position: -60px -140px;
 	    height: 40px;
     width: 40px;
-    left: 290px;
+    left: 295px;
     top: 10px;
     position: absolute;
 }
@@ -222,7 +222,7 @@ div.twostepphoto:active{
 	background-position: -120px -140px;
 	    height: 40px;
     width: 40px;
-    left: 290px;
+    left: 295px;
     top: 10px;
     position: absolute;
 }
@@ -305,7 +305,7 @@ color: #C1D8F5;
     width: 337px;
 }
 #details {
-    left: 50px;
+    left: 60px;
     padding: 0 20px;
     position: absolute;
     top: 13px;
@@ -321,7 +321,7 @@ color: #C1D8F5;
 .atvenue {
     color: #CCCCCC;
     font-size: 18px;
-    left: 95px;
+    left: 105px;
     position: absolute;
     text-align: center;
     top: 23px;
@@ -336,20 +336,20 @@ color: #C1D8F5;
 }
 #bandinfo {
     font-size: 10px;
-    left: -15px;
+    left: -5px;
     position: absolute;
     text-align: center;
-    top: 60px;
+    top: 70px;
     width: 110px;
     word-wrap: break-word;
 }
 #venueinfo {
     font-size: 10px;
-    left: 121px;
+    left: 130px;
     position: absolute;
     text-align: center;
-    top: 60px;
-    width: 100px;
+    top: 70px;
+    width: 110px;
     word-wrap: break-word;
 }
 

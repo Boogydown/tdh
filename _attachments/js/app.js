@@ -53,7 +53,8 @@ $(function(){
 			else
 			{
 				alert("No such document " + docID + " in collection " + type + "s.");
-				window.location.href = window.location.href.split("#")[0];
+				// remove route; keep the hash to prevent reloading
+				window.location.href = window.location.href.split("#")[0] + "#";
 			}
 		}
     });

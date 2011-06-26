@@ -47,7 +47,7 @@ VU.LinkingModel = Backbone.Model.extend({
 	},
 	
 	loadLinkRefs : function () {
-		var attr, loadingQueue = {}, docID, coll, myRef, that = this;
+		var attr, loadingQueue = {}, docID, coll, myRef;
 		// we're doing two passes: first to tally valid refs, 2nd to load them
 		// this'll prevent race conditions when dealing with linkRefsCount
 		for ( attr in this.linkRefs )
@@ -73,10 +73,8 @@ VU.LinkingModel = Backbone.Model.extend({
 			// if reference not loaded yet, then create and fetch it
 			if ( ! myRef ) {
 				var coll = loadingQueue[attr].coll;
-				myRef = new coll.model( { 
-					id:loadingQueue[attr].docID, 
-					events:{"change": that.loadLinkVals} 
-				} );
+				myRef = new coll.model( { id:loadingQueue[attr].docID } ); 
+				myRef.bind{"change": this.loadLinkVals);
 				coll.add( myRef );
 				myRef.fetch( {attr:attr} );
 			}

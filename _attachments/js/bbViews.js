@@ -79,24 +79,13 @@ VU.EventListView = Backbone.View.extend({
 	},
 
 	render: function(){
-		if(this.collection.length > 0) this.collection.each(this.addRow);
+		if (this.collection.length > 0) 
+			this.collection.each(this.addRow);
 	},
 	
 	// Appends an entry row 
 	addRow : function(model){
-		model.set( { "topY" : String(this.nextY) } );
-		if ( model.get( "date" ) == this.curDate )
-		{
-			model.set( { "date" : "" } );
-			this.nextY += 82;
-		}
-		else
-		{
-			this.curDate = model.get( "date" );
-			this.nextY += 105;
-		}
-		var view = new VU.EventEntryView( { model: model } );
-		this.el.append( view.render().el );
+		this.el.append( new VU.EventEntryView( { model: model } ).render().el );
 	}
 });
 

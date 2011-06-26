@@ -203,7 +203,7 @@ div.twostepphoto{
 	background-position: 0px -140px;
     height: 40px;
     width: 40px;
-    left: 275px;
+    left: 290px;
     top: 10px;
     position: absolute;
 
@@ -213,7 +213,7 @@ div.twostepphoto:hover{
 	background-position: -60px -140px;
 	    height: 40px;
     width: 40px;
-    left: 275px;
+    left: 290px;
     top: 10px;
     position: absolute;
 }
@@ -222,7 +222,7 @@ div.twostepphoto:active{
 	background-position: -120px -140px;
 	    height: 40px;
     width: 40px;
-    left: 275px;
+    left: 290px;
     top: 10px;
     position: absolute;
 }
@@ -305,7 +305,7 @@ color: #C1D8F5;
     width: 337px;
 }
 #details {
-    left: 30px;
+    left: 50px;
     padding: 0 20px;
     position: absolute;
     top: 13px;

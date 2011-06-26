@@ -237,7 +237,7 @@ VU.EventModel = VU.LinkingModel.extend({
 	normalizeDate : function () {
 		var myDateStr = this.get("date");
 		var myDate = myDateStr instanceof Date ? myDateStr : new Date( myDateStr );
-		if ( myDate == new Date(0) || myDate == new Date("") ) {
+		if ( myDate.toString() == "Invalid Date" || ! myDate.getTime() ) {
 			console.log( "Invalid date: " + (myDateStr == "" ? "(empty string)" : myDateStr) + ".  Using today's date." );
 			myDate = new Date();
 		} else {

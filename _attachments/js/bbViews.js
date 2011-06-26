@@ -86,7 +86,8 @@ VU.PopupView = VU.DustView.extend({
 		$('#fade').css({'filter' : 'alpha(opacity=80)'}).fadeIn(); //Fade in the fade layer - .css({'filter' : 'alpha(opacity=80)'}) is used to fix the IE Bug on fading transparencies 
 
 		return false;
-	},
+	}
+});
 	
 
 // The view for the primary event list container

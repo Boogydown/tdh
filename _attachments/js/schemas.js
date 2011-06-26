@@ -327,7 +327,7 @@ VU.event_schema_listing = {
                 "required":true,
 				"linkVal": { 
 					linkRef: "hall",
-					cell: "bandName"
+					cell: "name"
 				}
             },
 			"hallPic":{

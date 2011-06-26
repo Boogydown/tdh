@@ -26,15 +26,24 @@
 		
 	<!-- TEMPLATES START -->
 	<script type="application/dust-template" id="mainEventEntryTemplate">
-	<div id="listing" style="top:{topY}px{?date}"><h2>{date}</h2><div id="details" >{:else};height:77px">
-		<div id="details" style="top:-10px">{/date}
-			<a onclick="window.utils.popupHandler( '{band}', 'band', 630 );" class="slowpopup"><img class="bandphoto" src="{bandPic}" /></a><br/>
-			<div id="bandinfo">{bandName}</div>
-			<div class="atvenue">@</div>
-			<a onclick="window.utils.popupHandler( '{hall}', 'hall', 630 );" class="slowpopup"><img class="venuephoto" src="{hallPic}" /></a><br/>
-			<div id="venueinfo">{hallName}</div>
-			<div class="twostepphoto"><div>Add to<br/>dance card!</div></div>
-	</div>{~n}{~n}
+		<div id="listing">
+			<div class="standard"><!-- DEFINES WHETHER WILL BE FEATURED OR NOT -->
+				<div id="listing-date"><!-- HOLDS DATE DETAILS ON THE LEFT OF THE LISTING -->
+					<div class="date">WED</div><!-- HOLDS DAY OF EVENT -->
+					<div class="day">23</div><!-- HOLDS NUMERICAL DAY OF EVENT -->
+					<div class="date">JULY</div><!-- HOLDS MONTH OF EVENT -->
+				</div>
+				<div id="listing-time">10:15 PM</div>
+				<div id="details" style="top:-10px">
+					<a onclick="window.utils.popupHandler( '{band}', 'band', 630 );" class="slowpopup"><img class="bandphoto" src="{bandPic}" /></a><br/>
+					<div id="bandinfo">{bandName}</div>
+					<div class="atvenue">@</div>
+					<a onclick="window.utils.popupHandler( '{hall}', 'hall', 630 );" class="slowpopup"><img class="venuephoto" src="{hallPic}" /></a><br/>
+					<div id="venueinfo">{hallName}</div>
+				</div>
+			</div>
+			<div class="twostepphoto"></div>
+		</div>{~n}{~n}
 	</script>
 	
 	<script type="application/dust-template" id="hallPopupTemplate">
@@ -118,22 +127,7 @@
 				<div id="dance-card">Dance Card</div>
 			</div>
 			<div id="info-area">
-				<div class="box" id="list">
-					<div id="listing">
-						<div class="standard"><!-- DEFINES WHETHER WILL BE FEATURED OR NOT -->
-							<div id="listing-date"><!-- HOLDS DATE DETAILS ON THE LEFT OF THE LISTING -->
-								<div class="date">WED</div><!-- HOLDS DAY OF EVENT -->
-								<div class="day">23</div><!-- HOLDS NUMERICAL DAY OF EVENT -->
-								<div class="date">JULY</div><!-- HOLDS MONTH OF EVENT -->
-							</div>
-							<div id="listing-time">10:15 PM</div>						
-						</div>
-						<div class="twostepphoto"></div>
-						
-					</div>
-					
-				
-				</div>
+				<div class="box" id="list"></div>
 				<div class="box" id="calendar"></div>
 				<div class="box" id="main-map"></div>
 			

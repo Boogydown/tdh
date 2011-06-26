@@ -137,7 +137,7 @@ $(function(){
 			{
 				this.model = window.app.colls.get( options.docID );
 				if ( myDoc )
-					SchemaDocView.prototype.initialize();
+					SchemaDocView.prototype.initialize.call(this);
 			}
 			else
 				el.text( options.docID + " does not exist!");

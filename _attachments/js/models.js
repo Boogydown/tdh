@@ -125,14 +125,11 @@ VU.BandModel = VU.EventsContainerModel.extend({
 		events: null
 	},
 	
-	events : {
-		"change:image": this.normalizeImage,
-		"change:webpage": this.normalizeWebpage,
-	},
-	
 	initialize : function () { 
 		this.myType = "band"; 
-		_.bindAll( this, "normalizePics" );
+		_.bindAll( this, "normalizeImages", "normalizeWebpage" );
+		this.bind( "change:images", this.normalizeImages );		
+		this.bind( "change:webpage", this.normalizeWebpage );
 	},
 	
 	//url : function () { return "https://dev.vyncup.t9productions.com:44384/tdh/" + this.id; },
@@ -185,14 +182,11 @@ VU.VenueModel = VU.EventsContainerModel.extend({
 		events: null
 	},	
 
-	events : {
-		"change:images": this.normalizeImages,
-		"change:webpage": utils.normalizeWebpage
-	},
-	
 	initialize : function () { 
 		this.myType = "hall"; 
-		
+		_.bindAll( this, "normalizeImages", "normalizeWebpage" );
+		this.bind( "change:images", this.normalizeImages );		
+		this.bind( "change:webpage", this.normalizeWebpage );
 	},
 	
 	//url : function () { return "https://dev.vyncup.t9productions.com:44384/tdh/" + this.id; }
@@ -233,8 +227,11 @@ VU.EventModel = VU.LinkingModel.extend({
 		date: new Date().getTime(),
 		topY: 10
 	},
-	events : {
-		"change:date": this.normalizeDate
+	
+	initialize: function () {
+		_.bindAll( this, "normalizeDate" );
+		this.bind( "change:date": this.normalizeDate )
+		VU.LinkingModel.prototype.initialize.call(this);
 	},
 	
 	normalizeDate : function () {

@@ -53,7 +53,7 @@ $(function(){
 			else
 			{
 				alert("No such document " + docID + " in collection " + type + "s.");
-				window.location = window.location.split("#")[0];
+				window.location.href = window.location.href.split("#")[0];
 			}
 		}
     });

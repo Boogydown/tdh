@@ -230,7 +230,7 @@ VU.EventModel = VU.LinkingModel.extend({
 	
 	initialize: function () {
 		_.bindAll( this, "normalizeDate" );
-		this.bind( "added", this.normalizeDate );
+		this.bind( "add", this.normalizeDate );
 		VU.LinkingModel.prototype.initialize.call(this);
 	},
 	

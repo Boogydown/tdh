@@ -13,8 +13,7 @@
 	display: none; /*--hidden by default--*/
 	background-image: url('../images/stripedBG.jpg');
     background-repeat:repeat;
-
-
+	width: 662px;
 	float: left;
 	font-size: 1.2em;
 	position: absolute;

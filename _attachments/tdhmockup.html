@@ -35,10 +35,10 @@
 				</div>
 				<div id="listing-time">10:15 PM</div>
 				<div id="details" style="top:-10px">
-					<a onclick="window.utils.popupHandler( '{band}', 'band', 630 );" class="slowpopup"><img class="bandphoto" src="{bandPic}" /></a><br/>
+					<a href="#pop/band/{band}"><img class="bandphoto" src="{bandPic}" /></a><br/>
 					<div id="bandinfo">{bandName}</div>
 					<div class="atvenue">@</div>
-					<a onclick="window.utils.popupHandler( '{hall}', 'hall', 630 );" class="slowpopup"><img class="venuephoto" src="{hallPic}" /></a><br/>
+					<a href="#pop/hall/{hall}"><img class="venuephoto" src="{hallPic}" /></a><br/>
 					<div id="venueinfo">{hallName}</div>
 				</div>
 			</div>
@@ -89,6 +89,32 @@
 		<div class="detailmap"></div>
 
 	</script>
+
+	<script type="application/dust-template" id="popupTemplate">
+		<div id="band_popup" class="popup_block">
+			<div id="info">
+				<h2>This Is A Band Header</h2>
+				<div class="detailtext">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque tincidunt neque mauris, non sagittis urna. Integer dictum rhoncus pretium. Suspendisse rhoncuum dolor sit amet, consectetur adipiscing elit. Quisque tincidunt neque mauris, non sagittis urna. Integer dictum rhoncus pretium. Suspendisse rhoncuum dolor sit amet, consectetur adipiscing elit. Quisque tincidunt neque mauris, non sagittis urna. Integer dictum rhoncus pretium. Suspendisse rhoncuum dolor sit amet, consectetur adipiscing elit. Quisque tincidunt neque mauris, non sagittis urna. Integer dictum rhoncus pretium. Suspendisse rhoncuum dolor sit amet, consectetur adipiscing elit. Quisque tincidunt neque mauris, non sagittis urna. Integer dictum rhoncus pretium. Suspendisse rhoncus sollicitudin odio et pretium. Maecenas tristique eros sit amet sem viv</div>
+			</div>
+			<div id="main-photo"></div>
+			<div class="box" id="popuplist">
+				<div id="listing">
+					<div class="detail-standard"><!-- DEFINES WHETHER WILL BE FEATURED OR NOT -->
+						<div id="listing-date"><!-- HOLDS DATE DETAILS ON THE LEFT OF THE LISTING -->
+							<div class="date">WED</div><!-- HOLDS DAY OF EVENT -->
+							<div class="day">23</div><!-- HOLDS NUMERICAL DAY OF EVENT -->
+							<div class="date">JULY</div><!-- HOLDS MONTH OF EVENT -->
+						</div>
+					</div>
+					<div class="twostepphoto"></div>
+				</div>
+				
+			
+			</div>
+			<div class="detailmap"></div>
+		</div>
+	</script>
+	
 	<!-- TEMPLATES END -->
 
   </head>
@@ -138,33 +164,6 @@
 	<!-- Popup (hidden) -->
 		<div id="popup_block" class="popup_block"></div>
 		
-		<!-- ***************************CODE OF NEWLY DESIGNED POPUP********************* -->
-		<div id="band_popup" class="popup_block">
-            	<div id="info">
-            		<h2>This Is A Band Header</h2>
-            		<div class="detailtext">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque tincidunt neque mauris, non sagittis urna. Integer dictum rhoncus pretium. Suspendisse rhoncuum dolor sit amet, consectetur adipiscing elit. Quisque tincidunt neque mauris, non sagittis urna. Integer dictum rhoncus pretium. Suspendisse rhoncuum dolor sit amet, consectetur adipiscing elit. Quisque tincidunt neque mauris, non sagittis urna. Integer dictum rhoncus pretium. Suspendisse rhoncuum dolor sit amet, consectetur adipiscing elit. Quisque tincidunt neque mauris, non sagittis urna. Integer dictum rhoncus pretium. Suspendisse rhoncuum dolor sit amet, consectetur adipiscing elit. Quisque tincidunt neque mauris, non sagittis urna. Integer dictum rhoncus pretium. Suspendisse rhoncus sollicitudin odio et pretium. Maecenas tristique eros sit amet sem viv</div>
-            	</div>
-            	<div id="main-photo"></div>
-                <div class="box" id="popuplist">
-					<div id="listing">
-						<div class="detail-standard"><!-- DEFINES WHETHER WILL BE FEATURED OR NOT -->
-							<div id="listing-date"><!-- HOLDS DATE DETAILS ON THE LEFT OF THE LISTING -->
-								<div class="date">WED</div><!-- HOLDS DAY OF EVENT -->
-								<div class="day">23</div><!-- HOLDS NUMERICAL DAY OF EVENT -->
-								<div class="date">JULY</div><!-- HOLDS MONTH OF EVENT -->
-							</div>
-						
-						</div>
-						<div class="twostepphoto"></div>
-						
-					</div>
-					
-				
-				</div>
-        		<div class="detailmap"></div>
-		</div>
-		<!-- ***************************CODE OF NEWLY DESIGNED POPUP********************* -->
-
 <!--=========== END MAIN APP ===========-->
 
 <!--=========== START ORIGINAL HTML ===========-->	  

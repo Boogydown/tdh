@@ -25,26 +25,6 @@ VU.DustView = Backbone.View.extend({
 	}
 });
 
-VU.BandView = VU.DustView.extend({
-	el : $("#popup_block"), 
-	initialize : function(){
-		_.bindAll(this, 'render');
-		this.model.bind('change', this.render);
-		this.registerTemplate( "bandPopupTemplate" ); 
-		//this.bandEventsView = new EventListView( { 
-	},	
-});
-
-VU.HallView = VU.DustView.extend({
-	el : $("#popup_block"), 
-	initialize : function(){
-		_.bindAll(this, 'render');
-		this.model.bind('change', this.render);
-		this.registerTemplate( "hallPopupTemplate" ); 
-		//this.bandEventsView = new EventListView( { 
-	},	
-});
-
 // Represents an event entry in an event listing; is a dust template
 VU.EventEntryView = VU.DustView.extend({
 
@@ -65,6 +45,49 @@ VU.EventEntryView = VU.DustView.extend({
 		// nothing here, yet
 	}
 });	
+
+/**
+ * View for a popup
+ * instanciate once, use openPopup to open; it will close on its own
+ * TODO: refactor this
+ **/
+VU.PopupView = VU.DustView.extend({
+	el : $("#popup_block"),
+	
+	initialize : function ( options ) {
+		//Set up Close for Popup and Fade for all future instances
+		$('a.close, #fade').live('click', function() { //When clicked to close or fade layer...
+			$('#fade , .popup_block').fadeOut(function() {
+				$('#fade, a.close').remove();  //fade them both out
+			});
+			return false;
+		});		
+	},
+	
+	openPopup : function ( popDocID, popTemplate ) {
+		this.registerTemplate( popTemplate ); 
+		this.render();
+		
+		//Fade Popup in and add close button
+		this.el.fadeIn().css({ 'width': Number( popWidth ) }).prepend('<a href="#" class="close"><img src="images/button-x.png" width="21" border="0" class="close_popup" title="Close Window" alt="Close" /></a>');
+
+		//Margin defines center alignment (vertical and horizontal) - add 80px to the height/width for the padding  and border width as defined in the css
+		var popMargTop = (this.el.height() + 80) / 2;
+		var popMargLeft = (this.el.width() + 80) / 2;
+
+		//Margin for Popup
+		this.el.css({
+			'margin-top' : -popMargTop,
+			'margin-left' : -popMargLeft
+		});
+
+		//Fade Background
+		$('body').append('<div id="fade"></div>'); //Add fade layer at the end of the selected tag. 
+		$('#fade').css({'filter' : 'alpha(opacity=80)'}).fadeIn(); //Fade in the fade layer - .css({'filter' : 'alpha(opacity=80)'}) is used to fix the IE Bug on fading transparencies 
+
+		return false;
+	},
+	
 
 // The view for the primary event list container
 VU.EventListView = Backbone.View.extend({

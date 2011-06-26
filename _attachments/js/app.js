@@ -16,39 +16,55 @@ $(function(){
 /////////////////////////////////////////////////////////////////////////////{
     // The App controller initializes the app by calling `Comments.fetch()`
     var AppController = Backbone.Controller.extend({
+		routes : { 
+			"pop/*doc": "showPopup"
+			//TODO: default route should hide popup?
+		},
+		
         initialize : function(){
-			// kick off the initial fetch
-            events.fetch( {schema:VU.event_schema_listing});
+			_.bindAll( this, "showPopup" );
+			this.bind( "route:showPopup", this.showPopup );
 
+			this.colls = {
+				bands : new VU.BandCollection(),
+				halls : new VU.HallCollection(),
+			};
+			colls.events = new VU.EventCollection( null, {
+				schema: VU.event_schema_listing, 
+				colls: colls
+			});
+
+			// create our main list and map views and attach the collection to them
+			this.mainListView = new VU.EventListView({collection:this.colls.events});
+			this.mainMapView = new VU.MapView({collection:this.colls.halls, notifier:this.colls.events});
+			
+			// init the popup view
+			this.popupView = new VU.PopupView( );
+			
+			// kick off the initial fetch
+            this.colls.events.fetch( {add: true} );
+			
 			// init the Popup handler to attach to the existing pics
 			window.utils.popupInit( this );
-        }
+        },
+		
+		showPopup : function( popupParam ) {
+			var ppAry = popupParam.split("/");
+			var template = "popupTemplate_" + ppAry[0];
+			var docID = ppAry[1];
+			this.popupView.openPopup( docID, template );
+		}
     });
 
 /////////////////////////////////////////////////////////////////////////////}
 /// INSTACIATION & EXECUTION ////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////{
-	// create our collection of event models
-	var colls = {
-		bands : new VU.BandCollection(),
-		halls : new VU.HallCollection(),
-	};
-	colls.events = new VU.EventCollection( null, {schema:VU.event_schema_listing, colls:colls});
-	
-	// create our main list and map views and attach the collection to them
-	var mainListView = new VU.EventListView({collection:colls.events});
-	var mainMapView = new VU.MapView({collection:colls.halls, notifier:colls.events});
-	
-	// when this inits, it should call Events.fetch(), which should in theory fetch all
+	// When this inits it should call Events.fetch(), which should in theory fetch all
 	//	of its data; each model is updated, NOT triggering its own change event
 	// When all data is replaced in the collection, the refresh event is triggered which 
 	//	then kicks off the collection's render.
-	//var App = new AppController();
-	// kick off the initial fetch
-	colls.events.fetch( {add:true} );
-
-	// init the Popup handler to attach to the existing pics
-	window.utils.popupInit( this );
+	
+	window.app = new AppController();
 
 });
 /////////////////////////////////////////////////////////////////////////////}

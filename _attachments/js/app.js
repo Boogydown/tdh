@@ -43,9 +43,6 @@ $(function(){
 			
 			// kick off the initial fetch
             this.colls.events.fetch( {add: true} );
-			
-			// init the Popup handler to attach to the existing pics
-			window.utils.popupInit( this );
         },
 		
 		showPopup : function( popupParam ) {
@@ -65,6 +62,7 @@ $(function(){
 	//	then kicks off the collection's render.
 	
 	window.app = new AppController();
+	Backbone.history.start();
 
 });
 /////////////////////////////////////////////////////////////////////////////}

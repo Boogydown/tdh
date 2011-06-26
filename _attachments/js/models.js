@@ -47,6 +47,7 @@ VU.LinkingModel = Backbone.Model.extend({
 	},
 	
 	loadLinkRefs : function () {
+		this.unbind( "change", this.loadLinkRefs );
 		var attr, loadingQueue = {}, docID, coll, myRef, that = this;
 		// we're doing two passes: first to tally valid refs, 2nd to load them
 		// this'll prevent race conditions when dealing with linkRefsCount

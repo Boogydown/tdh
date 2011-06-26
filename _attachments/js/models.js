@@ -89,13 +89,8 @@ VU.LinkingModel = Backbone.Model.extend({
 	},
 	
 	loadLinkVals : function ( myRef, options ) {
-		if ( this.linkRefsCount )
-		{
-			myRef.fetched = true;
-			this.linkRefs[ options.attr ] = myRef;
-		}
-		else
-			this.linkRefsCount = 1; //cheap hack to make dec on next line equal 0
+		myRef.fetched = true;
+		this.linkRefs[ options.attr ] = myRef;
 
 		// if gets down to zero then all models are loaded and stored in this.linkRefs and are ready to set the linked values
 		if ( ! --this.linkRefsCount )

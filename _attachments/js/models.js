@@ -234,7 +234,7 @@ VU.EventModel = VU.LinkingModel.extend({
 		topY: 10
 	},
 	events : {
-		"change:date", this.normalizeDate
+		"change:date": this.normalizeDate
 	},
 	
 	normalizeDate : function () {

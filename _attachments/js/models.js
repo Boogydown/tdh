@@ -74,7 +74,7 @@ VU.LinkingModel = Backbone.Model.extend({
 			if ( ! myRef ) {
 				var coll = loadingQueue[attr].coll;
 				myRef = new coll.model( { id:loadingQueue[attr].docID } ); 
-				myRef.bind{"change": this.loadLinkVals);
+				myRef.bind( "change", this.loadLinkVals);
 				coll.add( myRef );
 				myRef.fetch( {attr:attr} );
 			}

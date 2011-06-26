@@ -16,8 +16,14 @@ VU.EventCollection = Backbone.Collection.extend({
 	},
 	
 	initialize : function ( models, options ) {
+		this.bind( "add", this.loadModelRefs );
 		this.schema = options.schema;
 		this.colls = options.colls;
+	},
+	
+	loadModelRefs : function ( model )
+	{
+		model.trigger("change");
 	}
 	
 });

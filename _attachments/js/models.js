@@ -71,11 +71,15 @@ VU.LinkingModel = Backbone.Model.extend({
 			//TODO: great opportunity to bulk load, here
 			myRef = loadingQueue[attr].coll.get( loadingQueue[attr].docID );
 			// if reference not loaded yet, then create and fetch it
-			if ( ! myRef )
-				myRef = loadingQueue[attr].coll.create( { 
+			if ( ! myRef ) {
+				var coll = loadingQueue[attr].coll;
+				myRef = new coll.model( { 
 					id:loadingQueue[attr].docID, 
 					events:{"change": that.loadLinkVals} 
-				}, {attr:attr} );
+				} );
+				coll.add( myRef );
+				myRef.fetch( {attr:attr} );
+			}
 			// otherwise, load the old one
 			else {
 				myRef.bind( "change", this.loadLinkVals );

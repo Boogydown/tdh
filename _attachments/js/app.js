@@ -40,14 +40,12 @@ $(function(){
 	var mainMapView = new VU.MapView({collection:colls.halls, notifier:colls.events});
 	
 	// when this inits, it should call Events.fetch(), which should in theory fetch all
-	//	of its data; each model is updated and then triggers a change event which is bound to 
-	//	the EventView.render call.  
+	//	of its data; each model is updated, NOT triggering its own change event
 	// When all data is replaced in the collection, the refresh event is triggered which 
 	//	then kicks off the collection's render.
-	// FIXME: this implies, then, that each Model is rendered twice...!?
 	//var App = new AppController();
 	// kick off the initial fetch
-	colls.events.fetch( {schema:VU.event_schema_listing});
+	colls.events.fetch( {add:true} );
 
 	// init the Popup handler to attach to the existing pics
 	window.utils.popupInit( this );

@@ -285,7 +285,8 @@ div#main-photo{
 #listing div.detail-standard{
 
 	position:relative;
-
+	top: -1px;
+	left:-1px;
 	height:90px;
 	width: 55px;
 	background: url(../images/cssSprite.png);

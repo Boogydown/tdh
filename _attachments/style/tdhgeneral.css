@@ -42,6 +42,11 @@ div#dance-card{
 		background-position: 0px -80px;
 		float:right;
 }
+div#dance-card:hover{
+	background-image: url('../images/cssSprite.png');
+		background-position: -150px -80px;
+}
+	
 
 ul#tab-list{
 	list-style:none;

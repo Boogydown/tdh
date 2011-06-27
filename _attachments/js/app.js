@@ -52,9 +52,9 @@ $(function(){
 				this.popupView.openPopup( docModel, template );
 			else
 			{
-				alert("No such document " + docID + " in collection " + type + "s.");
+				//alert("No such document " + docID + " in collection " + type + "s.");
 				// remove route; keep the hash to prevent reloading
-				window.location.href = window.location.href.split("#")[0] + "#";
+				window.location = window.location.href.split("#")[0] + "#";
 			}
 		}
     });

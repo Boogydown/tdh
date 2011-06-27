@@ -28,8 +28,6 @@ VU.EventsContainerModel = Backbone.Model.extend({
 
 VU.LinkingModel = Backbone.Model.extend({
 	linkRefs : {},
-	linkRefsCount : 0,
-	linkVals : {},
 	initialize : function () {
 		_.bindAll( this, "loadLinkRefs", "loadLinkVals" );
 		//this.bind ( "change", this.loadLinkRefs );
@@ -37,12 +35,20 @@ VU.LinkingModel = Backbone.Model.extend({
 		var fields = this.options && this.options.schema && this.options.schema.properties || 
 					 this.collection.schema && this.collection.schema.properties ||
 					 {};
+		var curLinkVal;
 		for ( var attr in fields )
 		{
-			if ( fields[attr].linkRef !== undefined )
-				this.linkRefs[attr] = fields[attr].linkRef;
-			if ( fields[attr].linkVal !== undefined )
-				this.linkVals[attr] = fields[attr].linkVal;
+			if ( fields[attr].linkRef ){
+				! this.linkRefs[attr] || this.linkRefs[attr] = {};
+				this.linkRefs[attr].coll = fields[attr].linkRef;
+			}
+			curLinkVal = fields[attr].linkVal;
+			if ( curLinkVal ){
+				curLinkRef = this.linkRefs[ curLinkVal.linkRef ];
+				! curLinkRef || curLinkRef = {};
+				! curLinkRef.linkVals || curLinkRef.linkVals = {};
+				curLinkRef.linkVals[attr] = curLinkVal.cell;
+			}
 		}
 	},
 	
@@ -57,59 +63,42 @@ VU.LinkingModel = Backbone.Model.extend({
 			if ( docID )
 			{
 				if ( docID.length ) docID = docID[0];
-				coll = this.collection.colls[ this.linkRefs[attr] ];
+				coll = this.collection.colls[ this.linkRefs[attr].coll ];
 				if ( coll )
 				{
-					loadingQueue[attr] = {docID:docID, coll:coll};
-					this.linkRefsCount++;
-				}
-			}
-		}
-		// 2nd pass to load them
-		for ( attr in loadingQueue )
-		{	
-			//TODO: great opportunity to bulk load, here
-			myRef = loadingQueue[attr].coll.get( loadingQueue[attr].docID );
-			// if reference not loaded yet, then create and fetch it
-			if ( ! myRef ) {
-				var coll = loadingQueue[attr].coll;
-				myRef = new coll.model( { id:loadingQueue[attr].docID } ); 
-				myRef.bind( "change", this.loadLinkVals);
-				coll.add( myRef );
-				myRef.fetch( {attr:attr} );
-			}
-			// otherwise, load the old one
-			else {
-				myRef.bind( "change", this.loadLinkVals );
-				// if already fetched then just pull the data
-				if ( myRef.fetched )
-					this.loadLinkVals( myRef, {attr:attr} );
-			}
+					//TODO: great opportunity to bulk load, here
+					myRef = coll.get( docID );
+					// if reference not loaded yet, then create and fetch it
+					if ( ! myRef ) {
+						myRef = new coll.model( { id:docID } ); 
+						myRef.linkRef = this.linkRefs[attr];
+						myRef.bind( "change", this.loadLinkVals);
+						coll.add( myRef );
+						myRef.fetch();
+					}
+					// otherwise, load the old one
+					else {
+						myRef.bind( "change", this.loadLinkVals );
+						// if already fetched then just pull the data
+						if ( myRef.fetched )
+							this.loadLinkVals( myRef );
+					}
 		}
 	},
 	
-	loadLinkVals : function ( myRef, options ) {
+	loadLinkVals : function ( myRef ) {
 		myRef.fetched = true;
-		this.linkRefs[ options.attr ] = myRef;
-
-		// if gets down to zero then all models are loaded and stored in this.linkRefs and are ready to set the linked values
-		if ( ! --this.linkRefsCount )
+		var , linkVal, linkMatch, destAttr, linkVals = myRef.linkRef.linkVals;
+		
+		for ( destAttr in linkVals )
 		{
-			var srcAttr, linkRef, destAttr;
-			for ( destAttr in this.linkVals )
-			{
-				srcAttr = {}; 
-				linkRef = this.linkRefs[ this.linkVals[destAttr].linkRef ];
-				if ( linkRef )
-				{
-					// necessary trick to allow for variable key
-					srcAttr[destAttr] = linkRef.get( this.linkVals[destAttr].cell );
-					this.set( srcAttr, {silent:true} ); //postpone change trigger til after all vals set
-				}
-			}
-			this.trigger("change");
+			linkMatch = {};
+			// necessary trick to allow for variable key
+			linkMatch[destAttr] = myRef.get( this.linkVals[destAttr] );
+			this.set( linkMatch, {silent:true} ); //postpone change trigger til after all vals set
 		}
-	},	
+		this.trigger("change");
+	}
 });
 
 

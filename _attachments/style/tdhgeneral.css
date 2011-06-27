@@ -249,6 +249,15 @@ div#main-photo{
 	top: 20px;
 }
 
+div.popup-time{
+	font-family: georgia, serif;
+	font-size: 35px;
+	top:5px;
+	left:-13px;
+	line-height:35px;
+	text-align:center;
+}
+
 .detailmap {
    background-color: black;
 	border-radius: 15px;

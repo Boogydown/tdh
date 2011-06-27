@@ -63,7 +63,7 @@ ul#tab-list li{
 	line-height:32px;
 }
 
-ul#tab-list li a{
+ul#tab-list li{
 	display: block;	
 	width: 88px;
 	margin-right:7px;
@@ -77,12 +77,12 @@ ul#tab-list li a{
 	float:left;
 }
 
-ul#tab-list li#active-link a{
+ul#tab-list li#active-link{
 	background: url(../images/cssSprite.png);
 	background-position: -200px -20px;
 }
 
-ul#tab-list li a:hover{
+ul#tab-list li:hover{
 	background: url(../images/cssSprite.png);
 	background-position: -100px -20px;
 }

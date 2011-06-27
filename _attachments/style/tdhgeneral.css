@@ -324,7 +324,7 @@ color: #C1D8F5;
     left: 105px;
     position: absolute;
     text-align: center;
-    top: 23px;
+    top: 30px;
 }
 .venuephoto {
     border: 0 none;
@@ -345,7 +345,7 @@ color: #C1D8F5;
 }
 #venueinfo {
     font-size: 10px;
-    left: 130px;
+    left: 125px;
     position: absolute;
     text-align: center;
     top: 70px;

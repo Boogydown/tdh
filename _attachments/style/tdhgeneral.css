@@ -409,16 +409,18 @@ color: #C1D8F5;
 
 #nav-left{
 	position: absolute;
-	left: 200px;
-	top: 200px;
+	left: 20px;
+	top: 20px;
 	background: url(../images/cssSprite.png);
 	background-position: -450px -130px;
+	z-index: 11;
 }
 
 #nav-right{
 	position: absolute;
-	right: 200px;
-	top: 200px;
+	right: 20px;
+	top: 20px;
 	background: url(../images/cssSprite.png);
 	background-position: -450px -10px;
+	z-index: 11;
 }

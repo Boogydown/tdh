@@ -155,21 +155,19 @@ div.date, div.day, div#listing-time{
 	width:100%;
 	margin: 0 auto;
 	position: relative;
+	color: white;
+	text-aling: center;
 }
 
 div.date{
-	color: white;
 	font-family: georgia, serif;
 	font-size: 12px;
-	text-aling: center;
 	line-height:12px;
 }
 
 div.day{
-	color: white;
 	font-family: georgia, serif;
 	font-size: 35px;
-	text-aling: center;
 	top:-5px;
 	left:-3px;
 	line-height:35px;
@@ -178,15 +176,12 @@ div.day{
 div#listing-time{
 	top: 10px;
 	left: 5px;
-	color: white;
 	font-family: arial, sans-serif;
 	font-size: 11px;
-	text-aling: center;
 	line-height:25px;
 }
 
 div.twostepphoto{
-	
 	background: url(../images/cssSprite.png);
 	background-position: 0px -140px;
     height: 40px;
@@ -194,16 +189,13 @@ div.twostepphoto{
     left: 295px;
     top: 10px;
     position: absolute;
-
 }
 
 div.twostepphoto:hover{
-	background: url(../images/cssSprite.png);
 	background-position: -60px -140px;
 }
 
 div.twostepphoto:active{
-	background: url(../images/cssSprite.png);
 	background-position: -120px -140px;
 }
 

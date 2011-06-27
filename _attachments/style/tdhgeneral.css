@@ -405,3 +405,20 @@ color: #C1D8F5;
     top: 230px;
     width: 350px;
 }
+
+
+#nav-left{
+	position: absolute;
+	left: 200px;
+	top: 200px;
+	background: url(../images/cssSprite.png);
+	background-position: -450px -130px;
+}
+
+#nav-right{
+	position: absolute;
+	right: 200px;
+	top: 200px;
+	background: url(../images/cssSprite.png);
+	background-position: -450px -10px;
+}

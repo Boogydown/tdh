@@ -408,6 +408,8 @@ color: #C1D8F5;
 
 
 #nav-left{
+	width: 50px;
+	height: 100px;
 	position: absolute;
 	left: 20px;
 	top: 20px;
@@ -417,6 +419,8 @@ color: #C1D8F5;
 }
 
 #nav-right{
+	width: 50px;
+	height: 100px;
 	position: absolute;
 	right: 20px;
 	top: 20px;

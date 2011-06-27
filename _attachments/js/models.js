@@ -39,14 +39,14 @@ VU.LinkingModel = Backbone.Model.extend({
 		for ( var attr in fields )
 		{
 			if ( fields[attr].linkRef ){
-				(! this.linkRefs[attr]) || (this.linkRefs[attr] = {});
+				(this.linkRefs[attr]) || (this.linkRefs[attr] = {});
 				this.linkRefs[attr].coll = fields[attr].linkRef;
 			}
 			curLinkVal = fields[attr].linkVal;
 			if ( curLinkVal ){
 				curLinkRef = this.linkRefs[ curLinkVal.linkRef ];
-				(! curLinkRef) || (curLinkRef = {});
-				(! curLinkRef.linkVals) || (curLinkRef.linkVals = {});
+				(curLinkRef) || (curLinkRef = {});
+				(curLinkRef.linkVals) || (curLinkRef.linkVals = {});
 				curLinkRef.linkVals[attr] = curLinkVal.cell;
 			}
 		}

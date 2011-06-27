@@ -321,7 +321,7 @@ color: #C1D8F5;
 .atvenue {
     color: #CCCCCC;
     font-size: 18px;
-    left: 105px;
+    left: 100px;
     position: absolute;
     text-align: center;
     top: 30px;
@@ -329,7 +329,7 @@ color: #C1D8F5;
 .venuephoto {
     border: 0 none;
     height: 50px;
-    left: 138px;
+    left: 130px;
     position: absolute;
     top: 15px;
     width: 80px;
@@ -345,7 +345,7 @@ color: #C1D8F5;
 }
 #venueinfo {
     font-size: 10px;
-    left: 125px;
+    left: 117px;
     position: absolute;
     text-align: center;
     top: 70px;

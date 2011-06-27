@@ -83,6 +83,8 @@ VU.LinkingModel = Backbone.Model.extend({
 						if ( myRef.fetched )
 							this.loadLinkVals( myRef );
 					}
+				}
+			}
 		}
 	},
 	

@@ -90,7 +90,7 @@ VU.LinkingModel = Backbone.Model.extend({
 	
 	loadLinkVals : function ( myRef ) {
 		myRef.fetched = true;
-		var , linkVal, linkMatch, destAttr, linkVals = myRef.linkRef.linkVals;
+		var linkMatch, destAttr, linkVals = myRef.linkRef.linkVals;
 		
 		for ( destAttr in linkVals )
 		{

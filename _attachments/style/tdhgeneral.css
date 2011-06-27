@@ -12,7 +12,7 @@ div#main-container {
     bottom: 50px;
 }
 
-div#info-area{
+div#info-area{ /*Contains everything under the tabs */
 	background-image: url('../images/stripedBG.jpg');
     background-repeat:repeat;
     height:100%;
@@ -42,11 +42,11 @@ div#dance-card{
 		background-position: 0px -80px;
 		float:right;
 }
+
 div#dance-card:hover{
 	background-image: url('../images/cssSprite.png');
 		background-position: -150px -80px;
 }
-	
 
 ul#tab-list{
 	list-style:none;
@@ -57,13 +57,10 @@ ul#tab-list{
 	left:-1px;
 }
 
-ul#tab-list li{	
+ul#tab-list li{
 	display:inline;
 	text-align:center;
 	line-height:32px;
-}
-
-ul#tab-list li{
 	display: block;	
 	width: 88px;
 	margin-right:7px;
@@ -87,7 +84,7 @@ ul#tab-list li:hover{
 	background-position: -100px -20px;
 }
 
-/**************** App Boxes ****************/
+/**************** Listings area ****************/
 div.box {
 	background-color: transparent;
 	width: 340px;
@@ -108,7 +105,7 @@ div#list{
 div#calendar {
 	background:url(../images/cal.jpg);
 	right: 15px;
-	height: 146px;
+	top: 60px;
 }
 
 div#main-map {
@@ -216,20 +213,10 @@ div.twostepphoto{
 div.twostepphoto:hover{
 	background: url(../images/cssSprite.png);
 	background-position: -60px -140px;
-	    height: 40px;
-    width: 40px;
-    left: 295px;
-    top: 10px;
-    position: absolute;
 }
 div.twostepphoto:active{
 	background: url(../images/cssSprite.png);
 	background-position: -120px -140px;
-	    height: 40px;
-    width: 40px;
-    left: 295px;
-    top: 10px;
-    position: absolute;
 }
 
 div#popuplist{

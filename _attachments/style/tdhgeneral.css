@@ -12,7 +12,7 @@ div#main-container {
     bottom: 50px;
 }
 
-div#info-area{
+div#info-area{ /*Contains everything under the tabs */
 	background-image: url('../images/stripedBG.jpg');
     background-repeat:repeat;
     height:100%;
@@ -21,26 +21,30 @@ div#info-area{
 
 /**************** Tabs ****************/
 div#nav-tabs {
-		position: relative;
-		border-bottom: 4px solid #396494;
-		width: 100%;
-		height: 32px;
+	position: relative;
+	border-bottom: 4px solid #396494;
+	width: 100%;
+	height: 32px;
 }
 
 div#dance-card{
-		position: relative;
-		bottom: 32px;
-		text-align: center;
-		line-height: 32px;
-		width: 132px;
-		height: 32px;
-		color: white;
-		font-size: 17px;
-		text-indent:20px;
-		font-family: georgia, serif;
-		background-image: url('../images/cssSprite.png');
-		background-position: 0px -80px;
-		float:right;
+	position: relative;
+	bottom: 32px;
+	text-align: center;
+	line-height: 32px;
+	width: 132px;
+	height: 32px;
+	color: white;
+	font-size: 17px;
+	text-indent:20px;
+	font-family: georgia, serif;
+	background-image: url('../images/cssSprite.png');
+	background-position: 0px -80px;
+	float:right;
+}
+
+div#dance-card:hover{
+	background-position: -150px -80px;
 }
 
 ul#tab-list{
@@ -52,13 +56,10 @@ ul#tab-list{
 	left:-1px;
 }
 
-ul#tab-list li{	
+ul#tab-list li{
 	display:inline;
 	text-align:center;
 	line-height:32px;
-}
-
-ul#tab-list li a{
 	display: block;	
 	width: 88px;
 	margin-right:7px;
@@ -72,17 +73,15 @@ ul#tab-list li a{
 	float:left;
 }
 
-ul#tab-list li#active-link a{
-	background: url(../images/cssSprite.png);
+ul#tab-list li#active-link{
 	background-position: -200px -20px;
 }
 
-ul#tab-list li a:hover{
-	background: url(../images/cssSprite.png);
+ul#tab-list li:hover{
 	background-position: -100px -20px;
 }
 
-/**************** App Boxes ****************/
+/**************** Listings area ****************/
 div.box {
 	background-color: transparent;
 	width: 340px;
@@ -98,18 +97,6 @@ div#list{
 	left: 15px;
 	width: 370px;
 	overflow: auto;
-}
-
-div#calendar {
-	background:url(../images/cal.jpg);
-	right: 15px;
-	height: 146px;
-}
-
-div#main-map {
-    background: url("../images/googlemap.png") repeat scroll 0 0 transparent;
-    right: 15px;
-	top: 206px;
 }
 
 #listing {
@@ -131,9 +118,9 @@ div#main-map {
 	background: url(../images/cssSprite.png);
 	background-position: 0px -390px;
 	border-radius: 10px 0px 0px 10px;
--moz-border-radius: 10px 0px 0px 10px;
--webkit-border-top-right-radius: 0px;
--webkit-border-bottom-right-radius: 0px;
+	-moz-border-radius: 10px 0px 0px 10px;
+	-webkit-border-top-right-radius: 0px;
+	-webkit-border-bottom-right-radius: 0px;
 	
 }
 
@@ -147,9 +134,9 @@ div#main-map {
 	background: url(../images/cssSprite.png);
 	background-position: 0px -290px;
 	border-radius: 10px 0px 0px 10px;
--moz-border-radius: 10px 0px 0px 10px;
--webkit-border-top-right-radius: 0px;
--webkit-border-bottom-right-radius: 0px;
+	-moz-border-radius: 10px 0px 0px 10px;
+	-webkit-border-top-right-radius: 0px;
+	-webkit-border-bottom-right-radius: 0px;
 	
 }
 div#listing-date{
@@ -160,76 +147,72 @@ div#listing-date{
 	top: 15px;
 	text-aling: center;
 }
-div.date{
+
+div.date, div.day, div#listing-time{
 	width:100%;
 	margin: 0 auto;
+	position: relative;
 	color: white;
+	text-aling: center;
+}
+
+div.date{
 	font-family: georgia, serif;
 	font-size: 12px;
-	text-aling: center;
 	line-height:12px;
-	
 }
+
 div.day{
-	width:100%;
-	margin: 0 auto;
-	color: white;
 	font-family: georgia, serif;
 	font-size: 35px;
-	text-aling: center;
-	position: relative;
 	top:-5px;
 	left:-3px;
 	line-height:35px;
 }
+
 div#listing-time{
-	width:100%;
-	margin: 0 auto;
-	position: relative;
 	top: 10px;
 	left: 5px;
-	color: white;
 	font-family: arial, sans-serif;
 	font-size: 11px;
-	text-aling: center;
 	line-height:25px;
 }
 
-
-
 div.twostepphoto{
-	
 	background: url(../images/cssSprite.png);
 	background-position: 0px -140px;
     height: 40px;
     width: 40px;
-    left: 275px;
+    left: 295px;
     top: 10px;
     position: absolute;
-
 }
+
 div.twostepphoto:hover{
-	background: url(../images/cssSprite.png);
 	background-position: -60px -140px;
-	    height: 40px;
-    width: 40px;
-    left: 275px;
-    top: 10px;
-    position: absolute;
-}
-div.twostepphoto:active{
-	background: url(../images/cssSprite.png);
-	background-position: -120px -140px;
-	    height: 40px;
-    width: 40px;
-    left: 275px;
-    top: 10px;
-    position: absolute;
 }
 
+div.twostepphoto:active{
+	background-position: -120px -140px;
+}
+
+/* ******************Calendar and map inside info-area******************* */
+div#calendar {
+	background:url(../images/cal.jpg) no-repeat;
+	right: 15px;
+	top: 50px;
+}
+
+div#main-map {
+    background: url("../images/googlemap.png") repeat scroll 0 0 transparent;
+    right: 15px;
+	top: 206px;
+}
+
+/* ******************Band & Hall popups******************* */
 div#popuplist{
 	position: relative;
-	top: 20px;
+	top: 30px;
 	left: 10px;
 	height: 300px;
 	width: 370px;
@@ -243,6 +226,7 @@ div#popuplist{
     position: absolute;
     float:left;
 }
+
 .detailtext {
     color: white;
 	height: 145px;
@@ -251,6 +235,7 @@ div#popuplist{
     font-size: 14px;
 	overflow: auto;
 }
+
 div#main-photo{
 
 	background-color: black;
@@ -262,7 +247,15 @@ div#main-photo{
 	position: relative;
 	left: 400px;
 	top: 20px;
+}
 
+div.popup-time{
+	font-family: georgia, serif;
+	font-size: 35px;
+	position:relative;
+	top:5px;
+	left:-17px;
+	text-align:center;
 }
 
 .detailmap {
@@ -278,17 +271,17 @@ div#main-photo{
 }
 
 #listing div.detail-standard{
-
 	position:relative;
-
+	top: -1px;
+	left:-1px;
 	height:90px;
 	width: 55px;
 	background: url(../images/cssSprite.png);
 	background-position: 0px -190px;
 	border-radius: 10px 0px 0px 10px;
--moz-border-radius: 10px 0px 0px 10px;
--webkit-border-top-right-radius: 0px;
--webkit-border-bottom-right-radius: 0px;
+	-moz-border-radius: 10px 0px 0px 10px;
+	-webkit-border-top-right-radius: 0px;
+	-webkit-border-bottom-right-radius: 0px;
 }
 
 .title {
@@ -297,19 +290,19 @@ div#main-photo{
 }
 
 h2 {
-font-family: georgia, serif;
+	font-family: georgia, serif;
     font-size: 26px;
-color: #C1D8F5;
-
-
+	color: #C1D8F5;
     width: 337px;
 }
+
 #details {
-    left: 30px;
+    left: 60px;
     padding: 0 20px;
     position: absolute;
     top: 13px;
 }
+
 .bandphoto {
     border: 0 none;
     height: 50px;
@@ -318,51 +311,56 @@ color: #C1D8F5;
     top: 15px;
     width: 80px;
 }
+
 .atvenue {
     color: #CCCCCC;
     font-size: 18px;
-    left: 95px;
+    left: 100px;
     position: absolute;
     text-align: center;
-    top: 23px;
+    top: 30px;
 }
+
 .venuephoto {
     border: 0 none;
     height: 50px;
-    left: 138px;
+    left: 130px;
     position: absolute;
     top: 15px;
     width: 80px;
 }
+
 #bandinfo {
     font-size: 10px;
-    left: -15px;
+    left: -5px;
     position: absolute;
     text-align: center;
-    top: 60px;
+    top: 70px;
     width: 110px;
     word-wrap: break-word;
 }
+
 #venueinfo {
     font-size: 10px;
-    left: 121px;
+    left: 117px;
     position: absolute;
     text-align: center;
-    top: 60px;
-    width: 100px;
+    top: 70px;
+    width: 110px;
     word-wrap: break-word;
 }
-
 
 .detailphoto {
     float: left;
 }
+
 .detailphoto img {
     border: 0 none;
     height: 200px;
     margin-right: 10px;
     width: 350px;
 }
+
 #popuplisting {
     background-color: #000000;
     border-radius: 10px 10px 10px 10px;
@@ -372,6 +370,7 @@ color: #C1D8F5;
     top: 10px;
     width: 330px;
 }
+
 #popupbandinfo {
     font-size: 16px;
     position: absolute;
@@ -380,6 +379,7 @@ color: #C1D8F5;
     width: 70px;
     word-wrap: break-word;
 }
+
 #popupvenueinfo {
     font-size: 16px;
     left: 129px;
@@ -390,8 +390,6 @@ color: #C1D8F5;
     word-wrap: break-word;
 }
 
-
-
 .popupbox {
     background-color: #3D3D45;
     border-radius: 20px 20px 20px 20px;
@@ -399,4 +397,24 @@ color: #C1D8F5;
     position: absolute;
     top: 230px;
     width: 350px;
+}
+
+/* ******************Popup navigation buttons******************* */
+
+#nav-left, #nav-right{
+	width: 50px;
+	height: 100px;
+	position: absolute;
+	top: 170px;
+	background: url(../images/cssSprite.png);
+}
+
+#nav-left{
+	left: -65px;
+	background-position: -450px -130px;
+}
+
+#nav-right{
+	right: -65px;
+	background-position: -450px -10px;
 }

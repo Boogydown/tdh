@@ -60,15 +60,23 @@
 			<div id="listing">
 				<div class="detail-standard"><!-- DEFINES WHETHER WILL BE FEATURED OR NOT -->
 					<div id="listing-date"><!-- HOLDS DATE DETAILS ON THE LEFT OF THE LISTING -->
-						<div class="date">WED</div><!-- HOLDS DAY OF EVENT -->
-						<div class="day">23</div><!-- HOLDS NUMERICAL DAY OF EVENT -->
-						<div class="date">JULY</div><!-- HOLDS MONTH OF EVENT -->
+						<div class="date">{dateDay}</div><!-- HOLDS DAY OF EVENT -->
+						<div class="day">{dateDate}</div><!-- HOLDS NUMERICAL DAY OF EVENT -->
+						<div class="date">{dateMonth}</div><!-- HOLDS MONTH OF EVENT -->
+					</div>
+					<div id="details" style="top:-10px">
+						<div class="popup-time">09:00<br/>PM</div>
+						<div class="atvenue">@</div>
+						<a href="#pop/hall/{hall}"><img class="venuephoto" src="{hallPic}" /></a><br/>
+						<div id="venueinfo">{hallName}</div>
 					</div>
 				</div>
 				<div class="twostepphoto"></div>
 			</div>
 		</div>
 		<div class="detailmap"></div>
+		<div id="nav-left"></div>
+		<div id="nav-right"></div>
 	</script>
 	
 	<script type="application/dust-template" id="popupTemplate_hall">
@@ -85,15 +93,23 @@
 			<div id="listing">
 				<div class="detail-standard"><!-- DEFINES WHETHER WILL BE FEATURED OR NOT -->
 					<div id="listing-date"><!-- HOLDS DATE DETAILS ON THE LEFT OF THE LISTING -->
-						<div class="date">WED</div><!-- HOLDS DAY OF EVENT -->
-						<div class="day">23</div><!-- HOLDS NUMERICAL DAY OF EVENT -->
-						<div class="date">JULY</div><!-- HOLDS MONTH OF EVENT -->
+						<div class="date">{dateDay}</div><!-- HOLDS DAY OF EVENT -->
+						<div class="day">{dateDate}</div><!-- HOLDS NUMERICAL DAY OF EVENT -->
+						<div class="date">{dateMonth}</div><!-- HOLDS MONTH OF EVENT -->
+					</div>
+					<div id="details" style="top:-10px">
+						<div class="popup-time">09:00<br/>PM</div>
+						<div class="atvenue">@</div>
+						<a href="#pop/band/{band}"><img class="venuephoto" src="{bandPic}" /></a><br/>
+						<div id="venueinfo">{bandName}</div>
 					</div>
 				</div>
 				<div class="twostepphoto"></div>
 			</div>
 		</div>
 		<div class="detailmap"></div>
+		<div id="nav-left"></div>
+		<div id="nav-right"></div>
 	</script>
 	
 	<!-- TEMPLATES END -->

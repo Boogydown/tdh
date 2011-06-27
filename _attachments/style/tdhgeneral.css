@@ -252,6 +252,7 @@ div#main-photo{
 div.popup-time{
 	font-family: georgia, serif;
 	font-size: 35px;
+	position:relative;
 	top:5px;
 	left:-13px;
 	line-height:35px;

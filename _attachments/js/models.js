@@ -96,7 +96,7 @@ VU.LinkingModel = Backbone.Model.extend({
 		{
 			linkMatch = {};
 			// necessary trick to allow for variable key
-			linkMatch[destAttr] = myRef.get( this.linkVals[destAttr] );
+			linkMatch[destAttr] = myRef.get( linkVals[destAttr] );
 			this.set( linkMatch, {silent:true} ); //postpone change trigger til after all vals set
 		}
 		this.trigger("change");

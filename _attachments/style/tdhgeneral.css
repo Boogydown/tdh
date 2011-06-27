@@ -102,18 +102,6 @@ div#list{
 	overflow: auto;
 }
 
-div#calendar {
-	background:url(../images/cal.jpg);
-	right: 15px;
-	top: 50px;
-}
-
-div#main-map {
-    background: url("../images/googlemap.png") repeat scroll 0 0 transparent;
-    right: 15px;
-	top: 206px;
-}
-
 #listing {
     background-color: black;
     border-radius: 10px 10px 10px 10px;
@@ -162,32 +150,32 @@ div#listing-date{
 	top: 15px;
 	text-aling: center;
 }
-div.date{
+
+div.date, div.day, div#listing-time{
 	width:100%;
 	margin: 0 auto;
+	position: relative;
+}
+
+div.date{
 	color: white;
 	font-family: georgia, serif;
 	font-size: 12px;
 	text-aling: center;
 	line-height:12px;
-	
 }
+
 div.day{
-	width:100%;
-	margin: 0 auto;
 	color: white;
 	font-family: georgia, serif;
 	font-size: 35px;
 	text-aling: center;
-	position: relative;
 	top:-5px;
 	left:-3px;
 	line-height:35px;
 }
+
 div#listing-time{
-	width:100%;
-	margin: 0 auto;
-	position: relative;
 	top: 10px;
 	left: 5px;
 	color: white;
@@ -196,8 +184,6 @@ div#listing-time{
 	text-aling: center;
 	line-height:25px;
 }
-
-
 
 div.twostepphoto{
 	
@@ -210,13 +196,28 @@ div.twostepphoto{
     position: absolute;
 
 }
+
 div.twostepphoto:hover{
 	background: url(../images/cssSprite.png);
 	background-position: -60px -140px;
 }
+
 div.twostepphoto:active{
 	background: url(../images/cssSprite.png);
 	background-position: -120px -140px;
+}
+
+/* ******************Calendar and map inside info-area******************* */
+div#calendar {
+	background:url(../images/cal.jpg) no-repeat;
+	right: 15px;
+	top: 50px;
+}
+
+div#main-map {
+    background: url("../images/googlemap.png") repeat scroll 0 0 transparent;
+    right: 15px;
+	top: 206px;
 }
 
 div#popuplist{

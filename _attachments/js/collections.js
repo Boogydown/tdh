@@ -31,7 +31,7 @@ VU.EventCollection = Backbone.Collection.extend({
 			// trigger normalizations
 			model.trigger("change");
 			// trigger View additions
-			model.trigger("add");
+			this.trigger("add", {model:model});
 		});
 	}
 });

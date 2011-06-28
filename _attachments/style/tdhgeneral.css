@@ -428,8 +428,8 @@ h2 {
 	width: 662px;
 	float: left;
 	font-size: 1.2em;
-	position: absolute;
-	top: 370px; 
+	position: fixed;
+	top: 130px; 
 	bottom: 63px;
 	left: 53%;
 	z-index: 99999;

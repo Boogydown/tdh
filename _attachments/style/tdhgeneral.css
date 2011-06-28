@@ -249,6 +249,13 @@ div#main-photo{
 	top: 20px;
 }
 
+div#main-photo img{
+	width: 210px;
+	height: 160px;
+	border: 0px;
+	text-align:center;
+}
+
 div.popup-time{
 	font-family: georgia, serif;
 	font-size: 35px;

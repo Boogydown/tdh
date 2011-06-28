@@ -122,7 +122,9 @@ div#list{
 }
 
 #listing div.standard{
-	float:left;
+	position:relative;
+	left:-1px;
+	top: -1px;
 	height:90px;
 	width: 55px;
 	background: url(../images/cssSprite.png);
@@ -158,7 +160,8 @@ div.day{
 }
 
 div#listing-time{
-
+	position: relative;
+	left: 5px;
 	font-family: arial, sans-serif;
 	font-size: 11px;
 	line-height:11px;

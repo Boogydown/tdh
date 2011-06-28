@@ -151,7 +151,7 @@ div.date, div.day, div#listing-time{
 
 div.date{
 	position: relative;
-	bottom: 2px;
+	bottom: 6px;
 	font-family: georgia, serif;
 	font-size: 12px;
 	font-weight: bold;
@@ -168,7 +168,7 @@ div.day{
 div#listing-time{
 	position: relative;
 	left: 5px;
-	top: 18px;
+	top: 20px;
 	font-family: arial, sans-serif;
 	font-size: 11px;
 	line-height:11px;

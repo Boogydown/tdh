@@ -110,7 +110,7 @@ VU.EventListView = Backbone.View.extend({
 	
 	// Appends an entry row 
 	addRow : function(model, options){
-		var model = model || (options && options.model );
+		//var model = model || (options && options.model );
 		this.el.append( new VU.EventEntryView( { model: model } ).render().el );
 	}
 });

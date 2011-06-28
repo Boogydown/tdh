@@ -122,7 +122,9 @@ div#list{
 }
 
 #listing div.standard{
-	float:left;
+	position:relative;
+	left:-1px;
+	top: -1px;
 	height:90px;
 	width: 55px;
 	background: url(../images/cssSprite.png);

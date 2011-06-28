@@ -155,6 +155,8 @@ VU.MapView = Backbone.View.extend({
 		if ( gps )
 		{
 			gps = gps.split(",");
+			if ( gps.length() < 2 ) 
+				gps = gps.split(" ");
 			gps = gps.length() > 1 ? new google.maps.LatLng( gps[0], gps[1] ) : null;
 		}
 		if ( gps )

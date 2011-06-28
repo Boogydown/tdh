@@ -67,7 +67,8 @@ VU.PopupView = VU.DustView.extend({
 	render : function () {
 		VU.DustView.prototype.render.call(this);
 		var events;
-		if ( this.model && events = this.model.get("events") ) {
+		if ( this.model ) events = this.model.get("events"); 
+		if ( events ) {
 			this.eventListView = new VU.EventListView({ el:$("#popuplist"), collection:events });
 			this.eventListView.render();
 		}

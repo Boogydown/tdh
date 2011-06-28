@@ -255,7 +255,8 @@ div#main-photo img{
 	border: 0px;
 	display: block;
     margin: auto;
-    vertical-align: middle;
+    position: absolute;
+    top: 20px;
 }
 
 div.popup-time{

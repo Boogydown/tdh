@@ -32,7 +32,8 @@ VU.EventCollection = Backbone.Collection.extend({
 			model.trigger("change");
 			// trigger View additions
 			model.trigger("add");
-		});		
+		});
+	}
 });
 
 VU.BandCollection = Backbone.Collection.extend({

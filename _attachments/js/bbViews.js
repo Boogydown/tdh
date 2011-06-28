@@ -151,7 +151,7 @@ VU.MapView = Backbone.View.extend({
 	
 	// TODO: if marker var needs to stay alive then put into hall model
 	addMarker : function ( hall ) {
-		var gps = hall.get( "GPS Coordinates" );
+		var gps = hall.get( "GPS Coordinates" ) || hall.get( "gpsCoordinates" );
 		if ( gps )
 		{
 			gps = gps.split(",");

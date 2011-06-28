@@ -122,7 +122,7 @@ div#list{
 }
 
 #listing div.standard{
-
+	float:left;
 	height:90px;
 	width: 55px;
 	background: url(../images/cssSprite.png);
@@ -161,7 +161,7 @@ div#listing-time{
 
 	font-family: arial, sans-serif;
 	font-size: 11px;
-	line-height:25px;
+	line-height:11px;
 }
 
 div.twostepphoto{

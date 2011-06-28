@@ -144,13 +144,14 @@ div#listing-date{
 }
 
 div.date, div.day, div#listing-time{
+	position: relative;
 	color: white;
 	text-aling: center;
 	vertical-align: middle;
 }
 
 div.date{
-	position: relative;
+
 	top: 6px;
 	font-family: georgia, serif;
 	font-size: 12px;
@@ -168,7 +169,7 @@ div.day{
 div#listing-time{
 	position: relative;
 	left: 5px;
-	top: 23px;
+	top: 24px;
 	font-family: arial, sans-serif;
 	font-size: 11px;
 	line-height:11px;

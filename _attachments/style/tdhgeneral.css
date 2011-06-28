@@ -96,6 +96,12 @@ div#list{
 	overflow: auto;
 }
 
+div#popuplist{
+	left: 15px;
+	width: 370px;
+	overflow: auto;
+}
+
 #listing {
     background-color: black;
     border-radius: 10px 10px 10px 10px;

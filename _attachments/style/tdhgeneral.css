@@ -138,14 +138,10 @@ div#list{
 }
 div#listing-date{
 	width:100%;
-	margin: 0 auto;
-	
 	text-aling: center;
 }
 
 div.date, div.day, div#listing-time{
-	width:100%;
-	
 	color: white;
 	text-aling: center;
 }

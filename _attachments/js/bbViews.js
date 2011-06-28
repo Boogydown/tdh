@@ -154,9 +154,9 @@ VU.MapView = Backbone.View.extend({
 		var gps = hall.get( "GPS Coordinates" ) || hall.get( "gpsCoordinates" );
 		if ( gps )
 		{
-			gps = gps.split(",");
+			gps = gps.split(" ");
 			if ( gps.length < 2 ) 
-				gps = gps.split(" ");
+				gps = gps[0].split(",");
 			gps = gps.length > 1 ? new google.maps.LatLng( gps[0], gps[1] ) : null;
 		}
 		if ( gps )

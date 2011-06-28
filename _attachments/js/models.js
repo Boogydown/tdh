@@ -31,7 +31,8 @@ VU.LinkingModel = Backbone.Model.extend({
 	linkRefs : {},
 	initialize : function () {
 		_.bindAll( this, "loadLinkRefs", "loadLinkVals" );
-		//this.bind ( "change", this.loadLinkRefs );
+		this.bind ( "change", this.loadLinkRefs );
+		
 		// Loads all of the refs and values from schema for processing later
 		var fields = this.options && this.options.schema && this.options.schema.properties || 
 					 this.collection.schema && this.collection.schema.properties ||
@@ -100,7 +101,10 @@ VU.LinkingModel = Backbone.Model.extend({
 			linkMatch[destAttr] = myRef.get( linkVals[destAttr] );
 			this.set( linkMatch, {silent:true} ); //postpone change trigger til after all vals set
 		}
+		// kick off change to all of this model's listeners, EXCEPT itself
+		this.unbind( "change", this.loadLinkRefs );
 		this.trigger("change");
+		this.bind( "change", this.loadLinkRefs );		
 	}
 });
 
@@ -117,7 +121,6 @@ VU.BandModel = VU.EventsContainerModel.extend({
 	
 	initialize : function () { 
 		_.bindAll( this, "normalizeAttributes", "searchComplete" );
-		//this.bind( "add", this.normalizeAttributes );		
 		this.bind( "change", this.normalizeAttributes );		
 	},
 	
@@ -174,7 +177,6 @@ VU.VenueModel = VU.EventsContainerModel.extend({
 
 	initialize : function () { 
 		_.bindAll( this, "normalizeAttributes" );
-		//this.bind( "add", this.normalizeAttributes );		
 		this.bind( "change", this.normalizeAttributes );		
 	},
 	
@@ -217,9 +219,7 @@ VU.EventModel = VU.LinkingModel.extend({
 	
 	initialize: function () {
 		_.bindAll( this, "normalizeDate" );
-		this.bind( "add", this.normalizeDate );
-		this.bind( "add", this.loadLinkRefs );
-		//this.bind( "change", this.normalizeDate );
+		this.bind( "change", this.normalizeDate );
 		VU.LinkingModel.prototype.initialize.call(this);
 	},
 	

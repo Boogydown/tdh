@@ -42,8 +42,7 @@ $(function(){
 			this.popupView = new VU.PopupView( );
 			
 			// kick off the initial fetch
-            this.colls.events.fetch( {add:true} );
-			this.colls.events.trigger("refresh");
+            this.colls.events.gradualLoad():
         },
 		
 		showPopup : function( type, docID ) {

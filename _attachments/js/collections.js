@@ -19,6 +19,20 @@ VU.EventCollection = Backbone.Collection.extend({
 		this.schema = options.schema;
 		this.colls = options.colls;
 	},
+	
+	gradualLoad : function () {
+		this.bind( "refresh", this.continueLoad );
+		// do this first to load data, and keep it ordered
+		this.fetch();
+	},
+	
+	continueLoad : function () {
+		this.each( function ( model ) { 
+			// trigger normalizations
+			model.trigger("change");
+			// trigger View additions
+			model.trigger("add");
+		});		
 });
 
 VU.BandCollection = Backbone.Collection.extend({

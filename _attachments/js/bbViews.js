@@ -1,3 +1,5 @@
+C:\Devel\tdh\_attachments\js\bbViews.js
+
 VU.InitViews = function () {
 /////////////////////////////////////////////////////////////////////////////}
 /// VIEWS DECLARATION ///////////////////////////////////////////////////////
@@ -64,6 +66,15 @@ VU.PopupView = VU.DustView.extend({
 		});		
 	},
 	
+	render : function () {
+		VU.DustView.prototype.render.call(this);
+		var events;
+		if ( this.model && events = this.model.get("events") ) {
+			this.eventListView = new VU.EventListView({ el:$("#popuplist"), collection:events });
+			this.eventListView.render();
+		}
+	},
+	
 	openPopup : function ( model, popTemplate ) {
 		this.registerTemplate( popTemplate ); 
 		this.model = model;
@@ -94,8 +105,6 @@ VU.PopupView = VU.DustView.extend({
 // The view for the primary event list container
 VU.EventListView = Backbone.View.extend({
 	el: $("#list"),
-	nextY: 10,
-	curDate: null,
 	initialize : function(){
 		_.bindAll(this, 'render', 'addRow');
 		this.collection.bind("refresh", this.render);
@@ -150,9 +159,19 @@ VU.MapView = Backbone.View.extend({
 	
 	// TODO: if marker var needs to stay alive then put into hall model
 	addMarker : function ( hall ) {
-		var address = hall.get( "address" );
-		console.log("finding " + address );
-		this.geocoder.geocode( { 'address': address}, this.attachToMap );
+		var gps = hall.get( "GPS Coordinates" );
+		if ( gps )
+		{
+			gps = gps.split(",");
+			gps = gps.length() > 1 ? new google.maps.LatLng( gps[0], gps[1] ) : null;
+		}
+		if ( gps )
+			var marker = new google.maps.Marker({map: this.map, position: gps });
+		else{
+			var address = hall.get( "address" );
+			console.log("finding " + address );
+			this.geocoder.geocode( { 'address': address}, this.attachToMap );
+		}
 	},
 	
 	attachToMap: function(results, status) {

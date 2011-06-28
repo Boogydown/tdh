@@ -18,8 +18,9 @@ VU.EventsContainerModel = Backbone.Model.extend({
 	myType : "",
 	
 	// load all events that have a band or hall (myType) of this id
+	//TODO: myType needs to be more dependant on schema
 	loadEvents : function ( eventsCollection ) {
-		this.set( {events: new EventCollection( _.select( eventsCollection.models, function ( eventModel ) {
+		this.set( {events: new VU.EventCollection( _.select( eventsCollection.models, function ( eventModel ) {
 			return eventModel.get( this.myType ) == this.id;
 		} ) ) } );
 	},
@@ -106,6 +107,7 @@ VU.LinkingModel = Backbone.Model.extend({
 
 // Band model
 VU.BandModel = VU.EventsContainerModel.extend({
+	myType : "band",
 	defaults : {
 		bandName: "Generic Band",
 		image: "images/genericSilhouette.jpg",
@@ -114,7 +116,6 @@ VU.BandModel = VU.EventsContainerModel.extend({
 	},
 	
 	initialize : function () { 
-		this.myType = "band"; 
 		_.bindAll( this, "normalizeAttributes", "searchComplete" );
 		//this.bind( "add", this.normalizeAttributes );		
 		this.bind( "change", this.normalizeAttributes );		
@@ -163,6 +164,7 @@ VU.BandModel = VU.EventsContainerModel.extend({
 
 // Venue model
 VU.VenueModel = VU.EventsContainerModel.extend({
+	myType : "hall",
 	defaults : {
 		danceHallName: "Generic Hall",
 		images: [{"credit":"generic", "image":"images/genericHall.JPG"}],
@@ -171,7 +173,6 @@ VU.VenueModel = VU.EventsContainerModel.extend({
 	},	
 
 	initialize : function () { 
-		this.myType = "hall"; 
 		_.bindAll( this, "normalizeAttributes" );
 		//this.bind( "add", this.normalizeAttributes );		
 		this.bind( "change", this.normalizeAttributes );		

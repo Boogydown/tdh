@@ -48,10 +48,11 @@ $(function(){
 		showPopup : function( type, docID ) {
 			var template = "popupTemplate_" + type;
 			var docModel = this.colls[type + "s"] && this.colls[type + "s"].get( docID );
-			if ( docModel )
+			if ( docModel ){
+				docModel.loadEvents( this.colls.events );
 				this.popupView.openPopup( docModel, template );
-			else
-			{
+			} 
+			else {
 				//alert("No such document " + docID + " in collection " + type + "s.");
 				// remove route; keep the hash to prevent reloading
 				window.location = window.location.href.split("#")[0] + "#";

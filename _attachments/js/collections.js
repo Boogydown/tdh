@@ -19,21 +19,6 @@ VU.EventCollection = Backbone.Collection.extend({
 		_.bindAll( this, "continueLoad" );
 		this.schema = options.schema;
 		this.colls = options.colls;
-	},
-	
-	gradualLoad : function () {
-		this.bind( "refresh", this.continueLoad );
-		// do this first to load data, and keep it ordered
-		this.fetch();
-	},
-	
-	continueLoad : function () {
-		this.each( function ( model ) { 
-			// trigger normalizations
-			model.trigger("change");
-			// trigger View additions
-			this.trigger("add", {model:model});
-		});
 	}
 });
 

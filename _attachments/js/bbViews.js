@@ -98,8 +98,8 @@ VU.EventListView = Backbone.View.extend({
 	el: $("#list"),
 	initialize : function(){
 		_.bindAll(this, 'render', 'addRow');
-		//this.collection.bind("refresh", this.render);
-		this.collection.bind("add", this.addRow);
+		this.collection.bind("refresh", this.render);
+		//this.collection.bind("add", this.addRow);
 		this.collection.bind("remove", this.deleted);
 	},
 
@@ -109,9 +109,9 @@ VU.EventListView = Backbone.View.extend({
 	},
 	
 	// Appends an entry row 
-	addRow : function(model, options){
-		var model = model || (options && options.model );
+	addRow : function(model){
 		this.el.append( new VU.EventEntryView( { model: model } ).render().el );
+		model.trigger("change");
 	}
 });
 

@@ -254,8 +254,7 @@ div#main-photo img{
 	height: 160px;
 	border: 0px;
 	display: block;
-    margin-left: auto;
-    margin-right: auto;
+    margin: auto;
 }
 
 div.popup-time{

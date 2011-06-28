@@ -22,7 +22,7 @@ VU.EventsContainerModel = Backbone.Model.extend({
 	loadEvents : function ( eventsCollection ) {
 		this.set( {events: new VU.EventCollection( _.select( eventsCollection.models, function ( eventModel ) {
 			return eventModel.get( this.myType ) == this.id;
-		} ) ) } );
+		}, this ) ) } );
 	},
 });
 

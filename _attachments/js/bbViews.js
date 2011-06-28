@@ -81,8 +81,9 @@ VU.PopupView = VU.DustView.extend({
 		this.render();
 		
 		//Fade Background
-		$('body').append('<div id="fade"></div>'); //Add fade layer at the end of the selected tag. 
-		$('#fade').css({'filter' : 'alpha(opacity=80)'}).fadeIn(); //Fade in the fade layer - .css({'filter' : 'alpha(opacity=80)'}) is used to fix the IE Bug on fading transparencies 
+		$('body').append('<div id="fade"></div>');
+		//Fade in the fade layer - used to fix the IE Bug on fading transparencies 
+		$('#fade').css({'filter' : 'alpha(opacity=80)'}).fadeIn(); 
 
 		//Fade Popup in and add close button
 		this.el.fadeIn().prepend('<a href="#" class="close"><img src="images/button-x.png" width="21" border="0" class="close_popup" title="Close Window" alt="Close" /></a>');
@@ -98,7 +99,7 @@ VU.EventListView = Backbone.View.extend({
 	initialize : function(){
 		_.bindAll(this, 'render', 'addRow');
 		this.collection.bind("refresh", this.render);
-		this.collection.bind("add", this.addRow);
+		//this.collection.bind("add", this.addRow);
 		this.collection.bind("remove", this.deleted);
 	},
 

@@ -27,7 +27,7 @@
 	<!-- TEMPLATES START -->
 	<script type="application/dust-template" id="mainEventEntryTemplate">
 		<div id="listing">
-			<div class="standard"><!-- DEFINES WHETHER WILL BE FEATURED OR NOT -->
+			<div class="{?featured}featured{:else}standard{/featured}"><!-- DEFINES WHETHER WILL BE FEATURED OR NOT -->
 				<div id="listing-date"><!-- HOLDS DATE DETAILS ON THE LEFT OF THE LISTING -->
 					<div class="date" style="top: -3px;">{dateDay}</div><!-- HOLDS DAY OF EVENT -->
 					<div class="day">{dateDate}</div><!-- HOLDS NUMERICAL DAY OF EVENT -->

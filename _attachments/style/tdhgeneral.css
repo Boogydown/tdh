@@ -160,7 +160,7 @@ div.date{
 }
 
 div.day{
-	top: 1px;
+	top: -3px;
 	font-family: georgia, serif;
 	font-size: 35px;
 	font-weight: bold;

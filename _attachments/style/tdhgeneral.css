@@ -88,9 +88,6 @@ div.box {
 	position: absolute;
 	top: 50px;
 	bottom: -20px;
-	border-radius: 10px;
-	-moz-border-radius: 10px;
-	-webkit-border-radius: 10px;
 }
 
 div#list{
@@ -316,7 +313,7 @@ h2 {
     height: 50px;
     left: 10px;
     position: absolute;
-    top: 15px;
+    top: 17px;
     width: 80px;
 }
 
@@ -334,7 +331,7 @@ h2 {
     height: 50px;
     left: 130px;
     position: absolute;
-    top: 15px;
+    top: 17px;
     width: 80px;
 }
 

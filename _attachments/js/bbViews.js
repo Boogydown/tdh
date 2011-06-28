@@ -157,7 +157,7 @@ VU.MapView = Backbone.View.extend({
 			gps = gps.split(" ");
 			if ( gps.length < 2 ) 
 				gps = gps[0].split(",");
-			gps = gps.length > 1 ? new google.maps.LatLng( gps[0], gps[1] ) : null;
+			gps = gps.length > 1 ? new google.maps.LatLng( gps[1], gps[0] ) : null;
 		}
 		if ( gps )
 			var marker = new google.maps.Marker({map: this.map, position: gps });

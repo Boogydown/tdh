@@ -152,7 +152,7 @@ div.date, div.day, div#listing-time{
 
 div.date{
 
-	top: 6px;
+	
 	font-family: georgia, serif;
 	font-size: 12px;
 	font-weight: bold;
@@ -160,6 +160,7 @@ div.date{
 }
 
 div.day{
+	top: 6px;
 	font-family: georgia, serif;
 	font-size: 35px;
 	font-weight: bold;

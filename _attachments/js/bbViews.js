@@ -60,6 +60,7 @@ VU.PopupView = VU.DustView.extend({
 			$('#fade , .popup_block').fadeOut(function() {
 				$('#fade, a.close').remove();  //fade them both out
 			});
+			window.location = window.location.href.split("#")[0] + "#";
 			return false;
 		});		
 	},
@@ -85,16 +86,6 @@ VU.PopupView = VU.DustView.extend({
 
 		//Fade Popup in and add close button
 		this.el.fadeIn().prepend('<a href="#" class="close"><img src="images/button-x.png" width="21" border="0" class="close_popup" title="Close Window" alt="Close" /></a>');
-
-		//Margin defines center alignment (vertical and horizontal) - add 80px to the height/width for the padding  and border width as defined in the css
-		var popMargTop = (this.el.height() + 80) / 2;
-		var popMargLeft = (this.el.width() + 80) / 2;
-
-		//Margin for Popup
-		this.el.css({
-			'margin-top' : -popMargTop,
-			'margin-left' : -popMargLeft
-		});
 
 		return false;
 	}

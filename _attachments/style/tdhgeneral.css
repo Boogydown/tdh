@@ -144,6 +144,10 @@ div#listing-date{
 	text-aling: center;
 }
 
+#listing div.featured #listing-date{
+	top: 20px;
+}
+
 div.date, div.day, div#listing-time{
 	position: relative;
 	color: white;

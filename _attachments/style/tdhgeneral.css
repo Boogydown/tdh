@@ -138,7 +138,7 @@ div#list{
 div#listing-date{
 	position: relative;
 	left: 10px;
-	top: 15px;
+	top: 17px;
 	width:100%;
 	text-aling: center;
 }
@@ -150,6 +150,8 @@ div.date, div.day, div#listing-time{
 }
 
 div.date{
+	position: relative;
+	bottom: 2px;
 	font-family: georgia, serif;
 	font-size: 12px;
 	font-weight: bold;

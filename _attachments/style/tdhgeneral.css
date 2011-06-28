@@ -142,9 +142,7 @@ div#list{
 div#listing-date{
 	width:100%;
 	margin: 0 auto;
-	position: relative;
-	left:15px;
-	top: 15px;
+	
 	text-aling: center;
 }
 

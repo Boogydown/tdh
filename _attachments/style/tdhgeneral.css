@@ -253,7 +253,7 @@ div#main-photo img{
 	width: 210px;
 	height: 160px;
 	border: 0px;
-	text-align:center;
+	margin: 0 auto;
 }
 
 div.popup-time{

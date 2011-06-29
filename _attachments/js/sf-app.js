@@ -110,8 +110,9 @@ $(function(){
 				{
 					var row = {key:key, value:this.model.get(key)};
 					if ( fields[key].linkRef )
-						//row.value = '<div class="linkable" id="link_' + fields[key].linkRef + '">' + row.value + '</div>';
 						row.value = '<a href="#/doc/' + fields[key].linkRef + '/' + row.value + '">' + row.value + '</a>';
+					if ( row.value.substr(row.value.length - 4 ).toLowerCase() == "jpg")
+						row.value = '<img src="' + row.value + '"/>';
 					rowData.push( row );
 				}
 			}

@@ -61,6 +61,7 @@ $(function(){
             this.collection.bind("refresh", this.render);
             this.collection.bind("add", this.addRow);
             this.collection.bind("remove", this.deleted);
+			this.el.show();
 			this.collection.fetch( );
         },
 
@@ -100,6 +101,7 @@ $(function(){
 			_.bindAll(this, 'render', "editMe", "deleteMe");
 			this.model.bind('change', this.render);
 			this.registerTemplate('table-row');
+			this.el.show();
 		},
 		
 		getData : function () {
@@ -110,7 +112,7 @@ $(function(){
 				{
 					var row = {key:key, value:this.model.get(key)};
 					if ( fields[key].linkRef )
-						row.value = '<a href="#/doc/' + fields[key].linkRef + '/' + row.value + '">' + row.value + '</a>';
+						row.value = '<a href="#doc/' + fields[key].linkRef + '/' + row.value + '">' + row.value + '</a>';
 					if ( row.value && row.value.substr(row.value.length - 3 ).toLowerCase() == "jpg")
 						row.value = '<img src="' + row.value + '"/>';
 					rowData.push( row );
@@ -134,15 +136,17 @@ $(function(){
 		options : { templateName: "doc-table" },
 		
 		initialize : function() {
-			if ( options.docID != "" )
+			if ( this.options.docID != "" )
 			{
 				this.model = window.app.colls.get( options.docID );
 				if ( myDoc )
 					SchemaDocView.prototype.initialize.call(this);
 			}
 			else
+			{
 				el.text( options.docID + " does not exist!");
-				
+				this.el.show();				
+			}
 		}
 		// it looks for options.id, if !"" then checks coll for the id
 		// if found, fetches, if not, create
@@ -167,8 +171,7 @@ $(function(){
 				   ":coll": "showColl"
 		},
 		
-		events : { "route": "clearViews",
-				   "route:showDoc": "showDoc",
+		events : { "route:showDoc": "showDoc",
 				   "route:showColl": "showColl",
 				   "route:showForm": "showForm"
 		},
@@ -182,13 +185,6 @@ $(function(){
 			this.colls.events = new VU.EventCollection( null, { colls:this.colls, schema:VU.event_schema_listing });
         },
 
-		clearViews : function() {
-			this.schemaDoc && this.schemaDoc.remove();
-			this.schemaTable && this.schemaTable.remove();
-			this.schemaForm && this.schemaForm.remove();
-			this.schemaDoc = this.schemaTable = this.schemaForm = null;
-		},
-		
 		showDoc : function( collName, docID, schemaName ){
 			var cs = this.validateCollSchema( collName, schemaName );
 			this.schemaDoc = new SchemaDocSoloView({ schema: cs.schema, collection: cs.coll, docID:docID });
@@ -206,12 +202,17 @@ $(function(){
 		
 		validateCollSchema : function( collName, schemaName ) {
 			// TODO: add proper error reporting/handling
-			var coll = this.colls[collName + "s"];
-			if ( !coll ) console.log( "Collection " + collName + "s doesn't exist!" );
+			if ( collName.getCharAt(coll.length - 1) != "s" ) 
+				collName = collName + "s";
+			var coll = this.colls[collName];
+			if ( !coll ) console.log( "Collection " + collName + " doesn't exist!" );
 			schemaName = collName + "_schema_" + (schemaName || "full");
 			var schema = VU[ schemaName ];
 			if ( !schema ) console.log( "Schema " + schemaName + " doesn't exist!" );
 			return { coll:coll, schema:schema };
+			this.schemaDoc.el.hide();
+			this.schemaTable.el.hide();
+			this.schemaForm.el.hide();			
 		}			
     });
 

@@ -282,7 +282,7 @@ VU.event_schema_listing = {
         "type":"object",
         "properties":{
 			"band":{
-                "description": "Band Name",
+                "description": "Band ID",
                 "type":"array",
                 "required":true,
 				"linkRef": "bands"
@@ -316,13 +316,13 @@ VU.event_schema_listing = {
                 "optional":true
             },
             "hall":{
-                "description": "Dancehall Name",
+                "description": "Dancehall ID",
                 "type":"array",
                 "required":true,
 				"linkRef": "halls"
             },
 			"hallName":{
-                "description": "Band Name",
+                "description": "DanceHall Name",
                 "type":"array",
                 "required":true,
 				"linkVal": { 

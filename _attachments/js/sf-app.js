@@ -121,8 +121,10 @@ $(function(){
 					if ( row.value && row.value.length != undefined ) row.value = row.value[0];
 					if ( fields[key].linkRef )
 						row.value = '<a href="#doc/' + fields[key].linkRef + '/' + row.value + '">' + row.value + '</a>';
-					if ( row.value && row.value.substr(row.value.length - 3 ).toLowerCase() == "jpg")
-						row.value = '<img src="' + row.value + '"/>';
+					try {
+						if ( row.value && row.value.substr(row.value.length - 3 ).toLowerCase() == "jpg")
+							row.value = '<img src="' + row.value + '"/>';
+					} catch (e) {}
 					rowData.push( row );
 				}
 			}

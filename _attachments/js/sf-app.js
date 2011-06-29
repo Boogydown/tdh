@@ -118,7 +118,7 @@ $(function(){
 				if ( ! fields[key].hidden )
 				{
 					var row = {key:key, value:this.model.get(key)};
-					if ( row.value.length ) row.value = row.value[0];
+					if ( row.value && row.value.length ) row.value = row.value[0];
 					if ( fields[key].linkRef )
 						row.value = '<a href="#doc/' + fields[key].linkRef + '/' + row.value + '">' + row.value + '</a>';
 					if ( row.value && row.value.substr(row.value.length - 3 ).toLowerCase() == "jpg")

@@ -140,7 +140,7 @@ $(function(){
 			if ( this.options.docID != "" )
 			{
 				// TODO: remove this as a global
-				this.model = window.app.colls.get( this.options.docID );
+				this.model = this.options.collection.get( this.options.docID );
 				if ( this.model )
 					SchemaDocView.prototype.initialize.call(this);
 			}

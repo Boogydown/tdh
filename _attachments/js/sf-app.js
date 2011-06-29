@@ -139,7 +139,6 @@ $(function(){
 			this.el.show();				
 			if ( this.options.docID != "" )
 			{
-				// TODO: remove this as a global
 				this.model = this.options.collection.get( this.options.docID );
 				if ( this.model )
 					SchemaDocView.prototype.initialize.call(this);
@@ -197,14 +196,12 @@ $(function(){
 			// TODO: add proper error reporting/handling
 			var coll = this.colls[ collName ];
 			if ( !coll ) console.log( "Collection " + collName + " doesn't exist!" );
-			collName = collName.substr(0, collName.length - 1 );
-			schemaName = collName + "_schema_" + (schemaName || "full");
-			var schema = VU[ schemaName ];
+			var schema = VU.schemas[ collName ][schemaName || "full"];
 			if ( !schema ) console.log( "Schema " + schemaName + " doesn't exist!" );
-			return { coll:coll, schema:schema };
 			this.schemaDoc.el.hide();
 			this.schemaTable.el.hide();
 			this.schemaForm.el.hide();			
+			return { coll:coll, schema:schema };
 		}			
     });
 

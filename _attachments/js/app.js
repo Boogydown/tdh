@@ -30,7 +30,7 @@ $(function(){
 				halls : new VU.HallCollection(),
 			};
 			this.colls.events = new VU.EventCollection( null, {
-				schema: VU.event_schema_listing, 
+				schema: VU.schemas_events_listing, 
 				colls: this.colls
 			});
 

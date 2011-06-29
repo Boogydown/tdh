@@ -70,7 +70,7 @@ $(function(){
             this.collection.bind("add", this.addRow);
             this.collection.bind("remove", this.deleted);
 			this.el.show();
-			this.collection.fetch( );
+			this.collection.fetch( {add:true} );
         },
 
 		getData : function () {
@@ -118,7 +118,8 @@ $(function(){
 				if ( ! fields[key].hidden )
 				{
 					var row = {key:key, value:this.model.get(key)};
-					if ( row.value && row.value.length != undefined ) row.value = row.value[0];
+					if ( row.value && _.isArray(row.value)) 
+						row.value = row.value[0];
 					if ( fields[key].linkRef )
 						row.value = '<a href="#doc/' + fields[key].linkRef + '/' + row.value + '">' + row.value + '</a>';
 					try {

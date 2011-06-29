@@ -136,24 +136,17 @@ $(function(){
 		options : { templateName: "doc-table" },
 		
 		initialize : function() {
+			this.el.show();				
 			if ( this.options.docID != "" )
 			{
-				this.model = window.app.colls.get( options.docID );
-				if ( myDoc )
+				// TODO: remove this as a global
+				this.model = window.app.colls.get( this.options.docID );
+				if ( this.model )
 					SchemaDocView.prototype.initialize.call(this);
 			}
 			else
-			{
-				el.text( options.docID + " does not exist!");
-				this.el.show();				
-			}
+				this.el.text( options.docID + " does not exist!");
 		}
-		// it looks for options.id, if !"" then checks coll for the id
-		// if found, fetches, if not, create
-		// hides list view (should be passed a ref to SchemaTableView?)
-		// shows its view
-		
-		
 	});
 
 

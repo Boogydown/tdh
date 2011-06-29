@@ -198,9 +198,9 @@ $(function(){
 			if ( !coll ) console.log( "Collection " + collName + " doesn't exist!" );
 			var schema = VU.schemas[ collName ][schemaName || "full"];
 			if ( !schema ) console.log( "Schema " + schemaName + " doesn't exist!" );
-			this.schemaDoc.el.hide();
-			this.schemaTable.el.hide();
-			this.schemaForm.el.hide();			
+			this.schemaDoc && this.schemaDoc.el.hide();
+			this.schemaTable && this.schemaTable.el.hide();
+			this.schemaForm && this.schemaForm.el.hide();			
 			return { coll:coll, schema:schema };
 		}			
     });

@@ -80,9 +80,9 @@ $(function(){
         
         // Appends an entry row 
         addRow : function(model){
-			model.trigger("change");
             var view = new SchemaDocView({ model: model, schema: this.options.schema });
             this.el.append(view.render().el);
+			model.trigger("change");
         }
     });
     

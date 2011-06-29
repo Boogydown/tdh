@@ -174,7 +174,7 @@ $(function(){
 				bands : new VU.BandCollection(),
 				halls : new VU.HallCollection()
 			};
-			this.colls.events = new VU.EventCollection( null, { colls:this.colls, schema:VU.event_schema_listing });
+			this.colls.events = new VU.EventCollection( null, { colls:this.colls, schema:VU.schemas.events.listing });
         },
 
 		showDoc : function( collName, docID, schemaName ){

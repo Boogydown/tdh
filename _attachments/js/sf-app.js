@@ -22,6 +22,7 @@ $(function(){
 
         initialize : function(){
             _.bindAll(this, "onSubmit");
+			this.el.show();
             this.render();
         },
         
@@ -101,7 +102,6 @@ $(function(){
 			_.bindAll(this, 'render', "editMe", "deleteMe");
 			this.model.bind('change', this.render);
 			this.registerTemplate('table-row');
-			this.el.show();
 		},
 		
 		getData : function () {

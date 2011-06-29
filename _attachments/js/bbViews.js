@@ -179,8 +179,7 @@ VU.MapView = Backbone.View.extend({
 		  if (status == google.maps.GeocoderStatus.OK) {
 			var marker = new google.maps.Marker({
 				map: this.map, 
-				position: results[0].geometry.location,
-				title: hall.get("danceHallName")
+				position: results[0].geometry.location
 			});
 		  } else {
 			console.log("Geocode could not find address because: " + status);

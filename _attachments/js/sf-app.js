@@ -205,7 +205,7 @@ $(function(){
 		
 		validateCollSchema : function( collName, schemaName ) {
 			// TODO: add proper error reporting/handling
-			var coll = this.colls[collName + s];
+			var coll = this.colls[collName + "s"];
 			if ( !coll ) console.log( "Collection " + collName + "s doesn't exist!" );
 			schemaName = collName + "_schema_" + (schemaName || "full");
 			var schema = VU[ schemaName ];

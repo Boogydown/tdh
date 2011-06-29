@@ -70,7 +70,7 @@ $(function(){
             this.collection.bind("add", this.addRow);
             this.collection.bind("remove", this.deleted);
 			this.el.show();
-			this.collection.fetch( {add:true} );
+			this.collection.fetch( );
         },
 
 		getData : function () {
@@ -198,6 +198,9 @@ $(function(){
 		showColl : function( collName, schemaName ){
 			var cs = this.validateCollSchema( collName, schemaName );
 			this.schemaTable = new SchemaTableView({ schema: cs.schema, collection: cs.coll });
+
+			//REMOVE; thiss is only temporary
+			this.schemaForm = new SchemaFormView({ schema: cs.schema, collection: cs.coll });
 		},
 		
 		showForm : function( collName, schemaName ){

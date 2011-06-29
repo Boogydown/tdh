@@ -16,7 +16,6 @@ VU.EventCollection = Backbone.Collection.extend({
 	},
 	
 	initialize : function ( models, options ) {
-		_.bindAll( this, "continueLoad" );
 		this.schema = options.schema;
 		this.colls = options.colls;
 	}

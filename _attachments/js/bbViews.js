@@ -151,6 +151,7 @@ VU.MapView = Backbone.View.extend({
 	
 	// TODO: if marker var needs to stay alive then put into hall model
 	addMarker : function ( hall ) {
+		// try gps, first
 		var gps = hall.get( "GPS Coordinates" ) || hall.get( "gpsCoordinates" );
 		if ( gps )
 		{
@@ -160,7 +161,13 @@ VU.MapView = Backbone.View.extend({
 			gps = gps.length > 1 ? new google.maps.LatLng( gps[1], gps[0] ) : null;
 		}
 		if ( gps )
-			var marker = new google.maps.Marker({map: this.map, position: gps });
+			var marker = new google.maps.Marker({
+				map: this.map, 
+				position: gps,
+				title: hall.get("danceHallName")
+			});
+			
+		// now try its address instead
 		else{
 			var address = hall.get( "address" );
 			console.log("finding " + address );
@@ -172,7 +179,8 @@ VU.MapView = Backbone.View.extend({
 		  if (status == google.maps.GeocoderStatus.OK) {
 			var marker = new google.maps.Marker({
 				map: this.map, 
-				position: results[0].geometry.location
+				position: results[0].geometry.location,
+				title: hall.get("danceHallName")
 			});
 		  } else {
 			console.log("Geocode could not find address because: " + status);

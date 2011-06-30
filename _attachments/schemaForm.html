@@ -4,15 +4,20 @@
     <title>VyncUp schema_form v0.0.3</title>
     <link rel="stylesheet" href="style/main.css" type="text/css">
     <link rel="stylesheet" type="text/css" href="js/lib/inputex/css/inputEx.css" />
+	<style>
+		label :hover {
+			background-color: #DDDDDD;
+		}	
+	</style>
   </head>
   <body>
     <label for="model_edit"><a href="#form">Add/Edit:</a></label>
     <form id="model_edit"></form>
 	
-    <label for="coll_table"><a href="#form">Table:</a></label>
+    <label for="coll_table"><a href="#list">Table:</a></label>
     <table><tbody id="coll_table"></tbody></table>
 	
-	<label for="model_table"><a href="#form">Doc Table:</a></label>
+	<label for="model_table"><a href="#doc">Doc Table:</a></label>
 	<div id="model_table"></div>
   </body>
   

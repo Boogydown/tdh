@@ -153,8 +153,9 @@ $(function(){
 			if ( this.options.docID != "" )
 			{
 				this.model = this.options.collection.get( this.options.docID );
-				if ( this.model != null )
+				if ( this.model != null ){
 					SchemaDocView.prototype.initialize.call(this);
+				}
 			}
 			else
 				this.el.text( this.options.docID + " does not exist!");
@@ -201,11 +202,20 @@ $(function(){
 			if ( this.firstPass || ( collName != this.collName || schemaName != this.schemaName || docID != this.docID ) ) {
 				var coll = this.colls[ collName ];
 				var schema = VU.schemas[ collName ][ schemaName ];
-				this.schemaDoc = new SchemaDocSoloView({ schema: schema, collection: coll, docID:docID });
-				this.schemaTable = new SchemaTableView({ schema: schema, collection: coll });
-				this.schemaForm = new SchemaFormView({ schema: schema, collection: coll });
-				this.firstPass = false;
+				if ( coll ){
+					if ( schema ){
+						this.schemaTable = new SchemaTableView({ schema: schema, collection: coll });
+						this.schemaForm = new SchemaFormView({ schema: schema, collection: coll });
+						if ( docID )
+							this.schemaDoc = new SchemaDocSoloView({ schema: schema, collection: coll, docID:docID });
+					}
+				}
 			}
+			
+			this.firstPass = false;
+			this.collName = collName;
+			this.schemaName = schemaName;
+			this.docID = docID;
 			
 			// show/hide according to showType
 			this.schemaForm[ showType == "form" || showType == "all" ? "show" : "hide" ]( "slow" );

@@ -202,47 +202,12 @@ VU.schemas = {
 			"description":"A basic event is an attraction, a venues, a time",
 			"type":"object",
 			"properties":{
-				"_id":{
-					"description": "ID",
-					"type":"string",
-					"format":"id",
-					"optional":true,
-					"_inputex": {
-						"_type": "hidden"
-					}
-				},
 				"band":{
-					"description": "Band ID",
-					"type":"array",
-					"required":true
-				},
-				"date":{
-					"description": "Date of event",
-					"type":"string",
-					"optional":true
-				},
-				"eventType":{
-					"description": "Type of event",
-					"type":"string",
-					"optional":true
-				},
-				"hall":{
-					"description": "Dancehall ID",
-					"type":"array",
-					"required":true
-				}
-			}
-		}, 
-		
-		admin: {
-			"description":"A basic event is an attraction, a venues, a time",
-			"type":"object",
-			"properties":{
-				"band":{
-					"description": "Band Name",
+					"description": "Band Name (this will eventually be a pull-down/auto-complete menu)",
 					"type":"array",
 					"required":true,
-					"linkRef": "bands"
+					"linkRef": "bands",
+					"hidden": true
 				},
 				"bandName":{
 					"description": "Band Name",
@@ -264,10 +229,11 @@ VU.schemas = {
 					"optional":true
 				},
 				"hall":{
-					"description": "Dancehall Name",
+					"description": "Dancehall Name (this will eventually be a pull-down/auto-complete menu)",
 					"type":"array",
-					"required":true,
-					"linkRef": "halls"
+					"required": true,
+					"linkRef": "halls",
+					"hidden": true
 				},
 				"hallName":{
 					"description": "Band Name",

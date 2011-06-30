@@ -120,14 +120,21 @@ $(function(){
 				if ( ! fields[key].hidden )
 				{
 					var row = {key:key, value:this.model.get(key)};
+					
+					// array?
 					if ( row.value && _.isArray(row.value)) 
 						row.value = row.value[0];
-					if ( fields[key].linkRef )
-						row.value = '<a href="#doc/' + fields[key].linkRef + '/' + row.value + '">' + row.value + '</a>';
+						
+					// doc link?
+					if ( fields[key].linkVal )
+						row.value = '<a href="#doc/' + fields[fields[key].linkVal.linkRef].linkRef + '/full/' + row.value + '">' + row.value + '</a>';
+						
+					// image?
 					try {
-						if ( row.value && row.value.substr(row.value.length - 3 ).toLowerCase() == "jpg")
+						if ( row.value.substr(row.value.length - 3 ).toLowerCase() == "jpg")
 							row.value = '<img src="' + row.value + '"/>';
 					} catch (e) {}
+					
 					rowData.push( row );
 				}
 			}
@@ -172,6 +179,7 @@ $(function(){
     var App = Backbone.Controller.extend({
 		collName : "events",
 		schemaName : "full",
+		docID : "",
 		firstPass : true,
 		
 		routes : { ":type/:coll/:schema/:docID" : "updateShow",
@@ -193,8 +201,9 @@ $(function(){
 
 		updateShow : function( showType, collName, schemaName, docID ) {
 			//defaults
-			collName = collName || this.collName;
-			schemaName = schemaName || this.schemaName;
+			var collName = collName || this.collName;
+			var schemaName = schemaName || this.schemaName;
+			var docID = docID || this.docID;
 			showType = showType || "list";
 			if ( showType == "doc" && !docID ) showType = "list";
 	
@@ -202,13 +211,9 @@ $(function(){
 			if ( this.firstPass || ( collName != this.collName || schemaName != this.schemaName || docID != this.docID ) ) {
 				var coll = this.colls[ collName ];
 				var schema = VU.schemas[ collName ][ schemaName ];
-				if ( coll ){
-					if ( schema ){
-						this.schemaTable = new SchemaTableView({ schema: schema, collection: coll });
-						this.schemaForm = new SchemaFormView({ schema: schema, collection: coll });
-						if ( docID )
-							this.schemaDoc = new SchemaDocSoloView({ schema: schema, collection: coll, docID:docID });
-					}
+				this.schemaTable = new SchemaTableView({ schema: schema, collection: coll });
+				this.schemaForm = new SchemaFormView({ schema: schema, collection: coll });
+				this.schemaDoc = new SchemaDocSoloView({ schema: schema, collection: coll, docID:docID });
 				}
 			}
 			
@@ -218,9 +223,9 @@ $(function(){
 			this.docID = docID;
 			
 			// show/hide according to showType
-			this.schemaForm[ showType == "form" || showType == "all" ? "show" : "hide" ]( "slow" );
-			this.schemaTable[ showType == "list" || showType == "all" ? "show" : "hide" ]( "slow" );
-			this.schemaDoc[ showType == "doc" || showType == "all" ? "show" : "hide" ]( "slow" );
+			this.schemaForm.el.[ showType == "form" || showType == "all" ? "show" : "hide" ]( "slow" );
+			this.schemaTable.el.[ showType == "list" || showType == "all" ? "show" : "hide" ]( "slow" );
+			this.schemaDoc.el.[ showType == "doc" || showType == "all" ? "show" : "hide" ]( "slow" );
 		},
 	});
 

@@ -219,7 +219,10 @@ VU.schemas = {
 					"linkVal": { 
 						linkRef: "band",
 						cell: "bandName"
-					}
+					},
+					"_inputex": {
+						"_type": "hidden"
+					}					
 				},
 				"date":{
 					"description": "Date of event",
@@ -248,6 +251,9 @@ VU.schemas = {
 					"linkVal": { 
 						linkRef: "hall",
 						cell: "bandName"
+					},
+					"_inputex": {
+						"_type": "hidden"
 					}
 				}
 			}
@@ -314,6 +320,44 @@ VU.schemas = {
 						linkRef: "hall",
 						cell: "thumbPic"
 					}
+				}
+			}
+		},
+	}
+	
+	bands: {
+		full: {
+			"description":"A band profile",
+			"type":"object",
+			"properties":{
+				"_id":{
+					"description": "ID",
+					"type":"string",
+					"format":"id",
+					"optional":true,
+					"_inputex": {
+						"_type": "hidden"
+					}
+				},
+				"bandName":{
+					"description": "Band Name",
+					"type":"string",
+					"required":true,
+				},
+				"status":{
+					"description": "Active or Inactive",
+					"type":"string",
+					"optional":true
+				},
+				"website":{
+					"description": "Website for more info",
+					"type":"string",
+					"optional":true
+				},
+				"stylesPlayed":{
+					"description": "Wh are the different styles played",
+					"type":"array",
+					"optional":true
 				}
 			}
 		},

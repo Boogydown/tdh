@@ -126,6 +126,10 @@ $(function(){
 					if ( row.value && _.isArray(row.value)) 
 						row.value = row.value[0];
 						
+					// any stray links?
+					if ( row.value.toLowerCase()  + substr(0, 4) == "http" )
+						row.value = '<a href="' + row.value + '">' + row.value + '</a>';
+						
 					// doc link?
 					if ( fields[key].linkVal ){
 						tmpLinkRef = fields[key].linkVal.linkRef;
@@ -137,6 +141,7 @@ $(function(){
 						if ( row.value.substr(row.value.length - 3 ).toLowerCase() == "jpg")
 							row.value = '<img src="' + row.value + '"/>';
 					} catch (e) {}
+					
 					
 					rowData.push( row );
 				}
@@ -225,9 +230,9 @@ $(function(){
 			this.docID = docID;
 			
 			// show/hide according to showType
-			//this.schemaForm.el[ showType == "form" || showType == "all" ? "show" : "hide" ]( "slow" );
-			//this.schemaTable.el[ showType == "list" || showType == "all" ? "show" : "hide" ]( "slow" );
-			//this.schemaDoc.el[ showType == "doc" || showType == "all" ? "show" : "hide" ]( "slow" );
+			this.schemaForm.el[ showType == "form" || showType == "all" ? "show" : "hide" ]( "slow" );
+			this.schemaTable.el[ showType == "list" || showType == "all" ? "show" : "hide" ]( "slow" );
+			this.schemaDoc.el[ showType == "doc" || showType == "all" ? "show" : "hide" ]( "slow" );
 		},
 	});
 

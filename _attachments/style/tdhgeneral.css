@@ -199,6 +199,13 @@ div.twostepphoto:active{
 	background-position: -120px -140px;
 }
 
+div.addToDanceCard{
+	text-align:center;
+	position: absolute;
+	left: 280px;
+	top: 30px;
+}
+
 /* ******************Calendar and map inside info-area******************* */
 div#calendar {
 	background:url(../images/cal.jpg) no-repeat;

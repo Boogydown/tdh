@@ -222,9 +222,9 @@ $(function(){
 			this.docID = docID;
 			
 			// show/hide according to showType
-			this.schemaForm.el.[ showType == "form" || showType == "all" ? "show" : "hide" ]( "slow" );
-			this.schemaTable.el.[ showType == "list" || showType == "all" ? "show" : "hide" ]( "slow" );
-			this.schemaDoc.el.[ showType == "doc" || showType == "all" ? "show" : "hide" ]( "slow" );
+			this.schemaForm.el[ showType == "form" || showType == "all" ? "show" : "hide" ]( "slow" );
+			this.schemaTable.el[ showType == "list" || showType == "all" ? "show" : "hide" ]( "slow" );
+			this.schemaDoc.el[ showType == "doc" || showType == "all" ? "show" : "hide" ]( "slow" );
 		},
 	});
 

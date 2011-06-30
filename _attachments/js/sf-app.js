@@ -214,7 +214,6 @@ $(function(){
 				this.schemaTable = new SchemaTableView({ schema: schema, collection: coll });
 				this.schemaForm = new SchemaFormView({ schema: schema, collection: coll });
 				this.schemaDoc = new SchemaDocSoloView({ schema: schema, collection: coll, docID:docID });
-				}
 			}
 			
 			this.firstPass = false;

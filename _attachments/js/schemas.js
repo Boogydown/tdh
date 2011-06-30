@@ -323,7 +323,7 @@ VU.schemas = {
 				}
 			}
 		},
-	}
+	},
 	
 	bands: {
 		full: {

@@ -130,7 +130,8 @@ $(function(){
 					if ( fields[key].linkVal ){
 						tmpLinkRef = fields[key].linkVal.linkRef;
 						row.value = '<a href="#doc/' + fields[tmpLinkRef].linkRef + '/full/' + this.model.get(tmpLinkRef)] + '">' + row.value + '</a>';
-						
+					}
+					
 					// image?
 					try {
 						if ( row.value.substr(row.value.length - 3 ).toLowerCase() == "jpg")
@@ -224,9 +225,9 @@ $(function(){
 			this.docID = docID;
 			
 			// show/hide according to showType
-			this.schemaForm.el[ showType == "form" || showType == "all" ? "show" : "hide" ]( "slow" );
-			this.schemaTable.el[ showType == "list" || showType == "all" ? "show" : "hide" ]( "slow" );
-			this.schemaDoc.el[ showType == "doc" || showType == "all" ? "show" : "hide" ]( "slow" );
+			//this.schemaForm.el[ showType == "form" || showType == "all" ? "show" : "hide" ]( "slow" );
+			//this.schemaTable.el[ showType == "list" || showType == "all" ? "show" : "hide" ]( "slow" );
+			//this.schemaDoc.el[ showType == "doc" || showType == "all" ? "show" : "hide" ]( "slow" );
 		},
 	});
 

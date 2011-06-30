@@ -129,7 +129,7 @@ $(function(){
 					// doc link?
 					if ( fields[key].linkVal ){
 						tmpLinkRef = fields[key].linkVal.linkRef;
-						row.value = '<a href="#doc/' + fields[tmpLinkRef].linkRef + '/full/' + this.model.get(tmpLinkRef)] + '">' + row.value + '</a>';
+						row.value = '<a href="#doc/' + fields[tmpLinkRef].linkRef + '/full/' + this.model.get(tmpLinkRef) + '">' + row.value + '</a>';
 					}
 					
 					// image?

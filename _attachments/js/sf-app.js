@@ -153,7 +153,7 @@ $(function(){
 			if ( this.options.docID != "" )
 			{
 				this.model = this.options.collection.get( this.options.docID );
-				if ( this.model )
+				if ( this.model != null )
 					SchemaDocView.prototype.initialize.call(this);
 			}
 			else

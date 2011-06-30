@@ -127,8 +127,8 @@ $(function(){
 						row.value = row.value[0];
 						
 					// any stray links?
-					if ( row.value.substr(0, 4).toLowerCase() == "http" )
-						row.value = '<a href="' + row.value + '">' + row.value + '</a>';
+					if ( row.value && row.value.substr(0, 4).toLowerCase() == "www." )
+						row.value = '<a href="http://' + row.value + '">' + row.value + '</a>';
 						
 					// doc link?
 					if ( fields[key].linkVal ){

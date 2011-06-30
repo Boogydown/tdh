@@ -127,7 +127,7 @@ $(function(){
 						row.value = row.value[0];
 						
 					// any stray links?
-					if ( row.value.toLowerCase()  + substr(0, 4) == "http" )
+					if ( row.value.substr(0, 4).toLowerCase() == "http" )
 						row.value = '<a href="' + row.value + '">' + row.value + '</a>';
 						
 					// doc link?

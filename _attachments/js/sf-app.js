@@ -78,7 +78,8 @@ $(function(){
 		getData : function () {
             var rowData = [], fields = this.options.schema.properties;
             for (key in fields)
-				rowData.push( fields[key].description );
+				if ( !fields[key].hidden )
+					rowData.push( fields[key].description );
 			return {fields:rowData};
 		},		
 
@@ -114,7 +115,7 @@ $(function(){
 		},
 		
 		getData : function () {
-            var rowData = [], fields = this.options.schema.properties;
+            var rowData = [], fields = this.options.schema.properties, tmpLinkRef;
             for (key in fields)
 			{
 				if ( ! fields[key].hidden )
@@ -126,8 +127,9 @@ $(function(){
 						row.value = row.value[0];
 						
 					// doc link?
-					if ( fields[key].linkVal )
-						row.value = '<a href="#doc/' + fields[fields[key].linkVal.linkRef].linkRef + '/full/' + row.value + '">' + row.value + '</a>';
+					if ( fields[key].linkVal ){
+						tmpLinkRef = fields[key].linkVal.linkRef;
+						row.value = '<a href="#doc/' + fields[tmpLinkRef].linkRef + '/full/' + this.model.get(tmpLinkRef)] + '">' + row.value + '</a>';
 						
 					// image?
 					try {

@@ -203,11 +203,14 @@ VU.schemas = {
 			"type":"object",
 			"properties":{
 				"band":{
-					"description": "Band Name (this will eventually be a pull-down/auto-complete menu)",
+					"description": "Band Name",
 					"type":"array",
 					"required":true,
 					"linkRef": "bands",
-					"hidden": true
+					"hidden": true,
+					"_inputex": {
+						"description": "This will eventually be a pull-down/auto-complete menu."
+					}
 				},
 				"bandName":{
 					"description": "Band Name",
@@ -229,11 +232,14 @@ VU.schemas = {
 					"optional":true
 				},
 				"hall":{
-					"description": "Dancehall Name (this will eventually be a pull-down/auto-complete menu)",
+					"description": "Dancehall Name",
 					"type":"array",
 					"required": true,
 					"linkRef": "halls",
-					"hidden": true
+					"hidden": true,
+					"_inputex": {
+						"description": "This will eventually be a pull-down/auto-complete menu."
+					}
 				},
 				"hallName":{
 					"description": "Band Name",

@@ -28,6 +28,7 @@ $(function(){
         el : $("#model_edit"),
 
         initialize : function(){
+			this.el.html("");
             _.bindAll(this, "onSubmit");
 			this.el.show();
             this.render();
@@ -64,6 +65,7 @@ $(function(){
         el: $("#coll_table"),
 
         initialize : function(){
+			this.el.html("");
             _.bindAll(this, 'render', 'addRow');
 			this.registerTemplate('table-header');			
             this.collection.bind("refresh", this.render);
@@ -147,7 +149,7 @@ $(function(){
 		options : { templateName: "doc-table" },
 		
 		initialize : function() {
-			this.el.show();				
+			this.el.html("");				
 			if ( this.options.docID != "" )
 			{
 				this.model = this.options.collection.get( this.options.docID );
@@ -167,22 +169,19 @@ $(function(){
 /////////////////////////////////////////////////////////////////////////////{
     // The App controller initializes the app by calling `Comments.fetch()`
     var App = Backbone.Controller.extend({
-		routes : { "doc/:coll/:docID/:schema": "showDoc",
-				   "doc/:coll/:docID": "showDoc",
-				   "all/:coll/:schema": "showColl",
-				   "all/:coll": "showColl",
-				   "form/:coll/:schema": "showForm",
-				   "form/:coll": "showForm",
-				   ":coll": "showColl"
+		collName : "events",
+		schemaName : "full",
+		
+		routes : { ":type/:coll/:schema/:docID" : "updateShow",
+				   ":type/:coll/:schema" : "updateShow",
+				   ":type/:coll" : "updateShow",
+				   ":type" : "updateShow"
 		},
 		
-		events : { "route:showDoc": "showDoc",
-				   "route:showColl": "showColl",
-				   "route:showForm": "showForm"
-		},
+		events : { "route:updateShow": "updateShow" },
 		
         initialize : function(){
-			_.bindAll( this, "clearViews", "showDoc", "showColl", "showForm" );
+			_.bindAll( this, "updateShow" );
 			this.colls = {
 				bands : new VU.BandCollection(),
 				halls : new VU.HallCollection()
@@ -190,36 +189,28 @@ $(function(){
 			this.colls.events = new VU.EventCollection( null, { colls:this.colls, schema:VU.schemas.events.listing });
         },
 
-		showDoc : function( collName, docID, schemaName ){
-			var cs = this.validateCollSchema( collName, schemaName );
-			this.schemaDoc = new SchemaDocSoloView({ schema: cs.schema, collection: cs.coll, docID:docID });
+		updateShow : function( showType, collName, schemaName, docID ) {
+			//defaults
+			collName = collName || this.collName;
+			schemaName = schemaName || this.schemaName;
+			showType = showType || "list";
+			if ( showType == "doc" && !docID ) showType = "list";
+	
+			// reload all views if any of the data changes
+			if ( collName != this.collName || schemaName != this.schemaName || docID != this.docID ) {
+				var coll = this.colls[ collName ];
+				var schema = VU.schemas[ collName ][ schemaName ];
+				this.schemaDoc = new SchemaDocSoloView({ schema: schema, collection: coll, docID:docID });
+				this.schemaTable = new SchemaTableView({ schema: schema, collection: coll });
+				this.schemaForm = new SchemaFormView({ schema: schema, collection: coll });
+			}
+			
+			// show/hide according to showType
+			this.schemaForm[ showType == "form" || showType == "all" ? "show" : "hide" ]( "slow" );
+			this.schemaTable[ showType == "list" || showType == "all" ? "show" : "hide" ]( "slow" );
+			this.schemaDoc[ showType == "doc" || showType == "all" ? "show" : "hide" ]( "slow" );
 		},
-
-		showColl : function( collName, schemaName ){
-			var cs = this.validateCollSchema( collName, schemaName );
-			this.schemaTable = new SchemaTableView({ schema: cs.schema, collection: cs.coll });
-
-			//REMOVE; thiss is only temporary
-			this.schemaForm = new SchemaFormView({ schema: cs.schema, collection: cs.coll });
-		},
-		
-		showForm : function( collName, schemaName ){
-			var cs = this.validateCollSchema( collName, schemaName );
-			this.schemaForm = new SchemaFormView({ schema: cs.schema, collection: cs.coll });
-		},
-		
-		validateCollSchema : function( collName, schemaName ) {
-			// TODO: add proper error reporting/handling
-			var coll = this.colls[ collName ];
-			if ( !coll ) console.log( "Collection " + collName + " doesn't exist!" );
-			var schema = VU.schemas[ collName ][schemaName || "full"];
-			if ( !schema ) console.log( "Schema " + schemaName + " doesn't exist!" );
-			this.schemaDoc && this.schemaDoc.el.hide();
-			this.schemaTable && this.schemaTable.el.hide();
-			this.schemaForm && this.schemaForm.el.hide();			
-			return { coll:coll, schema:schema };
-		}			
-    });
+	});
 
 /////////////////////////////////////////////////////////////////////////////}
 /// INSTACIATION & EXECUTION ////////////////////////////////////////////////

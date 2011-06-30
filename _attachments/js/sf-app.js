@@ -171,6 +171,7 @@ $(function(){
     var App = Backbone.Controller.extend({
 		collName : "events",
 		schemaName : "full",
+		firstPass : true,
 		
 		routes : { ":type/:coll/:schema/:docID" : "updateShow",
 				   ":type/:coll/:schema" : "updateShow",
@@ -197,12 +198,13 @@ $(function(){
 			if ( showType == "doc" && !docID ) showType = "list";
 	
 			// reload all views if any of the data changes
-			if ( collName != this.collName || schemaName != this.schemaName || docID != this.docID ) {
+			if ( this.firstPass || ( collName != this.collName || schemaName != this.schemaName || docID != this.docID ) ) {
 				var coll = this.colls[ collName ];
 				var schema = VU.schemas[ collName ][ schemaName ];
 				this.schemaDoc = new SchemaDocSoloView({ schema: schema, collection: coll, docID:docID });
 				this.schemaTable = new SchemaTableView({ schema: schema, collection: coll });
 				this.schemaForm = new SchemaFormView({ schema: schema, collection: coll });
+				this.firstPass = false;
 			}
 			
 			// show/hide according to showType

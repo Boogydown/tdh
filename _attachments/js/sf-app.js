@@ -27,7 +27,6 @@ $(function(){
         initialize : function(){
 			this.el.html("");
             _.bindAll(this, "onSubmit");
-			this.el.show();
             this.render();
         },
         
@@ -55,13 +54,14 @@ $(function(){
             // Nuke an empty ID, so it doesn't kill initial creation
             if(values._id === "") delete values._id;
             this.collection.create(values);
+			inputex.clear();
+			window.location = window.location.href.split("#")[0] + "#list";
         }
     });
 
     VU.SchemaTableView = VU.DustView.extend({
         initialize : function(){
-			this.el.html("");
-			this.el.show();
+			this.el.html("Loading...");
 			this.registerTemplate('table-header');			
             _.bindAll(this, 'render', 'reRender', 'addRow');
             this.collection.bind("add", this.reRender);
@@ -91,8 +91,7 @@ $(function(){
         },
         
 		reRender: function() {
-			this.el.html("");
-			this.el.show();
+			this.el.html("Loading...");
 			this.render();
 		},
 		

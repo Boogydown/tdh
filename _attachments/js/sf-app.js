@@ -34,11 +34,11 @@ $(function(){
             var form = this.builder.schemaToInputEx(this.options.schema);
             form.parentEl       = 'model_edit';
             form.enctype        = 'multipart/form-data';
-			if ( this.options.collection.colls ) {
-				form.fields[0].elementType.choices = _.map( this.options.collection.colls.bands.models, function(model) {
-					return { label:model.get("bandName").substr(0,4), value:model.get("bandName").substr(0,4) };
-				} );
-			}
+			//if ( this.options.collection.colls ) {
+				//form.fields[0].elementType.choices = _.map( this.options.collection.colls.bands.models, function(model) {
+					//return { label:model.get("bandName").substr(0,4), value:model.get("bandName").substr(0,4) };
+				//} );
+			//}
             this.inputex = inputEx(form);
 
             // YUI onClick used instead of Backbone delegateEvents, because it worked first

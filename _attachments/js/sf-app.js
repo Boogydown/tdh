@@ -112,7 +112,7 @@ $(function(){
     });
     
     var SchemaDocView = VU.DustView.extend({
-		el: "<tr class="selectableRow"/>",
+		el: "<tr class='selectableRow'/>",
 		options : { templateName: "table-row" },		
         events : {
             "click .edit"     : "editMe",

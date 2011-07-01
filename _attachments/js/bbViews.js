@@ -126,7 +126,7 @@ VU.MapView = Backbone.View.extend({
 	initialize : function(){
 		_.bindAll(this, 'render', "addChange", "addMarker", "attachToMap");
 		var latlng = new google.maps.LatLng(30.274338, -97.744675);
-		this.mapNode = options.mapNode;
+		this.mapNode = this.options.mapNode;
 		this.el = $("#" + this.mapNode);
 		var myOptions = {
 		  zoom: 6,

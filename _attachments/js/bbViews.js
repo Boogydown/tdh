@@ -140,7 +140,7 @@ VU.MapView = Backbone.View.extend({
 		if ( this.collection ){
 			this.collection.bind("add", this.addChange );
 			if ( this.collection.models.length > 0 )
-				this.collection.each( this.addChange );
+				this.collection.each( this.addMarker );
 		}
 		else
 			this.addMarker( this.model );

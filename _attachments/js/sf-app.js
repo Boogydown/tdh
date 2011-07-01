@@ -171,7 +171,7 @@ $(function(){
         }
     });
 	
-	VU.SchemaDocSoloView = SchemaDocView.extend({
+	VU.SchemaDocSoloView = VU.SchemaDocView.extend({
 		initialize : function() {
 			this.el.html("");				
 			if ( this.options.docID && this.options.docID != null && this.options.docID != "" )

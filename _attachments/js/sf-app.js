@@ -59,7 +59,7 @@ $(function(){
             // Nuke an empty ID, so it doesn't kill initial creation
             if(values._id === "") delete values._id;
             this.collection.create(values);
-			inputex.clear();
+			document.forms[0].reset();
 			window.location = window.location.href.split("#")[0] + "#list";
         }
     });

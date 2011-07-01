@@ -102,7 +102,7 @@ $(function(){
 			// WARN: if this is truly async, then the data may not change in time for the render, and the "change" event
 			//		 bound in SchemaDocView isn't set yet
 			model.trigger("change");
-            var view = new VU.SchemaDocView({ model: model, schema: this.options.schema });
+            var view = new VU.SchemaDocView({ model: model, schema: this.options.schema, templateName: this.options.templateName });
             this.el.append(view.render().el);
         }
     });

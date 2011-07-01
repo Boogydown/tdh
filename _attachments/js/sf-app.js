@@ -178,7 +178,7 @@ $(function(){
 			{
 				this.model = this.options.collection.get( this.options.docID );
 				if ( this.model != null ){
-					SchemaDocView.prototype.initialize.call(this);
+					VU.SchemaDocView.prototype.initialize.call(this);
 				}
 				this.render();
 			}

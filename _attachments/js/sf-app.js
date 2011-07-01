@@ -230,11 +230,6 @@ $(function(){
 			var docID = docID || this.docID;
 			showType = showType || "list";
 			if ( showType == "doc" && !docID ) showType = "list";
-
-			// show/hide according to showType
-			this.schemaForm.el[ showType == "form" || showType == "all" ? "slideDown" : "slideUp" ]( );
-			this.schemaTable.el[ showType == "list" || showType == "all" ? "slideDown" : "slideUp" ]( );
-			this.schemaDoc.el[ showType == "doc" || showType == "all" ? "slideDown" : "slideUp" ]( );
 	
 			// reload all views if any of the data changes
 			if ( this.firstPass || ( collName != this.collName || schemaName != this.schemaName || docID != this.docID ) ) {
@@ -248,7 +243,12 @@ $(function(){
 			this.firstPass = false;
 			this.collName = collName;
 			this.schemaName = schemaName;
-			this.docID = docID;			
+			this.docID = docID;
+			
+			// show/hide according to showType
+			this.schemaForm.el[ showType == "form" || showType == "all" ? "slideDown" : "slideUp" ]( );
+			this.schemaTable.el[ showType == "list" || showType == "all" ? "slideDown" : "slideUp" ]( );
+			this.schemaDoc.el[ showType == "doc" || showType == "all" ? "slideDown" : "slideUp" ]( );
 		},
 	});
 

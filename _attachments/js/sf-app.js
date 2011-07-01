@@ -240,7 +240,7 @@ $(function(){
 				showType = showType || this.showType,
 				curType, att, curView;
 			if ( showType == "doc" && !docID ) showType = "list";
-			this.saveLocation( showType + "/" + collName + "/" + schemaName + "/" + docID );
+			this.saveLocation( showType + "/" + collName + "/" + schemaName + (docID ? "/" + docID : "" ) );
 
 			var coll = this.colls[ collName ];
 			var schema = VU.schemas[ collName ][ schemaName ];

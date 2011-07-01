@@ -72,8 +72,8 @@ VU.PopupView = VU.DustView.extend({
 		if ( events ) {
 			this.eventListView = new VU.EventListView({ el:$("#popuplist"), collection:events });
 			this.eventListView.render();
+			this.miniMapView = new VU.MapView({collection: events.colls.halls , mapNode: "detailMap")});
 		}
-		this.miniMapView = new VU.MapView({model: this.model, el:$("#detailMap")});
 		
 		
 	},
@@ -119,7 +119,6 @@ VU.EventListView = Backbone.View.extend({
 });
 
 VU.MapView = Backbone.View.extend({
-	el: $("#main-map"),
 	map: null, 
 	totalMapped: 0,
 	geocoder: null,
@@ -127,12 +126,14 @@ VU.MapView = Backbone.View.extend({
 	initialize : function(){
 		_.bindAll(this, 'render', "addChange", "addMarker", "attachToMap");
 		var latlng = new google.maps.LatLng(30.274338, -97.744675);
+		this.mapNode = options.mapNode;
+		this.el = $("#" + this.mapNode);
 		var myOptions = {
 		  zoom: 6,
 		  center: latlng,
 		  mapTypeId: google.maps.MapTypeId.ROADMAP
 		};
-		this.map = new google.maps.Map(document.getElementById("main-map"), myOptions);
+		this.map = new google.maps.Map(document.getElementById(this.mapNode), myOptions);
 		this.geocoder = new google.maps.Geocoder();
 		
 		//this.collection.bind("change", this.render);

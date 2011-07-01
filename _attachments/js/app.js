@@ -36,7 +36,7 @@ $(function(){
 
 			// create our main list and map views and attach the collection to them
 			this.mainListView = new VU.EventListView({collection:this.colls.events});
-			this.mainMapView = new VU.MapView({collection:this.colls.halls, notifier:this.colls.events});
+			this.mainMapView = new VU.MapView({collection:this.colls.halls, mapNode: "main-map"});
 			
 			// init the popup view
 			this.popupView = new VU.PopupView( );

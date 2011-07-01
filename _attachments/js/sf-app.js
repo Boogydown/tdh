@@ -21,7 +21,6 @@ $(function(){
 /////////////////////////////////////////////////////////////////////////////}
 /// VIEWS DECLARATION ///////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////{
-
     var SchemaFormView = Backbone.View.extend({
         builder: new inputEx.JsonSchema.Builder(),
 
@@ -66,13 +65,17 @@ $(function(){
 
         initialize : function(){
 			this.el.html("");
-            _.bindAll(this, 'render', 'addRow');
-			this.registerTemplate('table-header');			
-            this.collection.bind("refresh", this.render);
-            this.collection.bind("add", this.addRow);
-            this.collection.bind("remove", this.deleted);
 			this.el.show();
-			this.collection.fetch( );
+			this.registerTemplate('table-header');			
+            _.bindAll(this, 'render', 'reRender', 'addRow');
+            this.collection.bind("add", this.reRender);
+            this.collection.bind("remove", this.deleted);
+			if ( !this.collection.fetched ){
+				this.collection.bind("refresh", this.render);
+				this.collection.fetch( );
+			}
+			else
+				this.render();
         },
 
 		getData : function () {
@@ -84,17 +87,27 @@ $(function(){
 		},		
 
         render: function(){
+			this.collection.fetched = true;
 			// render from our super
 			VU.DustView.prototype.render.call(this);
             if(this.collection.length > 0)
                 this.collection.each(this.addRow);
         },
         
+		reRender: function() {
+			this.el.html("");
+			this.el.show();
+			this.render();
+		},
+		
         // Appends an entry row 
         addRow : function(model){
+			// triggers an event to load its linkRefs; triggers a band or hall to normalize
+			// WARN: if this is truly async, then the data may not change in time for the render, and the "change" event
+			//		 bound in SchemaDocView isn't set yet
+			model.trigger("change");
             var view = new SchemaDocView({ model: model, schema: this.options.schema });
             this.el.append(view.render().el);
-			model.trigger("change");
         }
     });
     
@@ -124,7 +137,7 @@ $(function(){
 					
 					// array?
 					if ( row.value && _.isArray(row.value)) 
-						row.value = row.value[0];
+						row.value = row.value.join(", ");
 						
 					// any stray links?
 					if ( row.value && row.value.substr(0, 4).toLowerCase() == "www." )
@@ -221,7 +234,7 @@ $(function(){
 				var schema = VU.schemas[ collName ][ schemaName ];
 				this.schemaTable = new SchemaTableView({ schema: schema, collection: coll });
 				this.schemaForm = new SchemaFormView({ schema: schema, collection: coll });
-				this.schemaDoc = new SchemaDocSoloView({ schema: schema, collection: coll, docID:docID });
+				//this.schemaDoc = new SchemaDocSoloView({ schema: schema, collection: coll, docID:docID });
 			}
 			
 			this.firstPass = false;
@@ -232,7 +245,7 @@ $(function(){
 			// show/hide according to showType
 			this.schemaForm.el[ showType == "form" || showType == "all" ? "show" : "hide" ]( "slow" );
 			this.schemaTable.el[ showType == "list" || showType == "all" ? "show" : "hide" ]( "slow" );
-			this.schemaDoc.el[ showType == "doc" || showType == "all" ? "show" : "hide" ]( "slow" );
+			//this.schemaDoc.el[ showType == "doc" || showType == "all" ? "show" : "hide" ]( "slow" );
 		},
 	});
 

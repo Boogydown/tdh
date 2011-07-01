@@ -5,20 +5,26 @@
     <link rel="stylesheet" href="style/main.css" type="text/css">
     <link rel="stylesheet" type="text/css" href="js/lib/inputex/css/inputEx.css" />
 	<style>
-		label :hover {
+		div.label{
 			background-color: #DDDDDD;
+			width: 100%;
+			font-weight: 900;
+			padding: 4px;
+		}
+		div.label:hover {
+			background-color: #88FF88;
 		}	
 	</style>
   </head>
   <body>
-    <label for="model_edit" onclick="$('#model_edit').toggle('slow');">Add/Edit:</label><br/>
+    <div class="label" onclick="$('#model_edit').toggle('slow');">Add/Edit:</div><br/>
     <form id="model_edit"></form>
 	
-    <label for="coll_table" onclick="$('#coll_table').toggle('slow');">Table:</label><br/>
+    <div class="label" onclick="$('#coll_table').toggle('slow');">Table:</div><br/>
     <table><tbody id="coll_table"></tbody></table>
 	
-	<label for="model_table" onclick="$('#model_table').toggle('slow');">Doc Table:</label><br/>
-	<div id="model_table"></div>
+	<!--<label for="model_table" onclick="$('#model_table').toggle('slow');">Doc Table:</label><br/>
+	<div id="model_table"></div>-->
   </body>
   
   <script type="application/dust-template" id="table-header">
@@ -29,8 +35,8 @@
     </tr>
   </script>
   <script type="application/dust-template" id="table-row">
-        {#fields}<td>{value|s}</td>{/fields}
-        <td class="edit">?</td>
+        {#fields}<td class="selectableRow" onmouseover="this.parentNode.style='background-color:#FFDDDD';" onclick="alert('Edit functionality not yet enabled');">{value|s}</td>{/fields}
+        <!--<td class="edit">?</td>-->
         <td class="delete">X</td>
   </script>
   <script type="application/dust-template" id="doc-table">

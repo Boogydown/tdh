@@ -237,7 +237,6 @@ $(function(){
 			//normalize the route based on any persistant values
 			var collName = collName || this.collName,
 				schemaName = schemaName || this.schemaName,
-				docID = docID || this.docID,
 				showType = showType || this.showType,
 				curType, att, curView;
 			if ( showType == "doc" && !docID ) showType = "list";
@@ -254,7 +253,7 @@ $(function(){
 					if ( ! this[ curView ] 
 						 || this[ curView ].collection != coll 
 						 || this[ curView ].options.schema != schema
-						 || (this[ curView ].options.docID && this[ curView ].options.docID != docID ) ) {
+						 || showType == "doc" ) {	// doc showtypes get rerendered each time, regardless
 						att = this.elAttachments[curType];
 						att.collection = coll;
 						att.schema = schema;

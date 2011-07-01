@@ -92,6 +92,8 @@ VU.LinkingModel = Backbone.Model.extend({
 	},
 	
 	loadLinkVals : function ( myRef ) {
+		if ( !myRef )
+			console.log("myRef undefined");
 		myRef.fetched = true;
 		var linkMatch, destAttr, linkVals = myRef.linkRef.linkVals;
 		

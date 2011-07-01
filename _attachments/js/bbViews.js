@@ -137,8 +137,11 @@ VU.MapView = Backbone.View.extend({
 		this.geocoder = new google.maps.Geocoder();
 		
 		//this.collection.bind("change", this.render);
-		if ( this.collection )
+		if ( this.collection ){
 			this.collection.bind("add", this.addChange );
+			if ( this.collection.models.length > 0 )
+				this.collection.each( this.addChange );
+		}
 		else
 			this.addMarker( this.model );
 		//this.collection.bind("remove", this.deleted);

@@ -164,11 +164,14 @@ $(function(){
         
         // Fade out the element and destroy the model
         deleteMe : function(){
-            if(this.model)
-                this.model.destroy();
-            $(this.el).fadeOut("fast",function(){
-                $(this).remove();
-            });
+			if ( confirm( "This will permanently delete this entry!\n" + 
+						  "Are you SURE you want to do this?" ) ) {
+				if(this.model)
+					this.model.destroy();
+				$(this.el).fadeOut("fast",function(){
+					$(this).remove();
+				});
+			}
         }
     });
 	

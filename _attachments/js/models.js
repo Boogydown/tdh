@@ -83,7 +83,7 @@ VU.LinkingModel = Backbone.Model.extend({
 					else {
 						myRef.bind( "change", this.loadLinkVals );
 						// if already fetched then just pull the data
-						if ( myRef.fetched )
+						if ( myRef.fetched || (myRef.collection && myRef.collection.fetched) )
 							this.loadLinkVals( myRef );
 					}
 				}

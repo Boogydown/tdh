@@ -73,6 +73,9 @@ VU.PopupView = VU.DustView.extend({
 			this.eventListView = new VU.EventListView({ el:$("#popuplist"), collection:events });
 			this.eventListView.render();
 		}
+		this.miniMapView = new VU.MapView({model: this.model, el:$("#detailMap")});
+		
+		
 	},
 	
 	openPopup : function ( model, popTemplate ) {
@@ -133,7 +136,10 @@ VU.MapView = Backbone.View.extend({
 		this.geocoder = new google.maps.Geocoder();
 		
 		//this.collection.bind("change", this.render);
-		this.collection.bind("add", this.addChange );
+		if ( this.collection )
+			this.collection.bind("add", this.addChange );
+		else
+			this.addMarker( this.model );
 		//this.collection.bind("remove", this.deleted);
 	},
 

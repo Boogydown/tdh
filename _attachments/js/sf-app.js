@@ -260,7 +260,8 @@ $(function(){
 						att.schema = schema;
 						att.docID = docID;
 						this[ curView ] = new VU[att.viewClass]( att );
-				} 
+					} 
+				}
 				else
 					this.elAttachments[ curType ].el.slideUp();
 			}

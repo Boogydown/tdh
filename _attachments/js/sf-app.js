@@ -101,7 +101,7 @@ $(function(){
 			// triggers an event to load its linkRefs; triggers a band or hall to normalize
 			// WARN: if this is truly async, then the data may not change in time for the render, and the "change" event
 			//		 bound in SchemaDocView isn't set yet
-			model.trigger("change");
+			model.trigger("change", model);
             var view = new VU.SchemaDocView({ model: model, schema: this.options.schema, templateName: this.options.templateName });
             this.el.append(view.render().el);
         }

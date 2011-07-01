@@ -106,7 +106,7 @@ VU.LinkingModel = Backbone.Model.extend({
 		}
 		// kick off change to all of this model's listeners, EXCEPT itself
 		this.unbind( "change", this.loadLinkRefs );
-		this.trigger("change");
+		this.trigger("change", this );
 		this.bind( "change", this.loadLinkRefs );		
 	}
 });

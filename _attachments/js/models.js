@@ -140,7 +140,7 @@ VU.BandModel = VU.EventsContainerModel.extend({
 			}, { silent: true } );
 		}
 		else
-			this.getGoogleImage();
+			if ( google ) this.getGoogleImage();
 	},
 	
 	imageSearch: {}, 

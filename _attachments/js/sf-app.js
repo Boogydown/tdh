@@ -21,7 +21,8 @@ $(function(){
 /////////////////////////////////////////////////////////////////////////////}
 /// VIEWS DECLARATION ///////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////{
-    var SchemaFormView = Backbone.View.extend({
+	var SchemaViews;
+    SchemaViews.SchemaFormView = Backbone.View.extend({
         builder: new inputEx.JsonSchema.Builder(),
 
         initialize : function(){
@@ -58,7 +59,7 @@ $(function(){
         }
     });
 
-    var SchemaTableView = VU.DustView.extend({
+    SchemaViews.SchemaTableView = VU.DustView.extend({
         initialize : function(){
 			this.el.html("");
 			this.el.show();
@@ -102,14 +103,14 @@ $(function(){
 			// WARN: if this is truly async, then the data may not change in time for the render, and the "change" event
 			//		 bound in SchemaDocView isn't set yet
 			model.trigger("change");
-            var view = new SchemaDocView({ model: model, schema: this.options.schema });
+            var view = new SchemaViews.SchemaDocView({ model: model, schema: this.options.schema });
             this.el.append(view.render().el);
         }
     });
     
-    var SchemaDocView = VU.DustView.extend({
+    SchemaViews.SchemaDocView = VU.DustView.extend({
 		el: "<tr class='selectableRow'/>",
-		options : { templateName: "table-row" },		
+		
         events : {
             "click .edit"     : "editMe",
             "click .delete"   : "deleteMe",
@@ -120,7 +121,7 @@ $(function(){
 		initialize : function(){
 			_.bindAll(this, 'render', "editMe", "deleteMe");
 			this.model.bind('change', this.render);
-			this.registerTemplate('table-row');
+			this.registerTemplate( this.options.templateName );
 		},
 		
 		getData : function () {
@@ -171,9 +172,7 @@ $(function(){
         }
     });
 	
-	var SchemaDocSoloView = SchemaDocView.extend({
-		options : { templateName: "doc-table" },
-		
+	SchemaViews.SchemaDocSoloView = SchemaDocView.extend({
 		initialize : function() {
 			this.el.html("");				
 			if ( this.options.docID && this.options.docID != null && this.options.docID != "" )
@@ -195,6 +194,7 @@ $(function(){
 /////////////////////////////////////////////////////////////////////////////{
     // The App controller initializes the app by calling `Comments.fetch()`
     var App = Backbone.Controller.extend({
+		showType : "list",
 		collName : "events",
 		schemaName : "full",
 		docID : "",
@@ -213,11 +213,13 @@ $(function(){
 			},
 			list: {
 				class: "SchemaTableView",
-				el: $("#coll_table")
+				el: $("#coll_table"),
+				templateName: "table-row"
 			},
 			doc: {
 				class: "SchemaDocSoloView",
-				el:$("#model_table")
+				el:$("#model_table"),
+				templateName: "doc-table"
 			}
 		},
 		
@@ -233,26 +235,33 @@ $(function(){
         },
 
 		updateShow : function( showType, collName, schemaName, docID ) {
-			//defaults
-			var collName = collName || this.collName;
-			var schemaName = schemaName || this.schemaName;
-			var docID = docID || this.docID;
-			showType = showType || "list";
+			//defaults (whatever was set last time)
+			var collName = collName || this.collName,
+				schemaName = schemaName || this.schemaName,
+				docID = docID || this.docID,
+				showType = showType || this.showType,
+				type, a;
+				
 			if ( showType == "doc" && !docID ) showType = "list";
 
 			// show/hide according to showType
-			for ( var a in this.elAttachments )
-				this.elAttachments[a].el[showType == a || showType == "all" ? "slideDown" : "slideUp" ]( );
+			for ( type in this.elAttachments )
+				this.elAttachments[type].el[showType == type || showType == "all" ? "slideDown" : "slideUp" ]( );
 	
 			// reload all views if any of the data changes
 			if ( this.firstPass || ( collName != this.collName || schemaName != this.schemaName || docID != this.docID ) ) {
 				var coll = this.colls[ collName ];
 				var schema = VU.schemas[ collName ][ schemaName ];
-				this.schemaTable = new SchemaTableView({ schema: schema, collection: coll, el: this.elAttachments.list.el });
-				this.schemaForm = new SchemaFormView({ schema: schema, collection: coll, el: this.elAttachments.form.el });
-				this.schemaDoc = new SchemaDocSoloView({ schema: schema, collection: coll, docID:docID, el: this.elAttachments.doc.el });
+				for ( type in this.elAttachments ) {
+					a = this.elAttachments[type];
+					a.collection = coll;
+					a.schema = schema;
+					a.docID = docID;
+					this[ "schema" + type ] = new SchemaViews[a.class]( a );
+				}
 			}
 			
+			// store for next time
 			this.firstPass = false;
 			this.collName = collName;
 			this.schemaName = schemaName;

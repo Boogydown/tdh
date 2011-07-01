@@ -24,13 +24,13 @@
 	<h4>Schema Form</h4>
 	<a href="#list/events">Events</a>&nbsp&nbsp&nbsp<a href="#list/halls">Dancehalls</a>&nbsp&nbsp&nbsp<a href="#list/bands">Bands</a><br/>
 	<hr/><br/>
-    <div class="label" onclick="$('#model_edit').slideToggle();">Add/Edit:</div><br/>
+    <a href="#form"><div class="label">Add/Edit:</div></a><br/>
     <form id="model_edit"></form>
 	
-    <div class="label" onclick="$('#coll_table').slideToggle();">Table:</div><br/>
+    <a href="#list"><div class="label">Table:</div></a><br/>
     <table><tbody id="coll_table"></tbody></table>
 	
-	<div class="label" onclick="$('#model_table').slideToggle();">Doc Table:</label><br/>
+	<a href="#doc"><div class="label">Doc Table:</div></a><br/>
 	<div id="model_table"></div>
   </body>
   
@@ -49,7 +49,7 @@
 		<table><tbody>
 			{#fields}
 			<tr>
-				<th>{key}</th><td>{value}</td>
+				<th>{key}</th><td>{value|s}</td>
 			</tr>
 			{/fields}
 			<tr><td class="edit">?</td></tr>

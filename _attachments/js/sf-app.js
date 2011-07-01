@@ -207,16 +207,16 @@ $(function(){
 		
 		elAttachments : { 
 			form: {
-				class: "SchemaFormView",
+				viewClass: "SchemaFormView",
 				el : $("#model_edit")
 			},
 			list: {
-				class: "SchemaTableView",
+				viewClass: "SchemaTableView",
 				el: $("#coll_table"),
 				templateName: "table-row"
 			},
 			doc: {
-				class: "SchemaDocSoloView",
+				viewClass: "SchemaDocSoloView",
 				el:$("#model_table"),
 				templateName: "doc-table"
 			}
@@ -239,24 +239,35 @@ $(function(){
 				schemaName = schemaName || this.schemaName,
 				docID = docID || this.docID,
 				showType = showType || this.showType,
-				type, a;
+				curType, att, curView;
 				
 			if ( showType == "doc" && !docID ) showType = "list";
 
-			// show/hide according to showType
-			for ( type in this.elAttachments )
-				this.elAttachments[type].el[showType == type || showType == "all" ? "slideDown" : "slideUp" ]( );
+			var coll = this.colls[ collName ];
+			var schema = VU.schemas[ collName ][ schemaName ];
+
+			// show & create or hide according to showType
+			for ( curType in this.elAttachments ) {
+				if ( showType == curType ) {
+					this.elAttachments[ curType ].el.slideDown();
+					curView = "schemaView" + curType;
+					if ( ! this[ curView ] 
+						 || this[ curView ].collection != coll 
+						 || this[ curView ].options.schema != schema
+						 || (this[ curView ].options.docID && this[ curView ].options.docID != docID ) ) {
+						att = this.elAttachments[type];
+						att.collection = coll;
+						att.schema = schema;
+						att.docID = docID;
+						this[ curView ] = new VU[att.viewClass]( att );
+				} 
+				else
+					this.elAttachments[ curType ].el.slideUp();
+			}
 	
 			// reload all views if any of the data changes
 			if ( this.firstPass || ( collName != this.collName || schemaName != this.schemaName || docID != this.docID ) ) {
-				var coll = this.colls[ collName ];
-				var schema = VU.schemas[ collName ][ schemaName ];
 				for ( type in this.elAttachments ) {
-					a = this.elAttachments[type];
-					a.collection = coll;
-					a.schema = schema;
-					a.docID = docID;
-					this[ "schema" + type ] = new VU[a.class]( a );
 				}
 			}
 			

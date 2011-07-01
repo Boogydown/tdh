@@ -234,14 +234,14 @@ $(function(){
         },
 
 		updateShow : function( showType, collName, schemaName, docID ) {
-			//defaults (whatever was set last time)
+			//normalize the route based on any persistant values
 			var collName = collName || this.collName,
 				schemaName = schemaName || this.schemaName,
 				docID = docID || this.docID,
 				showType = showType || this.showType,
 				curType, att, curView;
-				
 			if ( showType == "doc" && !docID ) showType = "list";
+			this.saveLocation( showType + "/" + collName + "/" + schemaName + "/" + docID );
 
 			var coll = this.colls[ collName ];
 			var schema = VU.schemas[ collName ][ schemaName ];
@@ -255,7 +255,7 @@ $(function(){
 						 || this[ curView ].collection != coll 
 						 || this[ curView ].options.schema != schema
 						 || (this[ curView ].options.docID && this[ curView ].options.docID != docID ) ) {
-						att = this.elAttachments[type];
+						att = this.elAttachments[curType];
 						att.collection = coll;
 						att.schema = schema;
 						att.docID = docID;
@@ -266,12 +266,6 @@ $(function(){
 					this.elAttachments[ curType ].el.slideUp();
 			}
 	
-			// reload all views if any of the data changes
-			if ( this.firstPass || ( collName != this.collName || schemaName != this.schemaName || docID != this.docID ) ) {
-				for ( type in this.elAttachments ) {
-				}
-			}
-			
 			// store for next time
 			this.firstPass = false;
 			this.collName = collName;

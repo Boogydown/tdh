@@ -163,6 +163,7 @@ VU.MapView = Backbone.View.extend({
 	addMarker : function ( hall ) {
 		// try gps, first
 		var gps = hall.get( "GPS Coordinates" ) || hall.get( "gpsCoordinates" );
+		var title = hall.get("hallName") || hall.get("danceHallName");
 		if ( gps )
 		{
 			gps = gps.split(" ");
@@ -174,7 +175,7 @@ VU.MapView = Backbone.View.extend({
 			var marker = new google.maps.Marker({
 				map: this.map, 
 				position: gps,
-				title: hall.get("danceHallName")
+				title: title
 			});
 			
 		// now try its address instead

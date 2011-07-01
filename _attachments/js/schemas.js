@@ -329,6 +329,19 @@ VU.schemas = {
 						cell: "danceHallName"
 					}
 				},
+				"gpsCoordinates":{
+					"description": "GPS coords",
+					"type":"string",
+					"optional":true,
+					"hidden":true,
+					"linkVal": { 
+						linkRef: "hall",
+						cell: "gpsCoordinates"
+					},
+					"_inputex": {
+						"_type": "hidden"
+					}					
+				},
 				"hallPic":{
 					"description": "Thumbnail pic of a dancehall",
 					"type":"string",

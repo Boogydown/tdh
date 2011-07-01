@@ -112,7 +112,7 @@ $(function(){
     });
     
     var SchemaDocView = VU.DustView.extend({
-		el: "<tr/>",
+		el: "<tr class="selectableRow"/>",
 		options : { templateName: "table-row" },		
         events : {
             "click .edit"     : "editMe",
@@ -234,7 +234,7 @@ $(function(){
 				var schema = VU.schemas[ collName ][ schemaName ];
 				this.schemaTable = new SchemaTableView({ schema: schema, collection: coll });
 				this.schemaForm = new SchemaFormView({ schema: schema, collection: coll });
-				//this.schemaDoc = new SchemaDocSoloView({ schema: schema, collection: coll, docID:docID });
+				this.schemaDoc = new SchemaDocSoloView({ schema: schema, collection: coll, docID:docID });
 			}
 			
 			this.firstPass = false;
@@ -243,9 +243,9 @@ $(function(){
 			this.docID = docID;
 			
 			// show/hide according to showType
-			this.schemaForm.el[ showType == "form" || showType == "all" ? "show" : "hide" ]( "slow" );
-			this.schemaTable.el[ showType == "list" || showType == "all" ? "show" : "hide" ]( "slow" );
-			//this.schemaDoc.el[ showType == "doc" || showType == "all" ? "show" : "hide" ]( "slow" );
+			this.schemaForm.el[ showType == "form" || showType == "all" ? "slideDown" : "slideUp" ]( );
+			this.schemaTable.el[ showType == "list" || showType == "all" ? "slideDown" : "slideUp" ]( );
+			this.schemaDoc.el[ showType == "doc" || showType == "all" ? "slideDown" : "slideUp" ]( );
 		},
 	});
 

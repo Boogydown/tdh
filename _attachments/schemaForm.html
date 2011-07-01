@@ -14,13 +14,19 @@
 		div.label:hover {
 			background-color: #88FF88;
 		}	
+		#coll_table .selectableRow:hover{
+			background-color: #FFFFBB;
+		}	
 	</style>
   </head>
   <body>
-    <div class="label" onclick="$('#model_edit').toggle('slow');">Add/Edit:</div><br/>
+	<h1>Texas Dance Hall Preservation Inc.</h1>
+	<h4>Schema Form</h4>
+	<a href="#list/events">Events</a>&nbsp&nbsp&nbsp<a href="#list/halls">Dancehalls</a>&nbsp&nbsp&nbsp<a href="#list/bands">Bands</a><br/>
+    <div class="label" onclick="$('#model_edit').slideToggle();">Add/Edit:</div><br/>
     <form id="model_edit"></form>
 	
-    <div class="label" onclick="$('#coll_table').toggle('slow');">Table:</div><br/>
+    <div class="label" onclick="$('#coll_table').slideToggle();">Table:</div><br/>
     <table><tbody id="coll_table"></tbody></table>
 	
 	<!--<label for="model_table" onclick="$('#model_table').toggle('slow');">Doc Table:</label><br/>
@@ -30,12 +36,11 @@
   <script type="application/dust-template" id="table-header">
     <tr>
         {#fields}<th>{.}</th>{/fields}
-        <th>Edit</th>
         <th>Delete</th>
     </tr>
   </script>
   <script type="application/dust-template" id="table-row">
-        {#fields}<td class="selectableRow" onmouseover="this.parentNode.style='background-color:#FFDDDD';" onclick="alert('Edit functionality not yet enabled');">{value|s}</td>{/fields}
+        {#fields}<td onclick="alert('Edit functionality not yet enabled');">{value|s}</td>{/fields}
         <!--<td class="edit">?</td>-->
         <td class="delete">X</td>
   </script>

@@ -24,8 +24,6 @@ $(function(){
     var SchemaFormView = Backbone.View.extend({
         builder: new inputEx.JsonSchema.Builder(),
 
-        el : $("#model_edit"),
-
         initialize : function(){
 			this.el.html("");
             _.bindAll(this, "onSubmit");
@@ -61,8 +59,6 @@ $(function(){
     });
 
     var SchemaTableView = VU.DustView.extend({
-        el: $("#coll_table"),
-
         initialize : function(){
 			this.el.html("");
 			this.el.show();
@@ -176,22 +172,20 @@ $(function(){
     });
 	
 	var SchemaDocSoloView = SchemaDocView.extend({
-		el:$("#model_table"),
 		options : { templateName: "doc-table" },
 		
 		initialize : function() {
 			this.el.html("");				
-			if ( this.options.docID != "" )
+			if ( this.options.docID && this.options.docID != null && this.options.docID != "" )
 			{
 				this.model = this.options.collection.get( this.options.docID );
 				if ( this.model != null ){
 					SchemaDocView.prototype.initialize.call(this);
 				}
+				this.render();
 			}
 			else
 				this.el.text( this.options.docID + " does not exist!");
-				
-			this.render();
 		}
 	});
 
@@ -212,6 +206,21 @@ $(function(){
 				   ":type" : "updateShow"
 		},
 		
+		elAttachments : { 
+			form: {
+				class: "SchemaFormView",
+				el : $("#model_edit")
+			},
+			list: {
+				class: "SchemaTableView",
+				el: $("#coll_table")
+			},
+			doc: {
+				class: "SchemaDocSoloView",
+				el:$("#model_table")
+			}
+		},
+		
 		events : { "route:updateShow": "updateShow" },
 		
         initialize : function(){
@@ -230,25 +239,24 @@ $(function(){
 			var docID = docID || this.docID;
 			showType = showType || "list";
 			if ( showType == "doc" && !docID ) showType = "list";
+
+			// show/hide according to showType
+			for ( var a in this.elAttachments )
+				this.elAttachments[a].el[showType == a || showType == "all" ? "slideDown" : "slideUp" ]( );
 	
 			// reload all views if any of the data changes
 			if ( this.firstPass || ( collName != this.collName || schemaName != this.schemaName || docID != this.docID ) ) {
 				var coll = this.colls[ collName ];
 				var schema = VU.schemas[ collName ][ schemaName ];
-				this.schemaTable = new SchemaTableView({ schema: schema, collection: coll });
-				this.schemaForm = new SchemaFormView({ schema: schema, collection: coll });
-				if ( docID ) this.schemaDoc = new SchemaDocSoloView({ schema: schema, collection: coll, docID:docID });
+				this.schemaTable = new SchemaTableView({ schema: schema, collection: coll, el: this.elAttachments.list.el });
+				this.schemaForm = new SchemaFormView({ schema: schema, collection: coll, el: this.elAttachments.form.el });
+				this.schemaDoc = new SchemaDocSoloView({ schema: schema, collection: coll, docID:docID, el: this.elAttachments.doc.el });
 			}
 			
 			this.firstPass = false;
 			this.collName = collName;
 			this.schemaName = schemaName;
-			this.docID = docID;
-			
-			// show/hide according to showType
-			this.schemaForm.el[ showType == "form" || showType == "all" ? "slideDown" : "slideUp" ]( );
-			this.schemaTable.el[ showType == "list" || showType == "all" ? "slideDown" : "slideUp" ]( );
-			this.schemaDoc.el[ showType == "doc" || showType == "all" ? "slideDown" : "slideUp" ]( );
+			this.docID = docID;			
 		},
 	});
 

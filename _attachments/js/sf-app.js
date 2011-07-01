@@ -55,10 +55,37 @@ $(function(){
 
         // Takes the vals from the input fields and submits them to the Collection
         onSubmit : function(){
-            values = this.inputex.getValue();
-            // Nuke an empty ID, so it doesn't kill initial creation
-            if(values._id === "") delete values._id;
-            this.collection.create(values);
+			var values = this.inputex.getValue();
+			// grab image filenames from inputs
+			var ifilelist = this.el[0].image;
+			if ( ! ifilelist || ifilelist.length === undefined ) ifilelist = [];
+			var len = ifilelist.length;
+			var ifn = "";
+			var idata = {};
+			//var accept = {"image/jpeg": 23, "image/png": 22}
+			//iterate through list of image files and upload as attachments			
+			for(var i=0; i<len; i++){
+				ifn = ifilelist[i].files[0].name;
+				idata = ifilelist[i].files[0].getAsDataURL();
+				values.images[i].image = ifn;
+				values._attachments[ifn] = {"content_type": "image/jpeg", "data": idata.slice(23)};
+			};
+			var dfilelist = this.el[0].attachedReferenceDocument;
+			if ( ! dfilelist || dfilelist.length === undefined ) dfilelist = [];
+			var len = dfilelist.length;
+			var dfn = "";
+			var ddata = {};
+			//iterate through list of image files and upload as attachments			
+			for(var i=0; i<len; i++){
+				var dfn = dfilelist[i].files[0].name;
+				var ddata = dfilelist[i].files[0].getAsDataURL();
+				values.documents[i].attachedReferenceDocument = dfn;
+				values._attachments[dfn] = {"content_type": "text/html", "data": ddata.slice(22)};
+			};
+			
+			// Nuke an empty ID, so it doesn't kill initial creation
+			if(values._id === "") delete values._id;
+			this.collection.create(values);
 			document.forms[0].reset();
 			window.location = window.location.href.split("#")[0] + "#list";
         }

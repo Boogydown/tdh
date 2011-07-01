@@ -72,7 +72,7 @@ VU.PopupView = VU.DustView.extend({
 		if ( events ) {
 			this.eventListView = new VU.EventListView({ el:$("#popuplist"), collection:events });
 			this.eventListView.render();
-			this.miniMapView = new VU.MapView({collection: events.colls.halls , mapNode: "detailMap"});
+			this.miniMapView = new VU.MapView({collection: events, mapNode: "detailMap"});
 		}
 		
 		

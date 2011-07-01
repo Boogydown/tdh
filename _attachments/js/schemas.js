@@ -248,6 +248,19 @@ VU.schemas = {
 						"description": "This will eventually be a pull-down/auto-complete menu."
 					}
 				},
+				"gpsCoordinates":{
+					"description": "GPS coords",
+					"type":"string",
+					"optional":true,
+					"hidden":true,
+					"linkVal": { 
+						linkRef: "hall",
+						cell: "gpsCoordinates"
+					},
+					"_inputex": {
+						"_type": "hidden"
+					}					
+				},
 				"hallName":{
 					"description": "Band Name",
 					"type":"array",

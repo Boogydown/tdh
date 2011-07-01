@@ -21,8 +21,7 @@ $(function(){
 /////////////////////////////////////////////////////////////////////////////}
 /// VIEWS DECLARATION ///////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////{
-	var SchemaViews;
-    SchemaViews.SchemaFormView = Backbone.View.extend({
+    VU.SchemaFormView = Backbone.View.extend({
         builder: new inputEx.JsonSchema.Builder(),
 
         initialize : function(){
@@ -59,7 +58,7 @@ $(function(){
         }
     });
 
-    SchemaViews.SchemaTableView = VU.DustView.extend({
+    VU.SchemaTableView = VU.DustView.extend({
         initialize : function(){
 			this.el.html("");
 			this.el.show();
@@ -103,12 +102,12 @@ $(function(){
 			// WARN: if this is truly async, then the data may not change in time for the render, and the "change" event
 			//		 bound in SchemaDocView isn't set yet
 			model.trigger("change");
-            var view = new SchemaViews.SchemaDocView({ model: model, schema: this.options.schema });
+            var view = new VU.SchemaDocView({ model: model, schema: this.options.schema });
             this.el.append(view.render().el);
         }
     });
     
-    SchemaViews.SchemaDocView = VU.DustView.extend({
+    VU.SchemaDocView = VU.DustView.extend({
 		el: "<tr class='selectableRow'/>",
 		
         events : {
@@ -172,7 +171,7 @@ $(function(){
         }
     });
 	
-	SchemaViews.SchemaDocSoloView = SchemaDocView.extend({
+	VU.SchemaDocSoloView = SchemaDocView.extend({
 		initialize : function() {
 			this.el.html("");				
 			if ( this.options.docID && this.options.docID != null && this.options.docID != "" )
@@ -257,7 +256,7 @@ $(function(){
 					a.collection = coll;
 					a.schema = schema;
 					a.docID = docID;
-					this[ "schema" + type ] = new SchemaViews[a.class]( a );
+					this[ "schema" + type ] = new VU[a.class]( a );
 				}
 			}
 			

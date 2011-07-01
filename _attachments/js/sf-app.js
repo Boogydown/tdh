@@ -230,6 +230,11 @@ $(function(){
 			var docID = docID || this.docID;
 			showType = showType || "list";
 			if ( showType == "doc" && !docID ) showType = "list";
+
+			// show/hide according to showType
+			this.schemaForm.el[ showType == "form" || showType == "all" ? "slideDown" : "slideUp" ]( );
+			this.schemaTable.el[ showType == "list" || showType == "all" ? "slideDown" : "slideUp" ]( );
+			this.schemaDoc.el[ showType == "doc" || showType == "all" ? "slideDown" : "slideUp" ]( );
 	
 			// reload all views if any of the data changes
 			if ( this.firstPass || ( collName != this.collName || schemaName != this.schemaName || docID != this.docID ) ) {
@@ -237,18 +242,13 @@ $(function(){
 				var schema = VU.schemas[ collName ][ schemaName ];
 				this.schemaTable = new SchemaTableView({ schema: schema, collection: coll });
 				this.schemaForm = new SchemaFormView({ schema: schema, collection: coll });
-				this.schemaDoc = new SchemaDocSoloView({ schema: schema, collection: coll, docID:docID });
+				if ( docID ) this.schemaDoc = new SchemaDocSoloView({ schema: schema, collection: coll, docID:docID });
 			}
 			
 			this.firstPass = false;
 			this.collName = collName;
 			this.schemaName = schemaName;
-			this.docID = docID;
-			
-			// show/hide according to showType
-			this.schemaForm.el[ showType == "form" || showType == "all" ? "slideDown" : "slideUp" ]( );
-			this.schemaTable.el[ showType == "list" || showType == "all" ? "slideDown" : "slideUp" ]( );
-			this.schemaDoc.el[ showType == "doc" || showType == "all" ? "slideDown" : "slideUp" ]( );
+			this.docID = docID;			
 		},
 	});
 

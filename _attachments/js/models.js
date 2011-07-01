@@ -57,8 +57,7 @@ VU.LinkingModel = Backbone.Model.extend({
 	loadLinkRefs : function () {
 		if ( ! this.collection.colls ) return;
 		var attr, loadingQueue = {}, docID, coll, myRef;
-		// we're doing two passes: first to tally valid refs, 2nd to load them
-		// this'll prevent race conditions when dealing with linkRefsCount
+		// load all referenced models so that we can pull data from them
 		for ( attr in this.linkRefs )
 		{
 			// this attribute's value in the model is the doc ID of the link
@@ -81,6 +80,7 @@ VU.LinkingModel = Backbone.Model.extend({
 					}
 					// otherwise, load the old one
 					else {
+						myRef.linkRef = this.linkRefs[attr];
 						myRef.bind( "change", this.loadLinkVals );
 						// if already fetched then just pull the data
 						if ( myRef.fetched || (myRef.collection && myRef.collection.fetched) )

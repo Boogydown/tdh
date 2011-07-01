@@ -36,7 +36,7 @@ $(function(){
             form.enctype        = 'multipart/form-data';
 			if ( this.options.collection.colls ) {
 				form.fields[0].elementType.choices = _.map( this.options.collection.colls.bands.models, function(model) {
-					return { label:model.get("bandName"), value:model.get("bandName") };
+					return { label:model.get("bandName").substr(0,4), value:model.get("bandName").substr(0,4) };
 				} );
 			}
             this.inputex = inputEx(form);

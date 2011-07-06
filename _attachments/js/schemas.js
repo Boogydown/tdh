@@ -211,10 +211,10 @@ VU.schemas = {
 					"_inputex": {
 						"description": "This will eventually be a pull-down/auto-complete menu."
 					},
-					//"items":{
-						//"type":"string", 
-						//"choices": [ {"value":"foo","label":"bar"} ]
-					//}
+					"items":{
+						"type":"string", 
+						"choices": [ {"value":"foo","label":"bar"} ]
+					}
 				},
 				"bandName":{
 					"description": "Band Name",

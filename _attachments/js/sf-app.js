@@ -279,14 +279,13 @@ $(function(){
         },
 
 		updateShow : function( showType, collName, schemaName, docID ) {
+			if ( showType && collName == this.collName && schemaName == this.schemaName && showType == this.showType ) showType = "none";
 			//normalize the route based on any persistant values
 			var collName = collName || this.collName,
 				schemaName = schemaName || this.schemaName,
 				showType = showType || this.showType,
 				curType, att, curView;
 			if ( showType == "doc" && !docID ) showType = "list";
-			if ( collName == this.collName && schemaName == this.schemaName && showType == this.showType )
-				showType = "none";
 			this.saveLocation( showType + "/" + collName + "/" + schemaName + (docID ? "/" + docID : "" ) );
 
 			var coll = this.colls[ collName ];

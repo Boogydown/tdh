@@ -31,9 +31,9 @@ $(function(){
 			var colls = this.options.collection.colls;
 			if ( colls ) {
 				this.collsToFetch = 2;
-				if ( colls.bands.fetched ) { colls.bands.bind( "refresh", this.fetched ); colls.bands.fetch({field:0}) };
+				if ( colls.bands.fetched ) { colls.bands.bind( "refresh", this.fetched ); colls.bands.fetch({field:0}) }
 				else this.fetched({field:0});
-				if ( colls.halls.fetched ) { colls.halls.bind( "refresh", this.fetched ); colls.halls.fetch({field:4}) ); };
+				if ( colls.halls.fetched ) { colls.halls.bind( "refresh", this.fetched ); colls.halls.fetch({field:4}) ) };
 				else this.fetched({field:4});
 			}
 			else 

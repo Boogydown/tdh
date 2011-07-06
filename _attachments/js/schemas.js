@@ -208,9 +208,6 @@ VU.schemas = {
 					"required":true,
 					"linkRef": "bands",
 					"hidden": true,
-					"_inputex": {
-						"description": "This will eventually be a pull-down/auto-complete menu."
-					},
 					"items":{
 						"type":"string", 
 						"choices": [ {"value":"foo","label":"bar"} ]
@@ -244,8 +241,9 @@ VU.schemas = {
 					"required": true,
 					"linkRef": "halls",
 					"hidden": true,
-					"_inputex": {
-						"description": "This will eventually be a pull-down/auto-complete menu."
+					"items":{
+						"type":"string", 
+						"choices": [ {"value":"foo","label":"bar"} ]
 					}
 				},
 				"gpsCoordinates":{

@@ -285,6 +285,8 @@ $(function(){
 				showType = showType || this.showType,
 				curType, att, curView;
 			if ( showType == "doc" && !docID ) showType = "list";
+			if ( collName == this.collName && schemaName == this.schemaName && showType == this.showType )
+				showType = "none";
 			this.saveLocation( showType + "/" + collName + "/" + schemaName + (docID ? "/" + docID : "" ) );
 
 			var coll = this.colls[ collName ];
@@ -304,7 +306,7 @@ $(function(){
 						att.schema = schema;
 						att.docID = docID;
 						this[ curView ] = new VU[att.viewClass]( att );
-					} 
+					}
 				}
 				else
 					this.elAttachments[ curType ].el.slideUp();

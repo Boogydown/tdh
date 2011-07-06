@@ -19,20 +19,38 @@ $(function(){
 
         initialize : function(){
 			this.el.html("");
-            _.bindAll(this, "onSubmit");
+            _.bindAll(this, "onSubmit", "fetched", "attach");
             this.render();
         },
         
         render : function(){
-            var form = this.builder.schemaToInputEx(this.options.schema);
-            form.parentEl       = 'model_edit';
-            form.enctype        = 'multipart/form-data';
-			if ( this.options.collection.colls ) {
-				form.fields[0].elementType.choices = _.map( this.options.collection.colls.bands.models, function(model) {
-					return { label:model.get("bandName").substr(0,4), value:model.get("bandName").substr(0,4) };
-				} );
+			this.el.html("Loading...");
+            this.form = this.builder.schemaToInputEx(this.options.schema);
+            this.form.parentEl       = 'model_edit';
+            this.form.enctype        = 'multipart/form-data';
+			var colls = this.options.collection.colls;
+			if ( colls ) {
+				this.collsToFetch = 0 + !colls.bands.fetched + !colls.halls.fetched;
+				if ( colls.bands.fetched ) { colls.bands.bind( "refresh", this.fetched ); colls.bands.fetch( ); };
+				if ( colls.halls.fetched ) { colls.halls.bind( "refresh", this.fetched ); colls.halls.fetch( ); };
+				this.fetched();
 			}
-            this.inputex = inputEx(form);
+			else 
+				this.attach();
+			}
+            return this;
+        },
+		
+		fetched : function() {
+			form.fields[0].elementType.choices = _.map( colls.bands.models, function(model) {
+				return { label:model.get("bandName"), value:model.get("_id") };
+			} );
+			
+			this.attach();
+		},
+		
+		attach : function () {
+            this.inputex = inputEx(this.form);
 
             // YUI onClick used instead of Backbone delegateEvents, because it worked first
             new inputEx.widget.Button({
@@ -41,10 +59,8 @@ $(function(){
                 type:           'submit',
                 onClick:        this.onSubmit,
                 value:          'Send'
-            });
-            
-            return this;
-        },
+            });			
+		},
 
         // Takes the vals from the input fields and submits them to the Collection
         onSubmit : function(){

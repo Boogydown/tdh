@@ -281,7 +281,7 @@ $(function(){
         },
 
 		updateShow : function( showType, collName, schemaName, docID ) {
-			if ( showType && collName == this.collName && schemaName == this.schemaName && showType == this.showType ) showType = "none";
+			if ( showType && showType == this.showType && collName == undefined ) showType = "none";
 			//normalize the route based on any persistant values
 			var collName = collName || this.collName,
 				schemaName = schemaName || this.schemaName,

@@ -30,10 +30,11 @@ $(function(){
             this.form.enctype        = 'multipart/form-data';
 			var colls = this.options.collection.colls;
 			if ( colls ) {
-				this.collsToFetch = 0 + !colls.bands.fetched + !colls.halls.fetched;
-				if ( colls.bands.fetched ) { colls.bands.bind( "refresh", this.fetched ); colls.bands.fetch( ); };
-				if ( colls.halls.fetched ) { colls.halls.bind( "refresh", this.fetched ); colls.halls.fetch( ); };
-				this.fetched();
+				this.collsToFetch = 2;
+				if ( colls.bands.fetched ) { colls.bands.bind( "refresh", this.fetched ); colls.bands.fetch({field:0}) };
+				else this.fetched({field:0});
+				if ( colls.halls.fetched ) { colls.halls.bind( "refresh", this.fetched ); colls.halls.fetch({field:4}) ); };
+				else this.fetched({field:4});
 			}
 			else 
 				this.attach();
@@ -41,12 +42,12 @@ $(function(){
             return this;
         },
 		
-		fetched : function() {
-			form.fields[0].elementType.choices = _.map( colls.bands.models, function(model) {
+		fetched : function( coll, options ) {
+			this.form.fields[options.field].elementType.choices = _.map( coll.models, function(model) {
 				return { label:model.get("bandName"), value:model.get("_id") };
 			} );
-			
-			this.attach();
+			if ( --this.collsToFetch == 0 )
+				this.attach();
 		},
 		
 		attach : function () {

@@ -43,6 +43,8 @@ $(function(){
         },
 		
 		fetched : function( coll, options ) {
+			coll.fetched = true;
+			coll.unbind( "refresh", this.fetched );
 			this.form.fields[options.field].elementType.choices = _.map( coll.models, function(model) {
 				return { label:model.get("bandName"), value:model.get("_id") };
 			} );

@@ -37,7 +37,7 @@ $(function(){
 			}
 			else 
 				this.attach();
-			}
+			
             return this;
         },
 		

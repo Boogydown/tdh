@@ -314,7 +314,7 @@ $(function(){
 			}
 	
 			// store for next time
-			this.firstPass = false;
+			this.showType = showType;
 			this.collName = collName;
 			this.schemaName = schemaName;
 			this.docID = docID;			

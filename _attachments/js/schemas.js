@@ -18,7 +18,7 @@ VU.schemas = {
 						"_type": "hidden"
 					}
 				},
-				"name":{
+				"danceHallName":{
 					"description": "Dance Hall Name",
 					"type":"string",
 					"required":true

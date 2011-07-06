@@ -46,7 +46,9 @@ $(function(){
 			coll.fetched = true;
 			coll.unbind( "refresh", this.fetched );
 			this.form.fields[options.field].elementType.choices = _.map( coll.models, function(model) {
-				return { label:model.get("bandName"), value:model.get("_id") };
+				var name = model.get("bandName");
+				if ( !name ) name = model.get("danceHallName");
+				return { label:name , value:model.get("_id") };
 			} );
 			if ( --this.collsToFetch == 0 )
 				this.attach();

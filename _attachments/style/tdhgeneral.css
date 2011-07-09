@@ -138,10 +138,9 @@ div#list{
 }
 div#listing-date{
 	position: relative;
-	left: 10px;
 	top: 17px;
 	width:100%;
-	text-aling: center;
+	text-align: center;
 }
 
 #listing div.featured #listing-date{
@@ -151,15 +150,13 @@ div#listing-date{
 div.date, div.day, div#listing-time{
 	position: relative;
 	color: white;
-	text-aling: center;
+	text-align: center;
 	vertical-align: middle;
 }
 
 div.date{
-
-	text-indent: 5px;
 	font-family: georgia, serif;
-	font-size: 12px;
+	font-size: 11px;
 	font-weight: bold;
 	line-height:10px;
 }
@@ -174,7 +171,6 @@ div.day{
 
 div#listing-time{
 	position: relative;
-	left: 5px;
 	top: 24px;
 	font-family: arial, sans-serif;
 	font-size: 11px;

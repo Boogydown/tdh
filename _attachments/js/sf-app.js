@@ -198,7 +198,7 @@ $(function(){
 					var row = {key:key, value:this.model.get(key)};
 					
 					// array?
-					if ( row.value && _.isArray(row.value)) {
+					if ( row.value && _.isArray(row.value))
 						row.value = row.value[0];
 						
 					// any stray links?

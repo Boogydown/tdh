@@ -219,7 +219,7 @@ $(function(){
 					
 					// fixed width on long entries
 					if ( row.value.length > 40 )
-						this.model.set( {cellWidth: "300px"} );
+						this.model.set( {cellWidth: "300px"}, {silent:true} );
 					
 					rowData.push( row );
 				}

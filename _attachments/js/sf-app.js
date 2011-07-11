@@ -102,7 +102,7 @@ $(function(){
 			if(values._id === "") delete values._id;
 			this.collection.create(values);
 			document.forms[0].reset();
-			window.location = window.location.href.split("#")[0] + "#list";
+			location.href = "#list";
         }
     });
 
@@ -156,14 +156,17 @@ $(function(){
 			// WARN: if this is truly async, then the data may not change in time for the render, and the "change" event
 			//		 bound in SchemaDocView isn't set yet
 			model.trigger("change", model);
-            var view = new VU.SchemaDocView({ model: model, schema: this.options.schema, templateName: this.options.templateName });
+            var view = new VU.SchemaDocView({ 
+				model: model, 
+				schema: this.options.schema, 
+				templateName: this.options.templateName,
+				schemaName: this.options.schemaName,
+				collName: this.options.collName });
             this.el.append(view.render().el);
         }
     });
     
     VU.SchemaDocView = VU.DustView.extend({
-		el: "<tr class='selectableRow'/>",
-		
         events : {
             "click .edit"     : "editMe",
             "click .delete"   : "deleteMe",
@@ -172,6 +175,10 @@ $(function(){
 
 		// If there's a change in our model, rerender it
 		initialize : function(){
+			this.el = "<tr class='selectableRow' onclick='location.href=\"#doc/" 
+				+ this.options.collName + "/" 
+				+ this.options.schemaName + "/" 
+				+ this.id + "\"'/>";
 			_.bindAll(this, 'render', "editMe", "deleteMe");
 			this.model.bind('change', this.render);
 			this.registerTemplate( this.options.templateName );
@@ -306,7 +313,7 @@ $(function(){
 				numPerPage = numPerPage || this.numPerPage,
 				curType, att, curView;
 			if ( showType == "doc" && docID == 0 ) showType = "list";
-			this.saveLocation( showType + "/" + collName + "/" + schemaName + (docID ? "/" + docID : "" ) + (numPerPage ? "/" + numPerPage : "" ) );
+			this.saveLocation( showType + "/" + collName + "/" + schemaName + (docID || docID==0 ? "/" + docID : "" ) + (numPerPage ? "/" + numPerPage : "" ) );
 
 			var coll = this.colls[ collName ];
 			var schema = VU.schemas[ collName ][ schemaName ];
@@ -322,7 +329,9 @@ $(function(){
 						 || showType == "doc" /* doc showtypes get rerendered each time, regardless */
 						 || ( this[ curView ].options.curPage && this[ curView ].options.curPage != docID ) ) { /* docID could also include page number */
 						att = this.elAttachments[curType];
+						att.collName = collName;
 						att.collection = coll;
+						att.schemaName = schemaName;
 						att.schema = schema;
 						att.docID = docID;
 						att.numPerPage = numPerPage;

@@ -319,7 +319,7 @@ $(function(){
 						 || this[ curView ].collection != coll 
 						 || this[ curView ].options.schema != schema
 						 || showType == "doc" /* doc showtypes get rerendered each time, regardless */
-						 || ( this[ curView ].options.curPage && this[ curView ].options.curPage != docID ) ) /* docID could also include page number */
+						 || ( this[ curView ].options.curPage && this[ curView ].options.curPage != docID ) ) { /* docID could also include page number */
 						att = this.elAttachments[curType];
 						att.collection = coll;
 						att.schema = schema;

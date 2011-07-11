@@ -70,6 +70,7 @@ $(function(){
         // Takes the vals from the input fields and submits them to the Collection
         onSubmit : function(){
 			var values = this.inputex.getValue();
+			values.type = this.options.collection.url;
 			// grab image filenames from inputs
 			var ifilelist = this.el[0].image;
 			if ( ! ifilelist || ifilelist.length === undefined ) ifilelist = [];

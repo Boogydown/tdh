@@ -110,7 +110,8 @@ $(function(){
         initialize : function(){
 			this.el.html("Loading...");
 			this.registerTemplate('table-header');			
-			this.options.curPage = this.options.docID || 0;
+			this.options.curPage = Number(this.options.docID || 0);
+			this.options.numPerPage = Number( this.options.numPerPage );
             _.bindAll(this, 'render', 'reRender', 'addRow');
             this.collection.bind("add", this.reRender);
             this.collection.bind("remove", this.deleted);
@@ -258,8 +259,7 @@ $(function(){
 		firstPass : true,
 		
 		routes : { ":type/:coll/:schema/:docID" : "updateShow",
-				   ":type/:coll/:schema/p:page/n:numPer" : "updateShow",
-				   ":type/:coll/:schema/p:page" : "updateShow",
+				   ":type/:coll/:schema/page/numPer" : "updateShow",
 				   ":type/:coll/:schema" : "updateShow",
 				   ":type/:coll" : "updateShow",
 				   ":type" : "updateShow"

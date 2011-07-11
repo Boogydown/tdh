@@ -196,31 +196,32 @@ $(function(){
 				if ( ! fields[key].hidden )
 				{
 					var row = {key:key, value:this.model.get(key)};
+					if ( row.value ) {
 					
-					// array?
-					if ( row.value && _.isArray(row.value))
-						row.value = row.value[0];
+						// array?
+						if ( _.isArray(row.value))
+							row.value = row.value[0];
+							
+						// any stray links?
+						if ( row.value.substr(0, 4).toLowerCase() == "www." )
+							row.value = '<a href="http://' + row.value + '">' + row.value + '</a>';
+							
+						// doc link?
+						if ( fields[key].linkVal ){
+							tmpLinkRef = fields[key].linkVal.linkRef;
+							row.value = '<a href="#doc/' + fields[tmpLinkRef].linkRef + '/full/' + this.model.get(tmpLinkRef) + '">' + row.value + '</a>';
+						}
 						
-					// any stray links?
-					if ( row.value && row.value.substr(0, 4).toLowerCase() == "www." )
-						row.value = '<a href="http://' + row.value + '">' + row.value + '</a>';
+						// image?
+						try {
+							if ( row.value.substr(row.value.length - 3 ).toLowerCase() == "jpg")
+								row.value = '<img src="' + row.value + '"/>';
+						} catch (e) {}
 						
-					// doc link?
-					if ( fields[key].linkVal ){
-						tmpLinkRef = fields[key].linkVal.linkRef;
-						row.value = '<a href="#doc/' + fields[tmpLinkRef].linkRef + '/full/' + this.model.get(tmpLinkRef) + '">' + row.value + '</a>';
-					}
-					
-					// image?
-					try {
-						if ( row.value.substr(row.value.length - 3 ).toLowerCase() == "jpg")
-							row.value = '<img src="' + row.value + '"/>';
-					} catch (e) {}
-					
-					// fixed width on long entries
-					if ( row.value.length > 40 )
-						this.model.set( {cellWidth: "300px"}, {silent:true} );
-					
+						// fixed width on long entries
+						if ( row.value.length > 40 )
+							this.model.set( {cellWidth: "300px"}, {silent:true} );
+					}			
 					rowData.push( row );
 				}
 			}

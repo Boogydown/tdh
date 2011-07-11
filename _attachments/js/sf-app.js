@@ -111,7 +111,7 @@ $(function(){
 			this.el.html("Loading...");
 			this.registerTemplate('table-header');			
 			this.options.curPage = Number(this.options.docID || 0);
-			this.options.numPerPage = Number( this.options.numPerPage );
+			this.options.numPerPage = Number( this.options.numPerPage || 20 );
             _.bindAll(this, 'render', 'reRender', 'addRow');
             this.collection.bind("add", this.reRender);
             this.collection.bind("remove", this.deleted);
@@ -254,7 +254,7 @@ $(function(){
 		showType : "list",
 		collName : "events",
 		schemaName : "full",
-		docID : "",
+		docID : 0,
 		numPerPage: 20,
 		firstPass : true,
 		
@@ -302,9 +302,10 @@ $(function(){
 			var collName = collName || this.collName,
 				schemaName = schemaName || this.schemaName,
 				showType = showType || this.showType,
+				docID = docID || this.docID,
 				numPerPage = numPerPage || this.numPerPage,
 				curType, att, curView;
-			if ( showType == "doc" && !docID ) showType = "list";
+			if ( showType == "doc" && docID == 0 ) showType = "list";
 			this.saveLocation( showType + "/" + collName + "/" + schemaName + (docID ? "/" + docID : "" ) + (numPerPage ? "/" + numPerPage : "" ) );
 
 			var coll = this.colls[ collName ];

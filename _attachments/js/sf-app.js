@@ -167,6 +167,7 @@ $(function(){
     });
     
     VU.SchemaDocView = VU.DustView.extend({
+		el: "<tr class='selectableRow'/>",
         events : {
             "click .edit"     : "editMe",
             "click .delete"   : "deleteMe",
@@ -175,10 +176,10 @@ $(function(){
 
 		// If there's a change in our model, rerender it
 		initialize : function(){
-			this.el = "<tr class='selectableRow' onclick='location.href=\"#doc/" 
+			this.el.onclick= "location.href='#doc/"
 				+ this.options.collName + "/" 
 				+ this.options.schemaName + "/" 
-				+ this.id + "\"'/>";
+				+ this.model.id + "'";
 			_.bindAll(this, 'render', "editMe", "deleteMe");
 			this.model.bind('change', this.render);
 			this.registerTemplate( this.options.templateName );

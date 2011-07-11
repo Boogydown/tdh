@@ -176,17 +176,21 @@ $(function(){
 
 		// If there's a change in our model, rerender it
 		initialize : function(){
-			this.el.onclick= "location.href='#doc/"
+			this.el.click( function() {
+				location.href="#doc/"
 				+ this.options.collName + "/" 
 				+ this.options.schemaName + "/" 
-				+ this.model.id + "'";
+				+ this.model.id;
+			});
 			_.bindAll(this, 'render', "editMe", "deleteMe");
 			this.model.bind('change', this.render);
 			this.registerTemplate( this.options.templateName );
 		},
 		
 		getData : function () {
-            var rowData = [], fields = this.options.schema.properties, tmpLinkRef;
+            var rowData = [], 
+				fields = this.options.schema.properties, 
+				tmpLinkRef, key, vals;
             for (key in fields)
 			{
 				if ( ! fields[key].hidden )
@@ -194,8 +198,8 @@ $(function(){
 					var row = {key:key, value:this.model.get(key)};
 					
 					// array?
-					if ( row.value && _.isArray(row.value)) 
-						row.value = row.value.join(", ");
+					if ( row.value && _.isArray(row.value)) {
+						row.value = row.value[0];
 						
 					// any stray links?
 					if ( row.value && row.value.substr(0, 4).toLowerCase() == "www." )
@@ -213,6 +217,9 @@ $(function(){
 							row.value = '<img src="' + row.value + '"/>';
 					} catch (e) {}
 					
+					// fixed width on long entries
+					if ( row.value.length > 40 )
+						this.model.set( {cellWidth: "300px"} );
 					
 					rowData.push( row );
 				}

@@ -20,7 +20,6 @@
 		.tableCell {
 			overflow: auto;
 			height: 65px;
-			width: 300px;
 		}		
 		#coll_table .selectableRow:hover{
 			background-color: #FFFFBB;
@@ -49,7 +48,7 @@
     </tr>
   </script>
   <script type="application/dust-template" id="table-row">
-        {#fields}<td><div class="tableCell">{value|s}</div></td>{/fields}
+        {#fields}<td><div class="tableCell" style="width:{cellWidth}">{value|s}</div></td>{/fields}
         <!--<td class="edit">?</td>-->
         <td class="delete">X</td>
   </script>

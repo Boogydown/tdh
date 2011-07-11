@@ -110,6 +110,7 @@ $(function(){
         initialize : function(){
 			this.el.html("Loading...");
 			this.registerTemplate('table-header');			
+			this.options.curPage = this.options.docID || 0;
             _.bindAll(this, 'render', 'reRender', 'addRow');
             this.collection.bind("add", this.reRender);
             this.collection.bind("remove", this.deleted);
@@ -133,8 +134,14 @@ $(function(){
 			this.collection.fetched = true;
 			// render from our super
 			VU.DustView.prototype.render.call(this);
-            if(this.collection.length > 0)
-                this.collection.each(this.addRow);
+            if(this.collection.length > 0){
+				//this.collection.each(this.addRow);
+				var i, 
+					start = this.options.curPage * this.options.numPerPage, 
+					end = start + this.options.numPerPage; 
+				for ( var i = start; i <= end; i++ )
+					this.addRow( this.collection.models[i] );
+			}
         },
         
 		reRender: function() {
@@ -247,9 +254,12 @@ $(function(){
 		collName : "events",
 		schemaName : "full",
 		docID : "",
+		numPerPage: 20,
 		firstPass : true,
 		
 		routes : { ":type/:coll/:schema/:docID" : "updateShow",
+				   ":type/:coll/:schema/p:page/n:numPer" : "updateShow",
+				   ":type/:coll/:schema/p:page" : "updateShow",
 				   ":type/:coll/:schema" : "updateShow",
 				   ":type/:coll" : "updateShow",
 				   ":type" : "updateShow"
@@ -283,15 +293,19 @@ $(function(){
 			this.colls.events = new VU.EventCollection( null, { colls:this.colls, schema:VU.schemas.events.listing });
         },
 
-		updateShow : function( showType, collName, schemaName, docID ) {
+		updateShow : function( showType, collName, schemaName, docID, numPerPage ) {
+			// can only show one panel at a time
+			// if our showType is already shown then 2nd click will hide it (i.e. "none")
 			if ( showType && showType == this.showType && collName == undefined ) showType = "none";
-			//normalize the route based on any persistant values
+
+			// normalize the route based on any persistant values
 			var collName = collName || this.collName,
 				schemaName = schemaName || this.schemaName,
 				showType = showType || this.showType,
+				numPerPage = numPerPage || this.numPerPage,
 				curType, att, curView;
 			if ( showType == "doc" && !docID ) showType = "list";
-			this.saveLocation( showType + "/" + collName + "/" + schemaName + (docID ? "/" + docID : "" ) );
+			this.saveLocation( showType + "/" + collName + "/" + schemaName + (docID ? "/" + docID : "" ) + (numPerPage ? "/" + numPerPage : "" ) );
 
 			var coll = this.colls[ collName ];
 			var schema = VU.schemas[ collName ][ schemaName ];
@@ -304,11 +318,13 @@ $(function(){
 					if ( ! this[ curView ] 
 						 || this[ curView ].collection != coll 
 						 || this[ curView ].options.schema != schema
-						 || showType == "doc" ) {	// doc showtypes get rerendered each time, regardless
+						 || showType == "doc" /* doc showtypes get rerendered each time, regardless */
+						 || ( this[ curView ].options.curPage && this[ curView ].options.curPage != docID ) ) /* docID could also include page number */
 						att = this.elAttachments[curType];
 						att.collection = coll;
 						att.schema = schema;
 						att.docID = docID;
+						att.numPerPage = numPerPage;
 						this[ curView ] = new VU[att.viewClass]( att );
 					}
 				}

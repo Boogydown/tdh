@@ -116,9 +116,6 @@ VU.LinkingModel = Backbone.Model.extend({
 VU.BandModel = VU.EventsContainerModel.extend({
 	myType : "band",
 	defaults : {
-		bandName: "Generic Band",
-		image: "images/genericSilhouette.jpg",
-		bio: "They play musical instruments.",
 		events: null
 	},
 	
@@ -172,9 +169,6 @@ VU.BandModel = VU.EventsContainerModel.extend({
 VU.VenueModel = VU.EventsContainerModel.extend({
 	myType : "hall",
 	defaults : {
-		danceHallName: "Generic Hall",
-		images: [{"credit":"generic", "image":"images/genericHall.JPG"}],
-		description: "Has four walls and a roof.",
 		events: null
 	},	
 
@@ -208,16 +202,6 @@ VU.VenueModel = VU.EventsContainerModel.extend({
 // Event model
 VU.EventModel = VU.LinkingModel.extend({
 	defaults : {
-		name: "Some generic event",
-		description: "Go here for fun!",
-		hall: "dancehall0",
-		hallName: "Generic Hall",
-		hallPic: "images/genericHall.JPG",
-		band: "band0",
-		bandName: "Generic Band",
-		bandPic: "images/genericSilhouette.jpg",
-		date: new Date().getTime(),
-		topY: 10
 	},
 	
 	initialize: function () {

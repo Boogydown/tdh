@@ -199,7 +199,7 @@ $(function(){
 					// array?
 					if ( row.value && row.value.length )
 						row.value = row.value[0];
-					row.value = row.value.image || row.value.attachedReferenceDocument || row.value;
+					row.value = (row.value && (row.value.image || row.value.attachedReferenceDocument || row.value ) ) || " ";
 
 					if ( row.value && _.isString(row.value) ) {					
 						// any stray links?

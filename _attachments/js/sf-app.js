@@ -220,7 +220,7 @@ $(function(){
 						
 						// fixed width on long entries
 						if ( row.value.length > 40 )
-							this.model.set( {cellStyle: "width:300px;height:65px;"}, {silent:true} );
+							row.cellStyle="width:300px;height:65px;";
 					}			
 					rowData.push( row );
 				}

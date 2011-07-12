@@ -17,8 +17,10 @@
 		#coll_table .selectableRow {
 			font-size:15px;
 		}
-		.tableCell {
+		.bigCell {
 			overflow: auto;
+			width:300px;
+			height:80px;
 		}		
 		#coll_table .selectableRow:hover{
 			background-color: #FFFFBB;
@@ -47,6 +49,9 @@
 			{pageList|s}
 			&nbsp{?nextPage}<a href="#////{nextPage}">&gt&gt</a>{:else}&gt&gt{/nextPage}
 		</div></td>
+		<td><div style="width:300px">
+			Num per page: <a href="#////0/10">10</a> <a href="#////0/20">20</a> <a href="#////0/50">50</a> <a href="#////0/100">100</a>
+		</div></td>
 	</tr>
 	<tr>
         {#fields}<th>{.}</th>{/fields}
@@ -54,7 +59,7 @@
     </tr>
   </script>
   <script type="application/dust-template" id="table-row">
-        {#fields}<td><div class="tableCell" style="{cellStyle}">{value|s}</div></td>{/fields}
+        {#fields}<td><div class="{className}">{value|s}</div></td>{/fields}
         <!--<td class="edit">?</td>-->
         <td class="delete">X</td>
   </script>

@@ -232,11 +232,11 @@ $(function(){
 					if ( row.value && _.isString(row.value) ) {					
 						// image?
 						if ( row.value.substr(row.value.length - 3 ).toLowerCase() == "jpg")
-							row.value = '<img src="../../' + this.model.id + "/thumbs/" + row.value + '"/>';
+							row.value = '<a href="../../' + this.model.id + "/files/" + row.value + '"><img src="../../' + this.model.id + "/thumbs/" + row.value + '"/></a>';
 						
 						// fixed width on long entries
 						if ( row.value.length > 40 )
-							row.cellStyle="width:300px;height:70px;";
+							row.className="bigCell";
 							
 						// any stray links?
 						if ( row.value.substr(0, 4).toLowerCase() == "www." )

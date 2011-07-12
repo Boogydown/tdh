@@ -178,12 +178,10 @@ $(function(){
 
 		// If there's a change in our model, rerender it
 		initialize : function(){
-			this.el.click( function() {
-				location.href="#doc/"
+			this.el.onClick = "location.href='#doc/"
 				+ this.options.collName + "/" 
 				+ this.options.schemaName + "/" 
-				+ this.model.id;
-			});
+				+ this.model.id + "'";
 			_.bindAll(this, 'render', "editMe", "deleteMe");
 			this.model.bind('change', this.render);
 			this.registerTemplate( this.options.templateName );

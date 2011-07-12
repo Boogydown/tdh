@@ -193,39 +193,44 @@ $(function(){
             var rowData = [], 
 				fields = this.options.schema.properties, 
 				tmpLinkRef, key, vals;
-            for (key in fields)
-			{
-				if ( ! fields[key].hidden )
-				{
+            for (key in fields) {
+				if ( ! fields[key].hidden ) {
 					var row = {key:key, value:this.model.get(key)};
-					// array?
-					if ( row.value && _.isArray( row.value ) )
-						row.value = row.value[0].image;
-					if ( row.value && _.isString(row.value) ) {					
-						// any stray links?
-						if ( row.value.substr(0, 4).toLowerCase() == "www." )
-							row.value = '<a href="http://' + row.value + '">' + row.value + '</a>';
-							
-						// doc link?
-						if ( fields[key].linkVal ){
-							tmpLinkRef = fields[key].linkVal.linkRef;
-							row.value = '<a href="#doc/' + fields[tmpLinkRef].linkRef + '/full/' + this.model.get(tmpLinkRef) + '">' + row.value + '</a>';
-						}
-						
-						// image?
-						try {
-							if ( row.value.substr(row.value.length - 3 ).toLowerCase() == "jpg")
-								row.value = '<img src="' + row.value + '"/>';
-						} catch (e) {}
-						
-						// fixed width on long entries
-						if ( row.value.length > 40 )
-							this.model.set( {cellWidth: "300px"}, {silent:true} );
-					}			
-					rowData.push( row );
+					this.processRowData(row, rowData);
 				}
 			}
 			return {fields:rowData};
+		},		
+					
+					
+		processRowData( row, rowData ) {
+			// array?
+			if ( row.value && row.value.length )
+				row.value = row.value[0];
+			row.value = row.value.image || row.value.attachedReferenceDocument || row.value;
+
+			if ( row.value && _.isString(row.value) ) {					
+				// any stray links?
+				if ( row.value.substr(0, 4).toLowerCase() == "www." )
+					row.value = '<a href="http://' + row.value + '">' + row.value + '</a>';
+					
+				// doc link?
+				if ( fields[key].linkVal ){
+					tmpLinkRef = fields[key].linkVal.linkRef;
+					row.value = '<a href="#doc/' + fields[tmpLinkRef].linkRef + '/full/' + this.model.get(tmpLinkRef) + '">' + row.value + '</a>';
+				}
+				
+				// image?
+				try {
+					if ( row.value.substr(row.value.length - 3 ).toLowerCase() == "jpg")
+						row.value = '<img src="' + row.value + '"/>';
+				} catch (e) {}
+				
+				// fixed width on long entries
+				if ( row.value.length > 40 )
+					this.model.set( {cellWidth: "300px"}, {silent:true} );
+			}			
+			rowData.push( row );
 		},
         
         // Fade out the element and destroy the model

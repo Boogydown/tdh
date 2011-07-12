@@ -316,15 +316,20 @@ $(function(){
 			if ( showType && showType == this.showType && collName == undefined ) showType = "none";
 
 			// normalize the route based on any persistant values
-			var collName = collName || this.collName,
-				schemaName = schemaName || this.schemaName,
-				showType = showType || this.showType,
-				docID = docID || "", /* not saved */
-				curPage = curPage || this.curPage,
-				numPerPage = numPerPage || this.numPerPage,
+			var collName 	= collName 	|| this.collName,
+				schemaName 	= schemaName|| this.schemaName,
+				showType 	= showType 	|| this.showType,
+				docID 		= docID 	|| "", 	/* not saved */
+				curPage 	= curPage 	|| this.curPage,
+				numPerPage 	= numPerPage|| this.numPerPage,
 				curType, att, curView;
 			if ( showType == "doc" && !docID ) showType = "list";
-			this.saveLocation( showType + "/" + collName + "/" + schemaName + "/" + docID + "/" curPage + "/" + numPerPage );
+			this.saveLocation( showType + 
+							   "/" + collName + 
+							   "/" + schemaName + 
+							   "/" + docID + 
+							   "/" + curPage + 
+							   "/" + numPerPage );
 
 			var coll = this.colls[ collName ];
 			var schema = VU.schemas[ collName ][ schemaName ];

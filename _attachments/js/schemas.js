@@ -311,6 +311,11 @@ VU.schemas = {
 				"date":{
 					"description": "Date of event",
 					"type":"string",
+					"required":true
+				},
+				"time":{
+					"description": "Time of event",
+					"type":"string",
 					"optional":true
 				},
 				"eventType":{

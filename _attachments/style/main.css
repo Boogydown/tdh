@@ -46,7 +46,7 @@ h1 {
 form {
   padding:4px;
   margin:6px;
-  background-color:#ddd;  
+  background-color:#eee;  
 }
 
 div.avatar {
@@ -95,13 +95,17 @@ td.edit {
 	opacity: .1;
 }
 
-td.edit :hover{
+td.edit:hover{
 	opacity: .9;
 	cursor: pointer;
 }
 
 td {
     border: 1px solid #AAAAAA;
+}
+
+.loadingBar {
+	background-color: #0000DD;
 }
 
 #model_table {

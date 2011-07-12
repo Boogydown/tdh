@@ -24,7 +24,7 @@ $(function(){
         },
         
         render : function(){
-			this.el.html("Loading...");
+			this.el.html("<div class='loadingBar'>Loading...</div>");
             this.form = this.builder.schemaToInputEx(this.options.schema);
             this.form.parentEl       = 'model_edit';
             this.form.enctype        = 'multipart/form-data';
@@ -34,7 +34,7 @@ $(function(){
 				if ( !colls.bands.fetched ) { colls.bands.bind( "refresh", this.fetched ); colls.bands.fetch({field:0}) }
 				else this.fetched( colls.bands, {field:0});
 				if ( !colls.halls.fetched ) { colls.halls.bind( "refresh", this.fetched ); colls.halls.fetch({field:4}) }
-				else this.fetched( colls.halls, {field:4});
+				else this.fetched( colls.halls, {field:5});
 			}
 			else 
 				this.attach();
@@ -108,7 +108,7 @@ $(function(){
 
     VU.SchemaTableView = VU.DustView.extend({
         initialize : function(){
-			this.el.html("Loading...");
+			this.el.html("<div class='loadingBar'>Loading...</div>");
 			this.registerTemplate('table-header');			
             _.bindAll(this, 'render', 'reRender', 'addRow');
             this.collection.bind("add", this.reRender);

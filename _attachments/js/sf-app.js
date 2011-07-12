@@ -178,10 +178,10 @@ $(function(){
 
 		// If there's a change in our model, rerender it
 		initialize : function(){
-			this.el.onClick = "location.href='#doc/"
+			this.el.setAttribute("onclick", "location.href='#doc/"
 				+ this.options.collName + "/" 
 				+ this.options.schemaName + "/" 
-				+ this.model.id + "'";
+				+ this.model.id + "'");
 			_.bindAll(this, 'render', "editMe", "deleteMe");
 			this.model.bind('change', this.render);
 			this.registerTemplate( this.options.templateName );
@@ -213,7 +213,7 @@ $(function(){
 						// image?
 						try {
 							if ( row.value.substr(row.value.length - 3 ).toLowerCase() == "jpg")
-								row.value = '<img src="' + row.value + '"/>';
+								row.value = '<img src="' + this.model.id + "/thumbs/" + row.value + '"/>';
 						} catch (e) {}
 						
 						// fixed width on long entries

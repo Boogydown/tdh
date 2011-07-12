@@ -110,8 +110,8 @@ $(function(){
         initialize : function(){
 			this.el.html("Loading...");
 			this.registerTemplate('table-header');			
-			this.options.curPage = Number(this.options.docID || 0);
-			this.options.numPerPage = Number( this.options.numPerPage || 20 );
+			//this.options.curPage = Number(this.options.docID || 0);
+			//this.options.numPerPage = Number( this.options.numPerPage || 20 );
             _.bindAll(this, 'render', 'reRender', 'addRow');
             this.collection.bind("add", this.reRender);
             this.collection.bind("remove", this.deleted);
@@ -270,12 +270,13 @@ $(function(){
 		showType : "list",
 		collName : "events",
 		schemaName : "full",
-		docID : 0,
+		curPage : 0,
 		numPerPage: 20,
 		firstPass : true,
 		
-		routes : { ":type/:coll/:schema/:docID" : "updateShow",
-				   ":type/:coll/:schema/:page/:numPer" : "updateShow",
+		routes : { ":type/:coll/:schema/:docID/:page/:numPer" : "updateShow",
+				   ":type/:coll/:schema/:docID/:page" : "updateShow",
+				   ":type/:coll/:schema/:docID" : "updateShow",
 				   ":type/:coll/:schema" : "updateShow",
 				   ":type/:coll" : "updateShow",
 				   ":type" : "updateShow"
@@ -309,7 +310,7 @@ $(function(){
 			this.colls.events = new VU.EventCollection( null, { colls:this.colls, schema:VU.schemas.events.listing });
         },
 
-		updateShow : function( showType, collName, schemaName, docID, numPerPage ) {
+		updateShow : function( showType, collName, schemaName, docID, curPage, numPerPage ) {
 			// can only show one panel at a time
 			// if our showType is already shown then 2nd click will hide it (i.e. "none")
 			if ( showType && showType == this.showType && collName == undefined ) showType = "none";
@@ -318,11 +319,12 @@ $(function(){
 			var collName = collName || this.collName,
 				schemaName = schemaName || this.schemaName,
 				showType = showType || this.showType,
-				docID = docID || this.docID,
+				docID = docID || "", /* not saved */
+				curPage = curPage || this.curPage,
 				numPerPage = numPerPage || this.numPerPage,
 				curType, att, curView;
-			if ( showType == "doc" && docID == 0 ) showType = "list";
-			this.saveLocation( showType + "/" + collName + "/" + schemaName + (docID || docID==0 ? "/" + docID : "" ) + (numPerPage ? "/" + numPerPage : "" ) );
+			if ( showType == "doc" && !docID ) showType = "list";
+			this.saveLocation( showType + "/" + collName + "/" + schemaName + "/" + docID + "/" curPage + "/" + numPerPage;
 
 			var coll = this.colls[ collName ];
 			var schema = VU.schemas[ collName ][ schemaName ];
@@ -335,14 +337,15 @@ $(function(){
 					if ( ! this[ curView ] 
 						 || this[ curView ].collection != coll 
 						 || this[ curView ].options.schema != schema
-						 || showType == "doc" /* doc showtypes get rerendered each time, regardless */
-						 || ( this[ curView ].options.curPage && this[ curView ].options.curPage != docID ) ) { /* docID could also include page number */
+						 || this[ curView ].options.curPage != curPage 
+						 || showType == "doc" ) ) {/* doc showtypes get rerendered each time, regardless */
 						att = this.elAttachments[curType];
 						att.collName = collName;
 						att.collection = coll;
 						att.schemaName = schemaName;
 						att.schema = schema;
 						att.docID = docID;
+						att.curPage = curPage;
 						att.numPerPage = numPerPage;
 						this[ curView ] = new VU[att.viewClass]( att );
 					}

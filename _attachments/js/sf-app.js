@@ -124,11 +124,20 @@ $(function(){
         },
 
 		getData : function () {
-            var rowData = [], fields = this.options.schema.properties;
+            var rowData = [], 
+				myData = {}, 
+				curPage = this.options.curPage || 0,
+				fields = this.options.schema.properties;
             for (key in fields)
 				if ( !fields[key].hidden )
 					rowData.push( fields[key].description );
-			return {fields:rowData};
+			
+			if ( curPage > 0 )
+				myData.prevPage = curPage - 1;
+			if ( (curPage + 1) * this.options.numPerPage < this.collection.length )
+				myData.newPage = curPage + 2;
+			myData.fields = rowData;
+			return myData;
 		},		
 
         render: function(){
@@ -140,8 +149,8 @@ $(function(){
 				var i, 
 					start = this.options.curPage * this.options.numPerPage, 
 					end = start + this.options.numPerPage; 
-				if ( end > this.collection.size ) 
-					end = this.collection.size;
+				if ( end > this.collection.length ) 
+					end = this.collection.length;
 				for ( var i = start; i <= end; i++ )
 					this.addRow( this.collection.models[i] );
 			}
@@ -364,6 +373,8 @@ $(function(){
 			this.collName = collName;
 			this.schemaName = schemaName;
 			this.docID = docID;			
+			this.curPage = curPage;
+			this.numPerPage = numPerPage;
 		},
 	});
 

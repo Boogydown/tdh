@@ -123,19 +123,39 @@ $(function(){
 
 		getData : function () {
             var rowData = [], 
-				myData = { maxPage : Math.ceil(this.collection.length / this.options.numPerPage) },
+				myData = { },
+				maxPage = Math.floor(this.collection.length / this.options.numPerPage),
 				curPage = this.options.curPage || 0,
-				fields = this.options.schema.properties;
+				fields = this.options.schema.properties,
+				pageString = "";
+				start, end, key;
             for (key in fields)
 				if ( !fields[key].hidden )
 					rowData.push( fields[key].description );
-			
+
+			// prev/next page
 			if ( curPage > 0 )
 				myData.prevPage = curPage - 1;
 			if ( curPage < myData.maxPage )
 				myData.nextPage = curPage + 1;
+			
+			// page# list
+			start = curPage - 3 < 0 ? 0 : curPage - 3;
+			end = curPage + 3 > maxPage ? maxPage : curPage + 3;
+			if ( start > 0 ) 
+				pageString += "<a href='#////0'>0</a> ";
+			for ( i = start; i < end; i++ )
+				if ( i == curPage )
+					pageString += " " + i + " ";
+				else
+					pageString += " <a href='#////" + i + "'>" + i + "</a> ";
+			if ( end  < maxPage ) 
+				pageString += "<a href='#////" + maxPage + "'>" + maxPage + "</a> ";
+			
 			myData.fields = rowData;
 			myData.curPage = curPage;
+			myData.maxPage = maxPage;
+			myData.pageList = pageString;
 			return myData;
 		},		
 

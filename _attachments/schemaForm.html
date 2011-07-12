@@ -15,11 +15,10 @@
 			background-color: #88FF88;
 		}	
 		#coll_table .selectableRow {
-			/*height:65px;	*/
+			font-size:15px;
 		}
 		.tableCell {
 			overflow: auto;
-			/*height: 65px;*/
 		}		
 		#coll_table .selectableRow:hover{
 			background-color: #FFFFBB;
@@ -37,17 +36,17 @@
     <a href="#list"><div class="label">Table:</div></a><br/>
     <table><tbody id="coll_table"></tbody></table>
 	
-	<a href="#doc"><div class="label">Doc Table:</div></a><br/>
+	<a href="#doc"><div class="label">Doc View:</div></a><br/>
 	<div id="model_table"></div>
   </body>
   
   <script type="application/dust-template" id="table-header">
     <tr>
-		<td>
-			{?prevPage}<a href="#////{prevPage}">&lt Prev</a>{:else}&lt Prev{/prevPage}&nbsp&nbsp
-			{?nextPage}<a href="#////{nextPage}">Next &gt</a>{:else}Next &gt{/nextPage}
-		</td>	
-		<td>Page {curPage} of {maxPage}</td>
+		<td><div style="width:300px">
+			{?prevPage}<a href="#////{prevPage}">&lt Prev</a>{:else}&lt Prev{/prevPage}&nbsp
+			{pageList}
+			&nbsp{?nextPage}<a href="#////{nextPage}">Next &gt</a>{:else}Next &gt{/nextPage}
+		</div></td>
 	</tr>
 	<tr>
         {#fields}<th>{.}</th>{/fields}

@@ -24,6 +24,31 @@ VU.schemas = {
 					"type":"string",
 					"required":true
 				},
+				"images":{
+					"description":"Images",
+					"type": "array",
+					"optional":true,
+					"items":{
+						"type":"object",
+						"properties":{
+							"image": {
+								"description":"Image file",
+								"type":"file",
+								"enctype":"multipart/form-data",
+								"required":true,
+								"buttons": {
+						"type": "submit", 
+						"value": "Upload"
+					} 
+							},
+							"credit": {
+								"description": "Image credit",
+								"type":"string",
+								"optional":true
+							}
+						}
+					}
+				},
 				"community":{
 					"description": "Community",
 					"type":"string",
@@ -123,31 +148,6 @@ VU.schemas = {
 					"description": "Your email",
 					"type":"string",
 					"optional":true
-				},
-				"images":{
-					"description":"Images",
-					"type": "array",
-					"optional":true,
-					"items":{
-						"type":"object",
-						"properties":{
-							"image": {
-								"description":"Image file",
-								"type":"file",
-								"enctype":"multipart/form-data",
-								"required":true,
-								"buttons": {
-						"type": "submit", 
-						"value": "Upload"
-					} 
-							},
-							"credit": {
-								"description": "Image credit",
-								"type":"string",
-								"optional":true
-							}
-						}
-					}
 				},
 				"gpsCoordinates":{
 					"description": "GPS Coordinates",
@@ -364,6 +364,7 @@ VU.schemas = {
 					"type":"string",
 					"format":"id",
 					"optional":true,
+					"hidden":true,
 					"_inputex": {
 						"_type": "hidden"
 					}

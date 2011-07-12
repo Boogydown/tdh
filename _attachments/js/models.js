@@ -209,6 +209,7 @@ VU.EventModel = VU.LinkingModel.extend({
 		hallPic: "images/genericHall.JPG",
 		bandPic: "images/genericSilhouette.jpg",
 		date: new Date().getTime(),
+		time: "8:00pm",
 	},
 	
 	initialize: function () {

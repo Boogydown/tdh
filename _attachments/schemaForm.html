@@ -4,28 +4,6 @@
     <title>VyncUp schema_form v0.0.3</title>
     <link rel="stylesheet" href="style/main.css" type="text/css">
     <link rel="stylesheet" type="text/css" href="js/lib/inputex/css/inputEx.css" />
-	<style>
-		div.label{
-			background-color: #DDDDDD;
-			width: 100%;
-			font-weight: 900;
-			padding: 4px;
-		}
-		div.label:hover {
-			background-color: #88FF88;
-		}	
-		#coll_table .selectableRow {
-			font-size:15px;
-		}
-		.bigCell {
-			overflow: auto;
-			width:300px;
-			height:80px;
-		}		
-		#coll_table .selectableRow:hover{
-			background-color: #FFFFBB;
-		}	
-	</style>
   </head>
   <body>
 	<h1>Texas Dance Hall Preservation Inc.</h1>
@@ -55,12 +33,13 @@
 	</tr>
 	<tr>
         {#fields}<th>{.}</th>{/fields}
+        <th>Edit</th>
         <th>Delete</th>
     </tr>
   </script>
   <script type="application/dust-template" id="table-row">
         {#fields}<td><div class="{className}">{value|s}</div></td>{/fields}
-        <!--<td class="edit">?</td>-->
+        <td class="edit">?</td>
         <td class="delete">X</td>
   </script>
   <script type="application/dust-template" id="doc-table">
@@ -70,7 +49,7 @@
 				<th>{key}</th><td>{value|s}</td>
 			</tr>
 			{/fields}
-			<tr><td class="edit">?</td></tr>
+			<tr><td class="edit">Edit</td></tr>
 			<tr><td class="delete">X</td></tr>
 		</tbody></table>
   </script>

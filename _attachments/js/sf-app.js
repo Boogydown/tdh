@@ -197,7 +197,7 @@ $(function(){
 				if ( ! fields[key].hidden ) {
 					var row = {key:key, value:this.model.get(key)};
 					// array?
-					if ( row.value && row.value.length )
+					if ( row.value && _.isArray(row.value) && row.value.length )
 						row.value = row.value[0];
 					row.value = (row.value && (row.value.image || row.value.attachedReferenceDocument || row.value ) ) || " ";
 

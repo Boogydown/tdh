@@ -43,8 +43,10 @@
   
   <script type="application/dust-template" id="table-header">
     <tr>
-		<td>{?prevPg}<a href="#////{prevPg}">&ltPrev</a>{:else}&ltPrev{/prevPg}</td>
-		<td>{?nextPg}<a href="#////{nextPg}">Next&gt</a>{:else}Next&gt{/nextPg}</td>	
+		<td>
+			{?prevPage}<a href="#////{prevPage}">&lt Prev</a>{:else}&lt Prev{/prevPage}&nbsp&nbsp
+			{?nextPage}<a href="#////{nextPage}">Next &gt</a>{:else}Next &gt{/nextPage}
+		</td>	
 	</tr>
 	<tr>
         {#fields}<th>{.}</th>{/fields}

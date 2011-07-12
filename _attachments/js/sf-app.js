@@ -135,7 +135,7 @@ $(function(){
 			if ( curPage > 0 )
 				myData.prevPage = curPage - 1;
 			if ( (curPage + 1) * this.options.numPerPage < this.collection.length )
-				myData.newPage = curPage + 2;
+				myData.nextPage = curPage + 1;
 			myData.fields = rowData;
 			return myData;
 		},		

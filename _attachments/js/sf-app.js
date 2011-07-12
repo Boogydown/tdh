@@ -198,11 +198,11 @@ $(function(){
 				if ( ! fields[key].hidden )
 				{
 					var row = {key:key, value:this.model.get(key)};
-					if ( row.value ) {
+					if ( row.value && row.value != undefined) {
 					
 						// array?
 						if ( _.isArray(row.value))
-							row.value = row.value[0];
+							row.value = row.value[0] || "";
 							
 						// any stray links?
 						if ( row.value.substr(0, 4).toLowerCase() == "www." )

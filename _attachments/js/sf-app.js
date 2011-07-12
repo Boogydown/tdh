@@ -324,7 +324,7 @@ $(function(){
 				numPerPage = numPerPage || this.numPerPage,
 				curType, att, curView;
 			if ( showType == "doc" && !docID ) showType = "list";
-			this.saveLocation( showType + "/" + collName + "/" + schemaName + "/" + docID + "/" curPage + "/" + numPerPage;
+			this.saveLocation( showType + "/" + collName + "/" + schemaName + "/" + docID + "/" curPage + "/" + numPerPage );
 
 			var coll = this.colls[ collName ];
 			var schema = VU.schemas[ collName ][ schemaName ];

@@ -127,7 +127,7 @@ $(function(){
 				maxPage = Math.floor(this.collection.length / this.options.numPerPage),
 				curPage = this.options.curPage || 0,
 				fields = this.options.schema.properties,
-				pageString = "";
+				pageString = "",
 				start, end, key;
             for (key in fields)
 				if ( !fields[key].hidden )
@@ -276,12 +276,25 @@ $(function(){
 	VU.SchemaDocSoloView = VU.SchemaDocView.extend({
 		initialize : function() {
 			this.el.html("");				
+			_.bindAll( this, "loadModel" );
 			if ( this.options.docID && this.options.docID != null && this.options.docID != "" )
 			{
 				this.model = this.options.collection.get( this.options.docID );
-				if ( this.model != null ){
-					VU.SchemaDocView.prototype.initialize.call(this);
+				if ( !this.model ){
+					this.model = new this.options.collection.model({id:docID});
+					this.options.collection.add( this.model );
+					this.model.bind("change", this.loadModel);
+					this.model.fetch();
 				}
+				else 
+					this.loadModel( this.model );
+			}
+		},
+		
+		loadModel : function( model ) {
+			if ( model != null ){
+				model.unbind( "change", this.loadModel );
+				VU.SchemaDocView.prototype.initialize.call(this);
 				this.render();
 			}
 			else

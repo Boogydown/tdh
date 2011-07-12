@@ -383,6 +383,7 @@ $(function(){
 						 || this[ curView ].collection != coll 
 						 || this[ curView ].options.schema != schema
 						 || this[ curView ].options.curPage != curPage 
+						 || this[ curView ].options.numPerPage != numPerPage
 						 || showType == "doc" ) {/* doc showtypes get rerendered each time, regardless */
 						att = this.elAttachments[curType];
 						att.collName = collName;

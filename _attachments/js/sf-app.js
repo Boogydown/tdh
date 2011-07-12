@@ -110,8 +110,6 @@ $(function(){
         initialize : function(){
 			this.el.html("Loading...");
 			this.registerTemplate('table-header');			
-			//this.options.curPage = Number(this.options.docID || 0);
-			//this.options.numPerPage = Number( this.options.numPerPage || 20 );
             _.bindAll(this, 'render', 'reRender', 'addRow');
             this.collection.bind("add", this.reRender);
             this.collection.bind("remove", this.deleted);
@@ -125,7 +123,7 @@ $(function(){
 
 		getData : function () {
             var rowData = [], 
-				myData = { maxPage = Math.ceil(this.collection.length / this.options.numPerPage) },
+				myData = { maxPage : Math.ceil(this.collection.length / this.options.numPerPage) },
 				curPage = this.options.curPage || 0,
 				fields = this.options.schema.properties;
             for (key in fields)
@@ -134,7 +132,7 @@ $(function(){
 			
 			if ( curPage > 0 )
 				myData.prevPage = curPage - 1;
-			if ( (curPage + 1) * this.options.numPerPage < this.collection.length )
+			if ( curPage < myData.maxPage )
 				myData.nextPage = curPage + 1;
 			myData.fields = rowData;
 			myDaya.curPage = curPage;

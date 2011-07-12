@@ -198,13 +198,10 @@ $(function(){
 				if ( ! fields[key].hidden )
 				{
 					var row = {key:key, value:this.model.get(key)};
-					if ( row.value && row.value != undefined) {
-					
-						// array?
-						if ( _.isArray(row.value))
-							row.value = row.value[0];
-						if ( row.value == undefined ) row.value = "";
-							
+					// array?
+					if ( row.value && _.isArray( row.value ) )
+						row.value = row.value[0];
+					if ( row.value ) {					
 						// any stray links?
 						if ( row.value.substr(0, 4).toLowerCase() == "www." )
 							row.value = '<a href="http://' + row.value + '">' + row.value + '</a>';

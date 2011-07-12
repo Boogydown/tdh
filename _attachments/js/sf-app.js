@@ -343,7 +343,7 @@ $(function(){
 						 || this[ curView ].collection != coll 
 						 || this[ curView ].options.schema != schema
 						 || this[ curView ].options.curPage != curPage 
-						 || showType == "doc" ) ) {/* doc showtypes get rerendered each time, regardless */
+						 || showType == "doc" ) {/* doc showtypes get rerendered each time, regardless */
 						att = this.elAttachments[curType];
 						att.collName = collName;
 						att.collection = coll;

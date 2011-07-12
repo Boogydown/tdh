@@ -135,7 +135,7 @@ $(function(){
 			if ( curPage < myData.maxPage )
 				myData.nextPage = curPage + 1;
 			myData.fields = rowData;
-			myDaya.curPage = curPage;
+			myData.curPage = curPage;
 			return myData;
 		},		
 

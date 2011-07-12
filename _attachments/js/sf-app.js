@@ -350,8 +350,8 @@ $(function(){
 						att.schemaName = schemaName;
 						att.schema = schema;
 						att.docID = docID;
-						att.curPage = curPage;
-						att.numPerPage = numPerPage;
+						att.curPage = Number(curPage);
+						att.numPerPage = Number(numPerPage);
 						this[ curView ] = new VU[att.viewClass]( att );
 					}
 				}

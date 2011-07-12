@@ -203,7 +203,7 @@ $(function(){
 		},		
 					
 					
-		processRowData( row, rowData ) {
+		processRowData : function ( row, rowData ) {
 			// array?
 			if ( row.value && row.value.length )
 				row.value = row.value[0];
@@ -228,7 +228,7 @@ $(function(){
 				
 				// fixed width on long entries
 				if ( row.value.length > 40 )
-					this.model.set( {cellWidth: "300px"}, {silent:true} );
+					this.model.set( {cellStyle: "width:300px;height:65px;"}, {silent:true} );
 			}			
 			rowData.push( row );
 		},

@@ -140,6 +140,8 @@ $(function(){
 				var i, 
 					start = this.options.curPage * this.options.numPerPage, 
 					end = start + this.options.numPerPage; 
+				if ( end > this.collection.size ) 
+					end = this.collection.size;
 				for ( var i = start; i <= end; i++ )
 					this.addRow( this.collection.models[i] );
 			}
@@ -275,7 +277,7 @@ $(function(){
 		firstPass : true,
 		
 		routes : { ":type/:coll/:schema/:docID" : "updateShow",
-				   ":type/:coll/:schema/page/numPer" : "updateShow",
+				   ":type/:coll/:schema/:page/:numPer" : "updateShow",
 				   ":type/:coll/:schema" : "updateShow",
 				   ":type/:coll" : "updateShow",
 				   ":type" : "updateShow"

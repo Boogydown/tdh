@@ -125,7 +125,7 @@ $(function(){
 
 		getData : function () {
             var rowData = [], 
-				myData = {}, 
+				myData = { maxPage = Math.ceil(this.collection.length / this.options.numPerPage) },
 				curPage = this.options.curPage || 0,
 				fields = this.options.schema.properties;
             for (key in fields)
@@ -137,6 +137,7 @@ $(function(){
 			if ( (curPage + 1) * this.options.numPerPage < this.collection.length )
 				myData.nextPage = curPage + 1;
 			myData.fields = rowData;
+			myDaya.curPage = curPage;
 			return myData;
 		},		
 

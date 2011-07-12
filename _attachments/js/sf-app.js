@@ -143,14 +143,14 @@ $(function(){
 			start = curPage - 3 < 0 ? 0 : curPage - 3;
 			end = curPage + 3 > maxPage ? maxPage : curPage + 3;
 			if ( start > 0 ) 
-				pageString += "<a href='#////0'>0</a> ";
-			for ( i = start; i < end; i++ )
+				pageString += "<a href='#////0'>0</a> ...";
+			for ( i = start; i <= end; i++ )
 				if ( i == curPage )
 					pageString += " " + i + " ";
 				else
 					pageString += " <a href='#////" + i + "'>" + i + "</a> ";
 			if ( end  < maxPage ) 
-				pageString += "<a href='#////" + maxPage + "'>" + maxPage + "</a> ";
+				pageString += "... <a href='#////" + maxPage + "'>" + maxPage + "</a>";
 			
 			myData.fields = rowData;
 			myData.curPage = curPage;
@@ -281,7 +281,7 @@ $(function(){
 			{
 				this.model = this.options.collection.get( this.options.docID );
 				if ( !this.model ){
-					this.model = new this.options.collection.model({id:docID});
+					this.model = new this.options.collection.model({id:this.options.docID});
 					this.options.collection.add( this.model );
 					this.model.bind("change", this.loadModel);
 					this.model.fetch();

@@ -200,8 +200,8 @@ $(function(){
 					var row = {key:key, value:this.model.get(key)};
 					// array?
 					if ( row.value && _.isArray( row.value ) )
-						row.value = row.value[0];
-					if ( row.value ) {					
+						row.value = row.value[0].image;
+					if ( row.value && _.isString(row.value) ) {					
 						// any stray links?
 						if ( row.value.substr(0, 4).toLowerCase() == "www." )
 							row.value = '<a href="http://' + row.value + '">' + row.value + '</a>';

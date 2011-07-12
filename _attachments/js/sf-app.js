@@ -136,7 +136,7 @@ $(function(){
 			// prev/next page
 			if ( curPage > 0 )
 				myData.prevPage = curPage - 1;
-			if ( curPage < myData.maxPage )
+			if ( curPage < maxPage )
 				myData.nextPage = curPage + 1;
 			
 			// page# list
@@ -230,6 +230,14 @@ $(function(){
 					row.value = (row.value && (row.value.image || row.value.attachedReferenceDocument || row.value ) ) || " ";
 
 					if ( row.value && _.isString(row.value) ) {					
+						// image?
+						if ( row.value.substr(row.value.length - 3 ).toLowerCase() == "jpg")
+							row.value = '<img src="../../' + this.model.id + "/thumbs/" + row.value + '"/>';
+						
+						// fixed width on long entries
+						if ( row.value.length > 40 )
+							row.cellStyle="width:300px;height:70px;";
+							
 						// any stray links?
 						if ( row.value.substr(0, 4).toLowerCase() == "www." )
 							row.value = '<a href="http://' + row.value + '">' + row.value + '</a>';
@@ -240,15 +248,6 @@ $(function(){
 							row.value = '<a href="#doc/' + fields[tmpLinkRef].linkRef + '/full/' + this.model.get(tmpLinkRef) + '">' + row.value + '</a>';
 						}
 						
-						// image?
-						try {
-							if ( row.value.substr(row.value.length - 3 ).toLowerCase() == "jpg")
-								row.value = '<img src="../../' + this.model.id + "/thumbs/" + row.value + '"/>';
-						} catch (e) {}
-						
-						// fixed width on long entries
-						if ( row.value.length > 40 )
-							row.cellStyle="width:300px;height:65px;";
 					}			
 					rowData.push( row );
 				}

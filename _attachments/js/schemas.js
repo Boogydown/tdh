@@ -14,6 +14,7 @@ VU.schemas = {
 					"type":"string",
 					"format":"id",
 					"optional":true,
+					"hidden":true,
 					"_inputex": {
 						"_type": "hidden"
 					}

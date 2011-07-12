@@ -202,7 +202,8 @@ $(function(){
 					
 						// array?
 						if ( _.isArray(row.value))
-							row.value = row.value[0] || "";
+							row.value = row.value[0];
+						if ( row.value == undefined ) row.value = "";
 							
 						// any stray links?
 						if ( row.value.substr(0, 4).toLowerCase() == "www." )

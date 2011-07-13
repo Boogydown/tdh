@@ -430,6 +430,7 @@ $(function(){
 			this.docID = docID;			
 			this.curPage = curPage;
 			this.numPerPage = numPerPage;
+			this.hidden = hidden;
 		},
 	});
 

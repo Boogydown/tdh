@@ -228,15 +228,23 @@ $(function(){
             for (key in fields) {
 				if ( ! fields[key].hidden ) {
 					var row = {key:key, value:this.model.get(key)};
+					var tmp = "";
 					// array?
 					if ( row.value && _.isArray(row.value) && row.value.length )
 						row.value = row.value[0];
-					row.value = (row.value && (row.value.image || row.value.attachedReferenceDocument || row.value ) ) || " ";
+					if ( row.value.image ) {
+						tmp = row.value.credit;
+						row.value = row.value.image;
+					} 
+					else if ( row.value.attachedReferenceDocument ) {
+						tmp = row.value.documentName;
+						row.value = row.value.attachedReferenceDocument;
+					}
 
 					if ( row.value && _.isString(row.value) ) {					
 						// image?
 						if ( row.value.substr(row.value.length - 3 ).toLowerCase() == "jpg")
-							row.value = '<a href="../../' + this.model.id + "/files/" + row.value + '"><img src="../../' + this.model.id + "/thumbs/" + row.value + '"/></a>';
+							row.value = '<a href="../../' + this.model.id + "/files/" + row.value + '"><img src="../../' + this.model.id + "/thumbs/" + row.value + '"/> ' + tmp + '</a>';
 						
 						// fixed width on long entries
 						if ( row.value.length > 40 )

@@ -214,8 +214,7 @@ div#calendar {
 }
 
 div#main-map {
-    background: url("../images/googlemap.png") repeat scroll 0 0 transparent;
-    right: 15px;
+    right: 14px;
 	top: 206px;
 }
 
@@ -338,7 +337,9 @@ h2 {
 
 .atvenue {
     color: #CCCCCC;
-    font-size: 18px;
+    font-size: 20px;
+	font-weight: bold;
+	font-family: Georgia;
     left: 100px;
     position: absolute;
     text-align: center;

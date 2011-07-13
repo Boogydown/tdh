@@ -280,6 +280,7 @@ $(function(){
 					$(this).remove();
 				});
 			}
+			location.href="#list";
         },
 		
 		editMe : function() {
@@ -329,7 +330,8 @@ $(function(){
 		numPerPage: 20,
 		firstPass : true,
 		
-		routes : { ":type/:coll/:schema/:docID/:page/:numPer" : "updateShow",
+		routes : { ":type/:coll/:schema/:docID/:page/:numPer/:hidden" : "updateShow",
+				   ":type/:coll/:schema/:docID/:page/:numPer" : "updateShow",
 				   ":type/:coll/:schema/:docID/:page" : "updateShow",
 				   ":type/:coll/:schema/:docID" : "updateShow",
 				   ":type/:coll/:schema" : "updateShow",
@@ -365,7 +367,7 @@ $(function(){
 			this.colls.events = new VU.EventCollection( null, { colls:this.colls, schema:VU.schemas.events.listing });
         },
 
-		updateShow : function( showType, collName, schemaName, docID, curPage, numPerPage ) {
+		updateShow : function( showType, collName, schemaName, docID, curPage, numPerPage, hidden ) {
 			// can only show one panel at a time
 			// if our showType is already shown then 2nd click will hide it (i.e. "none")
 			if ( showType && showType == this.showType && collName == undefined ) showType = "none";
@@ -377,7 +379,9 @@ $(function(){
 				docID 		= docID 	|| "", 	/* not saved */
 				curPage 	= curPage 	|| this.curPage,
 				numPerPage 	= numPerPage|| this.numPerPage,
+				hidden		= hidden 	|| false,
 				curType, att, curView;
+			if ( hidden ) $(".hideable").hide(fast);
 			if ( showType == "doc" && !docID ) showType = "list";
 			this.saveLocation( showType + 
 							   "/" + collName + 
@@ -390,6 +394,7 @@ $(function(){
 			var schema = VU.schemas[ collName ][ schemaName ];
 
 			// show & create or hide according to showType
+			//TODO: have the View be responsible for determining if it should be redrawn or not
 			for ( curType in this.elAttachments ) {
 				if ( showType == curType ) {
 					this.elAttachments[ curType ].el.slideDown();

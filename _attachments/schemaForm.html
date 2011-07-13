@@ -6,19 +6,25 @@
     <link rel="stylesheet" type="text/css" href="js/lib/inputex/css/inputEx.css" />
   </head>
   <body>
-	<h1>Texas Dance Hall Preservation Inc.</h1>
-	<h4>Schema Form</h4>
-	<a href="#list/events">Events</a>&nbsp&nbsp&nbsp<a href="#list/halls">Dancehalls</a>&nbsp&nbsp&nbsp<a href="#list/bands">Bands</a><br/>
-	<hr/><br/>
-    <a href="#form"><div class="label">Add/Edit:</div></a><br/>
+	<div class="hideable">
+		<h1>Texas Dance Hall Preservation Inc.</h1>
+		<h4>Schema Form</h4>
+		<a href="#list/events">Events</a>&nbsp&nbsp&nbsp<a href="#list/halls">Dancehalls</a>&nbsp&nbsp&nbsp<a href="#list/bands">Bands</a><br/>
+		<hr/><br/>
+		<a href="#form"><div class="label">Add/Edit:</div></a><br/>
+	</div>
     <form id="model_edit"></form>
-	<br/>
 	
-    <a href="#list"><div class="label">Table:</div></a><br/>
+	<div class="hideable">
+		<br/>
+		<a href="#list"><div class="label">Table:</div></a><br/>
+	</div>
     <table><tbody id="coll_table"></tbody></table>
-	<br/>
 	
-	<a href="#doc"><div class="label">Doc View:</div></a><br/>
+	<div class="hideable">
+		<br/>
+		<a href="#doc"><div class="label">Doc View:</div></a><br/>
+	</div>
 	<div id="model_table"></div>
   </body>
   

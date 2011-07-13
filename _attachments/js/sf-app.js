@@ -399,7 +399,8 @@ $(function(){
 						break;
 					}
 			}
-			this.hideStyle.setProperty( "display", hidden == 1 ? "none" : "block", null );
+			this.hideStyle.display = (hidden == 1 ? "none" : null);
+			//this.hideStyle.setProperty( "display", hidden == 1 ? "none" : "block", null );
 			//$(".hideable").hide("fast"); else $(".hideable").show("fast");
 			if ( showType == "doc" && !docID ) showType = "list";
 			this.saveLocation( showType + 

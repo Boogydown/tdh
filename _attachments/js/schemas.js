@@ -232,7 +232,7 @@ VU.schemas = {
 					"required":true
 				},
 				"time":{
-					"description": "Time of event",
+					"description": "Starts at",
 					"type":"string",
 					"optional":true
 				},
@@ -314,7 +314,7 @@ VU.schemas = {
 					"required":true
 				},
 				"time":{
-					"description": "Time of event",
+					"description": "Starts at",
 					"type":"string",
 					"optional":true
 				},

@@ -105,7 +105,8 @@ td {
 }
 
 .loadingBar {
-	background-color: #8888FF;
+	background-color: #bbf;
+	font-weight: bold;
 }
 
 #model_table {

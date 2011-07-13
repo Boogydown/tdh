@@ -55,6 +55,7 @@ $(function(){
 		},
 		
 		attach : function () {
+			this.el.html("");
             this.inputex = inputEx(this.form);
 
             // YUI onClick used instead of Backbone delegateEvents, because it worked first
@@ -129,15 +130,13 @@ $(function(){
 				fields = this.options.schema.properties,
 				pageString = "",
 				start, end, key;
-            for (key in fields)
-				if ( !fields[key].hidden )
-					rowData.push( fields[key].description );
+				
+			// grab all unhidden fields
+            for (key in fields) if ( !fields[key].hidden ) rowData.push( fields[key].description );
 
 			// prev/next page
-			if ( curPage > 0 )
-				myData.prevPage = curPage - 1;
-			if ( curPage < maxPage )
-				myData.nextPage = curPage + 1;
+			if ( curPage > 0 ) myData.prevPage = curPage - 1;
+			if ( curPage < maxPage ) myData.nextPage = curPage + 1;
 			
 			// page# list
 			start = curPage - 3 < 0 ? 0 : curPage - 3;
@@ -152,6 +151,7 @@ $(function(){
 			if ( end  < maxPage ) 
 				pageString += "... <a href='#////" + maxPage + "'>" + maxPage + "</a>";
 			
+			// bundle up and deliver
 			myData.fields = rowData;
 			myData.curPage = curPage;
 			myData.maxPage = maxPage;
@@ -196,6 +196,9 @@ $(function(){
         }
     });
     
+	/**
+	 * Doc View, attached to one model
+	 */
     VU.SchemaDocView = VU.DustView.extend({
 		el: "<tr class='selectableRow'/>",
         events : {
@@ -256,7 +259,11 @@ $(function(){
 		},		
 					
         // Fade out the element and destroy the model
-        deleteMe : function(){
+        deleteMe : function(e){
+			if (e)
+				e.stopPropagation();
+			else /*IE*/
+				window.event.cancelBubble = true;
 			if ( confirm( "This will permanently delete this entry!\n" + 
 						  "Are you SURE you want to do this?" ) ) {
 				if(this.model)
@@ -268,6 +275,10 @@ $(function(){
         },
 		
 		editMe : function() {
+			if (e)
+				e.stopPropagation();
+			else /*IE*/
+				window.event.cancelBubble = true;
 			alert("Edit not yet supported!");
 		}
     });

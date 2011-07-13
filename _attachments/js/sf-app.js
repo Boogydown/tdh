@@ -329,7 +329,7 @@ $(function(){
 		curPage : 0,
 		numPerPage: 20,
 		firstPass : true,
-		hidden : 0,
+		hidden : 1,
 		
 		routes : { ":type/:coll/:schema/:docID/:page/:numPer/:hidden" : "updateShow",
 				   ":type/:coll/:schema/:docID/:page/:numPer" : "updateShow",
@@ -383,7 +383,7 @@ $(function(){
 				hidden		= hidden 	|| this.hidden,
 				curType, att, curView;
 				
-			if ( hidden ) $(".hideable").hide("fast"); else $(".hideable").show("fast");
+			if ( hidden == 1 ) $(".hideable").hide("fast"); else $(".hideable").show("fast");
 			if ( showType == "doc" && !docID ) showType = "list";
 			this.saveLocation( showType + 
 							   "/" + collName + 

@@ -273,7 +273,7 @@ $(function(){
 					rowData.push( row );
 				}
 			}
-			return {fields:rowData};
+			return {fields:rowData, disp: this.options.hidden ? none : block};
 		},		
 					
         // Fade out the element and destroy the model

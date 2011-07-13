@@ -259,11 +259,7 @@ $(function(){
 		},		
 					
         // Fade out the element and destroy the model
-        deleteMe : function(e){
-			if (e)
-				e.stopPropagation();
-			else /*IE*/
-				window.event.cancelBubble = true;
+        deleteMe : function(){
 			if ( confirm( "This will permanently delete this entry!\n" + 
 						  "Are you SURE you want to do this?" ) ) {
 				if(this.model)
@@ -275,10 +271,6 @@ $(function(){
         },
 		
 		editMe : function() {
-			if (e)
-				e.stopPropagation();
-			else /*IE*/
-				window.event.cancelBubble = true;
 			alert("Edit not yet supported!");
 		}
     });

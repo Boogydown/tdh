@@ -247,7 +247,6 @@ $(function(){
 							// attachment?
 							if ( row.value[row.value.length - 4] == "." )
 								row.value = '<a href="../../' + this.model.id + "/files/" + row.value + '"><img src="../../' + this.model.id + "/thumbs/" + row.value + '"/> ' + tmp + '</a>';
-							}
 							
 							// fixed width on long entries
 							if ( row.value.length > 40 )

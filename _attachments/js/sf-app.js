@@ -381,7 +381,8 @@ $(function(){
 				numPerPage 	= numPerPage|| this.numPerPage,
 				hidden		= hidden 	|| false,
 				curType, att, curView;
-			if ( hidden ) $(".hideable").hide(fast);
+				
+			if ( hidden ) $(".hideable").hide("fast");
 			if ( showType == "doc" && !docID ) showType = "list";
 			this.saveLocation( showType + 
 							   "/" + collName + 

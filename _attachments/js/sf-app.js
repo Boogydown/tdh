@@ -99,7 +99,7 @@ $(function(){
 				for ( var i = 0; i < len; i++ ) {
 					ifn = filelist[i].files[0].name;
 					values[property][i][fileKey] = ifn;
-					values._attachments[ifn] = {
+					values._attachments["files/" + ifn] = {
 						"content_type": "image/jpeg", 
 						"data": filelist[i].files[0].getAsDataURL().slice(23)
 					};

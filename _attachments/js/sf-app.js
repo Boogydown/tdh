@@ -245,8 +245,7 @@ $(function(){
 
 						if ( _.isString(row.value) ) {					
 							// attachment?
-							if ( fields[key].type == "file" ) {
-								//if ( row.value.substr(row.value.length - 3 ).toLowerCase() == "jpg")
+							if ( row.value[row.value.length - 4] == "." )
 								row.value = '<a href="../../' + this.model.id + "/files/" + row.value + '"><img src="../../' + this.model.id + "/thumbs/" + row.value + '"/> ' + tmp + '</a>';
 							}
 							

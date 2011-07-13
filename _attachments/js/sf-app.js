@@ -329,6 +329,7 @@ $(function(){
 		curPage : 0,
 		numPerPage: 20,
 		firstPass : true,
+		hidden : 0,
 		
 		routes : { ":type/:coll/:schema/:docID/:page/:numPer/:hidden" : "updateShow",
 				   ":type/:coll/:schema/:docID/:page/:numPer" : "updateShow",
@@ -379,17 +380,18 @@ $(function(){
 				docID 		= docID 	|| "", 	/* not saved */
 				curPage 	= curPage 	|| this.curPage,
 				numPerPage 	= numPerPage|| this.numPerPage,
-				hidden		= hidden 	|| false,
+				hidden		= hidden 	|| this.hidden,
 				curType, att, curView;
 				
-			if ( hidden ) $(".hideable").hide("fast");
+			if ( hidden ) $(".hideable").hide("fast"); else $(".hideable").show("fast");
 			if ( showType == "doc" && !docID ) showType = "list";
 			this.saveLocation( showType + 
 							   "/" + collName + 
 							   "/" + schemaName + 
 							   "/" + docID + 
 							   "/" + curPage + 
-							   "/" + numPerPage );
+							   "/" + numPerPage +
+							   "/" + hidden );
 
 			var coll = this.colls[ collName ];
 			var schema = VU.schemas[ collName ][ schemaName ];

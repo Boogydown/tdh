@@ -273,7 +273,7 @@ $(function(){
 					rowData.push( row );
 				}
 			}
-			return {fields:rowData, disp: this.options.hidden ? "none" : "block"};
+			return {fields:rowData};
 		},		
 					
         // Fade out the element and destroy the model
@@ -389,7 +389,18 @@ $(function(){
 				hidden		= hidden 	|| this.hidden,
 				curType, att, curView;
 				
-			if ( hidden == 1 ) $(".hideable").hide("fast"); else $(".hideable").show("fast");
+			//if ( hidden == 1 ) $(".hideable").hide("fast"); else $(".hideable").show("fast");
+			if ( ! this.hideStyle ) {
+				var cssRules = document.styleSheets.item("main.css").cssRules;
+				for ( var i in cssRules )
+					if ( cssRules[i].selectorText == ".hideable" )
+					{
+						this.hideStyle = cssRules[i];
+						break;
+					}
+			}
+			hideStyle.setProperty( "display", hidden == 1 ? "none" : "block", null );
+			//$(".hideable").hide("fast"); else $(".hideable").show("fast");
 			if ( showType == "doc" && !docID ) showType = "list";
 			this.saveLocation( showType + 
 							   "/" + collName + 

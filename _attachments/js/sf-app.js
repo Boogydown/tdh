@@ -291,7 +291,7 @@ $(function(){
 			{
 				this.model = this.options.collection.get( this.options.docID );
 				if ( !this.model ){
-					this.model = new this.options.collection.model({id:this.options.docID});
+					this.model = new this.options.collection.model({id:this.options.docID, collection:this.options.collection});
 					this.options.collection.add( this.model );
 					this.model.bind("change", this.loadModel);
 					this.model.fetch();

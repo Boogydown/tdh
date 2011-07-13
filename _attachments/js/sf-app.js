@@ -91,7 +91,7 @@ $(function(){
 			if ( filelist.length == undefined ) filelist = [ filelist ];
 			var len = filelist.length;
 			if ( len ) {
-				value._attachments = {};
+				values._attachments = {};
 				var ifn = "";
 				//var accept = {"image/jpeg": 23, "image/png": 22}
 

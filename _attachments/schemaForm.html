@@ -41,14 +41,14 @@
 	</tr>
 	<tr>
         {#fields}<th>{.}</th>{/fields}
-        <th>Edit</th>
-        <th>Delete</th>
+        <th class="hideable">Edit</th>
+        <th class="hideable">Delete</th>
     </tr>
   </script>
   <script type="application/dust-template" id="table-row">
         {#fields}<td><div class="{className}">{value|s}</div></td>{/fields}
-        <td class="edit">?</td>
-        <td class="delete">X</td>
+        <td class="hideable"><div class="edit">?</div></td>
+        <td class="hideable"><div class="delete">X</div></td>
   </script>
   <script type="application/dust-template" id="doc-table">
 		<table><tbody>
@@ -57,8 +57,8 @@
 				<th>{key}</th><td>{value|s}</td>
 			</tr>
 			{/fields}
-			<tr><td class="edit">Edit</td></tr>
-			<tr><td class="delete">Delete</td></tr>
+			<tr class="hideable"><td class="edit">Edit</td></tr>
+			<tr class="hideable"><td class="delete">Delete</td></tr>
 		</tbody></table>
   </script>
   <script type="text/javascript" src="vendor/couchapp/sf-loader.js"></script>

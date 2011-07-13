@@ -75,7 +75,7 @@ div.avatar img {
   list-style: none;
 }
 
-td.delete {
+delete {
 	border:2px solid #000;
 	padding: .25em;
 	background-color: #ff0000;
@@ -83,19 +83,19 @@ td.delete {
 	opacity: .1;
 }
 
-td.delete:hover{
+delete:hover{
 	opacity: .9;
 	cursor: pointer;
 }
 
-td.edit {
+edit {
 	border:2px solid #000;
 	padding: .25em;
 	background-color: #ffbb00;
 	opacity: .1;
 }
 
-td.edit:hover{
+edit:hover{
 	opacity: .9;
 	cursor: pointer;
 }

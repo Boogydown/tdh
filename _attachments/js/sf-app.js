@@ -257,7 +257,7 @@ $(function(){
 								row.value = '<a href="http://' + row.value + '">' + row.value + '</a>';
 								
 							// doc link?
-							if ( fields[key].linkVal ){
+							if ( fields[key].linkVal && !this.options.hidden ){
 								tmpLinkRef = fields[key].linkVal.linkRef;
 								row.value = '<a href="#doc/' + fields[tmpLinkRef].linkRef + '/full/' + this.model.get(tmpLinkRef) + '">' + row.value + '</a>';
 							}
@@ -329,7 +329,7 @@ $(function(){
 		curPage : 0,
 		numPerPage: 20,
 		firstPass : true,
-		hidden : 1,
+		hidden : 2, /* 1 = hidden, 2 = not hidden */
 		
 		routes : { ":type/:coll/:schema/:docID/:page/:numPer/:hidden" : "updateShow",
 				   ":type/:coll/:schema/:docID/:page/:numPer" : "updateShow",
@@ -416,6 +416,7 @@ $(function(){
 						att.docID = docID;
 						att.curPage = Number(curPage);
 						att.numPerPage = Number(numPerPage);
+						att.hidden = hidden == 1;
 						this[ curView ] = new VU[att.viewClass]( att );
 					}
 				}

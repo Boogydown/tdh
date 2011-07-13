@@ -186,13 +186,16 @@ $(function(){
 			// triggers an event to load its linkRefs; triggers a band or hall to normalize
 			// WARN: if this is truly async, then the data may not change in time for the render, and the "change" event
 			//		 bound in SchemaDocView isn't set yet
+			if ( ! model ) return;
 			model.trigger("change", model);
+			// TODO: can't we just pass "options" down??
             var view = new VU.SchemaDocView({ 
 				model: model, 
 				schema: this.options.schema, 
 				templateName: this.options.templateName,
 				schemaName: this.options.schemaName,
-				collName: this.options.collName });
+				collName: this.options.collName,
+				hidden: this.options.hidden });
             this.el.append(view.render().el);
         }
     });

@@ -244,9 +244,11 @@ $(function(){
 						row.value = row.value || " ";
 
 						if ( _.isString(row.value) ) {					
-							// image?
-							if ( row.value.substr(row.value.length - 3 ).toLowerCase() == "jpg")
+							// attachment?
+							if ( fields[key].type == "file" ) {
+								//if ( row.value.substr(row.value.length - 3 ).toLowerCase() == "jpg")
 								row.value = '<a href="../../' + this.model.id + "/files/" + row.value + '"><img src="../../' + this.model.id + "/thumbs/" + row.value + '"/> ' + tmp + '</a>';
+							}
 							
 							// fixed width on long entries
 							if ( row.value.length > 40 )

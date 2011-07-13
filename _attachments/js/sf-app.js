@@ -395,7 +395,7 @@ $(function(){
 				for ( var i in cssRules )
 					if ( cssRules[i].selectorText == ".hideable" )
 					{
-						this.hideStyle = cssRules[i];
+						this.hideStyle = cssRules[i].style;
 						break;
 					}
 			}

@@ -230,37 +230,40 @@ $(function(){
 					var row = {key:key, value:this.model.get(key)};
 					var tmp = "";
 					// array?
-					if ( row.value && _.isArray(row.value) && row.value.length )
-						row.value = row.value[0];
-					if ( row.value.image ) {
-						tmp = row.value.credit;
-						row.value = row.value.image;
-					} 
-					else if ( row.value.attachedReferenceDocument ) {
-						tmp = row.value.documentName;
-						row.value = row.value.attachedReferenceDocument;
-					}
-
-					if ( row.value && _.isString(row.value) ) {					
-						// image?
-						if ( row.value.substr(row.value.length - 3 ).toLowerCase() == "jpg")
-							row.value = '<a href="../../' + this.model.id + "/files/" + row.value + '"><img src="../../' + this.model.id + "/thumbs/" + row.value + '"/> ' + tmp + '</a>';
-						
-						// fixed width on long entries
-						if ( row.value.length > 40 )
-							row.className="bigCell";
-							
-						// any stray links?
-						if ( row.value.substr(0, 4).toLowerCase() == "www." )
-							row.value = '<a href="http://' + row.value + '">' + row.value + '</a>';
-							
-						// doc link?
-						if ( fields[key].linkVal ){
-							tmpLinkRef = fields[key].linkVal.linkRef;
-							row.value = '<a href="#doc/' + fields[tmpLinkRef].linkRef + '/full/' + this.model.get(tmpLinkRef) + '">' + row.value + '</a>';
+					if ( row.value ) {
+						if ( _.isArray(row.value) && row.value.length )
+							row.value = row.value[0];
+						if ( row.value.image ) {
+							tmp = row.value.credit;
+							row.value = row.value.image;
+						} 
+						else if ( row.value.attachedReferenceDocument ) {
+							tmp = row.value.documentName;
+							row.value = row.value.attachedReferenceDocument;
 						}
-						
-					}			
+						row.value = row.value || " ";
+
+						if ( _.isString(row.value) ) {					
+							// image?
+							if ( row.value.substr(row.value.length - 3 ).toLowerCase() == "jpg")
+								row.value = '<a href="../../' + this.model.id + "/files/" + row.value + '"><img src="../../' + this.model.id + "/thumbs/" + row.value + '"/> ' + tmp + '</a>';
+							
+							// fixed width on long entries
+							if ( row.value.length > 40 )
+								row.className="bigCell";
+								
+							// any stray links?
+							if ( row.value.substr(0, 4).toLowerCase() == "www." )
+								row.value = '<a href="http://' + row.value + '">' + row.value + '</a>';
+								
+							// doc link?
+							if ( fields[key].linkVal ){
+								tmpLinkRef = fields[key].linkVal.linkRef;
+								row.value = '<a href="#doc/' + fields[tmpLinkRef].linkRef + '/full/' + this.model.get(tmpLinkRef) + '">' + row.value + '</a>';
+							}
+							
+						}			
+					}
 					rowData.push( row );
 				}
 			}

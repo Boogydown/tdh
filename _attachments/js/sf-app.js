@@ -213,12 +213,15 @@ $(function(){
 
 		// If there's a change in our model, rerender it
 		initialize : function(){
-			try {
-				this.el.setAttribute("onclick", "location.href='#doc/"
-					+ this.options.collName + "/" 
-					+ this.options.schemaName + "/" 
-					+ this.model.id + "'");
-			} catch (e) {}
+			if ( !this.options.hidden )
+			{
+				try {
+					this.el.setAttribute("onclick", "location.href='#doc/"
+						+ this.options.collName + "/" 
+						+ this.options.schemaName + "/" 
+						+ this.model.id + "'");
+				} catch (e) {}
+			}
 			_.bindAll(this, 'render', "editMe", "deleteMe");
 			this.model.bind('change', this.render);
 			this.registerTemplate( this.options.templateName );

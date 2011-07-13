@@ -133,3 +133,7 @@ div.label:hover {
 #coll_table .selectableRow:hover{
 	background-color: #FFFFBB;
 }	
+
+.hideable {
+	display: none;
+}

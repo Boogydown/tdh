@@ -38,8 +38,7 @@ $(function(){
 			}
 			else 
 				this.attach();
-			}
-            return this;
+			return this;
         },
 		
 		fetched : function( coll, options ) {

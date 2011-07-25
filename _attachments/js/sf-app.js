@@ -289,12 +289,17 @@ $(function(){
         },
 		
 		editMe : function() {
-			try {
-				this.el.setAttribute("onclick", "location.href='#form/"
-				+ this.options.collName + "/" 
-				+ this.options.schemaName + "/" 
-				+ this.model.id + "'");
-			} catch (e) {}
+			if ( this.options.docID && this.options.docID != null && this.options.docID != "" ){
+				this.model = this.options.collection.get( this.options.docID );
+				this.loadModel( this.model );
+			}
+
+			//try {
+			//	this.el.setAttribute("onclick", "location.href='#form/"
+			//	+ this.options.collName + "/" 
+			//	+ this.options.schemaName + "/" 
+			//	+ this.model.id + "'");
+			//} catch (e) {}
 		}
     });
 	

@@ -299,13 +299,12 @@ $(function(){
         },
 		
 		editMe : function() {
-				try {
-					this.el.setAttribute("onclick", "location.href='#form/"
-					+ this.options.collName + "/" 
-					+ this.options.schemaName + "/" 
-					+ this.model.id + "'");
-				} catch (e) {}
-			}
+			try {
+				this.el.setAttribute("onclick", "location.href='#form/"
+				+ this.options.collName + "/" 
+				+ this.options.schemaName + "/" 
+				+ this.model.id + "'");
+			} catch (e) {}
 		}
     });
 	

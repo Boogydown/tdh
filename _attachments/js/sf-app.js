@@ -37,7 +37,7 @@ $(function(){
 				else this.fetched( colls.halls, {field:5});
 			}
 			else 
-				if ( ! options.collection.get( options.docID )){
+				if ( ! this.app.docID){
 					alert("Cannot edit without a document ID!");
 				}
 				else 

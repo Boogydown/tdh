@@ -299,9 +299,12 @@ $(function(){
         },
 		
 		editMe : function() {
-			alert("Edit not yet supported!");
-			if ( ! this.app.docID ){
-				alert("Cannot edit without a document ID!");
+				try {
+					this.el.setAttribute("onclick", "location.href='#form/"
+					+ this.options.collName + "/" 
+					+ this.options.schemaName + "/" 
+					+ this.model.id + "'");
+				} catch (e) {}
 			}
 		}
     });

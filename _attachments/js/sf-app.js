@@ -37,13 +37,17 @@ $(function(){
 				else this.fetched( colls.halls, {field:5});
 			}
 			else 
-				if ( ! DocID ){
-					this.attach();
+				if ( ! options.collection.get( options.docID )){
+					alert("Cannot edit without a document ID!");
 				}
-				else {
-					this.model = DocID;
-					this.attach
-				}
+				else 
+					if ( ! DocID ){
+						this.attach();
+					}	
+					else {
+						DocID = options.collection.get( options.docID );
+						this.attach(DocID);
+					}
             return this;
         },
 		

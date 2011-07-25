@@ -296,7 +296,7 @@ $(function(){
 		
 		editMe : function() {
 			alert("Edit not yet supported!");
-			if ( ! options.docID ){
+			if ( ! this.options.docID ){
 				alert("Cannot edit without a document ID!");
 			}
 			else { DocID = this.options.DocID }

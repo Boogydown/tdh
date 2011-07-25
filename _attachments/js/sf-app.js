@@ -296,10 +296,10 @@ $(function(){
 		
 		editMe : function() {
 			alert("Edit not yet supported!");
-			if ( ! this.options.docID ){
+			if ( ! options.collection.get( options.docID )){
 				alert("Cannot edit without a document ID!");
 			}
-			else { DocID = this.options.DocID }
+			else { DocID = options.collection.get( options.docID ) }
 		}
     });
 	

@@ -45,7 +45,7 @@ $(function(){
 						this.attach();
 					}	
 					else {
-						DocID = options.collection.get( options.docID );
+						DocID = this.app.docID;
 						this.attach(DocID);
 					}
             return this;
@@ -300,10 +300,9 @@ $(function(){
 		
 		editMe : function() {
 			alert("Edit not yet supported!");
-			if ( ! options.collection.get( options.docID )){
+			if ( ! this.app.docID ){
 				alert("Cannot edit without a document ID!");
 			}
-			else { DocID = options.collection.get( options.docID ) }
 		}
     });
 	

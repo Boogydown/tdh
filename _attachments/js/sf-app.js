@@ -6,7 +6,7 @@ $(function(){
     Backbone.couchConnector.viewName = "byType";
     // If set to true, the connector will listen to the changes feed
     // and will provide your models with real time remote updates.
-    Backbone.couchConnector.enableChanges = false;
+    Backbone.couchConnector.enableChanges = true;
 
 	// inits all in the VU namespace, specifically Backbone-View attachments to the HTML	
 	VU.init();
@@ -37,8 +37,12 @@ $(function(){
 				else this.fetched( colls.halls, {field:5});
 			}
 			else 
-				this.attach();
-			
+				if ( ! DocID ){
+					this.attach();
+				else
+					this.model = DocID;
+					this.attach
+				}
             return this;
         },
 		
@@ -291,6 +295,11 @@ $(function(){
 		
 		editMe : function() {
 			alert("Edit not yet supported!");
+			if ( ! options.docID ){
+				alert("Cannot edit without a document ID!");
+			else
+				DocID = this.options.DocID
+			}
 		}
     });
 	

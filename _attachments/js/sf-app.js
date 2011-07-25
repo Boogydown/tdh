@@ -39,7 +39,8 @@ $(function(){
 			else 
 				if ( ! DocID ){
 					this.attach();
-				else
+				}
+				else {
 					this.model = DocID;
 					this.attach
 				}

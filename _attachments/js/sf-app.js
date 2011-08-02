@@ -16,11 +16,11 @@ $(function(){
 /////////////////////////////////////////////////////////////////////////////{
     VU.SchemaFormView = Backbone.View.extend({
         builder: new inputEx.JsonSchema.Builder(),
-		docModel: "",
+		docModel: null,
 
         initialize : function(){
 			this.el.html("");
-            _.bindAll(this, "onSubmit", "fetched", "attach");
+            _.bindAll(this, "onSubmit", "fetched", "fillMe", "attach");
             this.render();
         },
         

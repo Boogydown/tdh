@@ -100,9 +100,9 @@ $(function(){
 
 			// Nuke an empty ID, so it doesn't kill initial creation
 			if(values._id === "") delete values._id;
-			if ( this.docModel ) {
+			if ( this.docModel ){
 				this.docModel.save(values);
-				this.collection.add(this.docModel);
+				this.collection.add(this.docModel, {silent: true});
 			}
 			else this.collection.create(values);
 			document.forms[0].reset();

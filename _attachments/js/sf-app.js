@@ -54,7 +54,7 @@ $(function(){
         },
 		
 		fillMe : function( model, options ) {
-			this.form.setValue( model.toJSON() );
+			this.form.set( model.toJSON() );
 		},
 		
 		fetched : function( coll, options ) {

@@ -16,6 +16,7 @@ $(function(){
 /////////////////////////////////////////////////////////////////////////////{
     VU.SchemaFormView = Backbone.View.extend({
         builder: new inputEx.JsonSchema.Builder(),
+		docModel: "",
 
         initialize : function(){
 			this.el.html("");
@@ -28,6 +29,17 @@ $(function(){
             this.form = this.builder.schemaToInputEx(this.options.schema);
             this.form.parentEl       = 'model_edit';
             this.form.enctype        = 'multipart/form-data';
+			if ( this.options.docID ) {
+				this.docModel = this.collection.get( this.options.docID );
+				if ( ! this.docModel ) {
+					var newModel = new this.collection.model({id:this.options.docID});
+					newModel.bind( "change", this.fillMe );
+					newModel.fetch();
+				}
+				else
+					this.fillMe( this.docModel );					
+			}
+			
 			var colls = this.options.collection.colls;
 			if ( colls ) {
 				this.collsToFetch = 2;
@@ -40,6 +52,10 @@ $(function(){
 				this.attach();
 			return this;
         },
+		
+		fillMe : function( model, options ) {
+			this.form.setValue( model.toJSON() );
+		},
 		
 		fetched : function( coll, options ) {
 			coll.fetched = true;
@@ -167,7 +183,7 @@ $(function(){
 				//this.collection.each(this.addRow);
 				var i, 
 					start = this.options.curPage * this.options.numPerPage, 
-					end = start + this.options.numPerPage; 
+					end = start options.numPerPage; 
 				if ( end > this.collection.length ) 
 					end = this.collection.length;
 				for ( var i = start; i <= end; i++ )
@@ -289,17 +305,10 @@ $(function(){
         },
 		
 		editMe : function() {
-			if ( this.options.docID && this.options.docID != null && this.options.docID != "" ){
-				this.model = this.options.collection.get( this.options.docID );
-				this.loadModel( this.model );
-			}
-
-			//try {
-			//	this.el.setAttribute("onclick", "location.href='#form/"
-			//	+ this.options.collName + "/" 
-			//	+ this.options.schemaName + "/" 
-			//	+ this.model.id + "'");
-			//} catch (e) {}
+			location.href="#form/"
+				+ this.options.collName + "/" 
+				+ this.options.schemaName + "/" 
+				+ this.model.id;
 		}
     });
 	

@@ -32,9 +32,9 @@ $(function(){
 			if ( this.options.docID ) {
 				this.docModel = this.collection.get( this.options.docID );
 				if ( ! this.docModel ) {
-					var newModel = new this.collection.model({id:this.options.docID});
-					newModel.bind( "change", this.fillMe );
-					newModel.fetch();
+					this.docModel = new this.collection.model({id:this.options.docID});
+					this.docModel.bind( "change", this.fillMe );
+					this.docModel.fetch();
 				}
 				else
 					this.fillMe( this.docModel );					
@@ -54,7 +54,9 @@ $(function(){
         },
 		
 		fillMe : function( model, options ) {
-			this.form.set( model.toJSON() );
+			this.modelJSON = this.docModel.toJSON();
+			if ( this.inputex )
+				this.inputex.setValue( this.modelJSON() );
 		},
 		
 		fetched : function( coll, options ) {
@@ -72,6 +74,7 @@ $(function(){
 		attach : function () {
 			this.el.html("");
             this.inputex = inputEx(this.form);
+			if (this.modelJSON) this.inputex.setValue()this.modelJSON;
 
             // YUI onClick used instead of Backbone delegateEvents, because it worked first
             new inputEx.widget.Button({

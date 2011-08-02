@@ -183,7 +183,7 @@ $(function(){
 				//this.collection.each(this.addRow);
 				var i, 
 					start = this.options.curPage * this.options.numPerPage, 
-					end = start + options.numPerPage; 
+					end = start + this.options.numPerPage; 
 				if ( end > this.collection.length ) 
 					end = this.collection.length;
 				for ( var i = start; i <= end; i++ )

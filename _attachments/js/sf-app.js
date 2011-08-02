@@ -181,7 +181,7 @@ $(function(){
 			VU.DustView.prototype.render.call(this);
             if(this.collection.length > 0){
 				//this.collection.each(this.addRow);
-				var i, start = this.options.curPage * this.options.numPerPage, end = start options.numPerPage; 
+				var i, start = this.options.curPage * this.options.numPerPage, end = start + options.numPerPage; 
 				if ( end > this.collection.length ) 
 					end = this.collection.length;
 				for ( var i = start; i <= end; i++ )

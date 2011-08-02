@@ -100,7 +100,10 @@ $(function(){
 
 			// Nuke an empty ID, so it doesn't kill initial creation
 			if(values._id === "") delete values._id;
-			if ( this.docModel ) this.docModel.save(values);
+			if ( this.docModel ) {
+				this.docModel.save(values);
+				this.collection.add(this.docModel);
+			}
 			else this.collection.create(values);
 			document.forms[0].reset();
 			location.href = "#list";

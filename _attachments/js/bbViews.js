@@ -30,7 +30,7 @@ VU.EventEntryView = VU.DustView.extend({
 
 	// Clicking the feet adds it to the dance card
 	events : {
-		"click .feet" : "addToDanceCard",
+		"click .feet" : "addToDanceCard"
 	},
 	
 	// If there's a change in our model, rerender it

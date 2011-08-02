@@ -6,7 +6,7 @@ $(function(){
     Backbone.couchConnector.viewName = "byType";
     // If set to true, the connector will listen to the changes feed
     // and will provide your models with real time remote updates.
-    Backbone.couchConnector.enableChanges = false;
+    Backbone.couchConnector.enableChanges = true;
 
 	// inits all in the VU namespace, specifically Backbone-View attachments to the HTML	
 	VU.init();
@@ -16,7 +16,7 @@ $(function(){
 /////////////////////////////////////////////////////////////////////////////{
     VU.SchemaFormView = Backbone.View.extend({
         builder: new inputEx.JsonSchema.Builder(),
-		docModel: null,
+		docModel: "",
 
         initialize : function(){
 			this.el.html("");
@@ -56,8 +56,7 @@ $(function(){
 		
 		fillMe : function( model, options ) {
 			this.modelJSON = this.docModel.toJSON();
-			if ( this.inputex )
-				this.inputex.setValue( this.modelJSON() );
+			if ( this.inputex ) this.inputex.setValue( this.modelJSON() );
 		},
 		
 		fetched : function( coll, options ) {
@@ -94,7 +93,7 @@ $(function(){
 			// grab image filenames from inputs
 			var ifilelist = this.el[0].image;
 			
-			// inject the files from the from into the JSON that we're going to send to the db
+			// inject the files from the form into the JSON that we're going to send to the db
 			this.injectFiles( this.el[0].image, "images", "image", values );
 			this.injectFiles( this.el[0].attachedReferenceDocument, "documents", "attachedReferenceDocument", values );
 
@@ -192,10 +191,8 @@ $(function(){
 				var i, 
 					start = this.options.curPage * this.options.numPerPage, 
 					end = start + this.options.numPerPage; 
-				if ( end > this.collection.length ) 
-					end = this.collection.length;
-				for ( var i = start; i <= end; i++ )
-					this.addRow( this.collection.models[i] );
+				if ( end > this.collection.length ) end = this.collection.length;
+				for ( var i = start; i <= end; i++ ) this.addRow( this.collection.models[i] );
 			}
         },
         
@@ -480,7 +477,7 @@ $(function(){
 	});
 
 /////////////////////////////////////////////////////////////////////////////}
-/// INSTACIATION & EXECUTION ////////////////////////////////////////////////
+/// INSTANCIATION & EXECUTION ////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////{    
 
 	window.app = new App();

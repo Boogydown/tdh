@@ -173,6 +173,7 @@ VU.VenueModel = VU.EventsContainerModel.extend({
 	myType : "hall",
 	defaults : {
 		images: [{"credit":"generic", "image":"images/genericHall.JPG"}],
+		documents: [],
 		events: null
 	},	
 

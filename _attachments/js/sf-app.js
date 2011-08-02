@@ -33,6 +33,7 @@ $(function(){
 				this.docModel = this.collection.get( this.options.docID );
 				if ( ! this.docModel ) {
 					this.docModel = new this.collection.model({id:this.options.docID});
+					this.docModel.collection = this.collection;
 					this.docModel.bind( "change", this.fillMe );
 					this.docModel.fetch();
 				}

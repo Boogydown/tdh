@@ -476,7 +476,7 @@ $(function(){
 			this.curPage = curPage;
 			this.numPerPage = numPerPage;
 			this.hidden = hidden;
-		},
+		}
 	});
 
 /////////////////////////////////////////////////////////////////////////////}

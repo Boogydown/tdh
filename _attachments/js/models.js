@@ -8,9 +8,8 @@ VU.FilterModel = Backbone.Model.extend({
 		tab: "dances",
 		mapCoords: [0,0],
 		genreTags: [""],
-		danceCard: { selectedEvents: [] },
-		
-	},
+		danceCard: { selectedEvents: [] }
+	}
 });
 
 // An entity that has events associated to it
@@ -23,7 +22,7 @@ VU.EventsContainerModel = Backbone.Model.extend({
 		this.set( {events: new VU.EventCollection( _.select( eventsCollection.models, function ( eventModel ) {
 			return eventModel.get( this.myType ) == this.id;
 		}, this ) ) } );
-	},
+	}
 });
 
 
@@ -200,8 +199,7 @@ VU.VenueModel = VU.EventsContainerModel.extend({
 			mainPic: hallPic.replace( "\/thumbs\/", "\/files\/" ), 
 			website: (this.get("website")||"").split("://").pop()
 		}, { silent: true } );
-	},
-	
+	}
 });
 
 // Event model

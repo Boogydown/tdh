@@ -361,7 +361,7 @@ VU.schemas = {
 					}
 				}
 			}
-		},
+		}
 	},
 	
 	bands: {
@@ -400,7 +400,7 @@ VU.schemas = {
 					"optional":true
 				}
 			}
-		},
+		}
 	}
 };
 };

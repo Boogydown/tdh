@@ -34,11 +34,8 @@ $(function(){
             this.form = this.builder.schemaToInputEx(this.options.schema);
             this.form.parentEl       = 'model_edit';
             this.form.enctype        = 'multipart/form-data';
-<<<<<<< HEAD
 			
-			// Fills in the pull-down menus
-			// TODO: rewrite this to be more generic; i.e. is a linkRef in the schema
-=======
+			// doc ID given?  Then this is an Edit action...
 			if ( this.options.docID ) {
 				this.docModel = this.collection.get( this.options.docID );
 				if ( ! this.docModel ) {
@@ -51,7 +48,8 @@ $(function(){
 					this.fillMe( this.docModel );					
 			}
 			
->>>>>>> 32af193ffa6e2d82fef86cc7251c3cd0613bb29e
+			// Fills in the pull-down menus
+			// TODO: rewrite this to be more generic; i.e. is a linkRef in the schema
 			var colls = this.options.collection.colls;
 			if ( colls ) {
 				this.collsToFetch = 2;
@@ -102,16 +100,13 @@ $(function(){
         onSubmit : function(){
 			var values = this.inputex.getValue();
 			values.type = this.options.collection.url;
+			
 			// grab image filenames from inputs
 			var ifilelist = this.el[0].image;
 			
-<<<<<<< HEAD
 			// inject the files from the from into the JSON that we're going to send to the db
 			// (inputex.getValue() returns arrays as...well, arrays.  However, the POST JSON 
 			//	requires ONLY objects )
-=======
-			// inject the files from the form into the JSON that we're going to send to the db
->>>>>>> 32af193ffa6e2d82fef86cc7251c3cd0613bb29e
 			this.injectFiles( this.el[0].image, "images", "image", values );
 			this.injectFiles( this.el[0].attachedReferenceDocument, "documents", "attachedReferenceDocument", values );
 

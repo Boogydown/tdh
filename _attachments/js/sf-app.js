@@ -514,7 +514,7 @@ $(function(){
 			this.showType = showType;
 			this.collName = collName;
 			this.schemaName = schemaName;
-			this.docID = docID;
+			//this.docID = docID; 	//don't save
 			this.curPage = curPage;
 			this.numPerPage = numPerPage;
 			this.hidden = hidden;

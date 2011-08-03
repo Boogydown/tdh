@@ -361,7 +361,7 @@ VU.schemas = {
 					}
 				}
 			}
-		},
+		}
 	},
 	
 	bands: {
@@ -382,7 +382,7 @@ VU.schemas = {
 				"bandName":{
 					"description": "Band Name",
 					"type":"string",
-					"required":true,
+					"required":true
 				},
 				"status":{
 					"description": "Active or Inactive",
@@ -395,12 +395,12 @@ VU.schemas = {
 					"optional":true
 				},
 				"stylesPlayed":{
-					"description": "Wh are the different styles played",
+					"description": "What are the different styles played",
 					"type":"array",
 					"optional":true
 				}
 			}
-		},
+		}
 	}
 };
 };

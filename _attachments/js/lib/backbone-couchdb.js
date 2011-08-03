@@ -6,7 +6,7 @@
 // I added the connector to the Backbone object.
 Backbone.couchConnector = {
 	// Name of the Database.
-	databaseName : "test1",
+	databaseName : "tdh",
 	// Name of the design document that contains the views.
 	ddocName : "backbone",
 	// Name of the view.

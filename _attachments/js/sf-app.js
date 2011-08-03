@@ -21,10 +21,11 @@ $(function(){
 	 */
 	VU.SchemaFormView = Backbone.View.extend({
         builder: new inputEx.JsonSchema.Builder(),
+		docModel: "",
 
         initialize : function(){
 			this.el.html("");
-            _.bindAll(this, "onSubmit", "fetched", "attach");
+            _.bindAll(this, "onSubmit", "fetched", "fillMe", "attach");
             this.render();
         },
         
@@ -33,9 +34,24 @@ $(function(){
             this.form = this.builder.schemaToInputEx(this.options.schema);
             this.form.parentEl       = 'model_edit';
             this.form.enctype        = 'multipart/form-data';
+<<<<<<< HEAD
 			
 			// Fills in the pull-down menus
 			// TODO: rewrite this to be more generic; i.e. is a linkRef in the schema
+=======
+			if ( this.options.docID ) {
+				this.docModel = this.collection.get( this.options.docID );
+				if ( ! this.docModel ) {
+					this.docModel = new this.collection.model({id:this.options.docID});
+					this.docModel.collection = this.collection;
+					this.docModel.bind( "change", this.fillMe );
+					this.docModel.fetch();
+				}
+				else
+					this.fillMe( this.docModel );					
+			}
+			
+>>>>>>> 32af193ffa6e2d82fef86cc7251c3cd0613bb29e
 			var colls = this.options.collection.colls;
 			if ( colls ) {
 				this.collsToFetch = 2;
@@ -46,9 +62,13 @@ $(function(){
 			}
 			else 
 				this.attach();
-			
-            return this;
+			return this;
         },
+		
+		fillMe : function( model, options ) {
+			this.modelJSON = this.docModel.toJSON();
+			if ( this.inputex ) this.inputex.setValue( this.modelJSON() );
+		},
 		
 		fetched : function( coll, options ) {
 			coll.fetched = true;
@@ -66,6 +86,7 @@ $(function(){
 		attach : function () {
 			this.el.html("");
             this.inputex = inputEx(this.form);
+			if (this.modelJSON) this.inputex.setValue(this.modelJSON);
 
             // YUI onClick used instead of Backbone delegateEvents, because it worked first
             new inputEx.widget.Button({
@@ -84,15 +105,23 @@ $(function(){
 			// grab image filenames from inputs
 			var ifilelist = this.el[0].image;
 			
+<<<<<<< HEAD
 			// inject the files from the from into the JSON that we're going to send to the db
 			// (inputex.getValue() returns arrays as...well, arrays.  However, the POST JSON 
 			//	requires ONLY objects )
+=======
+			// inject the files from the form into the JSON that we're going to send to the db
+>>>>>>> 32af193ffa6e2d82fef86cc7251c3cd0613bb29e
 			this.injectFiles( this.el[0].image, "images", "image", values );
 			this.injectFiles( this.el[0].attachedReferenceDocument, "documents", "attachedReferenceDocument", values );
 
 			// Nuke an empty ID, so it doesn't kill initial creation
 			if(values._id === "") delete values._id;
-			this.collection.create(values);
+			if ( this.docModel ){
+				this.docModel.save(values);
+				this.collection.add(this.docModel, {silent: true});
+			}
+			else this.collection.create(values);
 			document.forms[0].reset();
 			location.href = "#list";
 		},			
@@ -184,10 +213,8 @@ $(function(){
 				var i, 
 					start = this.options.curPage * this.options.numPerPage, 
 					end = start + this.options.numPerPage; 
-				if ( end > this.collection.length ) 
-					end = this.collection.length;
-				for ( var i = start; i <= end; i++ )
-					this.addRow( this.collection.models[i] );
+				if ( end > this.collection.length ) end = this.collection.length;
+				for ( var i = start; i <= end; i++ ) this.addRow( this.collection.models[i] );
 			}
         },
         
@@ -306,7 +333,10 @@ $(function(){
         },
 		
 		editMe : function() {
-			alert("Edit not yet supported!");
+			location.href="#form/"
+				+ this.options.collName + "/" 
+				+ this.options.schemaName + "/" 
+				+ this.model.id;
 		}
     });
 	
@@ -493,11 +523,11 @@ $(function(){
 			this.curPage = curPage;
 			this.numPerPage = numPerPage;
 			this.hidden = hidden;
-		},
+		}
 	});
 
 /////////////////////////////////////////////////////////////////////////////}
-/// INSTACIATION & EXECUTION ////////////////////////////////////////////////
+/// INSTANCIATION & EXECUTION ////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////{    
 
 	window.app = new App();

@@ -1,6 +1,8 @@
 $(function(){
-    // Fill this with your database information.
-    // `ddocName` is the name of your couchapp project.
+/////////////////////////////////////////////////////////////////////////////}
+/// INITIALIZATION //////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////{
+	// database name, design doc name, and view name
     Backbone.couchConnector.databaseName = "tdh";
     Backbone.couchConnector.ddocName = "tdh_public";
     Backbone.couchConnector.viewName = "byType";
@@ -8,13 +10,16 @@ $(function(){
     // and will provide your models with real time remote updates.
     Backbone.couchConnector.enableChanges = false;
 
-	// inits all in the VU namespace, specifically Backbone-View attachments to the HTML	
+	// inits all in the VU namespace, specifically some of our backbone View attachments to the HTML	
 	VU.init();
 
 /////////////////////////////////////////////////////////////////////////////}
 /// VIEWS DECLARATION ///////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////{
-    VU.SchemaFormView = Backbone.View.extend({
+	/*
+	 * The View for input form based on a doc's schema
+	 */
+	VU.SchemaFormView = Backbone.View.extend({
         builder: new inputEx.JsonSchema.Builder(),
 
         initialize : function(){
@@ -28,6 +33,9 @@ $(function(){
             this.form = this.builder.schemaToInputEx(this.options.schema);
             this.form.parentEl       = 'model_edit';
             this.form.enctype        = 'multipart/form-data';
+			
+			// Fills in the pull-down menus
+			// TODO: rewrite this to be more generic; i.e. is a linkRef in the schema
 			var colls = this.options.collection.colls;
 			if ( colls ) {
 				this.collsToFetch = 2;
@@ -46,6 +54,7 @@ $(function(){
 			coll.fetched = true;
 			coll.unbind( "refresh", this.fetched );
 			this.form.fields[options.field].elementType.choices = _.map( coll.models, function(model) {
+				// TODO: yeaaaahhh.... this needs to be fixed.  Should not have hardcoded values here.  Perhaps make "name" mandatory on all docs?
 				var name = model.get("bandName");
 				if ( !name ) name = model.get("danceHallName");
 				return { label:name , value:model.get("_id") };
@@ -76,6 +85,8 @@ $(function(){
 			var ifilelist = this.el[0].image;
 			
 			// inject the files from the from into the JSON that we're going to send to the db
+			// (inputex.getValue() returns arrays as...well, arrays.  However, the POST JSON 
+			//	requires ONLY objects )
 			this.injectFiles( this.el[0].image, "images", "image", values );
 			this.injectFiles( this.el[0].attachedReferenceDocument, "documents", "attachedReferenceDocument", values );
 
@@ -108,6 +119,9 @@ $(function(){
         }
     });
 
+	/*
+	 * This is the View for a table of multiple docs
+	 */
     VU.SchemaTableView = VU.DustView.extend({
         initialize : function(){
 			this.el.html("<div class='loadingBar'>Loading...</div>");
@@ -164,8 +178,9 @@ $(function(){
 			this.collection.fetched = true;
 			// render from our super
 			VU.DustView.prototype.render.call(this);
-            if(this.collection.length > 0){
-				//this.collection.each(this.addRow);
+
+            // render by page number
+			if(this.collection.length > 0){
 				var i, 
 					start = this.options.curPage * this.options.numPerPage, 
 					end = start + this.options.numPerPage; 
@@ -202,6 +217,7 @@ $(function(){
     
 	/**
 	 * Doc View, attached to one model
+	 * (per row View of SchemaTableView, or base class for DocSoloView)
 	 */
     VU.SchemaDocView = VU.DustView.extend({
 		el: "<tr class='selectableRow'/>",
@@ -294,6 +310,9 @@ $(function(){
 		}
     });
 	
+	/*
+	 * Extension of SchemaDocView that allows you show just one doc, by itself
+	 */
 	VU.SchemaDocSoloView = VU.SchemaDocView.extend({
 		initialize : function() {
 			this.el.html("");				
@@ -327,16 +346,31 @@ $(function(){
 /////////////////////////////////////////////////////////////////////////////}
 /// URL CONTROLLER //////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////{
-    // The App controller initializes the app by calling `Comments.fetch()`
+    /*
+	 * Overall controller for the whole schemaForm app.  Routes all post-hash addresses to different Views
+	 * 
+	 * url#showType/collName/schemaName/docID/pageNum/numPerPage/hideNavigation
+	 * showType - none, list, form, doc
+	 * collName - name of the collection (bands, halls, events, etc)
+	 * schemaName - name of the schema to use (full, etc)
+	 * docID - for "doc" showType, the id of the single doc to show
+	 * pageNum - for list view, the page to view (default 0)
+	 * numPerPage - for list view, the number of items per page (default 20)
+	 * hideNavigation - 1 = hide, 2 = don't hide, all navigation (good for showing JUST the data as single page)
+	 *
+	 * All values are saved to the controller and on hashChange, incomplete hashes (i.e. #list or #////5) have
+	 * blank values filled in, respectively, from the saved version
+	 */
     var App = Backbone.Controller.extend({
+		// default params:
 		showType : "list",
 		collName : "events",
 		schemaName : "full",
+		docID : "",
 		curPage : 0,
 		numPerPage: 20,
-		firstPass : true,
 		hidden : 2, /* 1 = hidden, 2 = not hidden */
-		
+
 		routes : { ":type/:coll/:schema/:docID/:page/:numPer/:hidden" : "updateShow",
 				   ":type/:coll/:schema/:docID/:page/:numPer" : "updateShow",
 				   ":type/:coll/:schema/:docID/:page" : "updateShow",
@@ -379,30 +413,33 @@ $(function(){
 			// if our showType is already shown then 2nd click will hide it (i.e. "none")
 			if ( showType && showType == this.showType && collName == undefined ) showType = "none";
 
-			// normalize the route based on any persistant values
+			// normalize the route based on any persistant values 
+			// (i.e. for urls without all the /params after the hash, we'll just used the previous, saved value)
 			var collName 	= collName 	|| this.collName,
 				schemaName 	= schemaName|| this.schemaName,
 				showType 	= showType 	|| this.showType,
-				docID 		= docID 	|| "", 	/* not saved */
+				docID 		= docID 	|| this.docID,
 				curPage 	= curPage 	|| this.curPage,
 				numPerPage 	= numPerPage|| this.numPerPage,
 				hidden		= hidden 	|| this.hidden,
 				curType, att, curView;
 				
-			//if ( hidden == 1 ) $(".hideable").hide("fast"); else $(".hideable").show("fast");
+			// point this.hideStyle to the actual CSS rule stored in the HTML, so we can alter it on the fly
 			if ( ! this.hideStyle ) {
 				var cssRules = document.styleSheets.item("main.css").cssRules;
 				for ( var i in cssRules )
-					if ( cssRules[i].selectorText == ".hideable" )
-					{
+					if ( cssRules[i].selectorText == ".hideable" ) {
 						this.hideStyle = cssRules[i].style;
 						break;
 					}
 			}
 			this.hideStyle.display = (hidden == 1 ? "none" : null);
-			//this.hideStyle.setProperty( "display", hidden == 1 ? "none" : "block", null );
-			//$(".hideable").hide("fast"); else $(".hideable").show("fast");
+			
+			// if doc requested, but no docID, then revert back to list
 			if ( showType == "doc" && !docID ) showType = "list";
+			
+			// since incomplete hashes are filled out via saved values, we need to refresh the hash in the actual 
+			// URL so that it reflects the full, actual hash url that we're at.  This maintains the RESTful functionality
 			this.saveLocation( showType + 
 							   "/" + collName + 
 							   "/" + schemaName + 
@@ -411,21 +448,26 @@ $(function(){
 							   "/" + numPerPage +
 							   "/" + hidden );
 
+			// pull up the collection and schema based on the params
 			var coll = this.colls[ collName ];
 			var schema = VU.schemas[ collName ][ schemaName ];
 
 			// show & create or hide according to showType
-			//TODO: have the View be responsible for determining if it should be redrawn or not
 			for ( curType in this.elAttachments ) {
 				if ( showType == curType ) {
 					this.elAttachments[ curType ].el.slideDown();
 					curView = "schemaView" + curType;
+
+					// redraw if collection, schema, page#, num per page, or docID change
 					if ( ! this[ curView ] 
 						 || this[ curView ].collection != coll 
 						 || this[ curView ].options.schema != schema
 						 || this[ curView ].options.curPage != curPage 
 						 || this[ curView ].options.numPerPage != numPerPage
-						 || showType == "doc" ) {/* doc showtypes get rerendered each time, regardless */
+						 || this[ curView ].options.docID != docID ) {
+			
+						//TODO: remove the local var copies of these params (just keep them in this) and 
+						//		use _.extend( att, this, this.elAttachment[curType] );
 						att = this.elAttachments[curType];
 						att.collName = collName;
 						att.collection = coll;
@@ -439,14 +481,15 @@ $(function(){
 					}
 				}
 				else
+					// hide all non-selected showTypes
 					this.elAttachments[ curType ].el.slideUp();
 			}
 	
-			// store for next time
+			// store for next time (get rid of these as part of that last TODO)
 			this.showType = showType;
 			this.collName = collName;
 			this.schemaName = schemaName;
-			this.docID = docID;			
+			this.docID = docID;
 			this.curPage = curPage;
 			this.numPerPage = numPerPage;
 			this.hidden = hidden;

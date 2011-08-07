@@ -262,7 +262,6 @@ VU.schemas = {
 						"_type": "hidden"
 					}
 				},
-"born" : { "type":"string", "format":"date", "optional":true, "_inputex": {"_type": "datepicker", valueFormat: 'Y-m-d', value: '2009-01-01', label: 'Birthdate'} },
 				"date":{
 					"description": "Date of event",
 					"type":"string",

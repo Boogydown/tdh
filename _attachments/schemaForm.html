@@ -31,11 +31,11 @@
   <script type="application/dust-template" id="table-header">
     <tr>
 		<td><div style="width:300px">
-			{?prevPage}<a href="#////{prevPage}">&lt&lt</a>{:else}&lt&lt{/prevPage}&nbsp
+			{?prevPage}<a href="#////{prevPage}">&ltPrev</a>{:else}&ltPrev{/prevPage}&nbsp
 			{pageList|s}
-			&nbsp{?nextPage}<a href="#////{nextPage}">&gt&gt</a>{:else}&gt&gt{/nextPage}
+			&nbsp{?nextPage}<a href="#////{nextPage}">Next&gt</a>{:else}Next&gt{/nextPage}
 		</div></td>
-		<td><div style="width:300px">
+		<td><div class="hideable" style="width:300px">
 			Num per page: <a href="#////0/10">10</a> <a href="#////0/20">20</a> <a href="#////0/50">50</a> <a href="#////0/100">100</a>
 		</div></td>
 	</tr>

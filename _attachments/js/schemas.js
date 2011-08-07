@@ -226,21 +226,6 @@ VU.schemas = {
 						"_type": "hidden"
 					}					
 				},
-				"date":{
-					"description": "Date of event",
-					"type":"string",
-					"required":true
-				},
-				"time":{
-					"description": "Starts at",
-					"type":"string",
-					"optional":true
-				},
-				"eventType":{
-					"description": "Type of event",
-					"type":"string",
-					"optional":true
-				},
 				"hall":{
 					"description": "Dancehall Name",
 					"type":"array",
@@ -275,6 +260,40 @@ VU.schemas = {
 					},
 					"_inputex": {
 						"_type": "hidden"
+					}
+				},
+				"date":{
+					"description": "Date of event",
+					"type":"date",
+					"required":true
+				},
+				"time":{
+					"description": "Starts at",
+					"type":"string",
+					"optional":true
+				},
+				"eventType":{
+					"description": "Type of event",
+					"type":"string",
+					"items":{
+						"type":"string", 
+						"choices": [ 
+							{"value":"dance","label":"Dance"},
+							{"value":"music_show","label":"Music Show"},
+							{"value":"festival","label":"Festival"} 
+						]
+					}
+				},
+				"ageLimit":{
+					"description": "Age limit",
+					"type":"string",
+					"items":{
+						"type":"string", 
+						"choices": [ 
+							{"value":"all","label":"All ages"},
+							{"value":"18","label":"18 and up"},
+							{"value":"21","label":"21 and up"} 
+						]
 					}
 				}
 			}

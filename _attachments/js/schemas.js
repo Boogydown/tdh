@@ -264,7 +264,7 @@ VU.schemas = {
 				},
 				"date":{
 					"description": "Date of event",
-					"type":"date",
+					"type":"string",
 					"required":true,
 					"format":"date",
 					"_inputex": {

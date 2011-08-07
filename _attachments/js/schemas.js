@@ -266,7 +266,14 @@ VU.schemas = {
 					"description": "Date of event",
 					"type":"date",
 					"required":true
-				},
+					"format":"date",
+					"_inputex": {
+						"_type": "datepicker", 
+						valueFormat: 'd-m-Y', 
+						value: '01-01-2012', 
+						label: 'Date of event'
+					} 
+    			},
 				"time":{
 					"description": "Starts at",
 					"type":"string",
@@ -275,26 +282,20 @@ VU.schemas = {
 				"eventType":{
 					"description": "Type of event",
 					"type":"string",
-					"items":{
-						"type":"string", 
-						"choices": [ 
-							{"value":"dance","label":"Dance"},
-							{"value":"music_show","label":"Music Show"},
-							{"value":"festival","label":"Festival"} 
-						]
-					}
+					"choices": [ 
+						{"value":"dance","label":"Dance"},
+						{"value":"music_show","label":"Music Show"},
+						{"value":"festival","label":"Festival"} 
+					]
 				},
 				"ageLimit":{
 					"description": "Age limit",
 					"type":"string",
-					"items":{
-						"type":"string", 
-						"choices": [ 
-							{"value":"all","label":"All ages"},
-							{"value":"18","label":"18 and up"},
-							{"value":"21","label":"21 and up"} 
-						]
-					}
+					"choices": [ 
+						{"value":"all","label":"All ages"},
+						{"value":"18","label":"18 and up"},
+						{"value":"21","label":"21 and up"} 
+					]
 				}
 			}
 		},

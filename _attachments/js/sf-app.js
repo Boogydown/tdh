@@ -55,7 +55,7 @@ $(function(){
 				this.collsToFetch = 2;
 				if ( !colls.bands.fetched ) { colls.bands.bind( "refresh", this.fetched ); colls.bands.fetch({field:0}) }
 				else this.fetched( colls.bands, {field:0});
-				if ( !colls.halls.fetched ) { colls.halls.bind( "refresh", this.fetched ); colls.halls.fetch({field:5}) }
+				if ( !colls.halls.fetched ) { colls.halls.bind( "refresh", this.fetched ); colls.halls.fetch({field:2}) }
 				else this.fetched( colls.halls, {field:5});
 			}
 			else 

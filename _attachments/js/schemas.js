@@ -266,13 +266,13 @@ VU.schemas = {
 					"description": "Date of event",
 					"type":"string",
 					"required":true,
-					"format":"date"/*,
+					"format":"date",
 					"_inputex": {
 						"_type": "datepicker", 
 						valueFormat: 'd-m-Y', 
 						value: '01-01-2012', 
 						label: 'Date of event'
-					} */
+					}
     			},
 				"time":{
 					"description": "Starts at",

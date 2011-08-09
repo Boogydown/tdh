@@ -181,14 +181,14 @@ $(function(){
 			start = curPage - 3 < 0 ? 0 : curPage - 3;
 			end = curPage + 3 > maxPage ? maxPage : curPage + 3;
 			if ( start > 0 ) 
-				pageString += "<a href='#////0'>0</a> ...";
+				pageString += "<a href='#////0'>1</a> ...";
 			for ( i = start; i <= end; i++ )
 				if ( i == curPage )
-					pageString += " " + i + " ";
+					pageString += " " + (i+1) + " ";
 				else
-					pageString += " <a href='#////" + i + "'>" + i + "</a> ";
+					pageString += " <a href='#////" + i + "'>" + (i+1) + "</a> ";
 			if ( end  < maxPage ) 
-				pageString += "... <a href='#////" + maxPage + "'>" + maxPage + "</a>";
+				pageString += "... <a href='#////" + maxPage + "'>" + (maxPage+1) + "</a>";
 			
 			// bundle up and deliver
 			myData.fields = rowData;

@@ -14,7 +14,7 @@ couchapp_load([
   "js/lib/backbone-couchdb.js",
   "js/lib/dustjs/dist/dust-full-0.3.0.js",
   "http://yui.yahooapis.com/2.8.2r1/build/utilities/utilities.js",
-  "inputex/build/inputex-min.js",
+  "js/lib/inputex/build/inputex-min.js",
   
 /*  "js/lib/inputex/lib/yui/yuiloader/yuiloader.js",
   "js/lib/inputex/lib/yui/dom/dom.js",

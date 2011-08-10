@@ -97,7 +97,7 @@ $(function(){
             new inputEx.widget.Button({
                 id:             'cancel',
                 parentEl:       'model_edit',
-                onClick:        'window.href="#list"',
+                onClick:        'location.href="#list"',
                 value:          'Cancel'
             });			
 		},

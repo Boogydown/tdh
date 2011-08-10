@@ -26,17 +26,6 @@ $(function(){
         initialize : function(){
 			this.el.html("");
             _.bindAll(this, "onSubmit", "fetched", "fillMe", "attach");
-			if ( options.hidden )
-				if ( !confirm('Texas Dance Hall Preservation, Inc.\n\
-							   EVENT CALENDAR POLICY\n\n\
-							   Texas Dance Hall Preservation, Inc. exists to support traditional family-oriented dance halls. We ask that you keep this in mind when submitting an event for our calendar. We give our member halls and bands priority. \n\n\
-							   Top priority: Dances in traditional Texas dance halls; With live music and a wood floor; and open to all ages\n\
-							   Lower priority: Events where there is no dancing, e.g., a music show or other event where people sit and listen to music. If you submit one of these, please note clearly that there is no dancing.\n\n\
-							   Please do not post events that are not in Texas, that are not in a dance hall (exceptions include the traditional church festivals), are urban honky tonks or chain night clubs.\n\n\
-							   Texas Dance Hall Preservation, Inc. reserves the right to reject any submission.\n\n\
-							   Please click OK if you agree to these terms.') )
-					window.href="#list";
-				
             this.render();
         },
         

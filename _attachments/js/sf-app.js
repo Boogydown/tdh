@@ -97,7 +97,7 @@ $(function(){
             new inputEx.widget.Button({
                 id:             'cancel',
                 parentEl:       'model_edit',
-                onClick:        'location.href="#list"',
+                onClick:        this.onCancel,
                 value:          'Cancel'
             });			
 		},
@@ -125,7 +125,11 @@ $(function(){
 			else this.collection.create(values);
 			document.forms[0].reset();
 			location.href = "#list";
-		},			
+		},
+		
+		onCancel : function(){
+			location.href = "#list";
+		},
 
 		injectFiles : function( filelist, property, fileKey, values ) {
 			if ( ! filelist ) filelist = [];

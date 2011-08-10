@@ -94,6 +94,12 @@ $(function(){
                 onClick:        this.onSubmit,
                 value:          'Send'
             });			
+            new inputEx.widget.Button({
+                id:             'cancel',
+                parentEl:       'model_edit',
+                onClick:        'window.href="#list"',
+                value:          'Cancel'
+            });			
 		},
 
         // Takes the vals from the input fields and submits them to the Collection

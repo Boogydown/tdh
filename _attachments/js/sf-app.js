@@ -276,53 +276,57 @@ $(function(){
 		},
 		
 		getData : function () {
-            var rowData = [], 
-				fields = this.options.schema.properties, 
-				tmpLinkRef, key, vals;
+            var rowData = [], fields = this.options.schema.properties;
             for (key in fields) {
-				if ( ! fields[key].hidden ) {
-					var row = {key:key, value:this.model.get(key)};
-					var tmp = "";
-					// array?
-					if ( row.value ) {
-						if ( _.isArray(row.value) && row.value.length )
-							row.value = row.value[0];
-						if ( row.value.image ) {
-							tmp = row.value.credit;
-							row.value = row.value.image;
-						} 
-						else if ( row.value.attachedReferenceDocument ) {
-							tmp = row.value.documentName;
-							row.value = row.value.attachedReferenceDocument;
-						}
-						row.value = row.value || " ";
-
-						if ( _.isString(row.value) ) {					
-							// attachment?
-							if ( row.value[row.value.length - 4] == "." )
-								row.value = '<a href="../../' + this.model.id + "/files/" + row.value + '"><img src="../../' + this.model.id + "/thumbs/" + row.value + '"/> ' + tmp + '</a>';
-							
-							// fixed width on long entries
-							if ( row.value.length > 40 )
-								row.className="bigCell";
-								
-							// any stray links?
-							if ( row.value.substr(0, 4).toLowerCase() == "www." )
-								row.value = '<a href="http://' + row.value + '">' + row.value + '</a>';
-								
-							// doc link?
-							if ( fields[key].linkVal && !this.options.hidden ){
-								tmpLinkRef = fields[key].linkVal.linkRef;
-								row.value = '<a href="#doc/' + fields[tmpLinkRef].linkRef + '/full/' + this.model.get(tmpLinkRef) + '">' + row.value + '</a>';
-							}
-							
-						}			
-					}
-					rowData.push( row );
-				}
-			}
+				rowData.push( renderValue( key, fields, this.model.get(key) ) );
 			return {fields:rowData};
-		},		
+		},
+		
+		renderValue( key, schemaProps, modelVal ) {
+			var text = "", tmp = "", subProps, subProp, 
+				row = { key:key }, 
+				schemaProp = schemaProps[key];
+			if ( !modelVal || !schemaProp || schemaProp.hidden ) return null;
+				
+			// array? if not array in schema then just [0], otherwise run renderer on all values
+			if ( _.isArray( modelVal ) && modelVal.length && schemaProp.type != "array" )
+				modelVal = modelVal[0];
+				
+			// fixed width on long entries
+			if ( modelVal.length > 40 )
+				row.className="bigCell";
+			
+			// Switch on the schema property to determine how it's displayed
+			switch ( schemaProp.type ) {
+				case "array" : 
+					subProps = schemaProp.items && schemaProp.items.properties;
+					for ( var x in modelVal ){
+						if ( subProps )
+							//it's an object, so lets display all of its sub values
+							for ( subProp in subProps )
+								text += renderValue( subProp, subProps, modelVal[x].subProp ).value + ", ";
+						else
+							text += renderValue( key, schemaProps, modelVal[x] ).value + ", ";
+						test += "\n";
+					}
+					break;
+				case "file" : 
+					text = '<a href="../../' + this.model.id + "/files/" + modelVal + '"><img src="../../' + this.model.id + "/thumbs/" + modelVal + '"/> ' + modelVal + '</a>';
+					break;
+				case "url" :
+					text = '<a href="http://' + modelVal + '">' + modelVal + '</a>';
+					break;
+				case "linkRef" :
+					if ( !this.options.hidden ){
+						var tmpLinkRef = schemaProp.linkVal.linkRef;
+						modelVal = '<a href="#doc/' + fields[tmpLinkRef].linkRef + '/full/' + this.model.get(tmpLinkRef) + '">' + modelVal + '</a>';
+					}
+				default:
+					text = modelVal;
+			}
+			row.value = text;
+			return row;
+		},
 					
         // Fade out the element and destroy the model
         deleteMe : function(){

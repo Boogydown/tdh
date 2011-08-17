@@ -121,7 +121,7 @@ VU.schemas = {
 				},
 				"website":{
 					"description": "Website",
-					"type":"string",
+					"type":"url",
 					"optional":true
 				},
 				"description":{
@@ -205,14 +205,11 @@ VU.schemas = {
 			"properties":{
 				"band":{
 					"description": "Band Name",
-					"type":"array",
+					"type":"linkRef",
 					"required":true,
 					"linkRef": "bands",
 					"hidden": true,
-					"items":{
-						"type":"string", 
-						"choices": [ {"value":"foo","label":"bar"} ]
-					}
+					"choices": [ {"value":"foo","label":"bar"} ]
 				},
 				"bandName":{
 					"description": "Band Name",
@@ -228,14 +225,11 @@ VU.schemas = {
 				},
 				"hall":{
 					"description": "Dancehall Name",
-					"type":"array",
+					"type":"linkRef",
 					"required": true,
 					"linkRef": "halls",
 					"hidden": true,
-					"items":{
-						"type":"string", 
-						"choices": [ {"value":"foo","label":"bar"} ]
-					}
+					"choices": [ {"value":"foo","label":"bar"} ]
 				},
 				"gpsCoordinates":{
 					"description": "GPS coords",
@@ -266,7 +260,8 @@ VU.schemas = {
 					"description": "Date of event",
 					"type":"string",
 					"required":true,
-					"format":"date"/*,
+					"value":"January 1, 2012"/*,
+					"format":"date",
 					"_inputex": {
 						"_type": "datepicker", 
 						valueFormat: 'd-m-Y', 
@@ -277,6 +272,7 @@ VU.schemas = {
 				"time":{
 					"description": "Starts at",
 					"type":"string",
+					"value":"8:00pm",
 					"optional":true
 				},
 				"eventType":{
@@ -411,7 +407,7 @@ VU.schemas = {
 				},
 				"website":{
 					"description": "Website for more info",
-					"type":"string",
+					"type":"url",
 					"optional":true
 				},
 				"stylesPlayed":{

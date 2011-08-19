@@ -391,7 +391,7 @@ VU.schemas = {
 						//"_type": "datepicker", 
 						//valueFormat: 'd-m-Y', 
 						//label: 'Date of event'
-						"value":"January 1, 2012"
+						"value":"December 31, 2011"
 					}
     			},
 				"time":{

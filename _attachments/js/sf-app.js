@@ -295,9 +295,6 @@ $(function(){
 			if ( _.isArray( modelVal ) && modelVal.length && schemaProp.type != "array" )
 				modelVal = modelVal[0];
 				
-			// fixed width on long entries
-			if ( modelVal.length > 40 ) row.className="bigCell";
-			
 			// cheat a little or the field type
 			var fieldType = schemaProp.type;
 			if ( schemaProp.linkVal ) fieldType = "linkVal";
@@ -305,6 +302,7 @@ $(function(){
 			// Switch on the schema property to determine how it's displayed
 			switch ( fieldType ) {
 				case "array" : 
+					row.className="bigCell";
 					subProps = schemaProp.items && schemaProp.items.properties;
 					subType = schemaProp.items && schemaProp.items.type;
 					for ( var x in modelVal ){
@@ -314,7 +312,7 @@ $(function(){
 								text += this.renderValue( subProp, subProps[subProp], modelVal[x][subProp] ).value + ", ";
 						else
 							text += this.renderValue( key, schemaProp.items, modelVal[x] ).value + ", ";
-						text += "\n";
+						text += "<br/>";
 					}
 					break;
 				case "file" : 
@@ -332,6 +330,8 @@ $(function(){
 						modelVal = '<a href="#doc/' + this.options.schema.properties[tmpLinkRef].linkRef + '/full/' + this.model.get(tmpLinkRef) + '">' + modelVal + '</a>';
 					}
 				default:
+					// fixed width on long entries
+					if ( modelVal.length > 40 ) row.className="bigCell";
 					text = modelVal;
 					if ( this.clickDest )
 						row.clickDest = this.clickDest;

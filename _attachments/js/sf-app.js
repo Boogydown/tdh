@@ -329,6 +329,7 @@ $(function(){
 						var tmpLinkRef = schemaProp.linkVal.linkRef;
 						text = '<a href="#doc/' + this.options.schema.properties[tmpLinkRef].linkRef + '/full/' + this.model.get(tmpLinkRef) + '">' + modelVal + '</a>';
 					}
+					break;
 				default:
 					// fixed width on long entries
 					if ( modelVal.length > 40 ) row.className="bigCell";

@@ -278,9 +278,11 @@ $(function(){
 		},
 		
 		getData : function () {
-            var rowData = [], fields = this.options.schema.properties;
-            for (key in fields)
-				rowData.push( this.renderValue( key, fields, this.model.get(key) ) );
+            var rowData = [], fields = this.options.schema.properties, row;
+            for (key in fields){
+				row = this.renderValue( key, fields, this.model.get(key) );
+				if ( row ) rowData.push( row );
+			}
 			return {fields:rowData};
 		},
 		

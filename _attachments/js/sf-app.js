@@ -318,8 +318,6 @@ $(function(){
 							text += this.renderValue( key, subProps, modelVal[x] ).value + ", ";
 						text += "\n";
 					}
-					if ( this.clickDest )
-						row.clickDest = this.clickDest;
 					break;
 				case "file" : 
 					text = '<a href="../../' + this.model.id + "/files/" + modelVal + '"><img src="../../' + this.model.id + "/thumbs/" + modelVal + '"/> ' + modelVal + '</a>';

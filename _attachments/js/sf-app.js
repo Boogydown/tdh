@@ -71,7 +71,7 @@ $(function(){
 		fetched : function( coll, options ) {
 			coll.fetched = true;
 			coll.unbind( "refresh", this.fetched );
-			this.form.fields[options.field].elementType.choices = _.map( coll.models, function(model) {
+			this.form.fields[options.field].choices = _.map( coll.models, function(model) {
 				// TODO: yeaaaahhh.... this needs to be fixed.  Should not have hardcoded values here.  Perhaps make "name" mandatory on all docs?
 				var name = model.get("bandName");
 				if ( !name ) name = model.get("danceHallName");

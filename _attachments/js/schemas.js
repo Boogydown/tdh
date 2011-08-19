@@ -213,7 +213,7 @@ VU.schemas = {
 				},
 				"bandName":{
 					"description": "Band Name",
-					"type":"array",
+					"type":"string",
 					"required":true,
 					"linkVal": { 
 						linkRef: "band",
@@ -231,6 +231,18 @@ VU.schemas = {
 					"hidden": true,
 					"choices": [ {"value":"foo","label":"bar"} ]
 				},
+				"hallName":{
+					"description": "Band Name",
+					"type":"string",
+					"required":true,
+					"linkVal": { 
+						linkRef: "hall",
+						cell: "bandName"
+					},
+					"_inputex": {
+						"_type": "hidden"
+					}
+				},
 				"gpsCoordinates":{
 					"description": "GPS coords",
 					"type":"string",
@@ -243,18 +255,6 @@ VU.schemas = {
 					"_inputex": {
 						"_type": "hidden"
 					}					
-				},
-				"hallName":{
-					"description": "Band Name",
-					"type":"array",
-					"required":true,
-					"linkVal": { 
-						linkRef: "hall",
-						cell: "bandName"
-					},
-					"_inputex": {
-						"_type": "hidden"
-					}
 				},
 				"date":{
 					"description": "Date of event",
@@ -303,13 +303,13 @@ VU.schemas = {
 			"properties":{
 				"band":{
 					"description": "Band ID",
-					"type":"array",
+					"type":"string",
 					"required":true,
 					"linkRef": "bands"
 				},
 				"bandName":{
 					"description": "Band Name",
-					"type":"array",
+					"type":"string",
 					"required":true,
 					"linkVal": { 
 						linkRef: "band",
@@ -342,13 +342,13 @@ VU.schemas = {
 				},
 				"hall":{
 					"description": "Dancehall ID",
-					"type":"array",
+					"type":"string",
 					"required":true,
 					"linkRef": "halls"
 				},
 				"hallName":{
 					"description": "DanceHall Name",
-					"type":"array",
+					"type":"string",
 					"required":true,
 					"linkVal": { 
 						linkRef: "hall",
@@ -414,7 +414,10 @@ VU.schemas = {
 				"stylesPlayed":{
 					"description": "What are the different styles played",
 					"type":"array",
-					"optional":true
+					"optional":true,
+					"items": {
+						"type":string
+					}
 				}
 			}
 		}

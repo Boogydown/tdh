@@ -287,8 +287,7 @@ $(function(){
 		},
 		
 		renderValue : function ( key, schemaProp, modelVal ) {
-			var text = "", tmp = "", subProps, subProp, subType,
-				row = { key:key }, 
+			var text = "", tmp = "", subProps, subProp, subType, row = { key:key };
 			if ( !schemaProp || schemaProp.hidden ) return null;
 			modelVal = modelVal || " ";
 				

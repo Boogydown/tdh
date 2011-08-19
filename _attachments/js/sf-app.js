@@ -315,7 +315,7 @@ $(function(){
 							for ( subProp in subProps )
 								text += this.renderValue( subProp, subProps, modelVal[x][subProp] ).value + ", ";
 						else
-							text += this.renderValue( key, subProps, modelVal[x] ).value + ", ";
+							text += this.renderValue( key, schemaProp.items, modelVal[x] ).value + ", ";
 						text += "\n";
 					}
 					break;

@@ -386,16 +386,6 @@ VU.schemas = {
 			"description":"A band profile",
 			"type":"object",
 			"properties":{
-				"_id":{
-					"description": "ID",
-					"type":"string",
-					"format":"id",
-					"optional":true,
-					"hidden":true,
-					"_inputex": {
-						"_type": "hidden"
-					}
-				},
 				"bandName":{
 					"description": "Band Name",
 					"type":"string",

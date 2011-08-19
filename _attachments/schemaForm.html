@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>VyncUp schema_form v0.0.3</title>
+    <title>VyncUp schema_form v0.9.0</title>
     <link rel="stylesheet" href="style/main.css" type="text/css">
     <link rel="stylesheet" type="text/css" href="js/lib/inputex/css/inputEx.css" />
   </head>
@@ -46,7 +46,7 @@
     </tr>
   </script>
   <script type="application/dust-template" id="table-row">
-        {#fields}<td><div class="{className}">{value|s}</div></td>{/fields}
+        {#fields}<td><div class="{className}"{?clickDest} onclick="{clickDest}"{/clickDest}>{value|s}</div></td>{/fields}
         <td class="hideable"><div class="edit">?</div></td>
         <td class="hideable"><div class="delete">X</div></td>
   </script>

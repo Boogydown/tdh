@@ -318,7 +318,10 @@ $(function(){
 					}
 					break;
 				case "file" : 
-					text = '<a href="../../' + this.model.id + "/files/" + modelVal + '"><img src="../../' + this.model.id + "/thumbs/" + modelVal + '"/> ' + modelVal + '</a>';
+					if ( schemaProp.clickable )
+						text = '<a href="../../' + this.model.id + "/files/" + modelVal + '"><img src="../../' + this.model.id + "/thumbs/" + modelVal + '"/> ' + modelVal + '</a>';
+					else
+						text = '<img src="../../' + this.model.id + "/thumbs/" + modelVal + '"/></a>';
 					break;
 				case "url" :
 					text = '<a href="http://' + modelVal + '">' + modelVal + '</a>';
@@ -462,7 +465,7 @@ $(function(){
 			//if ( showType && showType == this.showType && collName == undefined ) showType = "none";
 			
 			// reset default page # if changing colls or numPerPage...
-			if ( collName != this.collName || numPerPage != this.numPerPage )
+			if ( (collName && collName != this.collName) || (numPerPage && numPerPage != this.numPerPage) )
 				this.curPage = 0;
 
 			// normalize the route based on any persistant values 

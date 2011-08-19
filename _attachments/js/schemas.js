@@ -34,6 +34,7 @@ VU.schemas = {
 							"image": {
 								"description":"Image file",
 								"type":"file",
+								"clickable":true,
 								"enctype":"multipart/form-data",
 								"required":true,
 								"buttons": {
@@ -179,6 +180,7 @@ VU.schemas = {
 							"attachedReferenceDocument":{
 								"description": "Attached Reference Document",
 								"type":"file",
+								"clickable":true,
 								"required":true
 							},
 							"author":{
@@ -190,6 +192,132 @@ VU.schemas = {
 								"description": "Citation",
 								"type":"string",
 								"optional":true
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	
+	halls: {
+		member: {
+			"description":"A dancehall is a venue dedicated to musical performances and dancing",
+			"type":"object",
+			"properties":{
+				"_id":{
+					"description": "ID",
+					"type":"string",
+					"format":"id",
+					"optional":true,
+					"hidden":true,
+					"_inputex": {
+						"_type": "hidden"
+					}
+				},
+				"danceHallName":{
+					"description": "Dance Hall Name",
+					"type":"string",
+					"required":true
+				},
+				"images":{
+					"description":"Images",
+					"type": "array",
+					"optional":true,
+					"items":{
+						"type":"object",
+						"properties":{
+							"image": {
+								"description":"Image file",
+								"type":"file",
+								"clickable":false,
+								"enctype":"multipart/form-data",
+								"required":true,
+								"buttons": {
+									"type": "submit", 
+									"value": "Upload"
+								} 
+							},
+							"credit": {
+								"description": "Image credit",
+								"type":"string",
+								"optional":true
+							}
+						}
+					}
+				},
+				"community":{
+					"description": "Community",
+					"type":"string",
+					"optional":true
+				},
+				"county":{
+					"description": "County",
+					"type":"string",
+					"optional":true
+				},
+				"address":{
+					"description": "Address",
+					"type":"string",
+					"optional":true
+				},
+				"directions":{
+					"description": "Directions",
+					"type":"string",
+					"optional":true
+				},
+				"currentUse":{
+					"description": "Current Use",
+					"type":"string",
+					"optional":true
+				},
+				"culturalOrigin":{
+					"description": "Cultural Origin",
+					"type":"string",
+					"optional":true
+				},
+				"dateBuilt":{
+					"description": "Date Built",
+					"type":"string",
+					"optional":true
+				},
+				"website":{
+					"description": "Website",
+					"type":"url",
+					"optional":true
+				},
+				"description":{
+					"description": "Description",
+					"type":"string",
+					"optional":true
+				},
+				"comments":{
+					"description": "Comments",
+					"type":"string",
+					"optional":true
+				},
+				"historicalNarrative":{
+					"description": "Historical Narrative",
+					"type":"string",
+					"optional":true
+				},
+				"documents":{
+					"description": "Documents",
+					"type":"array",
+					"optional":true,
+					"items":{
+						"type":"object",
+						"properties":{
+							"documentName":{
+								"description": "Document Name",
+								"type":"string",
+								"optional":true
+							},
+							"attachedReferenceDocument":{
+								"description": "Attached Reference Document",
+								"type":"file",
+								"clickable":false,
+								"required":true
 							}
 						}
 					}

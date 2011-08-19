@@ -310,7 +310,7 @@ $(function(){
 								text += this.renderValue( subProp, subProps, modelVal[x].subProp ).value + ", ";
 						else
 							text += this.renderValue( key, schemaProps, modelVal[x] ).value + ", ";
-						test += "\n";
+						text += "\n";
 					}
 					if ( this.clickDest )
 						row.clickDest = this.clickDest;

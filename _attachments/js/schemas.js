@@ -416,7 +416,7 @@ VU.schemas = {
 					"type":"array",
 					"optional":true,
 					"items": {
-						"type":string
+						"type":"string"
 					}
 				}
 			}

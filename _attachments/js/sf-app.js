@@ -281,7 +281,7 @@ $(function(){
             var rowData = [], fields = this.options.schema.properties, row;
             for (key in fields){
 				row = this.renderValue( key, fields, this.model.get(key) );
-				if ( row ) rowData.push( row );
+				if ( row != null ) rowData.push( row );
 			}
 			return {fields:rowData};
 		},

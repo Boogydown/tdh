@@ -205,7 +205,7 @@ VU.schemas = {
 			"properties":{
 				"band":{
 					"description": "Band Name",
-					"type":"select",
+					"type":"string",
 					"required":true,
 					"linkRef": "bands",
 					"hidden": true,
@@ -225,7 +225,7 @@ VU.schemas = {
 				},
 				"hall":{
 					"description": "Dancehall Name",
-					"type":"select",
+					"type":"string",
 					"required": true,
 					"linkRef": "halls",
 					"hidden": true,

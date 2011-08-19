@@ -290,7 +290,7 @@ $(function(){
 			var text = "", tmp = "", subProps, subProp, 
 				row = { key:key }, 
 				schemaProp = schemaProps[key];
-			if ( !modelVal || !schemaProp || schemaProp.hidden ) return null;
+			if ( modelVal == null || !schemaProp || schemaProp.hidden ) return null;
 				
 			// array? if not array in schema then just [0], otherwise run renderer on all values
 			if ( _.isArray( modelVal ) && modelVal.length && schemaProp.type != "array" )
@@ -301,7 +301,7 @@ $(function(){
 			
 			// cheat a little or the field type
 			var fieldType = schemaProp.type;
-			if ( schemaProp.linkRef ) fieldType = "linkRef";
+			if ( schemaProp.linkVal ) fieldType = "linkVal";
 				
 			// Switch on the schema property to determine how it's displayed
 			switch ( fieldType ) {
@@ -326,7 +326,7 @@ $(function(){
 				case "url" :
 					text = '<a href="http://' + modelVal + '">' + modelVal + '</a>';
 					break;
-				case "linkRef" :
+				case "linkVal" :
 					if ( !this.options.hidden ){
 						var tmpLinkRef = schemaProp.linkVal.linkRef;
 						modelVal = '<a href="#doc/' + fields[tmpLinkRef].linkRef + '/full/' + this.model.get(tmpLinkRef) + '">' + modelVal + '</a>';

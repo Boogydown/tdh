@@ -280,16 +280,15 @@ $(function(){
 		getData : function () {
             var rowData = [], fields = this.options.schema.properties, row;
             for (key in fields){
-				row = this.renderValue( key, fields, this.model.get(key) );
+				row = this.renderValue( key, fields[key], this.model.get(key) );
 				if ( row != null ) rowData.push( row );
 			}
 			return {fields:rowData};
 		},
 		
-		renderValue : function ( key, schemaProps, modelVal ) {
+		renderValue : function ( key, schemaProp, modelVal ) {
 			var text = "", tmp = "", subProps, subProp, subType,
 				row = { key:key }, 
-				schemaProp = schemaProps[key];
 			if ( !schemaProp || schemaProp.hidden ) return null;
 			modelVal = modelVal || " ";
 				
@@ -313,7 +312,7 @@ $(function(){
 						if ( subType == "object" )
 							//it's an object, so lets display all of its sub values
 							for ( subProp in subProps )
-								text += this.renderValue( subProp, subProps, modelVal[x][subProp] ).value + ", ";
+								text += this.renderValue( subProp, subProps[subProp], modelVal[x][subProp] ).value + ", ";
 						else
 							text += this.renderValue( key, schemaProp.items, modelVal[x] ).value + ", ";
 						text += "\n";
@@ -328,7 +327,7 @@ $(function(){
 				case "linkVal" :
 					if ( !this.options.hidden ){
 						var tmpLinkRef = schemaProp.linkVal.linkRef;
-						modelVal = '<a href="#doc/' + schemaProps[tmpLinkRef].linkRef + '/full/' + this.model.get(tmpLinkRef) + '">' + modelVal + '</a>';
+						modelVal = '<a href="#doc/' + this.options.schema.properties[tmpLinkRef].linkRef + '/full/' + this.model.get(tmpLinkRef) + '">' + modelVal + '</a>';
 					}
 				default:
 					text = modelVal;

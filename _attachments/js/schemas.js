@@ -178,7 +178,7 @@ VU.schemas = {
 							},
 							"attachedReferenceDocument":{
 								"description": "Attached Reference Document",
-								"type":"string",
+								"type":"file",
 								"required":true
 							},
 							"author":{

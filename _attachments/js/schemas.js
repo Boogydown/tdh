@@ -224,7 +224,7 @@ VU.schemas = {
 					}					
 				},
 				"hall":{
-					"description": "Dancehall Name",
+					"description": "Dance Hall",
 					"type":"string",
 					"required": true,
 					"linkRef": "halls",
@@ -232,7 +232,7 @@ VU.schemas = {
 					"choices": [ {"value":"foo","label":"bar"} ]
 				},
 				"hallName":{
-					"description": "Band Name",
+					"description": "Dance Hall Name",
 					"type":"string",
 					"required":true,
 					"linkVal": { 

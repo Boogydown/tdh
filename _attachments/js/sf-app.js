@@ -327,7 +327,7 @@ $(function(){
 				case "linkVal" :
 					if ( !this.options.hidden ){
 						var tmpLinkRef = schemaProp.linkVal.linkRef;
-						modelVal = '<a href="#doc/' + this.options.schema.properties[tmpLinkRef].linkRef + '/full/' + this.model.get(tmpLinkRef) + '">' + modelVal + '</a>';
+						text = '<a href="#doc/' + this.options.schema.properties[tmpLinkRef].linkRef + '/full/' + this.model.get(tmpLinkRef) + '">' + modelVal + '</a>';
 					}
 				default:
 					// fixed width on long entries

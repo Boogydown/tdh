@@ -306,9 +306,9 @@ $(function(){
 						if ( subProps )
 							//it's an object, so lets display all of its sub values
 							for ( subProp in subProps )
-								text += renderValue( subProp, subProps, modelVal[x].subProp ).value + ", ";
+								text += this.renderValue( subProp, subProps, modelVal[x].subProp ).value + ", ";
 						else
-							text += renderValue( key, schemaProps, modelVal[x] ).value + ", ";
+							text += this.renderValue( key, schemaProps, modelVal[x] ).value + ", ";
 						test += "\n";
 					}
 					if ( this.clickDest )

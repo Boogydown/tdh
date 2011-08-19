@@ -33,6 +33,9 @@ VU.LinkingModel = Backbone.Model.extend({
 		this.bind ( "change", this.loadLinkRefs );
 		
 		// Loads all of the refs and values from schema for processing later
+		// this.linkRefs is a dict where key is the linkref property name (i.e. band) and
+		//	value is a dict where key is linkval property name (i.e. band name) and value
+		//	is its cell lookup name (within the linkref)
 		var fields = this.options && this.options.schema && this.options.schema.properties || 
 					 this.collection.schema && this.collection.schema.properties ||
 					 {};
@@ -63,7 +66,7 @@ VU.LinkingModel = Backbone.Model.extend({
 			docID = this.get(attr);
 			if ( docID )
 			{
-				if ( docID.length ) docID = docID[0];
+				if ( _.isArray(docID) && docID.length ) docID = docID[0];
 				coll = this.collection.colls[ this.linkRefs[attr].coll ];
 				if ( coll )
 				{
@@ -225,6 +228,7 @@ VU.EventModel = VU.LinkingModel.extend({
 			myDate = new Date();
 		} else {
 			this.set({
+				//TODO: make this a date util
 				dateDay: ["SUN","MON","TUE","WED","THU","FRI","SAT"][myDate.getDay()],
 				dateDate: myDate.getDate(),
 				dateMonth: ["JAN","FEB","MAR","APR","MAY","JUNE","JULY","AUG","SEPT","OCT","NOV","DEC"][myDate.getMonth()]

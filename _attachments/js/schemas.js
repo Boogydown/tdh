@@ -280,18 +280,18 @@ VU.schemas = {
 					"description": "Type of event",
 					"type":"string",
 					"choices": [ 
-						{"value":"dance","label":"Dance"},
-						{"value":"music_show","label":"Music Show"},
-						{"value":"festival","label":"Festival"} 
+						{"value":"Dance","label":"Dance"},
+						{"value":"Music Show","label":"Music Show"},
+						{"value":"Festival","label":"Festival"} 
 					]
 				},
 				"ageLimit":{
 					"description": "Age limit",
 					"type":"string",
 					"choices": [ 
-						{"value":"all","label":"All ages"},
-						{"value":"18","label":"18 and up"},
-						{"value":"21","label":"21 and up"} 
+						{"value":"All ages","label":"All ages"},
+						{"value":"18 and up","label":"18 and up"},
+						{"value":"21 and up","label":"21 and up"} 
 					]
 				}
 			}

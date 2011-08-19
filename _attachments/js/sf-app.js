@@ -302,6 +302,7 @@ $(function(){
 			switch ( schemaProp.type ) {
 				case "array" : 
 					subProps = schemaProp.items && schemaProp.items.properties;
+					schemaProp.type = (schemaProp.items && schemaProp.items.type) || "string";
 					for ( var x in modelVal ){
 						if ( subProps )
 							//it's an object, so lets display all of its sub values

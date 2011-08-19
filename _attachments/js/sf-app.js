@@ -272,7 +272,7 @@ $(function(){
 						+ this.model.id + "'";
 				} catch (e) {}
 			}
-			_.bindAll(this, 'render', "editMe", "deleteMe");
+			_.bindAll(this, 'render', "editMe", "deleteMe", "renderValue");
 			this.model.bind('change', this.render);
 			this.registerTemplate( this.options.templateName );
 		},
@@ -280,7 +280,7 @@ $(function(){
 		getData : function () {
             var rowData = [], fields = this.options.schema.properties;
             for (key in fields)
-				rowData.push( renderValue( key, fields, this.model.get(key) ) );
+				rowData.push( this.renderValue( key, fields, this.model.get(key) ) );
 			return {fields:rowData};
 		},
 		

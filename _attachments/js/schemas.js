@@ -37,9 +37,9 @@ VU.schemas = {
 								"enctype":"multipart/form-data",
 								"required":true,
 								"buttons": {
-						"type": "submit", 
-						"value": "Upload"
-					} 
+									"type": "submit", 
+									"value": "Upload"
+								} 
 							},
 							"credit": {
 								"description": "Image credit",
@@ -178,7 +178,7 @@ VU.schemas = {
 							},
 							"attachedReferenceDocument":{
 								"description": "Attached Reference Document",
-								"type":"file",
+								"type":"string",
 								"required":true
 							},
 							"author":{

@@ -253,6 +253,7 @@ $(function(){
 	 */
     VU.SchemaDocView = VU.DustView.extend({
 		el: "<tr class='selectableRow'/>",
+		clickDest: "",
         events : {
             "click .edit"     : "editMe",
             "click .delete"   : "deleteMe",
@@ -264,10 +265,11 @@ $(function(){
 			if ( !this.options.hidden )
 			{
 				try {
-					this.el.setAttribute("onclick", "location.href='#doc/"
+					//this.el.setAttribute("onclick", "location.href='#doc/"
+					this.clickDest = "location.href='#doc/"
 						+ this.options.collName + "/" 
 						+ this.options.schemaName + "/" 
-						+ this.model.id + "'");
+						+ this.model.id + "'";
 				} catch (e) {}
 			}
 			_.bindAll(this, 'render', "editMe", "deleteMe");
@@ -277,7 +279,7 @@ $(function(){
 		
 		getData : function () {
             var rowData = [], fields = this.options.schema.properties;
-            for (key in fields) {
+            for (key in fields)
 				rowData.push( renderValue( key, fields, this.model.get(key) ) );
 			return {fields:rowData};
 		},
@@ -309,6 +311,8 @@ $(function(){
 							text += renderValue( key, schemaProps, modelVal[x] ).value + ", ";
 						test += "\n";
 					}
+					if ( this.clickDest )
+						row.clickDest = this.clickDest;
 					break;
 				case "file" : 
 					text = '<a href="../../' + this.model.id + "/files/" + modelVal + '"><img src="../../' + this.model.id + "/thumbs/" + modelVal + '"/> ' + modelVal + '</a>';
@@ -323,6 +327,8 @@ $(function(){
 					}
 				default:
 					text = modelVal;
+					if ( this.clickDest )
+						row.clickDest = this.clickDest;
 			}
 			row.value = text;
 			return row;

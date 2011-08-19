@@ -30,12 +30,12 @@
   
   <script type="application/dust-template" id="table-header">
     <tr>
-		<td><div style="width:300px">
+		<td style="border:0px"><div style="width:210px">
 			{?prevPage}<a href="#////{prevPage}">&ltPrev</a>{:else}&ltPrev{/prevPage}&nbsp
 			{pageList|s}
 			&nbsp{?nextPage}<a href="#////{nextPage}">Next&gt</a>{:else}Next&gt{/nextPage}
 		</div></td>
-		<td><div class="hideable" style="width:300px">
+		<td style="border:0px"><div class="hideable" style="width:210px">
 			Num per page: <a href="#////0/10">10</a> <a href="#////0/20">20</a> <a href="#////0/50">50</a> <a href="#////0/100">100</a>
 		</div></td>
 	</tr>

@@ -127,7 +127,7 @@ div.label:hover {
 }
 .bigCell {
 	overflow: auto;
-	width:200px;
+	width:210px;
 	height:80px;
 }		
 #coll_table .selectableRow:hover{

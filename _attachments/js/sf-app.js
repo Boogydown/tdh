@@ -287,7 +287,7 @@ $(function(){
 		},
 		
 		renderValue : function ( key, schemaProps, modelVal ) {
-			var text = "", tmp = "", subProps, subProp, 
+			var text = "", tmp = "", subProps, subProp, subType,
 				row = { key:key }, 
 				schemaProp = schemaProps[key];
 			if ( !schemaProp || schemaProp.hidden ) return null;
@@ -308,8 +308,9 @@ $(function(){
 			switch ( fieldType ) {
 				case "array" : 
 					subProps = schemaProp.items && schemaProp.items.properties;
+					subType = schemaProp.items && schemaProp.items.type;
 					for ( var x in modelVal ){
-						if ( subProps.type == "object" )
+						if ( subType == "object" )
 							//it's an object, so lets display all of its sub values
 							for ( subProp in subProps )
 								text += this.renderValue( subProp, subProps, modelVal[x].subProp ).value + ", ";

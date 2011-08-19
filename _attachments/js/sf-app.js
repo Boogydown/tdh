@@ -290,7 +290,8 @@ $(function(){
 			var text = "", tmp = "", subProps, subProp, 
 				row = { key:key }, 
 				schemaProp = schemaProps[key];
-			if ( modelVal == null || !schemaProp || schemaProp.hidden ) return null;
+			if ( !schemaProp || schemaProp.hidden ) return null;
+			modelVal = modelVal || " ";
 				
 			// array? if not array in schema then just [0], otherwise run renderer on all values
 			if ( _.isArray( modelVal ) && modelVal.length && schemaProp.type != "array" )
@@ -329,7 +330,7 @@ $(function(){
 				case "linkVal" :
 					if ( !this.options.hidden ){
 						var tmpLinkRef = schemaProp.linkVal.linkRef;
-						modelVal = '<a href="#doc/' + fields[tmpLinkRef].linkRef + '/full/' + this.model.get(tmpLinkRef) + '">' + modelVal + '</a>';
+						modelVal = '<a href="#doc/' + schemaProps[tmpLinkRef].linkRef + '/full/' + this.model.get(tmpLinkRef) + '">' + modelVal + '</a>';
 					}
 				default:
 					text = modelVal;

@@ -300,8 +300,12 @@ $(function(){
 			if ( modelVal.length > 40 )
 				row.className="bigCell";
 			
+			// cheat a little or the field type
+			var fieldType = schemaProp.type;
+			if ( schemaProp.linkRef ) fieldType = "linkRef";
+				
 			// Switch on the schema property to determine how it's displayed
-			switch ( schemaProp.type ) {
+			switch ( linkRef ) {
 				case "array" : 
 					subProps = schemaProp.items && schemaProp.items.properties;
 					schemaProp.type = (schemaProp.items && schemaProp.items.type) || "string";

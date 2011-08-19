@@ -197,10 +197,8 @@ VU.schemas = {
 					}
 				}
 			}
-		}
-	},
-	
-	halls: {
+		},
+		
 		member: {
 			"description":"A dancehall is a venue dedicated to musical performances and dancing",
 			"type":"object",

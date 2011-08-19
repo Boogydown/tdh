@@ -462,6 +462,10 @@ $(function(){
 			// can only show one panel at a time
 			// if our showType is already shown then 2nd click will hide it (i.e. "none")
 			//if ( showType && showType == this.showType && collName == undefined ) showType = "none";
+			
+			// reset default page # if changing colls or numPerPage...
+			if ( collName != this.collName || numPerPage != this.numPerPage )
+				this.curPage = 0;
 
 			// normalize the route based on any persistant values 
 			// (i.e. for urls without all the /params after the hash, we'll just used the previous, saved value)

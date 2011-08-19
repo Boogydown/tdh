@@ -284,7 +284,7 @@ $(function(){
 			return {fields:rowData};
 		},
 		
-		renderValue( key, schemaProps, modelVal ) {
+		renderValue : function ( key, schemaProps, modelVal ) {
 			var text = "", tmp = "", subProps, subProp, 
 				row = { key:key }, 
 				schemaProp = schemaProps[key];

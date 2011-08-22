@@ -280,39 +280,72 @@ $(function(){
 		getData : function () {
             var rowData = [], fields = this.options.schema.properties, row;
             for (key in fields){
+<<<<<<< HEAD
 				row = this.renderValue( key, fields[key], this.model.get(key) );
 				if ( row != null ) rowData.push( row );
+=======
+				row = this.renderValue( key, fields, this.model.get(key) );
+				if ( row ) rowData.push( row );
+>>>>>>> production
 			}
 			return {fields:rowData};
 		},
 		
+<<<<<<< HEAD
 		renderValue : function ( key, schemaProp, modelVal ) {
 			var text = "", tmp = "", subProps, subProp, subType, row = { key:key };
 			if ( !schemaProp || schemaProp.hidden ) return null;
 			modelVal = modelVal || " ";
+=======
+		renderValue : function ( key, schemaProps, modelVal ) {
+			var text = "", tmp = "", subProps, subProp, 
+				row = { key:key }, 
+				schemaProp = schemaProps[key];
+			if ( !modelVal || !schemaProp || schemaProp.hidden ) return null;
+>>>>>>> production
 				
 			// array? if not array in schema then just [0], otherwise run renderer on all values
 			if ( _.isArray( modelVal ) && modelVal.length && schemaProp.type != "array" )
 				modelVal = modelVal[0];
 				
+<<<<<<< HEAD
 			// cheat a little or the field type
 			var fieldType = schemaProp.type;
 			if ( schemaProp.linkVal ) fieldType = "linkVal";
+=======
+			// fixed width on long entries
+			if ( modelVal.length > 40 ) row.className="bigCell";
+			
+			// cheat a little or the field type
+			var fieldType = schemaProp.type;
+			if ( schemaProp.linkRef ) fieldType = "linkRef";
+>>>>>>> production
 				
 			// Switch on the schema property to determine how it's displayed
 			switch ( fieldType ) {
 				case "array" : 
 					row.className="bigCell";
 					subProps = schemaProp.items && schemaProp.items.properties;
+<<<<<<< HEAD
 					subType = schemaProp.items && schemaProp.items.type;
+=======
+					schemaProp.type = (schemaProp.items && schemaProp.items.type) || "string";
+>>>>>>> production
 					for ( var x in modelVal ){
 						if ( subType == "object" )
 							//it's an object, so lets display all of its sub values
 							for ( subProp in subProps )
+<<<<<<< HEAD
 								text += this.renderValue( subProp, subProps[subProp], modelVal[x][subProp] ).value + ", ";
 						else
 							text += this.renderValue( key, schemaProp.items, modelVal[x] ).value + ", ";
 						text += "<br/>";
+=======
+								text += this.renderValue( subProp, subProps, modelVal[x].subProp ).value + ", ";
+						else
+							text += this.renderValue( key, schemaProps, modelVal[x] ).value + ", ";
+						text += "\n";
+>>>>>>> production
 					}
 					break;
 				case "file" : 

@@ -350,11 +350,7 @@ VU.schemas = {
 					}					
 				},
 				"hall":{
-<<<<<<< HEAD
 					"description": "Dance Hall",
-=======
-					"description": "Dancehall Name",
->>>>>>> production
 					"type":"string",
 					"required": true,
 					"linkRef": "halls",
@@ -395,11 +391,7 @@ VU.schemas = {
 						//"_type": "datepicker", 
 						//valueFormat: 'd-m-Y', 
 						//label: 'Date of event'
-<<<<<<< HEAD
 						"value":"December 31, 2011"
-=======
-						"value":"January 1, 2012"
->>>>>>> production
 					}
     			},
 				"time":{

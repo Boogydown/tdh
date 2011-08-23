@@ -422,7 +422,7 @@ $(function(){
 		docID : "",
 		curPage : 0,
 		numPerPage: 20,
-		hidden : 2, /* 1 = hidden, 2 = not hidden */
+		hidden : 1, /* 1 = hidden, 2 = not hidden */
 
 		routes : { ":type/:coll/:schema/:docID/:page/:numPer/:hidden" : "updateShow",
 				   ":type/:coll/:schema/:docID/:page/:numPer" : "updateShow",

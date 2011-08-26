@@ -121,6 +121,36 @@ div#list{
 	-webkit-border-bottom-right-radius: 0px;
 	
 }
+/*Used for band and hall page */
+#itemlisting div.featured{ 
+	position:relative;
+	left:-1px;
+	top: -1px;
+	height:90px;
+	width: 55px;
+	background: url(../images/cssSprite.png);
+	background-position: 0px -590px;
+	border-radius: 10px 0px 0px 10px;
+	-moz-border-radius: 10px 0px 0px 10px;
+	-webkit-border-top-right-radius: 0px;
+	-webkit-border-bottom-right-radius: 0px;
+	
+}
+
+#itemlisting div.standard{
+	position:relative;
+	left:-1px;
+	top: -1px;
+	height:90px;
+	width: 55px;
+	background: url(../images/cssSprite.png);
+	background-position: 0px -490px;
+	border-radius: 10px 0px 0px 10px;
+	-moz-border-radius: 10px 0px 0px 10px;
+	-webkit-border-top-right-radius: 0px;
+	-webkit-border-bottom-right-radius: 0px;
+	
+}
 
 #listing div.standard{
 	position:relative;

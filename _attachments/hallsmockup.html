@@ -28,12 +28,12 @@
 		<div id="itemlisting">
 			<div class="{?featured}featured{:else}standard{/featured}">
 				<div id="itemlisting-img">
-					JUST AN IMAGE HERE OF THE HALL/BAND
+					<img src="/images/genericHall.JPG" width="80" border="0"/>
 				</div>
 				<div id="listing-time">{time}</div>
 				<div id="details" style="top:-10px">
-					<a href="#pop/band/{band}">HEADING WITH NAME OF HALL/BAND</a><br/>
-					<div class="itemdescription">blahblah blahb lablh</div>
+					<a href="#pop/band/{band}"><div id="itemTitle">I Am A Title You Really Like</div></a><br/>
+					<div class="itemDescription"><div id="item">I am a little description you would normally not read much. I am a little description you would normally not read much.</div>
 				</div>
 			</div>
 		</div>{~n}{~n}
@@ -96,15 +96,15 @@
 		<div id="main-container">
 			<div id="nav-tabs">
 				<ul id="tab-list">
-					<li id="active-link"><a id="dances-button">Dances</a></li>
+					<li><a id="dances-button">Dances</a></li>
 					<li><a id="bands-button">Bands</a></li>
-					<li><a id="halls-button">Halls</a></li>
+					<li id="active-link"><a id="halls-button">Halls</a></li>
 				</ul>
 				<div id="dance-card">Dance Card</div>
 			</div>
 			<div id="info-area">
 				<div class="box" id="list"></div>
-				<div class="box" id="main-map"></div>
+				<div class="box" id="item-main-map"></div>
 			
 			</div>
 		

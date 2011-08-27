@@ -19,6 +19,15 @@ div#info-area{ /*Contains everything under the tabs */
     width: 100%;
 }
 
+div#dance-card-info-area{ /*Contains everything under the tabs */
+	background-image: url('../images/stripedBG.jpg');
+    background-repeat:repeat;
+    height:100%;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 /**************** Tabs ****************/
 div#nav-tabs {
 	position: relative;
@@ -40,6 +49,22 @@ div#dance-card{
 	font-family: georgia, serif;
 	background-image: url('../images/cssSprite.png');
 	background-position: 0px -80px;
+	float:right;
+}
+
+div#dance-card-active{
+	position: relative;
+	bottom: 32px;
+	text-align: center;
+	line-height: 32px;
+	width: 132px;
+	height: 32px;
+	color: white;
+	font-size: 17px;
+	text-indent:20px;
+	font-family: georgia, serif;
+	background-image: url('../images/cssSprite.png');
+	background-position: -300px -80px;
 	float:right;
 }
 
@@ -247,6 +272,11 @@ div#calendar {
 div#main-map {
     right: 14px;
 	top: 206px;
+}
+
+div#item-main-map {
+    right: 14px;
+	top: 50px;
 }
 
 /* ******************Band & Hall popups******************* */

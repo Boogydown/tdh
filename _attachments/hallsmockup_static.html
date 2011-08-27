@@ -24,53 +24,7 @@
 	<script type="text/javascript" src="vendor/couchapp/loader.js"></script>
 		
 	<!-- TEMPLATES START -->
-	<script type="application/dust-template" id="mainEventEntryTemplate">
-		<div id="itemlisting">
-			<div class="{?featured}featured{:else}standard{/featured}">
-				<div id="itemlisting-img">
-					JUST AN IMAGE HERE OF THE HALL/BAND
-				</div>
-				<div id="listing-time">{time}</div>
-				<div id="details" style="top:-10px">
-					<a href="#pop/band/{band}">HEADING WITH NAME OF HALL/BAND</a><br/>
-					<div class="itemdescription">blahblah blahb lablh</div>
-				</div>
-			</div>
-		</div>{~n}{~n}
-	</script>
-	
-	<script type="application/dust-template" id="popupTemplate_band">
-		<div id="info">
-			<h2>{bandName}</h2>
-			<div class="detailtext">
-				{#stylesPlayed}{.}<br/>{/stylesPlayed}
-				<a href="http://{website}">{website}</a><br/>
-				{description}
-			</div>
-		</div>
-		<div id="main-photo"><img src="{mainPic}" /></div>
-		<div class="box" id="popuplist"></div>
-		<div class="detailmap" id="detailmap"></div>
-		<div id="nav-left"></div>
-		<div id="nav-right"></div>
-	</script>
-	
-	<script type="application/dust-template" id="popupTemplate_hall">
-		<div id="info">
-			<h2>{danceHallName}</h2> {yearBuilt}
-			<div class="detailtext">
-				<a href="http://{website}">{website}</a><br/>
-				{description}<br/>
-				{address}
-			</div>
-		</div>
-		<div id="main-photo"><img src="{mainPic}" /></div>
-		<div class="box" id="popuplist"></div>
-		<div id="detailmap" class="detailmap"></div>
-		<div id="nav-left"></div>
-		<div id="nav-right"></div>
-	</script>
-	
+
 	<!-- TEMPLATES END -->
 
   </head>

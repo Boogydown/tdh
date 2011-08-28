@@ -68,7 +68,7 @@ $(function(){
 /////////////////////////////////////////////////////////////////////////////{
     // The App controller initializes the app by calling `Comments.fetch()`
     var AppController = Backbone.Controller.extend({
-		defaultView : ParentViews.DancesView,
+		defaultTab : "Dances",
 		instanciatedViews : {},
 		
 		routes : { 
@@ -97,10 +97,10 @@ $(function(){
 			var viewClass = ParentViews[ tab + "View" ] || ParentViews[ (tab = this.defaultTab) + "View" ];
 			var myView = this.instanciatedViews[ tab ] || new viewClass( {colls:this.colls} );
 			if ( this.currentView && this.currentView != myView )
-				this.currentView.el.hide( "fast" );
+				this.currentView.deactivate();
 			
 			//myView.render();
-			myView.el.show("fast");
+			myView.activate();
 			this.instanciatedViews[ tab ] = this.currentView = myView;
 			
 			if ( popType ) {

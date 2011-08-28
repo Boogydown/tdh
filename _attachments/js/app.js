@@ -60,6 +60,22 @@ $(function(){
 				this.colls.events.fetch();
 				*/
 			}
+		}),
+		
+		DanceCardView : VU.ParentView.extend({
+			el : $("#danceCardDiv"),
+			tabEl : $("#dCardTabBtn"),
+			initialize : function() {
+				VU.ParentView.prototype.initialize.call(this);
+				/*
+				// create our main list and map views and attach the collection to them
+				this.mainListView = new VU.ListView({collection:this.colls.halls});
+				this.mainMapView = new VU.MapView({collection:this.colls.halls, mapNode: "hallsMap"});
+				
+				// kick off the initial fetch
+				this.colls.events.fetch();
+				*/
+			}
 		})
 	};
     
@@ -68,7 +84,7 @@ $(function(){
 /////////////////////////////////////////////////////////////////////////////{
     // The App controller initializes the app by calling `Comments.fetch()`
     var AppController = Backbone.Controller.extend({
-		defaultTab : "Dances",
+		currentTab : "Dances",
 		instanciatedViews : {},
 		
 		routes : { 
@@ -94,14 +110,14 @@ $(function(){
         },
 		
 		mainRouter : function( tab, popType, docID ) {
-			var viewClass = ParentViews[ tab + "View" ] || ParentViews[ (tab = this.defaultTab) + "View" ];
+			tab = tab || this.currentTab;
+			var viewClass = ParentViews[ tab + "View" ] || ParentViews[ (tab = this.currentTab) + "View" ];
 			var myView = this.instanciatedViews[ tab ] || new viewClass( {colls:this.colls} );
 			if ( this.currentView && this.currentView != myView )
 				this.currentView.deactivate();
 			
-			//myView.render();
 			myView.activate();
-			this.instanciatedViews[ tab ] = this.currentView = myView;
+			this.instanciatedViews[ this.currentTab = tab ] = this.currentView = myView;
 			
 			if ( popType ) {
 				var template = "popupTemplate_" + popType;

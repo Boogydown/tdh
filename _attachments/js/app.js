@@ -17,7 +17,7 @@ $(function(){
 	var ParentViews = {
 		
 		DancesView : VU.ParentView.extend({
-			el : "#dancesDiv",
+			el : $("#dancesDiv"),
 			tabEl : $("#dancesTabBtn"),
 			initialize : function() {
 				VU.ParentView.prototype.initialize.call(this);
@@ -32,7 +32,7 @@ $(function(){
 		}),
 
 		BandsView : VU.ParentView.extend({
-			el : "#bandsDiv",
+			el : $("#bandsDiv"),
 			tabEl : $("#bandsTabBtn"),
 			initialize : function() {
 				VU.ParentView.prototype.initialize.call(this);
@@ -47,7 +47,7 @@ $(function(){
 		}),
 		
 		HallsView : VU.ParentView.extend({
-			el : "#hallsDiv",
+			el : $("#hallsDiv"),
 			tabEl : $("#hallsTabBtn"),
 			initialize : function() {
 				VU.ParentView.prototype.initialize.call(this);

@@ -116,7 +116,7 @@ div.box {
 	border-radius: 10px 10px 10px 10px;	
 }
 
-div#list{
+div.list{
 	left: 15px;
 	width: 370px;
 	overflow: auto;

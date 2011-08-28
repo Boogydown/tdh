@@ -207,12 +207,12 @@ VU.ParentView = Backbone.View.extend({
 	
 	activate : function() {
 		this.tabEl.addClass( "active-link" );
-		this.el.show("fast");
+		this.el.show();
 	},
 	
 	deactivate : function() {
 		this.tabEl.removeClass( "active-link" );
-		this.el.hide("fast");
+		this.el.hide();
 	}
 });
 //}

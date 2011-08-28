@@ -10,20 +10,75 @@ $(function(){
 	
 	// inits all in the VU namespace, specifically Backbone-View attachments to the HTML
 	VU.init();
+
+/////////////////////////////////////////////////////////////////////////////}
+/// PARENT VIEWS ////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////{
+	var ParentViews = {
+		
+		DancesView : VU.ParentView.extend({
+			el : "#dancesDiv",
+			tabEl : $("#dancesTabBtn"),
+			initialize : function() {
+				VU.ParentView.prototype.initialize.call(this);
+				
+				// create our main list and map views and attach the collection to them
+				this.mainListView = new VU.EventListView({collection:this.colls.events});
+				this.mainMapView = new VU.MapView({collection:this.colls.halls, mapNode: "dancesMap"});
+				
+				// kick off the initial fetch
+				this.colls.events.fetch();
+			},
+		}),
+
+		BandsView : VU.ParentView.extend({
+			el : "#bandsDiv",
+			tabEl : $("#bandsTabBtn"),
+			initialize : function() {
+				VU.ParentView.prototype.initialize.call(this);
+				/*
+				// create our main list and map views and attach the collection to them
+				this.mainListView = new VU.ListView({collection:this.colls.bands});
+				
+				// kick off the initial fetch
+				this.colls.events.fetch();
+				*/
+			}
+		}),
+		
+		HallsView : VU.ParentView.extend({
+			el : "#hallsDiv",
+			tabEl : $("#hallsTabBtn"),
+			initialize : function() {
+				VU.ParentView.prototype.initialize.call(this);
+				/*
+				// create our main list and map views and attach the collection to them
+				this.mainListView = new VU.ListView({collection:this.colls.halls});
+				this.mainMapView = new VU.MapView({collection:this.colls.halls, mapNode: "hallsMap"});
+				
+				// kick off the initial fetch
+				this.colls.events.fetch();
+				*/
+			}
+		})
+	};
     
 /////////////////////////////////////////////////////////////////////////////}
 /// URL CONTROLLER //////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////{
     // The App controller initializes the app by calling `Comments.fetch()`
     var AppController = Backbone.Controller.extend({
+		defaultView : ParentViews.DancesView,
+		instanciatedViews : {},
+		
 		routes : { 
-			"pop/:type/:docID": "showPopup"
-			//TODO: default route should hide popup?
+			":tab": "mainRouter",
+			":tab/:popType/:docID": "mainRouter",
 		},
 		
         initialize : function(){
-			_.bindAll( this, "showPopup" );
-			this.bind( "route:showPopup", this.showPopup );
+			_.bindAll( this, "mainRouter" );
+			this.bind( "route:mainRouter", this.mainRouter );
 
 			this.colls = {
 				bands : new VU.BandCollection(),
@@ -34,28 +89,32 @@ $(function(){
 				colls: this.colls
 			});
 
-			// create our main list and map views and attach the collection to them
-			this.mainListView = new VU.EventListView({collection:this.colls.events});
-			this.mainMapView = new VU.MapView({collection:this.colls.halls, mapNode: "main-map"});
-			
 			// init the popup view
 			this.popupView = new VU.PopupView( );
-			
-			// kick off the initial fetch
-            this.colls.events.fetch();
         },
 		
-		showPopup : function( type, docID ) {
-			var template = "popupTemplate_" + type;
-			var docModel = this.colls[type + "s"] && this.colls[type + "s"].get( docID );
-			if ( docModel ){
-				docModel.loadEvents( this.colls.events );
-				this.popupView.openPopup( docModel, template );
-			} 
-			else {
-				//alert("No such document " + docID + " in collection " + type + "s.");
-				// remove route; keep the hash to prevent reloading
-				window.location = window.location.href.split("#")[0] + "#";
+		mainRouter : function( tab, popType, docID ) {
+			var viewClass = ParentViews[ tab + "View" ] || ParentViews[ (tab = this.defaultTab) + "View" ];
+			var myView = this.instanciatedViews[ tab ] || new viewClass( {colls:this.colls} );
+			if ( this.currentView && this.currentView != myView )
+				this.currentView.el.hide( "fast" );
+			
+			//myView.render();
+			myView.el.show("fast");
+			this.instanciatedViews[ tab ] = this.currentView = myView;
+			
+			if ( popType ) {
+				var template = "popupTemplate_" + popType;
+				var docModel = this.colls[type + "s"] && this.colls[type + "s"].get( docID );
+				if ( docModel ){
+					docModel.loadEvents( this.colls.events );
+					this.popupView.openPopup( docModel, template );
+				} 
+				else {
+					window.location = "#" + tab;
+				}
+			} else {
+				// TODO: hide popup
 			}
 		}
     });

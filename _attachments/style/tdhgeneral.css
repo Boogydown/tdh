@@ -12,7 +12,7 @@ div#main-container {
     bottom: 50px;
 }
 
-div#info-area{ /*Contains everything under the tabs */
+div.info-area{ /*Contains everything under the tabs */
 	background-image: url('../images/stripedBG.jpg');
     background-repeat:repeat;
     height:100%;
@@ -36,7 +36,7 @@ div#nav-tabs {
 	height: 32px;
 }
 
-div#dance-card{
+div#dCardTabBtn{
 	position: relative;
 	bottom: 32px;
 	text-align: center;
@@ -68,7 +68,7 @@ div#dance-card-active{
 	float:right;
 }
 
-div#dance-card:hover{
+div#dCardTabBtn:hover{
 	background-position: -150px -80px;
 }
 
@@ -98,7 +98,7 @@ ul#tab-list li{
 	float:left;
 }
 
-ul#tab-list li#active-link{
+ul#tab-list li.active-link{
 	background-position: -200px -20px;
 }
 
@@ -263,13 +263,13 @@ div.addToDanceCard{
 }
 
 /* ******************Calendar and map inside info-area******************* */
-div#calendar {
+div#dancesCal {
 	background:url(../images/cal.jpg) no-repeat;
 	right: 15px;
 	top: 50px;
 }
 
-div#main-map {
+div#dancesMap {
     right: 14px;
 	top: 206px;
 }

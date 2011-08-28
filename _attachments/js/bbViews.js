@@ -42,7 +42,7 @@ VU.EventEntryView = VU.DustView.extend({
 	
 	// Adds this event to the danceCard collection
 	addToDanceCard : function(){
-		// nothing here, yet
+		// TODO: add to current profile; push to db if user, otherwise keep as cookie?
 	}
 });	
 
@@ -98,7 +98,7 @@ VU.PopupView = VU.DustView.extend({
 
 // The view for the primary event list container
 VU.EventListView = Backbone.View.extend({
-	el: $("#list"),
+	el: $("#dancesList"),
 	initialize : function(){
 		_.bindAll(this, 'render', 'addRow');
 		this.collection.bind("refresh", this.render);
@@ -198,4 +198,22 @@ VU.MapView = Backbone.View.extend({
 	}
 	
 });
+
+VU.ParentView = Backbone.View.extend({
+	initialize : function() {
+		_.bindAll( this, "show", "hide" );
+		this.colls = this.options.colls;
+	},
+	
+	show : function() {
+		this.tabEl.addClass( "active-link" );
+		this.el.show("fast");
+	},
+	
+	hide : function() {
+		this.tabEl.removeClass( "active-link" );
+		this.el.hide("fast");
+	}
+});
+//}
 };

@@ -116,12 +116,13 @@ $(function(){
 			if ( this.currentView && this.currentView != myView )
 				this.currentView.deactivate();
 			
+			this.saveLocation ( tab + "/" + popType + "/" + docID );
 			myView.activate();
 			this.instanciatedViews[ this.currentTab = tab ] = this.currentView = myView;
 			
 			if ( popType ) {
 				var template = "popupTemplate_" + popType;
-				var docModel = this.colls[type + "s"] && this.colls[type + "s"].get( docID );
+				var docModel = this.colls[popType + "s"] && this.colls[popType + "s"].get( docID );
 				if ( docModel ){
 					docModel.loadEvents( this.colls.events );
 					this.popupView.openPopup( docModel, template );

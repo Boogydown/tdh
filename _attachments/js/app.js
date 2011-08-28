@@ -111,6 +111,8 @@ $(function(){
 		
 		mainRouter : function( tab, popType, docID ) {
 			tab = tab || this.currentTab;
+			popType = popType || "";
+			docID = docID || "";
 			var viewClass = ParentViews[ tab + "View" ] || ParentViews[ (tab = this.currentTab) + "View" ];
 			var myView = this.instanciatedViews[ tab ] || new viewClass( {colls:this.colls} );
 			if ( this.currentView && this.currentView != myView )

@@ -483,7 +483,8 @@ $(function(){
 				
 			// point this.hideStyle to the actual CSS rule stored in the HTML, so we can alter it on the fly
 			if ( ! this.hideStyle ) {
-				var cssRules = document.styleSheets[0].cssRules;
+				// IE7 doesn't have "cssRules"; only "rules"
+				var cssRules = document.styleSheets[0].cssRules || document.styleSheets[0].rules;
 				for ( var i in cssRules )
 					if ( cssRules[i].selectorText == ".hideable" ) {
 						this.hideStyle = cssRules[i].style;

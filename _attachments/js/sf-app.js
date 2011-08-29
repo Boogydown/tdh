@@ -491,7 +491,7 @@ $(function(){
 						break;
 					}
 			}
-			this.hideStyle.display = (hidden == 1 ? "none" : null);
+			this.hideStyle.display = (hidden == 1 ? "none" : "");
 			
 			// if doc requested, but no docID, then revert back to list
 			if ( showType == "doc" && !docID ) showType = "list";

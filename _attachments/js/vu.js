@@ -3,9 +3,10 @@
 	
 	VU.init = function () {
 		for ( var method in VU )
-		{
-			try { VU[method].call( window );}
-			catch (e) {}
-		}
+			if ( method != "init" )
+			{
+				try { VU[method].call( window );}
+				catch (e) {}
+			}
 	}
 }).call(window);

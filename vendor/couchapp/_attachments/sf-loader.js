@@ -19,7 +19,6 @@ couchapp_load([
   "js/lib/inputex/build/inputex.js",
   "js/lib/inputex/js/fields/FileField.js",
   "js/lib/inputex/js/fields/DatePickerField.js",
-  "js/lib/jquery.ba-hashchange.js",
   "js/utils.js",
   "js/vu.js",
   "js/schemas.js",

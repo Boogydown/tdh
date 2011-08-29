@@ -3,7 +3,7 @@
 	
 	VU.init = function () {
 		for ( var method in VU )
-			if ( method instanceof Function && method != "init" )
+			if ( VU[method] instanceof Function && method != "init" )
 				VU[method].call( window );
 	}
 }).call(window);

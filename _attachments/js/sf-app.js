@@ -272,7 +272,7 @@ $(function(){
 						+ this.model.id + "'";
 				} catch (e) {}
 			}
-			_.bindAll(this, 'render', "editMe", "deleteMe", "renderValue");
+			_.bindAll(this, "editMe", "deleteMe", "renderValue");
 			this.model.bind('change', this.render);
 			this.registerTemplate( this.options.templateName );
 		},

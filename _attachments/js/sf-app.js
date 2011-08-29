@@ -256,8 +256,8 @@ $(function(){
 		clickDest: "",
         events : {
             "click .edit"     : "editMe",
-            "click .delete"   : "deleteMe",
-            "click .linkable" : "linkMe"
+			"click .delete"   : "deleteMe"
+            //"click .linkable" : "linkMe"
         },
 
 		// If there's a change in our model, rerender it
@@ -272,7 +272,7 @@ $(function(){
 						+ this.model.id + "'";
 				} catch (e) {}
 			}
-			_.bindAll(this, "editMe", "deleteMe", "renderValue");
+			_.bindAll(this, 'render', "editMe", "deleteMe", "renderValue");
 			this.model.bind('change', this.render);
 			this.registerTemplate( this.options.templateName );
 		},

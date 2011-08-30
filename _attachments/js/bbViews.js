@@ -103,7 +103,7 @@ VU.EventListView = Backbone.View.extend({
 		_.bindAll(this, 'render', 'addRow');
 		this.collection.bind("refresh", this.render);
 		//this.collection.bind("add", this.addRow);
-		this.collection.bind("remove", this.deleted);
+		//this.collection.bind("remove", this.deleted);
 	},
 
 	render: function(){
@@ -201,7 +201,7 @@ VU.MapView = Backbone.View.extend({
 
 VU.ParentView = Backbone.View.extend({
 	initialize : function() {
-		_.bindAll( this, "show", "hide" );
+		_.bindAll( this, "activate", "deactivate" );
 		this.colls = this.options.colls;
 	},
 	

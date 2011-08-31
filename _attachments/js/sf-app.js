@@ -514,7 +514,7 @@ $(function(){
 			for ( curType in this.elAttachments ) {
 				if ( showType == curType ) {
 					this.elAttachments[ curType ].el.slideDown();
-					this.elAttachments[ curType ].el.slideDown();
+					this.elAttachments[ curType ].el.show();
 					curView = "schemaView" + curType;
 
 					// redraw if collection, schema, page#, num per page, or docID change

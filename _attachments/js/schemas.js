@@ -399,7 +399,7 @@ VU.schemas = {
 					"type":"string",
 					"optional":true,
 					"_inputex": {
-						"value":"8:00pm"
+						"value":"8:00 PM"
 					}
 				},
 				"eventType":{

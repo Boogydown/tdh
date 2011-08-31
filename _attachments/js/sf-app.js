@@ -512,7 +512,7 @@ $(function(){
 
 			// show & create or hide according to showType
 			for ( curType in this.elAttachments ) {
-				alert( showType + " , " + curType );
+				alert( showType + " , " + curType + " = " + (showType == curType) );
 				if ( showType == curType ) {
 					this.elAttachments[ curType ].el.slideDown();
 					curView = "schemaView" + curType;

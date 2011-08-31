@@ -465,7 +465,7 @@ $(function(){
 			// can only show one panel at a time
 			// if our showType is already shown then 2nd click will hide it (i.e. "none")
 			//if ( showType && showType == this.showType && collName == undefined ) showType = "none";
-			alert(showType);
+
 			// reset default page # if changing colls or numPerPage...
 			if ( (collName && collName != this.collName) || (numPerPage && numPerPage != this.numPerPage) )
 				this.curPage = 0;
@@ -512,8 +512,8 @@ $(function(){
 
 			// show & create or hide according to showType
 			for ( curType in this.elAttachments ) {
-				alert( showType + " , " + curType + " = " + (showType == curType) );
 				if ( showType == curType ) {
+					this.elAttachments[ curType ].el.slideDown();
 					this.elAttachments[ curType ].el.slideDown();
 					curView = "schemaView" + curType;
 

@@ -715,7 +715,11 @@
     // Start the hash change handling, returning `true` if the current URL matches
     // an existing route, and `false` otherwise.
 	start : function() {
-      var docMode = document.documentMode;
+		start : function() {
+    $(window).hashchange(this.checkUrl);
+    return this.loadUrl();
+}
+/*      var docMode = document.documentMode;
       var oldIE = ($.browser.msie && (!docMode || docMode <= 7));
       if (oldIE) {
         this.iframe = $('<iframe src="javascript:0" tabindex="-1" />').hide().appendTo('body')[0].contentWindow;
@@ -725,7 +729,7 @@
       } else {
         setInterval(this.checkUrl, this.interval);
       }
-      return this.loadUrl();
+      return this.loadUrl();*/
     },
 
     // Add a route to be tested when the hash changes. Routes are matched in the

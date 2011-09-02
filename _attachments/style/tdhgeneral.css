@@ -109,8 +109,7 @@ div.dancebox {
 	width: 340px;
 	position: relative;
 	top: 20px;
-	margin-left: auto;
-    margin-right: auto;
+	
 	margin:0 auto; 
 	border-radius: 10px 10px 10px 10px;	
 }

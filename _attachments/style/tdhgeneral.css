@@ -208,21 +208,21 @@ div.list{
     font-size: 20px;
 	font-weight: bold;
 	font-family: Georgia;
-    left: 30px;
+    left: 40px;
     position: absolute;
     
     top: 15px;
-    width: 250px;
+    width: 240px;
     word-wrap: break-word;
 }
 
 #iteminfo {
     font-size: 10px;
-    left: 30px;
+    left: 40px;
     position: absolute;
     
     top: 40px;
-    width: 250px;
+    width: 240px;
     word-wrap: break-word;
 }
 

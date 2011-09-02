@@ -203,6 +203,27 @@ div.list{
 	
 }
 
+.itemtitle {
+    color: #C1D8F5;
+    font-size: 20px;
+	font-weight: bold;
+	font-family: Georgia;
+    left: 50px;
+    position: absolute;
+    text-align: center;
+    top: 20px;
+}
+
+#iteminfo {
+    font-size: 10px;
+    left: -5px;
+    position: absolute;
+    text-align: center;
+    top: 40px;
+    width: 110px;
+    word-wrap: break-word;
+}
+
 div#listing-date{
 	position: relative;
 	top: 17px;

@@ -25,17 +25,24 @@
 		
 	<!-- TEMPLATES START -->
 	<script type="application/dust-template" id="mainEventEntryTemplate">
-		<div id="itemlisting">
+		<div id="listing">
 			<div class="{?featured}featured{:else}standard{/featured}">
-				<div id="itemlisting-img">
-					<img src="/images/genericHall.JPG" width="80" border="0"/>
+				<div id="listing-date">
+					<div class="date" style="top: -3px;">{dateDay}</div>
+					<div class="day">{dateDate}</div>
+					<div class="date">{dateMonth}</div>
 				</div>
 				<div id="listing-time">{time}</div>
 				<div id="details" style="top:-10px">
-					<a href="#pop/band/{band}"><div id="itemTitle">I Am A Title You Really Like</div></a><br/>
-					<div class="itemDescription"><div id="item">I am a little description you would normally not read much. I am a little description you would normally not read much.</div>
+					<a href="#/band/{band}"><img class="bandphoto" src="{bandPic}" /></a><br/>
+					<div id="bandinfo">{bandName}</div>
+					<div class="atvenue">@</div>
+					<a href="#/hall/{hall}"><img class="venuephoto" src="{hallPic}" /></a><br/>
+					<div id="venueinfo">{hallName}</div>
 				</div>
 			</div>
+			<div class="twostepphoto"></div>
+			<div class="addToDanceCard">Add to<br/>Dance Card</div>
 		</div>{~n}{~n}
 	</script>
 	
@@ -96,16 +103,28 @@
 		<div id="main-container">
 			<div id="nav-tabs">
 				<ul id="tab-list">
-					<li><a id="dances-button">Dances</a></li>
-					<li><a id="bands-button">Bands</a></li>
-					<li id="active-link"><a id="halls-button">Halls</a></li>
+					<li id="dancesTabBtn" onclick="location.href='#Dances'" class="active-link"><a id="dances-button">Dances</a></li>
+					<li id="bandsTabBtn" onclick="location.href='#Bands'"><a id="bands-button">Bands</a></li>
+					<li id="hallsTabBtn" onclick="location.href='#Halls'"><a id="halls-button">Halls</a></li>
 				</ul>
-				<div id="dance-card">Dance Card</div>
+				<div id="dCardTabBtn" onclick="location.href='#DanceCard'">Dance Card</div>
 			</div>
-			<div id="info-area">
-				<div class="box" id="list"></div>
-				<div class="box" id="item-main-map"></div>
 			
+			<div id="dancesDiv" class="info-area" style="display:none">
+				<div class="box list" id="dancesList"></div>
+				
+				<div class="box" id="hallsMap"></div>
+			</div>
+			<div id="hallsDiv" class="info-area" style="display:none">
+				<div class="box" id="hallsList"></div>
+				<div class="box" id="hallsMap"></div>
+			</div>
+			<div id="bandsDiv" class="info-area" style="display:none">
+				<div class="box" id="bandsList"></div>
+				<div class="box" id="bandsCal"></div>
+			</div>
+			<div id="danceCardDiv" class="info-area" style="display:none">
+				<div class="box" id="dCardList"></div>
 			</div>
 		
 		</div>

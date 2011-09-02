@@ -208,15 +208,15 @@ div.list{
     font-size: 20px;
 	font-weight: bold;
 	font-family: Georgia;
-    left: 50px;
+    left: 0px;
     position: absolute;
     text-align: center;
-    top: 20px;
+    top: 15px;
 }
 
 #iteminfo {
     font-size: 10px;
-    left: -5px;
+    left: 0px;
     position: absolute;
     text-align: center;
     top: 40px;

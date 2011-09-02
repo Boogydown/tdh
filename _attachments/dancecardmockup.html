@@ -34,10 +34,10 @@
 				</div>
 				<div id="listing-time">{time}</div>
 				<div id="details" style="top:-10px">
-					<a href="#pop/band/{band}"><img class="bandphoto" src="{bandPic}" /></a><br/>
+					<a href="#/band/{band}"><img class="bandphoto" src="{bandPic}" /></a><br/>
 					<div id="bandinfo">{bandName}</div>
 					<div class="atvenue">@</div>
-					<a href="#pop/hall/{hall}"><img class="venuephoto" src="{hallPic}" /></a><br/>
+					<a href="#/hall/{hall}"><img class="venuephoto" src="{hallPic}" /></a><br/>
 					<div id="venueinfo">{hallName}</div>
 				</div>
 			</div>
@@ -103,14 +103,28 @@
 		<div id="main-container">
 			<div id="nav-tabs">
 				<ul id="tab-list">
-					<li><a id="dances-button">Dances</a></li>
-					<li><a id="bands-button">Bands</a></li>
-					<li><a id="halls-button">Halls</a></li>
+					<li id="dancesTabBtn" onclick="location.href='#Dances'" class="active-link"><a id="dances-button">Dances</a></li>
+					<li id="bandsTabBtn" onclick="location.href='#Bands'"><a id="bands-button">Bands</a></li>
+					<li id="hallsTabBtn" onclick="location.href='#Halls'"><a id="halls-button">Halls</a></li>
 				</ul>
-				<div id="dance-card-active">Dance Card</div>
+				<div id="dCardTabBtn" onclick="location.href='#DanceCard'">Dance Card</div>
 			</div>
-			<div id="info-area">
-				<div class="box" id="list"></div>	
+			
+			<div id="dancesDiv" class="info-area" style="display:none">
+				<div class="box list" id="dancesList"></div>
+				<div class="box" id="dancesCal"></div>
+				<div class="box" id="dancesMap"></div>
+			</div>
+			<div id="hallsDiv" class="info-area" style="display:none">
+				<div class="box" id="hallsList"></div>
+				<div class="box" id="hallsMap"></div>
+			</div>
+			<div id="bandsDiv" class="info-area" style="display:none">
+				<div class="box" id="bandsList"></div>
+				<div class="box" id="bandsCal"></div>
+			</div>
+			<div id="danceCardDiv" class="info-area" style="display:none">
+				<div class="box" id="dCardList"></div>
 			</div>
 		
 		</div>

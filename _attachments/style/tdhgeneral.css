@@ -104,6 +104,15 @@ div.box {
 	border-radius: 10px 10px 10px 10px;	
 }
 
+div.dancebox {
+	background-color: transparent;
+	width: 340px;
+	position: absolute;
+	top: 50px;
+	bottom: -20px;
+	border-radius: 10px 10px 10px 10px;	
+}
+
 div.list{
 	left: 15px;
 	width: 370px;

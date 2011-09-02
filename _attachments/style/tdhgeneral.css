@@ -219,9 +219,9 @@ div.list{
 #iteminfo {
     font-size: 10px;
     left: 45px;
-    position: relative;
+    position: absolute;
     
-    top: 5px;
+    top: 40px;
     width: 235px;
     word-wrap: break-word;
 }

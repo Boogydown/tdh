@@ -212,6 +212,8 @@ div.list{
     position: absolute;
     text-align: center;
     top: 15px;
+    width: 250px;
+    word-wrap: break-word;
 }
 
 #iteminfo {
@@ -220,7 +222,7 @@ div.list{
     position: absolute;
     text-align: center;
     top: 40px;
-    width: 210px;
+    width: 250px;
     word-wrap: break-word;
 }
 

@@ -130,6 +130,15 @@ div.list{
     width: 352px;
 }
 
+#itemlisting {
+    background-color: black;
+    border-radius: 10px 10px 10px 10px;
+    height: 89px;
+    position: relative;
+    margin-bottom: 6px;
+    width: 352px;
+}
+
 #listing div.featured{
 	position:relative;
 	left:-1px;

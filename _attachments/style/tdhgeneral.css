@@ -2,6 +2,14 @@ div {
     color: #CCCCCC;
 }
 
+/**************Fixed Positioning for IE6*************/
+*html #fade {
+	position: absolute;
+}
+*html .popup_block {
+	position: absolute;
+}
+
 /**************** Main Container ****************/
 div#main-container {
     bottom: 50px;
@@ -101,7 +109,11 @@ div.box {
 	position: absolute;
 	top: 50px;
 	bottom: -20px;
-	border-radius: 10px 10px 10px 10px;	
+	behavior: url(border-radius.htc);
+	-moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -khtml-border-radius: 10px;
+    border-radius: 10px;	
 }
 
 div.dancebox {
@@ -111,7 +123,11 @@ div.dancebox {
 	top: 20px;
 	
 	margin:0 auto; 
-	border-radius: 10px 10px 10px 10px;	
+		behavior: url(border-radius.htc);
+	-moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -khtml-border-radius: 10px;
+    border-radius: 10px;	
 }
 
 div.list{
@@ -123,7 +139,11 @@ div.list{
 
 #listing {
     background-color: black;
-    border-radius: 10px 10px 10px 10px;
+    	behavior: url(border-radius.htc);
+	-moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -khtml-border-radius: 10px;
+    border-radius: 10px;	
     height: 89px;
     position: relative;
     margin-bottom: 6px;
@@ -140,6 +160,7 @@ div.list{
 	width: 55px;
 	background: url(../images/cssSprite.png);
 	background-position: 0px -390px;
+		behavior: url(border-radius.htc);
 	border-radius: 10px 0px 0px 10px;
 	-moz-border-radius: 10px 0px 0px 10px;
 	-webkit-border-top-right-radius: 0px;
@@ -156,6 +177,7 @@ div.list{
 	width: 55px;
 	background: url(../images/cssSprite.png);
 	background-position: 0px -290px;
+	behavior: url(border-radius.htc);
 	border-radius: 10px 0px 0px 10px;
 	-moz-border-radius: 10px 0px 0px 10px;
 	-webkit-border-top-right-radius: 0px;
@@ -163,10 +185,14 @@ div.list{
 	
 }
 
-/*Used for band and hall page */
+/**************** Halls/Bands Listings ****************/
 #itemlisting {
     background-color: black;
-    border-radius: 10px 10px 10px 10px;
+    	behavior: url(border-radius.htc);
+	-moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -khtml-border-radius: 10px;
+    border-radius: 10px;	
     height: 89px;
     position: relative;
     margin-bottom: 6px;
@@ -196,6 +222,7 @@ div.list{
 	width: 340px;
 	background: url(../images/cssSprite.png);
 	background-position: 0px -490px;
+	behavior: url(border-radius.htc);
 	border-radius: 10px 0px 0px 10px;
 	-moz-border-radius: 10px 0px 0px 10px;
 	-webkit-border-top-right-radius: 0px;
@@ -236,6 +263,13 @@ div#itemImage img{
 	width: 80px;
 	height: 55px;
 }
+
+div#hallsMap {
+    right: 14px;
+	top: 206px;
+}
+
+/****************************************************/
 
 div#listing-date{
 	position: relative;
@@ -320,11 +354,6 @@ div#dancesMap {
 	top: 206px;
 }
 
-div#hallsMap {
-    right: 14px;
-	top: 206px;
-}
-
 div#item-main-map {
     right: 14px;
 	top: 50px;
@@ -361,9 +390,11 @@ div#popuplist{
 div#main-photo{
 
 	background-color: black;
-	border-radius: 15px;
+		behavior: url(border-radius.htc);
 	-moz-border-radius: 15px;
-	-webkit-border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -khtml-border-radius: 15px;
+    border-radius: 15px;	
 	height: 200px;
 	width: 250px;
 	position: relative;
@@ -393,9 +424,11 @@ div.popup-time{
 
 .detailmap {
    background-color: black;
-	border-radius: 15px;
+		behavior: url(border-radius.htc);
 	-moz-border-radius: 15px;
-	-webkit-border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -khtml-border-radius: 15px;
+    border-radius: 15px;	
 	height: 200px;
 	width: 250px;
 	position: relative;
@@ -413,6 +446,7 @@ div.popup-time{
 	width: 55px;
 	background: url(../images/cssSprite.png);
 	background-position: 0px -190px;
+	behavior: url(border-radius.htc);
 	border-radius: 10px 0px 0px 10px;
 	-moz-border-radius: 10px 0px 0px 10px;
 	-webkit-border-top-right-radius: 0px;
@@ -501,7 +535,11 @@ h2 {
 /* ****************** Popup Stuff ******************* */
 #popuplisting {
     background-color: #000000;
-    border-radius: 10px 10px 10px 10px;
+		behavior: url(border-radius.htc);
+	-moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -khtml-border-radius: 10px;
+    border-radius: 10px;	
     height: 100px;
     left: 10px;
     position: absolute;
@@ -530,7 +568,11 @@ h2 {
 
 .popupbox {
     background-color: #3D3D45;
-    border-radius: 20px 20px 20px 20px;
+		behavior: url(border-radius.htc);
+	-moz-border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -khtml-border-radius: 20px;
+    border-radius: 20px;	
     height: 200px;
     position: absolute;
     top: 230px;
@@ -563,22 +605,18 @@ h2 {
 	-moz-box-shadow: 0px 0px 20px #000;
 	box-shadow: 0px 0px 20px #000;
 	/*--CSS3 Rounded Corners--*/
-	-webkit-border-radius: 10px;
+		behavior: url(border-radius.htc);
 	-moz-border-radius: 10px;
-	border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -khtml-border-radius: 10px;
+    border-radius: 10px;	
 }
 img.close_popup {
 	float: right;
 	margin: -10px -10px 0 0;
 	
 }
-/*--Fixed Positioning for IE6--*/
-*html #fade {
-	position: absolute;
-}
-*html .popup_block {
-	position: absolute;
-}
+
 
 /* ******************Popup navigation buttons******************* */
 

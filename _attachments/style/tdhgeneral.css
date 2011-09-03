@@ -226,7 +226,7 @@ div.list{
 }
 
 div#itemImage{
-	position: relative;
+	position: absolute;
 	top: 20px;
 	left: -10px;
 	width:100%;

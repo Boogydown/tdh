@@ -228,9 +228,8 @@ div.list{
 div#itemImage{
 	position: absolute;
 	top: 20px;
-	left: -10px;
+	left: -100px;
 	width:100%;
-	text-align: center;
 }
 
 div#itemImage img{

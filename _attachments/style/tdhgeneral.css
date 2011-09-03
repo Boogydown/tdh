@@ -229,8 +229,14 @@ div.list{
 div#itemImage{
 	position: relative;
 	top: 17px;
+	left: 10px;
 	width:100%;
 	text-align: center;
+}
+
+div#itemImage img{
+	width: 80px;
+	height: 55px;
 }
 
 div#listing-date{

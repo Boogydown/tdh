@@ -159,7 +159,7 @@ $(function(){
 			// store as cookie
 		},
 		
-		mainRouter : function( tab, dates, coods, popID ) {
+		mainRouter : function( tab, dates, coords, popID ) {
 			tab = tab || this.persistedRoutes.tab;
 			popID = popID || this.persistedRoutes.popID;
 			coords = coords || this.persistedRoutes.coords;

@@ -11,16 +11,18 @@ $(function(){
 	// inits all in the VU namespace, specifically Backbone-View attachments to the HTML
 	VU.init();
 
-	
 	var TDHSessionModel = VU.AuthSessionModel.extend({
 		defaults : {
-			//danceCard: new VU.EventsCollection()
+		},
+		
+		initialize : function() {
+			_.bindAll( this, "addToCard" );
+			this.set( { dCard: new VU.EventCollection() } );
 		},
 		
 		addToCard : function( eventModel ) {
-			this.get( "danceCard" ).add( eventModel );
-		}
-		
+			this.get( "dCard" ).add( eventModel );
+		}		
 	});
 		
 	
@@ -79,14 +81,10 @@ $(function(){
 			tabEl : $("#dCardTabBtn"),
 			initialize : function() {
 				VU.ParentView.prototype.initialize.call(this);
-				/*
+
 				// create our main list and map views and attach the collection to them
-				this.mainListView = new VU.ListView({collection:this.colls.halls});
-				this.mainMapView = new VU.MapView({collection:this.colls.halls, mapNode: "hallsMap"});
-				
-				// kick off the initial fetch
-				this.colls.events.fetch();
-				*/
+				this.mainListView = new VU.ListView({collection:this.colls.dCard. el: "#dCardList"});
+				//this.mainMapView = new VU.MapView({collection:this.colls.halls, mapNode: "hallsMap"});
 			}
 		})
 	};
@@ -146,26 +144,35 @@ $(function(){
 			// init the popup view
 			this.popupView = new VU.PopupView( );
 			
-			//TODO: authenticate session
+			//TODO: authenticate session			
 			var authID = window.utils.readCookie( "tdh_authID", ";" );
-			var authModel;
-			if ( ! authID ) {}
-				// if no cookie then get user login
-			else {
+			var mySession;
+			if ( ! authID ) {
+				// TODO: if no cookie then keep login button visible and create new, anon session
+				mySession = new TDHSessionModel();
+				authSessionLoaded( mySession );
+			} else {
 				// if cookie then create session model and retrieve it from the db
-				authModel = new TDHSessionModel( {"id":authID} );
-				authModel.fetch( authSessionLoaded );
+				mySession = new TDHSessionModel( {"id":authID} );
+				mySession.fetch( authSessionLoaded );
 			}
+			
 			// check cookies for existing Auth id (can only have one at a time)
 			// if exists then get if from the db; failure sends to login screen
 			// if success then use it
         },
 		
-		authSessionLoaded : function( authModel ) {
-			if ( authModel.fetched ) {
-				// yay!
+		authSessionLoaded : function( mySession ) {
+			if ( mySession.fetched ) {
+				// yay!  remove login link
 			} else {
-				// show login screen
+				// from here on it's anon; show login link
+			}
+			
+			// stuff to do for all sessions
+			this.colls.dCard = mySession.get( "dCard" );
+			window.addToDanceCard = function ( eventID ) {
+				mySession.addToCard( this.colls.events.get( eventID ) );
 			}
 		},
 		
@@ -210,7 +217,7 @@ $(function(){
 					window.location = "#" + tab;
 				}
 			} else {
-				// TODO: hide popup
+				// TODO: ensure popup's closed?
 			}
 		}
     });

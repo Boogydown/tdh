@@ -160,8 +160,7 @@ VU.MapView = Backbone.View.extend({
 		// try gps, first
 		var gps = hall.get( "GPS Coordinates" ) || hall.get( "gpsCoordinates" );
 		var title = hall.get("danceHallName");
-		if ( gps )
-		{
+		if ( gps ){
 			gps = gps.split(" ");
 			if ( gps.length < 2 ) 
 				gps = gps[0].split(",");
@@ -186,9 +185,6 @@ VU.MapView = Backbone.View.extend({
 			this.geocoder.geocode( { 'address': address}, this.attachToMap );
 		}
 	},
-	
-	linkMe : function() {
-		window.location = "#///" + this.model
 	
 	attachToMap: function(results, status) {
 		  if (status == google.maps.GeocoderStatus.OK) {

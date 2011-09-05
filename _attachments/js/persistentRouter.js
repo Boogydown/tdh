@@ -1,4 +1,4 @@
-VU.InitModels = function () {
+VU.InitPersistentRouter = function () {
 
 VU.PersistentRouter = Backbone.Controller.extend({
 	initialize : function () {

@@ -1,6 +1,9 @@
 VU.InitPersistentRouter = function () {
 
 VU.PersistentRouter = Backbone.Controller.extend({
+	persistedRoutes : [],
+	defaultParams : [],
+	
 	initialize : function () {
 		// syntax:  routeParams: { tab : "Dances", _tab : { "Dances": {filter1 : "blah", filter2 : ""}}, popID:""}
 		// 			routeHandler: handler );

@@ -98,7 +98,7 @@ $(function(){
     var AppController = Backbone.Controller.extend({
 		persistedRoutes : {
 			tab : "Dances",
-			dates : new Date().getNumber(),
+			dates : new Date().getTime(),
 			coords : "",
 			popID : ""
 		},

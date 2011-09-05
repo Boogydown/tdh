@@ -26,27 +26,14 @@ VU.DustView = Backbone.View.extend({
 });
 
 // Represents an event entry in an event listing; is a dust template
-/*
-VU.EventEntryView = VU.DustView.extend({
-
-	// Clicking the feet adds it to the dance card
-	events : {
-		"click .feet" : "addToDanceCard"
-	},
-	
+VU.ListingView = VU.DustView.extend({
 	// If there's a change in our model, rerender it
 	initialize : function(){
-		_.bindAll(this, 'render', "addToDanceCard");
+		_.bindAll(this, 'render');
 		this.model.bind('change', this.render);
-		this.registerTemplate('mainEventEntryTemplate');
-	},
-	
-	// Adds this event to the danceCard collection
-	addToDanceCard : function(){
-		this.options.danceCard.addToCard( this.model );
+		this.registerTemplate( options.template );
 	}
 });	
-*/
 
 /**
  * View for a popup
@@ -133,9 +120,11 @@ VU.ListView = Backbone.View.extend({
 	
 	// Appends an entry row 
 	addRow : function(model){
-		var entry = new VU.DustView( { model: model } );
-		entry.registerTemplate( this.el.attributes["listing-template"].value || "" );
-		this.el.appendChild( entry.render().el );
+		this.el.appendChild( new VU.ListingView( {
+			model: model, 
+			template: (this.el.attributes["listing-template"].value || "") 
+		}).render().el );
+		
 		model.trigger("change", model);
 	}		
 });

@@ -115,8 +115,8 @@ $(function(){
 			popID : ""
 */
 			tab : "Dances",
-			filter1 : new Date().getTime(),
-			filter2 : "",
+			dates : new Date().getTime(),
+			coords : "",
 			popID : ""			
 		},
 		

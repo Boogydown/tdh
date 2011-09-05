@@ -156,7 +156,7 @@ VU.BandModel = VU.EventsContainerModel.extend({
 		this.set( {
 			website: (this.get("website")||"").split("://").pop(),
 			name: this.get("bandName")
-		});			
+		}, { silent: true } );
 		
 		if ( bandPic && bandPic != this.defaults.image && bandPic.substr(0, 4) != "http" ) {
 			bandPic = "../../" + bandID + "/thumbs/" + encodeURI( bandPic );
@@ -187,7 +187,7 @@ VU.BandModel = VU.EventsContainerModel.extend({
 			this.set({
 				thumbPic: result.tbUrl,
 				mainPic: result.url
-			});
+			}, { silent: true } );
 		}
 	}
 });

@@ -134,7 +134,7 @@ VU.ListView = Backbone.View.extend({
 	// Appends an entry row 
 	addRow : function(model){
 		var entry = new VU.DustView( { model: model } );
-		entry.registerTemplate( this.el.attributes["listing-template"] || "" );
+		entry.registerTemplate( this.el.attributes["listing-template"].value || "" );
 		this.el.append( entry.render().el );
 		model.trigger("change", model);
 	}		
@@ -153,7 +153,7 @@ VU.MapView = Backbone.View.extend({
 		  center: latlng,
 		  mapTypeId: google.maps.MapTypeId.ROADMAP
 		};
-		this.map = new google.maps.Map(this.el.get(0), myOptions);
+		this.map = new google.maps.Map(this.el, myOptions);
 		this.geocoder = new google.maps.Geocoder();
 		
 		//this.collection.bind("change", this.render);

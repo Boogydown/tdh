@@ -26,6 +26,7 @@ VU.DustView = Backbone.View.extend({
 });
 
 // Represents an event entry in an event listing; is a dust template
+/*
 VU.EventEntryView = VU.DustView.extend({
 
 	// Clicking the feet adds it to the dance card
@@ -42,9 +43,10 @@ VU.EventEntryView = VU.DustView.extend({
 	
 	// Adds this event to the danceCard collection
 	addToDanceCard : function(){
-		// TODO: add to current profile; push to db if user, otherwise keep as cookie?
+		this.options.danceCard.addToCard( this.model );
 	}
 });	
+*/
 
 /**
  * View for a popup
@@ -60,22 +62,22 @@ VU.PopupView = VU.DustView.extend({
 			$('#fade , .popup_block').fadeOut(function() {
 				$('#fade, a.close').remove();  //fade them both out
 			});
-			window.location = window.location.href.split("#")[0] + "#";
+			window.location = "#";
 			return false;
 		});		
 	},
 	
 	render : function () {
 		VU.DustView.prototype.render.call(this);
+		
+		// if events exist in model then init the events-list view
 		var events;
 		if ( this.model ) events = this.model.get("events"); 
 		if ( events ) {
 			this.eventListView = new VU.EventListView({ el:$("#popuplist"), collection:events });
 			this.eventListView.render();
-			this.miniMapView = new VU.MapView({collection: events, mapNode: "detailmap"});
-		}
-		
-		
+			this.miniMapView = new VU.MapView({collection: events, el: "detailmap"});
+		}		
 	},
 	
 	openPopup : function ( model, popTemplate ) {
@@ -94,9 +96,9 @@ VU.PopupView = VU.DustView.extend({
 		return false;
 	}
 });
-	
 
 // The view for the primary event list container
+/*
 VU.EventListView = Backbone.View.extend({
 	el: $("#dancesList"),
 	initialize : function(){
@@ -117,6 +119,26 @@ VU.EventListView = Backbone.View.extend({
 		model.trigger("change", model);
 	}
 });
+*/
+
+VU.ListView = Backbone.View.extend({
+	initialize : function(){
+		_.bindAll(this, 'render', 'addRow');
+		this.collection.bind("refresh", this.render);
+	},
+
+	render: function(){
+		if (this.collection.length > 0) this.collection.each(this.addRow);
+	},
+	
+	// Appends an entry row 
+	addRow : function(model){
+		var entry = new VU.DustView( { model: model } );
+		entry.registerTemplate( this.el.attr("listing-template") );
+		this.el.append( entry.render().el );
+		model.trigger("change", model);
+	}		
+});
 
 VU.MapView = Backbone.View.extend({
 	map: null, 
@@ -126,14 +148,12 @@ VU.MapView = Backbone.View.extend({
 	initialize : function(){
 		_.bindAll(this, 'render', "addChange", "addMarker", "attachToMap");
 		var latlng = new google.maps.LatLng(30.274338, -97.744675);
-		this.mapNode = this.options.mapNode;
-		this.el = $("#" + this.mapNode);
 		var myOptions = {
 		  zoom: 6,
 		  center: latlng,
 		  mapTypeId: google.maps.MapTypeId.ROADMAP
 		};
-		this.map = new google.maps.Map(document.getElementById(this.mapNode), myOptions);
+		this.map = new google.maps.Map(this.el.get(0), myOptions);
 		this.geocoder = new google.maps.Geocoder();
 		
 		//this.collection.bind("change", this.render);

@@ -2,6 +2,24 @@ VU.InitModels = function () {
 /////////////////////////////////////////////////////////////////////////////
 /// MODEL DECLARATION ///////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////{
+// Holds info about the current user and their session (persisted to browser cookie)
+VU.CookieModel = Backbone.Model.extend({
+	writeCookie : function() {
+	},
+	
+	readCookie : function() {
+	}	
+});
+
+VU.AuthSessionModel = VU.CookieModel.extend({
+	defaults : {
+		username: "anonymous",
+		authToken: "",
+		permissions: {},
+		fetched: false
+	},
+});
+
 // A model that holds all of the current filtering/sorting state data
 VU.FilterModel = Backbone.Model.extend({
 	defaults : {
@@ -135,12 +153,16 @@ VU.BandModel = VU.EventsContainerModel.extend({
 		// image and website
 		var bandID = this.id;
 		var bandPic = this.get("image");
+		this.set( {
+			website: (this.get("website")||"").split("://").pop(),
+			name: this.get("bandName")
+		});			
+		
 		if ( bandPic && bandPic != this.defaults.image && bandPic.substr(0, 4) != "http" ) {
 			bandPic = "../../" + bandID + "/thumbs/" + encodeURI( bandPic );
 			this.set( { 
 				thumbPic: bandPic, 
-				mainPic: bandPic.replace( "\/thumbs\/", "\/files\/" ),
-				website: (this.get("website")||"").split("://").pop()
+				mainPic: bandPic.replace( "\/thumbs\/", "\/files\/" )
 			}, { silent: true } );
 		}
 		else
@@ -200,7 +222,8 @@ VU.VenueModel = VU.EventsContainerModel.extend({
 		this.set( { 
 			thumbPic: hallPic,
 			mainPic: hallPic.replace( "\/thumbs\/", "\/files\/" ), 
-			website: (this.get("website")||"").split("://").pop()
+			website: (this.get("website")||"").split("://").pop(),
+			name: this.get("danceHallName")
 		}, { silent: true } );
 	}
 });

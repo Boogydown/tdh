@@ -42,10 +42,43 @@
 				</div>
 			</div>
 			<div class="twostepphoto"></div>
-			<div class="addToDanceCard">Add to<br/>Dance Card</div>
+			<div class="addToDanceCard" onclick="addToDanceCard({_id})">Add to<br/>Dance Card</div>
 		</div>{~n}{~n}
 	</script>
 	
+	<script type="application/dust-template" id="dCardListingTemplate">
+		<div id="listing">
+			<div class="{?featured}featured{:else}standard{/featured}">
+				<div id="listing-date">
+					<div class="date" style="top: -3px;">{dateDay}</div>
+					<div class="day">{dateDate}</div>
+					<div class="date">{dateMonth}</div>
+				</div>
+				<div id="listing-time">{time}</div>
+				<div id="details" style="top:-10px">
+					<a href="#/band/{band}"><img class="bandphoto" src="{bandPic}" /></a><br/>
+					<div id="bandinfo">{bandName}</div>
+					<div class="atvenue">@</div>
+					<a href="#/hall/{hall}"><img class="venuephoto" src="{hallPic}" /></a><br/>
+					<div id="venueinfo">{hallName}</div>
+				</div>
+			</div>
+			<div class="description">Here's some info about the event that you selected!</div>
+		</div>{~n}{~n}
+	</script>
+	
+	<script type="application/dust-template" id="vyntorEntryTemplate">
+		<div id="itemlisting">
+			<div class="{?featured}featured{:else}standard{/featured}">
+				<div id="itemImage"><img src="{thumbPic}" border="0" /></div>
+				<div id="details" style="top:-10px">
+					<div class="itemtitle">{name}</div>
+					<div id="iteminfo">{entryDescrip}</div>
+				</div>
+			</div>
+		</div>{~n}{~n}
+	</script>
+		
 	<script type="application/dust-template" id="popupTemplate_band">
 		<div id="info">
 			<h2>{bandName}</h2>
@@ -111,20 +144,20 @@
 			</div>
 			
 			<div id="dancesDiv" class="info-area" style="display:none">
-				<div class="box list" id="dancesList"></div>
+				<div class="box list" id="dancesList" listing-template="mainEventEntryTemplate"></div>
 				<div class="box" id="dancesCal"></div>
 				<div class="box" id="dancesMap"></div>
 			</div>
 			<div id="hallsDiv" class="info-area" style="display:none">
-				<div class="box" id="hallsList"></div>
+				<div class="box list" id="hallsList" listing-template="vyntorEntryTemplate"></div>
 				<div class="box" id="hallsMap"></div>
 			</div>
 			<div id="bandsDiv" class="info-area" style="display:none">
-				<div class="box" id="bandsList"></div>
+				<div class="box list" id="bandsList" listing-template="vyntorEntryTemplate"></div>
 				<div class="box" id="bandsCal"></div>
 			</div>
 			<div id="danceCardDiv" class="info-area" style="display:none">
-				<div class="box" id="dCardList"></div>
+				<div class="box dancebox list" id="dCardList" listing-template="dCardListingTemplate"></div>
 			</div>
 		
 		</div>

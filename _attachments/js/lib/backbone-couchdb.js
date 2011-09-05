@@ -51,14 +51,14 @@ Backbone.couchConnector = {
 	//    }
 	//
 	// doc.collection represents the url property of the collection and is automatically added to the model.
-	readCollection : function(coll, _success, _error){
+	readCollection : function(coll, _success, _error, viewOverride, keysOverride){
 		var db = this.makeDb(coll);
 		var collection = this.getCollectionFromModel(coll);
-		var query = this.ddocName + "/" + this.viewName;
+		var query = this.ddocName + "/" + (viewOverride || coll.viewName || this.viewName);
 		// Query equals ddocName/viewName 
 		db.view(query,{
 			// Only return docs that have this collection's name as key.
-			keys : [collection],
+			keys : [keysOverride || collection],
 			success:function(result){
 				if(result.rows.length > 0){
 					var arr = [];
@@ -232,7 +232,7 @@ Backbone.sync = function(method, model, options) {
 		if(model.collection)
 			Backbone.couchConnector.readModel(model, options.success, options.error);
 		else
-			Backbone.couchConnector.readCollection(model, options.success, options.error);
+			Backbone.couchConnector.readCollection(model, options.success, options.error, options.viewOverride, options.keysOverride);
 	}else if(method == "delete"){
 		Backbone.couchConnector.del(model, options.success, options.error);
 	}

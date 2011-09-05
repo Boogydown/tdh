@@ -11,6 +11,19 @@ $(function(){
 	// inits all in the VU namespace, specifically Backbone-View attachments to the HTML
 	VU.init();
 
+	
+	var TDHSessionModel = VU.AuthSessionModel.extend({
+		defaults : {
+			danceCard: new EventsCollection();
+		},
+		
+		addToCard : function( eventModel ) {
+			this.get( "danceCard" ).add( eventModel );
+		}
+		
+	});
+		
+	
 /////////////////////////////////////////////////////////////////////////////}
 /// PARENT VIEWS ////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////{
@@ -23,8 +36,8 @@ $(function(){
 				VU.ParentView.prototype.initialize.call(this);
 				
 				// create our main list and map views and attach the collection to them
-				this.mainListView = new VU.EventListView({collection:this.colls.events});
-				this.mainMapView = new VU.MapView({collection:this.colls.halls, mapNode: "dancesMap"});
+				this.mainListView = new VU.ListView({collection:this.colls.events, el: "#dancesList"});
+				this.mainMapView = new VU.MapView({collection:this.colls.halls, el: "#dancesMap"});
 				
 				// kick off the initial fetch
 				this.colls.events.fetch();
@@ -36,13 +49,12 @@ $(function(){
 			tabEl : $("#bandsTabBtn"),
 			initialize : function() {
 				VU.ParentView.prototype.initialize.call(this);
-				/*
+				
 				// create our main list and map views and attach the collection to them
-				this.mainListView = new VU.ListView({collection:this.colls.bands});
+				this.mainListView = new VU.ListView({collection:this.colls.bands, el: "#bandsList"});
 				
 				// kick off the initial fetch
-				this.colls.events.fetch();
-				*/
+				this.colls.bands.fetch(); //TODO: put a limit in this fetch; will need to load in chunks as you scroll
 			}
 		}),
 		
@@ -51,13 +63,13 @@ $(function(){
 			tabEl : $("#hallsTabBtn"),
 			initialize : function() {
 				VU.ParentView.prototype.initialize.call(this);
-				/*
+				
 				// create our main list and map views and attach the collection to them
-				this.mainListView = new VU.ListView({collection:this.colls.halls});
-				this.mainMapView = new VU.MapView({collection:this.colls.halls, mapNode: "hallsMap"});
+				this.mainListView = new VU.ListView({collection: this.colls.halls, el: "#hallsList"});
+				this.mainMapView = new VU.MapView({collection: this.colls.halls, el: "#hallsMap"});
 				
 				// kick off the initial fetch
-				this.colls.events.fetch();
+				this.colls.halls.fetch(); //TODO: limit this by #?  map?  alpha?
 				*/
 			}
 		}),
@@ -84,14 +96,23 @@ $(function(){
 /////////////////////////////////////////////////////////////////////////////{
     // The App controller initializes the app by calling `Comments.fetch()`
     var AppController = Backbone.Controller.extend({
-		currentTab : "Dances",
+		persistedRoutes : {
+			tab : "Dances",
+			dates : new Date().getNumber(),
+			coords : "",
+			popID : ""
+		},
+		
 		instanciatedViews : {},
 		
 		routes : { 
 			":tab": "mainRouter",
-			":tab/:popType/:docID": "mainRouter",
+			":tab/:dates": "mainRouter",
+			":tab/:dates/:coords": "mainRouter",
+			":tab/:dates/:coords/:popID": "mainRouter",
 		},
-		
+	
+		// Initialize happens at page load; think RESTful: every time this is called we're starting from scratch
         initialize : function(){
 			_.bindAll( this, "mainRouter" );
 			this.bind( "route:mainRouter", this.mainRouter );
@@ -107,24 +128,62 @@ $(function(){
 
 			// init the popup view
 			this.popupView = new VU.PopupView( );
+			
+			//TODO: authenticate session
+			var authID = window.utils.readCookie( "tdh_authID", ";" );
+			var authModel;
+			if ( ! authID ) {}
+				// if no cookie then get user login
+			else {
+				// if cookie then create session model and retrieve it from the db
+				authModel = new TDHSessionModel( {"id":authID} );
+				authModel.fetch( authSessionLoaded );
+			}
+			// check cookies for existing Auth id (can only have one at a time)
+			// if exists then get if from the db; failure sends to login screen
+			// if success then use it
         },
 		
-		mainRouter : function( tab, popType, docID ) {
-			tab = tab || this.currentTab;
-			popType = popType || "";
-			docID = docID || "";
-			var viewClass = ParentViews[ tab + "View" ] || ParentViews[ (tab = this.currentTab) + "View" ];
+		authSessionLoaded : function( authModel ) {
+			if ( authModel.fetched ) {
+				// yay!
+			} else {
+				// show login screen
+			}
+		},
+		
+		loginSubmit : function () {
+			// take u and pw
+			// create session model
+			// fetch from server
+			// store as cookie
+		},
+		
+		mainRouter : function( tab, dates, coods, popID ) {
+			tab = tab || this.persistedRoutes.tab;
+			popID = popID || this.persistedRoutes.popID;
+			coords = coords || this.persistedRoutes.coords;
+			dates = dates || this.persistedRoutes.dates;
+			var viewClass = ParentViews[ tab + "View" ] || ParentViews[ (tab = this.persistedRoutes.tab) + "View" ];
 			var myView = this.instanciatedViews[ tab ] || new viewClass( {colls:this.colls} );
 			if ( this.currentView && this.currentView != myView )
 				this.currentView.deactivate();
 			
-			this.saveLocation ( tab + "/" + popType + "/" + docID );
-			myView.activate();
-			this.instanciatedViews[ this.currentTab = tab ] = this.currentView = myView;
+			this.persistentRoutes.tab = tab;
+			this.persistentRoutes.dates = dates;
+			this.persistentRoutes.coords = coords;
+			this.persistentRoutes.popID = popID;
+			this.saveLocation ( tab + "/" + dates + "/" + coords + "/" + popID );
 			
-			if ( popType ) {
+			myView.activate();
+			this.instanciatedViews[ tab ] = this.currentView = myView;
+			
+			if ( popID ) {
+				var pAry = popID.split(':');
+				var popType = pAry[0];
+				popID = pAry[1];
 				var template = "popupTemplate_" + popType;
-				var docModel = this.colls[popType + "s"] && this.colls[popType + "s"].get( docID );
+				var docModel = this.colls[popType + "s"] && this.colls[popType + "s"].get( popID );
 				if ( docModel ){
 					docModel.loadEvents( this.colls.events );
 					this.popupView.openPopup( docModel, template );

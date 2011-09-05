@@ -2,15 +2,13 @@ VU.InitModels = function () {
 
 VU.PersistentRouter = Backbone.Controller.extend({
 	initialize : function () (
-		var rps = this.options.routeParams || {};
-		
 		// syntax:  routeParams: { tab : "Dances", _tab : { "Dances": {filter1 : "blah", filter2 : ""}}, popID:""}
 		// 			routeHandler: handler );
 		var rp, val, routeStr = "";
 		for ( rp in this.routeParams ) {
 			this.persistedRoutes.push(val = this.routeParams[rp]);
 			this.defaultParams.push(val);
-			this.route(routeStr += (":" + rp + "/"), routeHandlerWrapper, this.routeHandlerWrapper );
+			this.route(routeStr += (":" + rp + "/"), "routeHandlerWrapper", this.routeHandlerWrapper );
 			}
 		}
 	},

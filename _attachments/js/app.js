@@ -176,6 +176,7 @@ $(function(){
 			this.colls.dCard = mySession.get( "dCard" );
 			var allEvents = this.colls.events;
 			window.addToDanceCard = function ( eventID ) {
+				alert("You have added this event to your Dance Card!");
 				mySession.addToCard( allEvents.get( eventID ) );
 			}
 		},

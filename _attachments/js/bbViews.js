@@ -31,7 +31,7 @@ VU.ListingView = VU.DustView.extend({
 	initialize : function(){
 		_.bindAll(this, 'render');
 		this.model.bind('change', this.render);
-		this.registerTemplate( options.template );
+		this.registerTemplate( this.options.template );
 	}
 });	
 

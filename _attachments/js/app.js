@@ -176,7 +176,7 @@ $(function(){
 			// store as cookie
 		},
 		
-		mainRouter : function( tab, filter1, filter2, popID ) {
+		mainRouter : function( tab, dates, coords, popID ) {
 			//tab = tab || (this.persistedRoutes[tab] && this.persistedRoutes[tab].value;
 			tab = tab || this.persistedRoutes.tab;
 			popID = popID || this.persistedRoutes.popID;

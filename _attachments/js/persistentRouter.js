@@ -36,7 +36,7 @@ VU.PersistentRouter = Backbone.Controller.extend({
 	},
 	
 	saveRoutes : function (/* arg list */) {
-		var i, url;
+		var i, url="";
 		for ( i in arguments ) url += (this.persistedRoutes[i] = arguments[i]) + "/";
 		this.saveLocation( url );
 		this._savedLoc = true;

@@ -37,8 +37,8 @@ VU.ListingView = VU.DustView.extend({
 	render : function() {
 		//TODO: somehow incorporate this into the templating language		
 		this.model.set( {
-			name : window.utils.elipsesStr( this.model.get( "name" ), 20 ),
-			entryDescription : window.utils.elipsesStr( this.model.get( "entryDescription" ), 150 )
+			name : window.utils.elipsesStr( this.model.get( "name" ), 19 ),
+			entryDescription : window.utils.elipsesStr( this.model.get( "entryDescription" ), 180 )
 		}, {silent:true});
 		return VU.DustView.prototype.render.call(this);
 	}
@@ -135,33 +135,31 @@ VU.MapView = Backbone.View.extend({
 		
 		//this.collection.bind("change", this.render);
 		if ( this.collection ){
-			//this.collection.bind("add", this.addChange );
 			this.collection.bind("add", this.addMarker );
-			if ( this.collection.models.length > 0 )
-				this.collection.each( this.addMarker );
+			this.collection.bind("refresh", this.render );
+			//this.collection.bind("reset", this.render );
+			this.render();
 		}
 		else
 			this.addMarker( this.model );
-		//this.collection.bind("remove", this.deleted);
 	},
 
 	render: function(){
-		//
 		// now add the first 10 markers
 		//if(this.collection.length > 0) 
 			//for ( var i = 0; i++ < 5; )
 				//this.addMarker( this.collection.at(i) );
+		if ( this.collection.models.length > 0 )
+			this.collection.each( this.addMarker );
 	},
 	
-	addChange: function( hall ) {
-		hall.bind( "change" , this.addMarker );
-	},
-	
-	// TODO: if marker var needs to stay alive then put into hall model
 	addMarker : function ( hall ) {
+		// unbind, just in case came in from the else, below...
+		hall.unbind( "change", addMarker );
+		
 		// try gps, first
 		var gps = hall.get( "GPS Coordinates" ) || hall.get( "gpsCoordinates" );
-		var title = hall.get("hallName") || hall.get("danceHallName");
+		var title = hall.get("danceHallName");
 		if ( gps )
 		{
 			gps = gps.split(" ");
@@ -169,20 +167,28 @@ VU.MapView = Backbone.View.extend({
 				gps = gps[0].split(",");
 			gps = gps.length > 1 ? new google.maps.LatLng( gps[1], gps[0] ) : null;
 		}
-		if ( gps )
+		if ( gps ) {
+			// TODO: if marker var needs to stay alive then put into hall model
 			var marker = new google.maps.Marker({
 				map: this.map, 
 				position: gps,
 				title: title
 			});
+			var hallID = hall.id;
+			google.maps.event.addListener( marker, "click", function () { window.location = "#///" + hallID; } );
 			
-		// now try its address instead
-		else{
+		} else {
+			// now try its address instead
 			var address = hall.get( "address" );
+			if ( ! address )
+				hall.bind( "change", addMarker );
 			console.log("finding " + address );
 			this.geocoder.geocode( { 'address': address}, this.attachToMap );
 		}
 	},
+	
+	linkMe : function() {
+		window.location = "#///" + this.model
 	
 	attachToMap: function(results, status) {
 		  if (status == google.maps.GeocoderStatus.OK) {
@@ -193,8 +199,7 @@ VU.MapView = Backbone.View.extend({
 		  } else {
 			console.log("Geocode could not find address because: " + status);
 		  }
-	}
-	
+	}	
 });
 
 VU.ParentView = Backbone.View.extend({

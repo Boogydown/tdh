@@ -69,7 +69,7 @@
 	
 	<script type="application/dust-template" id="vyntorEntryTemplate">
 		<div id="itemlisting">
-			<div class="{?featured}featured{:else}standard{/featured}">
+			<div class="{?featured}featured{:else}standard{/featured}" onclick="window.location='#///{type}&{_id}'" style="cursor:pointer">
 				<div id="itemImage"><img src="{thumbPic}" border="0" /></div>
 				<div id="details" style="top:-10px">
 					<div class="itemtitle">{name}</div>
@@ -89,7 +89,7 @@
 			</div>
 		</div>
 		<div id="main-photo"><img src="{mainPic}" /></div>
-		<div class="box" id="popuplist"></div>
+		<div class="box" id="popuplist" listing-template="mainEventEntryTemplate"></div>
 		<div class="detailmap" id="detailmap"></div>
 		<div id="nav-left"></div>
 		<div id="nav-right"></div>
@@ -136,7 +136,7 @@
 		<div id="main-container">
 			<div id="nav-tabs">
 				<ul id="tab-list">
-					<li id="dancesTabBtn" onclick="location.href='#Dances'" class="active-link"><a id="dances-button">Dances</a></li>
+					<li id="dancesTabBtn" onclick="location.href='#Dances'"><a id="dances-button">Dances</a></li>
 					<li id="bandsTabBtn" onclick="location.href='#Bands'"><a id="bands-button">Bands</a></li>
 					<li id="hallsTabBtn" onclick="location.href='#Halls'"><a id="halls-button">Halls</a></li>
 				</ul>

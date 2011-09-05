@@ -135,7 +135,7 @@ VU.ListView = Backbone.View.extend({
 	addRow : function(model){
 		var entry = new VU.DustView( { model: model } );
 		entry.registerTemplate( this.el.attributes["listing-template"].value || "" );
-		this.el.append( entry.render().el );
+		this.el.appendChild( entry.render().el );
 		model.trigger("change", model);
 	}		
 });

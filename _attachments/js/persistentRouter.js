@@ -9,7 +9,6 @@ VU.PersistentRouter = Backbone.Controller.extend({
 			this.persistedRoutes.push(val = this.routeParams[rp]);
 			this.defaultParams.push(val);
 			this.route(routeStr += (":" + rp + "/"), "routeHandlerWrapper", this.routeHandlerWrapper );
-			}
 		}
 	},
 	

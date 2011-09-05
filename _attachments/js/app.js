@@ -83,7 +83,7 @@ $(function(){
 				VU.ParentView.prototype.initialize.call(this);
 
 				// create our main list and map views and attach the collection to them
-				this.mainListView = new VU.ListView({collection:this.colls.dCard. el: "#dCardList"});
+				this.mainListView = new VU.ListView({collection:this.colls.dCard, el: "#dCardList"});
 				//this.mainMapView = new VU.MapView({collection:this.colls.halls, mapNode: "hallsMap"});
 			}
 		})

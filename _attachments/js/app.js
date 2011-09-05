@@ -131,7 +131,8 @@ $(function(){
 	
 		// Initialize happens at page load; think RESTful: every time this is called we're starting from scratch
         initialize : function(){
-			_.bindAll( this, "mainRouter", "authSessionLoaded" );
+			VU.PersistentRouter.prototype.initialize.call(this);
+			_.bindAll( this, "routeHandler", "authSessionLoaded" );
 			this.bind( "route:mainRouter", this.mainRouter );
 
 			this.colls = {

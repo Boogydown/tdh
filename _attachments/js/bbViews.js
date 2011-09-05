@@ -123,7 +123,7 @@ VU.MapView = Backbone.View.extend({
 	geocoder: null,
 	
 	initialize : function(){
-		_.bindAll(this, 'render', "addChange", "addMarker", "attachToMap");
+		_.bindAll(this, 'render', "addMarker", "attachToMap");
 		var latlng = new google.maps.LatLng(30.274338, -97.744675);
 		var myOptions = {
 		  zoom: 6,

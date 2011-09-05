@@ -70,7 +70,7 @@ $(function(){
 				
 				// kick off the initial fetch
 				this.colls.halls.fetch(); //TODO: limit this by #?  map?  alpha?
-				*/
+				
 			}
 		}),
 		

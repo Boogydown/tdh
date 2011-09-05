@@ -4,8 +4,8 @@ VU.PersistentRouter = Backbone.Controller.extend({
 	initialize : function () (
 		// syntax:  routeParams: { tab : "Dances", _tab : { "Dances": {filter1 : "blah", filter2 : ""}}, popID:""}
 		// 			routeHandler: handler );
-		var rp;
-		var val;
+		var rp = 0;
+		var val = "";
 		var routeStr = "";
 		for ( rp in this.routeParams ) {
 			this.persistedRoutes.push(val = this.routeParams[rp]);

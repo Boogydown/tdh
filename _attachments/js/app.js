@@ -129,7 +129,7 @@ $(function(){
 	
 		// Initialize happens at page load; think RESTful: every time this is called we're starting from scratch
         initialize : function(){
-			_.bindAll( this, "mainRouter" );
+			_.bindAll( this, "mainRouter", "authSessionLoaded" );
 			this.bind( "route:mainRouter", this.mainRouter );
 
 			this.colls = {
@@ -150,11 +150,11 @@ $(function(){
 			if ( ! authID ) {
 				// TODO: if no cookie then keep login button visible and create new, anon session
 				mySession = new TDHSessionModel();
-				authSessionLoaded( mySession );
+				this.authSessionLoaded( mySession );
 			} else {
 				// if cookie then create session model and retrieve it from the db
 				mySession = new TDHSessionModel( {"id":authID} );
-				mySession.fetch( authSessionLoaded );
+				mySession.fetch( {success:this.authSessionLoaded});
 			}
 			
 			// check cookies for existing Auth id (can only have one at a time)

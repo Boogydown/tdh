@@ -171,8 +171,9 @@ $(function(){
 			
 			// stuff to do for all sessions
 			this.colls.dCard = mySession.get( "dCard" );
+			var allEvents = this.colls.events;
 			window.addToDanceCard = function ( eventID ) {
-				mySession.addToCard( this.colls.events.get( eventID ) );
+				mySession.addToCard( allEvents.get( eventID ) );
 			}
 		},
 		

@@ -169,10 +169,10 @@ $(function(){
 			if ( this.currentView && this.currentView != myView )
 				this.currentView.deactivate();
 			
-			this.persistentRoutes.tab = tab;
-			this.persistentRoutes.dates = dates;
-			this.persistentRoutes.coords = coords;
-			this.persistentRoutes.popID = popID;
+			this.persistedRoutes.tab = tab;
+			this.persistedRoutes.dates = dates;
+			this.persistedRoutes.coords = coords;
+			this.persistedRoutes.popID = popID;
 			this.saveLocation ( tab + "/" + dates + "/" + coords + "/" + popID );
 			
 			myView.activate();

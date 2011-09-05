@@ -37,7 +37,7 @@ VU.ListingView = VU.DustView.extend({
 	render : function() {
 		//TODO: somehow incorporate this into the templating language		
 		this.model.set( {
-			name : window.utils.elipsesStr( this.model.get( "name" ), 19 ),
+			name : window.utils.elipsesStr( this.model.get( "name" ), 18 ),
 			entryDescription : window.utils.elipsesStr( this.model.get( "entryDescription" ), 180 )
 		}, {silent:true});
 		return VU.DustView.prototype.render.call(this);
@@ -155,7 +155,7 @@ VU.MapView = Backbone.View.extend({
 	
 	addMarker : function ( hall ) {
 		// unbind, just in case came in from the else, below...
-		hall.unbind( "change", addMarker );
+		hall.unbind( "change", this.addMarker );
 		
 		// try gps, first
 		var gps = hall.get( "GPS Coordinates" ) || hall.get( "gpsCoordinates" );
@@ -173,14 +173,14 @@ VU.MapView = Backbone.View.extend({
 				position: gps,
 				title: title
 			});
-			var hallID = hall.id;
+			var hallID = hall.myType + "&" + hall.id;
 			google.maps.event.addListener( marker, "click", function () { window.location = "#///" + hallID; } );
 			
 		} else {
 			// now try its address instead
 			var address = hall.get( "address" );
 			if ( ! address )
-				hall.bind( "change", addMarker );
+				hall.bind( "change", this.addMarker );
 			console.log("finding " + address );
 			this.geocoder.geocode( { 'address': address}, this.attachToMap );
 		}

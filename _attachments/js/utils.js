@@ -7,29 +7,28 @@ window.utils = {
 		return (s=s.replace(/^\?/,'&').match(re)) ? s=s[1] : s='';
 	},
 	
-	readCookie : function (name,delimit)
-	{
-	  if (document.cookie == '')
-	  {
+	readCookie : function (name,delimit){
+	  if (document.cookie == ''){
 		return false;
 	  }
-	  else
-	  {
+	  else {
 		var fC,lC;
 		var mcookie = unescape(document.cookie);
 		fC = mcookie.indexOf(name);
 		var ph = fC + name.length;
-		if ((fC != -1) && (mcookie.charAt(ph) == '='))
-		{
+		if ((fC != -1) && (mcookie.charAt(ph) == '=')){
 		  fC += name.length + 1;
 		  lC = mcookie.indexOf(delimit,fC);
 		  if (lC == -1) lC = mcookie.length;
 		  return unescape(mcookie.substring(fC,lC));
 		}
-		else
-		{
+		else{
 		  return false;
 		}
 	  }
-	}	
+	},
+	
+	elipsesStr : function ( str, length ) {
+		return (str && str.length && (str.length + 3 > length) && str.substr(0, length) + "..." ) || str;
+	}
 };

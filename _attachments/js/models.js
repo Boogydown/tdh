@@ -155,8 +155,7 @@ VU.BandModel = VU.EventsContainerModel.extend({
 		var bandPic = this.get("image");
 		var ed = this.get("stylesPlayed");
 		if ( _.isArray(ed) ) ed = ed.join(", ") + ". ";
-		//ed += this.get("description");
-		if ( ed.length > 50 ) ed = ed.substr(0,50) + "...";
+		
 		this.set( {
 			website: (this.get("website")||"").split("://").pop(),
 			name: this.get("bandName"),
@@ -227,8 +226,7 @@ VU.VenueModel = VU.EventsContainerModel.extend({
 			
 		var ed = this.get("dateBuilt");
 		if ( ed ) ed = "cir. " + ed + ". ";
-		ed += this.get("description");
-		if ( ed.length > 50 ) ed = ed.substr(0,50) + "...";
+		ed += this.get("historicalNarrative");
 		
 		this.set( { 
 			thumbPic: hallPic,

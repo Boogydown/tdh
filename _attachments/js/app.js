@@ -14,7 +14,7 @@ $(function(){
 	
 	var TDHSessionModel = VU.AuthSessionModel.extend({
 		defaults : {
-			danceCard: new EventsCollection()
+			danceCard: new VU.EventsCollection()
 		},
 		
 		addToCard : function( eventModel ) {

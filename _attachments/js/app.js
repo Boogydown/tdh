@@ -93,8 +93,8 @@ $(function(){
 /// URL CONTROLLER //////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////{
     // The App controller initializes the app by calling `Comments.fetch()`
-    var AppController = Backbone.Controller.extend({
-		persistedRoutes : {
+    var AppController = VU.PersistentRouter.extend({
+		routeParams : { 
 /*			tab : "Dances",
 			_tab : { 
 				"Dances" : {
@@ -119,13 +119,15 @@ $(function(){
 		},
 		
 		instanciatedViews : {},
+
 		
+		/*
 		routes : { 
 			":tab": "mainRouter",
 			":tab/:dates": "mainRouter",
 			":tab/:dates/:coords": "mainRouter",
 			":tab/:dates/:coords/:popID": "mainRouter",
-		},
+		},*/
 	
 		// Initialize happens at page load; think RESTful: every time this is called we're starting from scratch
         initialize : function(){
@@ -184,22 +186,19 @@ $(function(){
 			// store as cookie
 		},
 		
-		mainRouter : function( tab, dates, coords, popID ) {
+		routeHandler : function( tab, dates, coords, popID ) {
 			//tab = tab || (this.persistedRoutes[tab] && this.persistedRoutes[tab].value;
-			tab = tab || this.persistedRoutes.tab;
-			popID = popID || this.persistedRoutes.popID;
-			coords = coords || this.persistedRoutes.coords;
-			dates = dates || this.persistedRoutes.dates;
-			var viewClass = ParentViews[ tab + "View" ] || ParentViews[ (tab = this.persistedRoutes.tab) + "View" ];
+			/*
+			if ( ! tab || tab == "!" ) tab = this.persistedRoutes.tab;
+			if ( ! popID || popID == "!" ) popID = this.persistedRoutes.popID;
+			if ( ! coords || coords == "!" ) coords = this.persistedRoutes.coords;
+			if ( ! dates || dates == "!" ) dates = this.persistedRoutes.dates;*/
+			var viewClass = ParentViews[ tab + "View" ] || ParentViews[ (tab = this.routeParams.tab) + "View" ];
 			var myView = this.instanciatedViews[ tab ] || new viewClass( {colls:this.colls} );
 			if ( this.currentView && this.currentView != myView )
 				this.currentView.deactivate();
 			
-			this.persistedRoutes.tab = tab;
-			this.persistedRoutes.dates = dates;
-			this.persistedRoutes.coords = coords;
-			this.persistedRoutes.popID = popID;
-			this.saveLocation ( tab + "/" + dates + "/" + coords + "/" + popID );
+			this.saveRoutes( tab, dates, coords, popID );
 			
 			myView.activate();
 			this.instanciatedViews[ tab ] = this.currentView = myView;
@@ -215,7 +214,7 @@ $(function(){
 					this.popupView.openPopup( docModel, template );
 				} 
 				else {
-					window.location = "#" + tab;
+					window.location = "#///!";
 				}
 			} else {
 				// TODO: ensure popup's closed?

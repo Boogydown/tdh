@@ -83,7 +83,7 @@ VU.PopupView = VU.DustView.extend({
 			$('#fade , .popup_block').fadeOut(function() {
 				$('#fade, a.close').remove();  //fade them both out
 			});
-			window.location = "#/// /";
+			window.location = "#!";
 			return false;
 		});		
 	},

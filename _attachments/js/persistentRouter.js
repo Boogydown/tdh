@@ -21,10 +21,10 @@ VU.PersistentRouter = Backbone.Controller.extend({
 		this._savedLoc = false;
 		// retrieve persisted/nested routes
 		var i, arg;
-		for ( i in arguments ) {
-			arg = arguments[i];
-			if ( arg === undefined || arg == "" ) arg = this.persistedRoutes[i];
-			if ( arg == "!" ) arg = this.defaultParams[i];
+		for ( i in this.persistedRoutes ) {
+			arg = (arguments.length > i && arguments[i]) || "";
+			if ( arg === undefined || arg == "" ) arguments[i] = this.persistedRoutes[i];
+			if ( arg == "!" ) arguments[i] = this.defaultParams[i];
 		}
 		
 		// call user's handler

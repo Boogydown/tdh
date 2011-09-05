@@ -84,30 +84,6 @@ VU.PopupView = VU.DustView.extend({
 	}
 });
 
-// The view for the primary event list container
-/*
-VU.EventListView = Backbone.View.extend({
-	el: $("#dancesList"),
-	initialize : function(){
-		_.bindAll(this, 'render', 'addRow');
-		this.collection.bind("refresh", this.render);
-		//this.collection.bind("add", this.addRow);
-		//this.collection.bind("remove", this.deleted);
-	},
-
-	render: function(){
-		if (this.collection.length > 0) 
-			this.collection.each(this.addRow);
-	},
-	
-	// Appends an entry row 
-	addRow : function(model){
-		this.el.append( new VU.EventEntryView( { model: model } ).render().el );
-		model.trigger("change", model);
-	}
-});
-*/
-
 VU.ListView = Backbone.View.extend({
 	initialize : function(){
 		_.bindAll(this, 'render', 'addRow');
@@ -147,7 +123,8 @@ VU.MapView = Backbone.View.extend({
 		
 		//this.collection.bind("change", this.render);
 		if ( this.collection ){
-			this.collection.bind("add", this.addChange );
+			//this.collection.bind("add", this.addChange );
+			this.collection.bind("add", this.addMarker );
 			if ( this.collection.models.length > 0 )
 				this.collection.each( this.addMarker );
 		}

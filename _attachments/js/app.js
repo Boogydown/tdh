@@ -97,10 +97,27 @@ $(function(){
     // The App controller initializes the app by calling `Comments.fetch()`
     var AppController = Backbone.Controller.extend({
 		persistedRoutes : {
-			tab : "Dances",
-			dates : new Date().getTime(),
-			coords : "",
+/*			tab : "Dances",
+			_tab : { 
+				"Dances" : {
+					filter1 : new Date().getTime(),
+					filter2 : ""
+				},
+				"Bands" : {
+					filter1 : "A",
+					filter2 : ""
+				},
+				"Halls" : {
+					filter1 : "A",
+					filter2 : ""
+				}
+			},
 			popID : ""
+*/
+			tab : "Dances",
+			filter1 : new Date().getTime(),
+			filter2 : "",
+			popID : ""			
 		},
 		
 		instanciatedViews : {},
@@ -159,7 +176,8 @@ $(function(){
 			// store as cookie
 		},
 		
-		mainRouter : function( tab, dates, coords, popID ) {
+		mainRouter : function( tab, filter1, filter2, popID ) {
+			//tab = tab || (this.persistedRoutes[tab] && this.persistedRoutes[tab].value;
 			tab = tab || this.persistedRoutes.tab;
 			popID = popID || this.persistedRoutes.popID;
 			coords = coords || this.persistedRoutes.coords;
@@ -179,7 +197,7 @@ $(function(){
 			this.instanciatedViews[ tab ] = this.currentView = myView;
 			
 			if ( popID ) {
-				var pAry = popID.split(':');
+				var pAry = popID.split('&');
 				var popType = pAry[0];
 				popID = pAry[1];
 				var template = "popupTemplate_" + popType;

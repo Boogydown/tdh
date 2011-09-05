@@ -153,9 +153,14 @@ VU.BandModel = VU.EventsContainerModel.extend({
 		// image and website
 		var bandID = this.id;
 		var bandPic = this.get("image");
+		var ed = this.get("stylesPlayed");
+		if ( _.isArray(ed) ) ed = ed.join(", ") + ". ";
+		//ed += this.get("description");
+		if ( ed.length > 50 ) ed = ed.substr(0,50) + "...";
 		this.set( {
 			website: (this.get("website")||"").split("://").pop(),
-			name: this.get("bandName")
+			name: this.get("bandName"),
+			entryDescription: ed
 		}, { silent: true } );
 		
 		if ( bandPic && bandPic != this.defaults.image && bandPic.substr(0, 4) != "http" ) {
@@ -187,7 +192,7 @@ VU.BandModel = VU.EventsContainerModel.extend({
 			this.set({
 				thumbPic: result.tbUrl,
 				mainPic: result.url
-			}, { silent: true } );
+			});
 		}
 	}
 });
@@ -219,11 +224,18 @@ VU.VenueModel = VU.EventsContainerModel.extend({
 		if ( hallPic != this.defaults.images[0].image )
 			hallPic = "../../" + hallID + "/thumbs/" + encodeURI( hallPic );
 			// TODO: check to see if this URL exists... ?  perhaps try <img src.... onerror=""/>
+			
+		var ed = this.get("dateBuilt");
+		if ( ed ) ed = "cir. " + ed + ". ";
+		ed += this.get("description");
+		if ( ed.length > 50 ) ed = ed.substr(0,50) + "...";
+		
 		this.set( { 
 			thumbPic: hallPic,
 			mainPic: hallPic.replace( "\/thumbs\/", "\/files\/" ), 
 			website: (this.get("website")||"").split("://").pop(),
-			name: this.get("danceHallName")
+			name: this.get("danceHallName"),
+			entryDescription: ed
 		}, { silent: true } );
 	}
 });

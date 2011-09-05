@@ -108,7 +108,7 @@ VU.ListView = Backbone.View.extend({
 	addRow : function(model){
 		this.el.appendChild( new VU.ListingView( {
 			model: model, 
-			template: (this.el.attributes["listing-template"].value || "") 
+			template: (this.el.getAttribute("listing-template") || "") 
 		}).render().el );
 		
 		model.trigger("change", model);

@@ -32,10 +32,39 @@ VU.ListingView = VU.DustView.extend({
 		_.bindAll(this, 'render');
 		this.model.bind('change', this.render);
 		this.registerTemplate( this.options.template );
+	},
+	
+	render : function() {
+		//TODO: somehow incorporate this into the templating language		
+		this.model.set( {
+			name : window.utils.elipsesStr( this.model.get( "name" ), 20 ),
+			entryDescription : window.utils.elipsesStr( this.model.get( "entryDescription" ), 150 )
+		}, {silent:true});
+		return VU.DustView.prototype.render.call(this);
 	}
-
 	
 });	
+
+VU.ListView = Backbone.View.extend({
+	initialize : function(){
+		_.bindAll(this, 'render', 'addRow');
+		this.collection.bind("refresh", this.render);
+	},
+
+	render: function(){
+		if (this.collection.length > 0) this.collection.each(this.addRow);
+	},
+	
+	// Appends an entry row 
+	addRow : function(model){
+		this.el.appendChild( new VU.ListingView( {
+			model: model, 
+			template: (this.el.getAttribute("listing-template") || "") 
+		}).render().el );
+		
+		model.trigger("change", model);
+	}		
+});
 
 /**
  * View for a popup
@@ -63,7 +92,7 @@ VU.PopupView = VU.DustView.extend({
 		var events;
 		if ( this.model ) events = this.model.get("events"); 
 		if ( events ) {
-			this.eventListView = new VU.EventListView({ el:$("#popuplist"), collection:events });
+			this.eventListView = new VU.ListView({ el:"#popuplist", collection:events });
 			this.eventListView.render();
 			this.miniMapView = new VU.MapView({collection: events, el: "detailmap"});
 		}		
@@ -84,27 +113,6 @@ VU.PopupView = VU.DustView.extend({
 
 		return false;
 	}
-});
-
-VU.ListView = Backbone.View.extend({
-	initialize : function(){
-		_.bindAll(this, 'render', 'addRow');
-		this.collection.bind("refresh", this.render);
-	},
-
-	render: function(){
-		if (this.collection.length > 0) this.collection.each(this.addRow);
-	},
-	
-	// Appends an entry row 
-	addRow : function(model){
-		this.el.appendChild( new VU.ListingView( {
-			model: model, 
-			template: (this.el.getAttribute("listing-template") || "") 
-		}).render().el );
-		
-		model.trigger("change", model);
-	}		
 });
 
 VU.MapView = Backbone.View.extend({

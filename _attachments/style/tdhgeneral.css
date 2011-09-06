@@ -11,6 +11,14 @@ div {
 }
 
 /**************** Main Container ****************/
+div.progressGIF {
+	background-image: url('../images/loader-spinner-big.gif");
+	position: relative;
+	display: none;
+	left: 50px;
+	top: 100px;
+}
+
 div#main-container {
     bottom: 50px;
     font-family: Arial,sans-serif;
@@ -65,6 +73,7 @@ div#dCardTabBtn.active-link{
 }
 
 div#dCardTabBtn:hover{
+	cursor:pointer;
 	background-position: -150px -80px;
 }
 
@@ -99,6 +108,7 @@ ul#tab-list li.active-link{
 }
 
 ul#tab-list li:hover{
+	cursor:pointer;
 	background-position: -100px -20px;
 }
 

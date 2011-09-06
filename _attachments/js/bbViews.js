@@ -207,6 +207,7 @@ VU.ParentView = Backbone.View.extend({
 	
 	activate : function() {
 		this.tabEl.addClass( "active-link" );
+		$(".loadingGIF").show();
 		this.el.show();
 	},
 	

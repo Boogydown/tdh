@@ -30,5 +30,10 @@ window.utils = {
 	
 	elipsesStr : function ( str, length ) {
 		return (str && str.length && (str.length + 3 > length) && str.substr(0, length) + "..." ) || str;
+	},
+	
+	loadingSpinner : function ( el ) {
+		//<div class="loadingGIF" id="dancesDivSpinner"/>
+		
 	}
 };

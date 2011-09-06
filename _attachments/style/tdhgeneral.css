@@ -12,7 +12,7 @@ div {
 
 /**************** Main Container ****************/
 div.progressGIF {
-	background-image: url('../images/loader-spinner-big.gif");
+	background-image: url('../images/loader-spinner-big.gif');
 	position: relative;
 	display: none;
 	left: 50px;

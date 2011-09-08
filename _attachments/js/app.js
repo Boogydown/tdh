@@ -40,6 +40,7 @@ $(function(){
 				// create our main list and map views and attach the collection to them
 				this.mainListView = new VU.ListView({collection:this.colls.events, el: "#dancesList"});
 				this.mainMapView = new VU.MapView({collection:this.colls.halls, el: "#dancesMap"});
+				this.calView = new VU.CalView( {el: "#dancesCal"});
 				
 				// kick off the initial fetch
 				this.colls.events.fetch();

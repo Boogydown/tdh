@@ -199,6 +199,12 @@ VU.MapView = Backbone.View.extend({
 	}	
 });
 
+VU.CalView = Backbone.View.extend({
+	initialize : function() {
+		$(this.el).multiDatesPicker();
+	}
+});
+
 VU.ParentView = Backbone.View.extend({
 	initialize : function() {
 		_.bindAll( this, "activate", "deactivate" );

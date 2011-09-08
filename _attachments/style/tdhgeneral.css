@@ -354,15 +354,19 @@ div.addToDanceCard{
 
 /* ******************Calendar and map inside info-area******************* */
 div#dancesCal {
-	background:url(../images/cal.jpg) no-repeat;
+/*	background:url(../images/cal.jpg) no-repeat;*/
 	right: 15px;
 	top: 50px;
 }
 
+div#dancesCal div {
+	width: 25.3em;
+}
+
 div#dancesMap {
     right: 14px;
-	top: 206px;
-		behavior: url(border-radius.htc);
+	top: 242px;
+	behavior: url(border-radius.htc);
 	-moz-border-radius: 10px;
     -webkit-border-radius: 10px;
     -khtml-border-radius: 10px;

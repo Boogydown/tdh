@@ -137,7 +137,7 @@ VU.LinkingModel = Backbone.Model.extend({
 	},
 	
 	loadLinkRefs : function () {
-		if ( ! this.collection.colls ) return;
+		if ( ! (this.collection && this.collection.colls)) return;
 		var attr, loadingQueue = {}, docID, coll, myRef;
 		// load all referenced models so that we can pull data from them
 		for ( attr in this.linkRefs )
@@ -205,7 +205,12 @@ VU.BandModel = VU.EventsContainerModel.extend({
 	
 	initialize : function () { 
 		_.bindAll( this, "normalizeAttributes", "searchComplete" );
-		this.bind( "change", this.normalizeAttributes );		
+		this.bind( "change:image", this.normalizeAttributes );		
+		this.bind( "change:stylesPlayed", this.normalizeAttributes );		
+		this.bind( "change:website", this.normalizeAttributes );		
+		this.bind( "change:bandName", this.normalizeAttributes );		
+		// kick it off once for those that came in at init
+		this.normalizeAttributes();
 	},
 	
 	//url : function () { return "https://dev.vyncup.t9productions.com:44384/tdh/" + this.id; },
@@ -269,7 +274,13 @@ VU.VenueModel = VU.EventsContainerModel.extend({
 
 	initialize : function () { 
 		_.bindAll( this, "normalizeAttributes" );
-		this.bind( "change", this.normalizeAttributes );		
+		this.bind( "change:images", this.normalizeAttributes );		
+		this.bind( "change:dateBuilt", this.normalizeAttributes );		
+		this.bind( "change:historicalNarrative", this.normalizeAttributes );		
+		this.bind( "change:website", this.normalizeAttributes );		
+		this.bind( "change:danceHallName", this.normalizeAttributes );		
+		// kick it off once for those that came in at init
+		this.normalizeAttributes();
 	},
 	
 	//url : function () { return "https://dev.vyncup.t9productions.com:44384/tdh/" + this.id; }

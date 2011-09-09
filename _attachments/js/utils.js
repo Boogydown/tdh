@@ -32,8 +32,23 @@ window.utils = {
 		return (str && str.length && (str.length + 3 > length) && str.substr(0, length) + "..." ) || str;
 	},
 	
-	loadingSpinner : function ( el ) {
-		//<div class="loadingGIF" id="dancesDivSpinner"/>
+	/* Static class for managing some waiting UI (i.e. loading spinner, progress bar, etc)
+	 * A stub for expanding in the future
+	 *
+	 */
+	waitingUI : {
+		el : {},
 		
+		init : function ( el ) {
+			this.el = $(el);
+		},
+		
+		show : function () {
+			this.el.show();
+		},
+		
+		hide : function () {
+			this.el.hide();
+		}	
 	}
 };

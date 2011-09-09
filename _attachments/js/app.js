@@ -21,7 +21,8 @@ $(function(){
 		},
 		
 		addToCard : function( eventModel ) {
-			this.get( "dCard" ).add( eventModel );
+			//HACK: the postAdd thing is a hack...  do something proper here... bind to add?  this is for dCard animation
+			this.get( "dCard" ).add( eventModel, {postAdd:function(){alert("You have added this event to your Dance Card!");}} );
 		}		
 	});
 		
@@ -96,46 +97,19 @@ $(function(){
     // The App controller initializes the app by calling `Comments.fetch()`
     var AppController = VU.PersistentRouter.extend({
 		routeParams : { 
-/*			tab : "Dances",
-			_tab : { 
-				"Dances" : {
-					filter1 : new Date().getTime(),
-					filter2 : ""
-				},
-				"Bands" : {
-					filter1 : "A",
-					filter2 : ""
-				},
-				"Halls" : {
-					filter1 : "A",
-					filter2 : ""
-				}
-			},
-			popID : ""
-*/
 			tab : "Dances",
 			dates : new Date().getTime(),
 			coords : "",
-			popID : ""			
+			popID : ""
 		},
 		
 		instanciatedViews : {},
-
 		
-		/*
-		routes : { 
-			":tab": "mainRouter",
-			":tab/:dates": "mainRouter",
-			":tab/:dates/:coords": "mainRouter",
-			":tab/:dates/:coords/:popID": "mainRouter",
-		},*/
-	
 		// Initialize happens at page load; think RESTful: every time this is called we're starting from scratch
         initialize : function(){
 			VU.PersistentRouter.prototype.initialize.call(this);
 			_.bindAll( this, "routeHandler", "authSessionLoaded" );
-			this.bind( "route:mainRouter", this.mainRouter );
-
+			
 			this.colls = {
 				bands : new VU.BandCollection(),
 				halls : new VU.HallCollection(),
@@ -148,18 +122,9 @@ $(function(){
 			// init the popup view
 			this.popupView = new VU.PopupView( );
 			
-			//TODO: authenticate session			
-			var authID = window.utils.readCookie( "tdh_authID", ";" );
-			var mySession;
-			if ( ! authID ) {
-				// TODO: if no cookie then keep login button visible and create new, anon session
-				mySession = new TDHSessionModel();
-				this.authSessionLoaded( mySession );
-			} else {
-				// if cookie then create session model and retrieve it from the db
-				mySession = new TDHSessionModel( {"id":authID} );
-				mySession.fetch( {success:this.authSessionLoaded});
-			}
+			// Authenticate session and create session state model
+			var mySession = new TDHSessionModel();
+			mySession.load( this.authSessionLoaded );
 			
 			// check cookies for existing Auth id (can only have one at a time)
 			// if exists then get if from the db; failure sends to login screen
@@ -168,34 +133,31 @@ $(function(){
 		
 		authSessionLoaded : function( mySession ) {
 			if ( mySession.fetched ) {
-				// yay!  remove login link
+				// yay!  
+				// TODO: remove login link
+				// TODO: create cookie
 			} else {
+				// TODO: if no cookie then keep login button visible and create new, anon session
 				// from here on it's anon; show login link
 			}
 			
 			// stuff to do for all sessions
 			this.colls.dCard = mySession.get( "dCard" );
 			var allEvents = this.colls.events;
+			
+			// setup globals
 			window.addToDanceCard = function ( eventID ) {
-				alert("You have added this event to your Dance Card!");
 				mySession.addToCard( allEvents.get( eventID ) );
-			}
-		},
-		
-		loginSubmit : function () {
-			// take u and pw
-			// create session model
-			// fetch from server
-			// store as cookie
+			};
+			
+			window.submitLogin = function ( loginForm ) {
+				mySession.login( loginForm.username.value, loginForm.password.value );
+				return false;
+			};
+			
 		},
 		
 		routeHandler : function( tab, dates, coords, popID ) {
-			//tab = tab || (this.persistedRoutes[tab] && this.persistedRoutes[tab].value;
-			/*
-			if ( ! tab || tab == "!" ) tab = this.persistedRoutes.tab;
-			if ( ! popID || popID == "!" ) popID = this.persistedRoutes.popID;
-			if ( ! coords || coords == "!" ) coords = this.persistedRoutes.coords;
-			if ( ! dates || dates == "!" ) dates = this.persistedRoutes.dates;*/
 			var viewClass = ParentViews[ tab + "View" ] || ParentViews[ (tab = this.routeParams.tab) + "View" ];
 			var myView = this.instanciatedViews[ tab ] || new viewClass( {colls:this.colls} );
 			if ( this.currentView && this.currentView != myView )
@@ -212,11 +174,12 @@ $(function(){
 				popID = pAry[1];
 				var template = "popupTemplate_" + popType;
 				var docModel = this.colls[popType + "s"] && this.colls[popType + "s"].get( popID );
-				if ( docModel ){
-					docModel.loadEvents( this.colls.events );
+				if ( popID && docModel ){
+					docModel.loadEvents( this.colls.events, docModel.get("type") );
 					this.popupView.openPopup( docModel, template );
-				} 
-				else {
+				} else if ( !popID && popType ) {
+					this.popupView.openPopup( null, template );
+				} else {
 					window.location = "#///!";
 				}
 			} else {

@@ -12,6 +12,7 @@ couchapp_load([
   "_utils/script/sha1.js",
   "_utils/script/json2.js",
   "/_utils/script/jquery.js",
+  "_utils/script/jquery.js",
   //"js/lib/js/jquery-1.6.2.min.js",
   //"js/jquery.min.js.js",
   "js/lib/js/jquery-ui-1.8.16.custom.min.js",

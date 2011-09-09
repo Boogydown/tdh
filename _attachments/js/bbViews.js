@@ -11,7 +11,7 @@ VU.DustView = Backbone.View.extend({
 	},
 	
 	getData : function(){
-		return this.model.toJSON();
+		return this.model ? this.model.toJSON() : {};
 	},
 	
 	render : function(){ 
@@ -45,6 +45,7 @@ VU.ListingView = VU.DustView.extend({
 	
 });	
 
+// View for a collection of listings
 VU.ListView = Backbone.View.extend({
 	initialize : function(){
 		_.bindAll(this, 'render', 'addRow');
@@ -57,14 +58,15 @@ VU.ListView = Backbone.View.extend({
 	},
 	
 	// Appends an entry row 
-	addRow : function(model){
+	addRow : function(model, options){
 		var template = (this.el.getAttribute("listing-template") || "");
 		if ( !template ) console.log("listing-template attribute not given in " + this.el);
 		this.el.appendChild( new VU.ListingView( {
 			model: model, 
 			template: template
 		}).render().el );
-		
+
+		if ( options.postAdd ) options.postAdd();
 		model.trigger("change", model);
 	}		
 });

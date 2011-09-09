@@ -12,12 +12,48 @@ VU.CookieModel = Backbone.Model.extend({
 });
 
 VU.AuthSessionModel = VU.CookieModel.extend({
+	// default timeout is 10 minutes
+	DEFAULTTIMEOUT : 10 * 60 * 1000,
+	
 	defaults : {
 		username: "anonymous",
 		authToken: "",
 		permissions: {},
-		fetched: false
+		fetched: false,
+		//TODO: will need to somehow update this timeout on every user or HTTP action
+		timeout: new Date().getTime() + this.DEFAULTTIMEOUT
 	},
+	
+	load : function( completeCallback ) {
+		var sessionID = window.utils.readCookie( "tdh_sessionID", ";" );
+		if ( sessionID ) {
+			// if cookie exists then there is an active session; 
+			//	create session model and retrieve it from the db
+			this.id = sessionID;
+			this.fetch( {success:completeCallback});
+		}
+		else
+		{
+			//TODO: if no user session then only state we really care about is dCard, so instead
+			//	of wasting db space for this we just store it in a cookie
+			//var dcard = window.utils.readCookie( "tdh_dcard", ";" );
+			
+			completeCallback( this );
+		}			
+	},
+	
+	login : function( username, password ) {
+		//TODO: process login
+		//	submit u & p for auth
+		//	get user model back
+		// 	create session model
+		//	save session to server
+	},
+	
+	closeSession : function() {
+		//TODO: remove cookie
+	}
+	
 });
 
 // A model that holds all of the current filtering/sorting state data
@@ -32,17 +68,15 @@ VU.FilterModel = Backbone.Model.extend({
 
 // An entity that has events associated to it
 VU.EventsContainerModel = Backbone.Model.extend({
-	myType : "",
 	
-	// load all events that have a band or hall (myType) of this id
-	//TODO: myType needs to be more dependant on schema
-	loadEvents : function ( eventsCollection ) {
+	// load all events that have a band or hall (ofType) of this id
+	//TODO: ofType needs to be more dependant on schema... we're currently assuming that the type is the same as the linkingRef
+	loadEvents : function ( eventsCollection, ofType ) {
 		this.set( {events: new VU.EventCollection( _.select( eventsCollection.models, function ( eventModel ) {
-			return eventModel.get( this.myType ) == this.id;
+			return eventModel.get( ofType ) == this.id;
 		}, this ) ) } );
 	}
 });
-
 
 VU.LinkingModel = Backbone.Model.extend({
 	linkRefs : {},
@@ -131,7 +165,6 @@ VU.LinkingModel = Backbone.Model.extend({
 	}
 });
 
-
 // Band model
 VU.BandModel = VU.EventsContainerModel.extend({
 	myType : "band",
@@ -159,7 +192,8 @@ VU.BandModel = VU.EventsContainerModel.extend({
 		this.set( {
 			website: (this.get("website")||"").split("://").pop(),
 			name: this.get("bandName"),
-			entryDescription: ed
+			entryDescription: ed,
+			type: this.myType
 		}, { silent: true } );
 		
 		if ( bandPic && bandPic != this.defaults.image && bandPic.substr(0, 4) != "http" ) {
@@ -233,7 +267,8 @@ VU.VenueModel = VU.EventsContainerModel.extend({
 			mainPic: hallPic.replace( "\/thumbs\/", "\/files\/" ), 
 			website: (this.get("website")||"").split("://").pop(),
 			name: this.get("danceHallName"),
-			entryDescription: ed
+			entryDescription: ed,
+			type: this.myType
 		}, { silent: true } );
 	}
 });

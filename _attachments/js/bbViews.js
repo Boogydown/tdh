@@ -52,7 +52,7 @@ VU.EventListingView = VU.ListingView.extend({
 	
 	initialize : function() {
 		VU.ListingView.prototype.initialize.call(this);
-		_.bindAll( this, "toggleDCard" );
+		_.bindAll( this, "toggleDCard", "render" );
 	},
 	
 	toggleDCard : function () {

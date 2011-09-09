@@ -65,6 +65,7 @@ VU.EventListingView = VU.ListingView.extend({
 			$(".twostepphoto", this.el).addClass("active");
 		else
 			$(".twostepphoto", this.el).removeClass("active");
+		return this;
 	}		
 });
 

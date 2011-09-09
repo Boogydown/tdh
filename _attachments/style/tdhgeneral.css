@@ -128,12 +128,7 @@ div.box {
     border-radius: 10px;	
 }
 
-div.dancebox {
-	margin:0 auto;
-	margin-left: auto;
-    margin-right: auto;
-    text-align:center; 
-}
+
 
 div.list{
 	left: 15px;
@@ -191,7 +186,20 @@ div.list{
 }
 
 /**************** Halls/Bands Listings ****************/
-div#hallsDiv div.box.list {
+div#hallsDiv + div#bandsDiv div.box {
+	background-color: transparent;
+	width: 180px;
+	position: absolute;
+	top: 50px;
+	bottom: -20px;
+	behavior: url(border-radius.htc);
+	-moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -khtml-border-radius: 10px;
+    border-radius: 10px;	
+}
+
+div#hallsDiv + div#bandsDiv div.box.list {
 	background-color: transparent;
 	width: 500px;
 	position: absolute;
@@ -397,6 +405,25 @@ div#item-main-map {
     right: 14px;
 	top: 50px;
 }
+
+/* *******************Dance Card Stuff******************** */
+
+div#danceCardDiv div.box.list {
+	margin:0 auto;
+	margin-left: auto;
+    margin-right: auto;
+    text-align:center; 
+}
+
+div#danceCardDiv div.share {
+	margin:0 auto;
+	margin-left: auto;
+    margin-right: auto;
+    text-align:center;
+    font-family: Arial,sans-serif;
+	font-size: 14px;
+}
+/* ******************************************************* */
 
 /* ******************Band & Hall popups******************* */
 div#popuplist{

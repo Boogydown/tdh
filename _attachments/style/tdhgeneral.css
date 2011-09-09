@@ -415,6 +415,8 @@ div.dancebox.list {
     text-align:center; 
 }
 div.share {
+	position: absolute;
+	top: 10px;
 	margin:0 auto;
 	margin-left: auto;
     margin-right: auto;
@@ -499,7 +501,7 @@ div.popup-time{
     -webkit-border-radius: 15px;
     -khtml-border-radius: 15px;
     border-radius: 15px;	
-	height: 200px;
+	height: 100%;
 	width: 250px;
 	position: relative;
 	left: 400px;

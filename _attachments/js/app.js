@@ -74,8 +74,8 @@ $(function(){
 
 				// create our main list and map views and attach the collection to them
 				this.mainListView = new VU.ListView({collection:this.colls.dCard, listingClass:VU.EventListingView, el:"#dCardList"});
-				this.mainListView.unbind( "add", this.mainListView.addRow );
-				this.mainListView.bind( "change", this.render );
+				this.mainListView.collection.unbind( "add", this.mainListView.addRow );
+				this.mainListView.collection.bind( "change", this.render );
 				//this.mainMapView = new VU.MapView({collection:this.colls.halls, mapNode: "hallsMap"});
 			},
 			
@@ -120,7 +120,7 @@ $(function(){
 			utils.waitingUI.init( ".loadingGIF" );
 			
 			// Authenticate session and create session state model
-			var mySession = new VU.AuthSessionModel( { dCard:new VU.DCardCollection( {}, { events:this.colls.events } ) } );
+			var mySession = new VU.AuthSessionModel( { dCard:new VU.DCardCollection( null, { events:this.colls.events } ) } );
 			mySession.load( this.authSessionCallback );
 			
 			// check cookies for existing Auth id (can only have one at a time)

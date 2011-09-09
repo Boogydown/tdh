@@ -56,7 +56,7 @@ VU.EventListingView = VU.ListingView.extend({
 	},
 	
 	toggleDCard : function () {
-		this.model.toggleDCard;
+		this.model.toggleDCard();
 	},
 	
 	render : function () {

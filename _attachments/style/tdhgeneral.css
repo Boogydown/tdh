@@ -186,7 +186,7 @@ div.list{
 }
 
 /**************** Halls/Bands Listings ****************/
-div#hallsDiv + div#bandsDiv div.box {
+div#hallsDiv div.box {
 	background-color: transparent;
 	width: 180px;
 	position: absolute;
@@ -272,7 +272,7 @@ div#hallsDiv div.list{
     position: absolute;
     
     top: 15px;
-    width: 235px;
+    width: 335px;
     word-wrap: break-word;
 }
 
@@ -281,20 +281,20 @@ div#hallsDiv div.list{
     left: 45px;
     position: absolute;    
     top: 40px;
-    width: 235px;
+    width: 400px;
     word-wrap: break-word;
 }
 
 div#itemImage{
 	position: absolute;
-	top: 25px;
+	top: 5px;
 	left: 10px;
 	width:100%;
 }
 
 div#itemImage img{
 	width: 80px;
-	height: 55px;
+	height: 75px;
 }
 
 div#hallsMap {
@@ -415,13 +415,14 @@ div.dancebox.list {
     text-align:center; 
 }
 
-div#danceCardDiv div.share {
+div.share span{
 	margin:0 auto;
 	margin-left: auto;
     margin-right: auto;
     text-align:center;
     font-family: Arial,sans-serif;
 	font-size: 16px;
+	color: #CCCCCC;
 }
 /* ******************************************************* */
 

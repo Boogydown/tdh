@@ -128,12 +128,7 @@ div.box {
     border-radius: 10px;	
 }
 
-div.dancebox {
-	margin:0 auto;
-	margin-left: auto;
-    margin-right: auto;
-    text-align:center; 
-}
+
 
 div.list{
 	left: 15px;
@@ -191,6 +186,39 @@ div.list{
 }
 
 /**************** Halls/Bands Listings ****************/
+div#hallsDiv div.box {
+	background-color: transparent;
+	width: 180px;
+	position: absolute;
+	top: 50px;
+	bottom: -20px;
+	behavior: url(border-radius.htc);
+	-moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -khtml-border-radius: 10px;
+    border-radius: 10px;	
+}
+
+div#hallsDiv + div#bandsDiv div.box.list {
+	background-color: transparent;
+	width: 500px;
+	position: absolute;
+	top: 50px;
+	bottom: -20px;
+	behavior: url(border-radius.htc);
+	-moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -khtml-border-radius: 10px;
+    border-radius: 10px;	
+}
+
+div#hallsDiv div.list{
+	left: 15px;
+	width: 530px;
+	overflow: auto;
+	border-radius: 0 0 0 0;
+}
+
 #itemlisting {
     background-color: black;
     	behavior: url(border-radius.htc);
@@ -201,7 +229,7 @@ div.list{
     height: 89px;
     position: relative;
     margin-bottom: 6px;
-    width: 352px;
+    width: 502px;
 }
 
 #itemlisting div.featured{ 
@@ -224,7 +252,7 @@ div.list{
 	left:-1px;
 	top: -1px;
 	height:90px;
-	width: 340px;
+	width: 500px;
 	background: url(../images/cssSprite.png);
 	background-position: 0px -490px;
 	behavior: url(border-radius.htc);
@@ -244,7 +272,7 @@ div.list{
     position: absolute;
     
     top: 15px;
-    width: 235px;
+    width: 335px;
     word-wrap: break-word;
 }
 
@@ -253,20 +281,20 @@ div.list{
     left: 45px;
     position: absolute;    
     top: 40px;
-    width: 235px;
+    width: 400px;
     word-wrap: break-word;
 }
 
 div#itemImage{
 	position: absolute;
-	top: 25px;
+	top: 7px;
 	left: 10px;
 	width:100%;
 }
 
 div#itemImage img{
 	width: 80px;
-	height: 55px;
+	height: 75px;
 }
 
 div#hallsMap {
@@ -378,6 +406,30 @@ div#item-main-map {
 	top: 50px;
 }
 
+/* *******************Dance Card Stuff******************** */
+
+div.dancebox.list {
+	margin:0 auto;
+	margin-left: auto;
+    margin-right: auto;
+    text-align:center; 
+}
+div.share {
+	padding-top: 15px;
+	margin:0 auto;
+	margin-left: auto;
+    margin-right: auto;
+    text-align:center;
+}
+
+div.share span{
+
+    font-family: Arial,sans-serif;
+	font-size: 17px;
+	color: #CCCCCC;
+}
+/* ******************************************************* */
+
 /* ******************Band & Hall popups******************* */
 div#popuplist{
 	overflow: auto;
@@ -448,7 +500,7 @@ div.popup-time{
     -webkit-border-radius: 15px;
     -khtml-border-radius: 15px;
     border-radius: 15px;	
-	height: 200px;
+	height:60%;
 	width: 250px;
 	position: relative;
 	left: 400px;

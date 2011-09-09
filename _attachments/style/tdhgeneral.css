@@ -191,7 +191,7 @@ div.list{
 }
 
 /**************** Halls/Bands Listings ****************/
-div#hallsDiv div.box {
+div#hallsDiv div.box.list {
 	background-color: transparent;
 	width: 500px;
 	position: absolute;

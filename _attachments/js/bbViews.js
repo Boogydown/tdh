@@ -62,9 +62,9 @@ VU.EventListingView = VU.ListingView.extend({
 	render : function () {
 		VU.ListingView.prototype.render.call(this);
 		if ( this.model.get( "onDCard" ) )
-			this.el.$(".twostepphoto").addClass("active");
+			$(".twostepphoto", this.el).addClass("active");
 		else
-			this.el.$(".twostepphoto").removeClass("active");
+			$(".twostepphoto", this.el).removeClass("active");
 	}		
 });
 

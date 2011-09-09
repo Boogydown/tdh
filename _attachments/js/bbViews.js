@@ -41,14 +41,38 @@ VU.ListingView = VU.DustView.extend({
 			entryDescription : window.utils.elipsesStr( this.model.get( "entryDescription" ), 180 )
 		}, {silent:true});
 		return VU.DustView.prototype.render.call(this);
-	}
-	
+	}	
 });	
+
+// An extension of ListingView that simply updates the feet button
+VU.EventListingView = VU.ListingView.extend({
+	events : {
+		"click .addToDanceCardDiv" : "toggleDCard"
+	},
+	
+	initialize : function() {
+		VU.ListingView.prototype.initialize.call(this);
+		_.bindAll( this, "toggleDCard" );
+	},
+	
+	toggleDCard : function () {
+		this.model.toggleDCard;
+	},
+	
+	render : function () {
+		VU.ListingView.prototype.render.call(this);
+		if ( this.model.get( "onDCard" ) )
+			this.el.$(".twostepphoto").addClass("active");
+		else
+			this.el.$(".twostepphoto").removeClass("active");
+	}		
+});
 
 // View for a collection of listings
 VU.ListView = Backbone.View.extend({
-	initialize : function(){
+	initialize : function( options ){
 		_.bindAll(this, 'render', 'addRow');
+		this.listingClass = options.listingClass || VU.ListingView;
 		this.collection.bind("refresh", this.render);
 		this.collection.bind("add", this.addRow);
 	},
@@ -61,14 +85,14 @@ VU.ListView = Backbone.View.extend({
 	addRow : function(model, options){
 		var template = (this.el.getAttribute("listing-template") || "");
 		if ( !template ) console.log("listing-template attribute not given in " + this.el);
-		this.el.appendChild( new VU.ListingView( {
+		this.el.appendChild( new this.listingClass( {
 			model: model, 
 			template: template
 		}).render().el );
 
 		if ( options.postAdd ) options.postAdd();
 		model.trigger("change", model);
-	}		
+	}
 });
 
 /**

@@ -13,6 +13,7 @@ div {
 /**************** Main Container ****************/
 div.loadingGIF {
 	background-image: url('../images/loader-spinner-big.gif');
+	z-index: 10;
 	position: relative;
 	display: none;
 	left: 130px;
@@ -365,7 +366,7 @@ div.twostepphoto:hover{
 	background-position: -60px -140px;
 }
 
-div.twostepphoto:active{
+div.twostepphoto.active{
 	background-position: -120px -140px;
 }
 
@@ -408,22 +409,17 @@ div#item-main-map {
 
 /* *******************Dance Card Stuff******************** */
 
-div.dancebox.list {
-	margin:0 auto;
-	margin-left: auto;
-    margin-right: auto;
-    text-align:center; 
+div.dancebox {
+	left: 26%;
+	bottom: 5px;
 }
 div.share {
-	padding-top: 15px;
-	margin:0 auto;
-	margin-left: auto;
-    margin-right: auto;
-    text-align:center;
+	position: absolute;
+	bottom: -25px;
+	left: 29%;
 }
 
 div.share span{
-
     font-family: Arial,sans-serif;
 	font-size: 17px;
 	color: #CCCCCC;

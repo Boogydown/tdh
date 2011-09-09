@@ -11,22 +11,6 @@ $(function(){
 	// inits all in the VU namespace, specifically Backbone-View attachments to the HTML
 	VU.init();
 
-	var TDHSessionModel = VU.AuthSessionModel.extend({
-		defaults : {
-		},
-		
-		initialize : function() {
-			_.bindAll( this, "addToCard" );
-			this.set( { dCard: new VU.EventCollection() } );
-		},
-		
-		addToCard : function( eventModel ) {
-			//HACK: the postAdd thing is a hack...  do something proper here... bind to add?  this is for dCard animation
-			this.get( "dCard" ).add( eventModel, {postAdd:function(){alert("You have added this event to your Dance Card!");}} );
-		}		
-	});
-		
-	
 /////////////////////////////////////////////////////////////////////////////}
 /// PARENT VIEWS ////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////{
@@ -39,12 +23,13 @@ $(function(){
 				VU.ParentView.prototype.initialize.call(this);
 				
 				// create our main list and map views and attach the collection to them
-				this.mainListView = new VU.ListView({collection:this.colls.events, el: "#dancesList"});
+				this.mainListView = new VU.ListView({collection:this.colls.events, listingClass:VU.EventListingView, el:"#dancesList"});
 				this.mainMapView = new VU.MapView({collection:this.colls.halls, el: "#dancesMap"});
 				this.calView = new VU.CalView( {el: "#dancesCal"});
 				
 				// kick off the initial fetch
-				this.colls.events.fetch();
+				utils.waitingUI.show();
+				this.colls.events.fetch( {success:utils.waitingUI.hide(), error:utils.waitingUI.hide()} );
 			},
 		}),
 
@@ -57,8 +42,10 @@ $(function(){
 				// create our main list and map views and attach the collection to them
 				this.mainListView = new VU.ListView({collection:this.colls.bands, el: "#bandsList"});
 				
+				utils.waitingUI.show();
 				// kick off the initial fetch
-				this.colls.bands.fetch(); //TODO: put a limit in this fetch; will need to load in chunks as you scroll
+				 //TODO: put a limit in this fetch; will need to load in chunks as you scroll
+				this.colls.bands.fetch({success:utils.waitingUI.hide(), error:utils.waitingUI.hide()});
 			}
 		}),
 		
@@ -82,11 +69,20 @@ $(function(){
 			el : $("#danceCardDiv"),
 			tabEl : $("#dCardTabBtn"),
 			initialize : function() {
+				_.bindAll( this, "render" );
 				VU.ParentView.prototype.initialize.call(this);
 
 				// create our main list and map views and attach the collection to them
-				this.mainListView = new VU.ListView({collection:this.colls.dCard, el: "#dCardList"});
+				this.mainListView = new VU.ListView({collection:this.colls.dCard, listingClass:VU.EventListingView, el:"#dCardList"});
+				this.mainListView.unbind( "add", this.mainListView.addRow );
+				this.mainListView.bind( "change", this.render );
 				//this.mainMapView = new VU.MapView({collection:this.colls.halls, mapNode: "hallsMap"});
+			},
+			
+			// every change to this coll means a complete redraw cuz it could add in any order, or delete
+			render : function() {
+				this.mainListView.el.html("");
+				this.mainListView.render();
 			}
 		})
 	};
@@ -108,30 +104,31 @@ $(function(){
 		// Initialize happens at page load; think RESTful: every time this is called we're starting from scratch
         initialize : function(){
 			VU.PersistentRouter.prototype.initialize.call(this);
-			_.bindAll( this, "routeHandler", "authSessionLoaded" );
+			_.bindAll( this, "routeHandler", "authSessionCallback" );
 			
 			this.colls = {
 				bands : new VU.BandCollection(),
-				halls : new VU.HallCollection(),
+				halls : new VU.HallCollection()
 			};
 			this.colls.events = new VU.EventCollection( null, {
 				schema: VU.schemas.events.listing, 
 				colls: this.colls
 			});
 
-			// init the popup view
+			// init misc UI pieces
 			this.popupView = new VU.PopupView( );
+			utils.waitingUI.init( ".loadingGIF" );
 			
 			// Authenticate session and create session state model
-			var mySession = new TDHSessionModel();
-			mySession.load( this.authSessionLoaded );
+			var mySession = new VU.AuthSessionModel( { dCard:new VU.DCardCollection( {}, { events:this.colls.events } ) } );
+			mySession.load( this.authSessionCallback );
 			
 			// check cookies for existing Auth id (can only have one at a time)
 			// if exists then get if from the db; failure sends to login screen
 			// if success then use it
         },
 		
-		authSessionLoaded : function( mySession ) {
+		authSessionCallback : function( mySession ) {
 			if ( mySession.fetched ) {
 				// yay!  
 				// TODO: remove login link
@@ -143,13 +140,8 @@ $(function(){
 			
 			// stuff to do for all sessions
 			this.colls.dCard = mySession.get( "dCard" );
-			var allEvents = this.colls.events;
 			
 			// setup globals
-			window.addToDanceCard = function ( eventID ) {
-				mySession.addToCard( allEvents.get( eventID ) );
-			};
-			
 			window.submitLogin = function ( loginForm ) {
 				mySession.login( loginForm.username.value, loginForm.password.value );
 				return false;

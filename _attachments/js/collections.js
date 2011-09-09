@@ -23,6 +23,24 @@ VU.EventCollection = Backbone.Collection.extend({
 	}
 });
 
+VU.DCardCollection = VU.EventCollection.extend({
+	initialize : function ( models, options ) {
+		VU.EventCollection.prototype.initialize.call(this, models, options);
+		_.bindAll( this, "toggleDCard");
+		var globalEvents = options.events;
+		if ( globalEvents )
+			globalEvents.bind("change:onDCard", this.toggleDCard );
+	},
+
+	//TODO: is this the right callback signature?
+	toggleDCard : function ( ev, eventModel, options ) {
+		if ( event.get("onDCard") )
+			this.add( event );
+		else
+			this.remove( event );
+	}
+});
+
 VU.BandCollection = Backbone.Collection.extend({
 	url : "band",
 	model : VU.BandModel,

@@ -4,32 +4,60 @@ VU.InitModels = function () {
 /////////////////////////////////////////////////////////////////////////////{
 // Holds info about the current user and their session (persisted to browser cookie)
 VU.CookieModel = Backbone.Model.extend({
+	//syntax: will write only model values that are in this.cookieKeys array
 	writeCookie : function() {
+		//TODO: get() all keys in this.cookieKeys and save them to a cookie
 	},
 	
 	readCookie : function() {
+		return null;
 	}	
 });
 
-VU.AuthSessionModel = VU.CookieModel.extend({
+
+VU.MemberModel = VU.CookieModel.extend({
+	fetched: false,
+	
+	cookieKeys: [ "dCard" ],
+	
+	defaults : {
+		name: "Dancer",
+		email: "",
+		group: "",
+		lastLogin: new Date().getTime(),
+		username: "",
+		password: "", //this is wiped out by the server when it returns an auth'd session
+		memberStats: {},
+		dCard: {}
+	}
+});
+
+//VU.AuthSessionModel = VU.CookieModel.extend({
+VU.AuthSessionModel = VU.MemberModel.extend({
+	
+	cookieKeys: [ "id" ],
+	
 	// default timeout is 10 minutes
 	DEFAULTTIMEOUT : 10 * 60 * 1000,
 	
 	defaults : {
-		username: "anonymous",
-		authToken: "",
-		permissions: {},
-		fetched: false,
+		//member: {},
+		permissions: {}, // as taken from your group
+		ticket: "", //a copy of the cookie ticket
 		//TODO: will need to somehow update this timeout on every user or HTTP action
+		//NOTE: this is static, but since there is only one session per app isntance, that's ok
 		timeout: new Date().getTime() + this.DEFAULTTIMEOUT
 	},
 	
+	initialize : function() {
+		_.bindAll( this, "load", "login", "closeSession" );
+	},
+	
 	load : function( completeCallback ) {
-		var sessionID = window.utils.readCookie( "tdh_sessionID", ";" );
+		var sessionID = this.readCookie();
 		if ( sessionID ) {
 			// if cookie exists then there is an active session; 
 			//	create session model and retrieve it from the db
-			this.id = sessionID;
 			this.fetch( {success:completeCallback});
 		}
 		else
@@ -279,13 +307,19 @@ VU.EventModel = VU.LinkingModel.extend({
 		hallPic: "images/genericHall.JPG",
 		bandPic: "images/genericSilhouette.jpg",
 		date: new Date().getTime(),
-		time: "8:00 PM"
+		time: "8:00 PM",
+		onDCard: false // for local use, only
 	},
 	
 	initialize: function () {
 		_.bindAll( this, "normalizeDate" );
-		this.bind( "change", this.normalizeDate );
+		this.bind( "change:date", this.normalizeDate );
 		VU.LinkingModel.prototype.initialize.call(this);
+	},
+	
+	toggleDCard : function () {
+		// no silent... we want listeners to pick it up
+		this.set( { onDCard: !this.get("onDCard") } );
 	},
 	
 	normalizeDate : function () {

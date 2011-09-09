@@ -24,6 +24,11 @@
 	<link type="text/css" href="style/dark-hive/jquery-ui-1.8.16.custom.css" rel="stylesheet" />	
 	<script type="text/javascript" src="vendor/couchapp/loader.js"></script>
 	<script type="text/javascript" src="../vendor/couchapp/_attachments/loader.js"></script>
+	
+	<!-- Sharethis buttons for danceCard -->
+	<script type="text/javascript">var switchTo5x=true;</script>
+	<script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+	<script type="text/javascript">stLight.options({publisher:'e97d50c4-d80c-4623-9de8-dc3a56aaaa40'});</script>
 
 	<!-- TEMPLATES START -->
 	<script type="application/dust-template" id="mainEventEntryTemplate">
@@ -67,7 +72,10 @@
 					<div id="venueinfo">{hallName}</div>
 				</div>
 			</div>
-			<div class="description">Here's some info about the event that you selected!</div>
+			<div class="addToDanceCardDiv">
+				<div class="twostepphoto"></div>
+				<div class="addToDanceCard">Add to<br/>Dance Card</div>
+			</div>
 		</div>{~n}{~n}
 	</script>
 	
@@ -131,9 +139,6 @@
 	
 	<!-- TEMPLATES END -->
 
-	<script type="text/javascript">var switchTo5x=true;</script>
-	<script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
-	<script type="text/javascript">stLight.options({publisher:'e97d50c4-d80c-4623-9de8-dc3a56aaaa40'});</script>
   </head>
   <body bgcolor="#000000" text="#CCCCCC" link="#0000FF" vlink="#800080" topmargin="0" leftmargin="0">
 
@@ -164,7 +169,6 @@
 				<div id="dCardTabBtn" onclick="location.href='#DanceCard'">Dance Card</div>
 			</div>
 			
-			
 			<div id="dancesDiv" class="info-area" style="display:none">
 				<div class="loadingGIF" id="dancesSpinner"></div>
 				<div class="box list" id="dancesList" listing-template="mainEventEntryTemplate"></div>
@@ -182,8 +186,7 @@
 				<div class="box" id="bandsCal"></div>
 			</div>
 			<div id="danceCardDiv" class="info-area" style="display:none">
-				<div class="loadingGIF" id="dCardSpinner"></div>
-				<div class="dancebox list" id="dCardList" listing-template="dCardListingTemplate"></div>
+				<div class="box dancebox list" id="dCardList" listing-template="dCardListingTemplate"></div>
 				<div class="share">
 					<span  class='st_twitter' displayText='Tweet'></span>
 					<span  class='st_facebook' displayText='Facebook'></span>

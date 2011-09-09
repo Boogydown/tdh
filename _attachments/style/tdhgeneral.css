@@ -408,7 +408,7 @@ div#item-main-map {
 
 /* *******************Dance Card Stuff******************** */
 
-div#danceCardDiv div.box.list {
+div.dancebox.list {
 	margin:0 auto;
 	margin-left: auto;
     margin-right: auto;
@@ -421,7 +421,7 @@ div#danceCardDiv div.share {
     margin-right: auto;
     text-align:center;
     font-family: Arial,sans-serif;
-	font-size: 14px;
+	font-size: 16px;
 }
 /* ******************************************************* */
 

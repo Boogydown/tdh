@@ -75,13 +75,14 @@ $(function(){
 				// create our main list and map views and attach the collection to them
 				this.mainListView = new VU.ListView({collection:this.colls.dCard, listingClass:VU.EventListingView, el:"#dCardList"});
 				this.mainListView.collection.unbind( "add", this.mainListView.addRow );
-				this.mainListView.collection.bind( "change", this.render );
+				this.mainListView.collection.bind( "add", this.render );
+				this.mainListView.collection.bind( "remove", this.render );
 				//this.mainMapView = new VU.MapView({collection:this.colls.halls, mapNode: "hallsMap"});
 			},
 			
 			// every change to this coll means a complete redraw cuz it could add in any order, or delete
 			render : function() {
-				this.mainListView.el.html("");
+				this.mainListView.el.innerHTML = "";
 				this.mainListView.render();
 			}
 		})

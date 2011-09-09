@@ -32,12 +32,12 @@ VU.DCardCollection = VU.EventCollection.extend({
 			globalEvents.bind("change:onDCard", this.toggleDCard );
 	},
 
-	//TODO: is this the right callback signature?
-	toggleDCard : function ( ev, eventModel, options ) {
-		if ( event.get("onDCard") )
-			this.add( event );
+	//called AFTER the change happens...
+	toggleDCard : function ( eventModel ) {
+		if ( eventModel.get("onDCard") )
+			this.add( eventModel );
 		else
-			this.remove( event );
+			this.remove( eventModel );
 	}
 });
 

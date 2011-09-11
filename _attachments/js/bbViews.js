@@ -67,14 +67,15 @@ VU.EventListingView = VU.ListingView.extend({
 			var shoesOff = shoes.offset();
 			var flyingShoes = $(this.make( "div", {
 				class: "twostepphoto active", 
-				style: "position:fixed;left:" + shoesOff.left + ";top:" + shoesOff.top 
+				style: "position:fixed;z-index:999;left:" + shoesOff.left + ";top:" + shoesOff.top 
 			} ));
 			shoes.addClass("active");
 			shoes.append( flyingShoes );			
 			flyingShoes.animate( {
 				opacity: 0.25,
 				left: dc.left,
-				top: dc.top
+				top: dc.top,
+				complete: function () { this.detach(); }
 			} );
 		} else {
 			if ( this.collection instanceof VU.DCardCollection )

@@ -142,6 +142,11 @@ VU.ListView = Backbone.View.extend({
 VU.PopupView = VU.DustView.extend({
 	el : $("#popup_block"),
 	
+	events : {
+		"click .nav-left" : "nav",
+		"click .nav-right" : "nav"
+	},
+	
 	initialize : function ( options ) {
 		//Set up Close for Popup and Fade for all future instances
 		$('a.close, #fade').live('click', function() { //When clicked to close or fade layer...
@@ -154,13 +159,13 @@ VU.PopupView = VU.DustView.extend({
 	},
 	
 	render : function () {
+		$(this.el).empty();
 		VU.DustView.prototype.render.call(this);
 		
 		// if events exist in model then init the events-list view
-		var events;
-		if ( this.model ) events = this.model.get("events"); 
-		if ( events ) {
-			this.eventListView = new VU.ListView({ el:"#popuplist", collection:events });
+		if ( this.model ) this.list = this.model.get("events"); 
+		if ( this.list ) {
+			this.eventListView = new VU.ListView({ el:"#popuplist", collection:this.list });
 			this.eventListView.render();
 			this.miniMapView = new VU.MapView({collection: events, el: "#detailmap"});
 		}		
@@ -180,6 +185,15 @@ VU.PopupView = VU.DustView.extend({
 		this.el.fadeIn().prepend('<a href="#" class="close"><img src="images/button-x.png" width="21" border="0" class="close_popup" title="Close Window" alt="Close" /></a>');
 
 		return false;
+	},
+	
+	nav : function ( event ) {
+		var index = this.list ? this.list.indexOf( this.model ) : 0;
+		if ( event.currentTarget.className == "nav-left" )
+			index -= index > 0;
+		else
+			index += index < this.list.length - 1;
+		location.href="#///" + this.list[index].id;
 	}
 });
 

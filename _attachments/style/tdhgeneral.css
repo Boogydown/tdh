@@ -499,11 +499,11 @@ div.popup-time{
     -webkit-border-radius: 15px;
     -khtml-border-radius: 15px;
     border-radius: 15px;	
-	height:60%;
 	width: 250px;
-	position: relative;
+	position: absolute;
 	left: 400px;
-	top: 30px;
+	top: 230px;
+	bottom: 21px;
 }
 
 
@@ -696,6 +696,7 @@ img.close_popup {
 	position: absolute;
 	top: 170px;
 	background: url(../images/cssSprite.png);
+	opacity: 0.8;
 }
 
 #nav-left{
@@ -707,3 +708,17 @@ img.close_popup {
 	right: -65px;
 	background-position: -450px -10px;
 }
+
+#nav-left:hover, #nav-right:hover{
+	opacity:1;
+}
+
+#nav-left:active, #nav-right:active{
+	-moz-transform: scaleY(-1);
+	-o-transform: scaleY(-1);
+	-webkit-transform: scaleY(-1);
+	transform: scaleY(-1);
+	filter: FlipV;
+	-ms-filter: "FlipV";
+}
+

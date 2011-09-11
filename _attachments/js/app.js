@@ -162,10 +162,10 @@ $(function(){
 			if ( dates ) {
 				dates = dates.split(",");				
 				filter.startkey.push(parseInt(dates[0]));
-				filter.endkey.push(dates.length == 1 ? "Z" : parseInt(dates[1]));
+				filter.endkey.push(dates.length == 1 ? [] : parseInt(dates[1]));
 			} else {
 				filter.startkey.push(0);
-				filter.endkey.push("a");
+				filter.endkey.push([]);
 			};
 			
 			if ( coords ) {
@@ -177,9 +177,9 @@ $(function(){
 				filter.endkey.push(parseFloat(coords[3]));
 			} else {
 				filter.startkey.push(0);
-				filter.endkey.push("Z");
+				filter.endkey.push([]);
 				filter.startkey.push(0);
-				filter.endkey.push("Z");
+				filter.endkey.push([]);
 			};
 			
 			myView.activate( filter );

@@ -1,6 +1,7 @@
 function(doc) {
-  if ( doc.type || doc.date || doc.gpsCoordinates || doc.stylesPlayed ) {
-	var gcary = doc.gpsCoordinates.split(" ");
+  if ( doc.type && (doc.date || doc.gpsCoordinates || doc.stylesPlayed )) {
+	// since "a" comes after any number we use it include all values if it doesn't exist
+	var gcary = doc.gpsCoordinates ? doc.gpsCoordinates.split(" ") : ["a","a"];
 	emit( [
 		doc.type, 
 		doc.date ? new Date(doc.date).getTime() : "a", 

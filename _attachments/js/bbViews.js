@@ -166,8 +166,8 @@ VU.PopupView = VU.DustView.extend({
 			this.miniMapView = new VU.MapView({collection: list, el: "#detailmap"});
 		}
 		this.delegateEvents({
-			"click .nav-left" : "nav",
-			"click .nav-right" : "nav"
+			"click #nav-left" : "nav",
+			"click #nav-right" : "nav"
 		});
 	},
 	
@@ -191,7 +191,7 @@ VU.PopupView = VU.DustView.extend({
 		var coll = this.model.collection;
 		if ( coll ){
 			var index = coll.indexOf( this.model );
-			if ( event.currentTarget.className == "nav-left" )
+			if ( event.target.id == "nav-left" )
 				index -= index > 0;
 			else
 				index += index < coll.length - 1;

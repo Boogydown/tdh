@@ -3,7 +3,7 @@ $(function(){
     // `ddocName` is the name of your couchapp project.
     Backbone.couchConnector.databaseName = "tdh";
     Backbone.couchConnector.ddocName = "tdh_public";
-    Backbone.couchConnector.viewName = "byType";
+    Backbone.couchConnector.viewName = "crossFilter";
     // If set to true, the connector will listen to the changes feed
     // and will provide your models with real time remote updates.
     Backbone.couchConnector.enableChanges = false;
@@ -26,11 +26,12 @@ $(function(){
 				this.mainListView = new VU.ListView({collection:this.colls.events, listingClass:VU.EventListingView, el:"#dancesList"});
 				this.mainMapView = new VU.MapView({collection:this.colls.halls, el: "#dancesMap"});
 				this.calView = new VU.CalView( {el: "#dancesCal"});
-				
-				// kick off the initial fetch
-				utils.waitingUI.show();
-				this.colls.events.fetch( {success:utils.waitingUI.hide(), error:utils.waitingUI.hide()} );
 			},
+			
+			activate : function ( filter ) {
+				VU.ParentView.prototype.activate.call(this);
+				this.mainListView.applyFilter( filter );
+			}
 		}),
 
 		BandsView : VU.ParentView.extend({
@@ -151,14 +152,41 @@ $(function(){
 		},
 		
 		routeHandler : function( tab, dates, coords, popID ) {
-			var viewClass = ParentViews[ tab + "View" ] || ParentViews[ (tab = this.routeParams.tab) + "View" ];
-			var myView = this.instanciatedViews[ tab ] || new viewClass( {colls:this.colls} );
+			var viewClass = ParentViews[ tab + "View" ] || ParentViews[ (tab = this.routeParams.tab) + "View" ],
+				myView = this.instanciatedViews[ tab ] || new viewClass( {colls:this.colls} ),
+				filter = { startkey:[], endkey:[] };
 			if ( this.currentView && this.currentView != myView )
 				this.currentView.deactivate();
 			
+			// done manipulating params (tab, specifically) so we can now save the route
 			this.saveRoutes( tab, dates, coords, popID );
 			
-			myView.activate();
+			// create filter query
+			if ( dates ) {
+				dates = dates.split(",");				
+				filter.startkey.push(parseInt(dates[0]));
+				filter.endkey.push(dates.length == 0 ? "a" : parseInt(dates[1]));
+			} else {
+				filter.startkey.push(0);
+				filter.endkey.push("a");
+			};
+			
+			if ( coords ) {
+				// "top-lat,left-long,bottom-lat,right-long"
+				coords = coords.split(",");
+				filter.startkey.push(parseFloat(coords[0]));
+				filter.endkey.push(parseFloat(coords[1]));
+				filter.startkey.push(parseFloat(coords[2]));
+				filter.endkey.push(parseFloat(coords[3]));
+			} else {
+				filter.startkey.push(0);
+				filter.endkey.push("a");
+				filter.startkey.push(0);
+				filter.endkey.push("a");
+			};
+			
+			myView.activate( filter );
+			
 			this.instanciatedViews[ tab ] = this.currentView = myView;
 			
 			if ( popID ) {

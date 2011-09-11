@@ -72,10 +72,16 @@ VU.EventListingView = VU.ListingView.extend({
 // View for a collection of listings
 VU.ListView = Backbone.View.extend({
 	initialize : function( options ){
-		_.bindAll(this, 'render', 'addRow');
+		_.bindAll(this, 'render', 'applyFilter', 'addRow');
 		this.listingClass = options.listingClass || VU.ListingView;
 		this.collection.bind("refresh", this.render);
 		this.collection.bind("add", this.addRow);
+		//TODO: attach scroll listener
+	},
+	
+	applyFilter : function( filter ) {	
+		utils.waitingUI.show();
+		this.collection.applyFilter( filter, {success:function(){utils.waitingUI.hide()}, error:function(){utils.waitingUI.hide()}} );		
 	},
 
 	render: function(){
@@ -93,6 +99,11 @@ VU.ListView = Backbone.View.extend({
 
 		if ( options.postAdd ) options.postAdd();
 		model.trigger("change", model);
+	},
+	
+	scrollUpdate : function () {
+		//TODO: interpret scroll
+		this.collection.loadMore();
 	}
 });
 
@@ -238,9 +249,8 @@ VU.ParentView = Backbone.View.extend({
 		this.colls = this.options.colls;
 	},
 	
-	activate : function() {
+	activate : function( filter ) {
 		this.tabEl.addClass( "active-link" );
-		$(".loadingGIF").show();
 		this.el.show();
 	},
 	

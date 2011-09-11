@@ -13,7 +13,6 @@ div {
 /**************** Main Container ****************/
 div.loadingGIF {
 	background-image: url('../images/loader-spinner-big.gif');
-	z-index: 10;
 	position: relative;
 	display: none;
 	left: 130px;

@@ -117,6 +117,7 @@ $(function(){
 			// init misc UI pieces
 			this.popupView = new VU.PopupView( );
 			utils.waitingUI.init( ".loadingGIF" );
+			this.instanciatedViews[ "DanceCard" ] = new DanceCardView( {colls:this.colls} );
 			
 			// Authenticate session and create session state model
 			var mySession = new VU.AuthSessionModel( { dCard:new VU.DCardCollection( null, { events:this.colls.events } ) } );

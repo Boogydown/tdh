@@ -74,9 +74,8 @@ VU.EventListingView = VU.ListingView.extend({
 			flyingShoes.animate( {
 				opacity: 0.25,
 				left: dc.left,
-				top: dc.top,
-				complete: function () { this.detach(); }
-			} );
+				top: dc.top
+			}, null, null, function () { this.detach(); } );
 		} else {
 			if ( this.collection instanceof VU.DCardCollection )
 				{}// anim this way

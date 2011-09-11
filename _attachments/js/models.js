@@ -332,7 +332,9 @@ VU.EventModel = VU.LinkingModel.extend({
 	
 	toggleDCard : function () {
 		// no silent... we want listeners to pick it up
-		this.set( { onDCard: !this.get("onDCard") } );
+		var newDCard = !this.get("onDCard");
+		this.set( { onDCard: newDCard } );
+		return newDCard;
 	},
 	
 	normalizeDate : function () {

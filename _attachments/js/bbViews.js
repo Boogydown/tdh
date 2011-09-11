@@ -56,25 +56,24 @@ VU.EventListingView = VU.ListingView.extend({
 	},
 	
 	toggleDCard : function () {
-		this.model.toggleDCard();
+		if ( this.model.toggleDCard() )
+			utils.flyAway( $(".twostepphoto", this.el), $("#dCardTabBtn") );
+		else {
+			var shoes = $(".twostepphoto", this.el);
+			if ( window.TDHP_tab == "DanceCard" )
+				utils.flyAway( $(this.el), $("#dancesTabBtn") );
+			else
+				utils.flyAway( $("#dCardTabBtn"), shoes, shoes );
+		}		
 	},
 	
 	render : function () {
 		VU.ListingView.prototype.render.call(this);
 		// this is called AFTER the val is set
-		if ( this.model.get( "onDCard" ) ) {
-			var shoes = $(".twostepphoto", this.el);
-			shoes.addClass("active");
-			utils.flyAway( shoes, $("#dCardTabBtn") );
-		} else {
-			var shoes = $(".twostepphoto", this.el);
-			
-			if ( window.TDHP_tab == "DanceCard" )
-				utils.flyAway( $(this.el), $("#dancesTabBtn") );
-			else
-				utils.flyAway( $("#dCardTabBtn"), shoes, shoes );
-			shoes.removeClass("active");
-		}
+		if ( this.model.get( "onDCard" ) )
+			$(".twostepphoto", this.el).addClass("active");
+		else
+			$(".twostepphoto", this.el).removeClass("active");
 		return this;
 	}		
 });

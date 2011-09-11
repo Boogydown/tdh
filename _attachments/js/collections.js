@@ -51,7 +51,7 @@ VU.FilteredCollection = Backbone.Collection.extend({
 		this.unbind( "add", this.modelAdded );
 		this.unbind( "refresh", this.modelAdded );
 		// since refresh triggers regardless of whether something was added, we shuold check the coll length
-		this.lastEmpty = this.collection.length == 0;
+		this.lastEmpty = this.length == 0;
 	},
 	
 	parseFilter : function ( filterObj ) {

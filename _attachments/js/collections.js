@@ -60,7 +60,7 @@ VU.FilteredCollection = Backbone.Collection.extend({
 		filterObj.startkey.unshift( this.url );
 		filterObj.endkey.unshift( this.url );
 		filterStr = "startkey=[" + filterObj.startkey.join(",") + "]";
-		filterStr += "&endkey=" + filterObj.endkey.join(",") + "]";
+		filterStr += "&endkey=[" + filterObj.endkey.join(",") + "]";
 		return filterStr;
 	}	
 });

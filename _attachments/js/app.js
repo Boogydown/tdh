@@ -96,7 +96,7 @@ $(function(){
     var AppController = VU.PersistentRouter.extend({
 		routeParams : { 
 			tab : "Dances",
-			dates : new Date().getTime(),
+			dates : new Date().getTime().toString(),
 			coords : "",
 			popID : ""
 		},

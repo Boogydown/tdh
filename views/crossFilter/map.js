@@ -1,5 +1,5 @@
 function(doc) {
-  if ( doc.type && (doc.date || doc.gpsCoordinates) ) {
+  if ( doc.type && (doc.date || doc.gpsCoordinates || doc.stylesPlayed) ) {
 	var gcary = doc.gpsCoordinates.split(" ");
 	emit( [
 		doc.type, 

@@ -76,7 +76,7 @@ VU.EventListingView = VU.ListingView.extend({
 	
 	empty : function () {
 		//this.delegateEvents(); //deletes all
-		this.hold = $(this.el).clone;
+		this.hold = $(this.el).clone();
 	},
 	
 	render : function () {

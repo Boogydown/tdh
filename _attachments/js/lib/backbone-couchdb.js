@@ -54,14 +54,12 @@ Backbone.couchConnector = {
 	readCollection : function(coll, _success, _error){
 		var db = this.makeDb(coll);
 		var query = this.ddocName + "/" + (coll.viewName || this.viewName);
-		// a collection of false will tell jquery.couch.js to run query as GET, allowing us to append query params
+		
 		var collection = coll.query ? (query += coll.query) && null : this.getCollectionFromModel(coll);
 		if ( collection && !_.isArray(collection) )
 			collection = [collection];
 			
-		// Query equals ddocName/viewName 
-		db.view(query,{
-			// Only return docs that have this collection's name as key.
+		var _opts = {
 			keys : collection,
 			success:function(result){
 				if(result.rows.length > 0){
@@ -82,7 +80,13 @@ Backbone.couchConnector = {
 				}
 			},
 			error: _error
-		});
+		};
+		
+		// a collection of w/no keys will tell jquery.couch.js to run query as GET, allowing us to append query params
+		if ( !collection ) delete _opts.keys;
+			
+		// Query equals ddocName/viewName 
+		db.view(query, _opts);
 		// Add the collection to the `_watchlist`.
 		if(!this._watchList[collection]){
 			this._watchList[collection] = coll;			

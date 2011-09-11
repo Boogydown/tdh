@@ -190,6 +190,7 @@ $(function(){
 				popID = pAry[1];
 				var template = "popupTemplate_" + popType;
 				var docModel = this.colls[popType + "s"] && this.colls[popType + "s"].get( popID );
+				//TODO: if docModel doesn't exist then fetch it!
 				if ( popID && docModel ){
 					docModel.loadEvents( this.colls.events, docModel.get("type") );
 					this.popupView.openPopup( docModel, template );

@@ -142,11 +142,6 @@ VU.ListView = Backbone.View.extend({
 VU.PopupView = VU.DustView.extend({
 	el : $("#popup_block"),
 	
-	events : {
-		"click .nav-left" : "nav",
-		"click .nav-right" : "nav"
-	},
-	
 	initialize : function ( options ) {
 		//Set up Close for Popup and Fade for all future instances
 		$('a.close, #fade').live('click', function() { //When clicked to close or fade layer...
@@ -168,6 +163,11 @@ VU.PopupView = VU.DustView.extend({
 			this.eventListView = new VU.ListView({ el:"#popuplist", collection:this.list });
 			this.eventListView.render();
 			this.miniMapView = new VU.MapView({collection: this.list, el: "#detailmap"});
+			this.delegateEvents({
+				"click .nav-left" : "nav",
+				"click .nav-right" : "nav"
+			});
+			
 		}		
 	},
 	

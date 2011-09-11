@@ -697,6 +697,7 @@ img.close_popup {
 	top: 170px;
 	background: url(../images/cssSprite.png);
 	opacity: 0.8;
+	cursor:pointer;
 }
 
 #nav-left{

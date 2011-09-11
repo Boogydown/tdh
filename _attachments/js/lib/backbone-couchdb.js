@@ -56,6 +56,8 @@ Backbone.couchConnector = {
 		var query = this.ddocName + "/" + (coll.viewName || this.viewName);
 		// a collection of false will tell jquery.couch.js to run query as GET, allowing us to append query params
 		var collection = coll.query ? (query += coll.query) && null : this.getCollectionFromModel(coll);
+		if ( collection && !_.isArray(collection) )
+			collection = [collection];
 			
 		// Query equals ddocName/viewName 
 		db.view(query,{

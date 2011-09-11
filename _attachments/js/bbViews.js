@@ -75,7 +75,7 @@ VU.EventListingView = VU.ListingView.extend({
 				opacity: 0.25,
 				left: dc.left,
 				top: dc.top
-			}, null, null, function () { this.detach(); } );
+			}, null, null, function () { $(this).detach(); } );
 		} else {
 			if ( this.collection instanceof VU.DCardCollection )
 				{}// anim this way

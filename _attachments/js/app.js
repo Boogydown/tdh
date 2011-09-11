@@ -117,7 +117,6 @@ $(function(){
 			// init misc UI pieces
 			this.popupView = new VU.PopupView( );
 			utils.waitingUI.init( ".loadingGIF" );
-			this.instanciatedViews[ "DanceCard" ] = new ParentViews.DanceCardView( {colls:this.colls} );
 			
 			// Authenticate session and create session state model
 			var mySession = new VU.AuthSessionModel( { dCard:new VU.DCardCollection( null, { events:this.colls.events } ) } );
@@ -140,6 +139,7 @@ $(function(){
 			
 			// stuff to do for all sessions
 			this.colls.dCard = mySession.get( "dCard" );
+			this.instanciatedViews[ "DanceCard" ] = new ParentViews.DanceCardView( {colls:this.colls} );
 			
 			// setup globals
 			window.submitLogin = function ( loginForm ) {

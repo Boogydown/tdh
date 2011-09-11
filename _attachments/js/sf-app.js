@@ -50,8 +50,6 @@ $(function(){
 			
 			// Fills in the pull-down menus
 			// TODO: rewrite these to be more generic; i.e. is a linkRef in the schema
-			if ( this.form.fields[2].name=="date" )
-				$(this.form.fields[2].field).
 			var colls = this.options.collection.colls;
 			if ( colls ) {
 				this.collsToFetch = 2;

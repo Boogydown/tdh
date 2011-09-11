@@ -162,7 +162,7 @@ $(function(){
 			if ( dates ) {
 				dates = dates.split(",");				
 				filter.startkey.push(parseInt(dates[0]));
-				filter.endkey.push(dates.length == 0 ? "a" : parseInt(dates[1]));
+				filter.endkey.push(dates.length == 1 ? "a" : parseInt(dates[1]));
 			} else {
 				filter.startkey.push(0);
 				filter.endkey.push("a");

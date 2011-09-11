@@ -87,7 +87,7 @@ $(function(){
 			if (this.modelJSON) this.inputex.setValue(this.modelJSON);
 			$(document.forms[0].date).datepicker({
 				dateFormat: "MM d, yy",
-				showOn: "button",
+				showOn: "both",
 				buttonImage: "js/lib/inputex/images/calendar.gif",
 				buttonImageOnly: true
 			});

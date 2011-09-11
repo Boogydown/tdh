@@ -50,5 +50,19 @@ window.utils = {
 		hide : function () {
 			this.el.hide();
 		}	
+	},
+	
+	// flier is optional
+	flyAway : function( src, dest, flier ) {
+		if ( !flier ) flier = src.clone;
+		var	srcOff = src.offset(),
+			destOff = dest.offset();
+		flier.css( "position:fixed;z-index:999;left:" + srcOff.left + ";top:" + srcOff.top );
+		flier.appendTo("body");
+		flier.animate( {
+			opacity: 0.25,
+			left: destOff.left,
+			top: destOff.top
+		}, null, null, function () { $(this).remove(); } );
 	}
 };

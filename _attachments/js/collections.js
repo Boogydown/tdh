@@ -86,6 +86,8 @@ VU.EventCollection = VU.FilteredCollection.extend({
 });
 
 VU.DCardCollection = VU.EventCollection.extend({
+	prevColl : null,
+	
 	initialize : function ( models, options ) {
 		VU.EventCollection.prototype.initialize.call(this, models, options);
 		_.bindAll( this, "toggleDCard");
@@ -96,10 +98,13 @@ VU.DCardCollection = VU.EventCollection.extend({
 
 	//called AFTER the change happens...
 	toggleDCard : function ( eventModel ) {
-		if ( eventModel.get("onDCard") )
+		if ( eventModel.get("onDCard") ) {
+			this.prevColl = eventModel.collection;
 			this.add( eventModel );
-		else
+		} else {
 			this.remove( eventModel );
+			eventModel.collection = this.prevColl;
+		}			
 	}
 });
 

@@ -158,6 +158,7 @@ $(function(){
 			
 			// done manipulating params (tab, specifically) so we can now save the route
 			this.saveRoutes( tab, dates, coords, popID );
+			window.TDHP_tab = tab;
 			
 			// create filter query
 			if ( dates ) {

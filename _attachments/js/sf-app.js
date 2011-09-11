@@ -49,7 +49,9 @@ $(function(){
 			}
 			
 			// Fills in the pull-down menus
-			// TODO: rewrite this to be more generic; i.e. is a linkRef in the schema
+			// TODO: rewrite these to be more generic; i.e. is a linkRef in the schema
+			if ( this.form.fields[2].name=="date" )
+				$(this.form.fields[2].field).
 			var colls = this.options.collection.colls;
 			if ( colls ) {
 				this.collsToFetch = 2;
@@ -85,6 +87,7 @@ $(function(){
 			this.el.html("");
             this.inputex = inputEx(this.form);
 			if (this.modelJSON) this.inputex.setValue(this.modelJSON);
+			$(document.forms[0].date).datepicker();
 
             // YUI onClick used instead of Backbone delegateEvents, because it worked first
             new inputEx.widget.Button({

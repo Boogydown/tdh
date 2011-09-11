@@ -92,6 +92,7 @@ VU.EventListingView = VU.ListingView.extend({
 
 // View for a collection of listings
 VU.ListView = Backbone.View.extend({
+	subViews : [],
 	initialize : function( options ){
 		_.bindAll(this, 'render', 'applyFilter', 'addRow', "reset");
 		this.listingClass = options.listingClass || VU.ListingView;
@@ -120,15 +121,14 @@ VU.ListView = Backbone.View.extend({
 	
 	// Appends an entry row 
 	addRow : function(model, options){
-		var template = (this.el.getAttribute("listing-template") || "");
-		if ( !template ) console.log("listing-template attribute not given in " + this.el);
-		this.el.appendChild( new this.listingClass( {
-			model: model, 
-			template: template
-		}).render().el );
-
-		if ( options.postAdd ) options.postAdd();
-		model.trigger("change", model);
+		var lc, template = (this.el.getAttribute("listing-template") || "");
+		if ( !template ) 
+			console.log("listing-template attribute not given in " + this.el);
+		else {
+			this.subViews.push (lc = new this.listingClass( {model: model, template: template} ));
+			this.el.appendChild( lc.render().el );
+			model.trigger("change", model);
+		}
 	},
 	
 	scrollUpdate : function () {

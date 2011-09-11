@@ -64,10 +64,10 @@ VU.EventListingView = VU.ListingView.extend({
 		if ( this.model.get( "onDCard" ) ) {
 			var shoes = $(".twostepphoto", this.el);
 			var dc = $("#dCardTabBtn");
-			var flyingShoes = this.make( "div", {
+			var flyingShoes = $(this.make( "div", {
 				class: "twostepphoto active", 
 				style: "position:fixed;left:" + shoes.offset.left + ";top:" + shoes.offset.top 
-			} );
+			} ));
 			shoes.addClass("active");
 			flyingShoes.animate( {
 				opacity: 0.25,

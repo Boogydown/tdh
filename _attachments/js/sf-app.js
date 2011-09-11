@@ -85,7 +85,12 @@ $(function(){
 			this.el.html("");
             this.inputex = inputEx(this.form);
 			if (this.modelJSON) this.inputex.setValue(this.modelJSON);
-			$(document.forms[0].date).datepicker();
+			$(document.forms[0].date).datepicker({
+				dateFormat: "MM d, yy",
+				showOn: "button",
+				buttonImage: "js/lib/inputex/images/calendar.gif",
+				buttonImageOnly: true
+			});
 
             // YUI onClick used instead of Backbone delegateEvents, because it worked first
             new inputEx.widget.Button({

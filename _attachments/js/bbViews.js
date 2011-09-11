@@ -70,6 +70,7 @@ VU.EventListingView = VU.ListingView.extend({
 				style: "position:fixed;left:" + shoesOff.left + ";top:" + shoesOff.top 
 			} ));
 			shoes.addClass("active");
+			shoes.append( flyingShoes );			
 			flyingShoes.animate( {
 				opacity: 0.25,
 				left: dc.left,

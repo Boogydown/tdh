@@ -31,7 +31,9 @@ VU.FilteredCollection = Backbone.Collection.extend({
 			this.bind( "refresh", this.modelAdded );
 			this.lastEmpty = true; 	// true until proven false
 			this.fetch( options );
+			return true;
 		}
+		return false;
 	},
 	
 	loadMore : function() {

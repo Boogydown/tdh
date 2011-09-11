@@ -99,8 +99,8 @@ VU.ListView = Backbone.View.extend({
 	},
 	
 	applyFilter : function( filter ) {	
-		utils.waitingUI.show();
-		this.collection.applyFilter( filter, {success:function(){utils.waitingUI.hide()}, error:function(){utils.waitingUI.hide()}} );		
+		if ( this.collection.applyFilter( filter, {success:function(){utils.waitingUI.hide()}, error:function(){utils.waitingUI.hide()}} ) )
+			utils.waitingUI.show();
 	},
 
 	reset: function() {
@@ -195,7 +195,7 @@ VU.PopupView = VU.DustView.extend({
 				index -= index > 0;
 			else
 				index += index < coll.length - 1;
-			location.href="#///" + coll[index].id;
+			location.href="#///" + coll.at(index).id;
 		}
 	}
 });

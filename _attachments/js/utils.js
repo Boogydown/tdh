@@ -55,7 +55,7 @@ window.utils = {
 	// flier is optional
 	flyAway : function( src, dest, flier ) {
 		flier = flier ? flier.clone() : src.clone();
-		var	srcOff = src.offset(),
+		var srcOff = src.offset(),
 			destOff = dest.offset();
 		flier.attr("style", "position:fixed;z-index:999;left:" + srcOff.left + ";top:" + srcOff.top );
 		flier.appendTo("body");

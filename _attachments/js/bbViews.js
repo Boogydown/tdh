@@ -29,9 +29,13 @@ VU.DustView = Backbone.View.extend({
 VU.ListingView = VU.DustView.extend({
 	// If there's a change in our model, rerender it
 	initialize : function(){
-		_.bindAll(this, 'render');
+		_.bindAll(this, 'render', 'empty');
 		this.model.bind('change', this.render);
 		this.registerTemplate( this.options.template );
+	},
+	
+	empty : function() {
+		this.model.unbind('change',this.render);
 	},
 	
 	render : function() {
@@ -41,7 +45,7 @@ VU.ListingView = VU.DustView.extend({
 			entryDescription : window.utils.elipsesStr( this.model.get( "entryDescription" ), 180 )
 		}, {silent:true});
 		return VU.DustView.prototype.render.call(this);
-	}	
+	}
 });	
 
 // An extension of ListingView that simply updates the feet button
@@ -61,10 +65,18 @@ VU.EventListingView = VU.ListingView.extend({
 		else {
 			var shoes = $(".twostepphoto", this.el);
 			if ( window.TDHP_tab == "DanceCard" )
-				utils.flyAway( $(this.el), $("#dancesTabBtn") );
+			{
+				utils.flyAway( this.hold, $("#dancesTabBtn") );
+				delete this.hold;
+			}
 			else
 				utils.flyAway( $("#dCardTabBtn"), shoes, shoes );
 		}		
+	},
+	
+	empty : function () {
+		//this.delegateEvents(); //deletes all
+		this.hold = $(this.el).clone;
 	},
 	
 	render : function () {
@@ -93,6 +105,15 @@ VU.ListView = Backbone.View.extend({
 		this.collection.applyFilter( filter, {success:function(){utils.waitingUI.hide()}, error:function(){utils.waitingUI.hide()}} );		
 	},
 
+	reset: function() {
+		for ( var subView in this.subViews ){
+			if (this.subViews[subView].empty) this.subViews[subView].empty();
+			delete this.subViews[subView];
+		}
+		$(this.el).empty();
+		this.render();
+	},	
+	
 	render: function(){
 		if (this.collection.length > 0) this.collection.each(this.addRow);
 	},

@@ -283,7 +283,29 @@ VU.MapView = Backbone.View.extend({
 
 VU.CalView = Backbone.View.extend({
 	initialize : function() {
-		$(this.el).multiDatesPicker();
+		_.bindAll( this, "updateDateRoute" );
+		$(this.el).multiDatesPicker({
+			mode: {
+				modeName: 'abDaysRange',
+				options: {autoselectRange: [0,0]}
+			},
+			onSelect: this.updateDateRoute,
+			//dateFormat: "@"
+		});
+	},
+	
+	updateDateRoute : function () {
+		var hashUrl = "#/";
+		var dates = $(this.el).multiDatesPicker('getDates');
+		if ( !dates ) return;
+		
+		if ( _.isArray( dates )){
+			hashUrl += dates[0];
+			if ( dates.length > 1 ) hashUrl += "&" + dates[1];
+		} else 
+			hashUrl += dates;	
+		
+		location.href=hashUrl;
 	}
 });
 

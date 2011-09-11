@@ -284,6 +284,28 @@
 						for(var i = begin; i < end; i++) 
 							methods.addDates.call(this, methods.sumDays(date, i), type);
 						break;
+					case 'abDaysRange':
+						date = methods.dateConvert( date, "object" ).getTime();						
+						var begin = this.multiDatesPicker.dates[type][0];
+						begin = begin ? begin.getTime() : date;
+						var end = this.multiDatesPicker.dates[type][this.multiDatesPicker.dates[type].length - 1];
+						end = end ? end.getTime() : date + 1;
+						this.multiDatesPicker.dates[type] = []; // deletes all picked/disabled dates
+						// still allow a toggle on a single previously-selected date
+						if ( date == begin && date == end )
+							end = 0;
+						else if ( date < begin ) 
+							begin = date;
+						else if ( date > end )
+							end = date;
+						else
+							begin = end = date;
+							
+						while ( begin <= end ) {
+							methods.addDates.call( this, new Date(begin), type )
+							begin += (24 * 60 * 60 * 1000);
+						}
+						break;
 					default:
 						if(index === false) // adds dates
 							methods.addDates.call(this, date, type);
@@ -309,6 +331,7 @@
 							}
 					break;
 					case 'daysRange':
+					case 'abDaysRange':
 					case 'weeksRange':
 						var mandatory = 1;
 						for(var option in mode.options)

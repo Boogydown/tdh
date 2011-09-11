@@ -59,8 +59,8 @@ VU.FilteredCollection = Backbone.Collection.extend({
 		// add type to the beginning
 		filterObj.startkey.unshift( this.url );
 		filterObj.endkey.unshift( this.url );
-		filterStr = 'startkey=["' + filterObj.startkey.join('","') + '"]';
-		filterStr += '&endkey=["' + filterObj.endkey.join('","') + '"]';
+		filterStr = JSON.stringify( filterObj ).replace(',"endkey":','&endkey=').replace('{"startkey":','startkey=');
+		filterStr = filterStr.substr( 0,filterStr.length - 1 );
 		return filterStr;
 	}	
 });

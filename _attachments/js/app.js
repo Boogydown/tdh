@@ -162,7 +162,7 @@ $(function(){
 			if ( dates ) {
 				dates = dates.split(",");				
 				filter.startkey.push(parseInt(dates[0]));
-				filter.endkey.push(dates.length == 1 ? "a" : parseInt(dates[1]));
+				filter.endkey.push(dates.length == 1 ? "Z" : parseInt(dates[1]));
 			} else {
 				filter.startkey.push(0);
 				filter.endkey.push("a");
@@ -177,9 +177,9 @@ $(function(){
 				filter.endkey.push(parseFloat(coords[3]));
 			} else {
 				filter.startkey.push(0);
-				filter.endkey.push("a");
+				filter.endkey.push("Z");
 				filter.startkey.push(0);
-				filter.endkey.push("a");
+				filter.endkey.push("Z");
 			};
 			
 			myView.activate( filter );

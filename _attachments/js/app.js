@@ -39,15 +39,13 @@ $(function(){
 			tabEl : $("#bandsTabBtn"),
 			initialize : function() {
 				VU.ParentView.prototype.initialize.call(this);
-				
-				// create our main list and map views and attach the collection to them
 				this.mainListView = new VU.ListView({collection:this.colls.bands, el: "#bandsList"});
-				
-				utils.waitingUI.show();
-				// kick off the initial fetch
-				 //TODO: put a limit in this fetch; will need to load in chunks as you scroll
-				this.colls.bands.fetch({success:utils.waitingUI.hide(), error:utils.waitingUI.hide()});
-			}
+			},
+			
+			activate : function ( filter ) {
+				VU.ParentView.prototype.activate.call(this);
+				this.mainListView.applyFilter( filter );
+			}			
 		}),
 		
 		HallsView : VU.ParentView.extend({
@@ -55,14 +53,13 @@ $(function(){
 			tabEl : $("#hallsTabBtn"),
 			initialize : function() {
 				VU.ParentView.prototype.initialize.call(this);
-				
-				// create our main list and map views and attach the collection to them
 				this.mainListView = new VU.ListView({collection: this.colls.halls, el: "#hallsList"});
 				this.mainMapView = new VU.MapView({collection: this.colls.halls, el: "#hallsMap"});
-				
-				// kick off the initial fetch
-				this.colls.halls.fetch(); //TODO: limit this by #?  map?  alpha?
-				
+			},
+			
+			activate : function ( filter ) {
+				VU.ParentView.prototype.activate.call(this);
+				this.mainListView.applyFilter( filter );
 			}
 		}),
 		

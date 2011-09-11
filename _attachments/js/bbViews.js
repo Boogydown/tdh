@@ -61,10 +61,26 @@ VU.EventListingView = VU.ListingView.extend({
 	
 	render : function () {
 		VU.ListingView.prototype.render.call(this);
-		if ( this.model.get( "onDCard" ) )
-			$(".twostepphoto", this.el).addClass("active");
-		else
+		if ( this.model.get( "onDCard" ) ) {
+			var shoes = $(".twostepphoto", this.el);
+			var dc = $("#dCardTabBtn");
+			var flyingShoes = this.make( "div", {
+				class: "twostepphoto active", 
+				style: "position:fixed;left:" + shoes.offset.left + ";top:" + shoes.offset.top 
+			} );
+			shoes.addClass("active");
+			flyingShoes.animate( {
+				opacity: 0.25,
+				left: dc.offset.left,
+				top: dc.offset.top
+			} );
+		} else {
+			if ( this.collection instanceof VU.DCardCollection )
+				{}// anim this way
+			else
+				{}// anim that way
 			$(".twostepphoto", this.el).removeClass("active");
+		}
 		return this;
 	}		
 });

@@ -30,6 +30,7 @@ VU.CookieModel = Backbone.Model.extend({
 					tmp[key] = cookiesObj[key];
 					success = true;
 				}
+			}
 		}
 		tmp.cookiesObj = cookiesObj;
 		this.set( tmp );

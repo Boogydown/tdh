@@ -41,9 +41,10 @@
 			return methods.dateConvert(date, desired_type, date_format);
 		}
 		
+		var that = this;
 		var methods = {
 			init : function( options ) {
-				var $this = $(this);
+				var $this = $(that);
 				this.multiDatesPicker.changed = false;
 				
 				var mdp_events = {
@@ -52,7 +53,7 @@
 						if(this.multiDatesPicker.originalBeforeShow) this.multiDatesPicker.originalBeforeShow.call(this, input, inst);
 					},
 					onSelect : function(dateText, inst) {
-						var $this = $(this);
+						var $this = $(that);
 						this.multiDatesPicker.changed = true;
 						
 						if (dateText) {
@@ -116,7 +117,7 @@
 						}
 					},
 					beforeShowDay : function(date) {
-						var $this = $(this);
+						var $this = $(that);
 						var gotThisDate = $this.multiDatesPicker('gotDate', date) !== false;
 						var highlight_class = gotThisDate
 							? 'ui-state-highlight'
@@ -184,7 +185,7 @@
 			dateConvert : function( date, desired_format, dateFormat ) {
 				if(typeof date == desired_format) return date;
 				
-				var $this = $(this);
+				var $this = $(that);
 				if(typeof date == 'undefined') date = new Date(0);
 				
 				if(desired_format != 'string' && desired_format != 'object')
@@ -252,7 +253,7 @@
 					default: 
 						$.error('Date format "'+ typeof dates +'" not allowed on jQuery.multiDatesPicker');
 				}
-				$(this).datepicker('refresh');
+				$(that).datepicker('refresh');
 			},
 			removeDates : function( indexes, type ) {
 				if(!type) type = 'picked';
@@ -260,12 +261,12 @@
 					for(var i in indexes) removeDate.call(this, i, type);
 				else
 					removeDate.call(this, indexes, type);
-				$(this).datepicker('refresh');
+				$(that).datepicker('refresh');
 			},
 			resetDates : function ( type ) {
 				if(!type) type = 'picked';
 				this.multiDatesPicker.dates[type] = [];
-				$(this).datepicker('refresh');
+				$(that).datepicker('refresh');
 			},
 			toggleDate : function( date, type ) {
 				if(!type) type = 'picked';
@@ -350,12 +351,12 @@
 				}
 				
 				if(mode.options.pickableRange) {
-					$(this).datepicker("option", "maxDate", mode.options.pickableRange + (mode.options.pickableRangeDelay || 0));
-					$(this).datepicker("option", "minDate", this.multiDatesPicker.minDate);
+					$(that).datepicker("option", "maxDate", mode.options.pickableRange + (mode.options.pickableRangeDelay || 0));
+					$(that).datepicker("option", "minDate", this.multiDatesPicker.minDate);
 				}
 				
 				if(mdp_events.onSelect) mdp_events.onSelect();
-				$(this).datepicker('refresh');
+				$(that).datepicker('refresh');
 			}
 		};
 		

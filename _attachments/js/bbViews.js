@@ -113,6 +113,7 @@ VU.ListView = Backbone.View.extend({
 	},	
 	
 	render: function(){
+		$(this.el).empty();
 		if (this.collection.length > 0) this.collection.each(this.addRow);
 	},
 	
@@ -195,7 +196,7 @@ VU.PopupView = VU.DustView.extend({
 				index -= index > 0;
 			else
 				index += index < coll.length - 1;
-			location.href="#///" + coll.at(index).id;
+			location.href="#///" + this.model.myType + "&" + coll.at(index).id;
 		}
 	}
 });
@@ -287,10 +288,11 @@ VU.CalView = Backbone.View.extend({
 		$(this.el).multiDatesPicker({
 			mode: {
 				modeName: 'abDaysRange',
-				options: {autoselectRange: [0,0]}
+				options: {autoselectRange: [0,0]},
+				
 			},
 			onSelect: this.updateDateRoute,
-			//dateFormat: "@"
+			dateFormat: "@"
 		});
 	},
 	
@@ -299,13 +301,15 @@ VU.CalView = Backbone.View.extend({
 		var dates = $(this.el).multiDatesPicker('getDates');
 		if ( !dates ) return;
 		
-		if ( _.isArray( dates )){
+		if ( _.isArray( dates ) & dates.length > 0 ){
 			hashUrl += dates[0];
-			if ( dates.length > 1 ) hashUrl += "&" + dates[1];
+			hashUrl += "&" + dates[ dates.length - 1 ];
 		} else 
-			hashUrl += dates;	
+			// none selected, so reset to default
+			hashUrl += "/!";
 		
-		location.href=hashUrl;
+		if ( location.hash != hashUrl )
+			location.href=hashUrl;
 	}
 });
 

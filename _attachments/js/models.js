@@ -22,15 +22,15 @@ VU.CookieModel = Backbone.Model.extend({
 			for ( cook in cookies ){
 				cookary = cookies[cook].split("=");
 				if ( cookary[0].substr(0,plen) == this.prefix )
-					cookieObj[cookary[0].substr(plen)] = cookary[1];
+					cookiesObj[cookary[0].substr(plen)] = cookary[1];
 			}
 			for ( cook in this.cookieKeys )
-				if ( cook in cookieObj ) {
-					tmp[cook] = cookieObj[cook];
+				if ( cook in cookiesObj ) {
+					tmp[cook] = cookiesObj[cook];
 					success = true;
 				}
 		}
-		tmp.cookieObj = cookieObj;
+		tmp.cookiesObj = cookiesObj;
 		this.model.set( tmp );
 		return success;
 	}

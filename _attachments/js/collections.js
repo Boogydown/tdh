@@ -106,6 +106,7 @@ VU.EventCollection = VU.FilteredCollection.extend({
 			else {
 				this.fetchSets[id] = attr;
 				model = new this.model( {id:id} );
+				this.add( model );
 				model.bind( "change", this._setAfterFetch );
 				model.fetch();
 			}

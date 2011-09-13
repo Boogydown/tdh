@@ -80,6 +80,7 @@ VU.FilteredCollection = Backbone.Collection.extend({
 VU.EventCollection = VU.FilteredCollection.extend({
 	url : "event",
 	model : VU.EventModel,
+	fetchSets : {},
 	
 	// The events should be ordered by date
 	comparator : function(event){

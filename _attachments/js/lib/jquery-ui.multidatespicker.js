@@ -286,12 +286,19 @@
 							methods.addDates.call(this, methods.sumDays(date, i), type);
 						break;
 					case 'abDaysRange':
-						date = methods.dateConvert( date, "object" ).getTime();						
+						date = methods.dateConvert( date, "object" );
 						var begin = this.multiDatesPicker.dates[type][0];
-						begin = begin ? begin.getTime() : date;
 						var end = this.multiDatesPicker.dates[type][this.multiDatesPicker.dates[type].length - 1];
+						
+						// prevent spanning over into another month; will just select single date
+						if ( begin && date.getMonth() != begin.getMonth() )
+							begin = end = null;
+						
+						date = date.getTime();
+						begin = begin ? begin.getTime() : date;
 						end = end ? end.getTime() : date + 1;
 						this.multiDatesPicker.dates[type] = []; // deletes all picked/disabled dates
+						
 						// still allow a toggle on a single previously-selected date
 						if ( date == begin && date == end )
 							end = 0;
@@ -299,7 +306,7 @@
 							begin = date;
 						else if ( date > end )
 							end = date;
-						else
+						else // date is inside current range, so reset view to just one
 							begin = end = date;
 							
 						while ( begin <= end ) {

@@ -306,7 +306,7 @@ VU.CalView = Backbone.View.extend({
 			hashUrl += "," + dates[ dates.length - 1 ];
 		} else 
 			// none selected, so reset to default
-			hashUrl += "/!";
+			hashUrl += "!";
 		
 		if ( location.hash != hashUrl )
 			location.href=hashUrl;

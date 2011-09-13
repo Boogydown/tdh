@@ -89,11 +89,11 @@ VU.EventListingView = VU.ListingView.extend({
 
 // View for a collection of listings
 VU.ListView = Backbone.View.extend({
-	subViews : [],
+	listingViews : [],
 	initialize : function( options ){
 		_.bindAll(this, 'render', 'applyFilter', 'addRow', "reset", "scrollUpdate");
 		this.listingClass = options.listingClass || VU.ListingView;
-		this.collection.bind("refresh", this.render);
+		this.collection.bind("refresh", this.reset);
 		this.collection.bind("add", this.addRow);
 		//TODO: attach scroll listener
 	},
@@ -104,16 +104,15 @@ VU.ListView = Backbone.View.extend({
 	},
 
 	reset: function() {
-		for ( var subView in this.subViews ){
-			if (this.subViews[subView].empty) this.subViews[subView].empty();
-			delete this.subViews[subView];
+		for ( var subView in this.listingViews ){
+			if (_.isFunction(this.listingViews[subView].empty)) this.listingViews[subView].empty();
+			delete this.listingViews[subView];
 		}
 		$(this.el).empty();
 		this.render();
 	},	
 	
 	render: function(){
-		$(this.el).empty();
 		if (this.collection.length > 0) 
 			this.collection.each(this.addRow);
 		else
@@ -126,7 +125,7 @@ VU.ListView = Backbone.View.extend({
 		if ( !template ) 
 			console.log("listing-template attribute not given in " + this.el);
 		else {
-			this.subViews.push (lc = new this.listingClass( {model: model, template: template} ));
+			this.listingViews.push (lc = new this.listingClass( {model: model, template: template} ));
 			this.el.appendChild( lc.render().el );
 			model.trigger("change", model);
 		}

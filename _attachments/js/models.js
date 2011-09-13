@@ -11,7 +11,7 @@ VU.CookieModel = Backbone.Model.extend({
 		for ( var key in this.cookieKeys ){
 			var val = this.get( key );
 			if ( val !== undefined )
-				document.cookie = this.prefix + key + "=" + val;
+				document.cookie = this.prefix + key + "=" + JSON.stringify(val);
 		}
 	},
 	
@@ -21,14 +21,13 @@ VU.CookieModel = Backbone.Model.extend({
 		if ( cookies.length > 0 ) {
 			for ( cook in cookies ){
 				cookary = cookies[cook].split("=");
-				if ( cookary[0].substr(0,plen) == this.prefix )
-					cookiesObj[cookary[0].substr(plen)] = cookary[1];
-			}
-			for ( cook in this.cookieKeys ) {
-				key = this.cookieKeys[cook];
-				if ( key in cookiesObj ) {
-					tmp[key] = cookiesObj[key];
-					success = true;
+				if ( cookary[0].substr(0,plen) == this.prefix ) {
+					key = cookary[0].substr(plen);
+					cookiesObj[key] = cookary[1];
+					if ( this.cookieKeys.indexOf(key) > -1 ) {
+						tmp[key] = JSON.parse( cookary[1] );
+						success = true;
+					}
 				}
 			}
 		}

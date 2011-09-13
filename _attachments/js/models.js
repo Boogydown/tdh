@@ -20,8 +20,8 @@ VU.CookieModel = Backbone.Model.extend({
 			cook, cookary, cookiesObj = {}, success = false;
 		if ( cookies.length > 0 ) {
 			for ( cook in cookies ){
-				cookary = cook.split("=");
-				if ( cookary.substr(0,plen) == this.prefix )
+				cookary = cookies[cook].split("=");
+				if ( cookary[0].substr(0,plen) == this.prefix )
 					cookieObj[cookary[0].substr(plen)] = cookary[1];
 			}
 			for ( cook in this.cookieKeys )
@@ -63,8 +63,7 @@ VU.MemberModel = VU.CookieModel.extend({
 				this.fetch( {success: this.login, error: this.loginError } );
 			else
 				// we're running anon....
-				if ( this.anonDCard.length > 0 )
-					this.loadDCard();
+				this.loadDCard();
 		}
 	},
 	
@@ -100,7 +99,7 @@ VU.MemberModel = VU.CookieModel.extend({
 	},
 	
 	loadDCard : function() {
-		if ( this.eventsMain )
+		if ( this.eventsMain && this.anonDCard.length > 0 )
 			this.eventsMain.fetchAndSet( this.get( "dCard" ), {onDCard:true} );
 		
 		this.eventsMain.bind("change:onDCard", this.syncDCard );

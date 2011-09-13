@@ -9,7 +9,7 @@ VU.CookieModel = Backbone.Model.extend({
 	writeCookies : function() {
 		//TODO: get() all keys in this.cookieKeys and save them to a cookie
 		for ( var key in this.cookieKeys ){
-			var val = this.model.get( key );
+			var val = this.get( key );
 			if ( val !== undefined )
 				document.cookie = this.prefix + key + "=" + val;
 		}
@@ -31,7 +31,7 @@ VU.CookieModel = Backbone.Model.extend({
 				}
 		}
 		tmp.cookiesObj = cookiesObj;
-		this.model.set( tmp );
+		this.set( tmp );
 		return success;
 	}
 });

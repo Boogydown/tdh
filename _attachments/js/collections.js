@@ -80,7 +80,6 @@ VU.FilteredCollection = Backbone.Collection.extend({
 VU.EventCollection = VU.FilteredCollection.extend({
 	url : "event",
 	model : VU.EventModel,
-	fetchSets : {},
 	
 	// The events should be ordered by date
 	comparator : function(event){
@@ -97,25 +96,14 @@ VU.EventCollection = VU.FilteredCollection.extend({
 	},
 	
 	fetchAndSet : function( idAry, attr ) {
-		var i, id, model;
-		for ( i in idAry ) {
-			attr.id = id = idAry[i];
-			model = this.get( id );
-			if ( model ) 
-				model.set( attr );
-			else {
-				this.fetchSets[id] = attr;
-				model = new this.model( {id:id}, {collection:this} );
-				this.add( model );
-				model.bind( "change", this._setAfterFetch );
-				model.fetch();
-			}
-		}	
+		this.query = "?startkey=[" + new Date().getTime() + "]&endkey=[[]]";
+		this._fetchSet = idAry;
+		this.fetch( {success:this._setAfterFetch} );
 	},
 	
-	_setAfterFetch : function( model ){
-		model.set( this.fetchSets[model.id] );
-		delete this.fetchSets[model.id];
+	_setAfterFetch : function(  ){
+		this.each( function (model) {model.set( this._fetchSet );} );
+		delete this._fetchSet;
 	}
 });
 

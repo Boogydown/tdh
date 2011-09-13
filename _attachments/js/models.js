@@ -4,31 +4,113 @@ VU.InitModels = function () {
 /////////////////////////////////////////////////////////////////////////////{
 // Holds info about the current user and their session (persisted to browser cookie)
 VU.CookieModel = Backbone.Model.extend({
+	prefix : "vu_",
 	//syntax: will write only model values that are in this.cookieKeys array
-	writeCookie : function() {
+	writeCookies : function() {
 		//TODO: get() all keys in this.cookieKeys and save them to a cookie
+		for ( var key in this.cookieKeys ){
+			var val = this.model.get( key );
+			if ( val !== undefined )
+				document.cookie = this.prefix + key + "=" + val;
+		}
 	},
 	
-	readCookie : function() {
-		return null;
-	}	
+	readCookies : function() {
+		var cookies = document.cookie.split('; '), tmp = {}, plen = this.prefix.length,
+			cook, cookary, cookiesObj = {}, success = false;
+		if ( cookies.length > 0 ) {
+			for ( cook in cookies ){
+				cookary = cook.split("=");
+				if ( cookary.substr(0,plen) == this.prefix )
+					cookieObj[cookary[0].substr(plen)] = cookary[1];
+			}
+			for ( cook in this.cookieKeys )
+				if ( cook in cookieObj ) {
+					tmp[cook] = cookieObj[cook];
+					success = true;
+				}
+		}
+		tmp.cookieObj = cookieObj;
+		this.model.set( tmp );
+		return success;
+	}
 });
 
 
 VU.MemberModel = VU.CookieModel.extend({
 	fetched: false,
-	
-	cookieKeys: [ "dCard" ],
-	
+	dCardColl: null,
+	eventsMain: null,
+	cookieKeys: [ "id", "dCard" ],
 	defaults : {
-		name: "Dancer",
+		name: "J. Dancer",
 		email: "",
 		group: "",
 		lastLogin: new Date().getTime(),
-		username: "",
 		password: "", //this is wiped out by the server when it returns an auth'd session
 		memberStats: {},
-		dCard: {}
+		dCard: []
+	},
+	
+	initialize : function( attrs, options ) {
+		_.bindAll( this, "login", "signUp", "loginSuccess", "loginError", "loadDCard", "syncDCard" );
+		if ( options )
+			if ( options.dCard ) this.dCardColl = options.dCard;
+			if ( options.events ) this.eventsMain = options.events;
+		if ( this.readCookies ) {
+			this.anonDCard = this.get("dCard");
+			if ( this.id )
+				this.fetch( {success: this.login, error: this.loginError } );
+			else
+				// we're running anon....
+				if ( this.anonDCard.length > 0 )
+					this.loadDCard();
+		}
+	},
+	
+	//TODO: put this in a friggin View where it belongs!!
+	submitLogin : function ( form ) {
+		if ( form ) this.set({ name: form.username.value, password: form.password.value });
+		this.login();
+		form.reset();
+		location.href="#///!";
+		return false;
+	},		
+	
+	login : function() {
+		$.couch.login( {name: this.get("name"), password: this.get("password"), success: this.loginSuccess, error: this.loginError } );
+	},
+	
+	signUp : function() {
+		$.couch.signup( this, this.get("password"), {success: this.loginSuccess, error: this.loginError} );
+	},
+	
+	loginSuccess : function() {
+		this.set( { password:"" } );
+		alert("Success!  you're logged in" );
+		// remove signup/login links
+		// show logout link
+		if ( this.anonDCard.length != 0 )
+			this.set( {dCard: buDCard } )
+		this.loadDCard();		
+	},
+	
+	loginError : function(e){
+		alert("Uh oh!! Error!\n" + e);
+	},
+	
+	loadDCard : function() {
+		if ( this.eventsMain )
+			this.eventsMain.fetchAndSet( this.get( "dCard" ), {onDCard:true} );
+		
+		this.eventsMain.bind("change:onDCard", this.syncDCard );
+	},
+	
+	syncDCard : function() {
+		// hopefully, since this listener is attached after the EventColl's listener...
+		//	...so that when we do get aroud to this, the dCard is updated
+		this.set( {dCard: this.dCardColl.pluck( "id " )} );
+		this.writeCookies();
 	}
 });
 

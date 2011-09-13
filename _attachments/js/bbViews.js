@@ -91,7 +91,7 @@ VU.EventListingView = VU.ListingView.extend({
 VU.ListView = Backbone.View.extend({
 	subViews : [],
 	initialize : function( options ){
-		_.bindAll(this, 'render', 'applyFilter', 'addRow', "reset");
+		_.bindAll(this, 'render', 'applyFilter', 'addRow', "reset", "scrollUpdate");
 		this.listingClass = options.listingClass || VU.ListingView;
 		this.collection.bind("refresh", this.render);
 		this.collection.bind("add", this.addRow);
@@ -114,7 +114,10 @@ VU.ListView = Backbone.View.extend({
 	
 	render: function(){
 		$(this.el).empty();
-		if (this.collection.length > 0) this.collection.each(this.addRow);
+		if (this.collection.length > 0) 
+			this.collection.each(this.addRow);
+		else
+			this.el.innerHTML= "<i>This list is empty</i>";
 	},
 	
 	// Appends an entry row 

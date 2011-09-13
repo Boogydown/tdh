@@ -16,7 +16,7 @@ VU.FilteredCollection = Backbone.Collection.extend({
 	query: "",
 	
 	initialize : function () {
-		_.bindAll( this, "applyFilter", "loadMore", "modelAdded", "parseFilter" );
+		_.bindAll( this, "applyFilter", "loadMore", "modelAdded", "parseFilter", "getFromServer" );
 	},
 	
 	applyFilter : function ( newFilter, options ) {
@@ -64,9 +64,17 @@ VU.FilteredCollection = Backbone.Collection.extend({
 		filterStr = JSON.stringify( filterObj ).replace(',"endkey":','&endkey=').replace('{"startkey":','startkey=');
 		filterStr = filterStr.substr( 0,filterStr.length - 1 );
 		return filterStr;
-	}	
+	},
+	
+	getFromServer : function( id, options ) {
+		var model = this.get(id);
+		if ( !model ) {
+			model = new this.model( {id:id} );
+			model.fetch(options);
+		}
+		return model;
+	}
 });
-
 
 // Now let's define a new Collection of Events
 VU.EventCollection = VU.FilteredCollection.extend({
@@ -80,10 +88,32 @@ VU.EventCollection = VU.FilteredCollection.extend({
 	
 	initialize : function ( models, options ) {
 		VU.FilteredCollection.prototype.initialize.call(this, models, options);
+		_.bindAll( this, "fetchAndSet", "_setAfterFetch" );
 		if ( options ) {
 			this.schema = options.schema;
 			this.colls = options.colls;
 		}
+	},
+	
+	fetchAndSet : function( idAry, attr ) {
+		var i, id, model;
+		for ( i in idAry ) {
+			attr.id = id = idAry[i];
+			model = this.get( id );
+			if ( model ) 
+				model.set( attr );
+			else {
+				this.fetchSets[id] = attr;
+				model = new this.model( {id:id} );
+				model.bind( "change", this._setAfterFetch );
+				model.fetch();
+			}
+		}	
+	},
+	
+	_setAfterFetch : function( model ){
+		model.set( this.fetchSets[model.id] );
+		delete this.fetchSets[model.id];
 	}
 });
 

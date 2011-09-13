@@ -95,11 +95,12 @@ $(function(){
 		},
 		
 		instanciatedViews : {},
+		mySession : {},
 		
 		// Initialize happens at page load; think RESTful: every time this is called we're starting from scratch
         initialize : function(){
 			VU.PersistentRouter.prototype.initialize.call(this);
-			_.bindAll( this, "routeHandler", "authSessionCallback" );
+			_.bindAll( this, "routeHandler" );
 			
 			this.colls = {
 				bands : new VU.BandCollection(),
@@ -109,40 +110,17 @@ $(function(){
 				schema: VU.schemas.events.listing, 
 				colls: this.colls
 			});
+			this.colls.dCard = new VU.DCardCollection( null, { events:this.colls.events } );
 
 			// init misc UI pieces
 			this.popupView = new VU.PopupView( );
 			utils.waitingUI.init( ".loadingGIF" );
 			
-			// Authenticate session and create session state model
-			var mySession = new VU.AuthSessionModel( { dCard:new VU.DCardCollection( null, { events:this.colls.events } ) } );
-			mySession.load( this.authSessionCallback );
-			
-			// check cookies for existing Auth id (can only have one at a time)
-			// if exists then get if from the db; failure sends to login screen
-			// if success then use it
-        },
-		
-		authSessionCallback : function( mySession ) {
-			if ( mySession.fetched ) {
-				// yay!  
-				// TODO: remove login link
-				// TODO: create cookie
-			} else {
-				// TODO: if no cookie then keep login button visible and create new, anon session
-				// from here on it's anon; show login link
-			}
-			
-			// stuff to do for all sessions
-			this.colls.dCard = mySession.get( "dCard" );
+			// kick off first View
 			this.instanciatedViews[ "DanceCard" ] = new ParentViews.DanceCardView( {colls:this.colls} );
 			
-			// setup globals
-			window.submitLogin = function ( loginForm ) {
-				mySession.login( loginForm.username.value, loginForm.password.value );
-				return false;
-			};
-			
+			// Authenticate session and create session state model
+			window.mySession = new VU.MemberModel( null, { dCard: this.colls.dCard, events: this.colls.events } );
 		},
 		
 		routeHandler : function( tab, dates, coords, popID ) {
@@ -188,14 +166,20 @@ $(function(){
 				var pAry = popID.split('&');
 				var popType = pAry[0];
 				popID = pAry[1];
-				var template = "popupTemplate_" + popType;
-				var docModel = this.colls[popType + "s"] && this.colls[popType + "s"].get( popID );
-				//TODO: if docModel doesn't exist then fetch it!
-				if ( popID && docModel ){
-					docModel.loadEvents( this.colls.events, docModel.get("type") );
+				var template = "popupTemplate_" + popType,
+					docModel;
+				switch ( popType ) {
+					case "login": docModel = window.mySession; 
+						break;
+					default: 
+						docModel = this.colls[popType + "s"] && this.colls[popType + "s"].get( popID );
+						//TODO: if docModel doesn't exist then fetch it!
+				};
+				
+				if ( docModel ) {
+					if ( _.isFunction(docModel.loadEvents) )
+						docModel.loadEvents( this.colls.events, docModel.get("type") );
 					this.popupView.openPopup( docModel, template );
-				} else if ( !popID && popType ) {
-					this.popupView.openPopup( null, template );
 				} else {
 					window.location = "#///!";
 				}

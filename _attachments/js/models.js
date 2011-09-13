@@ -57,7 +57,7 @@ VU.MemberModel = VU.CookieModel.extend({
 		if ( options )
 			if ( options.dCard ) this.dCardColl = options.dCard;
 			if ( options.events ) this.eventsMain = options.events;
-		if ( this.readCookies ) {
+		if ( this.readCookies() ) {
 			this.anonDCard = this.get("dCard");
 			if ( this.id )
 				this.fetch( {success: this.login, error: this.loginError } );

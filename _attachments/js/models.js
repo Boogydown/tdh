@@ -17,16 +17,17 @@ VU.CookieModel = Backbone.Model.extend({
 	
 	readCookies : function() {
 		var cookies = document.cookie.split('; '), tmp = {}, plen = this.prefix.length,
-			cook, cookary, cookiesObj = {}, success = false;
+			cook, cookary, cookiesObj = {}, success = false, key;
 		if ( cookies.length > 0 ) {
 			for ( cook in cookies ){
 				cookary = cookies[cook].split("=");
 				if ( cookary[0].substr(0,plen) == this.prefix )
 					cookiesObj[cookary[0].substr(plen)] = cookary[1];
 			}
-			for ( cook in this.cookieKeys )
-				if ( cook in cookiesObj ) {
-					tmp[cook] = cookiesObj[cook];
+			for ( cook in this.cookieKeys ) {
+				key = this.cookieKeys[cook];
+				if ( key in cookiesObj ) {
+					tmp[key] = cookiesObj[key];
 					success = true;
 				}
 		}

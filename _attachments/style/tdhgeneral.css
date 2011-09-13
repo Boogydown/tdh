@@ -186,7 +186,7 @@ div.list{
 }
 
 /**************** Halls/Bands Listings ****************/
-div#hallsDiv div.box {
+div#hallsDiv div.box, div#bandsDiv div.box {
 	background-color: transparent;
 	width: 180px;
 	position: absolute;
@@ -199,9 +199,8 @@ div#hallsDiv div.box {
     border-radius: 10px;	
 }
 
-div#hallsDiv + div#bandsDiv div.box.list {
+div#hallsDiv div.box.list, div#bandsDiv div.box.list  {
 	background-color: transparent;
-	width: 500px;
 	position: absolute;
 	top: 50px;
 	bottom: -20px;
@@ -212,7 +211,7 @@ div#hallsDiv + div#bandsDiv div.box.list {
     border-radius: 10px;	
 }
 
-div#hallsDiv div.list{
+div#hallsDiv div.list, div#bandsDiv div.list{
 	left: 15px;
 	width: 530px;
 	overflow: auto;

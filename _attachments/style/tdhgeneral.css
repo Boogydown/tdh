@@ -11,6 +11,20 @@ div {
 }
 
 /**************** Main Container ****************/
+div #floatingNav {
+    background-color: #222222;
+    border: 1px solid #444444;
+    left: 1004px;
+    position: fixed;
+    top: 142px;
+    width: 100px;
+    z-index: -10;
+}
+
+#loggedInNav {
+	display:none;
+}
+
 div.loadingGIF {
 	background-image: url('../images/loader-spinner-big.gif');
 	position: relative;

@@ -128,13 +128,45 @@
 			<h2>Login</h2>
 			<div class="detailtext">
 				<form id="loginForm" action="" onsubmit="mySession.submitLogin(this);">
-					Username: <input name="username" type="text"></input><br/>
-					Password: <input name="password" type="text"></input><br/>
+					Email: <input name="name" type="text"></input><br/>
+					Password: <input name="password" type="password"></input><br/>
 					<button type="submit">Login</button>
 				</form>
 			</div>
 		</div>
 		<div id="main-photo"><img src="images/TDHP_Logo_BW_gray_reverse-1.JPG" /></div>
+	</script>
+	
+	<script type="application/dust-template" id="popupTemplate_signup">
+		<div id="info">
+			<h2>Sign up as a member!</h2>
+			<div class="detailtext">
+				<form id="signupForm" action="" onsubmit="mySession.submitSignup(this);">
+					Name: <input name="realName" type="text"</input><br/><br/>
+					Email: <input name="name" type="text"></input><br/>
+					Password: <input name="password" type="password"></input><br/>
+					<button type="submit">Create User</button>
+				</form>
+			</div>
+		</div>
+		<div id="main-photo"><img src="images/TDHP_Logo_BW_gray_reverse-1.JPG" /></div>
+	</script>
+	
+	<script type="application/dust-template" id="popupTemplate_member">
+		<div id="info">
+			<h2>Login</h2>
+			<div class="detailtext">
+				<h4>Name</h4>
+				{realName}<br/>
+				<h4>Email</h4>
+				{name}<br/>
+				{Owner of:}
+				<h4>Bands or Halls that I own:</h4>
+				<i>Request ownership by emailing the <a href="emailto:psparks@texasdancehall.org">admin</a>.</i><br/><br/>
+				<div class="box" id="popuplist" listing-template="entitiesOwned"></div>				
+			</div>
+		</div>
+		<div id="main-photo"><img src="images/genericSilhouette.jpg" /></div>
 	</script>
 	
 	<!-- TEMPLATES END -->
@@ -150,7 +182,7 @@
         <div id="e0" style="position:absolute;left:2;top:0;width:758;height:133;"><img src="images/gray_wth_dark_gray_line_slice.gif" width="758" height="133" alt=""></div>        <div id="e1" style="position:absolute;left:8;top:82;width:518;height:77;"><!--$name siteTitle$--><span class="text"><font color="#EEEEEE" size="6"><span style="font-size:30px;line-height:38px;">Texas Dance Hall Preservation<br soft></span></font></span>        </div>
         <div id="e2" style="position:absolute;left:0;top:136;width:521;height:18;"><!--$navbar name=navbar.navassetID=%NavbarAsset:/navigation_bars/navbar.nav$-->
 	<!--$begin exclude$-->
-		<table border="0" cellspacing="0" cellpadding="0"><tr><td><a href="index.html"><img name="i3" src="images/navbar-0-inactive-72276.png" border="0" width="40" height="18" alt=""/></a></td><td width="16" height="0"> <img src="" width="16" height="1" alt=""></td><td><a href="aboutus.html"><img name="i4" src="images/navbar-1-inactive-72510.png" border="0" width="66" height="18" alt=""/></a></td><td width="16" height="0"> <img src="" width="16" height="1" alt=""></td><td><a href="join.html"><img name="i5" src="images/navbar-3-inactive-72635.png" border="0" width="27" height="18" alt=""/></a></td><td width="16" height="0"> <img src="" width="16" height="1" alt=""></td><td><a href="calendar.html"><img name="i6" src="images/navbar-4-active-72713.png" width="61" height="18" border="0" alt=""/></a></td><td width="16" height="0"> <img src="" width="16" height="1" alt=""></td><td><a href="dancehalls.html"><img name="i7" src="images/navbar-5-inactive-47078.png" border="0" width="80" height="18" alt=""/></a></td><td width="16" height="0"> <img src="" width="16" height="1" alt=""></td><td><a href="resources.html"><img name="i8" src="images/navbar-6-inactive-51640.png" border="0" width="73" height="18" alt=""/></a></td><td width="16" height="0"> <img src="" width="16" height="1" alt=""></td><td><a href="contactus.html"><img name="i9" src="images/navbar-6-inactive-60060.png" border="0" width="78" height="18" alt=""/></a></td><td width="16" height="0"> <img src="" width="76" height="1" alt=""></td><td width="60"><a id="loginButton" href="#///login">Log in</a></td></tr></table>
+		<table border="0" cellspacing="0" cellpadding="0"><tr><td><a href="index.html"><img name="i3" src="images/navbar-0-inactive-72276.png" border="0" width="40" height="18" alt=""/></a></td><td width="16" height="0"> <img src="" width="16" height="1" alt=""></td><td><a href="aboutus.html"><img name="i4" src="images/navbar-1-inactive-72510.png" border="0" width="66" height="18" alt=""/></a></td><td width="16" height="0"> <img src="" width="16" height="1" alt=""></td><td><a href="join.html"><img name="i5" src="images/navbar-3-inactive-72635.png" border="0" width="27" height="18" alt=""/></a></td><td width="16" height="0"> <img src="" width="16" height="1" alt=""></td><td><a href="calendar.html"><img name="i6" src="images/navbar-4-active-72713.png" width="61" height="18" border="0" alt=""/></a></td><td width="16" height="0"> <img src="" width="16" height="1" alt=""></td><td><a href="dancehalls.html"><img name="i7" src="images/navbar-5-inactive-47078.png" border="0" width="80" height="18" alt=""/></a></td><td width="16" height="0"> <img src="" width="16" height="1" alt=""></td><td><a href="resources.html"><img name="i8" src="images/navbar-6-inactive-51640.png" border="0" width="73" height="18" alt=""/></a></td><td width="16" height="0"> <img src="" width="16" height="1" alt=""></td><td><a href="contactus.html"></td></tr></table>
 	<!--$end exclude$-->
 	</div>
       <div id="e10" style="position:absolute;left:5;top:80;width:578;height:41;"><!--$name siteTitle$--><span class="text"><font face="Georgia" color="#EEEEEE" size="6"><span style="font-size:36px;line-height:41px;">Texas Dance Hall Preservation, Inc.<br soft></span></font></span>        </div>
@@ -160,6 +192,21 @@
 <!--=========== START VYNC-UP ===========-->
 	<!-- Main App Container-->
 		<div id="main-container">
+			<div id="floatingNav">
+				<div id="loggedOutNav">
+					<ul class="float-list">
+						<li><a href="#///login">Login</a></li>
+						<li><a href="#///signup">Sign up!</a></li>
+					</ul>
+				</div>
+				<div id="loggedInNav">
+					<ul class="float-list">
+						<li><a href="#///addEvent">Add Event</a></li>
+						<li><a href="" onclick="mySession.logout()">Logout</a></li>
+						<li><a href="#///member">My Profile</a></li>
+					</ul>
+				</div>
+			</div>
 			<div id="nav-tabs">
 				<ul id="tab-list">
 					<li id="dancesTabBtn" onclick="location.href='#Dances'"><a id="dances-button">Dances</a></li>

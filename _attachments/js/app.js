@@ -81,6 +81,22 @@ $(function(){
 			}
 		})
 	};
+	
+	var FloatNavView = Backbone.View.extend({
+		initialize : function () {
+			mySession.bind( "change:loggedIn", this.toggleLogView )
+		},
+		
+		toggleLogView : function() {
+			if ( mySession.get( "loggedIn" ) ) {
+				$("#loggedOutNav").hide();
+				$("#loggedInNav").show();
+			} else {
+				$("#loggedOutNav").show();
+				$("#loggedInNav").hide();
+			}
+		}
+	});
     
 /////////////////////////////////////////////////////////////////////////////}
 /// URL CONTROLLER //////////////////////////////////////////////////////////
@@ -113,7 +129,7 @@ $(function(){
 			this.colls.dCard = new VU.DCardCollection( null, { events:this.colls.events } );
 
 			// init misc UI pieces
-			this.popupView = new VU.PopupView( );
+			this.popupView = new VU.PopupView();
 			utils.waitingUI.init( ".loadingGIF" );
 			
 			// init the danceCard view so it can load any persisted stuff
@@ -121,6 +137,8 @@ $(function(){
 			
 			// Authenticate session and create session state model
 			window.mySession = new VU.MemberModel( null, { dCard: this.colls.dCard, events: this.colls.events } );
+			
+			var floatNav = new FloatNavView();
 		},
 		
 		routeHandler : function( tab, dates, coords, popID ) {
@@ -132,6 +150,7 @@ $(function(){
 			
 			// done manipulating params (tab, specifically) so we can now save the route
 			this.saveRoutes( tab, dates, coords, popID );
+			//TODO: put this into mySession
 			window.TDHP_tab = tab;
 			
 			// create filter query
@@ -169,7 +188,10 @@ $(function(){
 				var template = "popupTemplate_" + popType,
 					docModel;
 				switch ( popType ) {
-					case "login": docModel = window.mySession; 
+					case "login": 
+					case "signup": 
+					case "member": 
+						docModel = window.mySession; 
 						break;
 					default: 
 						docModel = this.colls[popType + "s"] && this.colls[popType + "s"].get( popID );

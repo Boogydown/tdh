@@ -50,17 +50,18 @@ VU.MemberModel = VU.CookieModel.extend({
 	eventsMain: null,
 	cookieKeys: [ "id", "dCard" ],
 	defaults : {
-		name: "J. Dancer",
-		email: "",
+		realName: "J. Dancer",
+		name: "",
 		group: "",
 		lastLogin: new Date().getTime(),
 		password: "", //this is wiped out by the server when it returns an auth'd session
 		memberStats: {},
-		dCard: []
+		dCard: [],
+		loggedIn: false
 	},
 	
 	initialize : function( attrs, options ) {
-		_.bindAll( this, "login", "signUp", "loginSuccess", "loginError", "loadDCard", "syncDCard" );
+		_.bindAll( this, "submitLogin", "submitSignup", "login", "signup", "loginSuccess", "loginError", "loadDCard", "syncDCard" );
 		if ( options )
 			if ( options.dCard ) this.dCardColl = options.dCard;
 			if ( options.events ) this.eventsMain = options.events;
@@ -76,8 +77,20 @@ VU.MemberModel = VU.CookieModel.extend({
 	
 	//TODO: put this in a friggin View where it belongs!!
 	submitLogin : function ( form ) {
-		if ( form ) this.set({ name: form.username.value, password: form.password.value });
+		if ( form ) this.set({ name: form.name.value, password: form.password.value });
 		this.login();
+		form.reset();
+		location.href="#///!";
+		return false;
+	},		
+	
+	submitSignup : function ( form ) {
+		if ( form ) this.set({ 
+			realName: form.realName.value, 
+			name: form.name.value, 
+			password: form.password.value
+		});
+		this.signup();
 		form.reset();
 		location.href="#///!";
 		return false;
@@ -87,15 +100,17 @@ VU.MemberModel = VU.CookieModel.extend({
 		$.couch.login( {name: this.get("name"), password: this.get("password"), success: this.loginSuccess, error: this.loginError } );
 	},
 	
-	signUp : function() {
+	signup : function() {
 		$.couch.signup( this, this.get("password"), {success: this.loginSuccess, error: this.loginError} );
 	},
 	
 	loginSuccess : function() {
-		this.set( { password:"" } );
+		this.set( { 
+			password:"",
+			loggedIn: true
+		} );
+		
 		alert("Success!  you're logged in" );
-		// remove signup/login links
-		// show logout link
 		if ( this.anonDCard.length != 0 )
 			this.set( {dCard: buDCard } )
 		this.loadDCard();		

@@ -109,7 +109,7 @@ VU.MemberModel = VU.CookieModel.extend({
 	syncDCard : function() {
 		// hopefully, since this listener is attached after the EventColl's listener...
 		//	...so that when we do get aroud to this, the dCard is updated
-		this.set( {dCard: this.dCardColl.pluck( "id " )} );
+		this.set( {dCard: this.dCardColl.pluck( "id" )} );
 		this.writeCookies();
 	}
 });

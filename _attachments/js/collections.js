@@ -96,9 +96,9 @@ VU.EventCollection = VU.FilteredCollection.extend({
 	},
 	
 	fetchAndSet : function( idAry, attr ) {
-		//HACK: Once cached Colls and View colls get separated, remove this...
+		//HACK: Once cached-colls and view-colls get separated, remove this...
 		this._fetchSet = {attrKeys:idAry, attr:attr};
-		if ( TDH_tab != "DanceCard" ) {
+		if ( location.href.indexOf("DanceCard") == -1 ) {
 			var oldQ = this.query;
 			this.query = "?startkey=[\"event\"," + new Date().getTime() + "]&endkey=[\"event\",[]]";
 			this.fetch( {success:this._setAfterFetch} );

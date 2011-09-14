@@ -97,13 +97,17 @@ VU.EventCollection = VU.FilteredCollection.extend({
 	
 	fetchAndSet : function( idAry, attr ) {
 		this.query = "?startkey=[\"event\"," + new Date().getTime() + "]&endkey=[\"event\",[]]";
-		this._fetchSet = idAry;
+		this._fetchSet = {attrKeys:idAry, attr:attr);
 		this.fetch( {success:this._setAfterFetch} );
 	},
 	
 	_setAfterFetch : function(  ){
-		this.each( function (model) {model.set( this._fetchSet );} );
-		delete this._fetchSet;
+		var fetchSet = this._fetchSet,
+			coll = this;
+		_.each( fetchSet.attrKeys, function(modelID) { 
+			var model = coll.get(modelID);  
+			if (model) model.set(fetchSet.attr);
+		});
 	}
 });
 

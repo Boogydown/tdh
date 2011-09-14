@@ -97,7 +97,7 @@ VU.EventCollection = VU.FilteredCollection.extend({
 	
 	fetchAndSet : function( idAry, attr ) {
 		this.query = "?startkey=[\"event\"," + new Date().getTime() + "]&endkey=[\"event\",[]]";
-		this._fetchSet = {attrKeys:idAry, attr:attr);
+		this._fetchSet = {attrKeys:idAry, attr:attr};
 		this.fetch( {success:this._setAfterFetch} );
 	},
 	

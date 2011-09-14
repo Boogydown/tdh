@@ -2,14 +2,18 @@ VU.InitModels = function () {
 /////////////////////////////////////////////////////////////////////////////
 /// MODEL DECLARATION ///////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////{
-// Holds info about the current user and their session (persisted to browser cookie)
+/* A Model that persists any keys stored in this.cookieKeys to the document cookies
+ *
+ */
 VU.CookieModel = Backbone.Model.extend({
 	prefix : "vu_",
+	
 	//syntax: will write only model values that are in this.cookieKeys array
 	writeCookies : function() {
-		//TODO: get() all keys in this.cookieKeys and save them to a cookie
-		for ( var key in this.cookieKeys ){
-			var val = this.get( key );
+		var i, key, val;
+		for ( i in this.cookieKeys ){
+			key = this.cookieKeys[i];
+			val = this.get( key );
 			if ( val !== undefined )
 				document.cookie = this.prefix + key + "=" + JSON.stringify(val);
 		}

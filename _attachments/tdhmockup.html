@@ -127,7 +127,7 @@
 		<div id="info">
 			<h2>Login</h2>
 			<div class="detailtext">
-				<form id="loginForm" action="" onsubmit="mySession.submitLogin(this);">
+				<form id="loginForm" action="" onsubmit="return(mySession.submitLogin(this));">
 					Email: <input name="name" type="text"></input><br/>
 					Password: <input name="password" type="password"></input><br/>
 					<button type="submit">Login</button>
@@ -141,7 +141,7 @@
 		<div id="info">
 			<h2>Sign up as a member!</h2>
 			<div class="detailtext">
-				<form id="signupForm" action="" onsubmit="mySession.submitSignup(this);">
+				<form id="signupForm" action="" onsubmit="return(mySession.submitSignup(this));">
 					Name: <input name="realName" type="text"</input><br/><br/>
 					Email: <input name="name" type="text"></input><br/>
 					Password: <input name="password" type="password"></input><br/>
@@ -160,7 +160,6 @@
 				{realName}<br/>
 				<h4>Email</h4>
 				{name}<br/>
-				{Owner of:}
 				<h4>Bands or Halls that I own:</h4>
 				<i>Request ownership by emailing the <a href="emailto:psparks@texasdancehall.org">admin</a>.</i><br/><br/>
 				<div class="box" id="popuplist" listing-template="entitiesOwned"></div>				

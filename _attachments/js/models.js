@@ -105,6 +105,12 @@ VU.MemberModel = VU.CookieModel.extend({
 		$.couch.login( {name: this.get("name"), password: this.get("password"), success: this.loginSuccess, error: this.loginError } );
 	},
 	
+	logout : function() {
+		this.set({id:""});
+		this.writeCookies();
+		$.couch.logout();
+	},
+	
 	signup : function() {
 		$.couch.signup( this.attributes, this.get("password"), {success: this.loginSuccess, error: this.loginError} );
 	},

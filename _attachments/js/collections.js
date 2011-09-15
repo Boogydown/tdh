@@ -103,8 +103,10 @@ VU.EventCollection = VU.FilteredCollection.extend({
 			this.query = "?startkey=[\"event\"," + new Date().getTime() + "]&endkey=[\"event\",[]]";
 			this.fetch( {success:this._setAfterFetch} );
 			this.query = oldQ;
-		} else
+		} else if ( this.length == 0 )
 			this.bind( "refresh", this._setAfterFetch );
+		else
+			this._setAfterFetch();
 	},
 	
 	_setAfterFetch : function(  ){

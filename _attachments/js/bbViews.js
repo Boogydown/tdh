@@ -317,7 +317,7 @@ VU.CalView = Backbone.View.extend({
 
 VU.TagCloudView = VU.DustView.extend({
 	initialize : function() {
-		_.bindAll( this, "render" );
+		_.bindAll( this, "render","renderTagCloud" );
 		this.registerTemplate( "tagListTemplate" );
 		this.collection.bind( "change", this.render );
 		this.collection.bind( "add", this.render );
@@ -335,6 +335,14 @@ VU.TagCloudView = VU.DustView.extend({
 	},
 	
 	render : function( options ) {
+		if ( !this.collection.fetched )
+			this.collection.bind("refresh", this.renderTagCloud);
+		else
+			this.renderTagCloud(options);
+	},
+	
+	renderTagCloud : function( options ) {
+		this.collection.unbind("refresh", this.renderTagCloud);
 		VU.DustView.prototype.render.call(this);
 		$(this.el).tagcloud( options );
 	}

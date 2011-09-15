@@ -334,17 +334,17 @@ VU.TagCloudView = VU.DustView.extend({
 		return {tags:tags};
 	},
 	
-	render : function( options ) {
+	render : function( tagopts ) {
 		if ( !this.collection.fetched )
 			this.collection.bind("refresh", this.renderTagCloud);
 		else
-			this.renderTagCloud(options);
+			this.renderTagCloud(tagopts);
 	},
 	
-	renderTagCloud : function( options ) {
+	renderTagCloud : function( tagopts ) {
 		this.collection.unbind("refresh", this.renderTagCloud);
 		VU.DustView.prototype.render.call(this);
-		$(this.el).tagcloud( options );
+		$(this.el).tagcloud( tagopts );
 	}
 });
 VU.ParentView = Backbone.View.extend({

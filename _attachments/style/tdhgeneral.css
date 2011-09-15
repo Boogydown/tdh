@@ -320,6 +320,13 @@ div#hallsMap {
     border-radius: 10px;
 }
 
+div#bandsTag{
+	height: 370px;
+	width: 167px;
+	top: 16px;
+	left: 570px;
+}
+
 /****************************************************/
 
 div#listing-date{
@@ -464,6 +471,15 @@ div#popuplist{
 .detailtext {
     color: white;
 	height: 145px;
+	width: 337px;
+    font-family: Arial,sans-serif;
+    font-size: 14px;
+	overflow: auto;
+}
+
+.memberDetail {
+    color: white;
+	bottom: 20px;
 	width: 337px;
     font-family: Arial,sans-serif;
     font-size: 14px;

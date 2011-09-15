@@ -155,17 +155,23 @@
 	<script type="application/dust-template" id="popupTemplate_member">
 		<div id="info">
 			<h2>Login</h2>
-			<div class="detailtext">
-				<h4>Name</h4>
+			<div class="memberDetail">
+				<h3>Name</h3>
 				{realName}<br/>
-				<h4>Email</h4>
+				<h3>Email</h3>
 				{name}<br/>
-				<h4>Bands or Halls that I own:</h4>
+				<h3>Member Status:</h3>
+				{memberStatus}
+				<h3>Bands or Halls that I own:</h3>
 				<i>Request ownership by emailing the <a href="emailto:psparks@texasdancehall.org">admin</a>.</i><br/><br/>
 				<div class="box" id="popuplist" listing-template="entitiesOwned"></div>				
 			</div>
 		</div>
 		<div id="main-photo"><img src="images/genericSilhouette.jpg" /></div>
+	</script>
+	
+	<script type="application/dust-template" id="tagListTemplate">
+		{#tags}<li><a href="#////{.}">{.}</a></li>{/tags}
 	</script>
 	
 	<!-- TEMPLATES END -->
@@ -229,6 +235,7 @@
 			<div id="bandsDiv" class="info-area" style="display:none">
 				<div class="loadingGIF" id="bandsSpinner"></div>
 				<div class="box list" id="bandsList" listing-template="vyntorEntryTemplate"></div>
+				<div class="box tagCloud" id="bandsTags"><ul id="bandsTagsList"></ul></div>
 				<!--<div class="box" id="bandsCal"></div>-->
 			</div>
 			<div id="danceCardDiv" class="info-area" style="display:none">

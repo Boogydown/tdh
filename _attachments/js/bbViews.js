@@ -315,6 +315,30 @@ VU.CalView = Backbone.View.extend({
 	}
 });
 
+VU.TagCloudView = VU.DustView.extend({
+	initialize : function() {
+		_.bindAll( this, "render" );
+		this.registerTemplate( "tagListTemplate" );
+		this.collection.bind( "change", this.render );
+		this.collection.bind( "add", this.render );
+		this.collection.bind( "remove", this.render );
+		this.collection.bind( "refresh", this.render );
+	},
+	
+	getData : function() {
+		var colltags = this.collection.pluck( "stylesPlayed" ),
+			tags = [], i, j;
+		for ( i in colltags )
+			for ( j in colltags[i] )
+				tags.push( colltags[i][j] );
+		return {tags:tags};
+	},
+	
+	render : function() {
+		VU.DustView.prototype.render.call(this);
+		$(this.el).tagcloud( this.options );
+	}
+});
 VU.ParentView = Backbone.View.extend({
 	initialize : function() {
 		_.bindAll( this, "activate", "deactivate" );

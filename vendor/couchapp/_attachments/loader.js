@@ -23,6 +23,8 @@ couchapp_load([
   "js/lib/backbone.js",
   "js/lib/backbone-couchdb.js",
   "js/lib/dustjs/dist/dust-full-0.3.0.js",
+  "js/lib/jquery.tinysort.min.js",
+  "js/lib/jquery.tagcloud.min.js",
   "js/vu.js",
   "js/utils.js",
   "js/schemas.js",

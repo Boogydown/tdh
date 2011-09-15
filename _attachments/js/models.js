@@ -45,34 +45,41 @@ VU.CookieModel = Backbone.Model.extend({
 
 
 VU.MemberModel = VU.CookieModel.extend({
-	fetched: false,
-	dCardColl: null,
-	eventsMain: null,
-	cookieKeys: [ "id", "dCard" ],
+	url : "_users",
+	fetched : false,
+	dCardColl : null,
+	eventsMain : null,
+	cookieKeys : [ "id", "dCard" ],
 	defaults : {
 		realName: "J. Dancer",
 		name: "",
 		group: "",
 		lastLogin: new Date().getTime(),
 		password: "", //this is wiped out by the server when it returns an auth'd session
-		memberStats: {},
+		memberStatus: "unpaid",
 		dCard: [],
 		loggedIn: false
 	},
 	
 	initialize : function( attrs, options ) {
-		_.bindAll( this, "submitLogin", "submitSignup", "login", "signup", "loginSuccess", "loginError", "loadDCard", "syncDCard" );
+		_.bindAll( this, "submitLogin", "submitSignup", "userLoaded", "prepAnon", "login", "signup", "loginSuccess", "loginError", "loadDCard", "syncDCard" );
 		if ( options )
 			if ( options.dCard ) this.dCardColl = options.dCard;
 			if ( options.events ) this.eventsMain = options.events;
 		if ( this.readCookies() ) {
 			this.anonDCard = this.get("dCard");
 			if ( this.id )
-				this.fetch( {success: this.login, error: this.loginError } );
+				this.fetch( {success: this.userLoaded, error: this.prepAnon} );
 			else
 				// we're running anon....
-				this.loadDCard();
+				this.prepAnon();
 		}
+	},
+	
+	userLoaded : function () {
+		// TODO: ?  if ( this.anonDCard && this.anonDCard.length > 0 ) this.set( {dCard:this.anonDCard} );
+		// this shuold attempt to write to _users, which will return an error if not authed any more
+		this.save( {success: this.loginSuccess, error: this.prepAnon} );
 	},
 	
 	//TODO: put this in a friggin View where it belongs!!
@@ -80,7 +87,6 @@ VU.MemberModel = VU.CookieModel.extend({
 		if ( form ) this.set({ name: form.name.value, password: form.password.value });
 		this.login();
 		form.reset();
-		location.href="#///!";
 		return false;
 	},		
 	
@@ -92,7 +98,6 @@ VU.MemberModel = VU.CookieModel.extend({
 		});
 		this.signup();
 		form.reset();
-		location.href="#///!";
 		return false;
 	},		
 	
@@ -111,14 +116,23 @@ VU.MemberModel = VU.CookieModel.extend({
 		} );
 		
 		alert("Success!  you're logged in" );
-		if ( this.anonDCard.length != 0 )
-			this.set( {dCard: buDCard } )
+		if ( this.anonDCard.length > 0 )
+			this.set( {dCard: this.anonDCard } )
 		this.loadDCard();		
+		this.writeCookies();
+		location.href="#///!";
 	},
 	
 	loginError : function(e){
-		alert("Uh oh!! Error!\n" + e);
+		alert("Uh oh!! Unable to login.  Username and password incorrect?\n" + e);
+		this.prepAnon();
 	},
+	
+	// for anonymous sessions
+	prepAnon : function() {
+		this.loadDCard();
+		location.href="#///!";
+	},		
 	
 	loadDCard : function() {
 		if ( this.eventsMain && this.anonDCard.length > 0 )
@@ -132,6 +146,7 @@ VU.MemberModel = VU.CookieModel.extend({
 		//	...so that when we do get aroud to this, the dCard is updated
 		this.set( {dCard: this.dCardColl.pluck( "id" )} );
 		this.writeCookies();
+		this.save();
 	}
 });
 

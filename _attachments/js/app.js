@@ -196,6 +196,7 @@ $(function(){
 				switch ( popType ) {
 					case "login": 
 					case "signup": 
+					case "addEvent": 
 					case "member": 
 						docModel = window.mySession; 
 						break;

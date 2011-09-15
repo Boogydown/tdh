@@ -106,7 +106,7 @@ VU.MemberModel = VU.CookieModel.extend({
 	},
 	
 	logout : function() {
-		this.set({id:""});
+		this.set({id:"", loggedIn:false});
 		this.writeCookies();
 		$.couch.logout();
 	},

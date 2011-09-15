@@ -43,7 +43,7 @@ $(function(){
 				this.tagView = new VU.TagCloudView({
 					collection:this.colls.bands, 
 					el: "#bandsTagsList", 
-					tagOpts:{height:370, type:"list", sizemin:8}
+					tagOpts:{height:370, type:"sphere", sizemin:8}
 				});
 			},
 			

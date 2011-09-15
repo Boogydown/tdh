@@ -79,7 +79,7 @@ VU.MemberModel = VU.CookieModel.extend({
 	userLoaded : function () {
 		// TODO: ?  if ( this.anonDCard && this.anonDCard.length > 0 ) this.set( {dCard:this.anonDCard} );
 		// this shuold attempt to write to _users, which will return an error if not authed any more
-		this.save( {success: this.loginSuccess, error: this.prepAnon} );
+		this.save( {}, {success: this.loginSuccess, error: this.prepAnon} );
 	},
 	
 	//TODO: put this in a friggin View where it belongs!!

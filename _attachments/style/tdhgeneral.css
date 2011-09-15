@@ -320,11 +320,16 @@ div#hallsMap {
     border-radius: 10px;
 }
 
-div#bandsTag{
+div#bandsTags{
 	height: 370px;
 	width: 167px;
 	top: 16px;
 	left: 570px;
+}
+
+#bandsTagsList li a {
+    text-decoration: none;
+    color: #ccc;
 }
 
 /****************************************************/

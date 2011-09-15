@@ -40,13 +40,13 @@ $(function(){
 			initialize : function() {
 				VU.ParentView.prototype.initialize.call(this);
 				this.mainListView = new VU.ListView({collection:this.colls.bands, el: "#bandsList"});
-				this.tagView = new VU.TagCloudView( {collection:this.colls.bands, el: "#bandsTagList"});
+				this.tagView = new VU.TagCloudView( {collection:this.colls.bands, el: "#bandsTagsList"});
 			},
 			
 			activate : function ( filter ) {
 				VU.ParentView.prototype.activate.call(this);
 				this.mainListView.applyFilter( filter );
-				this.tagView.render();
+				this.tagView.render( {height:370, type:"list", sizemin:8});
 			}			
 		}),
 		

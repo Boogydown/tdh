@@ -46,6 +46,7 @@ $(function(){
 			activate : function ( filter ) {
 				VU.ParentView.prototype.activate.call(this);
 				this.mainListView.applyFilter( filter );
+				this.tagView.render();
 			}			
 		}),
 		

@@ -2,7 +2,63 @@ VU.InitColls = function () {
 /////////////////////////////////////////////////////////////////////////////}
 /// COLLECTIONS DECLARATION /////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////{
-VU.FilteredCollection = Backbone.Collection.extend({
+VU.Collection = Backbone.Collection.extend({
+	fetched : false,
+	
+	fetch : function(options) {
+		this.fetched = false;
+		options || (options = {});
+		var collection = this;
+		var success = options.success;
+		options.success = function(resp) {
+			collection[options.add ? 'add' : options.diff ? 'diff' : 'refresh'](collection.parse(resp), options);
+			collection.fetched = true;
+			if (success) success(collection, resp);
+		};
+		options.error = this.wrapError(options.error, collection, options);
+		(this.sync || Backbone.sync)('read', this, options);
+		return this;
+    },
+
+	// copy of the BackBone private wrapError
+	wrapError : function(onError, model, options) {
+	  return function(resp) {
+		if (onError) {
+		  onError(model, resp, options);
+		} else {
+		  model.trigger('error', model, resp, options);
+		}
+	  };
+	},	
+	
+    // Diff a model, or list of models to the set. Pass **silent** to avoid
+    // firing the `added` or 'removed' events for every different model.
+	// Diff means it will add or remove models without having to refresh
+	diff : function( models, options ) {
+		var model, i, l, newSet = [];
+		if (_.isArray(models)) {
+			// add new models...
+			for ( i = 0, l = models.length; i < l; i++) {
+				model = models[i];
+				newSet[model.cid + model.id] = model;
+				if ( ! this.getByCid( model ) )
+					this._add( model, options );
+			}
+			// remove those not in the new set...
+			this.each( function(model) {
+				if ( ! (model.cid + model.id) in newSet )
+					this._remove( model, options );
+			});
+			
+		} else {
+			if ( ! this.getByCid( models[i] ) )
+				this._add( models[i], options );
+		}
+		return this;
+    }	
+});
+
+VU.FilteredCollection = VU.Collection.extend({
 	// max num of models to pull each time
 	queryLimit: 20,
 	
@@ -30,6 +86,7 @@ VU.FilteredCollection = Backbone.Collection.extend({
 			this.lastFilterStr = newFilterStr;
 			this.bind( "refresh", this.modelAdded );
 			this.lastEmpty = true; 	// true until proven false
+			options.diff = true;
 			this.fetch( options );
 			return true;
 		}

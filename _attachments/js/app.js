@@ -161,6 +161,7 @@ $(function(){
 			
 			// create filter query
 			if ( dates ) {
+				// "start-date,end-date
 				dates = dates.split(",");				
 				filter.startkey.push(parseInt(dates[0]));
 				filter.endkey.push(dates.length == 1 ? [] : parseInt(dates[1]));
@@ -173,13 +174,13 @@ $(function(){
 				// "top-lat,left-long,bottom-lat,right-long"
 				coords = coords.split(",");
 				filter.startkey.push(parseFloat(coords[0]));
-				filter.endkey.push(parseFloat(coords[1]));
-				filter.startkey.push(parseFloat(coords[2]));
+				filter.startkey.push(parseFloat(coords[1]));
+				filter.endkey.push(parseFloat(coords[2]));
 				filter.endkey.push(parseFloat(coords[3]));
 			} else {
 				filter.startkey.push(0);
-				filter.endkey.push([]);
 				filter.startkey.push(0);
+				filter.endkey.push([]);
 				filter.endkey.push([]);
 			};
 			

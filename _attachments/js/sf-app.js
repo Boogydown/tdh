@@ -465,6 +465,10 @@ $(function(){
 				halls : new VU.HallCollection()
 			};
 			this.colls.events = new VU.EventCollection( null, { colls:this.colls, schema:VU.schemas.events.listing });
+			this.colls.events.viewName = "crossFilter";
+			this.colls.events.query = 
+				"?startkey=" + JSON.stringify( ["event",new Date().getTime()] ) + 
+				"&endkey=" + JSON.stringify( ["event",[]] );
         },
 
 		updateShow : function( showType, collName, schemaName, docID, curPage, numPerPage, hidden ) {

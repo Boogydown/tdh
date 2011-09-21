@@ -90,6 +90,12 @@ VU.EventListingView = VU.ListingView.extend({
 
 // View for a collection of listings
 VU.ListView = Backbone.View.extend({
+	scrollLoadThreshold : 100,
+	
+	events : { 
+		"scroll" : "scrollUpdate" 
+	},
+	
 	initialize : function( options ){
 		_.bindAll(this, 'render', 'applyFilter', 'addRow', "removeRow", "reset", "scrollUpdate");
 		this.listingClass = options.listingClass || VU.ListingView;
@@ -150,7 +156,8 @@ VU.ListView = Backbone.View.extend({
 	
 	scrollUpdate : function () {
 		//TODO: interpret scroll
-		this.collection.loadMore();
+		if ( this.el.scrollTop >= (this.el.scrollHeight - this.el.clientHeight - this.scrollLoadThreshold ) )
+			this.collection.loadMore();
 	}
 });
 

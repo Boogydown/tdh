@@ -90,10 +90,10 @@ VU.EventListingView = VU.ListingView.extend({
 
 // View for a collection of listings
 VU.ListView = Backbone.View.extend({
-	listingViews : [],
 	initialize : function( options ){
 		_.bindAll(this, 'render', 'applyFilter', 'addRow', "removeRow", "reset", "scrollUpdate");
 		this.listingClass = options.listingClass || VU.ListingView;
+		this.listingViews = [];
 		this.collection.bind("refresh", this.reset);
 		this.collection.bind("add", this.addRow);
 		this.collection.bind("remove", this.removeRow);

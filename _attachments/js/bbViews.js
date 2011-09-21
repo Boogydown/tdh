@@ -130,7 +130,7 @@ VU.ListView = Backbone.View.extend({
 			this.listingViews[model.cid+model.id] = lc = new this.listingClass( {model: model, template: template} );
 			lc = lc.render().el;
 			if ( this.el.childNodes.length > 0 )
-				this.el.childNodes[ model.index ].insertBefore( lc );
+				$(this.el.childNodes[ model.index ]).before( lc );
 			else 
 				this.el.appendChild( lc );
 			model.trigger("change", model);

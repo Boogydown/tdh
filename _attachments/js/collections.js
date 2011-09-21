@@ -97,8 +97,9 @@ VU.FilteredCollection = VU.Collection.extend({
 	// query used in fetch
 	query: "",
 	
-	initialize : function () {
+	initialize : function (models, options) {
 		_.bindAll( this, "applyFilter", "loadMore", "modelAdded", "parseFilter", "getFromServer" );
+		this.viewName = (options || {}).viewName;
 	},
 	
 	applyFilter : function ( newFilter, options ) {

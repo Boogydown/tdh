@@ -332,23 +332,14 @@ VU.CalView = Backbone.View.extend({
 	}
 });
 
-VU.TagCloudView = VU.DustView.extend({
+VU.TagCloudView = Backbone.View.extend({
 	initialize : function() {
 		_.bindAll( this, "render","renderTagCloud" );
-		this.registerTemplate( "tagListTemplate" );
+		this.tags = [];
 		this.collection.bind( "change", this.render );
 		this.collection.bind( "add", this.render );
 		this.collection.bind( "remove", this.render );
 		this.collection.bind( "refresh", this.render );
-	},
-	
-	getData : function() {
-		var colltags = this.collection.pluck( "stylesPlayed" ),
-			tags = [], i, j;
-		for ( i in colltags )
-			for ( j in colltags[i] )
-				tags.push( colltags[i][j] );
-		return {tags:tags};
 	},
 	
 	render : function( ) {
@@ -360,10 +351,21 @@ VU.TagCloudView = VU.DustView.extend({
 	
 	renderTagCloud : function( ) {
 		this.collection.unbind("refresh", this.renderTagCloud);
-		VU.DustView.prototype.render.call(this);
-		$(this.el).tagcloud( this.options.tagOpts );
+		// TODO: turn this into a map/reduce view off of the db:
+		var colltags = this.collection.pluck( "stylesPlayed" ),
+			i, j;
+		for ( i in colltags )
+			for ( j in colltags[i] ) {
+				tag =  colltags[i][j];
+				if ( tag in this.tags )
+					this.tags[tag].weight++;
+				else
+					this.tags[tag] = {text:tag, weight:1, url:"#////" + tag};
+			}
+		$(this.el).jQCloud( this.tags );
 	}
 });
+
 VU.ParentView = Backbone.View.extend({
 	initialize : function() {
 		_.bindAll( this, "activate", "deactivate" );

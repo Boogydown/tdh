@@ -365,7 +365,7 @@ VU.TagCloudView = Backbone.View.extend({
 			for ( j in colltags[i] ) {
 				tag =  colltags[i][j];
 				if ( tag in this.tagsHash )
-					this.tags[tagsHash[tag]].weight++;
+					this.tags[this.tagsHash[tag]].weight++;
 				else
 					this.tagsHash[tag] = this.tags.push( {text:tag, weight:1, url:"#////" + tag} ) - 1;
 			}

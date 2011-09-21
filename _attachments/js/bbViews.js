@@ -376,6 +376,7 @@ VU.TagCloudView = Backbone.View.extend({
 				else
 					this.tagsHash[tag] = this.tags.push( {text:tag, weight:1, url:"#////" + tag} ) - 1;
 			}
+		$(this.el).empty();
 		$(this.el).jQCloud( this.tags );
 	}
 });

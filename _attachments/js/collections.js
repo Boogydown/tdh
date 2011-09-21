@@ -111,6 +111,8 @@ VU.FilteredCollection = VU.Collection.extend({
 			this.query = "?limit=" + this.queryLimit + 
 						 "&" + newFilterStr;
 			this.lastFilterStr = newFilterStr;
+			this.bind( "add", this.modelAdded );
+			this.bind( "remove", this.modelAdded );
 			this.bind( "refresh", this.modelAdded );
 			this.lastEmpty = true; 	// true until proven false
 			options.diff = true;
@@ -135,6 +137,7 @@ VU.FilteredCollection = VU.Collection.extend({
 	
 	modelAdded : function () {
 		this.unbind( "add", this.modelAdded );
+		this.unbind( "remove", this.modelAdded );
 		this.unbind( "refresh", this.modelAdded );
 		// since refresh triggers regardless of whether something was added, we shuold check the coll length
 		this.lastEmpty = this.length == 0;

@@ -40,11 +40,7 @@ $(function(){
 			initialize : function() {
 				VU.ParentView.prototype.initialize.call(this);
 				this.mainListView = new VU.ListView({collection:this.colls.bands, el: "#bandsList"});
-				this.tagView = new VU.TagCloudView({
-					collection:this.colls.bands, 
-					el: "#bandsTagsList", 
-					tagOpts:{height:370, type:"sphere", sizemin:8}
-				});
+				this.tagView = new VU.TagCloudView({collection:this.colls.bands, el: "#bandsTags"});
 			},
 			
 			activate : function ( filter ) {

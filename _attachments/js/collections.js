@@ -40,13 +40,13 @@ VU.Collection = Backbone.Collection.extend({
 			// add new models...
 			for ( i = 0, l = models.length; i < l; i++) {
 				model = models[i];
-				newSet[model.cid + model.id] = model;
+				newSet[model.id] = model;
 				if ( ! this.getByCid( model ) )
 					this._add( model, options );
 			}
 			// remove those not in the new set...
 			this.each( function(model) {
-				if ( ! (model.cid + model.id) in newSet )
+				if ( ! (model.id) in newSet )
 					this._remove( model, options );
 			});
 			

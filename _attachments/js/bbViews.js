@@ -29,7 +29,7 @@ VU.DustView = Backbone.View.extend({
 VU.ListingView = VU.DustView.extend({
 	// If there's a change in our model, rerender it
 	initialize : function(){
-		_.bindAll(this, 'render', 'empty');
+		_.bindAll(this, 'render', 'finalize');
 		this.model.bind('change', this.render);
 		this.registerTemplate( this.options.template );
 	},

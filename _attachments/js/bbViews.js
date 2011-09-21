@@ -127,9 +127,9 @@ VU.ListView = Backbone.View.extend({
 		if ( !template ) 
 			console.log("listing-template attribute not given in " + this.el);
 		else {
-			this.listingViews[model.cid+model.id] = lc = new this.listingClass( {model: model, template: template} );
+			this.listingViews[model.id] = lc = new this.listingClass( {model: model, template: template} );
 			lc = lc.render().el;
-			if ( this.el.childNodes.length > 0 )
+			if ( this.el.childNodes.length > model.index )
 				$(this.el.childNodes[ model.index ]).before( lc );
 			else 
 				this.el.appendChild( lc );
@@ -138,13 +138,13 @@ VU.ListView = Backbone.View.extend({
 	},
 	
 	removeRow : function(model, options ){
-		var lv = this.listingViews[model.cid+model.id];
+		var lv = this.listingViews[model.id];
 		if ( lv ) {
 			if ( _.isFunction(lv.finalize()) )
 				lv.finalize();
 			else 
 				lv.remove();
-			delete this.listingViews[model.cid+model.id];
+			delete this.listingViews[model.id];
 		}
 	},
 	

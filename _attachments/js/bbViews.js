@@ -34,8 +34,9 @@ VU.ListingView = VU.DustView.extend({
 		this.registerTemplate( this.options.template );
 	},
 	
-	empty : function() {
+	finalize : function() {
 		this.model.unbind('change',this.render);
+		this.remove();
 	},
 	
 	render : function() {
@@ -95,6 +96,7 @@ VU.ListView = Backbone.View.extend({
 		this.listingClass = options.listingClass || VU.ListingView;
 		this.collection.bind("refresh", this.reset);
 		this.collection.bind("add", this.addRow);
+		this.collection.bind("remove", this.removeRow);
 		//TODO: attach scroll listener
 	},
 	
@@ -105,7 +107,7 @@ VU.ListView = Backbone.View.extend({
 
 	reset: function() {
 		for ( var subView in this.listingViews ){
-			if (_.isFunction(this.listingViews[subView].empty)) this.listingViews[subView].empty();
+			if (_.isFunction(this.listingViews[subView].finalize)) this.listingViews[subView].finalize();
 			delete this.listingViews[subView];
 		}
 		$(this.el).empty();
@@ -119,15 +121,30 @@ VU.ListView = Backbone.View.extend({
 			this.el.innerHTML= "<i>This list is empty</i>";
 	},
 	
-	// Appends an entry row 
+	// Adds a sorted row in its respective place in the DOM
 	addRow : function(model, options){
 		var lc, template = (this.el.getAttribute("listing-template") || "");
 		if ( !template ) 
 			console.log("listing-template attribute not given in " + this.el);
 		else {
-			this.listingViews.push (lc = new this.listingClass( {model: model, template: template} ));
-			this.el.appendChild( lc.render().el );
+			this.listingViews[model.cid+model.id] = lc = new this.listingClass( {model: model, template: template} );
+			lc = lc.render().el;
+			if ( this.el.childNodes.length > 0 )
+				this.el.childNodes[ model.index ].insertBefore( lc );
+			else 
+				this.el.appendChild( lc );
 			model.trigger("change", model);
+		}
+	},
+	
+	removeRow : function(model, options ){
+		var lv = this.listingViews[model.cid+model.id];
+		if ( lv ) {
+			if ( _.isFunction(lv.finalize()) )
+				lv.finalize();
+			else 
+				lv.remove();
+			delete this.listingViews[model.cid+model.id];
 		}
 	},
 	

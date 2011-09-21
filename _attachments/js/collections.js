@@ -55,7 +55,31 @@ VU.Collection = Backbone.Collection.extend({
 				this._add( models[i], options );
 		}
 		return this;
-    }	
+    },
+	
+    // Override of backbone._add
+	// Internal implementation of adding a single model to the set, updating
+    // hash indexes for `id` and `cid` lookups.
+    _add : function(model, options) {
+      options || (options = {});
+      if (!(model instanceof Backbone.Model)) {
+        model = new this.model(model, {collection: this});
+      }
+      var already = this.getByCid(model);
+      if (already) throw new Error(["Can't add the same model to a set twice", already.id]);
+      this._byId[model.id] = model;
+      this._byCid[model.cid] = model;
+      model.collection = this;
+      var index = this.comparator ? this.sortedIndex(model, this.comparator) : this.length;
+      this.models.splice(index, 0, model);
+	  // added this so that we can use it to find the model's place in the coll without having to search for it
+	  model.index = index;
+      model.bind('all', this._onModelEvent);
+      this.length++;
+      if (!options.silent) model.trigger('add', model, this, options);
+      return model;
+    },
+	
 });
 
 VU.FilteredCollection = VU.Collection.extend({

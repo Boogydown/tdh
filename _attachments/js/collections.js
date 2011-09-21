@@ -108,7 +108,8 @@ VU.FilteredCollection = VU.Collection.extend({
 		if ( newFilterStr != this.lastFilterStr ) {
 			
 			//reload
-			this.query = "?limit=" + this.queryLimit + 
+			this.query = options.query ||
+						 "?limit=" + this.queryLimit + 
 						 "&" + newFilterStr;
 			this.lastFilterStr = newFilterStr;
 			this.bind( "add", this.modelAdded );
@@ -123,16 +124,14 @@ VU.FilteredCollection = VU.Collection.extend({
 	},
 	
 	loadMore : function() {
-		if ( ! this.lastEmpty ){
-			//load next page (add-only fetch)
-			this.query = "?limit=" + this.queryLimit + 
+		if ( ! this.lastEmpty )
+			this.applyFilter( this.lastFilterStr, { 
+
+				//load next page (add-only fetch)
+				query : "?limit=" + this.queryLimit + 
 						 "&startkey_docid=" + this.last.id + 
-						 "&" + this.lastFilterStr;
-			this.bind( "add", this.modelAdded );
-			this.lastEmpty = true; 	// true until proven false
-			options.add = true;
-			this.fetch( options );				
-		}
+						 "&" + this.lastFilterStr
+			});
 	},
 	
 	modelAdded : function () {
@@ -145,7 +144,9 @@ VU.FilteredCollection = VU.Collection.extend({
 	
 	parseFilter : function ( filterObj ) {
 		var filterStr = "";
-		// add type to the beginning
+		if ( _.isString(filterObj)) return filterObj;
+		
+		// add type to the beginning		
 		filterObj.startkey.unshift( this.url );
 		filterObj.endkey.unshift( this.url );
 		filterStr = JSON.stringify( filterObj ).replace(',"endkey":','&endkey=').replace('{"startkey":','startkey=');

@@ -127,7 +127,7 @@ VU.FilteredCollection = VU.Collection.extend({
 			//load next page (add-only fetch)
 			this.query = "?limit=" + this.queryLimit + 
 						 "&startkey_docid=" + this.last.id + 
-						 "&" + newFilterStr;
+						 "&" + this.lastFilterStr;
 			this.bind( "add", this.modelAdded );
 			this.lastEmpty = true; 	// true until proven false
 			options.add = true;

@@ -344,7 +344,6 @@ VU.TagCloudView = Backbone.View.extend({
 		_.bindAll( this, "render", "renderTagCloud", "addTags", "removeTags" );
 		this.tags = [];
 		this.tagsHash = [];
-		this.collection.bind( "change", this.render );
 		this.collection.bind( "refresh", this.render );
 		this.collection.bind( "add", this.render );
 		this.collection.bind( "remove", this.render );
@@ -366,6 +365,8 @@ VU.TagCloudView = Backbone.View.extend({
 	renderTagCloud : function( ) {
 		this.collection.unbind("refresh", this.renderTagCloud);
 		// TODO: turn this into a map/reduce view off of the db:
+		this.tags = [];
+		this.tagsHash = [];
 		var colltags = this.collection.pluck( "stylesPlayed" ),
 			i, j;
 		for ( i in colltags )

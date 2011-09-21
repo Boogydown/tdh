@@ -36,18 +36,19 @@ VU.Collection = Backbone.Collection.extend({
 	// Diff means it will add or remove models without having to refresh
 	diff : function( models, options ) {
 		var model, i, l, newSet = [];
-		if (_.isArray(models)) {
+		if (_.isArray(models) || !models ) {
 			// add new models...
-			for ( i = 0, l = models.length; i < l; i++) {
-				model = models[i];
-				newSet[model.id] = model;
-				if ( ! this.get( model.id ) )
-					this._add( model, options );
-			}
+			if ( models )
+				for ( i = 0, l = models.length; i < l; i++) {
+					model = models[i];
+					newSet[model.id] = model;
+					if ( ! this.get( model.id ) )
+						this._add( model, options );
+				}
 			// remove those not in the new set...
 			var collection = this;
 			collection.each( function(model) {
-				if ( ! (model.id) in newSet )
+				if ( ! (model.id in newSet ))
 					collection._remove( model, options );
 			});
 			

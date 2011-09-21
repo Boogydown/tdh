@@ -105,7 +105,7 @@ VU.FilteredCollection = VU.Collection.extend({
 	applyFilter : function ( newFilter, options ) {
 		options = options || {};
 		var newFilterStr = this.parseFilter( newFilter );
-		if ( newFilterStr != this.lastFilterStr ) {
+		if ( newFilterStr != this.lastFilterStr || options.forceUpdate ) {
 			
 			//reload
 			this.query = options.query ||
@@ -130,7 +130,8 @@ VU.FilteredCollection = VU.Collection.extend({
 				//load next page (add-only fetch)
 				query : "?limit=" + this.queryLimit + 
 						 "&startkey_docid=" + this.last.id + 
-						 "&" + this.lastFilterStr
+						 "&" + this.lastFilterStr,
+				forceUpdate : true
 			});
 	},
 	

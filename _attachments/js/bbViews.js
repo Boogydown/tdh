@@ -334,12 +334,13 @@ VU.CalView = Backbone.View.extend({
 
 VU.TagCloudView = Backbone.View.extend({
 	initialize : function() {
-		_.bindAll( this, "render","renderTagCloud" );
+		_.bindAll( this, "render", "renderTagCloud", "addTags", "removeTags" );
 		this.tags = [];
+		this.tagsHash = [];
 		this.collection.bind( "change", this.render );
+		this.collection.bind( "refresh", this.render );
 		this.collection.bind( "add", this.render );
 		this.collection.bind( "remove", this.render );
-		this.collection.bind( "refresh", this.render );
 	},
 	
 	render : function( ) {
@@ -347,6 +348,12 @@ VU.TagCloudView = Backbone.View.extend({
 			this.collection.bind("refresh", this.renderTagCloud);
 		else
 			this.renderTagCloud();
+	},
+	
+	addTags : function( model ){
+	},
+	
+	removeTags : function( model ){
 	},
 	
 	renderTagCloud : function( ) {
@@ -357,10 +364,10 @@ VU.TagCloudView = Backbone.View.extend({
 		for ( i in colltags )
 			for ( j in colltags[i] ) {
 				tag =  colltags[i][j];
-				if ( tag in this.tags )
-					this.tags[tag].weight++;
+				if ( tag in this.tagsHash )
+					this.tags[tagsHash[tag]].weight++;
 				else
-					this.tags[tag] = {text:tag, weight:1, url:"#////" + tag};
+					this.tagsHash[tag] = this.tags.push( {text:tag, weight:1, url:"#////" + tag} ) - 1;
 			}
 		$(this.el).jQCloud( this.tags );
 	}

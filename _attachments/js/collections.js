@@ -129,7 +129,7 @@ VU.FilteredCollection = VU.Collection.extend({
 
 				//load next page (add-only fetch)
 				query : "?limit=" + this.queryLimit + 
-						 "&startkey_docid=" + this.last.id + 
+						 "&startkey_docid=" + this.last().id + 
 						 "&" + this.lastFilterStr,
 				forceUpdate : true
 			});

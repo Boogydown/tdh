@@ -94,16 +94,27 @@ VU.Collection = Backbone.Collection.extend({
  */
 VU.LocalFilteredCollection = VU.Collection.extend({
 	initialize : function( models, options ) {
+		_.bindAll( this, "refreshed" );
 		this.masterCollection = options.collection;
+		this.masterCollection.bind( "refresh", this.refreshed );
+		
 		// need a full master coll if we're going to pull off of it
 		if ( !this.masterCollection.fetched ) 
 			this.masterCollection.fetch();
 	},
 	
+	refreshed : function( ) {
+		if ( this.curFilters )
+			this.applyFilters( this.curFilters, this.curLimit );
+	},
+	
 	//filterObj: [{key:, start:, end:}]
 	applyFilters : function( filters, limit ) {
-		this.diff( this.masterCollection.getFiltered( filters, limit ) );
-		// TODO: add "complete" callback
+		this.curFilters = filters;
+		this.curLimit = limit;
+		if ( this.masterCollection.fetched )
+			this.diff( this.masterCollection.getFiltered( filters, limit ) );
+			// TODO: add "complete" callback
 	},
 	
 	nextPage : function( limit ) {

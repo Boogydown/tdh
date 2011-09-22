@@ -118,8 +118,10 @@ VU.LocalFilteredCollection = VU.Collection.extend({
 	},
 	
 	nextPage : function( limit ) {
-		this.add( this.masterCollection.nextPage( limit ) );
-		// TODO: add "complete" callback
+		var models = this.masterCollection.nextPage( limit );
+		if ( models ) 
+			this.add( models );
+			// TODO: add "complete" callback
 	}
 });
 

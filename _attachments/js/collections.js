@@ -16,8 +16,8 @@ VU.Collection = Backbone.Collection.extend({
 		var collection = this;
 		var success = options.success;
 		options.success = function(resp) {
-			collection[options.add ? 'add' : options.diff ? 'diff' : 'refresh'](collection.parse(resp), options);
 			collection.fetched = true;
+			collection[options.add ? 'add' : options.diff ? 'diff' : 'refresh'](collection.parse(resp), options);
 			if (success) success(collection, resp);
 		};
 		options.error = this.wrapError(options.error, collection, options);

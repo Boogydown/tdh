@@ -360,8 +360,8 @@ VU.DCardCollection = VU.EventCollection.extend({
 
 VU.BandCollection = VU.KeyedCollection.extend({
 	url : "band",
-	//viewName : "crossFilter",
-	//query : '?startkey=["band"]&endkey=["band"]',
+	viewName : "crossFilter",
+	query : '?startkey=["band"]&endkey=["band"]',
 	model : VU.BandModel,
 	comparator : function(band){
 		return band.get("bandName");

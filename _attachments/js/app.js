@@ -23,14 +23,14 @@ $(function(){
 				VU.ParentView.prototype.initialize.call(this);
 				
 				// create our main list and map views and attach the collection to them
-				this.mainListView = new VU.ListView({collection:this.colls.events, listingClass:VU.EventListingView, el:"#dancesList"});
-				this.mainMapView = new VU.MapView({collection:this.colls.halls, el: "#dancesMap"});
+				this.listView = new VU.ListView({collection:this.colls.events, listingClass:VU.EventListingView, el:"#dancesList"});
+				this.mapView = new VU.MapView({collection:this.colls.halls, el: "#dancesMap"});
 				this.calView = new VU.CalView( {el: "#dancesCal"});
 			},
 			
-			activate : function ( filter ) {
+			activate : function ( filters ) {
 				VU.ParentView.prototype.activate.call(this);
-				this.mainListView.applyFilter( filter );
+				this.listView.applyFilter( filters );
 			}
 		}),
 
@@ -39,13 +39,19 @@ $(function(){
 			tabEl : $("#bandsTabBtn"),
 			initialize : function() {
 				VU.ParentView.prototype.initialize.call(this);
-				this.mainListView = new VU.ListView({collection:this.colls.bands, el: "#bandsList"});
+				//this.mainListView = new VU.ListView({collection:this.colls.bands, el: "#bandsList"});
+				this.listView = new VU.FilteredListView({
+					el: "#bandsList",
+					emptyMsg: "<i>No bands meet your search criteria!</i>",
+					pageLimit: 15,
+					collection:new VU.LocalFilteredCollection( null, { collection: this.colls.bands })
+				});
 				this.tagView = new VU.TagCloudView({collection:this.colls.bands, el: "#bandsTags"});
 			},
 			
-			activate : function ( filter ) {
+			activate : function ( filters ) {
 				VU.ParentView.prototype.activate.call(this);
-				this.mainListView.applyFilter( filter );
+				this.listView.applyFilters( filters );
 				this.tagView.render();
 			}			
 		}),
@@ -109,7 +115,8 @@ $(function(){
 			tab : "Dances",
 			dates : new Date().getTime().toString(),
 			coords : "",
-			popID : ""
+			popID : "",
+			style : ""
 		},
 		
 		instanciatedViews : {},
@@ -120,15 +127,13 @@ $(function(){
 			VU.PersistentRouter.prototype.initialize.call(this);
 			_.bindAll( this, "routeHandler" );
 			
-			this.colls = {
+			// create all master collections (these hold all models are filtered locally)
+			var colls = this.colls = {
 				bands : new VU.BandCollection(),
 				halls : new VU.HallCollection()
 			};
-			this.colls.events = new VU.EventCollection( null, {
-				schema: VU.schemas.events.listing, 
-				colls: this.colls
-			});
-			this.colls.dCard = new VU.DCardCollection( null, { events:this.colls.events } );
+			colls.events = new VU.EventCollection( null, { schema: VU.schemas.events.listing, colls: colls } ); 
+			colls.dCard = new VU.DCardCollection( null, { events: colls.events } );
 
 			// init misc UI pieces
 			this.popupView = new VU.PopupView();
@@ -143,10 +148,10 @@ $(function(){
 			var floatNav = new FloatNavView();
 		},
 		
-		routeHandler : function( tab, dates, coords, popID ) {
+		routeHandler : function( tab, dates, coords, popID, style ) {
 			var viewClass = ParentViews[ tab + "View" ] || ParentViews[ (tab = this.routeParams.tab) + "View" ],
 				myView = this.instanciatedViews[ tab ] || new viewClass( {colls:this.colls} ),
-				filter = { startkey:[], endkey:[] };
+				filters = [];
 			if ( this.currentView && this.currentView != myView )
 				this.currentView.deactivate();
 			
@@ -155,32 +160,42 @@ $(function(){
 			//TODO: put this into mySession
 			window.TDHP_tab = tab;
 			
-			// create filter query
+			// create filters from route
 			if ( dates ) {
 				// "start-date,end-date
 				dates = dates.split(",");				
-				filter.startkey.push(parseInt(dates[0]));
-				filter.endkey.push(dates.length == 1 ? [] : parseInt(dates[1]));
-			} else {
-				filter.startkey.push(0);
-				filter.endkey.push([]);
-			};
+				filters.push({
+					key: "date", 
+					start: parseInt(dates[0]), 
+					end: dates.length == 1 ? "zzz" : parseInt(dates[1])
+				});
+			}
 			
+			//TODO: will have to split up model.gpscoord to .lat and .long
 			if ( coords ) {
 				// "top-lat,left-long,bottom-lat,right-long"
 				coords = coords.split(",");
-				filter.startkey.push(parseFloat(coords[0]));
-				filter.startkey.push(parseFloat(coords[1]));
-				filter.endkey.push(parseFloat(coords[2]));
-				filter.endkey.push(parseFloat(coords[3]));
-			} else {
-				filter.startkey.push(0);
-				filter.startkey.push(0);
-				filter.endkey.push([]);
-				filter.endkey.push([]);
+				filters.push({
+					key: "lat",
+					start: parseFloat(coords[0]),
+					end: parseFloat(coords[2])
+				});
+				filters.push({
+					key: "long",
+					start: parseFloat(coords[1]),
+					end: parseFloat(coords[3])
+				});
 			};
 			
-			myView.activate( filter );
+			if ( style ) {
+				filters.push({
+					key: "stylesPlayed",
+					start: style,
+					end: style
+				});
+			}
+			
+			myView.activate( filters );
 			
 			this.instanciatedViews[ tab ] = this.currentView = myView;
 			

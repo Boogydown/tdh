@@ -88,6 +88,79 @@ VU.EventListingView = VU.ListingView.extend({
 	}		
 });
 
+
+VU.FilteredListView = Backbone.View.extend({
+	scrollLoadThreshold : 100,
+	
+	events : { 
+		"scroll" : "scrollUpdate" 
+	},
+	
+	initialize : function( options ) {
+		_.bindAll(this, 'addRow', "removeRow", "scrollUpdate");
+		this.emptyMsg = options.emptyMsg || "<i>This list is empty</i>";
+		this.listingClass = options.listingClass || VU.ListingView;
+		this.pageLimit = options.limit || 20;
+		this.listingViews = [];
+		this.collection.bind("add", this.addRow);
+		this.collection.bind("remove", this.removeRow);
+	},
+	
+	// This will apply filters to the coll and trigger add/remove events, 
+	//	respectively, which will then trigger our add/remove rows
+	applyFilters : function( filters, limit ) {
+		if ( this.collection.length == 0 )
+			//TODO: add waitingUI
+			this.el.innerHTML = "";
+		
+		this.collection.applyFilters( filters, limit || this.pageLimit );
+		
+		if ( this.collection.length == 0 )
+			this.el.innerHTML = this.emptyMsg;		
+	},
+
+	finalize : function() {
+		for ( var subView in this.listingViews ){
+			if (_.isFunction(this.listingViews[subView].finalize)) this.listingViews[subView].finalize();
+			delete this.listingViews[subView];
+		}
+		$(this.el).empty();
+	},	
+	
+	// Adds a sorted row in its respective place in the DOM
+	addRow : function(model, options){
+		var lc, template = (this.el.getAttribute("listing-template") || "");
+		if ( !template ) 
+			console.log("listing-template attribute not given in " + this.el);
+		else {
+			this.listingViews[model.id] = lc = new this.listingClass( {model: model, template: template} );
+			lc = lc.render().el;
+			if ( this.el.childNodes.length > model.index )
+				$(this.el.childNodes[ model.index ]).before( lc );
+			else 
+				this.el.appendChild( lc );
+			//model.trigger("change", model);
+		}
+	},
+	
+	removeRow : function(model, options ){
+		var lv = this.listingViews[model.id];
+		if ( lv ) {
+			if ( _.isFunction(lv.finalize()) )
+				lv.finalize();
+			else 
+				lv.remove();
+			delete this.listingViews[model.id];
+		}
+	},
+	
+	scrollUpdate : function () {
+		//TODO: interpret scroll
+		if ( this.el.scrollTop >= (this.el.scrollHeight - this.el.clientHeight - this.scrollLoadThreshold ) )
+			this.collection.nextPage( this.pageLimit );
+	}
+});
+
 // View for a collection of listings
 VU.ListView = Backbone.View.extend({
 	scrollLoadThreshold : 100,

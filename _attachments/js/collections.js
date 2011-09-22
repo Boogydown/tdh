@@ -2,6 +2,11 @@ VU.InitColls = function () {
 /////////////////////////////////////////////////////////////////////////////}
 /// COLLECTIONS DECLARATION /////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////{
+/* Backbone.Collection extension that adds:
+ * 	fetched flag to signal whether it was recently fetched
+ *	diff as an option to fetch, which will add or remove models without refreshing
+ *  index to model, which is the index at which it was placed when added
+ */
 VU.Collection = Backbone.Collection.extend({
 	fetched : false,
 	
@@ -80,8 +85,125 @@ VU.Collection = Backbone.Collection.extend({
       this.length++;
       if (!options.silent) model.trigger('add', model, this, options);
       return model;
-    },
+    }
 	
+});
+
+/* A locally-filtered collection
+ * MUST instanciate with {masterCollection: myKeyedCollection} passed in options
+ */
+VU.LocalFilteredCollection = VU.Collection.extend({
+	initialize : function( models, options ) {
+		this.masterCollection = options.collection;
+		// need a full master coll if we're going to pull off of it
+		if ( !this.masterCollection.fetched ) 
+			this.masterCollection.fetch();
+	},
+	
+	//filterObj: [{key:, start:, end:}]
+	applyFilters : function( filters, limit ) {
+		this.diff( this.masterCollection.query( filters, limit ) );
+		// TODO: add "complete" callback
+	}
+	
+});
+
+VU.KeyedCollection = VU.Collection.extend({
+	initialize : function(models, options) {
+		this.keys = [];
+		this.filterableKeys = (this.filterableKeys = [] );
+		_.bindAll( this, "reloadKeys", "removeKeys", "addKeys" );
+		this.bind( "refresh", this.reloadKeys );
+		this.bind( "remove", this.removeKeys );
+		this.bind( "add", this.addKeys );
+	},
+	
+	finalize : function() {
+		this.unbind( "refresh", this.reloadKeys );
+		this.unbind( "remove", this.removeKeys );
+		this.unbind( "add", this.addKeys );
+	},
+	
+	reloadKeys : function() {
+		this.keys = [];
+		this.each( this.addKeys );
+	},
+	
+	addKeys : function( model ) {
+		//TODO: add these keys in sorted order; use to speed up removekeys and query
+		var key, value, i, vl;
+		for ( key in this.filterableKeys ) {
+			value = model.get(key);
+			if ( value ) {
+				// in case an attribute is actually an array of values....
+				values = _.isArray( value ) ? value : [value];
+				for ( i = 0, vl = values.length; i < vl; ) {
+					value = values[i];
+					if ( key in this.keys ) {
+						if ( value in this.keys[key] )
+							this.keys[key][value].push(model);
+						else
+							this.keys[key][value] = [model];
+					}
+					else {
+						this.keys[key] = [];
+						this.keys[key][value] = [model];
+					}
+				}
+			}
+		}
+	},
+	
+	removeKeys : function( model ) {
+		var key, value;
+		for ( key in this.filterableKeys ) {
+			value = model.get(key);
+			if ( value ) {
+				// we can assume that it must be in here, if not then just ignore
+				valModels = this.keys[key][value];
+				if ( valModels && valModels.length > 1 )
+					valModels && valModels.splice( valModels.indexOf(model), 1 );
+				else{
+					//cleanup
+					delete this.keys[key][value];
+					if (this.keys[key].length == 0)
+						delete this.keys[key];
+				}
+			}
+		}
+	},
+	
+	//filterObj: [{key, start, end}]
+	query : function ( filters, limit ) {
+		this.lastLimit = limit || this.length;
+		var i = 0, fl, filter, curVals, finalModels;
+		if ( filters )
+			for( fl = filters.length; i < fl; ) {
+				filter = filters[i++];
+				curVals = this.keys[filter.key];
+				if ( curVals ){
+					for ( value in curVals )
+						if ( (value >= filter.start && value <= filter.end) ){
+							if ( finalModels )
+								finalModels = _.intersection( finalModels, curVals[value] );
+							else
+								finalModels = _.clone( curVals[value] );
+						}
+				}
+			}
+		if ( finalModels ) {
+			this.allFilteredModels = finalModels;
+			return limit ? _.first(finalModels, limit) : finalModels;
+		}
+		//else
+		this.allFilteredModels = this.models;
+		return limit ? _.first(this.models, limit) : this.models;
+	},
+	
+	nextPage : function ( limit ) {
+		if ( this.lastLimit && this.lastLimit < this.allFilteredModels.length )
+			return this.allFilteredModels.slice( this.lastLimit, this.lastLimit += (limit || this.lastLimit) )
+	}
 });
 
 VU.FilteredCollection = VU.Collection.extend({
@@ -232,7 +354,7 @@ VU.DCardCollection = VU.EventCollection.extend({
 	}
 });
 
-VU.BandCollection = VU.FilteredCollection.extend({
+VU.BandCollection = VU.KeyedCollection.extend({
 	url : "band",
 	model : VU.BandModel,
 	comparator : function(band){

@@ -115,7 +115,7 @@ VU.LocalFilteredCollection = VU.Collection.extend({
 VU.KeyedCollection = VU.Collection.extend({
 	initialize : function(models, options) {
 		this.keys = [];
-		this.filterableKeys = (this.filterableKeys = [] );
+		this.filterableKeys || (this.filterableKeys = []);
 		_.bindAll( this, "reloadKeys", "removeKeys", "addKeys" );
 		this.bind( "refresh", this.reloadKeys );
 		this.bind( "remove", this.removeKeys );

@@ -143,7 +143,7 @@ VU.KeyedCollection = VU.Collection.extend({
 				// in case an attribute is actually an array of values....
 				values = _.isArray( value ) ? value : [value];
 				for ( i = 0, vl = values.length; i < vl; ) {
-					value = values[i];
+					value = values[i++];
 					if ( key in this.keys ) {
 						if ( value in this.keys[key] )
 							this.keys[key][value].push(model);
@@ -162,7 +162,7 @@ VU.KeyedCollection = VU.Collection.extend({
 	removeKeys : function( model ) {
 		var key, value;
 		for ( key in this.filterableKeys ) {
-			value = model.get(key);
+			value = model.get(this.filterableKeys[key]);
 			if ( value ) {
 				// we can assume that it must be in here, if not then just ignore
 				valModels = this.keys[key][value];

@@ -363,6 +363,7 @@ VU.BandCollection = VU.KeyedCollection.extend({
 	viewName : "crossFilter",
 	query : '?startkey=["band",null,null,null]&endkey=["band",[],[],[]]',
 	model : VU.BandModel,
+	filterableKeys: ["stylesPlayed", "bandName"],
 	comparator : function(band){
 		return band.get("bandName");
 	}

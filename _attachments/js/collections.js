@@ -135,9 +135,10 @@ VU.KeyedCollection = VU.Collection.extend({
 	
 	addKeys : function( model ) {
 		//TODO: add these keys in sorted order; use to speed up removekeys and query
+		//TODO: BETTER YET, have this come in diretly from couch, instead of building it by hand
 		var key, value, i, vl;
 		for ( key in this.filterableKeys ) {
-			value = model.get(key);
+			value = model.get(this.filterableKeys[key]);
 			if ( value ) {
 				// in case an attribute is actually an array of values....
 				values = _.isArray( value ) ? value : [value];

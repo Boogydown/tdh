@@ -102,10 +102,14 @@ VU.LocalFilteredCollection = VU.Collection.extend({
 	
 	//filterObj: [{key:, start:, end:}]
 	applyFilters : function( filters, limit ) {
-		this.diff( this.masterCollection.query( filters, limit ) );
+		this.diff( this.masterCollection.getFiltered( filters, limit ) );
+		// TODO: add "complete" callback
+	},
+	
+	nextPage : function( limit ) {
+		this.add( this.masterCollection.nextPage( limit ) );
 		// TODO: add "complete" callback
 	}
-	
 });
 
 VU.KeyedCollection = VU.Collection.extend({
@@ -174,7 +178,7 @@ VU.KeyedCollection = VU.Collection.extend({
 	},
 	
 	//filterObj: [{key, start, end}]
-	query : function ( filters, limit ) {
+	getFiltered: function ( filters, limit ) {
 		this.lastLimit = limit || this.length;
 		var i = 0, fl, filter, curVals, finalModels;
 		if ( filters )
@@ -356,6 +360,8 @@ VU.DCardCollection = VU.EventCollection.extend({
 
 VU.BandCollection = VU.KeyedCollection.extend({
 	url : "band",
+	//viewName : "crossFilter",
+	//query : '?startkey=["band"]&endkey=["band"]',
 	model : VU.BandModel,
 	comparator : function(band){
 		return band.get("bandName");

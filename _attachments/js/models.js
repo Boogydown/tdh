@@ -451,12 +451,12 @@ VU.EventModel = VU.LinkingModel.extend({
 		onDCard: false // for local use, only
 	},
 	
-	initialize: function () {
+	initialize: function ( attrs, options ) {
 		_.bindAll( this, "normalizeData" );
 		this.bind( "change:date", this.normalizeData );
 		this.bind( "change:gpsCoordinates", this.normalizeData );
 		// date comes in at init, silently, so we'll normalize it now
-		VU.LinkingModel.prototype.initialize.call(this);
+		VU.LinkingModel.prototype.initialize.call(this, attrs, options);
 		this.normalizeData(); 
 	},
 	

@@ -90,13 +90,14 @@ $(function(){
 				VU.ParentView.prototype.initialize.call(this);
 
 				// create our main list and map views and attach the collection to them
-				//this.mainListView = new VU.FilteredListView({collection:this.colls.dCard, listingClass:VU.EventListingView, el:"#dCardList"});
+				this.listView = new VU.FilteredListView({
+					el:"#dCardList",
+					emptyMsg: "<i>No dances on your card yet!<br/>Go to the Dances tab and add some!</i>",
+					listingClass:VU.EventListingView,
+					collection: this.colls.dCard 
+				});
 				//this.mainMapView = new VU.MapView({collection:this.colls.halls, mapNode: "hallsMap"});
 				
-				// every change to this coll means a complete redraw cuz it could add in any order, or delete
-				//this.mainListView.collection.unbind( "add", this.mainListView.addRow );
-				//this.mainListView.collection.bind( "add", this.mainListView.reset );
-				//this.mainListView.collection.bind( "remove", this.mainListView.reset );
 			}
 		})
 	};
@@ -144,7 +145,11 @@ $(function(){
 				halls : new VU.HallCollection()
 			};
 			colls.events = new VU.EventCollection( null, { schema: VU.schemas.events.listing, colls: colls } ); 
-			colls.dCard = new VU.DCardCollection( null, { events: colls.events } );
+			colls.dCard = new VU.LocalFilteredCollection( null, { collection: colls.events } );
+			
+			// kick off event loading; residual listener for following onDCard changes
+			// TODO: put this in either events tab or dCard tab init
+			colls.dCard.applyFilters( [{key:"onDCard", start:"true", end:"true"}] );
 
 			// init misc UI pieces
 			this.popupView = new VU.PopupView();

@@ -2,9 +2,8 @@ VU.InitModels = function () {
 /////////////////////////////////////////////////////////////////////////////
 /// MODEL DECLARATION ///////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////{
-/* A Model that persists any keys stored in this.cookieKeys to the document cookies
- *
- */
+
+//A Model that persists any keys stored in this.cookieKeys to the document cookies
 VU.CookieModel = Backbone.Model.extend({
 	prefix : "vu_",
 	
@@ -43,7 +42,7 @@ VU.CookieModel = Backbone.Model.extend({
 	}
 });
 
-// contains current user info and auth stuff
+// contains current user info and auth stuff **Only one instance**
 VU.MemberModel = VU.CookieModel.extend({
 	url : "_users",
 	fetched : false,
@@ -67,7 +66,7 @@ VU.MemberModel = VU.CookieModel.extend({
 			if ( options.dCard ) this.dCardColl = options.dCard;
 			if ( options.events ) this.eventsMain = options.events;
 		if ( this.readCookies() ) {
-			this.anonDCard = this.get("dCard");
+			this.cookieDCard = this.get("dCard");
 			if ( this.id )
 				this.fetch( {success: this.userLoaded, error: this.prepAnon} );
 			else
@@ -77,7 +76,7 @@ VU.MemberModel = VU.CookieModel.extend({
 	},
 	
 	userLoaded : function () {
-		// TODO: ?  if ( this.anonDCard && this.anonDCard.length > 0 ) this.set( {dCard:this.anonDCard} );
+		// TODO: ?  if ( this.cookieDCard && this.cookieDCard.length > 0 ) this.set( {dCard:this.cookieDCard} );
 		// this shuold attempt to write to _users, which will return an error if not authed any more
 		this.save( {}, {success: this.loginSuccess, error: this.prepAnon} );
 	},
@@ -122,8 +121,10 @@ VU.MemberModel = VU.CookieModel.extend({
 		} );
 		
 		alert("Success!  you're logged in" );
-		if ( this.anonDCard.length > 0 )
-			this.set( {dCard: this.anonDCard } )
+		if ( this.cookieDCard.length > 0 ) {
+			this.set( {dCard: this.cookieDCard } )
+			//save.. but what about the erased password?
+		}
 		this.loadDCard();		
 		this.writeCookies();
 		location.href="#///!";
@@ -141,18 +142,25 @@ VU.MemberModel = VU.CookieModel.extend({
 	},		
 	
 	loadDCard : function() {
-		if ( this.eventsMain && this.anonDCard.length > 0 )
-			this.eventsMain.fetchAndSet( this.get( "dCard" ), {onDCard:true} );
-		
-		this.eventsMain.bind("change:onDCard", this.syncDCard );
+		if ( this.eventsMain.fetched ) {
+			var dCard = this.get( "dCard " );
+			if ( dCard && dCard.length > 0 ) {
+				_.each( dCard, function (eventId) {
+					events.get( eventId ).set( {dCard: true} );
+				});
+				this.dCardColl.bind( "add", this.syncDCard );
+				this.dCardColl.bind( "remove", this.syncDCard );
+			}
+		}
+		else
+			this.eventsMain.bind( "refresh", this.loadDCard );
 	},
 	
 	syncDCard : function() {
-		// hopefully, since this listener is attached after the EventColl's listener...
-		//	...so that when we do get aroud to this, the dCard is updated
 		this.set( {dCard: this.dCardColl.pluck( "id" )} );
 		this.writeCookies();
-		this.save();
+		if ( this.id ) 
+			this.save();
 	}
 });
 
@@ -222,6 +230,7 @@ VU.EventsContainerModel = Backbone.Model.extend({
 	}
 });
 
+// A model with attributes that link to other models
 VU.LinkingModel = Backbone.Model.extend({
 	linkRefs : {},
 	initialize : function ( attributes, options) {

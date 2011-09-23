@@ -9,14 +9,18 @@ VU.InitColls = function () {
  */
 VU.Collection = Backbone.Collection.extend({
 	fetched : false,
+	fetching: false,
 	
 	fetch : function(options) {
+		if ( this.fetching ) return;
 		this.fetched = false;
+		this.fetching = true;
 		options || (options = {});
 		var collection = this;
 		var success = options.success;
 		options.success = function(resp) {
 			collection.fetched = true;
+			collection.fetching = false;
 			collection[options.add ? 'add' : options.diff ? 'diff' : 'refresh'](collection.parse(resp), options);
 			if (success) success(collection, resp);
 		};
@@ -93,19 +97,27 @@ VU.Collection = Backbone.Collection.extend({
  */
 VU.LocalFilteredCollection = VU.Collection.extend({
 	initialize : function( models, options ) {
-		_.bindAll( this, "refreshed" );
+		_.bindAll( this, "refreshed", "changed" );
 		this.masterCollection = options.collection;
+		this.masterCollection.bind( "change", this.changed );
 		this.masterCollection.bind( "refresh", this.refreshed );
 		
 		// need a full master coll if we're going to pull off of it
-		if ( !this.masterCollection.fetched ) 
-			this.masterCollection.fetch();
+		// TODO: move this to applyfilters?
+		//if ( !this.masterCollection.fetched ) 
+			//this.masterCollection.fetch();
+	},
+	
+	changed : function( ) {
+		// a model changed, so let's reapply filters
+		if ( this.curFilters )
+			this.applyFilters( this.curFilters, this.curLimit );
 	},
 	
 	refreshed : function( ) {
-		// may want to consider completely reloading, since it DID refresh, after all
-		if ( this.curFilters )
-			this.applyFilters( this.curFilters, this.curLimit );
+		// completely reload
+		this.remove( this.models, {keepParent:true} );
+		this.changed();
 	},
 	
 	//filterObj: [{key:, start:, end:}]
@@ -116,6 +128,8 @@ VU.LocalFilteredCollection = VU.Collection.extend({
 			// we don't want the model's parent collection to change: it belongs to the master collection
 			this.diff( this.masterCollection.getFiltered( filters, limit ), {keepParent:true, ignoreDups:true} );
 			// TODO: add "complete" callback
+		else
+			this.masterCollection.fetch( {success: this.changed} );
 	},
 	
 	nextPage : function( limit ) {
@@ -134,6 +148,7 @@ VU.KeyedCollection = VU.Collection.extend({
 		this.bind( "refresh", this.reloadKeys );
 		this.bind( "remove", this.removeKeys );
 		this.bind( "add", this.addKeys );
+		this.bind( "change", this.changeKeys );
 	},
 	
 	finalize : function() {
@@ -145,6 +160,12 @@ VU.KeyedCollection = VU.Collection.extend({
 	reloadKeys : function() {
 		this.keys = [];
 		this.each( this.addKeys );
+	},
+	
+	changeKeys : function( model ) {
+		var prevModel = new this.model(model.previousAttributes);
+		removeKeys( prevModel );
+		addKeys( model );
 	},
 	
 	addKeys : function( model ) {
@@ -175,9 +196,10 @@ VU.KeyedCollection = VU.Collection.extend({
 	},
 	
 	removeKeys : function( model ) {
-		var key, value;
-		for ( key in this.filterableKeys ) {
-			value = model.get(this.filterableKeys[key]);
+		var key, value, i;
+		for ( i in this.filterableKeys ) {
+			key = this.filterableKeys[i];
+			value = model.get( key );
 			if ( value ) {
 				// we can assume that it must be in here, if not then just ignore
 				valModels = this.keys[key][value];
@@ -235,7 +257,7 @@ VU.EventCollection = VU.KeyedCollection.extend({
 	model : VU.EventModel,
 	viewName : "crossFilter",
 	query : '?startkey=["event",' + new Date().getTime() + ',null,null]&endkey=["event",[],[],[]]',
-	filterableKeys: ["dateUnix", "lat", "lng", "band", "hall"],
+	filterableKeys: ["dateUnix", "lat", "lng", "band", "hall", "onDCard"],
 	
 	// The events should be ordered by date
 	comparator : function(event){
@@ -244,62 +266,10 @@ VU.EventCollection = VU.KeyedCollection.extend({
 	
 	initialize : function ( models, options ) {
 		VU.KeyedCollection.prototype.initialize.call(this, models, options);
-		_.bindAll( this, "fetchAndSet", "_setAfterFetch" );
 		if ( options ) {
 			this.schema = options.schema;
 			this.colls = options.colls;
 		}
-	},
-	
-	// overriden to pass colls down to the models
-	fetch : function( options ) {
-		options || (options = {});
-		options.colls = this.colls;
-		VU.KeyedCollection.prototype.fetch.call( this, options );
-	},
-	
-	fetchAndSet : function( idAry, attr ) {
-		//HACK: Once cached-colls and view-colls get separated, remove this...
-		this._fetchSet = {attrKeys:idAry, attr:attr};
-		if ( location.hash.length > 1 && location.hash.substr(0,7) != "#Dances" ) {
-			var oldQ = this.query;
-			this.query = "?startkey=[\"event\"," + new Date().getTime() + "]&endkey=[\"event\",[]]";
-			this.fetch( {success:this._setAfterFetch} );
-			this.query = oldQ;
-		} else if ( this.length == 0 )
-			this.bind( "refresh", this._setAfterFetch );
-		else
-			this._setAfterFetch();
-	},
-	
-	_setAfterFetch : function(  ){
-		this.unbind( "refresh", this._setAfterFetch );
-		var fetchSet = this._fetchSet,
-			coll = this;
-		_.each( fetchSet.attrKeys, function(modelID) { 
-			var model = coll.get(modelID);  
-			if (model) model.set(fetchSet.attr);
-		});
-	}
-});
-
-VU.DCardCollection = VU.EventCollection.extend({
-	initialize : function ( models, options ) {
-		VU.EventCollection.prototype.initialize.call(this, models, options);
-		_.bindAll( this, "toggleDCard");
-		this.prevColl = null;
-		options.events && options.events.bind("change:onDCard", this.toggleDCard);
-	},
-
-	//called AFTER the change happens...
-	toggleDCard : function ( eventModel ) {
-		if ( eventModel.get("onDCard") ) {
-			this.prevColl = eventModel.collection;
-			this.add( eventModel );
-		} else {
-			this.remove( eventModel );
-			eventModel.collection = this.prevColl;
-		}			
 	}
 });
 

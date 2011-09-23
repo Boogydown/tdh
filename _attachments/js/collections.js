@@ -247,6 +247,12 @@ VU.EventCollection = VU.KeyedCollection.extend({
 		}
 	},
 	
+	// overriden to pass colls down to the models
+	fetch : function( options ) {
+		this.colls = options && options.colls ? options.colls : null;
+		VU.KeyedCollection.prototype.fetch.apply( this, options );
+	},
+	
 	fetchAndSet : function( idAry, attr ) {
 		//HACK: Once cached-colls and view-colls get separated, remove this...
 		this._fetchSet = {attrKeys:idAry, attr:attr};

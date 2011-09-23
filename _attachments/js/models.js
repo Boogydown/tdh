@@ -222,7 +222,8 @@ VU.EventsContainerModel = Backbone.Model.extend({
 
 VU.LinkingModel = Backbone.Model.extend({
 	linkRefs : {},
-	initialize : function () {
+	initialize : function ( attributes, options) {
+		this.colls = options ? options.colls : null;
 		_.bindAll( this, "loadLinkRefs", "loadLinkVals" );
 		this.bind ( "change", this.loadLinkRefs );
 		this.bind ( "add", this.loadLinkRefs );
@@ -254,7 +255,7 @@ VU.LinkingModel = Backbone.Model.extend({
 	loadLinkRefs : function () {
 		// we only want to load on the first add
 		this.unbind ( "add", this.loadLinkRefs );
-		if ( ! (this.collection && this.collection.colls)) return;
+		if ( ! this.colls ) return;
 		var attr, loadingQueue = {}, docID, coll, myRef;
 		// load all referenced models so that we can pull data from them
 		for ( attr in this.linkRefs )
@@ -264,7 +265,7 @@ VU.LinkingModel = Backbone.Model.extend({
 			if ( docID )
 			{
 				if ( _.isArray(docID) && docID.length ) docID = docID[0];
-				coll = this.collection.colls[ this.linkRefs[attr].coll ];
+				coll = this.colls[ this.linkRefs[attr].coll ];
 				if ( coll )
 				{
 					//TODO: great opportunity to bulk load, here

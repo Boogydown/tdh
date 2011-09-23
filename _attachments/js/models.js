@@ -142,6 +142,7 @@ VU.MemberModel = VU.CookieModel.extend({
 	},		
 	
 	loadDCard : function() {
+		this.eventsMain.unbind( "refresh", this.loadDCard );
 		if ( this.eventsMain.fetched ) {
 			var dCard = this.get( "dCard " );
 			if ( dCard && dCard.length > 0 ) {

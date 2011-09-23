@@ -156,9 +156,6 @@ $(function(){
 			this.popupView = new VU.PopupView();
 			utils.waitingUI.init( ".loadingGIF" );
 			
-			// init the danceCard view so it can load any persisted stuff
-			this.instanciatedViews[ "DanceCard" ] = new ParentViews.DanceCardView( {colls:this.colls} );
-			
 			// Authenticate session and create session state model
 			window.mySession = new VU.MemberModel( null, { dCard: this.colls.dCard, events: this.colls.events } );
 			

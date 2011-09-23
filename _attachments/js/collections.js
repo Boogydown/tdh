@@ -113,7 +113,7 @@ VU.LocalFilteredCollection = VU.Collection.extend({
 		this.curFilters = filters || this.curFilters;
 		this.curLimit = limit || this.curLimit;
 		// keepParent: we don't want the model's parent collection to change: it belongs to the master collection
-		this.diff( this.masterCollection.getFiltered( filters, limit ), {keepParent:true, ignoreDups:true} );
+		this.diff( this.masterCollection.getFiltered( this.curFilters, this.curLimit ), {keepParent:true, ignoreDups:true} );
 		
 		// TODO: add "complete" callback
 	},
@@ -142,6 +142,7 @@ VU.KeyedCollection = VU.Collection.extend({
 		this.keys = [];
 		this.unbind();
 		this.each( this.addKeys );
+		this.trigger( "refresh" );
 		this.bind( "refresh", this.reloadKeys )
 		this.bind( "remove", this.removeKeys );
 		this.bind( "add", this.addKeys );
@@ -209,8 +210,8 @@ VU.KeyedCollection = VU.Collection.extend({
 	
 	//filterObj: [{key, start, end}]
 	getFiltered: function ( filters, limit ) {
-		this.pendingFilters = filters || this.pendingFilters;
-		this.pendinglimit = limit || this.pendingLimit;
+		filters = this.pendingFilters = filters || this.pendingFilters;
+		limit = this.pendinglimit = limit || this.pendingLimit;
 		
 		// ensure that this coll is populated and ready to filter!
 		if ( !this.fetched )
@@ -267,6 +268,7 @@ VU.EventCollection = VU.KeyedCollection.extend({
 	},
 	
 	initialize : function ( models, options ) {
+		_.bindAll( this, "fetch" );
 		VU.KeyedCollection.prototype.initialize.call(this, models, options);
 		this.schema = options.schema;
 		this.colls = options.colls;

@@ -216,7 +216,7 @@ VU.EventsContainerModel = Backbone.Model.extend({
 	loadEvents : function ( eventsCollection ) {
 		var myEvents = new VU.LocalFilteredCollection( null, {collection: eventsCollection } ),
 			myId = this.id, 
-			ofType = this.get( "type" );
+			ofType = this.myType;
 		myEvents.applyFilters( [{key: ofType, start: myId, end: myId}] );
 		this.set( {events: myEvents} );
 	}

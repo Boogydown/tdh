@@ -217,7 +217,8 @@ VU.KeyedCollection = VU.Collection.extend({
 						}
 				}
 			}
-		if ( finalModels ) {
+		if ( finalModels || filters ) {
+			finalModels || (finalModels = [] );
 			this.allFilteredModels = finalModels;
 			return limit ? _.first(finalModels, limit) : finalModels;
 		}

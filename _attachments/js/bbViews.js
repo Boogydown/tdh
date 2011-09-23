@@ -354,7 +354,7 @@ VU.CalView = Backbone.View.extend({
 
 VU.TagCloudView = Backbone.View.extend({
 	initialize : function() {
-		_.bindAll( this, "render", "renderTagCloud", "addTags", "removeTags" );
+		_.bindAll( this, "render", "addTags", "removeTags" );
 		this.tags = [];
 		this.tagsHash = [];
 		this.collection.bind( "refresh", this.render );

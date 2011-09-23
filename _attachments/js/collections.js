@@ -249,7 +249,7 @@ VU.EventCollection = VU.KeyedCollection.extend({
 	
 	// overriden to pass colls down to the models
 	fetch : function( options ) {
-		options || options = {};
+		options || (options = {});
 		options.colls = this.colls;
 		VU.KeyedCollection.prototype.fetch.apply( this, options );
 	},

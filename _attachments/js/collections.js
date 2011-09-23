@@ -202,23 +202,24 @@ VU.KeyedCollection = VU.Collection.extend({
 	//filterObj: [{key, start, end}]
 	getFiltered: function ( filters, limit ) {
 		this.lastLimit = limit || this.length;
-		var i = 0, fl, filter, curVals, finalModels, hasKey = false;
+		var i = 0, fl, filter, curVals, finalModels, innerModels, hasHit = false;
 		if ( filters )
 			for( fl = filters.length; i < fl; ) {
 				filter = filters[i++];
 				curVals = this.keys[filter.key];
 				if ( curVals ){
-					hasKey = true;
+					hasHit = true; //one of the filters has hit...
+					innerModels = [];
 					for ( value in curVals )
-						if ( (value >= filter.start && value <= filter.end) ){
-							if ( finalModels )
-								finalModels = _.intersection( finalModels, curVals[value] );
-							else
-								finalModels = _.clone( curVals[value] );
-						}
+						if ( (value >= filter.start && value <= filter.end) )
+							innerModels = innerModels.concat( curVals[value] );
+					if ( finalModels )
+						finalModels = _.intersection( finalModels, innerModels );
+					else
+						finalModels = innerModels;
 				}
 			}
-		if ( finalModels || hasKey ) {
+		if ( finalModels || hasHit ) {
 			finalModels || (finalModels = [] );
 			this.allFilteredModels = finalModels;
 			return limit ? _.first(finalModels, limit) : finalModels;

@@ -188,8 +188,12 @@ VU.PopupView = VU.DustView.extend({
 		var list;
 		if ( this.model ) list = this.model.get("events"); 
 		if ( list ) {
-			this.eventListView = new VU.ListView({ el:"#popuplist", collection:list });
-			this.eventListView.render();
+			this.eventlistView = new VU.FilteredListView({
+				el:"#popuplist",
+				emptyMsg: "<i>No upcoming dances scheduled</i>",
+				listingClass:VU.EventListingView,
+				collection: list
+			});
 			this.miniMapView = new VU.MapView({collection: list, el: "#detailmap"});
 		}
 		this.delegateEvents({

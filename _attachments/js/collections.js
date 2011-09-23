@@ -109,6 +109,7 @@ VU.LocalFilteredCollection = VU.Collection.extend({
 	},
 	
 	refreshed : function( ) {
+		// may want to consider completely reloading, since it DID refresh, after all
 		if ( this.curFilters )
 			this.applyFilters( this.curFilters, this.curLimit );
 	},
@@ -237,7 +238,7 @@ VU.EventCollection = VU.KeyedCollection.extend({
 	model : VU.EventModel,
 	viewName : "crossFilter",
 	query : '?startkey=["event",' + new Date().getTime() + ',null,null]&endkey=["event",[],[],[]]',
-	filterableKeys: ["date", "lat", "lng"],
+	filterableKeys: ["date", "lat", "lng", "band", "hall"],
 	
 	// The events should be ordered by date
 	comparator : function(event){

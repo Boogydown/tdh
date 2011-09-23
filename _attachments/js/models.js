@@ -214,9 +214,10 @@ VU.EventsContainerModel = Backbone.Model.extend({
 	// load all events that have a band or hall (ofType) of this id
 	//TODO: ofType needs to be more dependant on schema... we're currently assuming that the type is the same as the linkingRef
 	loadEvents : function ( eventsCollection, ofType ) {
-		this.set( {events: new VU.EventCollection( _.select( eventsCollection.models, function ( eventModel ) {
-			return eventModel.get( ofType ) == this.id;
-		}, this ) ) } );
+		var myEvents = new VU.FilteredListCollection( null, {collection: eventsCollection } ),
+			myId = this.id;
+		myEvents.applyFilters( [{key: ofType, start: myId, end: myId}] );
+		this.set( {events: myEvents} );
 	}
 });
 

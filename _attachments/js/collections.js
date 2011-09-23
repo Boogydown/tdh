@@ -99,7 +99,7 @@ VU.LocalFilteredCollection = VU.Collection.extend({
 	initialize : function( models, options ) {
 		_.bindAll( this, "refreshed", "changed" );
 		this.masterCollection = options.collection;
-		this.masterCollection.bind( "change", this.changed );
+		this.masterCollection.bind( "keysChanged", this.changed );
 		this.masterCollection.bind( "refresh", this.refreshed );
 		
 		// need a full master coll if we're going to pull off of it
@@ -154,18 +154,19 @@ VU.KeyedCollection = VU.Collection.extend({
 		this.unbind( "refresh", this.reloadKeys );
 		this.unbind( "remove", this.removeKeys );
 		this.unbind( "add", this.addKeys );
-		this.unbind( "change", this.changeKeys );
+		//this.unbind( "change", this.changeKeys );
 	},
 	
 	reloadKeys : function() {
 		this.keys = [];
 		this.each( this.addKeys );
-		this.bind( "change", this.changeKeys );
+		this.bind( "change:onDCard", this.changeKeys );
 	},
 	
 	changeKeys : function( model ) {
 		this.removeKeys( model.previousAttributes() );
 		this.addKeys( model );
+		this.trigger( "keysChanged" );
 	},
 	
 	addKeys : function( model ) {

@@ -358,26 +358,13 @@ VU.TagCloudView = Backbone.View.extend({
 		this.tags = [];
 		this.tagsHash = [];
 		this.collection.bind( "refresh", this.render );
-		this.collection.bind( "add", this.render );
-		this.collection.bind( "remove", this.render );
+		//this.collection.bind( "add", this.render );
+		//this.collection.bind( "remove", this.render );
 	},
 	
 	render : function( ) {
-		if ( !this.collection.fetched )
-			this.collection.bind("refresh", this.renderTagCloud);
-		else
-			this.renderTagCloud();
-	},
-	
-	addTags : function( model ){
-	},
-	
-	removeTags : function( model ){
-	},
-	
-	renderTagCloud : function( ) {
-		this.collection.unbind("add", this.renderTagCloud);
-		this.collection.unbind("remove", this.renderTagCloud);
+		//this.collection.unbind("add", this.renderTagCloud);
+		//this.collection.unbind("remove", this.renderTagCloud);
 		this.collection.unbind("refresh", this.renderTagCloud);
 		// TODO: turn this into a map/reduce view off of the db:
 		this.tags = [];
@@ -394,6 +381,12 @@ VU.TagCloudView = Backbone.View.extend({
 			}
 		$(this.el).empty();
 		$(this.el).jQCloud( this.tags );
+	},
+	
+	addTags : function( model ){
+	},
+	
+	removeTags : function( model ){
 	}
 });
 

@@ -425,13 +425,26 @@ VU.VenueModel = VU.EventsContainerModel.extend({
 		if ( ed ) ed = "cir. " + ed + ". ";
 		ed += this.get("historicalNarrative");
 		
+		var lat, lng, gps = this.get( "GPS Coordinates" ) || this.get( "gpsCoordinates" );
+		if ( gps ){
+			gps = gps.split(" ");
+			if ( gps.length < 2 ) 
+				gps = gps[0].split(",");
+			if ( gps.length > 1 ) {
+				lat = gps[1];
+				lng = gps[0];
+			}
+		}		
+		
 		this.set( { 
 			thumbPic: hallPic,
 			mainPic: hallPic.replace( "\/thumbs\/", "\/files\/" ), 
 			website: (this.get("website")||"").split("://").pop(),
 			name: this.get("danceHallName"),
 			entryDescription: ed,
-			type: this.myType
+			type: this.myType,
+			lat: lat,
+			lng: lng
 		}, { silent: true } );
 	}
 });

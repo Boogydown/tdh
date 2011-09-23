@@ -384,9 +384,12 @@ VU.BandCollection = VU.KeyedCollection.extend({
 	}
 });	
 
-VU.HallCollection = VU.FilteredCollection.extend({
+VU.HallCollection = VU.KeyedCollection.extend({
 	url : "dancehall",
+	viewName : "crossFilter",
+	query : '?startkey=["dancehall",null,null,null]&endkey=["dancehall",[],[],[]]',
 	model : VU.VenueModel,
+	filterableKeys: ["danceHallName", "lat", "lng"],
 	comparator : function(hall){
 		return hall.get("danceHallName");
 	}

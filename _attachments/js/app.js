@@ -39,7 +39,6 @@ $(function(){
 			tabEl : $("#bandsTabBtn"),
 			initialize : function() {
 				VU.ParentView.prototype.initialize.call(this);
-				//this.mainListView = new VU.ListView({collection:this.colls.bands, el: "#bandsList"});
 				this.listView = new VU.FilteredListView({
 					el: "#bandsList",
 					emptyMsg: "<i>No bands meet your search criteria!</i>",
@@ -61,13 +60,19 @@ $(function(){
 			tabEl : $("#hallsTabBtn"),
 			initialize : function() {
 				VU.ParentView.prototype.initialize.call(this);
-				this.mainListView = new VU.ListView({collection: this.colls.halls, el: "#hallsList"});
-				this.mainMapView = new VU.MapView({collection: this.colls.halls, el: "#hallsMap"});
+				//this.listView = new VU.ListView({collection: this.colls.halls, el: "#hallsList"});
+				this.listView = new VU.FilteredListView({
+					el: "#hallsList",
+					emptyMsg: "<i>No dance halls meet your search criteria!</i>",
+					pageLimit: 15,
+					collection: new VU.LocalFilteredCollection( null, {collection: this.colls.halls })
+				});
+				this.mapView = new VU.MapView({collection: this.colls.halls, el: "#hallsMap"});
 			},
 			
-			activate : function ( filter ) {
+			activate : function ( filters ) {
 				VU.ParentView.prototype.activate.call(this);
-				this.mainListView.applyFilter( filter );
+				this.listView.applyFilter( filters );
 			}
 		}),
 		
@@ -181,7 +186,7 @@ $(function(){
 					end: parseFloat(coords[2])
 				});
 				filters.push({
-					key: "long",
+					key: "lng",
 					start: parseFloat(coords[1]),
 					end: parseFloat(coords[3])
 				});

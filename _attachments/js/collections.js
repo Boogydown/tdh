@@ -112,15 +112,9 @@ VU.LocalFilteredCollection = VU.Collection.extend({
 	
 	//filterObj: [{key:, start:, end:}]
 	applyFilters : function( filters, limit ) {
-		if ( !this.masterCollection.fetched ) {
-			this.pendingFilters = filters;
-			this.pendingLimit = limit;
-		} else {
-			filters = filters || this.pendingFilters;
-			limit = limit || this.pendingLimit;
-			
+		if ( this.masterCollection.fetched ) {
 			// keepParent: we don't want the model's parent collection to change: it belongs to the master collection
-			this.diff( this.masterCollection.getFiltered( filters, limit ), {keepParent:true, ignoreDups:true} );
+			this.diff( this.masterCollection.getFiltered( window.TDHP_filters, 20 ), {keepParent:true, ignoreDups:true} );
 			// TODO: add "complete" callback
 		}
 	},

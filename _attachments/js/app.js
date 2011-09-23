@@ -171,8 +171,6 @@ $(function(){
 			
 			// done manipulating params (tab, specifically) so we can now save the route
 			this.saveRoutes( tab, dates, coords, popID, style );
-			//TODO: put this into mySession
-			window.TDHP_tab = tab;
 			
 			// create filters from route
 			if ( dates ) {
@@ -209,6 +207,9 @@ $(function(){
 				});
 			}
 			
+			//TODO: put this into mySession
+			window.TDHP_tab = tab;
+			window.TDHP_filters = filters;
 			myView.activate( filters );
 			
 			this.instanciatedViews[ tab ] = this.currentView = myView;

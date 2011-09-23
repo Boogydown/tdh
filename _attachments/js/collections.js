@@ -8,9 +8,6 @@ VU.InitColls = function () {
  *  index to model, which is the index at which it was placed when added
  */
 VU.Collection = Backbone.Collection.extend({
-	fetched : false,
-	fetching: false,
-	
 	fetch : function(options) {
 		if ( this.fetching ) return;
 		this.fetched = false;
@@ -104,8 +101,8 @@ VU.LocalFilteredCollection = VU.Collection.extend({
 		
 		// need a full master coll if we're going to pull off of it
 		// TODO: move this to applyfilters?
-		if ( !this.masterCollection.fetched ) 
-			this.masterCollection.fetch();
+		//if ( !this.masterCollection.fetched ) 
+			//this.masterCollection.fetch();
 	},
 	
 	changed : function( ) {
@@ -128,8 +125,8 @@ VU.LocalFilteredCollection = VU.Collection.extend({
 			// we don't want the model's parent collection to change: it belongs to the master collection
 			this.diff( this.masterCollection.getFiltered( filters, limit ), {keepParent:true, ignoreDups:true} );
 			// TODO: add "complete" callback
-		//else
-			//this.masterCollection.fetch( {success: this.changed} );
+		else
+			this.masterCollection.fetch( {success: this.changed} );
 	},
 	
 	nextPage : function( limit ) {

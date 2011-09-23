@@ -210,7 +210,7 @@ VU.KeyedCollection = VU.Collection.extend({
 	
 	//filterObj: [{key, start, end}]
 	getFiltered: function ( filters, limit ) {
-		if ( !this.keyed ) return [];
+		if ( !this.keyed ) this.reloadKeys();
 		
 		// begin the filtering process....
 		this.lastLimit = limit || this.length;

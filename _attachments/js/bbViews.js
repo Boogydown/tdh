@@ -112,14 +112,18 @@ VU.FilteredListView = Backbone.View.extend({
 		//if ( filters != this.curFilters || limit != this.curLimit ) {
 			//this.curFilters = filters;
 			//this.curLimit = limit;
-			if ( this.collection.length == 0 )
+			if ( this.collection.length == 0 ){
 				//TODO: add waitingUI
 				this.el.innerHTML = "";
+				utils.waitingUI.show();
+			}
 			
 			this.collection.applyFilters( filters, limit || this.pageLimit );
-			
 			if ( this.collection.length == 0 )
 				this.el.innerHTML = this.emptyMsg;		
+			if ( this.collection.length < 10 )
+				utils.waitingUI.hide();
+				
 		//}
 	},
 	

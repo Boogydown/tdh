@@ -223,7 +223,6 @@ VU.EventsContainerModel = Backbone.Model.extend({
 VU.LinkingModel = Backbone.Model.extend({
 	linkRefs : {},
 	initialize : function ( attributes, options) {
-		this.colls = options ? options.colls : null;
 		_.bindAll( this, "loadLinkRefs", "loadLinkVals" );
 		this.bind ( "change", this.loadLinkRefs );
 		this.bind ( "add", this.loadLinkRefs );
@@ -252,7 +251,8 @@ VU.LinkingModel = Backbone.Model.extend({
 		}
 	},
 	
-	loadLinkRefs : function () {
+	loadLinkRefs : function ( m, c, options ) {
+		if ( options ) this.colls = options.colls;
 		// we only want to load on the first add
 		this.unbind ( "add", this.loadLinkRefs );
 		if ( ! this.colls ) return;

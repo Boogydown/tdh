@@ -23,14 +23,20 @@ $(function(){
 				VU.ParentView.prototype.initialize.call(this);
 				
 				// create our main list and map views and attach the collection to them
-				this.listView = new VU.ListView({collection:this.colls.events, listingClass:VU.EventListingView, el:"#dancesList"});
-				this.mapView = new VU.MapView({collection:this.colls.halls, el: "#dancesMap"});
+				this.listView = new VU.FilteredListView({
+					el:"#dancesList",
+					emptyMsg: "<i>No dances meet your search criteria!</i>",
+					pageLimit:15,
+					listingClass:VU.EventListingView,
+					collection: new VU.LocalFilteredCollection( null, {collection: this.colls.events })
+				});
+				this.mapView = new VU.MapView( {el: "#dancesMap", collection:this.colls.halls});
 				this.calView = new VU.CalView( {el: "#dancesCal"});
 			},
 			
 			activate : function ( filters ) {
 				VU.ParentView.prototype.activate.call(this);
-				this.listView.applyFilter( filters );
+				this.listView.applyFilters( filters );
 			}
 		}),
 

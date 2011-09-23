@@ -321,7 +321,7 @@ VU.MapView = Backbone.View.extend({
 			this.collection.bind("add", this.addMarker );
 			this.collection.bind("refresh", this.render );
 			//this.collection.bind("reset", this.render );
-			this.render();
+			//this.render();
 		}
 		else
 			this.addMarker( this.model );
@@ -436,6 +436,8 @@ VU.TagCloudView = Backbone.View.extend({
 	},
 	
 	renderTagCloud : function( ) {
+		this.collection.unbind("add", this.renderTagCloud);
+		this.collection.unbind("remove", this.renderTagCloud);
 		this.collection.unbind("refresh", this.renderTagCloud);
 		// TODO: turn this into a map/reduce view off of the db:
 		this.tags = [];

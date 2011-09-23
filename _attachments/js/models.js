@@ -239,7 +239,7 @@ VU.LinkingModel = Backbone.Model.extend({
 		// Loads all of the refs and values from schema for processing later
 		// this.linkRefs is a dict where key is the linkref property name (i.e. band) and
 		//	value is a dict where key is linkval property name (i.e. band name) and value
-		//	is its cell lookup name (within the linkref)
+		//	is its cell lookup name (within the linkref model)
 		var fields = this.options && this.options.schema && this.options.schema.properties || 
 					 this.collection.schema && this.collection.schema.properties ||
 					 {};
@@ -452,19 +452,18 @@ VU.VenueModel = VU.EventsContainerModel.extend({
 // Event model
 VU.EventModel = VU.LinkingModel.extend({
 	defaults : {
-		hallPic: "images/genericHall.JPG",
-		bandPic: "images/genericSilhouette.jpg",
 		date: new Date().getTime(),
 		time: "8:00 PM",
 		onDCard: false // for local use, only
 	},
 	
 	initialize: function () {
-		_.bindAll( this, "normalizeDate" );
-		this.bind( "change:date", this.normalizeDate );
+		_.bindAll( this, "normalizeData" );
+		this.bind( "change:date", this.normalizeData );
+		this.bind( "change:gpsCoordinates", this.normalizeData );
 		// date comes in at init, silently, so we'll normalize it now
-		this.normalizeDate(); 
 		VU.LinkingModel.prototype.initialize.call(this);
+		this.normalizeData(); 
 	},
 	
 	toggleDCard : function () {
@@ -474,20 +473,33 @@ VU.EventModel = VU.LinkingModel.extend({
 		return newDCard;
 	},
 	
-	normalizeDate : function () {
+	normalizeData : function () {
 		var myDateStr = this.get("date");
 		var myDate = myDateStr instanceof Date ? myDateStr : new Date( myDateStr );
 		if ( myDate.toString() == "Invalid Date" || ! myDate.getTime() ) {
 			console.log( "Invalid date: " + (myDateStr == "" ? "(empty string)" : myDateStr) + ".  Using today's date." );
 			myDate = new Date();
-		} else {
-			this.set({
-				//TODO: make this a date util
-				dateDay: ["SUN","MON","TUE","WED","THU","FRI","SAT"][myDate.getDay()],
-				dateDate: myDate.getDate(),
-				dateMonth: ["JAN","FEB","MAR","APR","MAY","JUNE","JULY","AUG","SEPT","OCT","NOV","DEC"][myDate.getMonth()]
-			}, {silent:true});
 		}
+		
+		var lat, lng, gps = this.get( "gpsCoordinates" );
+		if ( gps ){
+			gps = gps.split(" ");
+			if ( gps.length < 2 ) 
+				gps = gps[0].split(",");
+			if ( gps.length > 1 ) {
+				lat = gps[1];
+				lng = gps[0];
+			}
+		}				
+		
+		this.set({
+			//TODO: make this a date util
+			dateDay: ["SUN","MON","TUE","WED","THU","FRI","SAT"][myDate.getDay()],
+			dateDate: myDate.getDate(),
+			dateMonth: ["JAN","FEB","MAR","APR","MAY","JUNE","JULY","AUG","SEPT","OCT","NOV","DEC"][myDate.getMonth()],
+			lat: lat,
+			lng: lng
+		}, {silent:true});
 	}
 });
 

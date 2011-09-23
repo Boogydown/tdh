@@ -41,32 +41,21 @@ VU.Collection = Backbone.Collection.extend({
 	// Pass **keepParent** to avoid reparenting when adding
 	// Diff means it will add or remove models without having to refresh
 	diff : function( models, options ) {
-		var model, i, l, newSet = [];
-		if (_.isArray(models) || !models ) {
-			// add new models...
-			if ( models )
-				for ( i = 0, l = models.length; i < l; i++) {
-					model = models[i];
-					newSet[model.id] = model;
-					if ( ! this.get( model.id ) )
-						this._add( model, options );
-				}
-			// remove those not in the new set...
-			var collection = this, parent;
-			collection.each( function(model) {
-				if ( ! (model.id in newSet )) {
-					parent = model.collection;
-					collection._remove( model, options );
-					if ( options.keepParent ) model.collection = parent;
-				}
-			});
+		// add new models...
+		this.add( models, options );
 			
-		} else {
-			if ( ! this.get( models[i].id ) )
-				this._add( models[i], options );
-		}
+		// remove those not in the new set...
+		this.remove( _.difference( this.models, models ), options );
+		
 		return this;
     },
+	
+	// wrapper for _remove that allows for keepParent
+	_remove : function( model, options ) {
+		var parent = model.collection;
+		Backbone.Collection.prototype._remove.call( this, model, options );
+		if ( options.keepParent ) model.collection = parent;
+	},			
 	
     // Override of backbone._add to get model.index, AND support
 	// 	passing **keepParent** to avoid reparenting when adding
@@ -78,7 +67,12 @@ VU.Collection = Backbone.Collection.extend({
         model = new this.model(model, {collection: this});
       }
       var already = this.getByCid(model);
-      if (already) throw new Error(["Can't add the same model to a set twice", already.id]);
+	  if (already) {
+		if ( options.ignoreDups )
+			return;
+		else
+			throw new Error(["Can't add the same model to a set twice", already.id]);
+	  }
       this._byId[model.id] = model;
       this._byCid[model.cid] = model;
       if ( ! options.keepParent ) model.collection = this;
@@ -120,7 +114,7 @@ VU.LocalFilteredCollection = VU.Collection.extend({
 		this.curLimit = limit;
 		if ( this.masterCollection.fetched )
 			// we don't want the model's parent collection to change: it belongs to the master collection
-			this.diff( this.masterCollection.getFiltered( filters, limit ), {keepParent:true} );
+			this.diff( this.masterCollection.getFiltered( filters, limit ), {keepParent:true, ignoreDups:true} );
 			// TODO: add "complete" callback
 	},
 	

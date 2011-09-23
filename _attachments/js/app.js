@@ -167,7 +167,7 @@ $(function(){
 				this.currentView.deactivate();
 			
 			// done manipulating params (tab, specifically) so we can now save the route
-			this.saveRoutes( tab, dates, coords, popID );
+			this.saveRoutes( tab, dates, coords, popID, style );
 			//TODO: put this into mySession
 			window.TDHP_tab = tab;
 			

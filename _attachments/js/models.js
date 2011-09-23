@@ -251,11 +251,11 @@ VU.LinkingModel = Backbone.Model.extend({
 		}
 	},
 	
-	loadLinkRefs : function ( m, c, options ) {
-		if ( options ) this.colls = options.colls;
+	loadLinkRefs : function (  ) {
 		// we only want to load on the first add
 		this.unbind ( "add", this.loadLinkRefs );
-		if ( ! this.colls ) return;
+		var colls = this.collection && this.collection.colls;
+		if ( !colls ) return;
 		var attr, loadingQueue = {}, docID, coll, myRef;
 		// load all referenced models so that we can pull data from them
 		for ( attr in this.linkRefs )
@@ -265,7 +265,7 @@ VU.LinkingModel = Backbone.Model.extend({
 			if ( docID )
 			{
 				if ( _.isArray(docID) && docID.length ) docID = docID[0];
-				coll = this.colls[ this.linkRefs[attr].coll ];
+				coll = colls[ this.linkRefs[attr].coll ];
 				if ( coll )
 				{
 					//TODO: great opportunity to bulk load, here

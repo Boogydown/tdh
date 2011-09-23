@@ -176,7 +176,7 @@ $(function(){
 				// "start-date,end-date
 				dates = dates.split(",");				
 				filters.push({
-					key: "date", 
+					key: "dateUnix", 
 					start: parseInt(dates[0]), 
 					end: dates.length == 1 ? "zzz" : parseInt(dates[1])
 				});

@@ -202,12 +202,13 @@ VU.KeyedCollection = VU.Collection.extend({
 	//filterObj: [{key, start, end}]
 	getFiltered: function ( filters, limit ) {
 		this.lastLimit = limit || this.length;
-		var i = 0, fl, filter, curVals, finalModels;
+		var i = 0, fl, filter, curVals, finalModels, hasKey = false;
 		if ( filters )
 			for( fl = filters.length; i < fl; ) {
 				filter = filters[i++];
 				curVals = this.keys[filter.key];
 				if ( curVals ){
+					hasKey = true;
 					for ( value in curVals )
 						if ( (value >= filter.start && value <= filter.end) ){
 							if ( finalModels )
@@ -217,7 +218,7 @@ VU.KeyedCollection = VU.Collection.extend({
 						}
 				}
 			}
-		if ( finalModels || filters ) {
+		if ( finalModels || hasKey ) {
 			finalModels || (finalModels = [] );
 			this.allFilteredModels = finalModels;
 			return limit ? _.first(finalModels, limit) : finalModels;
@@ -239,7 +240,7 @@ VU.EventCollection = VU.KeyedCollection.extend({
 	model : VU.EventModel,
 	viewName : "crossFilter",
 	query : '?startkey=["event",' + new Date().getTime() + ',null,null]&endkey=["event",[],[],[]]',
-	filterableKeys: ["date", "lat", "lng", "band", "hall"],
+	filterableKeys: ["dateUnix", "lat", "lng", "band", "hall"],
 	
 	// The events should be ordered by date
 	comparator : function(event){

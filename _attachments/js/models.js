@@ -493,6 +493,7 @@ VU.EventModel = VU.LinkingModel.extend({
 			dateDay: ["SUN","MON","TUE","WED","THU","FRI","SAT"][myDate.getDay()],
 			dateDate: myDate.getDate(),
 			dateMonth: ["JAN","FEB","MAR","APR","MAY","JUNE","JULY","AUG","SEPT","OCT","NOV","DEC"][myDate.getMonth()],
+			dateUnix: myDate.getTime(),
 			lat: lat,
 			lng: lng
 		}, {silent:true});

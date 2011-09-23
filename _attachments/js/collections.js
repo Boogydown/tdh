@@ -148,23 +148,23 @@ VU.KeyedCollection = VU.Collection.extend({
 		this.bind( "refresh", this.reloadKeys );
 		this.bind( "remove", this.removeKeys );
 		this.bind( "add", this.addKeys );
-		this.bind( "change", this.changeKeys );
 	},
 	
 	finalize : function() {
 		this.unbind( "refresh", this.reloadKeys );
 		this.unbind( "remove", this.removeKeys );
 		this.unbind( "add", this.addKeys );
+		this.unbind( "change", this.changeKeys );
 	},
 	
 	reloadKeys : function() {
 		this.keys = [];
 		this.each( this.addKeys );
+		this.bind( "change", this.changeKeys );
 	},
 	
 	changeKeys : function( model ) {
-		var prevModel = new this.model(model.previousAttributes);
-		removeKeys( prevModel );
+		removeKeys( model.previousAttributes() );
 		addKeys( model );
 	},
 	
@@ -196,10 +196,12 @@ VU.KeyedCollection = VU.Collection.extend({
 	},
 	
 	removeKeys : function( model ) {
+		if ( model instanceof Backbone.Model )
+			model = model.attributes;
 		var key, value, i;
 		for ( i in this.filterableKeys ) {
 			key = this.filterableKeys[i];
-			value = model.get( key );
+			value = model[key];
 			if ( value ) {
 				// we can assume that it must be in here, if not then just ignore
 				valModels = this.keys[key][value];
@@ -270,7 +272,14 @@ VU.EventCollection = VU.KeyedCollection.extend({
 			this.schema = options.schema;
 			this.colls = options.colls;
 		}
-	}
+	},
+	
+	// overriden to pass colls down to the models
+	fetch : function( options ) {
+		options || (options = {});
+		options.colls = this.colls;
+		VU.KeyedCollection.prototype.fetch.call( this, options );
+	}	
 });
 
 VU.BandCollection = VU.KeyedCollection.extend({

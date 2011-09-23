@@ -72,7 +72,7 @@ $(function(){
 			
 			activate : function ( filters ) {
 				VU.ParentView.prototype.activate.call(this);
-				this.listView.applyFilter( filters );
+				this.listView.applyFilters( filters );
 			}
 		}),
 		

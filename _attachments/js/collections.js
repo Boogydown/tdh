@@ -164,8 +164,8 @@ VU.KeyedCollection = VU.Collection.extend({
 	},
 	
 	changeKeys : function( model ) {
-		removeKeys( model.previousAttributes() );
-		addKeys( model );
+		this.removeKeys( model.previousAttributes() );
+		this.addKeys( model );
 	},
 	
 	addKeys : function( model ) {

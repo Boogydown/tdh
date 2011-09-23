@@ -137,16 +137,17 @@ VU.KeyedCollection = VU.Collection.extend({
 		this.unbind();
 	},
 	
-	reloadKeys : function() {
+	reloadKeys : function(options) {
 		this.keyed = false;
 		this.keys = [];
 		this.unbind();
 		this.each( this.addKeys );
-		this.trigger( "refresh" );
+		this.keyed = true;
+		//this.trigger( "refresh" );
 		this.bind( "refresh", this.reloadKeys )
 		this.bind( "remove", this.removeKeys );
 		this.bind( "add", this.addKeys );
-		this.keyed = true;
+		if ( options ) this.getFiltered( options );
 	},
 	
 	changeKeys : function( model ) {
@@ -210,15 +211,18 @@ VU.KeyedCollection = VU.Collection.extend({
 	
 	//filterObj: [{key, start, end}]
 	getFiltered: function ( filters, limit ) {
-		filters = this.pendingFilters = filters || this.pendingFilters;
-		limit = this.pendinglimit = limit || this.pendingLimit;
+		if ( filters.filters ) {
+			limit = filters.limit;
+			filters = filters.filters;
+		}
 		
 		// ensure that this coll is populated and ready to filter!
-		if ( !this.fetched )
-			this.fetch( {success: this.reloadKeys, silent: true} );
+		if ( !this.fetched && !this.fetching )
+			this.fetch( {success: this.reloadKeys, silent: true, filters:filters, limit:limit} );
 		else if ( !this.keyed )
 			this.reloadKeys();
 		
+			
 		// begin the filtering process....
 		this.lastLimit = limit || this.length;
 		var i = 0, fl, filter, curVals, finalModels, innerModels;

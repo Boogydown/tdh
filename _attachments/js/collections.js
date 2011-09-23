@@ -251,7 +251,7 @@ VU.EventCollection = VU.KeyedCollection.extend({
 	fetch : function( options ) {
 		options || (options = {});
 		options.colls = this.colls;
-		VU.KeyedCollection.prototype.fetch.apply( this, options );
+		VU.KeyedCollection.prototype.fetch.call( this, options );
 	},
 	
 	fetchAndSet : function( idAry, attr ) {

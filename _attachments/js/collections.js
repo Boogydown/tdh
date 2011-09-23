@@ -94,39 +94,28 @@ VU.Collection = Backbone.Collection.extend({
  */
 VU.LocalFilteredCollection = VU.Collection.extend({
 	initialize : function( models, options ) {
-		_.bindAll( this, "refreshed", "changed" );
+		_.bindAll( this, "refreshed", "applyFilters" );
+		this.curLimit = 20;
+		this.curFilters = [];
 		this.masterCollection = options.collection;
-		this.masterCollection.bind( "keysChanged", this.changed );
+		this.masterCollection.bind( "keysChanged", this.applyFilters );
 		this.masterCollection.bind( "refresh", this.refreshed );
-		
-		// need a full master coll if we're going to pull off of it
-		// TODO: move this to applyfilters?
-		//if ( !this.masterCollection.fetched ) 
-			//this.masterCollection.fetch();
 	},
 	
-	changed : function( ) {
-		// a model changed, so let's reapply filters
-		if ( this.curFilters )
-			this.applyFilters( this.curFilters, this.curLimit );
-	},
-	
+	// completely reload
 	refreshed : function( ) {
-		// completely reload
 		this.remove( this.models, {keepParent:true} );
-		this.changed();
+		this.applyFilters();
 	},
 	
 	//filterObj: [{key:, start:, end:}]
 	applyFilters : function( filters, limit ) {
-		this.curFilters = filters;
-		this.curLimit = limit;
-		if ( this.masterCollection.fetched )
-			// we don't want the model's parent collection to change: it belongs to the master collection
-			this.diff( this.masterCollection.getFiltered( filters, limit ), {keepParent:true, ignoreDups:true} );
-			// TODO: add "complete" callback
-		else
-			this.masterCollection.fetch( {success: this.changed} );
+		this.curFilters = filters || this.curFilters;
+		this.curLimit = limit || this.curLimit;
+		// keepParent: we don't want the model's parent collection to change: it belongs to the master collection
+		this.diff( this.masterCollection.getFiltered( filters, limit ), {keepParent:true, ignoreDups:true} );
+		
+		// TODO: add "complete" callback
 	},
 	
 	nextPage : function( limit ) {
@@ -141,23 +130,22 @@ VU.KeyedCollection = VU.Collection.extend({
 	initialize : function(models, options) {
 		this.keys = [];
 		this.filterableKeys || (this.filterableKeys = []);
-		_.bindAll( this, "reloadKeys", "removeKeys", "addKeys" );
-		this.bind( "refresh", this.reloadKeys );
-		this.bind( "remove", this.removeKeys );
-		this.bind( "add", this.addKeys );
+		_.bindAll( this, "reloadKeys", "changeKeys", "removeKeys", "addKeys", "getFiltered" );
 	},
 	
 	finalize : function() {
-		this.unbind( "refresh", this.reloadKeys );
-		this.unbind( "remove", this.removeKeys );
-		this.unbind( "add", this.addKeys );
-		//this.unbind( "change", this.changeKeys );
+		this.unbind();
 	},
 	
 	reloadKeys : function() {
+		this.keyed = false;
 		this.keys = [];
+		this.unbind();
 		this.each( this.addKeys );
-		this.bind( "change:onDCard", this.changeKeys );
+		this.bind( "refresh", this.reloadKeys )
+		this.bind( "remove", this.removeKeys );
+		this.bind( "add", this.addKeys );
+		this.keyed = true;
 	},
 	
 	changeKeys : function( model ) {
@@ -187,6 +175,7 @@ VU.KeyedCollection = VU.Collection.extend({
 					else {
 						this.keys[key] = [];
 						this.keys[key][value] = [model];
+						this.bind( "change:" + key, this.changeKeys );
 					}
 				}
 			}
@@ -209,7 +198,10 @@ VU.KeyedCollection = VU.Collection.extend({
 					//cleanup
 					delete this.keys[key][value];
 					if (this.keys[key].length == 0)
+					{
+						this.unbind( "change:" + key, this.changeKeys );
 						delete this.keys[key];
+					}
 				}
 			}
 		}
@@ -217,6 +209,16 @@ VU.KeyedCollection = VU.Collection.extend({
 	
 	//filterObj: [{key, start, end}]
 	getFiltered: function ( filters, limit ) {
+		this.pendingFilters = filters || this.pendingFilters;
+		this.pendinglimit = limit || this.pendingLimit;
+		
+		// ensure that this coll is populated and ready to filter!
+		if ( !this.fetched )
+			this.fetch( {success: this.reloadKeys, silent: true} );
+		else if ( !this.keyed )
+			this.reloadKeys();
+		
+		// begin the filtering process....
 		this.lastLimit = limit || this.length;
 		var i = 0, fl, filter, curVals, finalModels, innerModels;
 		if ( filters )

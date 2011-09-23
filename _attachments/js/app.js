@@ -98,6 +98,11 @@ $(function(){
 				});
 				//this.mainMapView = new VU.MapView({collection:this.colls.halls, mapNode: "hallsMap"});
 				
+			},
+			
+			activate : function ( filters ) {
+				VU.ParentView.prototype.activate.call(this);
+				this.listView.applyFilters( [{key:"onDCard", start:"true", end:"true"}] );
 			}
 		})
 	};
@@ -147,10 +152,6 @@ $(function(){
 			colls.events = new VU.EventCollection( null, { schema: VU.schemas.events.listing, colls: colls } ); 
 			colls.dCard = new VU.LocalFilteredCollection( null, { collection: colls.events } );
 			
-			// kick off event loading; residual listener for following onDCard changes
-			// TODO: put this in either events tab or dCard tab init
-			colls.dCard.applyFilters( [{key:"onDCard", start:"true", end:"true"}] );
-
 			// init misc UI pieces
 			this.popupView = new VU.PopupView();
 			utils.waitingUI.init( ".loadingGIF" );

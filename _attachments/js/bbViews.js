@@ -109,14 +109,18 @@ VU.FilteredListView = Backbone.View.extend({
 	// This will apply filters to the coll and trigger add/remove events, 
 	//	respectively, which will then trigger our add/remove rows
 	applyFilters : function( filters, limit ) {
-		if ( this.collection.length == 0 )
-			//TODO: add waitingUI
-			this.el.innerHTML = "";
-		
-		this.collection.applyFilters( filters, limit || this.pageLimit );
-		
-		if ( this.collection.length == 0 )
-			this.el.innerHTML = this.emptyMsg;		
+		if ( filters != this.curFilters || limit != this.curLimit ) {
+			this.curFilters = filters;
+			this.curLimit = limit;
+			if ( this.collection.length == 0 )
+				//TODO: add waitingUI
+				this.el.innerHTML = "";
+			
+			this.collection.applyFilters( filters, limit || this.pageLimit );
+			
+			if ( this.collection.length == 0 )
+				this.el.innerHTML = this.emptyMsg;		
+		}
 	},
 	
 	// for rendering colls that are already loaded (i.e. no add/remove listening)

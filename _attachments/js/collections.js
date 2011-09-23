@@ -161,7 +161,7 @@ VU.KeyedCollection = VU.Collection.extend({
 		for ( i in this.filterableKeys ) {
 			key = this.filterableKeys[i];
 			value = model.get(key);
-			if ( value ) {
+			if ( value !== undefined ) {
 				// in case an attribute is actually an array of values....
 				values = _.isArray( value ) ? value : [value];
 				for ( j in values ) {
@@ -189,7 +189,7 @@ VU.KeyedCollection = VU.Collection.extend({
 		for ( i in this.filterableKeys ) {
 			key = this.filterableKeys[i];
 			value = model[key];
-			if ( value ) {
+			if ( value !== undefined ) {
 				// we can assume that it must be in here, if not then just ignore
 				valModels = this.keys[key][value];
 				if ( valModels && valModels.length > 1 )
@@ -237,7 +237,7 @@ VU.KeyedCollection = VU.Collection.extend({
 				}
 			}
 			
-		if ( finalModels || filters ) {
+		if ( finalModels ) {
 			finalModels || (finalModels = [] );
 			this.allFilteredModels = finalModels;
 			return limit ? _.first(finalModels, limit) : finalModels;
@@ -268,10 +268,8 @@ VU.EventCollection = VU.KeyedCollection.extend({
 	
 	initialize : function ( models, options ) {
 		VU.KeyedCollection.prototype.initialize.call(this, models, options);
-		if ( options ) {
-			this.schema = options.schema;
-			this.colls = options.colls;
-		}
+		this.schema = options.schema;
+		this.colls = options.colls;
 	},
 	
 	// overriden to pass colls down to the models

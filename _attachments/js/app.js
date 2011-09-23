@@ -230,7 +230,7 @@ $(function(){
 				
 				if ( docModel ) {
 					if ( _.isFunction(docModel.loadEvents) )
-						docModel.loadEvents( this.colls.events, docModel.get("type") );
+						docModel.loadEvents( this.colls.events );
 					this.popupView.openPopup( docModel, template );
 				} else {
 					window.location = "#///!";

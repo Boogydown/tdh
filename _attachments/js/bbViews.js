@@ -118,6 +118,14 @@ VU.FilteredListView = Backbone.View.extend({
 		if ( this.collection.length == 0 )
 			this.el.innerHTML = this.emptyMsg;		
 	},
+	
+	// for rendering colls that are already loaded (i.e. no add/remove listening)
+	render : function() {
+		var addRow = this.addRow;
+		this.collection.each( function (model){ 
+			addRow( model ); 
+		});
+	},
 
 	finalize : function() {
 		for ( var subView in this.listingViews ){
@@ -188,13 +196,14 @@ VU.PopupView = VU.DustView.extend({
 		var list;
 		if ( this.model ) list = this.model.get("events"); 
 		if ( list ) {
-			this.eventlistView = new VU.FilteredListView({
+			(this.eventlistView = new VU.FilteredListView({
 				el:"#popuplist",
 				emptyMsg: "<i>No upcoming dances scheduled</i>",
 				listingClass:VU.EventListingView,
 				collection: list
-			});
+			})).render();
 			this.miniMapView = new VU.MapView({collection: list, el: "#detailmap"});
+			
 		}
 		this.delegateEvents({
 			"click #nav-left" : "nav",

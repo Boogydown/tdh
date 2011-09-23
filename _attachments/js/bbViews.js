@@ -375,7 +375,7 @@ VU.TagCloudView = Backbone.View.extend({
 		//this.collection.unbind("remove", this.renderTagCloud);
 		this.collection.unbind("refresh", this.renderTagCloud);
 		// TODO: turn this into a map/reduce view off of the db:
-		this.tags = [];
+		this.tags = [{text:"ALL", weight:10, url:"#////!"}];
 		this.tagsHash = [];
 		var colltags = this.collection.pluck( "stylesPlayed" ),
 			i, j;

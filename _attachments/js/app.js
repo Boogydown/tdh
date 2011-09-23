@@ -90,13 +90,13 @@ $(function(){
 				VU.ParentView.prototype.initialize.call(this);
 
 				// create our main list and map views and attach the collection to them
-				this.mainListView = new VU.ListView({collection:this.colls.dCard, listingClass:VU.EventListingView, el:"#dCardList"});
+				//this.mainListView = new VU.FilteredListView({collection:this.colls.dCard, listingClass:VU.EventListingView, el:"#dCardList"});
 				//this.mainMapView = new VU.MapView({collection:this.colls.halls, mapNode: "hallsMap"});
 				
 				// every change to this coll means a complete redraw cuz it could add in any order, or delete
-				this.mainListView.collection.unbind( "add", this.mainListView.addRow );
-				this.mainListView.collection.bind( "add", this.mainListView.reset );
-				this.mainListView.collection.bind( "remove", this.mainListView.reset );
+				//this.mainListView.collection.unbind( "add", this.mainListView.addRow );
+				//this.mainListView.collection.bind( "add", this.mainListView.reset );
+				//this.mainListView.collection.bind( "remove", this.mainListView.reset );
 			}
 		})
 	};

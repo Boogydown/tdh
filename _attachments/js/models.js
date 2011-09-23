@@ -43,7 +43,7 @@ VU.CookieModel = Backbone.Model.extend({
 	}
 });
 
-
+// contains current user info and auth stuff
 VU.MemberModel = VU.CookieModel.extend({
 	url : "_users",
 	fetched : false,
@@ -208,16 +208,6 @@ VU.AuthSessionModel = VU.MemberModel.extend({
 	
 });
 
-// A model that holds all of the current filtering/sorting state data
-VU.FilterModel = Backbone.Model.extend({
-	defaults : {
-		tab: "dances",
-		mapCoords: [0,0],
-		genreTags: [""],
-		danceCard: { selectedEvents: [] }
-	}
-});
-
 // An entity that has events associated to it
 VU.EventsContainerModel = Backbone.Model.extend({
 	
@@ -235,6 +225,7 @@ VU.LinkingModel = Backbone.Model.extend({
 	initialize : function () {
 		_.bindAll( this, "loadLinkRefs", "loadLinkVals" );
 		this.bind ( "change", this.loadLinkRefs );
+		this.bind ( "add", this.loadLinkRefs );
 		
 		// Loads all of the refs and values from schema for processing later
 		// this.linkRefs is a dict where key is the linkref property name (i.e. band) and
@@ -261,6 +252,8 @@ VU.LinkingModel = Backbone.Model.extend({
 	},
 	
 	loadLinkRefs : function () {
+		// we only want to load on the first add
+		this.unbind ( "add", this.loadLinkRefs );
 		if ( ! (this.collection && this.collection.colls)) return;
 		var attr, loadingQueue = {}, docID, coll, myRef;
 		// load all referenced models so that we can pull data from them

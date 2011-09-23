@@ -95,11 +95,13 @@ VU.Collection = Backbone.Collection.extend({
 VU.LocalFilteredCollection = VU.Collection.extend({
 	initialize : function( models, options ) {
 		_.bindAll( this, "refreshed", "applyFilters" );
-		this.curLimit = 20;
-		this.curFilters = [];
 		this.masterCollection = options.collection;
 		this.masterCollection.bind( "keysChanged", this.applyFilters );
 		this.masterCollection.bind( "refresh", this.refreshed );
+
+		// kick off the initial fetch, since we're going to need it populated to filter from
+		if ( !this.masterCollection.fetched )
+			this.masterCollection.fetch();
 	},
 	
 	// completely reload
@@ -110,12 +112,17 @@ VU.LocalFilteredCollection = VU.Collection.extend({
 	
 	//filterObj: [{key:, start:, end:}]
 	applyFilters : function( filters, limit ) {
-		this.curFilters = filters || this.curFilters;
-		this.curLimit = limit || this.curLimit;
-		// keepParent: we don't want the model's parent collection to change: it belongs to the master collection
-		this.diff( this.masterCollection.getFiltered( this.curFilters, this.curLimit ), {keepParent:true, ignoreDups:true} );
-		
-		// TODO: add "complete" callback
+		if ( !this.masterCollection.fetched ) {
+			this.pendingFilters = filters;
+			this.pendingLimit = limit;
+		} else {
+			filters = filters || this.pendingFilters;
+			limit = limit || this.pendingLimit;
+			
+			// keepParent: we don't want the model's parent collection to change: it belongs to the master collection
+			this.diff( this.masterCollection.getFiltered( filters, limit ), {keepParent:true, ignoreDups:true} );
+			// TODO: add "complete" callback
+		}
 	},
 	
 	nextPage : function( limit ) {
@@ -131,23 +138,21 @@ VU.KeyedCollection = VU.Collection.extend({
 		this.keys = [];
 		this.filterableKeys || (this.filterableKeys = []);
 		_.bindAll( this, "reloadKeys", "changeKeys", "removeKeys", "addKeys", "getFiltered" );
+		this.bind( "refresh", this.reloadKeys )
 	},
 	
 	finalize : function() {
 		this.unbind();
 	},
 	
-	reloadKeys : function(options) {
+	reloadKeys : function( ) {
 		this.keyed = false;
 		this.keys = [];
 		this.unbind();
 		this.each( this.addKeys );
 		this.keyed = true;
-		//this.trigger( "refresh" );
-		this.bind( "refresh", this.reloadKeys )
 		this.bind( "remove", this.removeKeys );
 		this.bind( "add", this.addKeys );
-		if ( options ) this.getFiltered( options );
 	},
 	
 	changeKeys : function( model ) {
@@ -211,18 +216,8 @@ VU.KeyedCollection = VU.Collection.extend({
 	
 	//filterObj: [{key, start, end}]
 	getFiltered: function ( filters, limit ) {
-		if ( filters.filters ) {
-			limit = filters.limit;
-			filters = filters.filters;
-		}
+		if ( !this.keyed ) return [];
 		
-		// ensure that this coll is populated and ready to filter!
-		if ( !this.fetched && !this.fetching )
-			this.fetch( {success: this.reloadKeys, silent: true, filters:filters, limit:limit} );
-		else if ( !this.keyed )
-			this.reloadKeys();
-		
-			
 		// begin the filtering process....
 		this.lastLimit = limit || this.length;
 		var i = 0, fl, filter, curVals, finalModels, innerModels;

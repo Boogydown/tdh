@@ -406,6 +406,7 @@ VU.schemas = {
 					"description": "Type of event",
 					"type":"string",
 					"choices": [ 
+						{"value":"","label":""},
 						{"value":"Dance","label":"Dance"},
 						{"value":"Music Show","label":"Music Show"},
 						{"value":"Festival","label":"Festival"} 
@@ -415,6 +416,7 @@ VU.schemas = {
 					"description": "Age limit",
 					"type":"string",
 					"choices": [ 
+						{"value":"","label":""},
 						{"value":"All ages","label":"All ages"},
 						{"value":"18 and up","label":"18 and up"},
 						{"value":"21 and up","label":"21 and up"} 

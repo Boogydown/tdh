@@ -520,11 +520,16 @@ VU.schemas = {
 				"status":{
 					"description": "Active or Inactive",
 					"type":"string",
-					"optional":true
+					"optional":true,
+                    "choices": [
+                        {"value":"Active","label":"Active"},
+                        {"value":"Inactive","label":"18 and up"},
+                        {"value":"Gone but Not Forgotten","label":"Gone but Not Forgotten"}
+                    ]
 				},
 				"website":{
 					"description": "Website for more info",
-					"type":"url",
+					"type":"string",
 					"optional":true
 				},
 				"stylesPlayed":{
@@ -532,7 +537,20 @@ VU.schemas = {
 					"type":"array",
 					"optional":true,
 					"items": {
-						"type":"string"
+						"type":"string",
+                        choices: [
+                            { value: "Tejano", label: "Tejano" },
+                            { value: "Rock & Roll", label: "Rock & Roll" },
+                            { value: "Polka", label: "Polka" },
+                            { value: "R&B/Soul", label: "R&B/Soul" },
+                            { value: "Honky Tonk", label: "Honky Tonk" },
+                            { value: "Western Swing", label: "Western Swing" },
+                            { value: "Cajun/Zydeco", label: "Cajun/Zydeco" },
+                            { value: "Rockabilly", label: "Rockabilly" },
+                            { value: "Singer/Songwriter", label: "Singer/Songwriter" },
+                            { value: "Blues", label: "Blues" },
+                            { value: "Countryk", label: "Country" }
+                        ]
 					}
 				}
 			}

@@ -56,7 +56,7 @@ $(function(){
 				if ( !colls.bands.fetched ) { colls.bands.bind( "refresh", this.fetched ); colls.bands.fetch({field:0}) }
 				else this.fetched( colls.bands, {field:0});
 				if ( !colls.halls.fetched ) { colls.halls.bind( "refresh", this.fetched ); colls.halls.fetch({field:2}) }
-				else this.fetched( colls.halls, {field:5});
+				else this.fetched( colls.halls, {field:2});
 			}
 			else 
 				this.attach();
@@ -64,6 +64,7 @@ $(function(){
         },
 		
 		fillMe : function( model, options ) {
+            this.docModel.unbind("change", this.fillMe);
 			this.modelJSON = this.docModel.toJSON();
 			if ( this.inputex ) this.inputex.setValue( this.modelJSON() );
 		},
@@ -73,11 +74,12 @@ $(function(){
 			coll.unbind( "refresh", this.fetched );
 			this.form.fields[options.field].choices = _.map( coll.models, function(model) {
 				// TODO: yeaaaahhh.... this needs to be fixed.  Should not have hardcoded values here.  Perhaps make "name" mandatory on all docs?
-				var name = model.get("bandName");
-				if ( !name ) name = model.get("danceHallName");
+				var name = model.get("bandName") || model.get("danceHallName");
 				return { label:name , value:model.get("_id") };
 			} );
-			if ( --this.collsToFetch == 0 )
+            // add blanks to beginning
+			this.form.fields[options.field].choices.unshift({value:"", label: ""});
+            if ( --this.collsToFetch == 0 )
 				this.attach();
 		},
 		
@@ -501,7 +503,7 @@ $(function(){
 						break;
 					}
 			}
-			this.hideStyle.display = (hidden == 1 ? "none" : "");
+			if ( this.hideStyle ) this.hideStyle.display = (hidden == 1 ? "none" : "");
 			
 			// if doc requested, but no docID, then revert back to list
 			if ( showType == "doc" && !docID ) showType = "list";

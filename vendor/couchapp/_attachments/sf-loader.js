@@ -6,10 +6,13 @@ function couchapp_load(scripts) {
 
 couchapp_load([
   "/_utils/script/sha1.js",
+    "_utils/script/sha1.js",
   "/_utils/script/json2.js",
+    "_utils/script/json2.js",
   "/_utils/script/jquery.js",
+    "_utils/script/jquery.js",
   "js/lib/jquery-ui-1.8.16.custom.min.js",
-  "_utils/script/jquery.couch.js",
+    "_utils/script/jquery.couch.js",
   "/_utils/script/jquery.couch.js",
   "js/lib/underscore.js",
   "js/lib/backbone.js",

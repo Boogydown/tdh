@@ -128,7 +128,8 @@ $(function(){
 			if(values._id === "") delete values._id;
 			if ( this.docModel ){
 				this.docModel.save(values);
-				this.collection.add(this.docModel, {silent: true});
+				if ( ! this.collection.get(this.docModel) )
+                   this.collection.add(this.docModel, {silent: true});
 			}
 			else this.collection.create(values);
 			document.forms[0].reset();

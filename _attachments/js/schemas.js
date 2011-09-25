@@ -523,7 +523,7 @@ VU.schemas = {
 					"optional":true,
                     "choices": [
                         {"value":"Active","label":"Active"},
-                        {"value":"Inactive","label":"18 and up"},
+                        {"value":"Inactive","label":"Inactive"},
                         {"value":"Gone but Not Forgotten","label":"Gone but Not Forgotten"}
                     ]
 				},

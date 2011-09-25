@@ -466,6 +466,8 @@ VU.EventModel = VU.LinkingModel.extend({
 	initialize: function ( attrs, options ) {
 		_.bindAll( this, "normalizeData" );
 		this.bind( "change:date", this.normalizeData );
+		this.bind( "change:hall", this.normalizeData );
+		this.bind( "change:date", this.normalizeData );
 		this.bind( "change:gpsCoordinates", this.normalizeData );
 		// date comes in at init, silently, so we'll normalize it now
 		VU.LinkingModel.prototype.initialize.call(this, attrs, options);
@@ -496,7 +498,14 @@ VU.EventModel = VU.LinkingModel.extend({
 				lat = gps[1];
 				lng = gps[0];
 			}
-		}				
+		}
+		
+		var band = this.get( "band" );
+		if ( _.isArray( band ) )
+			band = band[0];
+		var hall = this.get( "hall" );
+		if ( _.isArray( hall ) )
+			hall = hall[0];
 		
 		this.set({
 			//TODO: make this a date util
@@ -505,7 +514,9 @@ VU.EventModel = VU.LinkingModel.extend({
 			dateMonth: ["JAN","FEB","MAR","APR","MAY","JUNE","JULY","AUG","SEPT","OCT","NOV","DEC"][myDate.getMonth()],
 			dateUnix: myDate.getTime(),
 			lat: lat,
-			lng: lng
+			lng: lng,
+			band: band,
+			hall: hall
 		}, {silent:true});
 	}
 });

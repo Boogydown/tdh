@@ -725,9 +725,9 @@ h2 {
 img.close_popup {
 	background: url(../images/cssSprite.png);
 	background-position: -180px -140px;
-	border: 0px;
+	border-style: none;
 	float: right;
-	margin: -10px -10px 0 0;
+	height: 50px;
 	
 }
 

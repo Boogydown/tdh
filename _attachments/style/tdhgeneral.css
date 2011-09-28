@@ -701,7 +701,7 @@ h2 {
 	display: none; /*--hidden by default--*/
 	background-image: url('../images/stripedBG.jpg');
     background-repeat:repeat;
-    border: 2px solid #626262;
+    border: 2px solid #2B2B2B;
 	width: 662px;
 	margin-left:-331px;
 	float: left;
@@ -723,8 +723,11 @@ h2 {
     border-radius: 10px;	
 }
 img.close_popup {
+	background: url(../images/cssSprite.png);
+	background-position: -180px -140px;
+	border-style: none;
 	float: right;
-	margin: -10px -10px 0 0;
+	height: 50px;
 	
 }
 

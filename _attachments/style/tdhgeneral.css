@@ -723,8 +723,10 @@ h2 {
     border-radius: 10px;	
 }
 img.close_popup {
-	float: right;
-	margin: -10px -10px 0 0;
+	background: url(../images/cssSprite.png);
+	background-position: -180px -140px;
+	/*float: right;
+	margin: -10px -10px 0 0;*/
 	
 }
 

@@ -142,7 +142,8 @@ VU.KeyedCollection = VU.Collection.extend({
 	reloadKeys : function( ) {
 		this.keyed = false;
 		this.keys = [];
-		this.unbind();
+		// this may remove any external bindings, so for now let's just assume that this.filterableKeys never changes
+		//this.unbind("change");
 		this.each( this.addKeys );
 		this.keyed = true;
 		this.bind( "remove", this.removeKeys );
@@ -221,6 +222,7 @@ VU.KeyedCollection = VU.Collection.extend({
 				curVals = this.keys[filter.key];
 				if ( curVals ){
 					innerModels = [];
+					// for each key, check all the values
 					for ( value in curVals )
 						if ( (value >= filter.start && value <= filter.end) )
 							innerModels = innerModels.concat( curVals[value] );
@@ -238,7 +240,7 @@ VU.KeyedCollection = VU.Collection.extend({
 		}
 		//else
 		this.allFilteredModels = this.models;
-		return limit ? _.first(this.models, limit) : this.models;
+		return limit ? _.first(this.models, limit) : this.models.clone();
 	},
 	
 	nextPage : function ( limit ) {

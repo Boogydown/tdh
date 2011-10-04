@@ -349,14 +349,13 @@ VU.BandModel = VU.EventsContainerModel.extend({
 		// image and website
 		var bandID = this.id;
 		var bandPic = this.get("image");
-		var ed = this.get("stylesPlayed");
-		if ( _.isArray(ed) ) ed = ed.join(", ") + ". ";
+		var entryDescription = this.get("stylesPlayed");
+		if ( _.isArray(entryDescription) ) entryDescription = entryDescription.join(", ") + ". ";
 		
 		this.set( {
 			website: (this.get("website")||"").split("://").pop(),
 			name: this.get("bandName"),
-			entryDescription: ed,
-			type: this.myType
+			entryDescription: entryDescription
 		}, { silent: true } );
 		
 		if ( bandPic && bandPic != this.defaults.image && bandPic.substr(0, 4) != "http" ) {
@@ -427,9 +426,10 @@ VU.VenueModel = VU.EventsContainerModel.extend({
 			hallPic = "../../" + hallID + "/thumbs/" + encodeURI( hallPic );
 			// TODO: check to see if this URL exists... ?  perhaps try <img src.... onerror=""/>
 			
-		var ed = this.get("dateBuilt");
-		if ( ed ) ed = "cir. " + ed + ". ";
-		ed += this.get("historicalNarrative");
+		var entryDescription = this.get("dateBuilt");
+		if ( entryDescription ) 
+			entryDescription = "cir. " + entryDescription + ". ";
+		entryDescription += this.get("historicalNarrative");
 		
 		var lat, lng, gps = this.get( "GPS Coordinates" ) || this.get( "gpsCoordinates" );
 		if ( gps ){
@@ -447,8 +447,7 @@ VU.VenueModel = VU.EventsContainerModel.extend({
 			mainPic: hallPic.replace( "\/thumbs\/", "\/files\/" ), 
 			website: (this.get("website")||"").split("://").pop(),
 			name: this.get("danceHallName"),
-			entryDescription: ed,
-			type: this.myType,
+			entryDescription: entryDescription,
 			lat: lat,
 			lng: lng
 		}, { silent: true } );

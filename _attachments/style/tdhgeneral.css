@@ -727,8 +727,13 @@ img.close_popup {
 	background-position: -180px -140px;
 	border-style: none;
 	float: right;
-	height: 50px;
+	height: 35px;
+	margin: 10px 0px 0 0;
 	
+}
+
+a.close {
+	border-style: none;
 }
 
 

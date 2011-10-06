@@ -158,7 +158,8 @@ $(function(){
 							"content_type": "image/jpeg", 
 							"data": filelist[i].files[0].getAsDataURL().slice(23)
 						};
-					}
+					} else
+						delete filelist[i];
 				}
 			}			
         }

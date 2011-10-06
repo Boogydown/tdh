@@ -170,7 +170,7 @@ div.list{
 	position:relative;
 	left:-1px;
 	top: -1px;
-	height:90px;
+	height:88px;
 	width: 55px;
 	background: url(../images/cssSprite.png);
 	background-position: -10px -390px;
@@ -187,7 +187,7 @@ div.list{
 	position:relative;
 	left:-1px;
 	top: -1px;
-	height:90px;
+	height:88px;
 	width: 55px;
 	background: url(../images/cssSprite.png);
 	background-position: -10px -290px;
@@ -728,7 +728,8 @@ img.close_popup {
 	border-style: none;
 	border-color: transparent;
 	float: right;
-	height: 35px;
+	height: 30px;
+	width: 30px;
 	/*margin: 10px 0px 0 0;*/
 	position: relative;
 	left: 80px;

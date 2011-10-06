@@ -206,7 +206,7 @@ div.searchFor{
 	background-color: transparent;
 	width: 360px;
 	position: absolute;
-	
+	left: 20px;
 	top: 50px;
 	bottom: -20px;
 	behavior: url(border-radius.htc);

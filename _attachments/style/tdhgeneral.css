@@ -732,7 +732,7 @@ img.close_popup {
 	width: 35px;
 	/*margin: 10px 0px 0 0;*/
 	position: relative;
-	left: 10px;
+	left: 20px;
 	bottom: 20px;
 	
 }
@@ -746,7 +746,7 @@ a.close {
 /* ******************Popup navigation buttons******************* */
 
 #nav-left, #nav-right{
-	width: 50px;
+	width: 53px;
 	height: 100px;
 	position: absolute;
 	top: 170px;

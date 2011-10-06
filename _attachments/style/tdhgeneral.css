@@ -242,7 +242,7 @@ div#hallsDiv div.list, div#bandsDiv div.list{
     height: 89px;
     position: relative;
     margin-bottom: 6px;
-    width: 472px;
+    width: 442px;
 }
 
 #itemlisting div.featured{ 
@@ -250,7 +250,7 @@ div#hallsDiv div.list, div#bandsDiv div.list{
 	left:-1px;
 	top: -1px;
 	height:90px;
-	width: 310px;
+	width: 280px;
 	background: url(../images/cssSprite.png);
 	background-position: 0px -590px;
 	border-radius: 10px 0px 0px 10px;

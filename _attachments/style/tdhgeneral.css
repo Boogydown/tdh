@@ -731,13 +731,14 @@ img.close_popup {
 	height: 35px;
 	/*margin: 10px 0px 0 0;*/
 	position: relative;
-	left: 90px;
+	left: 80px;
 	bottom: 20px;
 	
 }
 
 a.close {
 	border-style: none;
+	border-color: transparent;
 }
 
 

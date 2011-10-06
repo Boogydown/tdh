@@ -158,9 +158,9 @@ div.list{
     -webkit-border-radius: 10px;
     -khtml-border-radius: 10px;
     border-radius: 10px;	
-    height: 89px;
+    height: 88px;
     position: relative;
-    margin-bottom: 6px;
+    margin-bottom: 5px;
     width: 352px;
 }
 
@@ -381,7 +381,7 @@ div.twostepphoto{
 	background-position: -10px -140px;
     height: 40px;
     width: 40px;
-    left: 285px;
+    left: 295px;
     top: 10px;
     position: absolute;
 }

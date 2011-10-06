@@ -231,11 +231,11 @@ input#searchName, input#searchCounty{
 }
 
 input#searchName{
-	left: 10px;
+	left: 0px;
 }
 
 input#searchCounty{
-	left: 220px;
+	left: 230px;
 	top: -30px;
 }
 

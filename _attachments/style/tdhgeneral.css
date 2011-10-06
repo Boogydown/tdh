@@ -363,7 +363,7 @@ div#itemImage img{
 }
 
 div#hallsMap {
-    right: 74px;
+    right: 34px;
 	top: 206px;
 		behavior: url(border-radius.htc);
 	-moz-border-radius: 10px;
@@ -376,7 +376,7 @@ div#bandsTags{
 	height: 370px;
 	width: 167px;
 	top: 16px;
-	left: 570px;
+	left: 510px;
 }
 
 #bandsTagsList li a {

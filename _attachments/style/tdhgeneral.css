@@ -218,6 +218,9 @@ div.searchFor{
 input#searchName, input#searchCounty{
 	background: url(../images/cssSprite.png);
 	background-position: -140px -240px;
+	display: inline;
+	width: 80px;
+	border: 0px;
 }
 
 div#hallsDiv div.box, div#bandsDiv div.box {
@@ -233,7 +236,19 @@ div#hallsDiv div.box, div#bandsDiv div.box {
     border-radius: 10px;	
 }
 
-div#hallsDiv div.box.list, div#bandsDiv div.box.list  {
+div#hallsDiv div.box.list{
+	background-color: transparent;
+	position: absolute;
+	top: 85px;
+	bottom: -20px;
+	behavior: url(border-radius.htc);
+	-moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -khtml-border-radius: 10px;
+    border-radius: 10px;	
+}
+
+div#bandsDiv div.box.list  {
 	background-color: transparent;
 	position: absolute;
 	top: 50px;

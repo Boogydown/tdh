@@ -227,7 +227,7 @@ div#hallsDiv div.box.list, div#bandsDiv div.box.list  {
 
 div#hallsDiv div.list, div#bandsDiv div.list{
 	left: 15px;
-	width: 530px;
+	width: 470px;
 	overflow: auto;
 	border-radius: 0 0 0 0;
 }
@@ -265,7 +265,7 @@ div#hallsDiv div.list, div#bandsDiv div.list{
 	left:-1px;
 	top: -1px;
 	height:90px;
-	width: 500px;
+	width: 440px;
 	background: url(../images/cssSprite.png);
 	background-position: 0px -490px;
 	behavior: url(border-radius.htc);

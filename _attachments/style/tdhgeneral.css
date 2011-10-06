@@ -219,15 +219,25 @@ div.searchFor{
 input#searchName, input#searchCounty{
 	background: url(../images/cssSprite.png);
 	background-position: -140px -240px;
-	display: inline;
 	width: 210px;
 	height: 30px;
 	border: 0px;
+	position: relative;
 	behavior: url(border-radius.htc);
 	-moz-border-radius: 10px;
     -webkit-border-radius: 10px;
     -khtml-border-radius: 10px;
     border-radius: 10px;	
+}
+
+input#searchName{
+	left: 10px;
+	top: 5px;
+}
+
+input#searchCounty{
+	left: 220px;
+	top: 5px;
 }
 
 div#hallsDiv div.box, div#bandsDiv div.box {

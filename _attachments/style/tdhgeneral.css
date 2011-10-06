@@ -206,7 +206,7 @@ div.searchFor{
 	background-color: transparent;
 	width: 360px;
 	position: absolute;
-
+	left: 20px;
 	top: 50px;
 	bottom: -20px;
 	behavior: url(border-radius.htc);
@@ -221,7 +221,7 @@ input#searchName, input#searchCounty{
 	background-position: -140px -240px;
 	display: inline;
 	width: 180px;
-	margin: 20px;
+	margin-right: 20px;
 	height: 30px;
 	border: 0px;
 	behavior: url(border-radius.htc);

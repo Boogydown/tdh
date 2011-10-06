@@ -363,7 +363,7 @@ div#itemImage img{
 }
 
 div#hallsMap {
-    right: 34px;
+    right: 24px;
 	top: 206px;
 		behavior: url(border-radius.htc);
 	-moz-border-radius: 10px;
@@ -474,7 +474,7 @@ div#dancesCal div {
 
 div#dancesMap {
     right: 14px;
-	top: 242px;
+	top: 252px;
 	behavior: url(border-radius.htc);
 	-moz-border-radius: 10px;
     -webkit-border-radius: 10px;

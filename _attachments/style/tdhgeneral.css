@@ -726,11 +726,12 @@ img.close_popup {
 	background: url(../images/cssSprite.png);
 	background-position: -180px -140px;
 	border-style: none;
+	border-color: transparent;
 	float: right;
 	height: 35px;
 	/*margin: 10px 0px 0 0;*/
 	position: relative;
-	left: 70px;
+	left: 20px;
 	bottom: 20px;
 	
 }

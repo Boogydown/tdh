@@ -728,11 +728,11 @@ img.close_popup {
 	border-style: none;
 	border-color: transparent;
 	float: right;
-	height: 30px;
-	width: 30px;
+	height: 35px;
+	width: 35px;
 	/*margin: 10px 0px 0 0;*/
 	position: relative;
-	left: 80px;
+	left: 10px;
 	bottom: 20px;
 	
 }
@@ -757,18 +757,37 @@ a.close {
 
 #nav-left{
 	left: -65px;
-	background-position: -450px -130px;
+	background-position: -540px -130px;
 }
 
 #nav-right{
 	right: -65px;
-	background-position: -450px -10px;
+	background-position: -540px -10px;
 }
 
 #nav-left:hover, #nav-right:hover{
 	opacity:1;
 }
 
+#nav-left:hover{
+	left: -65px;
+	background-position: -600px -130px;
+}
+
+#nav-right:hover{
+	right: -65px;
+	background-position: -600px -10px;
+}
+
+#nav-left:active{
+	left: -65px;
+	background-position: -660px -130px;
+}
+
+#nav-right:active{
+	right: -65px;
+	background-position: -660px -10px;
+}
 #nav-left:active, #nav-right:active{
 	-moz-transform: scaleY(-1);
 	-o-transform: scaleY(-1);

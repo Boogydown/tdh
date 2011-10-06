@@ -730,19 +730,21 @@ img.close_popup {
 	background-position: -190px -140px;
 	border-style: none;
 	border-color: transparent;
+	border-width: 0px;
 	float: right;
 	height: 35px;
 	width: 35px;
 	/*margin: 10px 0px 0 0;*/
 	position: relative;
 	left: 20px;
-	bottom: 20px;
+	bottom: 50px;
 	
 }
 
 a.close {
 	border-style: none;
 	border-color: transparent;
+	border-width: 0px;
 }
 
 

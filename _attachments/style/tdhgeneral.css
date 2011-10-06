@@ -80,17 +80,17 @@ div#dCardTabBtn{
 	text-indent:20px;
 	font-family: georgia, serif;
 	background-image: url('../images/cssSprite.png');
-	background-position: 0px -80px;
+	background-position: -10px -80px;
 	float:right;
 }
 
 div#dCardTabBtn.active-link{
-	background-position: -340px -80px;
+	background-position: -350px -80px;
 }
 
 div#dCardTabBtn:hover{
 	cursor:pointer;
-	background-position: -170px -80px;
+	background-position: -180px -80px;
 }
 
 ul#tab-list{

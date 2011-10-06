@@ -85,12 +85,12 @@ div#dCardTabBtn{
 }
 
 div#dCardTabBtn.active-link{
-	background-position: -300px -80px;
+	background-position: -340px -80px;
 }
 
 div#dCardTabBtn:hover{
 	cursor:pointer;
-	background-position: -150px -80px;
+	background-position: -170px -80px;
 }
 
 ul#tab-list{

@@ -206,6 +206,7 @@ div.searchFor{
 	background-color: transparent;
 	width: 360px;
 	position: absolute;
+
 	top: 50px;
 	bottom: -20px;
 	behavior: url(border-radius.htc);
@@ -220,8 +221,14 @@ input#searchName, input#searchCounty{
 	background-position: -140px -240px;
 	display: inline;
 	width: 180px;
+	margin: 20px;
 	height: 30px;
 	border: 0px;
+	behavior: url(border-radius.htc);
+	-moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -khtml-border-radius: 10px;
+    border-radius: 10px;	
 }
 
 div#hallsDiv div.box, div#bandsDiv div.box {

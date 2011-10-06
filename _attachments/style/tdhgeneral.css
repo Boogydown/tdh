@@ -704,12 +704,13 @@ h2 {
 	background-image: url('../images/stripedBG.jpg');
     background-repeat:repeat;
     border: 2px solid #2B2B2B;
+    border-top: 30px;
 	width: 662px;
 	margin-left:-331px;
 	float: left;
 	font-size: 1.2em;
 	position: fixed;
-	top: 110px; 
+	top: 80px; 
 	bottom: 63px;
 	left: 50%;
 	z-index: 99999;

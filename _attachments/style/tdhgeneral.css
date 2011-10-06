@@ -204,7 +204,7 @@ div.list{
 
 div.searchFor{
 	background-color: transparent;
-	width: 180px;
+	width: 360px;
 	position: absolute;
 	top: 50px;
 	bottom: -20px;
@@ -219,7 +219,8 @@ input#searchName, input#searchCounty{
 	background: url(../images/cssSprite.png);
 	background-position: -140px -240px;
 	display: inline;
-	width: 80px;
+	width: 180px;
+	height: 30px;
 	border: 0px;
 }
 

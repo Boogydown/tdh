@@ -232,12 +232,11 @@ input#searchName, input#searchCounty{
 
 input#searchName{
 	left: 10px;
-	top: 5px;
 }
 
 input#searchCounty{
 	left: 220px;
-	top: 5px;
+	top: -30px;
 }
 
 div#hallsDiv div.box, div#bandsDiv div.box {

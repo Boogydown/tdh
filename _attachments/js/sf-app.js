@@ -151,12 +151,14 @@ $(function(){
 
 				//iterate through list of image files and upload as attachments	
 				for ( var i = 0; i < len; i++ ) {
-					ifn = filelist[i].files[0].name;
-					values[property][i][fileKey] = ifn;
-					values._attachments["files/" + ifn] = {
-						"content_type": "image/jpeg", 
-						"data": filelist[i].files[0].getAsDataURL().slice(23)
-					};
+					if ( filelist[i].files && filelist[i].files.length > 0 && _.isFunction( filelist[i].files[0].getAsDataURL ) ) {
+						ifn = filelist[i].files[0].name;
+						values[property][i][fileKey] = ifn;
+						values._attachments["files/" + ifn] = {
+							"content_type": "image/jpeg", 
+							"data": filelist[i].files[0].getAsDataURL().slice(23)
+						};
+					}
 				}
 			}			
         }

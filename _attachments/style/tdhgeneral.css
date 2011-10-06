@@ -241,7 +241,7 @@ input#searchCounty{
 
 div#hallsDiv div.box, div#bandsDiv div.box {
 	background-color: transparent;
-	width: 180px;
+	width: 240px;
 	position: absolute;
 	top: 50px;
 	bottom: -20px;

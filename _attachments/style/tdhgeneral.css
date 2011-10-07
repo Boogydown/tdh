@@ -217,8 +217,10 @@ div.searchFor{
 }
 
 input#searchName, input#searchCounty{
-	background: url(../images/cssSprite.png);
+	background-image: url(../images/cssSprite.png);
 	background-position: -140px -240px;
+	background-repeat: no-repeat;
+	/*background-color: transparent;*/
 	width: 210px;
 	height: 30px;
 	border: 0px;
@@ -788,7 +790,7 @@ img.close_popup {
 	/*margin: 10px 0px 0 0;*/
 	position: relative;
 	left: 20px;
-	bottom: 50px;
+	bottom: 45px;
 	
 }
 

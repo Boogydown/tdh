@@ -128,8 +128,8 @@ VU.LocalFilteredCollection = VU.Collection.extend({
 	},
 	
 	nextPage : function( limit ) {
-		limit && this.numPerPage = limit;
-		this.applyFilters( null, this.currentLimit + this.numPerPage );
+		limit && (this.numPerPage = limit);
+		this.applyFilters( null, this.currentLimit += this.numPerPage );
 	}
 });
 

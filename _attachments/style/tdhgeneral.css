@@ -210,10 +210,10 @@ div.searchFor{
 	top: 50px;
 	bottom: -20px;
 	behavior: url(border-radius.htc);
-	-moz-border-radius: 10px;
-    -webkit-border-radius: 10px;
-    -khtml-border-radius: 10px;
-    border-radius: 10px;	
+	-moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -khtml-border-radius: 5px;
+    border-radius: 5px;	
 }
 
 input#searchName, input#searchCounty{
@@ -226,10 +226,10 @@ input#searchName, input#searchCounty{
 	border: 0px;
 	position: relative;
 	behavior: url(border-radius.htc);
-	-moz-border-radius: 10px;
-    -webkit-border-radius: 10px;
-    -khtml-border-radius: 10px;
-    border-radius: 10px;	
+	-moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -khtml-border-radius: 5px;
+    border-radius: 5px;	
 }
 
 input#searchName{

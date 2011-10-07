@@ -219,11 +219,14 @@ VU.AuthSessionModel = VU.MemberModel.extend({
 
 // An entity that has events associated to it
 VU.EventsContainerModel = Backbone.Model.extend({
+	initialize : function( ) {
+		_.bindAll( this, "loadEvents" );
+	},
 	
 	// load all events that have a band or hall (ofType) of this id
 	//TODO: ofType needs to be more dependant on schema... we're currently assuming that the type is the same as the linkingRef
 	loadEvents : function ( eventsCollection ) {
-		var myEvents = new VU.LocalFilteredCollection( null, {collection: eventsCollection } ),
+		var myEvents = new VU.LocalFilteredCollection( null, {collection: eventsCollection, name:this.name } ),
 			myId = this.id, 
 			ofType = this.myType;
 		myEvents.applyFilters( [{key: ofType, start: myId, end: myId}] );
@@ -333,7 +336,9 @@ VU.BandModel = VU.EventsContainerModel.extend({
 		events: null
 	},
 	
-	initialize : function () { 
+	initialize : function ( attrs, options ) { 
+		VU.EventsContainerModel.prototype.initialize.call( this, attrs, options );
+		this.name = _.uniqueId( "band" );
 		_.bindAll( this, "normalizeAttributes", "searchComplete" );
 		this.bind( "change:image", this.normalizeAttributes );		
 		this.bind( "change:stylesPlayed", this.normalizeAttributes );		
@@ -401,7 +406,9 @@ VU.VenueModel = VU.EventsContainerModel.extend({
 		events: null
 	},	
 
-	initialize : function () { 
+	initialize : function ( attrs, options ) { 
+		VU.EventsContainerModel.prototype.initialize.call( this, attrs, options );
+		this.name = _.uniqueId( "hall" );
 		_.bindAll( this, "normalizeAttributes" );
 		this.bind( "change:images", this.normalizeAttributes );		
 		this.bind( "change:dateBuilt", this.normalizeAttributes );		
@@ -463,6 +470,7 @@ VU.EventModel = VU.LinkingModel.extend({
 	},
 	
 	initialize: function ( attrs, options ) {
+		this.name = _.uniqueId( "event" );
 		_.bindAll( this, "normalizeData" );
 		this.bind( "change:date", this.normalizeData );
 		this.bind( "change:hall", this.normalizeData );

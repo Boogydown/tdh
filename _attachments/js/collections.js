@@ -97,6 +97,7 @@ VU.LocalFilteredCollection = VU.Collection.extend({
 		this.currentFilters = [];
 		this.numPerPage = 20;
 		this.currentLimit = 20;
+		this.name = _.uniqueId(options.name);
 		
 		_.bindAll( this, "refreshed", "applyFilters", "onGotFiltered" );
 		this.masterCollection = options.collection;
@@ -112,6 +113,7 @@ VU.LocalFilteredCollection = VU.Collection.extend({
 	
 	//filterObj: [{key:, start:, end:}]
 	applyFilters : function( filters, limit ) {
+		console.log( this.name + ".applyFilters( " + filters, limit + ")");
 		filters && ( this.currentFilters = filters );
 		limit > 0 && ( this.currentLimit = limit );
 		if ( this.currentFilters && this.currentFilters.length > 0 )
@@ -119,12 +121,14 @@ VU.LocalFilteredCollection = VU.Collection.extend({
 				filters: this.currentFilters, 
 				head: this.currentLimit,
 				tail: this.currentLimit + this.numPerPage,
-				callback: this.onGotFiltered
+				callback: this.onGotFiltered,
+				name: this.name
 			});
 	},
 	
 	onGotFiltered : function ( filteredModels ) {
 		// keepParent: we don't want the model's parent collection to change: it belongs to the master collection
+		console.log( this.name + ".onGotFiltered( " + filteredModels.length + " models recieved)");		
 		this.diff( filteredModels, {keepParent:true, ignoreDups:true} );
 	},
 	
@@ -136,6 +140,7 @@ VU.LocalFilteredCollection = VU.Collection.extend({
 
 VU.KeyedCollection = VU.Collection.extend({
 	initialize : function(models, options) {
+		this.name = _.uniqueId(options.name);
 		
 		// hash for quickly cross-referencing key matches
 		this.keys = [];
@@ -226,6 +231,7 @@ VU.KeyedCollection = VU.Collection.extend({
 	
 	//filterParams: {filters:[{key, start, end}], head:int, tail:int, callback:func}
 	getFiltered: function ( filterParams ) {
+		console.log( this.name + ".getFiltered( " + (filterParams && filterParams.name) + " )" );
 		if ( filterParams ) 
 			this.filterQueue.push( filterParams );
 		if ( !this.fetched ) {
@@ -240,6 +246,7 @@ VU.KeyedCollection = VU.Collection.extend({
 			fp = this.filterQueue.shift();
 		if ( fp && fp.filters )
 		{
+			console.log( this.name + ".getFiltered(), processing " + fp.name );
 			for( fl = fp.filters.length; i < fl; ) {
 				filter = fp.filters[i++];
 				curVals = this.keys[filter.key];

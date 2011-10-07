@@ -28,7 +28,7 @@
 					emptyMsg: "<i>No dances meet your search criteria!</i>",
 					pageLimit:15,
 					listingClass:VU.EventListingView,
-					collection: new VU.LocalFilteredCollection( null, {collection: this.colls.events })
+					collection: new VU.LocalFilteredCollection( null, {collection: this.colls.events, name:"dances" })
 				});
 				this.mapView = new VU.MapView( {el: "#dancesMap", collection:this.colls.halls});
 				this.calView = new VU.CalView( {el: "#dancesCal"});
@@ -49,7 +49,7 @@
 					el: "#bandsList",
 					emptyMsg: "<i>No bands meet your search criteria!</i>",
 					pageLimit: 15,
-					collection:new VU.LocalFilteredCollection( null, { collection: this.colls.bands })
+					collection:new VU.LocalFilteredCollection( null, { collection: this.colls.bands, name:"bands" })
 				});
 				this.tagView = new VU.TagCloudView({collection:this.colls.bands, el: "#bandsTags"});
 			},
@@ -71,7 +71,7 @@
 					el: "#hallsList",
 					emptyMsg: "<i>No dance halls meet your search criteria!</i>",
 					pageLimit: 15,
-					collection: new VU.LocalFilteredCollection( null, {collection: this.colls.halls })
+					collection: new VU.LocalFilteredCollection( null, {collection: this.colls.halls, name:"halls" })
 				});
 				this.mapView = new VU.MapView({collection: this.colls.halls, el: "#hallsMap"});
 			},
@@ -146,11 +146,11 @@
 			
 			// create all master collections (these hold all models are filtered locally)
 			var colls = this.colls = {
-				bands : new VU.BandCollection(),
-				halls : new VU.HallCollection()
+				bands : new VU.BandCollection(null, {name:"bandsMaster"}),
+				halls : new VU.HallCollection(null, {name:"hallsMaster"})
 			};
-			colls.events = new VU.EventCollection( null, { schema: VU.schemas.events.listing, colls: colls } ); 
-			colls.dCard = new VU.LocalFilteredCollection( null, { collection: colls.events } );
+			colls.events = new VU.EventCollection( null, { schema: VU.schemas.events.listing, colls: colls, name:"eventsMaster" } ); 
+			colls.dCard = new VU.LocalFilteredCollection( null, { collection: colls.events, name:"dcard" } );
 			
 			// init misc UI pieces
 			this.popupView = new VU.PopupView();

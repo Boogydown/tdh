@@ -217,10 +217,10 @@ div.searchFor{
 }
 
 input#searchName, input#searchCounty{
-	background-image: url(../images/cssSprite.png);
+	/*background-image: url(../images/cssSprite.png);
 	background-position: -140px -240px;
-	background-repeat: no-repeat;
-	/*background-color: transparent;*/
+	background-repeat: no-repeat;*/
+	background-color: #404040;
 	width: 210px;
 	height: 30px;
 	border: 0px;

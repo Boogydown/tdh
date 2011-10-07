@@ -115,17 +115,19 @@ $(function(){
 			var values = this.inputex.getValue();
 			values.type = this.options.collection.url;
 			
-			// grab image filenames from inputs
-			var ifilelist = this.el[0].image;
-			
 			// inject the files from the from into the JSON that we're going to send to the db
 			// (inputex.getValue() returns arrays as...well, arrays.  However, the POST JSON 
 			//	requires ONLY objects )
-			this.injectFiles( this.el[0].image, "images", "image", values );
-			this.injectFiles( this.el[0].attachedReferenceDocument, "documents", "attachedReferenceDocument", values );
+			//this.injectFiles( this.el[0].image, "images", "image", values );
+			//this.injectFiles( this.el[0].attachedReferenceDocument, "documents", "attachedReferenceDocument", values );
 
 			// Nuke an empty ID, so it doesn't kill initial creation
 			if(values._id === "") delete values._id;
+			
+			alert("File uploading has been disabled temporarily\nThe remaining data that you entered will be saved to the server.\nWe greatly apologize for the inconvenience.");
+			if ( values._attachments ) delete values._attachments;
+			if ( values.images ) delete values.images;
+			
 			if ( this.docModel ){
 				this.docModel.save(values);
 				if ( ! this.collection.get(this.docModel) )
@@ -145,7 +147,7 @@ $(function(){
 			if ( filelist.length == undefined ) filelist = [ filelist ];
 			var len = filelist.length;
 			if ( len ) {
-				values._attachments = {};
+				if (!values._attachments) values._attachments = {};
 				var ifn = "";
 				//var accept = {"image/jpeg": 23, "image/png": 22}
 
@@ -159,6 +161,7 @@ $(function(){
 							"data": filelist[i].files[0].getAsDataURL().slice(23)
 						};
 					} else
+						// remove empty files from here
 						delete filelist[i];
 				}
 			}			

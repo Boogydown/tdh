@@ -151,7 +151,7 @@ VU.KeyedCollection = VU.Collection.extend({
 		this.name = _.uniqueId(options.name);
 		
 		// hash for quickly cross-referencing key matches
-		this.keys = [];
+		this.keys = {};
 		
 		// all of the allowable keys to hash (filter) on
 		this.filterableKeys || (this.filterableKeys = []);
@@ -169,7 +169,7 @@ VU.KeyedCollection = VU.Collection.extend({
 	
 	reloadKeys : function( ) {
 		this.keyed = false;
-		this.keys = [];
+		this.keys = {};
 		// this may remove any external bindings, so for now let's just assume that this.filterableKeys never changes
 		//this.unbind("change");
 		this.each( this.addKeys );
@@ -203,11 +203,11 @@ VU.KeyedCollection = VU.Collection.extend({
 							this.keys[key][value] = [model];
 					}
 					else {
-						this.keys[key] = [];
+						this.keys[key] = {};
 						this.keys[key][value] = [model];
 						this.bind( "change:" + key, this.changeKeys );
 					}
-				}
+				}	
 			}
 		}
 	},
@@ -221,12 +221,12 @@ VU.KeyedCollection = VU.Collection.extend({
 			if ( value !== undefined ) {
 				// we can assume that it must be in here, if not then just ignore
 				valModels = this.keys[key][value];
-				if ( valModels && valModels.length > 1 )
+				if ( valModels && _.size(valModels) > 1 )
 					valModels.splice( valModels.indexOf(model), 1 );
 				else{
 					//cleanup
 					delete this.keys[key][value];
-					if (this.keys[key].length == 0)
+					if (_.size(this.keys[key]) == 0)
 					{
 						this.unbind( "change:" + key, this.changeKeys );
 						delete this.keys[key];

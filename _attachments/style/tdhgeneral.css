@@ -210,24 +210,29 @@ div.searchFor{
 	top: 50px;
 	bottom: -20px;
 	behavior: url(border-radius.htc);
-	-moz-border-radius: 10px;
-    -webkit-border-radius: 10px;
-    -khtml-border-radius: 10px;
-    border-radius: 10px;	
+	-moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -khtml-border-radius: 5px;
+    border-radius: 5px;	
 }
 
 input#searchName, input#searchCounty{
-	background: url(../images/cssSprite.png);
+	/*background-image: url(../images/cssSprite.png);
 	background-position: -140px -240px;
+	background-repeat: no-repeat;*/
+	background-color: #404040;
 	width: 210px;
 	height: 30px;
 	border: 0px;
 	position: relative;
 	behavior: url(border-radius.htc);
-	-moz-border-radius: 10px;
-    -webkit-border-radius: 10px;
-    -khtml-border-radius: 10px;
-    border-radius: 10px;	
+	-moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -khtml-border-radius: 5px;
+    border-radius: 5px;	
+    font-family: Arial,sans-serif;
+    font-size: 14px;
+    color: #FFFFFF;
 }
 
 input#searchName{
@@ -241,7 +246,7 @@ input#searchCounty{
 
 div#hallsDiv div.box, div#bandsDiv div.box {
 	background-color: transparent;
-	width: 180px;
+	width: 240px;
 	position: absolute;
 	top: 50px;
 	bottom: -20px;
@@ -363,7 +368,7 @@ div#itemImage img{
 }
 
 div#hallsMap {
-    right: 74px;
+    right: 24px;
 	top: 206px;
 		behavior: url(border-radius.htc);
 	-moz-border-radius: 10px;
@@ -376,7 +381,7 @@ div#bandsTags{
 	height: 370px;
 	width: 167px;
 	top: 16px;
-	left: 570px;
+	left: 510px;
 }
 
 #bandsTagsList li a {
@@ -474,7 +479,7 @@ div#dancesCal div {
 
 div#dancesMap {
     right: 14px;
-	top: 242px;
+	top: 260px;
 	behavior: url(border-radius.htc);
 	-moz-border-radius: 10px;
     -webkit-border-radius: 10px;
@@ -788,7 +793,7 @@ img.close_popup {
 	/*margin: 10px 0px 0 0;*/
 	position: relative;
 	left: 20px;
-	bottom: 50px;
+	bottom: 45px;
 	
 }
 
@@ -814,7 +819,7 @@ a.close {
 
 #nav-left{
 	left: -60px;
-	background-position: -540px -130px;
+	background-position: -537px -130px;
 }
 
 #nav-right{
@@ -828,7 +833,7 @@ a.close {
 
 #nav-left:hover{
 	left: -60px;
-	background-position: -600px -130px;
+	background-position: -597px -130px;
 }
 
 #nav-right:hover{
@@ -837,11 +842,13 @@ a.close {
 }
 
 #nav-left:active{
+	top: 168px;
 	left: -60px;
-	background-position: -660px -130px;
+	background-position: -657px -130px;
 }
 
 #nav-right:active{
+	top: 168px;
 	right: -65px;
 	background-position: -660px -10px;
 }

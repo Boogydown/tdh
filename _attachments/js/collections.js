@@ -94,7 +94,7 @@ VU.Collection = Backbone.Collection.extend({
  */
 VU.LocalFilteredCollection = VU.Collection.extend({
 	initialize : function( models, options ) {
-		this.currentFilters = {};
+		this.currentFilters = [];
 		this.numPerPage = 20;
 		this.currentLimit = 20;
 		
@@ -114,12 +114,13 @@ VU.LocalFilteredCollection = VU.Collection.extend({
 	applyFilters : function( filters, limit ) {
 		filters && ( this.currentFilters = filters );
 		limit > 0 && ( this.currentLimit = limit );
-		this.masterCollection.getFiltered( { 
-			filters: this.currentFilters, 
-			head: this.currentLimit,
-			tail: this.currentLimit + this.numPerPage,
-			callback: this.onGotFiltered
-		});
+		if ( this.currentFilters && this.currentFilters.length > 0 )
+			this.masterCollection.getFiltered( { 
+				filters: this.currentFilters, 
+				head: this.currentLimit,
+				tail: this.currentLimit + this.numPerPage,
+				callback: this.onGotFiltered
+			});
 	},
 	
 	onGotFiltered : function ( filteredModels ) {

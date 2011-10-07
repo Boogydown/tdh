@@ -124,9 +124,12 @@ $(function(){
 			// Nuke an empty ID, so it doesn't kill initial creation
 			if(values._id === "") delete values._id;
 			
-			alert("File uploading has been disabled temporarily\nThe remaining data that you entered will be saved to the server.\nWe greatly apologize for the inconvenience.");
 			if ( values._attachments ) delete values._attachments;
-			if ( values.images ) delete values.images;
+			if ( values.images )  {
+				delete values.images;
+				delete values.documents;
+				alert("File uploading has been disabled temporarily\nThe remaining data that you entered will be saved to the server.\nWe greatly apologize for the inconvenience.");
+			}
 			
 			if ( this.docModel ){
 				this.docModel.save(values);

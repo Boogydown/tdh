@@ -813,8 +813,8 @@ a.close {
 }
 
 #nav-left{
-	left: -55px;
-	background-position: -540px -130px;
+	left: -60px;
+	background-position: -537px -130px;
 }
 
 #nav-right{
@@ -827,8 +827,8 @@ a.close {
 }
 
 #nav-left:hover{
-	left: -55px;
-	background-position: -600px -130px;
+	left: -60px;
+	background-position: -597px -130px;
 }
 
 #nav-right:hover{
@@ -838,8 +838,8 @@ a.close {
 
 #nav-left:active{
 	top: 168px;
-	left: -55px;
-	background-position: -660px -130px;
+	left: -60px;
+	background-position: -657px -130px;
 }
 
 #nav-right:active{

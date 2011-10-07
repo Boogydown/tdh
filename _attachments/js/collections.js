@@ -235,7 +235,7 @@ VU.KeyedCollection = VU.Collection.extend({
 	
 	//filterParams: {filters:[{key, start, end}], head:int, tail:int, callback:func}
 	getFiltered: function ( filterParams ) {
-		if ( filterParams ) 
+		if ( filterParams && filterParams !== this ) 
 			this.filterQueue.push( filterParams );
 
 		console.log( this.name + ".getFiltered(" + ( filterParams && filterParams.name), this.filterQueue.length + " queued )" );

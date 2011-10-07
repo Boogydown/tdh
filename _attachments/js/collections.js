@@ -231,11 +231,14 @@ VU.KeyedCollection = VU.Collection.extend({
 	
 	//filterParams: {filters:[{key, start, end}], head:int, tail:int, callback:func}
 	getFiltered: function ( filterParams ) {
-		console.log( this.name + ".getFiltered( " + (filterParams && filterParams.name) + " )" );
 		if ( filterParams ) 
 			this.filterQueue.push( filterParams );
+
+		console.log( this.name + ".getFiltered(" + (filterParams && filterParams.name), this.filterQueue.length + " queued)" );
+		
 		if ( !this.fetched ) {
 			this.fetch( {success: this.getFiltered} );
+			console.log( this.name + ".getFiltered( fetch! )" );
 			return;
 		}
 		if ( !this.keyed ) this.reloadKeys();

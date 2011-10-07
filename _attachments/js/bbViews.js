@@ -312,20 +312,19 @@ VU.MapView = Backbone.View.extend({
 			var address = hall.get( "address" );
 			if ( ! address )
 				hall.bind( "change", this.addMarker );
-			console.log("finding " + address );
-			this.geocoder.geocode( { 'address': address}, this.attachToMap );
+			else
+				this.geocoder.geocode( { 'address': address}, this.attachToMap );
 		}
 	},
 	
 	attachToMap: function(results, status) {
-		  if (status == google.maps.GeocoderStatus.OK) {
+		if (status == google.maps.GeocoderStatus.OK) {
 			var marker = new google.maps.Marker({
 				map: this.map, 
 				position: results[0].geometry.location
 			});
-		  } else {
-			console.log("Geocode could not find address because: " + status);
-		  }
+			console.log("Geocode found for " + results[0].formatted_address);
+		}
 	}	
 });
 

@@ -1,4 +1,4 @@
-$(function(){
+	$(function(){
     // Fill this with your database information.
     // `ddocName` is the name of your couchapp project.
     Backbone.couchConnector.databaseName = "tdh";
@@ -52,15 +52,12 @@ $(function(){
 					collection:new VU.LocalFilteredCollection( null, { collection: this.colls.bands })
 				});
 				this.tagView = new VU.TagCloudView({collection:this.colls.bands, el: "#bandsTags"});
-				if ( this.colls.bands.fetched) 
-					this.tagView.render(); 
-				else 
-					this.colls.bands.bind("refresh", this.tagView.render() );
 			},
 			
 			activate : function ( filters ) {
 				VU.ParentView.prototype.activate.call(this);
 				this.listView.applyFilters( filters );
+				this.tagView.render(); 
 			}			
 		}),
 		

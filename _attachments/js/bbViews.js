@@ -88,7 +88,12 @@ VU.EventListingView = VU.ListingView.extend({
 	}		
 });
 
-
+/**
+ * This view is intended for wrapping a filtered list (LocalFilteredCollection)
+ *  It is intended to only increase or decrease its contents, with refreshes
+ *	being very rare.  Thus, it listenes to Add and Remove events on the filtered
+ *	list
+ */
 VU.FilteredListView = Backbone.View.extend({
 	scrollLoadThreshold : 100,
 	
@@ -109,22 +114,17 @@ VU.FilteredListView = Backbone.View.extend({
 	// This will apply filters to the coll and trigger add/remove events, 
 	//	respectively, which will then trigger our add/remove rows
 	applyFilters : function( filters, limit ) {
-		//if ( filters != this.curFilters || limit != this.curLimit ) {
-			//this.curFilters = filters;
-			//this.curLimit = limit;
-			if ( this.collection.length == 0 ){
-				//TODO: add waitingUI
-				this.el.innerHTML = "";
-				utils.waitingUI.show();
-			}
-			
-			this.collection.applyFilters( filters, limit || this.pageLimit );
-			if ( this.collection.length == 0 )
-				this.el.innerHTML = this.emptyMsg;		
-			if ( this.collection.length < 10 )
-				utils.waitingUI.hide();
-				
-		//}
+		if ( this.collection.length == 0 ){
+			this.el.innerHTML = "";
+			utils.waitingUI.show();
+		}
+		
+		this.collection.applyFilters( filters, limit || this.pageLimit );
+		
+		if ( this.collection.length == 0 )
+			this.el.innerHTML = this.emptyMsg;		
+		if ( this.collection.length > 10 )
+			utils.waitingUI.hide();
 	},
 	
 	// for rendering colls that are already loaded (i.e. no add/remove listening)
@@ -366,14 +366,12 @@ VU.TagCloudView = Backbone.View.extend({
 		this.tags = [];
 		this.tagsHash = [];
 		this.collection.bind( "refresh", this.render );
-		//this.collection.bind( "add", this.render );
-		//this.collection.bind( "remove", this.render );
 	},
 	
 	render : function( ) {
-		//this.collection.unbind("add", this.renderTagCloud);
-		//this.collection.unbind("remove", this.renderTagCloud);
-		this.collection.unbind("refresh", this.renderTagCloud);
+		// wait until coll is fully fetched
+		if ( ! this.collection.fetched ) return;
+		
 		// TODO: turn this into a map/reduce view off of the db:
 		this.tags = [{text:"ALL", weight:10, url:"#////!"}];
 		this.tagsHash = [];

@@ -94,14 +94,14 @@ VU.Collection = Backbone.Collection.extend({
  */
 VU.LocalFilteredCollection = VU.Collection.extend({
 	initialize : function( models, options ) {
-		_.bindAll( this, "refreshed", "applyFilters" );
+		this.currentFilters = {};
+		this.numPerPage = 20;
+		this.currentLimit = 20;
+		
+		_.bindAll( this, "refreshed", "applyFilters", "onGotFiltered" );
 		this.masterCollection = options.collection;
 		this.masterCollection.bind( "keysChanged", this.applyFilters );
 		this.masterCollection.bind( "refresh", this.refreshed );
-
-		// kick off the initial fetch, since we're going to need it populated to filter from
-		if ( !this.masterCollection.fetched )
-			this.masterCollection.fetch();
 	},
 	
 	// completely reload
@@ -112,25 +112,39 @@ VU.LocalFilteredCollection = VU.Collection.extend({
 	
 	//filterObj: [{key:, start:, end:}]
 	applyFilters : function( filters, limit ) {
-		if ( this.masterCollection.fetched ) {
-			// keepParent: we don't want the model's parent collection to change: it belongs to the master collection
-			this.diff( this.masterCollection.getFiltered( filters || window.TDHP_filters, limit || 20 ), {keepParent:true, ignoreDups:true} );
-			// TODO: add "complete" callback
-		}
+		filters && ( this.currentFilters = filters );
+		limit > 0 && ( this.currentLimit = limit );
+		this.masterCollection.getFiltered( { 
+			filters: this.currentFilters, 
+			head: this.currentLimit,
+			tail: this.currentLimit + this.numPerPage,
+			callback: this.onGotFiltered
+		});
+	},
+	
+	onGotFiltered : function ( filteredModels ) {
+		// keepParent: we don't want the model's parent collection to change: it belongs to the master collection
+		this.diff( filteredModels, {keepParent:true, ignoreDups:true} );
 	},
 	
 	nextPage : function( limit ) {
-		var models = this.masterCollection.nextPage( limit );
-		if ( models ) 
-			this.add( models );
-			// TODO: add "complete" callback
+		limit && this.numPerPage = limit;
+		this.applyFilters( null, this.currentLimit + this.numPerPage );
 	}
 });
 
 VU.KeyedCollection = VU.Collection.extend({
 	initialize : function(models, options) {
+		
+		// hash for quickly cross-referencing key matches
 		this.keys = [];
+		
+		// all of the allowable keys to hash (filter) on
 		this.filterableKeys || (this.filterableKeys = []);
+		
+		// queue of all pending filters (i.e. waiting on a fetch)
+		this.filterQueue = [];
+		
 		_.bindAll( this, "reloadKeys", "changeKeys", "removeKeys", "addKeys", "getFiltered" );
 		this.bind( "refresh", this.reloadKeys )
 	},
@@ -209,16 +223,24 @@ VU.KeyedCollection = VU.Collection.extend({
 		}
 	},
 	
-	//filterObj: [{key, start, end}]
-	getFiltered: function ( filters, limit ) {
+	//filterParams: {filters:[{key, start, end}], head:int, tail:int, callback:func}
+	getFiltered: function ( filterParams ) {
+		if ( filterParams ) 
+			this.filterQueue.push( filterParams );
+		if ( !this.fetched ) {
+			this.fetch( {success: this.getFiltered} );
+			return;
+		}
 		if ( !this.keyed ) this.reloadKeys();
 		
 		// begin the filtering process....
-		this.lastLimit = limit || this.length;
-		var i = 0, fl, filter, curVals, finalModels, innerModels;
-		if ( filters )
-			for( fl = filters.length; i < fl; ) {
-				filter = filters[i++];
+		var i = 0, 
+			fl, filter, curVals, finalModels, innerModels, 
+			fp = this.filterQueue.shift();
+		if ( fp && fp.filters )
+		{
+			for( fl = fp.filters.length; i < fl; ) {
+				filter = fp.filters[i++];
 				curVals = this.keys[filter.key];
 				if ( curVals ){
 					innerModels = [];
@@ -232,21 +254,17 @@ VU.KeyedCollection = VU.Collection.extend({
 						finalModels = innerModels;
 				}
 			}
-			
-		if ( finalModels ) {
-			finalModels || (finalModels = [] );
-			this.allFilteredModels = finalModels;
-			return limit ? _.first(finalModels, limit) : finalModels;
 		}
-		//else
-		this.allFilteredModels = this.models;
-		return limit ? _.first(this.models, limit) : this.models.clone();
-	},
-	
-	nextPage : function ( limit ) {
-		if ( this.lastLimit && this.lastLimit < this.allFilteredModels.length )
-			return this.allFilteredModels.slice( this.lastLimit, this.lastLimit += (limit || this.lastLimit) )
-	}
+		
+		// if not found then was empty, so give all
+		finalModels || (finalModels = this.models);
+		(fp.head !== undefined) || ( fp.head = 0 );
+		(fp.tail !== undefined) || ( fp.tail = finalModels.length );
+		if ( _.isFunction(fp.callback) )
+			fp.callback( finalModels.slice( fp.head, fp.tail ) );
+		if ( this.filterQueue.length > 0 )
+			this.getFiltered();
+	}	
 });
 
 // Now let's define a new Collection of Events

@@ -179,7 +179,7 @@ VU.KeyedCollection = VU.Collection.extend({
 	},
 	
 	changeKeys : function( model ) {
-		this.removeKeys( model.previousAttributes() );
+		this.removeKeys( model, true );
 		this.addKeys( model );
 		this.trigger( "keysChanged" );
 	},
@@ -212,18 +212,17 @@ VU.KeyedCollection = VU.Collection.extend({
 		}
 	},
 	
-	removeKeys : function( model ) {
-		if ( model instanceof Backbone.Model )
-			model = model.attributes;
-		var key, value, i;
+	removeKeys : function( model, removePrev ) {
+		var key, value, i, valModels,
+			attrs = removePrev ? model.previousAttributes() : model.attributes;
 		for ( i in this.filterableKeys ) {
 			key = this.filterableKeys[i];
-			value = model[key];
+			value = attrs[key];
 			if ( value !== undefined ) {
 				// we can assume that it must be in here, if not then just ignore
 				valModels = this.keys[key][value];
 				if ( valModels && valModels.length > 1 )
-					valModels && valModels.splice( valModels.indexOf(model), 1 );
+					valModels.splice( valModels.indexOf(model), 1 );
 				else{
 					//cleanup
 					delete this.keys[key][value];

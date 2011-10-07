@@ -399,16 +399,21 @@ VU.ParentView = Backbone.View.extend({
 	initialize : function() {
 		_.bindAll( this, "activate", "deactivate" );
 		this.colls = this.options.colls;
+		this.active = false;
 	},
 	
 	activate : function( filter ) {
+		if ( this.active ) return;
 		this.tabEl.addClass( "active-link" );
 		this.el.show();
+		this.active = true;
 	},
 	
 	deactivate : function() {
+		if ( ! this.active ) return;
 		this.tabEl.removeClass( "active-link" );
 		this.el.hide();
+		this.active = false;
 	}
 });
 //}

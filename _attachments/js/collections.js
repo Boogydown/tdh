@@ -96,7 +96,7 @@ VU.LocalFilteredCollection = VU.Collection.extend({
 	initialize : function( models, options ) {
 		this.currentFilters = [];
 		this.numPerPage = 20;
-		this.currentLimit = 20;
+		this.tail = this.numPerPage;
 		this.name = _.uniqueId(options.name);
 		this.firstPass = true;
 		
@@ -114,12 +114,16 @@ VU.LocalFilteredCollection = VU.Collection.extend({
 	applyFilters : function( filters, limit ) {
 		console.log( this.name + ".applyFilters( " + filters, limit + " )");
 		filters && ( this.currentFilters = filters );
-		limit > 0 && ( this.currentLimit = limit );
+		if ( limit > 0 ) {
+			if ( this.firstPass ) this.numPerPage = limit;
+			this.tail = limit;
+		} else
+			this.tail = this.numPerPage;
+			
 		if ( this.currentFilters && this.currentFilters.length > 0 )
 			this.masterCollection.getFiltered( { 
 				filters: this.currentFilters, 
-				head: this.currentLimit,
-				tail: this.currentLimit + this.numPerPage,
+				tail: this.tail,
 				callback: this.onGotFiltered,
 				name: this.name
 			});
@@ -136,9 +140,9 @@ VU.LocalFilteredCollection = VU.Collection.extend({
 		}
 	},
 	
-	nextPage : function( limit ) {
-		limit && (this.numPerPage = limit);
-		this.applyFilters( null, this.currentLimit += this.numPerPage );
+	nextPage : function( num ) {
+		num && (this.numPerPage = num);
+		this.applyFilters( null, this.tail += this.numPerPage );
 	}
 });
 
@@ -233,7 +237,7 @@ VU.KeyedCollection = VU.Collection.extend({
 		}
 	},
 	
-	//filterParams: {filters:[{key, start, end}], head:int, tail:int, callback:func}
+	//filterParams: {filters:[{key, start, end}], tail:int, callback:func}
 	getFiltered: function ( filterParams ) {
 		if ( filterParams && filterParams !== this ) 
 			this.filterQueue.push( filterParams );
@@ -249,7 +253,7 @@ VU.KeyedCollection = VU.Collection.extend({
 		
 		// begin the filtering process....
 		var i = 0, 
-			fl, filter, curVals, finalModels, innerModels, 
+			fl, filter, curVals, finalModels, innerModels, value,
 			fp = this.filterQueue.shift();
 		if ( fp && fp.filters )
 		{
@@ -273,10 +277,9 @@ VU.KeyedCollection = VU.Collection.extend({
 		
 		// if not found then was empty, so give all
 		finalModels || (finalModels = this.models);
-		(fp.head !== undefined) || ( fp.head = 0 );
-		(fp.tail !== undefined) || ( fp.tail = finalModels.length );
+		fp.tail || ( fp.tail = finalModels.length );
 		if ( _.isFunction(fp.callback) )
-			fp.callback( finalModels.slice( fp.head, fp.tail ) );
+			fp.callback( finalModels.slice( 0, fp.tail ) );
 		if ( this.filterQueue.length > 0 )
 			this.getFiltered();
 	}	

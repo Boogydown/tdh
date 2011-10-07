@@ -813,7 +813,7 @@ a.close {
 }
 
 #nav-left{
-	left: -57px;
+	left: -55px;
 	background-position: -540px -130px;
 }
 
@@ -827,7 +827,7 @@ a.close {
 }
 
 #nav-left:hover{
-	left: -57px;
+	left: -55px;
 	background-position: -600px -130px;
 }
 
@@ -838,7 +838,7 @@ a.close {
 
 #nav-left:active{
 	top: 168px;
-	left: -57px;
+	left: -55px;
 	background-position: -660px -130px;
 }
 

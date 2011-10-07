@@ -98,11 +98,10 @@ VU.LocalFilteredCollection = VU.Collection.extend({
 		this.numPerPage = 20;
 		this.currentLimit = 20;
 		this.name = _.uniqueId(options.name);
+		this.firstPass = true;
 		
 		_.bindAll( this, "refreshed", "applyFilters", "onGotFiltered" );
 		this.masterCollection = options.collection;
-		this.masterCollection.bind( "keysChanged", this.applyFilters );
-		this.masterCollection.bind( "refresh", this.refreshed );
 	},
 	
 	// completely reload
@@ -113,7 +112,7 @@ VU.LocalFilteredCollection = VU.Collection.extend({
 	
 	//filterObj: [{key:, start:, end:}]
 	applyFilters : function( filters, limit ) {
-		console.log( this.name + ".applyFilters( " + filters, limit + ")");
+		console.log( this.name + ".applyFilters( " + filters, limit + " )");
 		filters && ( this.currentFilters = filters );
 		limit > 0 && ( this.currentLimit = limit );
 		if ( this.currentFilters && this.currentFilters.length > 0 )
@@ -130,6 +129,11 @@ VU.LocalFilteredCollection = VU.Collection.extend({
 		// keepParent: we don't want the model's parent collection to change: it belongs to the master collection
 		console.log( this.name + ".onGotFiltered( " + filteredModels.length + " models recieved)");		
 		this.diff( filteredModels, {keepParent:true, ignoreDups:true} );
+		if ( this.firstPass ) {
+			this.masterCollection.bind( "keysChanged", this.applyFilters );
+			this.masterCollection.bind( "refresh", this.refreshed );
+			this.firstPass = false;
+		}
 	},
 	
 	nextPage : function( limit ) {
@@ -234,7 +238,7 @@ VU.KeyedCollection = VU.Collection.extend({
 		if ( filterParams ) 
 			this.filterQueue.push( filterParams );
 
-		console.log( this.name + ".getFiltered(" + (filterParams && filterParams.name), this.filterQueue.length + " queued)" );
+		console.log( this.name + ".getFiltered(" + ( filterParams && filterParams.name), this.filterQueue.length + " queued )" );
 		
 		if ( !this.fetched ) {
 			this.fetch( {success: this.getFiltered} );

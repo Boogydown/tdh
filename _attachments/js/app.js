@@ -45,8 +45,16 @@
 		BandsView : VU.ParentView.extend({
 			el : $("#bandsDiv"),
 			tabEl : $("#bandsTabBtn"),
+			events : {
+				"focus #searchBandName" : "handleBandSearch",
+				"blur #searchBandName" : "handleBandSearch",
+				"keydown #searchBandName" : "handleBandSearch"
+			},
+			
 			initialize : function() {
 				VU.ParentView.prototype.initialize.call(this);
+				//this.bandSearch = new SearchBox( "searchBandName", handleBandSearch, "bandName" );
+				this.defaultSearchVal = $("#searchBandName")[0].value;
 				this.listView = new VU.FilteredListView({
 					el: "#bandsList",
 					emptyMsg: "<i>No bands meet your search criteria!</i>",
@@ -60,7 +68,26 @@
 				VU.ParentView.prototype.activate.call(this);
 				this.listView.applyFilters( filters );
 				this.tagView.render(); 
-			}			
+			},
+			
+			handleBandSearch : function( searchField ) {
+				var input = searchField.target;
+				console.log(searchField.type);
+				switch ( searchField.type ) {
+					case "focusout" : 
+					case "blur" : 
+						if ( input.value == "" ) input.value = this.defaultSearchVal;
+						break;
+					case "focusin" : 
+					case "focus" : 
+						if ( input.value == this.defaultSearchVal ) input.value = "";
+						break;
+					case "keydown" : 
+						this.listView.scrollTo( "bandName", searchField.target.value );
+						console.log(searchField.target.value);
+						break;
+				}
+			}
 		}),
 		
 		HallsView : VU.ParentView.extend({

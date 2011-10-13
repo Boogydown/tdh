@@ -129,9 +129,22 @@ VU.EventListingView = VU.ListingView.extend({
 	
 	// scrolls the listing to the first model of attribute >= startValue, or 
 	//	the last model, whichever is first
+	// Assumes this.collection is sorted by that attribute
 	scrollTo : function( attribute, startValue ) {
-		var firstModel = this.collection.find( function( model ){ return model.attributes[attribute] >= startValue; } );
-		var index = firstModel ? this.collection.indexOf( firstModel ) : this.collection.length - 1;
+		var firstModel = this.collection.find( function( model ){ return model.attributes[attribute] >= startValue; } ),
+			index;
+		if ( firstModel )
+			index = this.collection.indexOf( firstModel );
+		else {
+			if ( ! this.collection.allPagesLoaded ) {
+				this.collection.nextPage( this.pageLimit );
+				this.scrollTo( attribute, startValue );
+				return;
+			}
+			else
+				index = this.collection.length - 1;
+		}
+		
 		var listings = $("#listing", this.el);
 		if ( listings.length < 2 ) return;
 		var delta = listings[1].offsetTop - listings[0].offsetTop;

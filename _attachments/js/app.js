@@ -36,7 +36,9 @@
 			
 			activate : function ( filters ) {
 				VU.ParentView.prototype.activate.call(this);
-				this.listView.applyFilters( filters );
+				//this.listView.applyFilters( filters );
+				this.listView.applyFilters( {} );
+				this.listView.scrollTo("date", _.detect( filters, function(f){return f.key == "dateUnix";} ).start);
 			}
 		}),
 
@@ -175,7 +177,7 @@
 			// create filters from route
 			if ( dates ) {
 				// "start-date,end-date
-				dates = dates.split(",");				
+				dates = dates.split(",");
 				filters.push({
 					key: "dateUnix", 
 					start: parseInt(dates[0]), 

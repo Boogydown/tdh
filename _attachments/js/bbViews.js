@@ -344,6 +344,7 @@ VU.CalView = Backbone.View.extend({
 		_.bindAll( this, "updateDateRoute" );
 		$(this.el).datepicker({
 			onSelect: this.updateDateRoute,
+			minDate: "-2D",
 			dateFormat: "@"
 		});
 	},

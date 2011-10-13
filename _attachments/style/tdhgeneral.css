@@ -257,7 +257,7 @@ div#hallsDiv div.box, div#bandsDiv div.box {
     border-radius: 10px;	
 }
 
-div#hallsDiv div.box.list{
+div#hallsDiv div.box.list, div#bandsDiv div.box.list{
 	background-color: transparent;
 	position: absolute;
 	top: 85px;
@@ -268,7 +268,7 @@ div#hallsDiv div.box.list{
     -khtml-border-radius: 10px;
     border-radius: 10px;	
 }
-
+/*
 div#bandsDiv div.box.list  {
 	background-color: transparent;
 	position: absolute;
@@ -280,7 +280,7 @@ div#bandsDiv div.box.list  {
     -khtml-border-radius: 10px;
     border-radius: 10px;	
 }
-
+*/
 div#hallsDiv div.list, div#bandsDiv div.list{
 	left: 15px;
 	width: 470px;

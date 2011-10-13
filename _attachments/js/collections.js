@@ -120,7 +120,7 @@ VU.LocalFilteredCollection = VU.Collection.extend({
 		} else
 			this.tail = this.numPerPage;
 			
-		if ( this.currentFilters && this.currentFilters.length > 0 )
+		if ( this.currentFilters && _.isArray(this.currentFilters))
 			this.masterCollection.getFiltered( { 
 				filters: this.currentFilters, 
 				tail: this.tail,

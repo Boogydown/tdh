@@ -118,6 +118,7 @@ ul#tab-list li{
 	background-position: -10px -20px;
 	float:left;
 	position: relative;
+	left: -10px;
 }
 
 ul#tab-list li.active-link{

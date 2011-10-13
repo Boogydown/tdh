@@ -132,7 +132,7 @@ VU.EventListingView = VU.ListingView.extend({
 	scrollTo : function( attribute, startValue ) {
 		var firstModel = this.collection.find( function( model ){ return model.attributes[attribute] >= startValue; } );
 		var index = firstModel ? this.collection.indexOf( firstModel ) : this.collection.length - 1;
-		var listings = $("#listing", this);
+		var listings = $("#listing", this.el);
 		if ( listings.length < 2 ) return;
 		var delta = listings[1].offsetTop - listings[0].offsetTop;
 		this.scrollTop = (index - 1) * delta;

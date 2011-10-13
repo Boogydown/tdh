@@ -100,7 +100,7 @@ ul#tab-list{
 	margin: 0px;
 	padding: 0px;
 	position:relative;
-	left:-15px;
+	left:0px;
 }
 
 ul#tab-list li{

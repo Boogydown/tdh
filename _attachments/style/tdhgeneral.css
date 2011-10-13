@@ -117,8 +117,11 @@ ul#tab-list li{
 	background: url(../images/cssSprite.png);
 	background-position: -10px -20px;
 	float:left;
+}
+
+ul#tab-list li a{
 	position: relative;
-	left: -10px;
+	left: -15px;
 }
 
 ul#tab-list li.active-link{

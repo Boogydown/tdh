@@ -38,7 +38,7 @@
 				VU.ParentView.prototype.activate.call(this);
 				//this.listView.applyFilters( filters );
 				this.listView.applyFilters( [{}] );
-				this.listView.scrollTo("date", _.detect( filters, function(f){return f.key == "dateUnix";} ).start);
+				this.listView.scrollTo("dateUnix", _.detect( filters, function(f){return f.key == "dateUnix";} ).start);
 			}
 		}),
 

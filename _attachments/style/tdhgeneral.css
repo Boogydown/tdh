@@ -121,7 +121,7 @@ ul#tab-list li{
 
 ul#tab-list li a{
 	position: relative;
-	left: -10px;
+	left: -7px;
 }
 
 ul#tab-list li.active-link{

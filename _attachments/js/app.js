@@ -180,7 +180,8 @@
 				dates = dates.split(",");
 				filters.push({
 					key: "dateUnix", 
-					start: parseInt(dates[0]), 
+					//per client request, show up to two days previous:
+					start: parseInt(dates[0]) - 2 * 24 * 60 * 60 * 1000,
 					end: dates.length == 1 ? "zzz" : parseInt(dates[1])
 				});
 			}

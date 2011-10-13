@@ -135,7 +135,7 @@ VU.EventListingView = VU.ListingView.extend({
 		var listings = $("#listing", this.el);
 		if ( listings.length < 2 ) return;
 		var delta = listings[1].offsetTop - listings[0].offsetTop;
-		this.scrollTop = (index - 1) * delta;
+		this.el.scrollTop = (index - 1) * delta;
 	},
 	
 	// for rendering colls that are already loaded (i.e. no add/remove listening)

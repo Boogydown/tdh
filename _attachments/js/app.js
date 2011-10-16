@@ -36,15 +36,25 @@
 			
 			activate : function ( filters ) {
 				VU.ParentView.prototype.activate.call(this);
-				this.listView.applyFilters( filters );
+				//this.listView.applyFilters( filters );
+				this.listView.applyFilters( [{}] );
+				this.listView.scrollTo("dateUnix", _.detect( filters, function(f){return f.key == "dateUnix";} ).start);
 			}
 		}),
 
 		BandsView : VU.ParentView.extend({
 			el : $("#bandsDiv"),
 			tabEl : $("#bandsTabBtn"),
+			events : {
+				"focus #searchBandName" : "handleBandSearch",
+				"blur #searchBandName" : "handleBandSearch",
+				"keydown #searchBandName" : "handleBandSearch"
+			},
+			
 			initialize : function() {
 				VU.ParentView.prototype.initialize.call(this);
+				//this.bandSearch = new SearchBox( "searchBandName", handleBandSearch, "bandName" );
+				this.defaultSearchVal = $("#searchBandName")[0].value;
 				this.listView = new VU.FilteredListView({
 					el: "#bandsList",
 					emptyMsg: "<i>No bands meet your search criteria!</i>",
@@ -58,7 +68,26 @@
 				VU.ParentView.prototype.activate.call(this);
 				this.listView.applyFilters( filters );
 				this.tagView.render(); 
-			}			
+			},
+			
+			handleBandSearch : function( searchField ) {
+				var input = searchField.target;
+				console.log(searchField.type);
+				switch ( searchField.type ) {
+					case "focusout" : 
+					case "blur" : 
+						if ( input.value == "" ) input.value = this.defaultSearchVal;
+						break;
+					case "focusin" : 
+					case "focus" : 
+						if ( input.value == this.defaultSearchVal ) input.value = "";
+						break;
+					case "keydown" : 
+						this.listView.scrollTo( "bandName", searchField.target.value );
+						console.log(searchField.target.value);
+						break;
+				}
+			}
 		}),
 		
 		HallsView : VU.ParentView.extend({
@@ -175,10 +204,11 @@
 			// create filters from route
 			if ( dates ) {
 				// "start-date,end-date
-				dates = dates.split(",");				
+				dates = dates.split(",");
 				filters.push({
 					key: "dateUnix", 
-					start: parseInt(dates[0]), 
+					//per client request, show up to two days previous:
+					start: parseInt(dates[0]) - 2 * 24 * 60 * 60 * 1000,
 					end: dates.length == 1 ? "zzz" : parseInt(dates[1])
 				});
 			}

@@ -99,6 +99,7 @@ VU.LocalFilteredCollection = VU.Collection.extend({
 		this.tail = this.numPerPage;
 		this.name = _.uniqueId(options.name);
 		this.firstPass = true;
+		this.allPagesLoaded = false;
 		
 		_.bindAll( this, "refreshed", "applyFilters", "onGotFiltered" );
 		this.masterCollection = options.collection;
@@ -113,6 +114,8 @@ VU.LocalFilteredCollection = VU.Collection.extend({
 	//filterObj: [{key:, start:, end:}]
 	applyFilters : function( filters, limit ) {
 		console.log( this.name + ".applyFilters( " + filters, limit + " )");
+		this.allPagesLoaded = true;
+		
 		filters && ( this.currentFilters = filters );
 		if ( limit > 0 ) {
 			if ( this.firstPass ) this.numPerPage = limit;
@@ -120,7 +123,7 @@ VU.LocalFilteredCollection = VU.Collection.extend({
 		} else
 			this.tail = this.numPerPage;
 			
-		if ( this.currentFilters && this.currentFilters.length > 0 )
+		if ( this.currentFilters && _.isArray(this.currentFilters))
 			this.masterCollection.getFiltered( { 
 				filters: this.currentFilters, 
 				tail: this.tail,
@@ -129,9 +132,10 @@ VU.LocalFilteredCollection = VU.Collection.extend({
 			});
 	},
 	
-	onGotFiltered : function ( filteredModels ) {
+	onGotFiltered : function ( filteredModels, lastPage ) {
 		// keepParent: we don't want the model's parent collection to change: it belongs to the master collection
-		console.log( this.name + ".onGotFiltered( " + filteredModels.length + " models recieved)");		
+		console.log( this.name + ".onGotFiltered( " + filteredModels.length + " models recieved, last page: " + lastPage + ")");
+		this.allPagesLoaded = lastPage;
 		this.diff( filteredModels, {keepParent:true, ignoreDups:true} );
 		if ( this.firstPass ) {
 			this.masterCollection.bind( "keysChanged", this.applyFilters );
@@ -141,6 +145,7 @@ VU.LocalFilteredCollection = VU.Collection.extend({
 	},
 	
 	nextPage : function( num ) {
+		if ( this.allPagesLoaded ) return;
 		num && (this.numPerPage = num);
 		this.applyFilters( null, this.tail += this.numPerPage );
 	}
@@ -278,7 +283,7 @@ VU.KeyedCollection = VU.Collection.extend({
 		finalModels || (finalModels = this.models);
 		fp.tail || ( fp.tail = finalModels.length );
 		if ( _.isFunction(fp.callback) )
-			fp.callback( finalModels.slice( 0, fp.tail ) );
+			fp.callback( finalModels.slice( 0, fp.tail ), fp.tail >= finalModels.length );
 		if ( this.filterQueue.length > 0 )
 			this.getFiltered();
 	}	

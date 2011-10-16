@@ -94,7 +94,7 @@ VU.EventListingView = VU.ListingView.extend({
  *	being very rare.  Thus, it listenes to Add and Remove events on the filtered
  *	list
  */
-VU.FilteredListView = Backbone.View.extend({
+ VU.FilteredListView = Backbone.View.extend({
 	scrollLoadThreshold : 100,
 	
 	events : { 
@@ -125,6 +125,30 @@ VU.FilteredListView = Backbone.View.extend({
 			this.el.innerHTML = this.emptyMsg;		
 		if ( this.collection.length > 10 )
 			utils.waitingUI.hide();
+	},
+	
+	// scrolls the listing to the first model of attribute >= startValue, or 
+	//	the last model, whichever is first
+	// Assumes this.collection is sorted by that attribute
+	scrollTo : function( attribute, startValue ) {
+		var firstModel = this.collection.find( function( model ){ return model.attributes[attribute] >= startValue; } ),
+			index;
+		if ( firstModel )
+			index = this.collection.indexOf( firstModel );
+		else {
+			if ( ! this.collection.allPagesLoaded ) {
+				this.collection.nextPage( this.pageLimit );
+				this.scrollTo( attribute, startValue );
+				return;
+			}
+			else
+				index = this.collection.length - 1;
+		}
+		
+		var listings = $("#listing", this.el);
+		if ( listings.length < 2 ) return;
+		var delta = listings[1].offsetTop - listings[0].offsetTop;
+		this.el.scrollTop = (index - 1) * delta;
 	},
 	
 	// for rendering colls that are already loaded (i.e. no add/remove listening)
@@ -331,31 +355,18 @@ VU.MapView = Backbone.View.extend({
 VU.CalView = Backbone.View.extend({
 	initialize : function() {
 		_.bindAll( this, "updateDateRoute" );
-		$(this.el).multiDatesPicker({
-			mode: {
-				modeName: 'abDaysRange',
-				options: {autoselectRange: [0,0]},
-				
-			},
+		$(this.el).datepicker({
 			onSelect: this.updateDateRoute,
+			minDate: "-2D",
 			dateFormat: "@"
 		});
 	},
 	
-	updateDateRoute : function () {
-		var hashUrl = "#/";
-		var dates = $(this.el).multiDatesPicker('getDates');
-		if ( !dates ) return;
-		
-		if ( _.isArray( dates ) & dates.length > 0 ){
-			hashUrl += dates[0];
-			hashUrl += "," + dates[ dates.length - 1 ];
-		} else 
-			// none selected, so reset to default
-			hashUrl += "!";
-		
-		if ( location.hash != hashUrl )
-			location.href=hashUrl;
+	updateDateRoute : function ( dateText, inst ) {
+		if ( dateText )
+			location.href = "#/" + dateText;
+		else
+			location.href = "#/!";
 	}
 });
 

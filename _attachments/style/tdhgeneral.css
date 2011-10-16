@@ -219,6 +219,11 @@ div.list{
 	
 }
 
+div.listingBG{
+	background-color: 	#404040;
+	margin: 5px;
+}
+
 /**************** Halls/Bands Listings ****************/
 
 div.searchFor{

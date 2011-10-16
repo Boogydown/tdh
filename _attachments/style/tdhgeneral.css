@@ -140,7 +140,7 @@ div#loginLinks{
 	top: -30px;	
 	left: -5px;
 }
-div#loggedOut, div#loggedIn{
+div#loggedOut a, div#loggedIn a{
 		color: white;
 	font-family: georgia, serif;
 	font-size: 14px;

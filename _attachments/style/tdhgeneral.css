@@ -700,7 +700,11 @@ h2 {
 }
 
 #bandinfo {
-		z-index: 9999;
+		background-color: rgba(64,64,64,0.5);
+				behavior: url(border-radius.htc);
+	-moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    -khtml-border-radius: 2px;
     font-size: 15px;
 
     text-align: center;

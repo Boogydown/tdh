@@ -220,7 +220,7 @@ div.list{
 }
 
 div.listingBG{
-	    
+	    background-color: #404040;
     position: absolute;
     left: 0px;
     top: 15px;
@@ -700,7 +700,7 @@ h2 {
 }
 
 #bandinfo {
-		background-color: #404040;
+		
     font-size: 15px;
 
     text-align: center;

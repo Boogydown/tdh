@@ -236,7 +236,7 @@ div.searchFor{
     border-radius: 5px;	
 }
 
-input.searchName, input.searchCounty{
+div.serachFor input.searchName,div.serachFor  input.searchCounty{
 	/*background-image: url(../images/cssSprite.png);
 	background-position: -140px -240px;
 	background-repeat: no-repeat;*/

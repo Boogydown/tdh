@@ -224,10 +224,8 @@ div.listingBG{
     position: absolute;
     left: 0px;
     top: 10px;
-    width: 130px;
-    height: 60px;
-	
-	margin: 5px;
+	width: 130px;
+    height: 65px;
 }
 
 /**************** Halls/Bands Listings ****************/
@@ -708,7 +706,8 @@ h2 {
     text-align: center;
     text-decoration: bold;
     
-
+    width: 130px;
+    height: 65px;
     word-wrap: break-word;
 }
 

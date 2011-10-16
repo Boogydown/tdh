@@ -240,7 +240,7 @@ input.searchName, input.searchCounty{
 	/*background-image: url(../images/cssSprite.png);
 	background-position: -140px -240px;
 	background-repeat: no-repeat;*/
-	display: inline;
+	display: block;
 	background-color: #404040;
 	width: 210px;
 	height: 30px;

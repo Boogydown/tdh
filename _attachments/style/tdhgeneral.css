@@ -453,11 +453,11 @@ div.day{
 }
 
 div#listing-time{
-	top: 40px;
+	top: 35px;
 	left: 80px;
 	color: #CCCCCC;
 	font-family: arial, sans-serif;
-	font-size: 13px;
+	font-size: 11px;
 	line-height:11px;
 }
 
@@ -701,12 +701,13 @@ h2 {
 		background-color: #404040;
 	margin: 5px;
     font-size: 15px;
-    left: 5px;
+    left: 0px;
     position: absolute;
     text-align: center;
     text-decoration: bold;
     top: 40px;
-    width: 90px;
+    width: 100%;
+    height: 100%;
     word-wrap: break-word;
 }
 
@@ -714,11 +715,12 @@ h2 {
 		background-color: #404040;
 	margin: 5px;
     font-size: 15px;
-    left: 122px;
+    left: 125px;
     position: absolute;
     text-align: center;
     top: 40px;
-    width: 90px;
+    width: 100%;
+    height: 100%
     word-wrap: break-word;
 }
 

@@ -455,8 +455,8 @@ div.day{
 }
 
 div#listing-time{
-	top: 35px;
-	left: 128px;
+	top: 38px;
+	left: 130px;
 	color: #CCCCCC;
 	font-family: arial, sans-serif;
 	font-size: 11px;
@@ -717,12 +717,12 @@ h2 {
 		background-color: #404040;
 	margin: 5px;
     font-size: 15px;
-    left: 125px;
+    left: 135px;
     position: absolute;
     text-align: center;
-    top: 40px;
+    top: 0px;
     width: 100%;
-    height: 100%
+    height: 100%;
     word-wrap: break-word;
 }
 

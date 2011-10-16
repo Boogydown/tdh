@@ -225,7 +225,7 @@ div.listingBG{
     left: 0px;
     top: 15px;
 	width: 130px;
-    height: 60px;
+    height: 65px;
 }
 
 /**************** Halls/Bands Listings ****************/
@@ -704,12 +704,15 @@ h2 {
     font-size: 15px;
 
     text-align: center;
-    vertical-align:middle;
     text-decoration: bold;
     
     width: 130px;
-    height: 60px;
+    height: 65px;
     word-wrap: break-word;
+}
+
+#bandinfo p{
+	vertical-align:middle;
 }
 
 #venueinfo {

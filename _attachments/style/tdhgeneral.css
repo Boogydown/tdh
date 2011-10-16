@@ -453,9 +453,10 @@ div.day{
 }
 
 div#listing-time{
-	top: 24px;
+	top: 40px;
+	left: 100px;
 	font-family: arial, sans-serif;
-	font-size: 10px;
+	font-size: 20px;
 	line-height:11px;
 }
 
@@ -677,13 +678,13 @@ h2 {
 
 .atvenue {
     color: #CCCCCC;
-    font-size: 40px;
+    font-size: 35px;
 	font-weight: bold;
 	font-family: Georgia;
     left: 100px;
     position: absolute;
     text-align: center;
-    top: 30px;
+    top: 20px;
 }
 
 .venuephoto {

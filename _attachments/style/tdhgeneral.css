@@ -456,7 +456,7 @@ div.day{
 
 div#listing-time{
 	top: 38px;
-	left: 130px;
+	left: 115px;
 	color: #CCCCCC;
 	font-family: arial, sans-serif;
 	font-size: 11px;
@@ -684,7 +684,7 @@ h2 {
     font-size: 27px;
 	font-weight: bold;
 	font-family: Georgia;
-    left: 148px;
+    left: 135px;
     position: absolute;
     text-align: center;
     top: 20px;
@@ -711,19 +711,14 @@ h2 {
     word-wrap: break-word;
 }
 
-#bandinfo p{
-	vertical-align:middle;
-}
 
 #venueinfo {
 		background-color: #404040;
-	margin: 5px;
     font-size: 15px;
-    left: 175px;
+
     position: absolute;
+        left: 160px;
     text-align: center;
-    vertical-align:middle;
-    top: 0px;
     width: 130px;
     height: 65px;
     word-wrap: break-word;

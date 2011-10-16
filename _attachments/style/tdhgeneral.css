@@ -223,9 +223,9 @@ div.listingBG{
 	    
     position: absolute;
     left: 0px;
-    top: 15px;
-	width: 100%;
-	height: 100%;
+    top: 10px;
+    width: 130px;
+    height: 60px;
 	
 	margin: 5px;
 }
@@ -708,8 +708,7 @@ h2 {
     text-align: center;
     text-decoration: bold;
     
-    width: 130px;
-    height: 65px;
+
     word-wrap: break-word;
 }
 

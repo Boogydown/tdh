@@ -223,9 +223,9 @@ div.list{
 
 div.searchFor{
 	background-color: transparent;
-	display: inline;
+
 	width: 360px;
-	position: relative;
+	position: absolute;
 	left: 20px;
 	top: 50px;
 	bottom: -20px;
@@ -240,12 +240,11 @@ input.searchName, input.searchCounty{
 	/*background-image: url(../images/cssSprite.png);
 	background-position: -140px -240px;
 	background-repeat: no-repeat;*/
-	display: block;
 	background-color: #404040;
 	width: 210px;
 	height: 30px;
 	border: 0px;
-	position: absolute;
+	position: relative;
 	behavior: url(border-radius.htc);
 	-moz-border-radius: 5px;
     -webkit-border-radius: 5px;

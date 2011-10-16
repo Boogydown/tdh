@@ -141,9 +141,10 @@ div#loginLinks{
 	left: -5px;
 }
 div#loggedOut a, div#loggedIn a{
+	text-decoration: none;
 		color: white;
 	font-family: georgia, serif;
-	font-size: 14px;
+	font-size: 15px;
 }
 
 /**************** Listings area ****************/

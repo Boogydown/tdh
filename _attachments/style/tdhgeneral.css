@@ -150,7 +150,7 @@ div#loggedOut a, div#loggedIn a{
 /**************** Listings area ****************/
 div.box {
 	background-color: transparent;
-	width: 398px;
+	width: 340px;
 	position: absolute;
 	top: 50px;
 	bottom: -20px;

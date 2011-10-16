@@ -220,6 +220,8 @@ div.list{
 }
 
 div.listingBG{
+	position: relative;
+	
 	width: 100%;
 	height: 100%;
 	background-color: #404040;
@@ -454,7 +456,7 @@ div.day{
 
 div#listing-time{
 	top: 35px;
-	left: 80px;
+	left: 128px;
 	color: #CCCCCC;
 	font-family: arial, sans-serif;
 	font-size: 11px;
@@ -466,7 +468,7 @@ div.twostepphoto{
 	background-position: -10px -140px;
     height: 40px;
     width: 40px;
-    left: 295px;
+    left: 343px;
     top: 10px;
     position: absolute;
 }
@@ -486,7 +488,7 @@ div.twostepphoto:active{
 div.addToDanceCard{
 	text-align:center;
 	position: absolute;
-	left:290px;
+	left:338px;
 	top: 53px;
 	font-family: Georgia,serif;
 	font-size: 10px;
@@ -682,7 +684,7 @@ h2 {
     font-size: 27px;
 	font-weight: bold;
 	font-family: Georgia;
-    left: 100px;
+    left: 148px;
     position: absolute;
     text-align: center;
     top: 20px;

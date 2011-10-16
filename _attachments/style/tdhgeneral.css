@@ -713,7 +713,7 @@ h2 {
 
 
 #venueinfo {
-		background-color: rgba(64,64,64);
+		background-color: rgba(64,64,64,0.8);
 				behavior: url(border-radius.htc);
 	-moz-border-radius: 2px;
     -webkit-border-radius: 2px;

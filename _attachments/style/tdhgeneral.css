@@ -134,9 +134,13 @@ ul#tab-list li:hover{
 }
 
 div#loginLinks{
+	color: white;
+	font-family: georgia, serif;
+	font-size: 14px;
 	position: relative;
 	float: right;
-	top: -10px;	
+	top: -30px;	
+	left: -5px;
 }
 /**************** Listings area ****************/
 div.box {

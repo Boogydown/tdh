@@ -220,7 +220,7 @@ div.list{
 }
 
 div.listingBG{
-	position: relative;
+	position: absolute;
 	
 	width: 100%;
 	height: 100%;
@@ -469,7 +469,7 @@ div.twostepphoto{
     height: 40px;
     width: 40px;
     left: 360px;
-    top: 10px;
+    top: 7px;
     position: absolute;
 }
 
@@ -489,7 +489,7 @@ div.addToDanceCard{
 	text-align:center;
 	position: absolute;
 	left:355px;
-	top: 53px;
+	top: 50px;
 	font-family: Georgia,serif;
 	font-size: 10px;
 	color: #F8C898;

@@ -134,14 +134,18 @@ ul#tab-list li:hover{
 }
 
 div#loginLinks{
-	color: white;
-	font-family: georgia, serif;
-	font-size: 14px;
+
 	position: relative;
 	float: right;
 	top: -30px;	
 	left: -5px;
 }
+div#loggedOut, div#loggedIn{
+		color: white;
+	font-family: georgia, serif;
+	font-size: 14px;
+}
+
 /**************** Listings area ****************/
 div.box {
 	background-color: transparent;

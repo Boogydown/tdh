@@ -177,7 +177,7 @@ div.list{
     -webkit-border-radius: 10px;
     -khtml-border-radius: 10px;
     border-radius: 10px;	
-    height: 88px;
+    height: 75px;
     position: relative;
     top: -1px;
     margin-bottom: 5px;
@@ -210,7 +210,7 @@ div.list{
 	height:88px;
 	width: 55px;
 	background: url(../images/cssSprite.png);
-	background-position: -10px -290px;
+	background-position: -10px -190px;
 	behavior: url(border-radius.htc);
 	border-radius: 10px 0px 0px 10px;
 	-moz-border-radius: 10px 0px 0px 10px;

@@ -220,8 +220,10 @@ div.list{
 }
 
 div.listingBG{
-	position: absolute;
-	
+	    
+    position: absolute;
+    left: 0px;
+    top: 5px;
 	width: 100%;
 	height: 100%;
 	
@@ -701,13 +703,11 @@ h2 {
 
 #bandinfo {
 		background-color: #404040;
-	margin: 5px;
     font-size: 15px;
-    left: 0px;
-    position: absolute;
+
     text-align: center;
     text-decoration: bold;
-    top: 0px;
+    
     width: 130px;
     height: 65px;
     word-wrap: break-word;

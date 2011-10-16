@@ -457,7 +457,7 @@ div#listing-time{
 	left: 80px;
 	color: #CCCCCC;
 	font-family: arial, sans-serif;
-	font-size: 15px;
+	font-size: 13px;
 	line-height:11px;
 }
 
@@ -679,7 +679,7 @@ h2 {
 
 .atvenue {
     color: #CCCCCC;
-    font-size: 35px;
+    font-size: 27px;
 	font-weight: bold;
 	font-family: Georgia;
     left: 100px;
@@ -703,8 +703,8 @@ h2 {
     position: absolute;
     text-align: center;
     text-decoration: bold;
-    top: 30px;
-    width: 110px;
+    top: 40px;
+    width: 90px;
     word-wrap: break-word;
 }
 
@@ -713,8 +713,8 @@ h2 {
     left: 117px;
     position: absolute;
     text-align: center;
-    top: 30px;
-    width: 110px;
+    top: 40px;
+    width: 90px;
     word-wrap: break-word;
 }
 

@@ -50,7 +50,8 @@
 			events : {
 				"focus #searchBandName" : "handleBandSearch",
 				"blur #searchBandName" : "handleBandSearch",
-				"keydown #searchBandName" : "handleBandSearch"
+				"keyup #searchBandName" : "handleBandSearch",
+				"change #searchBandName" : "handleBandSearch"
 			},
 			
 			initialize : function() {
@@ -88,7 +89,8 @@
 					case "focus" : 
 						if ( input.value == this.defaultSearchVal ) input.value = "";
 						break;
-					case "keydown" : 
+					case "change" :
+					case "keyup" : 
 						//this.listView.scrollTo( "bandName", searchField.target.value );
 						var filters = this.listView.collection.currentFilters || [];
 						

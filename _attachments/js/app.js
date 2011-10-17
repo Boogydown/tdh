@@ -92,19 +92,25 @@
 					case "change" :
 					case "keyup" : 
 						//this.listView.scrollTo( "bandName", searchField.target.value );
-						var filters = this.listView.collection.currentFilters || [];
 						
-						// find my bandName filter and replace it with new entry
-						var filter = _.detect(filters, function(f){return f.key == "bandName";})
-						if ( filter )
-							filter.str = searchField.target.value;
-						else
-							filters.push ({
-								key: "bandName",
-								str: searchField.target.value
-							});
+						// find my bandName filter and either remove it (str=="") or replace it with new search
+						var filters = this.listView.collection.currentFilters || [];
+						if ( input.value == "" ) {
+							if ( filters.length > 0 )
+								this.listView.collection.currentFilters = _.reject(filters, function(f){return f.key=="bandName"});
+						} else {
+							var filter = _.detect(filters, function(f){return f.key == "bandName";})
+							if ( filter )
+								filter.str = input.value;
+							else
+								filters.push ({
+									key: "bandName",
+									str: input.value
+								});
+						}
+						
 						this.listView.applyFilters();
-						console.log(searchField.target.value);
+						console.log(input.value);
 						break;
 				}
 			}

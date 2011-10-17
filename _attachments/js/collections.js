@@ -192,6 +192,7 @@ VU.KeyedCollection = VU.Collection.extend({
 	
 	addKeys : function( model ) {
 		//TODO: add these keys in sorted order; use to speed up removekeys and query
+		//TODO: can also use underscore's chain().map().flatten().reduce() (see docs www)
 		//TODO: BETTER YET, have this come in diretly from couch, instead of building it by hand
 		var key, value, i, j;
 		for ( i in this.filterableKeys ) {
@@ -272,7 +273,7 @@ VU.KeyedCollection = VU.Collection.extend({
 						if ( filter.start !== undefined ) {
 							if ( (value >= filter.start && value <= filter.end) )
 								innerModels = innerModels.concat( curVals[value] );
-						} else if ( filter.str ) {
+						} else if ( filter.str && filter.str != "" ) {
 							if ( value.indexOf( filter.str ) > -1 )
 								innerModels = innerModels.concat( curVals[value] );
 						}

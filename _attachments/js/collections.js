@@ -115,20 +115,21 @@ VU.LocalFilteredCollection = VU.Collection.extend({
 	applyFilters : function( filters, limit ) {
 		console.log( this.name + ".applyFilters( " + filters, limit + " )");
 		this.allPagesLoaded = true;
-		
 		filters && ( this.currentFilters = filters );
+		
+		// Use the first limit as our new numPerPage
 		if ( limit > 0 ) {
 			if ( this.firstPass ) this.numPerPage = limit;
 			this.tail = limit;
 		} else
 			this.tail = this.numPerPage;
 			
-		if ( this.currentFilters && _.isArray(this.currentFilters))
+		if ( _.isArray(this.currentFilters) )
 			this.masterCollection.getFiltered( { 
 				filters: this.currentFilters, 
 				tail: this.tail,
 				callback: this.onGotFiltered,
-				name: this.name
+				name: this.name //for debugging 
 			});
 	},
 	
@@ -262,15 +263,20 @@ VU.KeyedCollection = VU.Collection.extend({
 		if ( fp && fp.filters )
 		{
 			console.log( this.name + ".getFiltered(), processing " + fp.name );
-			for( fl = fp.filters.length; i < fl; ) {
-				filter = fp.filters[i++];
+			for( fl = fp.filters.length; i < fl; filter = fp.filters[i++]) {
 				curVals = this.keys[filter.key];
 				if ( curVals ){
-					innerModels = [];
 					// for each key, check all the values
-					for ( value in curVals )
-						if ( (value >= filter.start && value <= filter.end) )
-							innerModels = innerModels.concat( curVals[value] );
+					innerModels = [];
+					for ( value in curVals ){
+						if ( filter.start !== undefined ) {
+							if ( (value >= filter.start && value <= filter.end) )
+								innerModels = innerModels.concat( curVals[value] );
+						} else if ( filter.str ) {
+							if ( value.indexOf( filter.str ) > -1 )
+								innerModels = innerModels.concat( curVals[value] );
+						}
+					}
 					if ( finalModels )
 						finalModels = _.intersection( finalModels, innerModels );
 					else

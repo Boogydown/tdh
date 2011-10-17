@@ -504,7 +504,7 @@ div#dancesCal {
 }
 
 div#dancesCal div {
-	width: 25.3em;
+	width: 22.5em;
 }
 
 div#dancesMap {
@@ -542,6 +542,10 @@ div.share span{
 /* ******************************************************* */
 
 /* ******************Band & Hall popups******************* */
+#popupTitle{
+	text-align: center;
+}
+
 div#popuplist{
 	overflow: auto;
 	position: absolute;

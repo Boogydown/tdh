@@ -528,4 +528,8 @@ VU.EventModel = VU.LinkingModel.extend({
 	}
 });
 
+// Model that facilitates easy accessing and parsing of filter data as retrieved from the URL hash
+VU.FilterModel = Backbone.Model.extend({
+	
+});
 };

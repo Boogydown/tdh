@@ -263,7 +263,7 @@ VU.KeyedCollection = VU.Collection.extend({
 		if ( fp && fp.filters )
 		{
 			console.log( this.name + ".getFiltered(), processing " + fp.name );
-			for( fl = fp.filters.length; i < fl; filter = fp.filters[i++]) {
+			for( fl = fp.filters.length; i < fl, filter = fp.filters[i++]; ) {
 				curVals = this.keys[filter.key];
 				if ( curVals ){
 					// for each key, check all the values

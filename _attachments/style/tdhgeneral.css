@@ -636,6 +636,7 @@ div.share span{
 /* ******************Band & Hall popups******************* */
 #popupTitle{
 	text-align: center;
+	margin-top: -30px;
 }
 
 div#popuplist{

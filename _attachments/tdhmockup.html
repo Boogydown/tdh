@@ -33,23 +33,23 @@
 
 	<!-- TEMPLATES START -->
 	<script type="application/dust-template" id="mainEventEntryTemplate">
-		<div id="listing">
-			<div class="{?featured}featured{:else}standard{/featured}">
+		<div id="listing2">
+			<div class="{?featured}featured{:else}standard2{/featured}">
 				<div id="listing-date">
 					<div class="date" style="top: -3px;">{dateDay}</div>
 					<div class="day">{dateDate}</div>
 					<div class="date">{dateMonth}</div>
 				</div>
 				<div id="details" style="top:-10px">
-					<div class="listingBG"><a href="#///band&{band}"><div id="bandinfo"><br/>{bandName}</div></a></div><br/>	
-					<div class="atvenue">@</div>
-					<div id="listing-time">{time}</div>
-					<div class="listingBG"><a href="#///hall&{hall}"><div id="venueinfo"><br/>{hallName}</div></a></div><br/>		
+					<div class="listingBG"><a href="#///band&{band}"><div id="bandinfo2"><br/>{bandName}</div></a></div><br/>	
+					<div class="atvenue2">@</div>
+					<div id="listing-time2">{time}</div>
+					<div class="listingBG"><a href="#///hall&{hall}"><div id="venueinfo2"><br/>{hallName}</div></a></div><br/>		
 				</div>
 			</div>
 			<div class="addToDanceCardDiv">
-				<div class="twostepphoto"></div>
-				<div class="addToDanceCard">Add to<br/>Dance Card</div>
+				<div class="twostepphoto2"></div>
+				<div class="addToDanceCard2">Add to<br/>Dance Card</div>
 			</div>
 		</div>{~n}{~n}
 	</script>
@@ -233,9 +233,9 @@
 			
 			<div id="dancesDiv" class="info-area" style="display:none">
 				<div class="loadingGIF" id="dancesSpinner"></div>
-				<div class="box list" id="dancesList" listing-template="mainEventEntryTemplate"></div>
-				<div class="box" id="dancesCal"></div>
-				<div class="box" id="dancesMap"></div>
+				<div class="box2 list2" id="dancesList" listing-template="mainEventEntryTemplate"></div>
+				<div class="box2" id="dancesCal"></div>
+				<div class="box2" id="dancesMap"></div>
 			</div>
 			<div id="hallsDiv" class="info-area" style="display:none">
 				<div class="loadingGIF" id="hallsSpinner"></div>

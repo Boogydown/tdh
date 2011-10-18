@@ -66,7 +66,54 @@ window.utils = {
 		}, null, null, function () { $(this).remove(); } );
 	},
 
-	SearchBox : function( boxID, handler, payload ) {
+	// boxID must be id of a text input box
+	SearchBox : function( boxID, listView, filterKey ) {
+		this.el = $(boxID);
+		this.listView = listView;
+		this.filteredColl = this.listView.collection;
+		this.filterKey = filterKey;
+		this.defaultSearchVal = this.el.val();		
+		this.el.focusin( this, utils.SearchBox.handleSearch );
+		this.el.focusout( this, utils.SearchBox.handleSearch );
+		this.el.keyup( this, utils.SearchBox.handleSearch );
+		//this.el.change( this.handleSearch );
 		
+		utils.SearchBox.prototype.handleSearch = function( that, searchField ) {
+			var input = searchField.target;
+			console.log(searchField.type, ":", input.value);
+			switch ( searchField.type ) {
+				case "focusout" : 
+				case "blur" : 
+					if ( input.value == "" ) input.value = this.defaultSearchVal;
+					break;
+				case "focusin" : 
+				case "focus" : 
+					if ( input.value == this.defaultSearchVal ) input.value = "";
+					break;
+				case "change" :
+				case "keyup" : 
+					
+					// find my bandName filter and either remove it (str=="") or replace it with new search
+					var filters = this.filteredColl.currentFilters || [];
+					var filterKey = this.filterKey;
+					if ( input.value == "" ) {
+						if ( filters.length > 0 )
+							this.filteredColl.currentFilters = _.reject(filters, function(f){return f.key==filterKey});
+					} else {
+						var filter = _.detect(filters, function(f){return f.key == filterKey;})
+						if ( filter )
+							filter.str = input.value;
+						else
+							filters.push ({
+								key: filterKey,
+								str: input.value
+							});
+					}
+					
+					this.listView.applyFilters();
+					console.log( "Applying search filter of " + input.value + " for " + this.filterKey );
+					break;
+			}
+		}		
 	}
 };

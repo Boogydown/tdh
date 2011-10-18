@@ -47,26 +47,26 @@
 		BandsView : VU.ParentView.extend({
 			el : $("#bandsDiv"),
 			tabEl : $("#bandsTabBtn"),
-			events : {
-				"focus #searchBandName" : "handleBandSearch",
-				"blur #searchBandName" : "handleBandSearch",
-				"keyup #searchBandName" : "handleBandSearch",
-				"change #searchBandName" : "handleBandSearch"
-			},
+			//events : {
+				//"focus #searchBandName" : "handleBandSearch",
+				//"blur #searchBandName" : "handleBandSearch",
+				//"keyup #searchBandName" : "handleBandSearch",
+				//"change #searchBandName" : "handleBandSearch"
+			//},
 			
 			initialize : function() {
 				VU.ParentView.prototype.initialize.call(this);
 
-				//this.bandSearch = new SearchBox( "searchBandName", handleBandSearch, "bandName" );
 				this.navColl = new VU.LocalFilteredCollection( null, { collection: this.colls.bands, name:"bands" });
 				this.navCaption = 'All #{style} bands containing #{searchStr}.'
-				this.defaultSearchVal = $("#searchBandName")[0].value;
+				//this.defaultSearchVal = $("#searchBandName")[0].value;
 				this.listView = new VU.FilteredListView({
 					el: "#bandsList",
 					emptyMsg: "<i>No bands meet your search criteria!</i>",
 					pageLimit: 15,
 					collection: this.navColl
 				});
+				this.bandSearch = new VU.SearchBoxView( {el:"#searchBandName", model:this.listView, filterKey:"bandName"} );
 				this.tagView = new VU.TagCloudView({collection:this.colls.bands, el: "#bandsTags"});
 			},
 			

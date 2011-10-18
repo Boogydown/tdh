@@ -433,5 +433,59 @@ VU.ParentView = Backbone.View.extend({
 		this.active = false;
 	}
 });
+
+VU.SearchBoxView = Backbone.View.extend({
+	events : {
+		"focus" : "handleSearch",
+		"blur" : "handleSearch",
+		"keyup" : "handleSearch",
+		"change" : "handleSearch"
+	},
+	
+	initialize : function(options) {
+		_.bindAll( this, "handleSearch" );
+		this.defaultSearchVal = $(this.el)[0].value;
+		this.filterKey = options.filterKey;
+	},
+	
+	handleSearch : function( searchField ) {
+		var input = searchField.target;
+		console.log(searchField.type);
+		switch ( searchField.type ) {
+			case "focusout" : 
+			case "blur" : 
+				if ( input.value == "" ) input.value = this.defaultSearchVal;
+				break;
+			case "focusin" : 
+			case "focus" : 
+				if ( input.value == this.defaultSearchVal ) input.value = "";
+				break;
+			case "change" :
+			case "keyup" : 
+				//this.listView.scrollTo( "bandName", searchField.target.value );
+				
+				// find my bandName filter and either remove it (str=="") or replace it with new search
+				var filters = this.model.collection.currentFilters || [];
+				var filterKey = this.filterKey;
+				if ( input.value == "" ) {
+					if ( filters.length > 0 )
+						this.model.collection.currentFilters = _.reject(filters, function(f){return f.key==filterKey});
+				} else {
+					var filter = _.detect(filters, function(f){return f.key == filterKey;})
+					if ( filter )
+						filter.str = input.value;
+					else
+						filters.push ({
+							key: filterKey,
+							str: input.value
+						});
+				}
+				
+				this.model.applyFilters();
+				console.log(input.value);
+				break;
+		}
+	}
+});
 //}
 };

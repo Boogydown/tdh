@@ -21,6 +21,8 @@
 			tabEl : $("#dancesTabBtn"),
 			initialize : function() {
 				VU.ParentView.prototype.initialize.call(this);
+				this.navColl = new VU.LocalFilteredCollection( null, {collection: this.colls.events, name:"dances" });
+				this.navCaption = "All #{type} with upcoming events."
 				
 				// create our main list and map views and attach the collection to them
 				this.listView = new VU.FilteredListView({
@@ -28,7 +30,7 @@
 					emptyMsg: "<i>No dances meet your search criteria!</i>",
 					pageLimit:15,
 					listingClass:VU.EventListingView,
-					collection: new VU.LocalFilteredCollection( null, {collection: this.colls.events, name:"dances" })
+					collection: this.navColl
 				});
 				this.mapView = new VU.MapView( {el: "#dancesMap", collection:this.colls.halls});
 				this.calView = new VU.CalView( {el: "#dancesCal"});
@@ -48,23 +50,28 @@
 			events : {
 				"focus #searchBandName" : "handleBandSearch",
 				"blur #searchBandName" : "handleBandSearch",
-				"keydown #searchBandName" : "handleBandSearch"
+				"keyup #searchBandName" : "handleBandSearch",
+				"change #searchBandName" : "handleBandSearch"
 			},
 			
 			initialize : function() {
 				VU.ParentView.prototype.initialize.call(this);
+
 				//this.bandSearch = new SearchBox( "searchBandName", handleBandSearch, "bandName" );
+				this.navColl = new VU.LocalFilteredCollection( null, { collection: this.colls.bands, name:"bands" });
+				this.navCaption = 'All #{style} bands containing #{searchStr}.'
 				this.defaultSearchVal = $("#searchBandName")[0].value;
 				this.listView = new VU.FilteredListView({
 					el: "#bandsList",
 					emptyMsg: "<i>No bands meet your search criteria!</i>",
 					pageLimit: 15,
-					collection:new VU.LocalFilteredCollection( null, { collection: this.colls.bands, name:"bands" })
+					collection: this.navColl
 				});
 				this.tagView = new VU.TagCloudView({collection:this.colls.bands, el: "#bandsTags"});
 			},
 			
 			activate : function ( filters ) {
+				// TODO: this.navCaption - only add search string verbiage if there is a search str in filters
 				VU.ParentView.prototype.activate.call(this);
 				this.listView.applyFilters( filters );
 				this.tagView.render(); 
@@ -82,9 +89,28 @@
 					case "focus" : 
 						if ( input.value == this.defaultSearchVal ) input.value = "";
 						break;
-					case "keydown" : 
-						this.listView.scrollTo( "bandName", searchField.target.value );
-						console.log(searchField.target.value);
+					case "change" :
+					case "keyup" : 
+						//this.listView.scrollTo( "bandName", searchField.target.value );
+						
+						// find my bandName filter and either remove it (str=="") or replace it with new search
+						var filters = this.listView.collection.currentFilters || [];
+						if ( input.value == "" ) {
+							if ( filters.length > 0 )
+								this.listView.collection.currentFilters = _.reject(filters, function(f){return f.key=="bandName"});
+						} else {
+							var filter = _.detect(filters, function(f){return f.key == "bandName";})
+							if ( filter )
+								filter.str = input.value;
+							else
+								filters.push ({
+									key: "bandName",
+									str: input.value
+								});
+						}
+						
+						this.listView.applyFilters();
+						console.log(input.value);
 						break;
 				}
 			}
@@ -95,17 +121,19 @@
 			tabEl : $("#hallsTabBtn"),
 			initialize : function() {
 				VU.ParentView.prototype.initialize.call(this);
-				//this.listView = new VU.ListView({collection: this.colls.halls, el: "#hallsList"});
+				this.navColl = new VU.LocalFilteredCollection( null, {collection: this.colls.halls, name:"halls" });
+				this.navCaption = "All halls containing #{nameSearch} and located in #{countySearch} county";
 				this.listView = new VU.FilteredListView({
 					el: "#hallsList",
 					emptyMsg: "<i>No dance halls meet your search criteria!</i>",
 					pageLimit: 15,
-					collection: new VU.LocalFilteredCollection( null, {collection: this.colls.halls, name:"halls" })
+					collection: this.navColl
 				});
 				this.mapView = new VU.MapView({collection: this.colls.halls, el: "#hallsMap"});
 			},
 			
 			activate : function ( filters ) {
+				// TODO: this.navCaption - only add search string or map verbiage if they're in filters
 				VU.ParentView.prototype.activate.call(this);
 				this.listView.applyFilters( filters );
 			}
@@ -117,13 +145,15 @@
 			initialize : function() {
 				_.bindAll( this, "render" );
 				VU.ParentView.prototype.initialize.call(this);
+				this.navColl = this.colls.dCard;
+				this.navCaption = "All dances on your Dance Card";
 
 				// create our main list and map views and attach the collection to them
 				this.listView = new VU.FilteredListView({
 					el:"#dCardList",
 					emptyMsg: "<i>No dances on your card yet!<br/>Go to the Dances tab and add some!</i>",
 					listingClass:VU.EventListingView,
-					collection: this.colls.dCard 
+					collection: this.navColl 
 				});
 				//this.mainMapView = new VU.MapView({collection:this.colls.halls, mapNode: "hallsMap"});
 				
@@ -201,6 +231,14 @@
 			// done manipulating params (tab, specifically) so we can now save the route
 			this.saveRoutes( tab, dates, coords, popID, style );
 			
+			//this.myFilters.set( {
+				//tab: tab,
+				//dates: dates,
+				//coords: coords,
+				//popID: popID,
+				//style: style
+			//});
+			
 			// create filters from route
 			if ( dates ) {
 				// "start-date,end-date
@@ -255,7 +293,7 @@
 					case "signup": 
 					case "addEvent": 
 					case "member": 
-						docModel = window.mySession; 
+						docModel = window.mySession;
 						break;
 					default: 
 						docModel = this.colls[popType + "s"] && this.colls[popType + "s"].get( popID );
@@ -265,7 +303,12 @@
 				if ( docModel ) {
 					if ( _.isFunction(docModel.loadEvents) )
 						docModel.loadEvents( this.colls.events );
-					this.popupView.openPopup( docModel, template );
+					this.popupView.openPopup( 
+						docModel, 
+						template, 
+						this.currentView.navColl, 
+						this.currentView.navCaption 
+					);
 				} else {
 					window.location = "#///!";
 				}

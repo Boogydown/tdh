@@ -212,7 +212,7 @@ VU.PopupView = VU.DustView.extend({
 	initialize : function ( options ) {
 		//Set up Close for Popup and Fade for all future instances
 		$('a.close, #fade').live('click', function() { //When clicked to close or fade layer...
-			$('#fade , .popup_block').fadeOut(function() {
+			$('#fade , .popup_block').fadeOut('fast', null, function() {
 				$('#fade, a.close').remove();  //fade them both out
 			});
 			window.location = "#///!";
@@ -243,24 +243,29 @@ VU.PopupView = VU.DustView.extend({
 		});
 	},
 	
-	openPopup : function ( model, popTemplate ) {
+	openPopup : function ( model, popTemplate, navColl, navCaption ) {
 		this.registerTemplate( popTemplate ); 
 		this.model = model;
+		if ( this.model )
+			this.model.set({
+				navCaption: "&#9668;&nbsp; " + navCaption + " &nbsp;&#9658;"
+			});
+		this.navColl = navColl;
 		this.render();
 		
 		//Fade Background
 		$('body').append('<div id="fade"></div>');
 		//Fade in the fade layer - used to fix the IE Bug on fading transparencies 
-		$('#fade').css({'filter' : 'alpha(opacity=80)'}).fadeIn(); 
+		$('#fade').css({'filter' : 'alpha(opacity=80)'}).fadeIn('fast'); 
 
 		//Fade Popup in and add close button
-		this.el.fadeIn().prepend('<a href="#" class="close"><img class="close_popup" title="Close Window" /></a>');
+		this.el.fadeIn('fast').prepend('<a href="#" class="close"><img class="close_popup" title="Close Window" /></a>');
 
 		return false;
 	},
 	
 	nav : function ( event ) {
-		var coll = this.model.collection;
+		var coll = this.navColl;
 		if ( coll ){
 			var index = coll.indexOf( this.model );
 			if ( event.target.id == "nav-left" )
@@ -357,8 +362,9 @@ VU.CalView = Backbone.View.extend({
 		_.bindAll( this, "updateDateRoute" );
 		$(this.el).datepicker({
 			onSelect: this.updateDateRoute,
-			minDate: "-2D",
-			dateFormat: "@"
+			minDate: "-2D", // start at two days in the past, per client request
+			defaultDate: "-2D",
+			dateFormat: "@" // unix time
 		});
 	},
 	

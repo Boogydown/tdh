@@ -431,7 +431,7 @@ div#listing-date{
 	top: 22px;
 }
 
-div.date, div.day, div#listing-time{
+div.date, div.day, div#listing-time2{
 	position: relative;
 	color: white;
 	text-align: center;

@@ -558,8 +558,8 @@ div#listing-time2{
 div.twostepphoto2{
 	background: url(../images/cssSprite.png);
 	background-position: -10px -140px;
-    height: 40px;
-    width: 40px;
+    height: 30px;
+    width: 30px;
     left: 360px;
     top: 7px;
     position: absolute;

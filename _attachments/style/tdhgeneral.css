@@ -284,7 +284,7 @@ div.listingBG{
 div.searchFor{
 	background-color: transparent;
 
-	width: 360px;
+	width: 470px;
 	position: absolute;
 	left: 20px;
 	top: 50px;
@@ -319,9 +319,10 @@ input.searchName{
 	left: 0px;
 }
 
-input#searchCounty{
-	left: 225px;
-	top: -30px;
+input#searchHallCounty{
+	/*left: 225px;
+	top: -30px;*/
+	margin-left: 10px;
 }
 
 div#hallsDiv div.box, div#bandsDiv div.box {

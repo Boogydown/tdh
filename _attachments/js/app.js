@@ -47,19 +47,12 @@
 		BandsView : VU.ParentView.extend({
 			el : $("#bandsDiv"),
 			tabEl : $("#bandsTabBtn"),
-			//events : {
-				//"focus #searchBandName" : "handleBandSearch",
-				//"blur #searchBandName" : "handleBandSearch",
-				//"keyup #searchBandName" : "handleBandSearch",
-				//"change #searchBandName" : "handleBandSearch"
-			//},
 			
 			initialize : function() {
 				VU.ParentView.prototype.initialize.call(this);
 
 				this.navColl = new VU.LocalFilteredCollection( null, { collection: this.colls.bands, name:"bands" });
 				this.navCaption = 'All #{style} bands containing #{searchStr}.'
-				//this.defaultSearchVal = $("#searchBandName")[0].value;
 				this.listView = new VU.FilteredListView({
 					el: "#bandsList",
 					emptyMsg: "<i>No bands meet your search criteria!</i>",
@@ -75,44 +68,6 @@
 				VU.ParentView.prototype.activate.call(this);
 				this.listView.applyFilters( filters );
 				this.tagView.render(); 
-			},
-			
-			handleBandSearch : function( searchField ) {
-				var input = searchField.target;
-				console.log(searchField.type);
-				switch ( searchField.type ) {
-					case "focusout" : 
-					case "blur" : 
-						if ( input.value == "" ) input.value = this.defaultSearchVal;
-						break;
-					case "focusin" : 
-					case "focus" : 
-						if ( input.value == this.defaultSearchVal ) input.value = "";
-						break;
-					case "change" :
-					case "keyup" : 
-						//this.listView.scrollTo( "bandName", searchField.target.value );
-						
-						// find my bandName filter and either remove it (str=="") or replace it with new search
-						var filters = this.listView.collection.currentFilters || [];
-						if ( input.value == "" ) {
-							if ( filters.length > 0 )
-								this.listView.collection.currentFilters = _.reject(filters, function(f){return f.key=="bandName"});
-						} else {
-							var filter = _.detect(filters, function(f){return f.key == "bandName";})
-							if ( filter )
-								filter.str = input.value;
-							else
-								filters.push ({
-									key: "bandName",
-									str: input.value
-								});
-						}
-						
-						this.listView.applyFilters();
-						console.log(input.value);
-						break;
-				}
 			}
 		}),
 		
@@ -129,6 +84,8 @@
 					pageLimit: 15,
 					collection: this.navColl
 				});
+				this.nameSearch = new VU.SearchBoxView( {el:"#searchHallName", model:this.listView, filterKey:"danceHallName"} );
+				this.countySearch = new VU.SearchBoxView( {el:"#searchHallCounty", model:this.listView, filterKey:"county"} );
 				this.mapView = new VU.MapView({collection: this.colls.halls, el: "#hallsMap"});
 			},
 			

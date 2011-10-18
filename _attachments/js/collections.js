@@ -340,7 +340,7 @@ VU.HallCollection = VU.KeyedCollection.extend({
 	viewName : "crossFilter",
 	query : '?startkey=["dancehall",null,null,null]&endkey=["dancehall",[],[],[]]',
 	model : VU.VenueModel,
-	filterableKeys: ["danceHallName", "lat", "lng"],
+	filterableKeys: ["danceHallName", "lat", "lng", "county"],
 	comparator : function(hall){
 		return hall.get("danceHallName");
 	}

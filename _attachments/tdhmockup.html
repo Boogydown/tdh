@@ -54,6 +54,32 @@
 		</div>{~n}{~n}
 	</script>
 	
+<script type="application/dust-template" id="mainEventEntryTemplatePopup">
+	<div id="listing">
+		<div class="{?featured}featured{:else}standard{/featured}">
+			<div id="listing-date">
+				<div class="date" style="top: -3px;">{dateDay}</div>
+				<div class="day">{dateDate}</div>
+				<div class="date">{dateMonth}</div>
+			</div>
+			<div id="listing-time">{time}</div>
+				<div id="details" style="top:-10px">
+					<a href="#///band&{band}"><img class="bandphoto" src="{bandPic}" /></a><br/>
+					<div id="bandinfo">{bandName}</div>
+					<div class="atvenue">@</div>
+					<a href="#///hall&{hall}"><img class="venuephoto" src="{hallPic}" /></a><br/>
+					<div id="venueinfo">{hallName}</div>
+				</div>
+			</div>
+			<div class="addToDanceCardDiv">
+			<div class="twostepphoto"></div>
+			<div class="addToDanceCard">Add to<br/>Dance Card</div>
+		</div>
+	</div>{~n}{~n}
+</script>
+
+
+	
 	<script type="application/dust-template" id="dCardListingTemplate">
 		<div id="listing">
 			<div class="{?featured}featured{:else}standard{/featured}">
@@ -101,7 +127,7 @@
 			</div>
 		</div>
 		<div id="main-photo"><img src="{mainPic}" /></div>
-		<div class="box" id="popuplist" listing-template="mainEventEntryTemplate"></div>
+		<div class="box" id="popuplist" listing-template="mainEventEntryTemplatePopup"></div>
 		<div class="detailmap" id="detailmap"></div>
 		<div id="nav-left"></div>
 		<div id="nav-right"></div>
@@ -118,7 +144,7 @@
 			</div>
 		</div>
 		<div id="main-photo"><img src="{mainPic}" /></div>
-		<div class="box" id="popuplist" listing-template="mainEventEntryTemplate"></div>
+		<div class="box" id="popuplist" listing-template="mainEventEntryTemplatePopup"></div>
 		<div id="detailmap" class="detailmap"></div>
 		<div id="nav-left"></div>
 		<div id="nav-right"></div>

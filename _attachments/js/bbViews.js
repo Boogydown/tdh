@@ -96,6 +96,7 @@ VU.EventListingView = VU.ListingView.extend({
  */
  VU.FilteredListView = Backbone.View.extend({
 	scrollLoadThreshold : 100,
+	LISTING_HEIGHT: 92,
 	
 	events : { 
 		"scroll" : "scrollUpdate" 
@@ -107,6 +108,7 @@ VU.EventListingView = VU.ListingView.extend({
 		this.listingClass = options.listingClass || VU.ListingView;
 		this.pageLimit = options.limit || 20;
 		this.listingViews = [];
+		this.listingHeight = options.listingHeight || this.LISTING_HEIGHT;
 		this.collection.bind("add", this.addRow);
 		this.collection.bind("remove", this.removeRow);
 	},
@@ -169,6 +171,10 @@ VU.EventListingView = VU.ListingView.extend({
 	
 	// Adds a sorted row in its respective place in the DOM
 	addRow : function(model, options){
+		if ( this.fullHeight === undefined ) {
+			this.fullHeight = this.collection.fullLength * this.listingHeight;
+			this.el.height = this.fullHeight;
+		}
 		var lc, template = (this.el.getAttribute("listing-template") || "");
 		if ( !template ) 
 			console.log("listing-template attribute not given in " + this.el);

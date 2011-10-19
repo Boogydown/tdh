@@ -593,12 +593,26 @@ div#listing-time3{
 	position: relative;
 	top: 25px;
 	left: 0px;
+	width: 120px;
+	color: #CCCCCC;
+	font-family: arial, sans-serif;
+	font-size: 32px;
+	line-height: 0.7em;
+	text-decoration: bold;
+}
+
+div#listing-time4{
+	position: relative;
+	top: 25px;
+	left: 150px;
+	width: 120px;
 	color: #CCCCCC;
 	font-family: arial, sans-serif;
 	font-size: 32px;
 	line-height: 0.4em;
 	text-decoration: bold;
 }
+
 /* ******************Calendar and map inside info-area******************* */
 div#dancesCal {
 /*	background:url(../images/cal.jpg) no-repeat;*/

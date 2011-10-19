@@ -519,8 +519,8 @@ div.twostepphoto{
 	background-position: -10px -140px;
     height: 40px;
     width: 40px;
-    left: 295px;
-    top: 10px;
+    left: 305px;
+    top: 15px;
     position: absolute;
 }
 
@@ -540,7 +540,7 @@ div.addToDanceCard{
 	text-align:center;
 	position: absolute;
 	left:290px;
-	top: 53px;
+	top: 50px;
 	font-family: Georgia,serif;
 	font-size: 10px;
 	color: #F8C898;

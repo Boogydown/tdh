@@ -592,7 +592,7 @@ div.addToDanceCard2{
 div#listing-time3{
 	position: relative;
 	top: 25px;
-	left: 0px;
+	left: -10px;
 	width: 120px;
 	color: #CCCCCC;
 	font-family: arial, sans-serif;
@@ -604,7 +604,7 @@ div#listing-time3{
 div#listing-time4{
 	position: relative;
 	top: 25px;
-	left: 150px;
+	left: 120px;
 	width: 120px;
 	color: #CCCCCC;
 	font-family: arial, sans-serif;

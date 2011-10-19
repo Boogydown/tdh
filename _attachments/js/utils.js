@@ -64,9 +64,5 @@ window.utils = {
 			left: destOff.left,
 			top: destOff.top
 		}, null, null, function () { $(this).remove(); } );
-	},
-
-	SearchBox : function( boxID, handler, payload ) {
-		
 	}
 };

@@ -589,30 +589,26 @@ div.addToDanceCard2{
 	letter-spacing: -0.05em;
 }
 
-div#listing-time3{
+div#listing-time3, div#listing-time4{
 	position: relative;
-	top: 30px;
-	left: -10px;
 	width: 120px;
 	color: #CCCCCC;
 	font-family: arial, sans-serif;
 	font-size: 32px;
 	line-height: 0.8em;
 	text-decoration: bold;
+	text-align: center;
 	word-wrap: break-word;
 }
 
+div#listing-time3{
+	top: 30px;
+	left: -10px;
+}
+
 div#listing-time4{
-	position: relative;
 	top: 20px;
 	left: 120px;
-	width: 120px;
-	color: #CCCCCC;
-	font-family: arial, sans-serif;
-	font-size: 32px;
-	line-height: 0.8em;
-	text-decoration: bold;
-	word-wrap: break-word;
 }
 
 /* ******************Calendar and map inside info-area******************* */

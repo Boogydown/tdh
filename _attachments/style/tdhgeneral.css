@@ -863,6 +863,12 @@ h2 {
     text-align: center;
     text-decoration: bold;
     
+    position: absolute;
+    left: 0px;
+    top: 15px;
+	width: 130px;
+    height: 65px;
+    
     width: 130px;
     height: 65px;
     word-wrap: break-word;
@@ -880,6 +886,9 @@ h2 {
     position: absolute;
         left: 170px;
     text-align: center;
+    
+    top: 15px;
+    
     width: 120px;
     height: 65px;
     word-wrap: break-word;

@@ -589,6 +589,14 @@ div.addToDanceCard2{
 	letter-spacing: -0.05em;
 }
 
+div#listing-time3{
+	position: relative;
+	top: 24px;
+	color: #CCCCCC;
+	font-family: arial, sans-serif;
+	font-size: 20px;
+	line-height:11px;
+}
 /* ******************Calendar and map inside info-area******************* */
 div#dancesCal {
 /*	background:url(../images/cal.jpg) no-repeat;*/

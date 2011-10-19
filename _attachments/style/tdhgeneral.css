@@ -599,6 +599,7 @@ div#listing-time3{
 	font-size: 32px;
 	line-height: 0.8em;
 	text-decoration: bold;
+	word-wrap: break-word;
 }
 
 div#listing-time4{
@@ -611,6 +612,7 @@ div#listing-time4{
 	font-size: 32px;
 	line-height: 0.8em;
 	text-decoration: bold;
+	word-wrap: break-word;
 }
 
 /* ******************Calendar and map inside info-area******************* */

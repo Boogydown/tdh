@@ -591,11 +591,12 @@ div.addToDanceCard2{
 
 div#listing-time3{
 	position: relative;
-	top: 25px;
-	left: 10px;
+	top: 30px;
+	left: 0px;
 	color: #CCCCCC;
 	font-family: arial, sans-serif;
-	font-size: 25px;
+	font-size: 32px;
+	text-decoration: bold;
 }
 /* ******************Calendar and map inside info-area******************* */
 div#dancesCal {

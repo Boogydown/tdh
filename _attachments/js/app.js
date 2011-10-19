@@ -68,7 +68,7 @@
 				// TODO: this.navCaption - only add search string verbiage if there is a search str in filters
 				VU.ParentView.prototype.activate.call(this);
 				this.listView.applyFilters( filters );
-				this.tagView.render(); 
+				//this.tagView.render();  this happens at refresh, within tagView
 			}
 		}),
 		

@@ -111,6 +111,7 @@ VU.EventListingView = VU.ListingView.extend({
 		this.listingHeight = options.listingHeight || this.LISTING_HEIGHT;
 		this.collection.bind("add", this.addRow);
 		this.collection.bind("remove", this.removeRow);
+		this.spacer = $(this.el).append("<div id='spacer' style='height:1px'></div>");
 	},
 	
 	// This will apply filters to the coll and trigger add/remove events, 
@@ -170,23 +171,24 @@ VU.EventListingView = VU.ListingView.extend({
 	},	
 	
 	// Adds a sorted row in its respective place in the DOM
-	addRow : function(model, options){
-		if ( this.fullHeight === undefined ) {
-			this.fullHeight = this.collection.fullLength * this.listingHeight;
-			this.el.height = this.fullHeight;
-		}
+	addRow : function(model, options){		
 		var lc, template = (this.el.getAttribute("listing-template") || "");
 		if ( !template ) 
 			console.log("listing-template attribute not given in " + this.el);
 		else {
 			this.listingViews[model.id] = lc = new this.listingClass( {model: model, template: template} );
 			lc = lc.render().el;
-			if ( this.el.childNodes.length > model.index )
+			if ( this.el.childNodes.length > model.index + 1 ) //+1 for the spacer
 				$(this.el.childNodes[ model.index ]).before( lc );
 			else 
-				this.el.appendChild( lc );
+				//this.el.appendChild( lc );
+				this.spacer.before( lc );
 			//model.trigger("change", model);
 		}
+		if ( this.fullHeight === undefined )
+			this.fullHeight = this.collection.fullLength * this.listingHeight;
+		var dif = this.fullHeight - this.el.scrollHeight;
+		( dif > 0 ) && this.spacer.css("height", dif);
 	},
 	
 	removeRow : function(model, options ){
@@ -198,6 +200,8 @@ VU.EventListingView = VU.ListingView.extend({
 				lv.remove();
 			delete this.listingViews[model.id];
 		}
+		var dif = this.fullHeight - this.el.scrollHeight;
+		( dif > 0 ) && this.spacer.css("height", dif);
 	},
 	
 	scrollUpdate : function () {

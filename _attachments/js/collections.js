@@ -149,7 +149,7 @@ VU.LocalFilteredCollection = VU.Collection.extend({
 	},
 	
 	nextPage : function( num ) {
-		if ( this.allPagesLoaded ) return;
+		if ( this.tail >= this.allFiltered.length ) return;
 		num && (this.numPerPage = num);
 		//this.applyFilters( null, this.tail += this.numPerPage );
 		this.diff( this.allFiltered.slice(0,this.tail += this.numPerPage), {keepParent:true, ignoreDups:true} );

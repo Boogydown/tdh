@@ -208,12 +208,13 @@ VU.EventListingView = VU.ListingView.extend({
 	_updateSpacer : function () {
 		var fullHeight = this.collection.fullLength * this.listingHeight;
 		var dif = fullHeight - this.el.scrollHeight;
-		dif < 0 && (dif = 0);
-		this.spacer.css("height", dif);
+		var newSpacerHt = this.spacer.height() + dif;
+		newSpacerHt < 1 && (newSpacerHt = 0);
+		this.spacer.height( newSpacerHt );
 		
 		// if there's still some spacer left then that means we have more stuff to render,
 		//	so hit up the next page (after some time...)
-		if ( dif && this.spacer.position().top < $(this.el).height() )
+		if ( newSpacerHt && this.spacer.position().top < $(this.el).height() )
 			setTimeout( this._nextPage, 1200, 80 );
 		else
 			utils.waitingUI.hide();

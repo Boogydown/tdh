@@ -33,7 +33,6 @@
 					listingClass:VU.EventListingView,
 					collection: this.navColl
 				});
-				this.mapView = new VU.MapView( {el: "#dancesMap", collection:this.navColl});
 				this.calView = new VU.CalView( {el: "#dancesCal"});
 			},
 			
@@ -42,6 +41,8 @@
 				//this.listView.applyFilters( filters );
 				this.listView.applyFilters( [{}] );
 				this.listView.scrollTo("dateUnix", _.detect( filters, function(f){return f.key == "dateUnix";} ).start);
+				if ( !this.mapView ) 
+					this.mapView = new VU.MapView( {el: "#dancesMap", collection:this.colls.events});
 			}
 		}),
 
@@ -88,13 +89,14 @@
 				});
 				this.nameSearch = new VU.SearchBoxView( {el:"#searchHallName", model:this.listView, filterKey:"danceHallName"} );
 				this.countySearch = new VU.SearchBoxView( {el:"#searchHallCounty", model:this.listView, filterKey:"county"} );
-				this.mapView = new VU.MapView({collection: this.colls.halls, el: "#hallsMap"});
 			},
 			
 			activate : function ( filters ) {
 				// TODO: this.navCaption - only add search string or map verbiage if they're in filters
 				VU.ParentView.prototype.activate.call(this);
 				this.listView.applyFilters( filters );
+				if ( !this.mapView ) 
+					this.mapView = new VU.MapView({collection: this.colls.halls, el: "#hallsMap"});
 			}
 		}),
 		

@@ -207,7 +207,7 @@ VU.EventListingView = VU.ListingView.extend({
 		if ( this.fullHeight === undefined )
 			this.fullHeight = this.collection.fullLength * this.listingHeight;
 		var dif = this.fullHeight - this.el.scrollHeight;
-		( dif < 0 ) && dif = 0;
+		dif < 0 && (dif = 0);
 		this.spacer.css("height", dif);
 		
 		// if there's still some spacer left then that means we have more stuff to render,

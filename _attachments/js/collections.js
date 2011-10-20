@@ -133,10 +133,10 @@ VU.LocalFilteredCollection = VU.Collection.extend({
 			});
 	},
 	
-	onGotFiltered : function ( filteredModels, lastPage ) {
+	onGotFiltered : function ( filteredModels, totalFiltered, lastPage ) {
 		// keepParent: we don't want the model's parent collection to change: it belongs to the master collection
 		console.log( this.name + ".onGotFiltered( " + filteredModels.length + " models recieved, last page: " + lastPage + ")");
-		this.fullLength = this.masterCollection.length;
+		this.fullLength = totalFiltered;
 		this.allPagesLoaded = lastPage;
 		this.diff( filteredModels, {keepParent:true, ignoreDups:true} );
 		if ( this.firstPass ) {
@@ -292,7 +292,7 @@ VU.KeyedCollection = VU.Collection.extend({
 		finalModels || (finalModels = this.models);
 		fp.tail || ( fp.tail = finalModels.length );
 		if ( _.isFunction(fp.callback) )
-			fp.callback( finalModels.slice( 0, fp.tail ), fp.tail >= finalModels.length );
+			fp.callback( finalModels.slice( 0, fp.tail ), finalModels.length, fp.tail >= finalModels.length );
 		if ( this.filterQueue.length > 0 )
 			this.getFiltered();
 	}	

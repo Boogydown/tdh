@@ -171,7 +171,7 @@ VU.EventListingView = VU.ListingView.extend({
 	filtered : function() {
 		//if ( this.collection.length == 0 )
 			//this.el.innerHTML = this.emptyMsg;		
-		utils.waitingUI.hide();	
+		//utils.waitingUI.hide();	
 		this._updateSpacer();
 	},
 	
@@ -214,7 +214,7 @@ VU.EventListingView = VU.ListingView.extend({
 		// if there's still some spacer left then that means we have more stuff to render,
 		//	so hit up the next page (after some time...)
 		if ( dif && this.spacer.position().top < $(this.el).height() )
-			setTimeout( this._nextPage, 800 );
+			setTimeout( this._nextPage, 1200, 80 );
 		else
 			utils.waitingUI.hide();
 	},

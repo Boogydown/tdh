@@ -167,10 +167,12 @@ VU.EventListingView = VU.ListingView.extend({
 		$(this.el).empty();
 	},	
 	
+	// called once, after all add/remove callbacks have been processed
 	filtered : function() {
 		//if ( this.collection.length == 0 )
 			//this.el.innerHTML = this.emptyMsg;		
 		utils.waitingUI.hide();	
+		this._updateSpacer();
 	},
 	
 	// Adds a sorted row in its respective place in the DOM
@@ -188,7 +190,7 @@ VU.EventListingView = VU.ListingView.extend({
 				this.spacer.before( lc );
 			//model.trigger("change", model);
 		}
-		this._updateSpacer();
+		//this._updateSpacer();
 	},
 	
 	removeRow : function(model, options ){
@@ -200,7 +202,7 @@ VU.EventListingView = VU.ListingView.extend({
 				lv.remove();
 			delete this.listingViews[model.id];
 		}
-		this._updateSpacer();
+		//this._updateSpacer();
 	},
 	
 	_updateSpacer : function () {

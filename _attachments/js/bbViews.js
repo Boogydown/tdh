@@ -145,7 +145,7 @@ VU.EventListingView = VU.ListingView.extend({
 				index = this.collection.length - 1;
 		}
 		
-		var listings = $("#listing", this.el);
+		var listings = $(".listing", this.el);
 		if ( listings.length < 2 ) return;
 		var delta = listings[1].offsetTop - listings[0].offsetTop;
 		this.el.scrollTop = (index - 1) * delta;

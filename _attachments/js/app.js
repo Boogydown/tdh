@@ -135,11 +135,11 @@
 		
 		toggleLogView : function() {
 			if ( mySession.get( "loggedIn" ) ) {
-				$("#loggedOut").hide();
-				$("#loggedIn").show();
+				$("#loggedOutNav").hide();
+				$("#loggedInNav").show();
 			} else {
-				$("#loggedOut").show();
-				$("#loggedIn").hide();
+				$("#loggedOutNav").show();
+				$("#loggedInNav").hide();
 			}
 		}
 	});

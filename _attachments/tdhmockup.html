@@ -33,37 +33,37 @@
 
 	<!-- TEMPLATES START -->
 	<script type="application/dust-template" id="mainEventEntryTemplate">
-		<div id="listing2">
+		<div class="listing listing2">
 			<div class="{?featured}featured{:else}standard2{/featured}">
-				<div id="listing-date">
+				<div class="listing-date">
 					<div class="date" style="top: -3px;">{dateDay}</div>
 					<div class="day">{dateDate}</div>
 					<div class="date">{dateMonth}</div>
 				</div>
 				<div id="details" style="top:-10px">
-					<a href="#///band&{band}"><div id="bandinfo2"><br/>{bandName}</div></a><br/>	
-					<div class="atvenue2">@</div>
-					<div id="listing-time2">{time}</div>
-					<a href="#///hall&{hall}"><div id="venueinfo2"><br/>{hallName}</div></a><br/>		
+					<a href="#///band&{band}"><div id="bandinfo bandinfo2"><br/>{bandName}</div></a><br/>	
+					<div class="atvenue atvenue2">@</div>
+					<div class="listing-time listing-time2">{time}</div>
+					<a href="#///hall&{hall}"><div id="venueinfo venueinfo2"><br/>{hallName}</div></a><br/>		
 				</div>
 			</div>
 			<div class="addToDanceCardDiv">
-				<div class="twostepphoto2"></div>
-				<div class="addToDanceCard2">Add to<br/>Dance Card</div>
+				<div class="twostepphoto twostepphoto2"></div>
+				<div class="addToDanceCard addToDanceCard2">Add to<br/>Dance Card</div>
 			</div>
 		</div>{~n}{~n}
 	</script>
 	
 <script type="application/dust-template" id="mainEventEntryTemplateBandPopup">
-	<div id="listing">
+	<div class="listing">
 		<div class="{?featured}featured{:else}standard{/featured}">
-			<div id="listing-date">
+			<div class="listing-date">
 				<div class="date" style="top: -3px;">{dateDay}</div>
 				<div class="day">{dateDate}</div>
 				<div class="date">{dateMonth}</div>
 			</div>
 				<div id="details" style="top:-10px">
-					<div id="listing-time3">{time}</div><br/>
+					<div class="listing-time listing-time3">{time}</div><br/>
 					<div class="atvenue">@</div>
 					<a href="#///hall&{hall}"><img class="venuephoto" src="{hallPic}" /></a><br/>
 					<div id="venueinfo">{hallName}</div>
@@ -77,9 +77,9 @@
 </script>
 
 <script type="application/dust-template" id="mainEventEntryTemplateHallPopup">
-	<div id="listing">
+	<div class="listing">
 		<div class="{?featured}featured{:else}standard{/featured}">
-			<div id="listing-date">
+			<div class="listing-date">
 				<div class="date" style="top: -3px;">{dateDay}</div>
 				<div class="day">{dateDate}</div>
 				<div class="date">{dateMonth}</div>
@@ -88,7 +88,7 @@
 					<a href="#///band&{band}"><img class="bandphoto" src="{bandPic}" /></a><br/>
 					<div id="bandinfo">{bandName}</div>
 					<div class="atvenue">@</div>
-					<div id="listing-time4">{time}</div><br/>
+					<div class="listing-time listing-time4">{time}</div><br/>
 				</div>
 			</div>
 			<div class="addToDanceCardDiv">
@@ -101,14 +101,14 @@
 
 	
 	<script type="application/dust-template" id="dCardListingTemplate">
-		<div id="listing">
+		<div class="listing">
 			<div class="{?featured}featured{:else}standard{/featured}">
-				<div id="listing-date">
+				<div class="listing-date">
 					<div class="date" style="top: -3px;">{dateDay}</div>
 					<div class="day">{dateDate}</div>
 					<div class="date">{dateMonth}</div>
 				</div>
-				<div id="listing-time">{time}</div>
+				<div class="listing-time">{time}</div>
 				<div id="details" style="top:-10px">
 					<a href="#///band&{band}"><img class="bandphoto" src="{bandPic}" /></a><br/>
 					<div id="bandinfo">{bandName}</div>
@@ -251,10 +251,10 @@
 	<!-- Main App Container-->
 		<div id="main-container">
 			<div id="loginLinks">
-				<div id="loggedOut">
+				<div id="loggedOutNav">
 					<a href="#///login">LOGIN</a>&nbsp;&bull;&nbsp;<a href="#///signup">SIGN UP!</a>
 				</div>
-				<div id="loggedIn">
+				<div id="loggedInNav">
 					<a href="#" onclick="mySession.logout()">LOGOUT</a>&nbsp;&bull;&nbsp;<a href="#///member">PROFILE</a>&nbsp;&bull;&nbsp;<a href="#///addEvent">ADD EVENT</a>
 				</div>
 			</div>
@@ -269,9 +269,9 @@
 			
 			<div id="dancesDiv" class="info-area" style="display:none">
 				<div class="loadingGIF" id="dancesSpinner"></div>
-				<div class="box2 list2" id="dancesList" listing-template="mainEventEntryTemplate"></div>
-				<div class="box2" id="dancesCal"></div>
-				<div class="box2" id="dancesMap"></div>
+				<div class="box box2 list list2" id="dancesList" listing-template="mainEventEntryTemplate"></div>
+				<div class="box box2" id="dancesCal"></div>
+				<div class="box box2" id="dancesMap"></div>
 			</div>
 			<div id="hallsDiv" class="info-area" style="display:none">
 				<div class="loadingGIF" id="hallsSpinner"></div>

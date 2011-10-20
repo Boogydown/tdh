@@ -213,7 +213,7 @@ VU.EventListingView = VU.ListingView.extend({
 		
 		// if there's still some spacer left then that means we have more stuff to render,
 		//	so hit up the next page (after some time...)
-		dif && setTimeout( this._nextPage, 800, 200 );
+		dif && setTimeout( this._nextPage, 1800, 100 );
 	},
 	
 	scrollUpdate : function () {

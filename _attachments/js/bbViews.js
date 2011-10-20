@@ -107,7 +107,7 @@ VU.EventListingView = VU.ListingView.extend({
 		this.emptyMsg = options.emptyMsg || "<i>This list is empty</i>";
 		this.listingClass = options.listingClass || VU.ListingView;
 		this.pageLimit = options.limit || 20;
-		this.listingViews = [];
+		this.listingViews = {};
 		this.listingHeight = options.listingHeight || this.LISTING_HEIGHT;
 		this.collection.bind("add", this.addRow);
 		this.collection.bind("remove", this.removeRow);
@@ -173,6 +173,8 @@ VU.EventListingView = VU.ListingView.extend({
 		//if ( this.collection.length == 0 )
 			//this.el.innerHTML = this.emptyMsg;		
 		//utils.waitingUI.hide();	
+		if ( _.size(this.listingViews) == this.collection.length ) 
+			this.numPerPage = this.collection.length;
 		this._updateSpacer();
 	},
 	
@@ -182,7 +184,7 @@ VU.EventListingView = VU.ListingView.extend({
 		if ( !template ) 
 			console.log("listing-template attribute not given in " + this.el);
 		else if ( model.id in this.listingViews )
-			$(this.listingViews[model.id].el).show("fast");
+			$(this.listingViews[model.id].el).css("display","block");
 		else {
 			this.listingViews[model.id] = lc = new this.listingClass( {model: model, template: template} );
 			lc = lc.render().el;
@@ -198,7 +200,7 @@ VU.EventListingView = VU.ListingView.extend({
 	removeRow : function(model, options ){
 		var lv = this.listingViews[model.id];
 		if ( lv ) {
-			$(lv.el).hide("fast");
+			$(lv.el).css("display","none");
 			//if ( _.isFunction(lv.finalize()) )
 				//lv.finalize();
 			//else 

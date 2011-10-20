@@ -34,7 +34,7 @@
 	<!-- TEMPLATES START -->
 	<script type="application/dust-template" id="mainEventEntryTemplate">
 		<div class="listing listing2">
-			<div class="{?featured}featured{:else}standard2{/featured}">
+			<div class="{?featured}featuredListing{:else}standardListing standardListing2{/featured}">
 				<div class="listing-date">
 					<div class="date" style="top: -3px;">{dateDay}</div>
 					<div class="day">{dateDate}</div>
@@ -56,7 +56,7 @@
 	
 <script type="application/dust-template" id="mainEventEntryTemplateBandPopup">
 	<div class="listing">
-		<div class="{?featured}featured{:else}standard{/featured}">
+		<div class="{?featured}featuredListing{:else}standardListing{/featured}">
 			<div class="listing-date">
 				<div class="date" style="top: -3px;">{dateDay}</div>
 				<div class="day">{dateDate}</div>
@@ -78,7 +78,7 @@
 
 <script type="application/dust-template" id="mainEventEntryTemplateHallPopup">
 	<div class="listing">
-		<div class="{?featured}featured{:else}standard{/featured}">
+		<div class="{?featured}featuredListing{:else}standardListing{/featured}">
 			<div class="listing-date">
 				<div class="date" style="top: -3px;">{dateDay}</div>
 				<div class="day">{dateDate}</div>
@@ -102,7 +102,7 @@
 	
 	<script type="application/dust-template" id="dCardListingTemplate">
 		<div class="listing">
-			<div class="{?featured}featured{:else}standard{/featured}">
+			<div class="{?featured}featuredListing{:else}standardListing{/featured}">
 				<div class="listing-date">
 					<div class="date" style="top: -3px;">{dateDay}</div>
 					<div class="day">{dateDate}</div>
@@ -126,7 +126,7 @@
 	
 	<script type="application/dust-template" id="vyntorEntryTemplate">
 		<div id="itemlisting">
-			<div class="{?featured}featured{:else}standard{/featured}" onclick="window.location='#///{type}&{_id}'" style="cursor:pointer">
+			<div class="{?featured}featuredListing{:else}standardListing{/featured}" onclick="window.location='#///{type}&{_id}'" style="cursor:pointer">
 				<div id="itemImage"><img src="{thumbPic}" border="0" /></div>
 				<div id="details" style="top:-10px">
 					<div class="itemtitle">{name}</div>

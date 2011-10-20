@@ -187,7 +187,7 @@ div.list2{
     width: 410px;
 }
 
-.listing div.featured{
+div.featuredListing{
 	position:relative;
 	left:-1px;
 
@@ -203,7 +203,7 @@ div.list2{
 	
 }
 
-.listing div.standard{
+div.standardListing{
 	position:relative;
 	left:-1px;
 
@@ -219,24 +219,12 @@ div.list2{
 	
 }
 
-.listing2 div.standard2{
-	position:relative;
-	left:-1px;
-
+div.standardListing2{
 	height:75px;
-	width: 55px;
-	background: url(../images/cssSprite.png);
 	background-position: -10px -190px;
-	behavior: url(border-radius.htc);
-	border-radius: 10px 0px 0px 10px;
-	-moz-border-radius: 10px 0px 0px 10px;
-	-webkit-border-top-right-radius: 0px;
-	-webkit-border-bottom-right-radius: 0px;
-	
 }
 
-div.listingBG{
-	    
+div.listingBG{	    
     position: absolute;
     left: 0px;
     top: 15px;
@@ -245,7 +233,6 @@ div.listingBG{
 }
 
 /**************** Halls/Bands Listings ****************/
-
 div.searchFor{
 	background-color: transparent;
 

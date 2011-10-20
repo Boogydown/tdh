@@ -153,7 +153,7 @@ VU.EventListingView = VU.ListingView.extend({
 	
 	// for rendering colls that are already loaded (i.e. no add/remove listening)
 	render : function() {
-		this.finalize();
+		//this.finalize();
 		var addRow = this.addRow;
 		this.collection.each( function (model){ 
 			addRow( model ); 

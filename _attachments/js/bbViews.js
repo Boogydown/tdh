@@ -182,7 +182,7 @@ VU.EventListingView = VU.ListingView.extend({
 		if ( !template ) 
 			console.log("listing-template attribute not given in " + this.el);
 		else if ( model.id in this.listingViews )
-			this.listingViews[model.id].show("fast");
+			$(this.listingViews[model.id].el).show("fast");
 		else {
 			this.listingViews[model.id] = lc = new this.listingClass( {model: model, template: template} );
 			lc = lc.render().el;

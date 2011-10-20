@@ -191,6 +191,7 @@
 			// done manipulating params (tab, specifically) so we can now save the route
 			this.saveRoutes( tab, dates, coords, popID, style );
 			
+			//TODO: create FilterModel....   can also check popID.changed to see if should skip redraw
 			//this.myFilters.set( {
 				//tab: tab,
 				//dates: dates,
@@ -239,7 +240,6 @@
 			window.TDHP_tab = tab;
 			window.TDHP_filters = filters;
 			myView.activate( filters );
-			
 			this.instanciatedViews[ tab ] = this.currentView = myView;
 			
 			if ( popID ) {

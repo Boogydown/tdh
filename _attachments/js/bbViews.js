@@ -319,9 +319,8 @@ VU.PopupView = VU.DustView.extend({
 });
 
 VU.MapView = Backbone.View.extend({
-	map: null, 
-	totalMapped: 0,
-	geocoder: null,
+	// static
+	geocoder: new google.maps.Geocoder(),
 	
 	initialize : function(){
 		_.bindAll(this, 'render', "addMarker", "attachToMap");
@@ -331,15 +330,14 @@ VU.MapView = Backbone.View.extend({
 		  center: latlng,
 		  mapTypeId: google.maps.MapTypeId.ROADMAP
 		};
-		this.map = new google.maps.Map(this.el, myOptions);
-		this.geocoder = new google.maps.Geocoder();
 		
-		//this.collection.bind("change", this.render);
+		this.map = new google.maps.Map(this.el, myOptions);
+		this.totalMapped = 0;
+		//this.geocoder = new google.maps.Geocoder();
+		
 		if ( this.collection ){
 			this.collection.bind("add", this.addMarker );
 			this.collection.bind("refresh", this.render );
-			//this.collection.bind("reset", this.render );
-			//this.render();
 		}
 		else
 			this.addMarker( this.model );
@@ -379,6 +377,7 @@ VU.MapView = Backbone.View.extend({
 			
 		} else {
 			// now try its address instead
+			return; //Removed, for now...
 			var address = hall.get( "address" );
 			if ( ! address )
 				hall.bind( "change", this.addMarker );

@@ -274,9 +274,7 @@ VU.PopupView = VU.DustView.extend({
 				emptyMsg: "<i>No upcoming dances scheduled</i>",
 				listingClass:VU.EventListingView,
 				collection: list
-			})).render();
-			this.miniMapView = new VU.MapView({collection: list, el: "#detailmap"});
-			
+			})).render();			
 		}
 		this.delegateEvents({
 			"click #nav-left" : "nav",
@@ -293,7 +291,7 @@ VU.PopupView = VU.DustView.extend({
 			});
 		this.navColl = navColl;
 		this.render();
-		
+
 		//Fade Background
 		$('body').append('<div id="fade"></div>');
 		//Fade in the fade layer - used to fix the IE Bug on fading transparencies 
@@ -301,6 +299,7 @@ VU.PopupView = VU.DustView.extend({
 
 		//Fade Popup in and add close button
 		this.el.fadeIn('fast').prepend('<a href="#" class="close"><img class="close_popup" title="Close Window" /></a>');
+		this.miniMapView = new VU.MapView({collection: list, el: "#detailmap"});
 
 		return false;
 	},

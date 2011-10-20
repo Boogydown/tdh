@@ -111,7 +111,9 @@ VU.EventListingView = VU.ListingView.extend({
 		this.listingHeight = options.listingHeight || this.LISTING_HEIGHT;
 		this.collection.bind("add", this.addRow);
 		this.collection.bind("remove", this.removeRow);
-		this.spacer = $(this.el).append("<div id='spacer' style='height:1px'></div>");
+		this.spacer = this.make("div", {id:'spacer', style:'height:1px'}, "");
+		$(this.el).append( this.spacer );
+		this.spacer = $(this.spacer);
 	},
 	
 	// This will apply filters to the coll and trigger add/remove events, 

@@ -321,7 +321,7 @@ div#hallsDiv div.list, div#bandsDiv div.list{
 	border-radius: 0 0 0 0;
 }
 
-#itemlisting {
+.itemlisting {
     background-color: black;
     	behavior: url(border-radius.htc);
 	-moz-border-radius: 10px;
@@ -335,7 +335,7 @@ div#hallsDiv div.list, div#bandsDiv div.list{
     width: 442px;
 }
 
-#itemlisting div.featured{ 
+.itemlisting div.featured{ 
 	position:relative;
 	left:-1px;
 
@@ -350,7 +350,7 @@ div#hallsDiv div.list, div#bandsDiv div.list{
 	
 }
 
-#itemlisting div.standard{
+.itemlisting div.standard{
 	position:relative;
 	left:-1px;
 
@@ -379,7 +379,7 @@ div#hallsDiv div.list, div#bandsDiv div.list{
     word-wrap: break-word;
 }
 
-#iteminfo {
+.iteminfo {
     font-size: 10px;
     left: 45px;
     position: absolute;    
@@ -388,14 +388,14 @@ div#hallsDiv div.list, div#bandsDiv div.list{
     word-wrap: break-word;
 }
 
-div#itemImage{
+div.itemImage{
 	position: absolute;
 	top: 7px;
 	left: 10px;
 	width:100%;
 }
 
-div#itemImage img{
+div.itemImage img{
 	width: 80px;
 	height: 75px;
 }
@@ -703,7 +703,7 @@ h2 {
     width: 337px;
 }
 
-#details {
+.details {
     left: 60px;
     padding: 0 20px;
     position: absolute;
@@ -745,7 +745,7 @@ h2 {
     width: 80px;
 }
 
-#bandinfo {
+.bandinfo {
     font-size: 10px;
     left: -5px;
     position: absolute;
@@ -755,7 +755,7 @@ h2 {
     word-wrap: break-word;
 }
 
-#bandinfo2 {
+.bandinfo2 {
 		background-color: rgba(64,64,64,0.5);
 		behavior: url(border-radius.htc);
 		-moz-border-radius: 2px;
@@ -770,7 +770,7 @@ h2 {
 		word-wrap: break-word;
 }
 
-#venueinfo {
+.venueinfo {
     font-size: 10px;
     left: 117px;
     position: absolute;
@@ -780,7 +780,7 @@ h2 {
     word-wrap: break-word;
 }
 
-#venueinfo2 {
+.venueinfo2 {
 	background-color: rgba(64,64,64,0.5);
 	behavior: url(border-radius.htc);
 	-moz-border-radius: 2px;

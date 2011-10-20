@@ -33,7 +33,7 @@
 					listingClass:VU.EventListingView,
 					collection: this.navColl
 				});
-				this.mapView = new VU.MapView( {el: "#dancesMap", collection:this.colls.halls});
+				this.mapView = new VU.MapView( {el: "#dancesMap", collection:this.navColl});
 				this.calView = new VU.CalView( {el: "#dancesCal"});
 			},
 			
@@ -133,11 +133,11 @@
 		
 		toggleLogView : function() {
 			if ( mySession.get( "loggedIn" ) ) {
-				$("#loggedOutNav").hide();
-				$("#loggedInNav").show();
+				$("#loggedOut").hide();
+				$("#loggedIn").show();
 			} else {
-				$("#loggedOutNav").show();
-				$("#loggedInNav").hide();
+				$("#loggedOut").show();
+				$("#loggedIn").hide();
 			}
 		}
 	});

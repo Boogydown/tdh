@@ -127,7 +127,7 @@ VU.LocalFilteredCollection = VU.Collection.extend({
 		if ( _.isArray(this.currentFilters) )
 			this.masterCollection.getFiltered( { 
 				filters: this.currentFilters, 
-				tail: this.tail,
+				//tail: this.tail,
 				callback: this.onGotFiltered,
 				name: this.name //for debugging 
 			});
@@ -138,7 +138,8 @@ VU.LocalFilteredCollection = VU.Collection.extend({
 		console.log( this.name + ".onGotFiltered( " + filteredModels.length + " models recieved, last page: " + lastPage + ")");
 		this.fullLength = totalFiltered;
 		this.allPagesLoaded = lastPage;
-		this.diff( filteredModels, {keepParent:true, ignoreDups:true} );
+		this.allFiltered = filteredModels;
+		this.diff( this.allFiltered.slice(0,this.tail), {keepParent:true, ignoreDups:true} );
 		if ( this.firstPass ) {
 			this.masterCollection.bind( "keysChanged", this.applyFilters );
 			this.masterCollection.bind( "refresh", this.refreshed );
@@ -150,7 +151,8 @@ VU.LocalFilteredCollection = VU.Collection.extend({
 	nextPage : function( num ) {
 		if ( this.allPagesLoaded ) return;
 		num && (this.numPerPage = num);
-		this.applyFilters( null, this.tail += this.numPerPage );
+		//this.applyFilters( null, this.tail += this.numPerPage );
+		this.diff( this.allFiltered.slice(0,this.tail += this.numPerPage), {keepParent:true, ignoreDups:true} );
 	}
 });
 

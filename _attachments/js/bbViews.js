@@ -266,14 +266,13 @@ VU.PopupView = VU.DustView.extend({
 		VU.DustView.prototype.render.call(this);
 		
 		// if events exist in model then init the events-list view
-		var list;
-		if ( this.model ) list = this.model.get("events"); 
-		if ( list ) {
+		if ( this.model ) this.list = this.model.get("events"); 
+		if ( this.list ) {
 			(this.eventlistView = new VU.FilteredListView({
 				el:"#popuplist",
 				emptyMsg: "<i>No upcoming dances scheduled</i>",
 				listingClass:VU.EventListingView,
-				collection: list
+				collection: this.list
 			})).render();			
 		}
 		this.delegateEvents({
@@ -299,7 +298,7 @@ VU.PopupView = VU.DustView.extend({
 
 		//Fade Popup in and add close button
 		this.el.fadeIn('fast').prepend('<a href="#" class="close"><img class="close_popup" title="Close Window" /></a>');
-		this.miniMapView = new VU.MapView({collection: list, el: "#detailmap"});
+		this.miniMapView = new VU.MapView({collection: this.list, el: "#detailmap"});
 
 		return false;
 	},
@@ -312,7 +311,7 @@ VU.PopupView = VU.DustView.extend({
 				index -= index > 0;
 			else
 				index += index < coll.length - 1;
-			location.href="#///" + this.model.myType + "&" + coll.at(index).id;
+			location.hrexf="#///" + this.model.myType + "&" + coll.at(index).id;
 		}
 	}
 });

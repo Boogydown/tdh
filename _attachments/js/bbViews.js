@@ -213,7 +213,7 @@ VU.EventListingView = VU.ListingView.extend({
 		
 		// if there's still some spacer left then that means we have more stuff to render,
 		//	so hit up the next page (after some time...)
-		dif && setTimeout( this._nextPage, 800 );
+		dif && setTimeout( this._nextPage, 800, 200 );
 	},
 	
 	scrollUpdate : function () {
@@ -225,8 +225,8 @@ VU.EventListingView = VU.ListingView.extend({
 			utils.waitingUI.show();
 	},
 	
-	_nextPage : function() {
-		this.collection.nextPage( this.pageLimit );
+	_nextPage : function( limit ) {
+		this.collection.nextPage( limit || this.pageLimit );
 		this._updateSpacer();
 	}
 });

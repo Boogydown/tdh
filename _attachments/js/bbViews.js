@@ -217,9 +217,12 @@ VU.EventListingView = VU.ListingView.extend({
 	},
 	
 	scrollUpdate : function () {
-		//TODO: interpret scroll
-		if ( this.el.scrollTop >= (this.el.scrollHeight - this.el.clientHeight - this.scrollLoadThreshold ) )
-			this._nextPage();
+		//if scrolling to the bottom then load some more stuff
+		//if ( this.el.scrollTop >= (this.el.scrollHeight - this.el.clientHeight - this.scrollLoadThreshold ) )
+			//this._nextPage();
+		var sTop = this.spacer.position.top();
+		if ( sTop > 0 && sTop < $(this.el).height() )
+			utils.waitingUI.show();
 	},
 	
 	_nextPage : function() {

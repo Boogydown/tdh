@@ -103,7 +103,7 @@ VU.EventListingView = VU.ListingView.extend({
 	},
 	
 	initialize : function( options ) {
-		_.bindAll(this, 'addRow', "removeRow", "scrollUpdate");
+		_.bindAll(this, 'addRow', "removeRow", "scrollUpdate", "filtered");
 		this.emptyMsg = options.emptyMsg || "<i>This list is empty</i>";
 		this.listingClass = options.listingClass || VU.ListingView;
 		this.pageLimit = options.limit || 20;
@@ -111,6 +111,7 @@ VU.EventListingView = VU.ListingView.extend({
 		this.listingHeight = options.listingHeight || this.LISTING_HEIGHT;
 		this.collection.bind("add", this.addRow);
 		this.collection.bind("remove", this.removeRow);
+		this.collection.bind("filtered", this.filtered);
 		$(this.el).append("<div id='spacer' style='height:1px'></div>");
 		this.spacer = $("#spacer",this.el);
 	},
@@ -119,16 +120,11 @@ VU.EventListingView = VU.ListingView.extend({
 	//	respectively, which will then trigger our add/remove rows
 	applyFilters : function( filters, limit ) {
 		if ( this.collection.length == 0 ){
-			this.el.innerHTML = "";
+			//this.el.innerHTML = "";
 			utils.waitingUI.show();
 		}
 		
-		this.collection.applyFilters( filters, limit || this.pageLimit );
-		
-		if ( this.collection.length == 0 )
-			this.el.innerHTML = this.emptyMsg;		
-		if ( this.collection.length > 10 )
-			utils.waitingUI.hide();
+		this.collection.applyFilters( filters, limit || this.pageLimit );		
 	},
 	
 	// scrolls the listing to the first model of attribute >= startValue, or 
@@ -170,6 +166,12 @@ VU.EventListingView = VU.ListingView.extend({
 		}
 		$(this.el).empty();
 	},	
+	
+	filtered : function() {
+		//if ( this.collection.length == 0 )
+			//this.el.innerHTML = this.emptyMsg;		
+		utils.waitingUI.hide();	
+	},
 	
 	// Adds a sorted row in its respective place in the DOM
 	addRow : function(model, options){		

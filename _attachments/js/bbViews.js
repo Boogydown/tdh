@@ -103,7 +103,7 @@ VU.EventListingView = VU.ListingView.extend({
 	},
 	
 	initialize : function( options ) {
-		_.bindAll(this, 'addRow', "removeRow", "scrollUpdate", "filtered");
+		_.bindAll(this, 'addRow', "removeRow", "scrollUpdate", "filtered", "_nextPage", "_updateSpacer");
 		this.emptyMsg = options.emptyMsg || "<i>This list is empty</i>";
 		this.listingClass = options.listingClass || VU.ListingView;
 		this.pageLimit = options.limit || 20;

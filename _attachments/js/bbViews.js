@@ -188,10 +188,7 @@ VU.EventListingView = VU.ListingView.extend({
 				this.spacer.before( lc );
 			//model.trigger("change", model);
 		}
-		if ( this.fullHeight === undefined )
-			this.fullHeight = this.collection.fullLength * this.listingHeight;
-		var dif = this.fullHeight - this.el.scrollHeight;
-		( dif > 0 ) && this.spacer.css("height", dif);
+		this._updateSpacer();
 	},
 	
 	removeRow : function(model, options ){
@@ -203,14 +200,30 @@ VU.EventListingView = VU.ListingView.extend({
 				lv.remove();
 			delete this.listingViews[model.id];
 		}
+		this._updateSpacer();
+	},
+	
+	_updateSpacer : function () {
+		if ( this.fullHeight === undefined )
+			this.fullHeight = this.collection.fullLength * this.listingHeight;
 		var dif = this.fullHeight - this.el.scrollHeight;
-		( dif > 0 ) && this.spacer.css("height", dif);
+		( dif < 0 ) && dif = 0;
+		this.spacer.css("height", dif);
+		
+		// if there's still some spacer left then that means we have more stuff to render,
+		//	so hit up the next page (after some time...)
+		!dif && !this.collection.allPagesLoaded && setTimeout( this._nextPage, 800 );
 	},
 	
 	scrollUpdate : function () {
 		//TODO: interpret scroll
 		if ( this.el.scrollTop >= (this.el.scrollHeight - this.el.clientHeight - this.scrollLoadThreshold ) )
-			this.collection.nextPage( this.pageLimit );
+			this._nextPage();
+	},
+	
+	_nextPage : function() {
+		this.collection.nextPage( this.pageLimit );
+		this._updateSpacer();
 	}
 });
 

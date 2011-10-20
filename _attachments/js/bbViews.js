@@ -153,6 +153,7 @@ VU.EventListingView = VU.ListingView.extend({
 	
 	// for rendering colls that are already loaded (i.e. no add/remove listening)
 	render : function() {
+		this.finalize();
 		var addRow = this.addRow;
 		this.collection.each( function (model){ 
 			addRow( model ); 
@@ -180,6 +181,8 @@ VU.EventListingView = VU.ListingView.extend({
 		var lc, template = (this.el.getAttribute("listing-template") || "");
 		if ( !template ) 
 			console.log("listing-template attribute not given in " + this.el);
+		else if ( model.id in this.listingViews )
+			this.listingViews[model.id].show("fast");
 		else {
 			this.listingViews[model.id] = lc = new this.listingClass( {model: model, template: template} );
 			lc = lc.render().el;
@@ -190,19 +193,18 @@ VU.EventListingView = VU.ListingView.extend({
 				this.spacer.before( lc );
 			//model.trigger("change", model);
 		}
-		//this._updateSpacer();
 	},
 	
 	removeRow : function(model, options ){
 		var lv = this.listingViews[model.id];
 		if ( lv ) {
-			if ( _.isFunction(lv.finalize()) )
-				lv.finalize();
-			else 
-				lv.remove();
-			delete this.listingViews[model.id];
+			$(lv.el).hide("fast");
+			//if ( _.isFunction(lv.finalize()) )
+				//lv.finalize();
+			//else 
+				//lv.remove();
+			//delete this.listingViews[model.id];
 		}
-		//this._updateSpacer();
 	},
 	
 	_updateSpacer : function () {

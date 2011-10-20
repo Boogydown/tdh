@@ -213,17 +213,19 @@ VU.EventListingView = VU.ListingView.extend({
 		
 		// if there's still some spacer left then that means we have more stuff to render,
 		//	so hit up the next page (after some time...)
-		//dif && setTimeout( this._nextPage, 1800, 100 );
-		
-		!dif && utils.waitingUI.hide();
+		if ( dif && this.spacer.position().top < $(this.el).height() )
+			setTimeout( this._nextPage, 800 );
+		else
+			utils.waitingUI.hide();
 	},
 	
 	scrollUpdate : function () {
 		//if scrolling to the bottom then load some more stuff
 		//if ( this.el.scrollTop >= (this.el.scrollHeight - this.el.clientHeight - this.scrollLoadThreshold ) )
 			//this._nextPage();
-		var sTop = this.spacer.position().top;
-		if ( sTop > 0 && sTop < $(this.el).height() ){
+			
+		//if scrolling down and see spacer then load some more stuff			
+		if ( this.spacer.position().top < $(this.el).height() ){
 			utils.waitingUI.show();
 			this._nextPage( );
 		}

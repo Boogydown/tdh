@@ -72,7 +72,8 @@ VU.MemberModel = VU.CookieModel.extend({
 			else
 				// we're running anon....
 				this.prepAnon();
-		}
+		} else 
+			this.prepAnono();
 	},
 	
 	userLoaded : function () {

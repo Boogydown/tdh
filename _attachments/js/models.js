@@ -106,8 +106,8 @@ VU.MemberModel = VU.CookieModel.extend({
 	
 	loginSuccess : function() {
 		alert("Success!  you're logged in, " + this.get("realName") );		
-		this.set( { loggedIn: true }, { silent: true } );
-		this.unset( "password" );
+		this.set( { loggedIn: true } );
+		this.unset( "password", {silent:true} );
 		this.loadDCard();
 		this.writeCookies();		
 	},

@@ -257,6 +257,7 @@
 					case "signup": 
 					case "addEvent": 
 					case "member": 
+					case "editMember": 
 						docModel = window.mySession;
 						break;
 					default: 

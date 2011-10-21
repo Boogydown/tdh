@@ -136,6 +136,18 @@
 		</div>{~n}{~n}
 	</script>
 		
+	<script type="application/dust-template" id="entitiesOwned">
+		<div class="itemlisting">
+			<div class="standardListing" onclick="window.location='#///{type}&{_id}'" style="cursor:pointer">
+				<div class="itemImage"><img src="{thumbPic}" border="0" /></div>
+				<div class="details" style="top:-10px">
+					<div class="itemtitle">{name}</div>
+					<div class="iteminfo">{entryDescription}</div>
+				</div>
+			</div>
+		</div>{~n}{~n}
+	</script>
+		
 	<script type="application/dust-template" id="popupTemplate_band">
 		<div id="popupTitle">{navCaption|s}</div>
 		<div id="info">
@@ -186,14 +198,18 @@
 	</script>
 	
 	<script type="application/dust-template" id="popupTemplate_signup">
-		<div id="popupTitle">{navCaption|s}</div>
 		<div id="info">
 			<h2>Sign up as a member!</h2>
-			<div class="detailtext">
+			<div class="memberDetail">
 				<form id="signupForm" action="" onsubmit="return(mySession.submitSignup(this));">
-					Name: <input name="realName" type="text"</input><br/><br/>
-					Email: <input name="name" type="text"></input><br/>
-					Password: <input name="password" type="password"></input><br/>
+					<table><tbody>
+						<tr><td>Email:</td><td><input name="name" type="text"></input></td></tr>
+						<tr><td>Password:</td><td> <input name="password" type="password"></input></td></tr>
+						<tr><td>Name:</td><td> <input name="realName" type="text"</input></td></tr>
+						<tr><td>Phone number:</td><td> <input name="phone" type="text"</input></td></tr>
+						<tr><td>Zipcode:</td><td> <input name="zip" type="text"</input></td></tr>
+						<tr><td>Profile pic:</td><td> <input name="profilePic" type="file"></input></td></tr>
+					</tbody></table>
 					<button type="submit">Create User</button>
 				</form>
 			</div>
@@ -201,23 +217,45 @@
 		<div id="main-photo"><img src="images/TDHP_Logo_BW_gray_reverse-1.JPG" /></div>
 	</script>
 	
-	<script type="application/dust-template" id="popupTemplate_member">
-		<div id="popupTitle">{navCaption|s}</div>
+	<script type="application/dust-template" id="popupTemplate_editMember">
 		<div id="info">
-			<h2>Login</h2>
+			<h2>Edit profile info...</h2>
+			<div class="memberDetail">
+				<form id="editMember" action="" onsubmit="return(mySession.submitEdit(this));">
+					<table><tbody>
+						<tr><td>Email:</td><td><input name="name" type="text" value="{name}"></input></td></tr>
+						<tr><td>Password:</td><td> <input name="password" type="password" value="{password}"></input></td></tr>
+						<tr><td>Name:</td><td> <input name="realName" type="text" value="{realName}"></input></td></tr>
+						<tr><td>Phone number:</td><td> <input name="phone" type="text" value="{phone}"></input></td></tr>
+						<tr><td>Zipcode:</td><td> <input name="zip" type="text" value="{zip}"></input></td></tr>
+						<tr><td>Profile pic:</td><td> <input name="profilePic" type="file"></input></td></tr>
+					</tbody></table><br/>
+					<button type="submit">Save Edits</button>
+				</form>
+			</div>
+		</div>
+		<div id="main-photo"><img src="{profilePic}" /></div>
+	</script>
+	
+	<script type="application/dust-template" id="popupTemplate_member">
+		<div id="info">
+			<h2>User Profile</h2>
 			<div class="memberDetail">
 				<h3>Name</h3>
 				{realName}<br/>
-				<h3>Email</h3>
-				{name}<br/>
+				<h3>Contact</h3>
+				<b>Email - </b>{name}<br/>
+				<b>Phone - </b>{phone}<br/>
+				<b>Zip - </b>{zip}<br/>
 				<h3>Member Status:</h3>
 				{memberStatus}
+				<a href="#///editMember"><h3><u>Edit</u></h3></a>
 				<h3>Bands or Halls that I own:</h3>
 				<i>Request ownership by emailing the <a href="emailto:psparks@texasdancehall.org">admin</a>.</i><br/><br/>
 				<div class="box" id="popuplist" listing-template="entitiesOwned"></div>				
 			</div>
 		</div>
-		<div id="main-photo"><img src="images/genericSilhouette.jpg" /></div>
+		<div id="main-photo"><img src="{profilePic}" /></div>
 	</script>
 	
 	<script type="application/dust-template" id="popupTemplate_addEvent">

@@ -60,6 +60,7 @@ VU.MemberModel = VU.CookieModel.extend({
 		lastLogin: new Date().getTime(),
 		password: "", //this is wiped out by the server when it returns an auth'd session
 		memberStatus: "unpaid",
+		profilePic: "images/genericSilhouette.jpg",
 		dCard: [],
 		loggedIn: false
 	},
@@ -109,7 +110,8 @@ VU.MemberModel = VU.CookieModel.extend({
 		this.set( { loggedIn: true } );
 		this.unset( "password", {silent:true} );
 		this.loadDCard();
-		this.writeCookies();		
+		this.writeCookies();
+		location.href="#///!" //to make login window go away
 	},
 	
 	loginError : function(e){
@@ -130,19 +132,32 @@ VU.MemberModel = VU.CookieModel.extend({
 	},		
 	
 	submitSignup : function ( form ) {
-		if ( form ) this.set({ 
-			realName: form.realName.value, 
-			name: form.name.value, 
-			password: form.password.value
-		});
+		this.submitEdit( form );
 		$.couch.signup( 
 			this.attributes, 
 			this.get("password"), 
 			{ success: this.loginSuccess, error: this.loginError } 
 		);
 		form.reset();
+		location.href = "#///member";
 		return false;
 	},		
+	
+	submitEdit : function ( form ) {
+		if ( form ) {
+			var data = {};
+			$.each($("form :input").serializeArray(), function(i, field) {
+				data[field.name] = field.value;
+			});
+			$("form :file").each(function() {
+				data[this.name] = this.value; // file inputs need special handling
+			});
+			this.set( data );
+		}
+		if ( form.id == "editMember" )
+			this.save();
+		return false;
+	},
 	
 	logout : function() {
 		this.set({id:"", loggedIn:false});

@@ -132,6 +132,7 @@ VU.MemberModel = VU.CookieModel.extend({
 	},		
 	
 	submitSignup : function ( form ) {
+		this.clear();
 		this.submitEdit( form );
 		$.couch.signup( 
 			this.attributes, 

@@ -116,14 +116,13 @@
 					listingHeight: 92,
 					listingClass:VU.EventListingView,
 					collection: this.navColl 
-				});
-				//this.mainMapView = new VU.MapView({collection:this.colls.halls, mapNode: "hallsMap"});
-				
+				});				
 			},
 			
 			activate : function ( filters ) {
 				VU.ParentView.prototype.activate.call(this);
 				this.listView.applyFilters( [{key:"onDCard", start:"true", end:"true"}] );
+				//this.mainMapView = new VU.MapView({collection:this.colls.halls, mapNode: "hallsMap"});
 			}
 		})
 	};

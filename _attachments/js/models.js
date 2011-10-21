@@ -155,12 +155,15 @@ VU.MemberModel = VU.CookieModel.extend({
 			
 			// once events are fetched then we set the dCard for all matching ids in the dCard array
 			this.eventsMain.unbind( "refresh", this.loadDCard );
-			var dCard = this.get( "dCard " );
+			var dCard = this.get( "dCard" );
 			if ( dCard && dCard.length > 0 ) {
 				_.each( dCard, function (eventId) {
 					events.get( eventId ).set( {dCard: true} );
 				});
 			}
+			
+			// now, so that we can make dCardColl alive earlier, before the DCard tab is opened:
+			this.dCardColl.applyFilters( [{key:"onDCard", start:"true", end:"true"}] );
 			
 			// to keep us in sync as things are added
 			this.dCardColl.bind( "add", this.syncDCard );

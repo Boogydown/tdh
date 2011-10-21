@@ -135,7 +135,7 @@ VU.MemberModel = VU.CookieModel.extend({
 		}
 		this.loadDCard();		
 		this.writeCookies();
-		location.href="#///!";
+		//location.href="#///!";
 	},
 	
 	loginError : function(e){
@@ -146,7 +146,7 @@ VU.MemberModel = VU.CookieModel.extend({
 	// for anonymous sessions
 	prepAnon : function() {
 		this.loadDCard();
-		location.href="#///!";
+		//location.href="#///!";
 	},
 	
 	// intended to break until the events are loaded, then we can continue to set them

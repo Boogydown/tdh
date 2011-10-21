@@ -9,12 +9,15 @@ VU.CookieModel = Backbone.Model.extend({
 	
 	//syntax: will write only model values that are in this.cookieKeys array
 	writeCookies : function() {
-		var i, key, val;
+		var i, key, val, cookie;
 		for ( i in this.cookieKeys ){
 			key = this.cookieKeys[i];
 			val = this.get( key );
-			if ( val !== undefined )
-				document.cookie = this.prefix + key + "=" + JSON.stringify(val);
+			if ( val !== undefined ){
+				cookie = this.prefix + key + "=" + JSON.stringify(val);
+				document.cookie = cookie;
+				console.log("writeCookies() is writing cookie: " + cookie );
+			}
 		}
 	},
 	
@@ -37,6 +40,7 @@ VU.CookieModel = Backbone.Model.extend({
 			}
 		}
 		tmp.cookiesObj = cookiesObj;
+		console.log( "readCookies() is setting: " + JSON.stringify( tmp ) );
 		this.set( tmp );
 		return success;
 	}
@@ -46,8 +50,6 @@ VU.CookieModel = Backbone.Model.extend({
 VU.MemberModel = VU.CookieModel.extend({
 	url : "_users",
 	fetched : false,
-	dCardColl : null,
-	eventsMain : null,
 	cookieKeys : [ "id", "dCard" ],
 	defaults : {
 		realName: "J. Dancer",
@@ -62,17 +64,22 @@ VU.MemberModel = VU.CookieModel.extend({
 	
 	initialize : function( attrs, options ) {
 		_.bindAll( this, "submitLogin", "submitSignup", "userLoaded", "prepAnon", "login", "signup", "loginSuccess", "loginError", "loadDCard", "syncDCard" );
-		if ( options )
-			if ( options.dCard ) this.dCardColl = options.dCard;
-			if ( options.events ) this.eventsMain = options.events;
+		if ( options ) {
+			this.dCardColl = options.dCard;
+			this.eventsMain = options.events;
+		}
+		
 		if ( this.readCookies() ) {
+			// any cookies loaded?  dcard?  userID?
 			this.cookieDCard = this.get("dCard");
 			if ( this.id )
+				// ooh, a userID!  let's attempt to fetch it...
 				this.fetch( {success: this.userLoaded, error: this.prepAnon} );
 			else
 				// we're running anon....
 				this.prepAnon();
 		} else 
+			// no cookies loaded, so anonymous all the way
 			this.prepAnon();
 	},
 	
@@ -140,19 +147,24 @@ VU.MemberModel = VU.CookieModel.extend({
 	prepAnon : function() {
 		this.loadDCard();
 		location.href="#///!";
-	},		
+	},
 	
+	// intended to break until the events are loaded, then we can continue to set them
 	loadDCard : function() {
-		this.eventsMain.unbind( "refresh", this.loadDCard );
 		if ( this.eventsMain.fetched ) {
+			
+			// once events are fetched then we set the dCard for all matching ids in the dCard array
+			this.eventsMain.unbind( "refresh", this.loadDCard );
 			var dCard = this.get( "dCard " );
 			if ( dCard && dCard.length > 0 ) {
 				_.each( dCard, function (eventId) {
 					events.get( eventId ).set( {dCard: true} );
 				});
-				this.dCardColl.bind( "add", this.syncDCard );
-				this.dCardColl.bind( "remove", this.syncDCard );
 			}
+			
+			// to keep us in sync as things are added
+			this.dCardColl.bind( "add", this.syncDCard );
+			this.dCardColl.bind( "remove", this.syncDCard );
 		}
 		else
 			this.eventsMain.bind( "refresh", this.loadDCard );
@@ -161,8 +173,7 @@ VU.MemberModel = VU.CookieModel.extend({
 	syncDCard : function() {
 		this.set( {dCard: this.dCardColl.pluck( "id" )} );
 		this.writeCookies();
-		if ( this.id ) 
-			this.save();
+		if ( this.id ) this.save();
 	}
 });
 

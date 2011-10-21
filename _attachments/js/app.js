@@ -122,11 +122,12 @@
 			
 			activate : function ( filters ) {
 				VU.ParentView.prototype.activate.call(this);
-				if ( this.firstPass ){
+				//if ( this.firstPass && this.colls.events.fetched )
+				if ( this.listView.collection.length > _.size( this.listView.listingViews ) )
 					this.listView.render();
-					this.firstPass = false;
-				} else
+				else
 					this.listView.applyFilters( [{key:"onDCard", start:"true", end:"true"}] );
+				this.firstPass = false;
 				//this.mainMapView = new VU.MapView({collection:this.colls.halls, mapNode: "hallsMap"});
 			}
 		})

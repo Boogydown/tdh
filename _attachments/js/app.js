@@ -123,8 +123,8 @@
 				VU.ParentView.prototype.activate.call(this);
 				if ( this.listView.collection.length > _.size( this.listView.listingViews ) )
 					this.listView.render();
-				//else ** we don't really need to re-apply filters; they're already there from memberModel...
-					//this.listView.applyFilters( [{key:"onDCard", start:"true", end:"true"}] );
+				else
+					this.listView.applyFilters( [{key:"onDCard", start:"true", end:"true"}] );
 				//this.mainMapView = new VU.MapView({collection:this.colls.halls, mapNode: "hallsMap"});
 			}
 		})

@@ -335,7 +335,7 @@ div#hallsDiv div.list, div#bandsDiv div.list{
     width: 442px;
 }
 
-.itemlisting div.featured{ 
+.itemlisting div.featuredListing{ 
 	position:relative;
 	left:-1px;
 
@@ -485,12 +485,12 @@ div.listing-time3, div.listing-time4{
 
 div.listing-time3{
 	top: 30px;
-	left: -10px;
+	left: -20px;
 }
 
 div.listing-time4{
 	top: 20px;
-	left: 120px;
+	left: 110px;
 }
 
 div.twostepphoto{

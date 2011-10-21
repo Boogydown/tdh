@@ -54,11 +54,11 @@ VU.MemberModel = VU.CookieModel.extend({
 	cookieKeys : [ "id", "dCard" ],
 	ID_PREFIX: "org.couchdb.user:",
 	defaults : {
-		realName: "J. Dancer",
+		realName: "",
 		name: "",
 		group: "",
 		lastLogin: new Date().getTime(),
-		password: "", //this is wiped out by the server when it returns an auth'd session
+		dateCreated: new Date().getTime(),
 		memberStatus: "unpaid",
 		profilePic: "images/genericSilhouette.jpg",
 		dCard: [],
@@ -89,7 +89,7 @@ VU.MemberModel = VU.CookieModel.extend({
 
 	fetchUser : function() {
 		if ( !this.id )
-			this.id = this.ID_PREFIX + this.get( "name" );
+			this.set({id: this.ID_PREFIX + this.get( "name" )});
 		this.fetch( {success: this.userLoaded, error: this.prepAnon} );
 	},	
 	
@@ -110,7 +110,6 @@ VU.MemberModel = VU.CookieModel.extend({
 		if ( !this.id ) 
 			this.set( {id: this.ID_PREFIX + this.get( "name" ) } );
 		this.set( { loggedIn: true } );
-		this.unset( "password", {silent:true} );
 		this.loadDCard();
 		this.writeCookies();
 		location.href="#///!" //to make login window go away
@@ -122,10 +121,10 @@ VU.MemberModel = VU.CookieModel.extend({
 	},
 	
 	submitLogin : function ( form ) {
-		if ( form ) this.set({ name: form.name.value, password: form.password.value });
+		if ( form ) this.set({ name: form.name.value });
 		$.couch.login( {
 			name: this.get("name"), 
-			password: this.get("password"), 
+			password: form.password.value, 
 			success: this.fetchUser, 
 			error: this.loginError 
 		});
@@ -138,7 +137,7 @@ VU.MemberModel = VU.CookieModel.extend({
 		this.submitEdit( form );
 		$.couch.signup( 
 			this.attributes, 
-			this.get("password"), 
+			form.password.value, 
 			{ success: this.loginSuccess, error: this.loginError } 
 		);
 		form.reset();
@@ -155,6 +154,7 @@ VU.MemberModel = VU.CookieModel.extend({
 			$("form :file").each(function() {
 				data[this.name] = this.value; // file inputs need special handling
 			});
+			delete data.password;
 			this.set( data );
 		}
 		if ( form.id == "editMember" )
@@ -202,58 +202,6 @@ VU.MemberModel = VU.CookieModel.extend({
 		this.set( {dCard: this.dCardColl.pluck( "id" )} );
 		this.writeCookies();
 	}
-});
-
-//VU.AuthSessionModel = VU.CookieModel.extend({
-VU.AuthSessionModel = VU.MemberModel.extend({
-	
-	cookieKeys: [ "id" ],
-	
-	// default timeout is 10 minutes
-	DEFAULTTIMEOUT : 10 * 60 * 1000,
-	
-	defaults : {
-		//member: {},
-		permissions: {}, // as taken from your group
-		ticket: "", //a copy of the cookie ticket
-		//TODO: will need to somehow update this timeout on every user or HTTP action
-		//NOTE: this is static, but since there is only one session per app isntance, that's ok
-		timeout: new Date().getTime() + this.DEFAULTTIMEOUT
-	},
-	
-	initialize : function() {
-		_.bindAll( this, "load", "login", "closeSession" );
-	},
-	
-	load : function( completeCallback ) {
-		var sessionID = this.readCookie();
-		if ( sessionID ) {
-			// if cookie exists then there is an active session; 
-			//	create session model and retrieve it from the db
-			this.fetch( {success:completeCallback});
-		}
-		else
-		{
-			//TODO: if no user session then only state we really care about is dCard, so instead
-			//	of wasting db space for this we just store it in a cookie
-			//var dcard = window.utils.readCookie( "tdh_dcard", ";" );
-			
-			completeCallback( this );
-		}			
-	},
-	
-	login : function( username, password ) {
-		//TODO: process login
-		//	submit u & p for auth
-		//	get user model back
-		// 	create session model
-		//	save session to server
-	},
-	
-	closeSession : function() {
-		//TODO: remove cookie
-	}
-	
 });
 
 // An entity that has events associated to it

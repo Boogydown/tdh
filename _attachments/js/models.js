@@ -19,6 +19,7 @@ VU.CookieModel = Backbone.Model.extend({
 				console.log("writeCookies() is writing cookie: " + cookie );
 			}
 		}
+		if ( this.id ) this.save();
 	},
 	
 	readCookies : function() {
@@ -51,6 +52,7 @@ VU.MemberModel = VU.CookieModel.extend({
 	url : "_users",
 	fetched : false,
 	cookieKeys : [ "id", "dCard" ],
+	ID_PREFIX: "org.couchdb.user:",
 	defaults : {
 		realName: "J. Dancer",
 		name: "",
@@ -63,7 +65,8 @@ VU.MemberModel = VU.CookieModel.extend({
 	},
 	
 	initialize : function( attrs, options ) {
-		_.bindAll( this, "submitLogin", "submitSignup", "userLoaded", "prepAnon", "login", "signup", "loginSuccess", "loginError", "loadDCard", "syncDCard" );
+		_.bindAll( this, "fetchUser", "prepAnon", "userLoaded", "loginSuccess", "loginError", 
+						 "submitLogin", "submitSignup", "logout", "loadDCard", "syncDCard" );
 		if ( options ) {
 			this.dCardColl = options.dCard;
 			this.eventsMain = options.events;
@@ -74,7 +77,7 @@ VU.MemberModel = VU.CookieModel.extend({
 			this.cookieDCard = this.get("dCard");
 			if ( this.id )
 				// ooh, a userID!  let's attempt to fetch it...
-				this.fetch( {success: this.userLoaded, error: this.prepAnon} );
+				this.fetchUser();
 			else
 				// we're running anon....
 				this.prepAnon();
@@ -82,17 +85,46 @@ VU.MemberModel = VU.CookieModel.extend({
 			// no cookies loaded, so anonymous all the way
 			this.prepAnon();
 	},
+
+	fetchUser : function() {
+		if ( !this.id )
+			this.id = this.ID_PREFIX + this.get( "name" );
+		this.fetch( {success: this.userLoaded, error: this.prepAnon} );
+	},	
+	
+	// for anonymous sessions
+	prepAnon : function() {
+		this.loadDCard();
+		// save, in case the dCard was from cookie or user
+		this.writeCookies();			
+	},
 	
 	userLoaded : function () {
-		// TODO: ?  if ( this.cookieDCard && this.cookieDCard.length > 0 ) this.set( {dCard:this.cookieDCard} );
-		// this shuold attempt to write to _users, which will return an error if not authed any more
+		// this should attempt to write to _users, which will return an error if not authed any more
 		this.save( {}, {success: this.loginSuccess, error: this.prepAnon} );
 	},
 	
-	//TODO: put this in a friggin View where it belongs!!
+	loginSuccess : function() {
+		alert("Success!  you're logged in, " + this.get("realName") );		
+		this.set( { loggedIn: true }, { silent: true } );
+		this.unset( "password" );
+		this.loadDCard();
+		this.writeCookies();		
+	},
+	
+	loginError : function(e){
+		alert("Uh oh!! Unable to login.  Username and password incorrect?\n" + e);
+		this.prepAnon();
+	},
+	
 	submitLogin : function ( form ) {
 		if ( form ) this.set({ name: form.name.value, password: form.password.value });
-		this.login();
+		$.couch.login( {
+			name: this.get("name"), 
+			password: this.get("password"), 
+			success: this.fetchUser, 
+			error: this.loginError 
+		});
 		form.reset();
 		return false;
 	},		
@@ -103,50 +135,19 @@ VU.MemberModel = VU.CookieModel.extend({
 			name: form.name.value, 
 			password: form.password.value
 		});
-		this.signup();
+		$.couch.signup( 
+			this.attributes, 
+			this.get("password"), 
+			{ success: this.loginSuccess, error: this.loginError } 
+		);
 		form.reset();
 		return false;
 	},		
-	
-	login : function() {
-		$.couch.login( {name: this.get("name"), password: this.get("password"), success: this.loginSuccess, error: this.loginError } );
-	},
 	
 	logout : function() {
 		this.set({id:"", loggedIn:false});
 		this.writeCookies();
 		$.couch.logout();
-	},
-	
-	signup : function() {
-		$.couch.signup( this.attributes, this.get("password"), {success: this.loginSuccess, error: this.loginError} );
-	},
-	
-	loginSuccess : function() {
-		this.set( { 
-			password:"",
-			loggedIn: true
-		} );
-		
-		alert("Success!  you're logged in" );
-		if ( this.cookieDCard.length > 0 ) {
-			this.set( {dCard: this.cookieDCard } )
-			//save.. but what about the erased password?
-		}
-		this.loadDCard();		
-		this.writeCookies();
-		//location.href="#///!";
-	},
-	
-	loginError : function(e){
-		alert("Uh oh!! Unable to login.  Username and password incorrect?\n" + e);
-		this.prepAnon();
-	},
-	
-	// for anonymous sessions
-	prepAnon : function() {
-		this.loadDCard();
-		//location.href="#///!";
 	},
 	
 	// intended to break until the events are loaded, then we can continue to set them
@@ -155,6 +156,12 @@ VU.MemberModel = VU.CookieModel.extend({
 			
 			// once events are fetched then we set the dCard for all matching ids in the dCard array
 			this.eventsMain.unbind( "refresh", this.loadDCard );
+			
+			// cookie dCard takes precedence over logged-in one
+			if ( this.cookieDCard && this.cookieDCard.length > 0 ) {
+				this.set( {dCard: this.cookieDCard } )
+				this.cookieDCard = null;
+			}
 			var dCard = this.get( "dCard" ), events = this.eventsMain;
 			if ( dCard && dCard.length > 0 ) {
 				_.each( dCard, function (eventId) {
@@ -167,7 +174,7 @@ VU.MemberModel = VU.CookieModel.extend({
 			
 			// to keep us in sync as things are added
 			this.dCardColl.bind( "add", this.syncDCard );
-			this.dCardColl.bind( "remove", this.syncDCard );
+			this.dCardColl.bind( "remove", this.syncDCard );			
 		}
 		else
 			this.eventsMain.bind( "refresh", this.loadDCard );
@@ -176,7 +183,6 @@ VU.MemberModel = VU.CookieModel.extend({
 	syncDCard : function() {
 		this.set( {dCard: this.dCardColl.pluck( "id" )} );
 		this.writeCookies();
-		if ( this.id ) this.save();
 	}
 });
 

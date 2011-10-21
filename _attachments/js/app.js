@@ -108,6 +108,7 @@
 				VU.ParentView.prototype.initialize.call(this);
 				this.navColl = this.colls.dCard;
 				this.navCaption = "All dances on your Dance Card";
+				this.firstPass = true;
 
 				// create our main list and map views and attach the collection to them
 				this.listView = new VU.FilteredListView({
@@ -116,12 +117,16 @@
 					listingHeight: 92,
 					listingClass:VU.EventListingView,
 					collection: this.navColl 
-				});				
+				});
 			},
 			
 			activate : function ( filters ) {
 				VU.ParentView.prototype.activate.call(this);
-				this.listView.applyFilters( [{key:"onDCard", start:"true", end:"true"}] );
+				if ( this.firstPass ){
+					this.listView.render();
+					this.firstPass = false;
+				} else
+					this.listView.applyFilters( [{key:"onDCard", start:"true", end:"true"}] );
 				//this.mainMapView = new VU.MapView({collection:this.colls.halls, mapNode: "hallsMap"});
 			}
 		})

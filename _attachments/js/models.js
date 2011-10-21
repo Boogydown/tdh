@@ -158,7 +158,7 @@ VU.MemberModel = VU.CookieModel.extend({
 			var dCard = this.get( "dCard" ), events = this.eventsMain;
 			if ( dCard && dCard.length > 0 ) {
 				_.each( dCard, function (eventId) {
-					events.get( eventId ).set( {dCard: true} );
+					events.get( eventId ).set( {onDCard: true} );
 				});
 			}
 			

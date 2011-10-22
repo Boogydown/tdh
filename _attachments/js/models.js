@@ -98,7 +98,7 @@ VU.MemberModel = VU.CookieModel.extend({
 	
 	// for anonymous sessions
 	prepAnon : function() {
-		this.unset( "id", {silent:true} );
+		this.set( {id:null} );
 		this.loadDCard();
 		// save, in case the dCard was from cookie or user
 		this.writeCookies();			

@@ -40,7 +40,7 @@ VU.CookieModel = Backbone.Model.extend({
 				}
 			}
 		}
-		tmp.cookiesObj = cookiesObj;
+		//tmp.cookiesObj = cookiesObj;  deprected - don't need it added to the model, anymore
 		console.log( "readCookies() is setting: " + JSON.stringify( tmp ) );
 		this.set( tmp );
 		return success;

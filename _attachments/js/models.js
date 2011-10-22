@@ -155,9 +155,11 @@ VU.MemberModel = VU.CookieModel.extend({
 			$.each($("form :input").serializeArray(), function(i, field) {
 				data[field.name] = field.value;
 			});
-			$("form :file").each(function() {
-				data[this.name] = this.value; // file inputs need special handling
-			});
+			data._attachments = form._attachments.value;
+			data.profilePic = _.last( _attachments.value.split("/"));
+			//$("form :file").each(function() {
+				//data[this.name] = this.value; // file inputs need special handling
+			//});
 			delete data.password;
 			this.set( data );
 		}
@@ -166,7 +168,9 @@ VU.MemberModel = VU.CookieModel.extend({
 			$(form).ajaxSubmit({
 				url:  "/_users/" + this.id,
 				success: function(resp) {
-					alert("saved");
+						if(resp.match("ok")){ alert("saved");}//$('#saved').fadeIn().animate({ opacity: 1.0 },3000).fadeOut();}
+						else if(resp.match("error")){ alert("failed");}//$('#failed').fadeIn().animate({ opacity: 1.0 },3000).fadeOut();} 
+					}
 					//$('#saved').fadeIn().animate({ opacity: 1.0 },3000).fadeOut();
 				}
 			});

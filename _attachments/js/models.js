@@ -50,6 +50,7 @@ VU.CookieModel = Backbone.Model.extend({
 // contains current user info and auth stuff **Only one instance**
 VU.MemberModel = VU.CookieModel.extend({
 	databaseName : "_users",
+	url: "_users",
 	fetched : false,
 	cookieKeys : [ "id", "dCard" ],
 	ID_PREFIX: "org.couchdb.user:",

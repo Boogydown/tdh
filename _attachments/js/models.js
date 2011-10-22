@@ -161,8 +161,16 @@ VU.MemberModel = VU.CookieModel.extend({
 			delete data.password;
 			this.set( data );
 		}
-		if ( form.id == "editMember" )
-			this.save();
+		if ( form.id == "editMember" ) {
+			//this.save();
+			$(this).ajaxSubmit({
+				url:  "/tdh/" + this.id,
+				success: function(resp) {
+					alert("saved");
+					//$('#saved').fadeIn().animate({ opacity: 1.0 },3000).fadeOut();
+				}
+			});
+		}
 		return false;
 	},
 	

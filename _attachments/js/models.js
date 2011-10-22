@@ -63,6 +63,7 @@ VU.MemberModel = VU.CookieModel.extend({
 		memberStatus: "unpaid",
 		profilePic: "images/genericSilhouette.jpg",
 		dCard: [],
+		type: "user",
 		loggedIn: false
 	},
 	

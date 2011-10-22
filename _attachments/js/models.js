@@ -164,7 +164,7 @@ VU.MemberModel = VU.CookieModel.extend({
 		if ( form.id == "editMember" ) {
 			//this.save();
 			$(form).ajaxSubmit({
-				url:  "/tdh/" + this.id,
+				url:  "/_users/" + this.id,
 				success: function(resp) {
 					alert("saved");
 					//$('#saved').fadeIn().animate({ opacity: 1.0 },3000).fadeOut();

@@ -237,7 +237,7 @@ Backbone.sync = function(method, model, options) {
 		Backbone.couchConnector.create(model, options.success, options.error);
 	}else if(method == "read"){
 		// Decide whether to read a whole collection or just one specific model
-		if(model.collection)
+		if(model instanceof Backbone.Model)
 			Backbone.couchConnector.readModel(model, options.success, options.error);
 		else
 			Backbone.couchConnector.readCollection(model, options.success, options.error);

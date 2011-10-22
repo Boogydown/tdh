@@ -156,7 +156,7 @@ VU.MemberModel = VU.CookieModel.extend({
 				data[field.name] = field.value;
 			});
 			data._attachments = form._attachments.value;
-			data.profilePic = _.last( form._attachments.value.split("/"));
+			data.profilePic = form._attachments.value.match(/([^\/\\]+\.\w+)$/gim)[0];
 			//$("form :file").each(function() {
 				//data[this.name] = this.value; // file inputs need special handling
 			//});

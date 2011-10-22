@@ -35,7 +35,8 @@ Backbone.couchConnector = {
 	},
 	// Creates a couchDB object from the given model object.
 	makeDb : function(model){
-		var db = $.couch.db(this.databaseName);
+		var dbName = model.databaseName || this.databaseName;
+		var db = $.couch.db(dbName);
 		if(this.baseUrl){
 			db.uri = this.baseUrl + "/" + this.databaseName + "/";
 		}

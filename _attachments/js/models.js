@@ -49,7 +49,7 @@ VU.CookieModel = Backbone.Model.extend({
 
 // contains current user info and auth stuff **Only one instance**
 VU.MemberModel = VU.CookieModel.extend({
-	url : "_users",
+	databaseName : "_users",
 	fetched : false,
 	cookieKeys : [ "id", "dCard" ],
 	ID_PREFIX: "org.couchdb.user:",
@@ -180,10 +180,12 @@ VU.MemberModel = VU.CookieModel.extend({
 				this.set( {dCard: this.cookieDCard } )
 				this.cookieDCard = null;
 			}
-			var dCard = this.get( "dCard" ), events = this.eventsMain;
+			var dCard = this.get( "dCard" ), events = this.eventsMain, event;
 			if ( dCard && dCard.length > 0 ) {
 				_.each( dCard, function (eventId) {
-					events.get( eventId ).set( {onDCard: true} );
+					event = events.get( eventId );
+					// if an event on the DCard has already passed then it will be null
+					if (event) event.set( {onDCard: true} );
 				});
 			}
 			

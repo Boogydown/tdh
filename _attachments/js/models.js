@@ -163,7 +163,7 @@ VU.MemberModel = VU.CookieModel.extend({
 		}
 		if ( form.id == "editMember" ) {
 			//this.save();
-			$(this).ajaxSubmit({
+			$(form).ajaxSubmit({
 				url:  "/tdh/" + this.id,
 				success: function(resp) {
 					alert("saved");

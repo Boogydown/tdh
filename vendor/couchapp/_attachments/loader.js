@@ -17,6 +17,7 @@ couchapp_load([
   "js/lib/jquery-ui-1.8.16.custom.min.js",
   "/_utils/script/jquery.couch.js",
   "_utils/script/jquery.couch.js",
+  "js/lib/jquery.form.js",
   "js/lib/jqcloud-0.2.4.js",
   "js/lib/underscore.js",
   "js/lib/backbone.js",

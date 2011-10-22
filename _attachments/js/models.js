@@ -63,6 +63,7 @@ VU.MemberModel = VU.CookieModel.extend({
 		memberStatus: "unpaid",
 		profilePic: "images/genericSilhouette.jpg",
 		dCard: [],
+		roles: [],
 		type: "user",
 		loggedIn: false
 	},
@@ -97,6 +98,7 @@ VU.MemberModel = VU.CookieModel.extend({
 	
 	// for anonymous sessions
 	prepAnon : function() {
+		this.unset( "id", {silent:true} );
 		this.loadDCard();
 		// save, in case the dCard was from cookie or user
 		this.writeCookies();			

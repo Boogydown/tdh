@@ -263,7 +263,7 @@ VU.PopupView = VU.DustView.extend({
 				if ( fc && fc.length ) 
 					fc.remove();
 			});
-		window.href = "#///!";
+		window.location = "#///!";
 		return false;		
 	},
 	

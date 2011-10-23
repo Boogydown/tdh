@@ -208,8 +208,9 @@
 						<tr><td>Name:</td><td> <input name="realName" type="text"</input></td></tr>
 						<tr><td>Phone number:</td><td> <input name="phone" type="text"</input></td></tr>
 						<tr><td>Zipcode:</td><td> <input name="zip" type="text"</input></td></tr>
-						<tr><td>Profile pic:</td><td> <input name="profilePic" type="file"></input></td></tr>
+						<tr><td>Profile pic:</td><td> <input name="_attachments" type="file" value="{profilePic}" onchange="mySession.addAttachment(this.form)"></input></td></tr>
 					</tbody></table>
+					<input type="hidden" name="profilePic" value="{profilePic}"></input>
 					<button type="submit">Create User</button>
 				</form>
 			</div>
@@ -229,7 +230,6 @@
 						<tr><td>Phone number:</td><td> <input name="phone" type="text" value="{phone}"></input></td></tr>
 						<tr><td>Zipcode:</td><td> <input name="zip" type="text" value="{zip}"></input></td></tr>
 						<tr><td>Profile pic:</td><td> <input name="_attachments" type="file" value="{profilePic}" onchange="mySession.addAttachment(this.form)"></input></td></tr>
-						<tr><td id="progress" colspan="2">&nbsp;</td></tr>
 					</tbody></table><br/>
 					<input type="hidden" name="profilePic" value="{profilePic}"></input>
 					<input type="hidden" name="_rev" value="{_rev}"></input>

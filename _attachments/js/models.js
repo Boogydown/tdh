@@ -166,14 +166,14 @@ VU.MemberModel = VU.CookieModel.extend({
 			url:  "/_users/" + this.id,
 			success: function(resp) {
 				// strip out <pre> tags
-				var json = JSON.parse(resp.replace(/\<.+?\>/g,''));
+				var json = JSON.parse(resp = resp.replace(/\<.+?\>/g,''));
 				if ("ok" in json) {
 					// update our model; set the id in case this is on a signup and attachment is creating a doc
 					model.set( {
-						id: resp.id,
-						_rev: resp.rev
+						id: json.id,
+						_rev: json.rev
 					});
-					$("#main-photo img",this.el).html('<img src="/_users/' + this.id + '/' + picFile + '/>' );
+					$("#main-photo",this.el).html('<img src="/_users/' + this.id + '/' + picFile + '/>' );
 					//location.href="#";
 				}
 				else 

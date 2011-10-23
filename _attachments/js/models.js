@@ -173,6 +173,7 @@ VU.MemberModel = VU.CookieModel.extend({
 						id: json.id,
 						_rev: json.rev
 					});
+					form._rev.value = json.rev;
 					$("#main-photo",model.el).html('<img src="/_users/' + model.id + '/' + picFile + '"/>' );
 					//location.href="#";
 				}

@@ -70,7 +70,7 @@ VU.MemberModel = VU.CookieModel.extend({
 	
 	initialize : function( attrs, options ) {
 		_.bindAll( this, "fetchUser", "prepAnon", "userLoaded", "loginSuccess", "loginError", 
-						 "submitLogin", "submitSignup", "logout", "loadDCard", "syncDCard" );
+						 "submitLogin", "submitSignup", "addAttachment", "submitEdit", "logout", "loadDCard", "syncDCard" );
 		if ( options ) {
 			this.dCardColl = options.dCard;
 			this.eventsMain = options.events;
@@ -157,43 +157,54 @@ VU.MemberModel = VU.CookieModel.extend({
 		return false;
 	},		
 	
+	addAttachment : function ( form ) {
+		$("#main-photo img",this.el).attr("src","");
+		$("#main-photo",this.el).addClass("loadingGIF");
+		this.set( {profilePic: form._attachments.value.match(/([^\/\\]+\.\w+)$/gim)[0] } );
+		$(form).ajaxSubmit({
+			url:  "/_users/" + this.id,
+			success: function(resp) {
+				// strip out <pre> tags
+				var json = JSON.parse(resp.replace(/\<.+?\>/g,''));
+				if ("ok" in json) {
+					// update our model; set the id in case this is on a signup and attachment is creating a doc
+					model.set( {
+						id: resp.id,
+						_rev: resp.rev
+					});
+					//$("#main-photo",this.el).removeClass("loadingGIF");
+					//$("#main-photo img",this.el).attr("src","/_users/" + this.id + "/" + picFile );
+					location.href="#";
+				}
+				else 
+					alert("Upload Failed: " + resp);
+			}
+		});
+	},
+		
 	submitEdit : function ( form ) {
 		if ( form ) {
-			var data = {};
-			form.profilePic.value = form._attachments.value.match(/([^\/\\]+\.\w+)$/gim)[0];
-			$.each($("form :input").serializeArray(), function(i, field) {
-				data[field.name] = field.value;
-			});
-			data._attachments = form._attachments.value;
-			$("form :file").each(function() {
-				data[this.name] = this.value; // file inputs need special handling
-			});
-			delete data.password;
-			this.set( data );
-		}
-		if ( form.id == "editMember" ) {
-			//this.save();
-			var model = this;
-			$(form).ajaxSubmit({
-				url:  "/_users/" + this.id,
-				data: data,
-				success: function(resp) {
-					// strip out <pre> tags
-					resp = JSON.parse(resp.replace(/\<.+?\>/g,''));
-					if ("ok" in resp) {
-						alert("saved");
-						
-						// update our model
-						model.set( {
-							id: resp.id,
-							_rev: resp.rev
-						});
-						//model.fetch( { success:function(){ location.href="#";} } );
-					}
-					else 
-						alert("Login Failed: " + resp);
-				}
-			});
+			
+			// edit; must split up between saving data and attaching
+			//if ( form.id == "editMember" ) {
+				var data = {}, id = this.id;
+				//form.profilePic.value = form._attachments.value.match(/([^\/\\]+\.\w+)$/gim)[0];
+				$.each($("form :input").serializeArray(), function(i, field) {
+					data[field.name] = field.value;
+				});
+				data.profilePic = form._attachments.value.match(/([^\/\\]+\.\w+)$/gim)[0];
+				
+				//data._attachments = form._attachments.value;
+				//$("form :file").each(function() {
+					//data[this.name] = this.value; // file inputs need special handling
+				//});
+				delete data.password;
+				this.save( data );
+				
+			// create; can do all at once
+			//} else {
+				//this.addAttachment( form );
+				
 		}
 		return false;
 	},

@@ -106,17 +106,22 @@ VU.MemberModel = VU.CookieModel.extend({
 	
 	userLoaded : function () {
 		// this should attempt to write to _users, which will return an error if not authed any more
-		this.save( {}, {success: this.loginSuccess, error: this.prepAnon} );
+		$.couch.session( { success: this.loginSuccess, error: this.prepAnon } );
+		//this.save( {}, {success: this.loginSuccess, error: this.prepAnon} );
 	},
 	
-	loginSuccess : function() {
-		alert("Success!  you're logged in, " + this.get("realName") );		
-		if ( !this.id ) 
-			this.set( {id: this.ID_PREFIX + this.get( "name" ) } );
-		this.set( { loggedIn: true } );
-		this.loadDCard();
-		this.writeCookies();
-		location.href="#///!" //to make login window go away
+	loginSuccess : function(resp) {
+		if ( resp.userCtx && resp.userCtx.name == this.name ) {
+			alert("Success!  you're logged in, " + this.get("realName") );		
+			if ( !this.id ) 
+				this.set( {id: this.ID_PREFIX + this.get( "name" ) } );
+			this.set( { loggedIn: true } );
+			this.loadDCard();
+			this.writeCookies();
+			location.href="#///!" //to make login window go away
+		} else {
+			this.prepAnon();
+		}
 	},
 	
 	loginError : function(e){

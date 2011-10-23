@@ -140,6 +140,7 @@ VU.MemberModel = VU.CookieModel.extend({
 			error: this.loginError 
 		});
 		form.reset();
+		location.href = "#///!";
 		return false;
 	},		
 	
@@ -158,16 +159,16 @@ VU.MemberModel = VU.CookieModel.extend({
 	
 	submitEdit : function ( form ) {
 		if ( form ) {
-			var data = {};
-			$.each($("form :input").serializeArray(), function(i, field) {
-				data[field.name] = field.value;
-			});
+			//var data = {};
+			//$.each($("form :input").serializeArray(), function(i, field) {
+				//data[field.name] = field.value;
+			//});
 			//data._attachments = form._attachments.value;
-			$("form :file").each(function() {
-				data[this.name] = this.value; // file inputs need special handling
-				data.profilePic = this.value.match(/([^\/\\]+\.\w+)$/gim)[0];
-			});
-			//data.profilePic = form._attachments.value.match(/([^\/\\]+\.\w+)$/gim)[0];
+			//$("form :file").each(function() {
+				//data[this.name] = this.value; // file inputs need special handling
+				//data.profilePic = this.value.match(/([^\/\\]+\.\w+)$/gim)[0];
+			//});
+			form.profilePic.value = form._attachments.value.match(/([^\/\\]+\.\w+)$/gim)[0];
 			delete data.password;
 			this.set( data );
 		}
@@ -183,11 +184,11 @@ VU.MemberModel = VU.CookieModel.extend({
 						alert("saved");
 						
 						// update our model
-						model.set( {
-							id: resp.id,
-							_rev: resp.rev
-						});
-						
+						//model.set( {
+							//id: resp.id,
+							//_rev: resp.rev
+						//});
+						model.fetch();
 						// refresh current view
 						location.href="#";
 					}

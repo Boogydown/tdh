@@ -158,8 +158,7 @@ VU.MemberModel = VU.CookieModel.extend({
 	},		
 	
 	addAttachment : function ( form ) {
-		$("#main-photo img",this.el).attr("src","");
-		$("#main-photo",this.el).addClass("loadingGIF");
+		$("#main-photo img",this.el).html("<div class='spinner'></div>");
 		this.set( {profilePic: form._attachments.value.match(/([^\/\\]+\.\w+)$/gim)[0] } );
 		var model = this;
 		$(form).ajaxSubmit({
@@ -173,9 +172,8 @@ VU.MemberModel = VU.CookieModel.extend({
 						id: resp.id,
 						_rev: resp.rev
 					});
-					//$("#main-photo",this.el).removeClass("loadingGIF");
-					//$("#main-photo img",this.el).attr("src","/_users/" + this.id + "/" + picFile );
-					location.href="#";
+					$("#main-photo img",this.el).html('<img src="/_users/' + this.id + '/' + picFile + '/>' );
+					//location.href="#";
 				}
 				else 
 					alert("Upload Failed: " + resp);

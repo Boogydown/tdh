@@ -162,11 +162,12 @@ VU.MemberModel = VU.CookieModel.extend({
 			$.each($("form :input").serializeArray(), function(i, field) {
 				data[field.name] = field.value;
 			});
-			data._attachments = form._attachments.value;
-			data.profilePic = form._attachments.value.match(/([^\/\\]+\.\w+)$/gim)[0];
-			//$("form :file").each(function() {
-				//data[this.name] = this.value; // file inputs need special handling
-			//});
+			//data._attachments = form._attachments.value;
+			$("form :file").each(function() {
+				data[this.name] = this.value; // file inputs need special handling
+				data.profilePic = this.value.match(/([^\/\\]+\.\w+)$/gim)[0];
+			});
+			//data.profilePic = form._attachments.value.match(/([^\/\\]+\.\w+)$/gim)[0];
 			delete data.password;
 			this.set( data );
 		}

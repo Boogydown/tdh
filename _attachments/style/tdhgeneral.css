@@ -15,8 +15,10 @@ div {
 	display:none;
 }
 
-div.loadingSpinner {
+div.spinner {
 	background-image: url('../images/loader-spinner-big.gif');
+	width: 100px;
+	height: 100px;	
 }
 
 div.loadingGIF {
@@ -24,8 +26,6 @@ div.loadingGIF {
 	display: none;
 	left: 130px;
 	top: 100px;
-	width: 100px;
-	height: 100px;	
 }
 
 div#main-container {

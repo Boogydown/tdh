@@ -164,15 +164,25 @@ VU.MemberModel = VU.CookieModel.extend({
 			this.set( data );
 		}
 		if ( form.id == "editMember" ) {
-			this.save();
-			//$(form).ajaxSubmit({
-				//url:  "/_users/" + this.id,
-				//success: function(resp) {
-					//if(resp.match("ok")){ alert("saved");}//$('#saved').fadeIn().animate({ opacity: 1.0 },3000).fadeOut();}
-					//else if(resp.match("error")){ alert("failed");}//$('#failed').fadeIn().animate({ opacity: 1.0 },3000).fadeOut();} 
-					//$('#saved').fadeIn().animate({ opacity: 1.0 },3000).fadeOut();
-				//}
-			//});
+			//this.save();
+			var model = this;
+			$(form).ajaxSubmit({
+				url:  "/_users/" + this.id,
+				success: function(resp) {
+					if(resp.match("ok")){
+						alert("saved");
+						// update our model
+						model.set( {
+							id: resp.id,
+							_id: resp.id,
+							_rev: resp.rev
+						});
+						// refresh current view
+						location.href="#";
+					}
+					else if(resp.match("error")){ alert("failed: " + resp);}//$('#failed').fadeIn().animate({ opacity: 1.0 },3000).fadeOut();} 
+				}
+			});
 		}
 		return false;
 	},

@@ -123,8 +123,15 @@ ul#tab-list li:hover{
 	background-position: -110px -20px;
 }
 
-div#loginLinks{
+div#memberName {
+	float: right;
+	top: -53px;
+	position: relative;
+	left: -5px;
+	font-weight: bold;
+}
 
+div#loginLinks{
 	position: relative;
 	float: right;
 	top: -32px;	

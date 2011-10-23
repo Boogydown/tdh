@@ -111,8 +111,9 @@ VU.MemberModel = VU.CookieModel.extend({
 	},
 	
 	loginSuccess : function(resp) {
-		if ( resp.userCtx && resp.userCtx.name == this.name ) {
-			alert("Success!  you're logged in, " + this.get("realName") );		
+		if ( resp.userCtx && resp.userCtx.name == this.get("name") ) {
+			$("#memberName").text( "Welcome " + this.get("realName") + "!" ).show();
+			//alert("Success!  you're logged in, " + this.get("realName") );		
 			if ( !this.id ) 
 				this.set( {id: this.ID_PREFIX + this.get( "name" ) } );
 			this.set( { loggedIn: true } );
@@ -120,6 +121,7 @@ VU.MemberModel = VU.CookieModel.extend({
 			this.writeCookies();
 			location.href="#///!" //to make login window go away
 		} else {
+			alert( "Error logging in: " + resp );
 			this.prepAnon();
 		}
 	},
@@ -188,7 +190,8 @@ VU.MemberModel = VU.CookieModel.extend({
 						// refresh current view
 						location.href="#";
 					}
-					else if(resp.match("error")){ alert("failed: " + resp);}//$('#failed').fadeIn().animate({ opacity: 1.0 },3000).fadeOut();} 
+					else 
+						alert("Login Failed: " + resp);
 				}
 			});
 		}

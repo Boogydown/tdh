@@ -169,13 +169,13 @@ VU.MemberModel = VU.CookieModel.extend({
 				var json = JSON.parse(resp = resp.replace(/\<.+?\>/g,''));
 				if ("ok" in json) {
 					// update our model; set the id in case this is on a signup and attachment is creating a doc
-					model.set( {
-						id: json.id,
-						_rev: json.rev,
-						profilePic: picFile
-					});
 					form._rev.value = json.rev;
-					$("#main-photo",model.el).html('<img src="/_users/' + model.id + '/' + picFile + '"/>' );
+					form.profilePic.value = picFile;
+					model.set( { id: json.id } );
+					// this will allow us to grab the updated _attachments signature from couch so we can save() later
+					model.fetch( {success: function() {
+						$("#main-photo",model.el).html('<img src="/_users/' + model.id + '/' + picFile + '"/>' );
+					}} );
 					//location.href="#";
 				}
 				else 
@@ -199,6 +199,7 @@ VU.MemberModel = VU.CookieModel.extend({
 				$("form :file").each(function() {
 					data[this.name] = this.value; // file inputs need special handling
 				});
+				delete data._attachments;
 				delete data.password;
 				this.save( data );
 				

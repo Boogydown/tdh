@@ -169,8 +169,8 @@ VU.MemberModel = VU.CookieModel.extend({
 				//data.profilePic = this.value.match(/([^\/\\]+\.\w+)$/gim)[0];
 			//});
 			form.profilePic.value = form._attachments.value.match(/([^\/\\]+\.\w+)$/gim)[0];
-			delete data.password;
-			this.set( data );
+			//delete data.password;
+			//this.set( data );
 		}
 		if ( form.id == "editMember" ) {
 			//this.save();

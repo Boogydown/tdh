@@ -125,9 +125,9 @@ ul#tab-list li:hover{
 
 div#memberName {
 	float: right;
-	top: -53px;
+	top: -90px;
 	position: relative;
-	left: -5px;
+	right: -158px;
 	font-weight: bold;
 }
 

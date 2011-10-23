@@ -161,6 +161,7 @@ VU.MemberModel = VU.CookieModel.extend({
 		$("#main-photo img",this.el).attr("src","");
 		$("#main-photo",this.el).addClass("loadingGIF");
 		this.set( {profilePic: form._attachments.value.match(/([^\/\\]+\.\w+)$/gim)[0] } );
+		var model = this;
 		$(form).ajaxSubmit({
 			url:  "/_users/" + this.id,
 			success: function(resp) {

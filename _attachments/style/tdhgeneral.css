@@ -15,8 +15,11 @@ div {
 	display:none;
 }
 
-div.loadingGIF {
+div.loadingSpinner {
 	background-image: url('../images/loader-spinner-big.gif');
+}
+
+div.loadingGIF {
 	position: relative;
 	display: none;
 	left: 130px;

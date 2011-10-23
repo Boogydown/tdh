@@ -163,7 +163,7 @@ VU.MemberModel = VU.CookieModel.extend({
 		this.set( {profilePic: picFile } );
 		var model = this;
 		$(form).ajaxSubmit({
-			url:  "/_users/" + this.id,
+			url:  "/_users" + (this.id ? "/" + this.id : ""),
 			success: function(resp) {
 				// strip out <pre> tags
 				var json = JSON.parse(resp = resp.replace(/\<.+?\>/g,''));

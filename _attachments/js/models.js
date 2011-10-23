@@ -159,18 +159,17 @@ VU.MemberModel = VU.CookieModel.extend({
 	
 	submitEdit : function ( form ) {
 		if ( form ) {
-			//var data = {};
-			//$.each($("form :input").serializeArray(), function(i, field) {
-				//data[field.name] = field.value;
-			//});
-			//data._attachments = form._attachments.value;
-			//$("form :file").each(function() {
-				//data[this.name] = this.value; // file inputs need special handling
-				//data.profilePic = this.value.match(/([^\/\\]+\.\w+)$/gim)[0];
-			//});
+			var data = {};
 			form.profilePic.value = form._attachments.value.match(/([^\/\\]+\.\w+)$/gim)[0];
-			//delete data.password;
-			//this.set( data );
+			$.each($("form :input").serializeArray(), function(i, field) {
+				data[field.name] = field.value;
+			});
+			data._attachments = form._attachments.value;
+			$("form :file").each(function() {
+				data[this.name] = this.value; // file inputs need special handling
+			});
+			delete data.password;
+			this.set( data );
 		}
 		if ( form.id == "editMember" ) {
 			//this.save();
@@ -184,11 +183,11 @@ VU.MemberModel = VU.CookieModel.extend({
 						alert("saved");
 						
 						// update our model
-						//model.set( {
-							//id: resp.id,
-							//_rev: resp.rev
-						//});
-						model.fetch( { success:function(){ location.href="#";} } );
+						model.set( {
+							id: resp.id,
+							_rev: resp.rev
+						});
+						//model.fetch( { success:function(){ location.href="#";} } );
 					}
 					else 
 						alert("Login Failed: " + resp);

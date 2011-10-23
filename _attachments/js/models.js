@@ -169,14 +169,16 @@ VU.MemberModel = VU.CookieModel.extend({
 			$(form).ajaxSubmit({
 				url:  "/_users/" + this.id,
 				success: function(resp) {
-					if(resp.match("ok")){
+					resp = $.httpData(resp, "json");
+					if (req.status == 200 || req.status == 201 || req.status == 202) {
 						alert("saved");
+						
 						// update our model
 						model.set( {
 							id: resp.id,
-							_id: resp.id,
 							_rev: resp.rev
 						});
+						
 						// refresh current view
 						location.href="#";
 					}

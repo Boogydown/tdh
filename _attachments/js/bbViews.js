@@ -252,6 +252,7 @@ VU.PopupView = VU.DustView.extend({
 	
 	initialize : function ( options ) {
 		//Set up Close for Popup and Fade for all future instances
+		_.bindAll(this, "closePopup");
 		$('a.close, #fade').live('click', this.closePopup );
 		this.active = false;
 	},

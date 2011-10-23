@@ -169,8 +169,9 @@ VU.MemberModel = VU.CookieModel.extend({
 			$(form).ajaxSubmit({
 				url:  "/_users/" + this.id,
 				success: function(resp) {
-					resp = $.httpData(resp, "json");
-					if (req.status == 200 || req.status == 201 || req.status == 202) {
+					// strip out <pre> tags
+					resp = JSON.parse(resp.replace(/\<.+?\>/g,''));
+					if ("ok" in resp) {
 						alert("saved");
 						
 						// update our model

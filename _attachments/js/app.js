@@ -279,7 +279,6 @@
 				}
 			} else {
 				this.popupView.closePopup();
-				window.href = "#///!";				
 				// TODO: ensure popup's closed?
 			}
 		}

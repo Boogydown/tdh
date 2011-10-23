@@ -252,10 +252,12 @@ VU.PopupView = VU.DustView.extend({
 	
 	initialize : function ( options ) {
 		//Set up Close for Popup and Fade for all future instances
-		$('a.close, #fade').live('click', this.closePopup );		
+		$('a.close, #fade').live('click', this.closePopup );
+		this.active = false;
 	},
 	
 	closePopup : function () {
+		this.active = false;
 		var fade = $('#fade , .popup_block');
 		if ( fade && fade.length ) 
 			fade.fadeOut('fast', null, function() {
@@ -288,6 +290,7 @@ VU.PopupView = VU.DustView.extend({
 	},
 	
 	openPopup : function ( model, popTemplate, navColl, navCaption ) {
+		this.active = true;
 		this.registerTemplate( popTemplate ); 
 		this.model = model;
 		if ( this.model )

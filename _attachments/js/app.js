@@ -278,7 +278,8 @@
 					window.location = "#///!";
 				}
 			} else {
-				this.popupView.closePopup();
+				if ( this.popupView.active )
+					this.popupView.closePopup();
 				// TODO: ensure popup's closed?
 			}
 		}

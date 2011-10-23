@@ -194,9 +194,12 @@ VU.MemberModel = VU.CookieModel.extend({
 				$.each($("form :input").serializeArray(), function(i, field) {
 					data[field.name] = field.value;
 				});
-				data.profilePic = form._attachments.value.match(/([^\/\\]+\.\w+)$/gim)[0];
+				data.profilePic = form._attachments.value.match(/([^\/\\]+\.\w+)$/gim)[0];				
+				//data._attachments = form._attachments.value;
+				$("form :file").each(function() {
+					data[this.name] = this.value; // file inputs need special handling
+				});
 				delete data.password;
-				this.unset( "_attachments", {silent:true} );
 				this.save( data );
 				
 			// create; can do all at once

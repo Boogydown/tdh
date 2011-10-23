@@ -256,9 +256,13 @@ VU.PopupView = VU.DustView.extend({
 	},
 	
 	closePopup : function () {
-		$('#fade , .popup_block').fadeOut('fast', null, function() {
-			$('#fade, a.close').remove();  //fade them both out
-		});
+		var fade = $('#fade , .popup_block');
+		if ( fade && fade.length ) 
+			fade.fadeOut('fast', null, function() {
+				var fc = $('#fade, a.close');
+				if ( fc && fc.length ) 
+					fc.remove();
+			});
 		window.href = "#///!";
 		return false;		
 	},

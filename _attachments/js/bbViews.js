@@ -252,13 +252,15 @@ VU.PopupView = VU.DustView.extend({
 	
 	initialize : function ( options ) {
 		//Set up Close for Popup and Fade for all future instances
-		$('a.close, #fade').live('click', function() { //When clicked to close or fade layer...
-			$('#fade , .popup_block').fadeOut('fast', null, function() {
-				$('#fade, a.close').remove();  //fade them both out
-			});
-			window.location = "#///!";
-			return false;
-		});		
+		$('a.close, #fade').live('click', this.closePopup );		
+	},
+	
+	closePopup : function () {
+		$('#fade , .popup_block').fadeOut('fast', null, function() {
+			$('#fade, a.close').remove();  //fade them both out
+		});
+		window.href = "#///!";
+		return false;		
 	},
 	
 	render : function () {

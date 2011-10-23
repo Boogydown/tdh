@@ -158,9 +158,9 @@ VU.MemberModel = VU.CookieModel.extend({
 	},		
 	
 	addAttachment : function ( form ) {
-		$("#main-photo img",this.el).html("<div class='spinner' style='top:45px;left:75px;position:relative;'></div>");
-		var picForm = form._attachments.value.match(/([^\/\\]+\.\w+)$/gim)[0];
-		this.set( {profilePic: picForm } );
+		$("#main-photo", this.el).html("<div class='spinner' style='top:45px;left:75px;position:relative;'></div>");
+		var picFile = form._attachments.value.match(/([^\/\\]+\.\w+)$/gim)[0];
+		this.set( {profilePic: picFile } );
 		var model = this;
 		$(form).ajaxSubmit({
 			url:  "/_users/" + this.id,

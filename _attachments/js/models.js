@@ -185,28 +185,20 @@ VU.MemberModel = VU.CookieModel.extend({
 	},
 		
 	submitEdit : function ( form ) {
-		if ( form ) {
-			
+		if ( form ) {			
 			// edit; must split up between saving data and attaching
 			//if ( form.id == "editMember" ) {
 				var data = {}, id = this.id;
-				//form.profilePic.value = form._attachments.value.match(/([^\/\\]+\.\w+)$/gim)[0];
 				$.each($("form :input").serializeArray(), function(i, field) {
 					data[field.name] = field.value;
-				});
-				data.profilePic = form._attachments.value.match(/([^\/\\]+\.\w+)$/gim)[0];				
-				//data._attachments = form._attachments.value;
-				$("form :file").each(function() {
-					data[this.name] = this.value; // file inputs need special handling
 				});
 				delete data._attachments;
 				delete data.password;
 				this.save( data );
-				
+				location.href="#///!";
 			// create; can do all at once
 			//} else {
 				//this.addAttachment( form );
-				
 		}
 		return false;
 	},

@@ -171,7 +171,8 @@ VU.MemberModel = VU.CookieModel.extend({
 					// update our model; set the id in case this is on a signup and attachment is creating a doc
 					model.set( {
 						id: json.id,
-						_rev: json.rev
+						_rev: json.rev,
+						profilePic: picFile
 					});
 					form._rev.value = json.rev;
 					$("#main-photo",model.el).html('<img src="/_users/' + model.id + '/' + picFile + '"/>' );
@@ -191,7 +192,8 @@ VU.MemberModel = VU.CookieModel.extend({
 				var data = {}, id = this.id;
 				//form.profilePic.value = form._attachments.value.match(/([^\/\\]+\.\w+)$/gim)[0];
 				$.each($("form :input").serializeArray(), function(i, field) {
-					data[field.name] = field.value;
+					if ( field.name != "_attachments" )
+						data[field.name] = field.value;
 				});
 				data.profilePic = form._attachments.value.match(/([^\/\\]+\.\w+)$/gim)[0];
 				

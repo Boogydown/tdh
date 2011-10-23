@@ -188,9 +188,7 @@ VU.MemberModel = VU.CookieModel.extend({
 							//id: resp.id,
 							//_rev: resp.rev
 						//});
-						model.fetch();
-						// refresh current view
-						location.href="#";
+						model.fetch( { success:function(){ location.href="#";} } );
 					}
 					else 
 						alert("Login Failed: " + resp);

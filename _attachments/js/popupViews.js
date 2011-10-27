@@ -52,6 +52,7 @@ VU.EventsContainerPopupView = VU.PopupView.extend({
 	},
 	
 	nav : function ( event ) {
+		// navcoll is used to get the next/prev index... but we're still going to pull from this.collection
 		var coll = this.navColl;
 		if ( coll ){
 			var index;
@@ -64,7 +65,7 @@ VU.EventsContainerPopupView = VU.PopupView.extend({
 				index = index > 0 ? index - 1 : coll.length - 1;
 			else
 				index = index < coll.length - 1 ? index + 1 : 0;
-			location.href="#///" + this.navPrefix + "&" + coll.at(index).id;
+			location.href="#///" + this.navPrefix + "&" + this.collection.at(index).id;
 		}
 	},
 	

@@ -159,6 +159,7 @@ VU.MemberModel = VU.CookieModel.extend({
 	
 	submitSignup : function ( form ) {
 		this.form = form;
+		this._signup = true;
 		if ( form.password.value != form.password2.value ) {
 			alert("Passwords must match!");
 			return false;

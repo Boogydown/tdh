@@ -165,7 +165,6 @@ VU.MemberModel = VU.CookieModel.extend({
 		}
 		//TODO: maybe this should just be this.set( this.defaults )?
 		//this.clear();
-		this.set({id: this.ID_PREFIX + this.get( "name" )});
 		this.submitEdit( form );
 		return false;
 	},		
@@ -199,7 +198,7 @@ VU.MemberModel = VU.CookieModel.extend({
 		
 	submitEdit : function ( form ) {
 		if ( form ) {			
-			var data = {}, id = this.id;
+			var data = {};
 			$.each($("form :input").serializeArray(), function(i, field) {
 				data[field.name] = field.value;
 			});
@@ -210,6 +209,9 @@ VU.MemberModel = VU.CookieModel.extend({
 			// we do NOT want to save our plaintext password :)
 			delete data.password;
 			delete data.password2;
+			
+			if ( !this.id )
+				this.set({id: this.ID_PREFIX + data.name )});				
 			
 			this.save( 
 				data, 

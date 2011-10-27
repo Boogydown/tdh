@@ -21,7 +21,7 @@
 			tabEl : $("#dancesTabBtn"),
 			initialize : function() {
 				VU.ParentView.prototype.initialize.call(this);
-				this.navColl = new VU.LocalFilteredCollection( null, {collection: this.colls.events, name:"dances" });
+				this.navColl = new VU.LocalFilteredCollection( null, { model: VU.EventModel, collection: this.colls.events, name:"dances" });
 				this.navCaption = "All #{type} with upcoming events."
 				
 				// create our main list and map views and attach the collection to them

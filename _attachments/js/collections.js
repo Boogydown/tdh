@@ -25,6 +25,20 @@ VU.Collection = Backbone.Collection.extend({
 		(this.sync || Backbone.sync)('read', this, options);
 		return this;
     },
+	
+	serverGet : function( modelID, success, failure ) {
+		var model = this.get( modelID );
+		if ( model ) {
+			success( model );
+		} else {
+			model = new this.model( { id:modelID } ); 
+			this.add( myRef );
+			myRef.fetch({
+				success: success,
+				error: failure
+			});
+		}			
+	},
 
 	// copy of the BackBone private wrapError
 	wrapError : function(onError, model, options) {

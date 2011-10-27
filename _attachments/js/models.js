@@ -191,30 +191,23 @@ VU.MemberModel = VU.CookieModel.extend({
 		
 	submitEdit : function ( form ) {
 		if ( form ) {			
-			// edit; must split up between saving data and attaching
-			//if ( form.id == "editMember" ) {
-				var data = {}, id = this.id;
-				$.each($("form :input").serializeArray(), function(i, field) {
-					data[field.name] = field.value;
-				});
-				
-				// attachments are handled separately by addAttachments
-				delete data._attachments;
-				
-				// we do NOT want to save our plaintext password :)
-				delete data.password;
-				
-				this.save( 
-					data, 
-					{ 	success: this.editSaveSuccess,
-						error: loginError
-					}
-				);
-				
-				
-			// create; can do all at once
-			//} else {
-				//this.addAttachment( form );
+			var data = {}, id = this.id;
+			$.each($("form :input").serializeArray(), function(i, field) {
+				data[field.name] = field.value;
+			});
+			
+			// attachments are handled separately by addAttachments
+			delete data._attachments;
+			
+			// we do NOT want to save our plaintext password :)
+			delete data.password;
+			
+			this.save( 
+				data, 
+				{ 	success: this.editSaveSuccess,
+					error: loginError
+				}
+			);
 		}
 		return false;
 	},

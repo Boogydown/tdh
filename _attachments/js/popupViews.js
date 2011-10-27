@@ -55,7 +55,7 @@ VU.EventsContainerPopupView = VU.PopupView.extend({
 		// navcoll is used to get the next/prev index... but we're still going to pull from this.collection
 		var coll = this.navColl, id;
 		if ( coll ){
-			var index, incDec:function(){
+			var index, incDec = function(){
 				if ( event.target.id == "nav-left" )
 					index = index > 0 ? index - 1 : coll.length - 1;
 				else

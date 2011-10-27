@@ -211,12 +211,15 @@ VU.MemberModel = VU.CookieModel.extend({
 			delete data.password;
 			delete data.password2;
 			
-			if ( !this.id )
-				this.set({
-					id: this.ID_PREFIX + data.name,
-					_id: this.ID_PREFIX + data.name
-				});
-				
+			if ( this._signup ) {
+				this._signup = false;
+				data.id = this.ID_PREFIX + data.name;
+				$.couch.signup( data, data.password, 
+					{ success: this.loginSuccess, error: this.loginError } );
+				this.form.reset();
+				location.href = "#///member";
+				return false;
+			}				
 			
 			this.save( 
 				data, 
@@ -229,21 +232,7 @@ VU.MemberModel = VU.CookieModel.extend({
 	},
 	
 	editSaveSuccess : function () {
-		if ( this._signup ) {
-			// this was called from a signup
-			this._signup = false;
-			$.couch.signup( 
-				this.attributes, 
-				this.form.password.value, 
-				{ success: this.loginSuccess, error: this.loginError } 
-			);
-			this.form.reset();
-			location.href = "#///member";
-			
-		} else {
-			//this is an edit
-			location.href = "#///!";
-		}
+		location.href = "#///!";
 	},
 		
 	

@@ -107,6 +107,7 @@ VU.BandPopupView = VU.EventsContainerPopupView.extend( {
 		if ( this.navColl.model === VU.ModelEvent )
 			caption = "All bands with upcoming events";
 		else {
+			var cf = this.navColl.currentFilters;
 			var filter = _.detect(cf, function(f){return f.key == "stylesPlayed";})
 			if ( filter ) 
 			

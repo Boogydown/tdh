@@ -343,6 +343,7 @@ VU.LinkingModel = Backbone.Model.extend({
 				{
 					//TODO: great opportunity to bulk load, here
 					myRef = coll.get( docID );
+
 					// if reference not loaded yet, then create and fetch it
 					if ( ! myRef ) {
 						myRef = new coll.model( { id:docID } ); 

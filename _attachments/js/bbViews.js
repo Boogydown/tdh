@@ -291,12 +291,9 @@ VU.PopupView = VU.DustView.extend({
 	
 	openPopup : function ( model ) {
 		if ( model ) this.model = model;
-		// only one allowed to be open at a time
-		if ( VU.PopupView.prototype.active ) {
-			location.href="#///!";
-			return;
-		}
 		VU.PopupView.prototype.active = true;
+
+		// this will overwrite any existing popups
 		this.render();
 
 		//Fade Background

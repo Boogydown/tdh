@@ -82,6 +82,7 @@ VU.MemberModel = VU.CookieModel.extend({
 	},
 	
 	initialize : function( attrs, options ) {
+		VU.CookieModel.prototype.initialize.call( this, attrs, options );
 		_.bindAll( this, "fetchUser", "prepAnon", "userLoaded", "loginSuccess", "loginError", "editSaveSuccess",
 						 "submitLogin", "submitSignup", "addAttachment", "submitEdit", "logout", "loadDCard", "syncDCard" );
 		if ( options ) {

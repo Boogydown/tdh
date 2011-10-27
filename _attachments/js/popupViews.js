@@ -56,9 +56,9 @@ VU.EventsContainerPopupView = VU.PopupView.extend({
 		if ( coll ){
 			var index = coll.indexOf( this.model );
 			if ( event.target.id == "nav-left" )
-				index -= index > 0;
+				index = index > 0 ? index - 1 : coll.length - 1;
 			else
-				index += index < coll.length - 1;
+				index = index < coll.length - 1 ? index + 1 : 0;
 			location.href="#///" + this.navPrefix + "&" + coll.at(index).id;
 		}
 	}	

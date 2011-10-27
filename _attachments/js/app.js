@@ -133,15 +133,18 @@
 	var FloatNavView = Backbone.View.extend({
 		initialize : function () {
 			mySession.bind( "change:loggedIn", this.toggleLogView )
+			mySession.bind( "change:realName", this.toggleLogView )
 		},
 		
 		toggleLogView : function() {
 			if ( mySession.get( "loggedIn" ) ) {
 				$("#loggedOutNav").hide();
 				$("#loggedInNav").show();
+				$("#memberName").text( "Welcome " + mySession.get("realName") + "!" ).show();
 			} else {
 				$("#loggedOutNav").show();
 				$("#loggedInNav").hide();
+				$("#memberName").text( "" );
 			}
 		}
 	});

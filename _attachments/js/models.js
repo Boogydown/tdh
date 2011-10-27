@@ -7,8 +7,21 @@ VU.InitModels = function () {
 VU.CookieModel = Backbone.Model.extend({
 	prefix : "vu_",
 	
+	initialize : function() {
+		_.bindAll( this, "setDirty" );
+		this.isDirty = false;
+		this.bind( "change", this.setDirty );
+	},
+	
+	// isDirty is in context of the last writeCookies
+	setDirty : function() {
+		this.isDirty = true;
+	},
+	
 	//syntax: will write only model values that are in this.cookieKeys array
 	writeCookies : function() {
+		if ( !this.isDirty ) return;
+		this.isDirty = false;
 		var i, key, val, cookie;
 		for ( i in this.cookieKeys ){
 			key = this.cookieKeys[i];
@@ -112,7 +125,6 @@ VU.MemberModel = VU.CookieModel.extend({
 	
 	loginSuccess : function(resp) {
 		if ( resp.userCtx && resp.userCtx.name == this.get("name") ) {
-			$("#memberName").text( "Welcome " + this.get("realName") + "!" ).show();
 			//alert("Success!  you're logged in, " + this.get("realName") );		
 			if ( !this.id ) 
 				this.set( {id: this.ID_PREFIX + this.get( "name" ) } );
@@ -192,10 +204,18 @@ VU.MemberModel = VU.CookieModel.extend({
 				$.each($("form :input").serializeArray(), function(i, field) {
 					data[field.name] = field.value;
 				});
+				
+				// attachments are handled separately by addAttachments
 				delete data._attachments;
+				
+				// we do NOT want to save our plaintext password :)
 				delete data.password;
+				
 				this.save( data );
+				
+				// close our popup
 				location.href="#///!";
+				
 			// create; can do all at once
 			//} else {
 				//this.addAttachment( form );

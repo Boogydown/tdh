@@ -56,7 +56,7 @@ VU.EventsContainerPopupView = VU.PopupView.extend({
 		if ( coll ){
 			var index;
 			if ( this.navColl.model === VU.EventModel )
-				index = this.navColl.pluck( this.navPrefix ).indexOf( this.model );
+				index = this.navColl.pluck( this.navPrefix ).indexOf( this.model.id );
 			else
 				index = this.navColl.indexOf( this.model );
 				

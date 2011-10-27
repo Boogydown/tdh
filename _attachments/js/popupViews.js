@@ -69,8 +69,8 @@ VU.HallPopupView = VU.EventsContainerPopupView.extend( {
 	navPrefix : "hall",
 
 	initialize : function ( options ) {
-		this.collection = this.colls.halls;
 		VU.EventsContainerPopupView.prototype.initialize.call( this, options );
+		this.collection = this.colls.halls;
 	},
 	
 	getCaption : function() {
@@ -84,8 +84,8 @@ VU.BandPopupView = VU.EventsContainerPopupView.extend( {
 	navPrefix : "band",
 
 	initialize : function ( options ) {
-		this.collection = this.colls.bands;
 		VU.EventsContainerPopupView.prototype.initialize.call( this, options );
+		this.collection = this.colls.bands;
 	},
 	
 	getCaption : function() {

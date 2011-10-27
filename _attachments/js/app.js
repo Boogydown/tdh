@@ -22,7 +22,6 @@
 			initialize : function() {
 				VU.ParentView.prototype.initialize.call(this);
 				this.navColl = new VU.LocalFilteredCollection( null, {collection: this.colls.events, name:"dances" });
-				this.navCaption = "All #{type} with upcoming events."
 				
 				// create our main list and map views and attach the collection to them
 				this.listView = new VU.FilteredListView({
@@ -53,7 +52,6 @@
 			initialize : function() {
 				VU.ParentView.prototype.initialize.call(this);
 				this.navColl = new VU.LocalFilteredCollection( null, { collection: this.colls.bands, name:"bands" });
-				this.navCaption = 'All #{style} bands containing #{searchStr}.'
 				this.listView = new VU.FilteredListView({
 					el: "#bandsList",
 					emptyMsg: "<i>No bands meet your search criteria!</i>",
@@ -66,7 +64,6 @@
 			},
 			
 			activate : function ( filters ) {
-				// TODO: this.navCaption - only add search string verbiage if there is a search str in filters
 				VU.ParentView.prototype.activate.call(this);
 				this.listView.applyFilters( filters );
 				//this.tagView.render();  this happens at refresh, within tagView
@@ -79,7 +76,6 @@
 			initialize : function() {
 				VU.ParentView.prototype.initialize.call(this);
 				this.navColl = new VU.LocalFilteredCollection( null, {collection: this.colls.halls, name:"halls" });
-				this.navCaption = "All halls containing #{nameSearch} and located in #{countySearch} county";
 				this.listView = new VU.FilteredListView({
 					el: "#hallsList",
 					emptyMsg: "<i>No dance halls meet your search criteria!</i>",
@@ -92,7 +88,6 @@
 			},
 			
 			activate : function ( filters ) {
-				// TODO: this.navCaption - only add search string or map verbiage if they're in filters
 				VU.ParentView.prototype.activate.call(this);
 				this.listView.applyFilters( filters );
 				if ( !this.mapView ) 
@@ -107,7 +102,6 @@
 				_.bindAll( this, "render" );
 				VU.ParentView.prototype.initialize.call(this);
 				this.navColl = this.colls.dCard;
-				this.navCaption = "All dances on your Dance Card";
 
 				// create our main list and map views and attach the collection to them
 				this.listView = new VU.FilteredListView({

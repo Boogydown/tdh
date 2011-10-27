@@ -85,8 +85,27 @@ VU.HallPopupView = VU.EventsContainerPopupView.extend( {
 	},
 	
 	getCaption : function() {
-		//TODO: customize this to the current filter
-		return "&#9668;&nbsp; All Dancehalls &nbsp;&#9658;";
+		var caption = "All dancehalls";
+		
+		// by event
+		if ( this.navColl.model === VU.EventModel )
+			caption = "All dancehalls with upcoming events";
+		else {
+			var cf = this.navColl.currentFilters;
+		
+			// TODO: by geo
+			
+			// by hall name	
+			var filter = _.detect(cf, function(f){return f.key == "danceHallName";})			
+			if ( filter ) 
+				caption += " matching " + filter.str;
+				
+			// by county
+			filter = _.detect(cf, function(f){return f.key == "county";})
+			if ( filter )
+				caption += " in county " + filter.str;
+		}
+		return "&#9668;&nbsp; " + caption + " &nbsp;&#9658;";
 	}
 });
 
@@ -100,7 +119,6 @@ VU.BandPopupView = VU.EventsContainerPopupView.extend( {
 	},
 	
 	getCaption : function() {
-		//TODO: customize this to the current filter
 		var caption = "All bands";
 
 		// by event
@@ -108,18 +126,16 @@ VU.BandPopupView = VU.EventsContainerPopupView.extend( {
 			caption = "All bands with upcoming events";
 		else {
 			var cf = this.navColl.currentFilters;
-			var filter = _.detect(cf, function(f){return f.key == "stylesPlayed";})
-			if ( filter ) 
 			
-				// by style
+			// by style			
+			var filter = _.detect(cf, function(f){return f.key == "stylesPlayed";})			
+			if ( filter ) 
 				caption = "All " + filter.start + " bands";
-			else {
-				filter = _.detect(cf, function(f){return f.str;})
-				if ( filter )
 				
-					// by search string
-					caption = "All bands matching " + str;
-			}
+			// by search string
+			filter = _.detect(cf, function(f){return f.key == "bandName";})
+			if ( filter )
+				caption += " matching " + filter.str;
 		}							
 		return "&#9668;&nbsp; " + caption + " &nbsp;&#9658;";
 	}	

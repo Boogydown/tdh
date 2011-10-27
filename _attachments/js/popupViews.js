@@ -59,7 +59,7 @@ VU.EventsContainerPopupView = VU.PopupView.extend({
 				index -= index > 0;
 			else
 				index += index < coll.length - 1;
-			location.hrexf="#///" + this.navPrefix + "&" + coll.at(index).id;
+			location.href="#///" + this.navPrefix + "&" + coll.at(index).id;
 		}
 	}	
 });

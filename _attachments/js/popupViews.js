@@ -101,15 +101,47 @@ VU.BandPopupView = VU.EventsContainerPopupView.extend( {
 	
 	getCaption : function() {
 		//TODO: customize this to the current filter
-		return "&#9668;&nbsp; All Bands &nbsp;&#9658;";
+		var caption = "All bands";
+
+		// by event
+		if ( this.navColl.model === VU.ModelEvent )
+			caption = "All bands with upcoming events";
+		else {
+			var filter = _.detect(cf, function(f){return f.key == "stylesPlayed";})
+			if ( filter ) 
+			
+				// by style
+				caption = "All " + filter.start + " bands";
+			else {
+				filter = _.detect(cf, function(f){return f.str;})
+				if ( filter )
+				
+					// by search string
+					caption = "All bands matching " + str;
+			}
+		}							
+		return "&#9668;&nbsp; " + caption + " &nbsp;&#9658;";
 	}	
 });
 
 //== Login Base Class ====================================================================
 VU.LoginPopupView = VU.PopupView.extend({
 	popTemplate : "popupTemplate_login",
+	//events : {
+		//"submit #loginForm", "submitLogin"
+	//},
+	//
+	initialize : function() {
+		_.bindAll( this, "submitLogin" );
+		VU.PopupView.prototype.initialize.call( this );
+	},
+	
 	getCaption: function() {
 		return "Login";
+	},
+	
+	submitLogin : function() {
+		
 	}
 });
 

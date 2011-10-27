@@ -289,6 +289,12 @@ VU.PopupView = VU.DustView.extend({
 		return "";
 	},
 	
+	getData : function() {
+		var data = VU.DustView.prototype.getData.call(this);
+		data.navCaption = this.getCaption();
+		return data;
+	},
+	
 	openPopup : function ( model ) {
 		if ( model ) this.model = model;
 		VU.PopupView.prototype.active = true;

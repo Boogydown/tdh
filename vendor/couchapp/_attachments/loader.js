@@ -29,6 +29,7 @@ couchapp_load([
   "js/models.js",
   "js/collections.js",
   "js/bbViews.js",
+  "js/popupViews.js",
   "js/persistentRouter.js",
   "js/app.js"
 ]);

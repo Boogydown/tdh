@@ -162,7 +162,17 @@
 			style : ""
 		},
 		
+		popupMap : {
+			login : VU.LoginPopupView,
+			signup : VU.SignupPopupView,
+			editMember : VU.EditPopupView,
+			addEvent : VU.AddEventPopupView,
+			hall : VU.HallPopupView,
+			band : VU.BandPopupView
+		},
+		
 		instanciatedViews : {},
+		instanciatedPops : {},
 		mySession : {},
 		
 		// Initialize happens at page load; think RESTful: every time this is called we're starting from scratch
@@ -179,7 +189,6 @@
 			colls.dCard = new VU.LocalFilteredCollection( null, { collection: colls.events, name:"dcard" } );
 			
 			// init misc UI pieces
-			this.popupView = new VU.PopupView();
 			utils.waitingUI.init( ".loadingGIF" );
 			
 			// Authenticate session and create session state model
@@ -250,40 +259,24 @@
 			this.instanciatedViews[ tab ] = this.currentView = myView;
 			
 			if ( popID ) {
-				var pAry = popID.split('&');
-				var popType = pAry[0];
-				popID = pAry[1];
-				var template = "popupTemplate_" + popType,
-					docModel;
-				switch ( popType ) {
-					case "login": 
-					case "signup": 
-					case "addEvent": 
-					case "member": 
-					case "editMember": 
-						docModel = window.mySession;
-						break;
-					default: 
-						docModel = this.colls[popType + "s"] && this.colls[popType + "s"].get( popID );
-						//TODO: if docModel doesn't exist then fetch it!
-				};
+				var popAry = popID.split('&'),
+					popType = popAry[0],
+					popClass = this.popupMap[popType],
+					popView = this.instanciatedPops[ popType ] || new popClass( this.colls );
+				popID = popAry.length > 1 ? popAry[1] : null;
 				
-				if ( docModel ) {
-					if ( _.isFunction(docModel.loadEvents) )
-						docModel.loadEvents( this.colls.events );
-					this.popupView.openPopup( 
-						docModel, 
-						template, 
-						this.currentView.navColl, 
-						this.currentView.navCaption 
-					);
-				} else {
-					window.location = "#///!";
-				}
+				// open and pass respective info depending on popup type
+				if ( popView instanceof VU.EventsContainerPopupView )
+					popView.openPopup( popID, this.currentView.navColl );
+				else if ( popView instanceof VU.LoginPopupView )
+					popView.openPopup( window.mySession );
+				else
+					popView.openPopup();
+					
 			} else {
-				if ( this.popupView.active )
-					this.popupView.closePopup();
-				// TODO: ensure popup's closed?
+				// ensure popup is closed
+				if ( VU.PopupView.prototype.active )
+					VU.PopupView.prototype.closePopup();
 			}
 		}
     });
@@ -291,14 +284,9 @@
 /////////////////////////////////////////////////////////////////////////////}
 /// INSTACIATION & EXECUTION ////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////{
-	// When this inits it should call Events.fetch(), which should in theory fetch all
-	//	of its data; each model is updated, NOT triggering its own change event
-	// When all data is replaced in the collection, the refresh event is triggered which 
-	//	then kicks off the collection's render.
-	
 	window.app = new AppController();
 	Backbone.history.start();
-
+	
 });
 /////////////////////////////////////////////////////////////////////////////}
 

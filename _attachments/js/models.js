@@ -82,7 +82,7 @@ VU.MemberModel = VU.CookieModel.extend({
 	},
 	
 	initialize : function( attrs, options ) {
-		_.bindAll( this, "fetchUser", "prepAnon", "userLoaded", "loginSuccess", "loginError", 
+		_.bindAll( this, "fetchUser", "prepAnon", "userLoaded", "loginSuccess", "loginError", "editSaveSuccess",
 						 "submitLogin", "submitSignup", "addAttachment", "submitEdit", "logout", "loadDCard", "syncDCard" );
 		if ( options ) {
 			this.dCardColl = options.dCard;
@@ -158,15 +158,8 @@ VU.MemberModel = VU.CookieModel.extend({
 	
 	submitSignup : function ( form ) {
 		this.clear();
+		this.form = form;
 		this.submitEdit( form );
-		$.couch.signup( 
-			this.attributes, 
-			form.password.value, 
-			{ success: this.loginSuccess, error: this.loginError } 
-		);
-		form.reset();
-		location.href = "#///member";
-		return false;
 	},		
 	
 	addAttachment : function ( form ) {
@@ -211,10 +204,13 @@ VU.MemberModel = VU.CookieModel.extend({
 				// we do NOT want to save our plaintext password :)
 				delete data.password;
 				
-				this.save( data );
+				this.save( 
+					data, 
+					{ 	success: this.editSaveSuccess,
+						error: loginError
+					}
+				);
 				
-				// close our popup
-				location.href="#///!";
 				
 			// create; can do all at once
 			//} else {
@@ -222,6 +218,25 @@ VU.MemberModel = VU.CookieModel.extend({
 		}
 		return false;
 	},
+	
+	editSaveSuccess : function () {
+		if ( this._signup ) {
+			// this was called from a signup
+			this._signup = false;
+			$.couch.signup( 
+				this.attributes, 
+				this.form.password.value, 
+				{ success: this.loginSuccess, error: this.loginError } 
+			);
+			this.form.reset();
+			location.href = "#///member";
+			
+		} else {
+			//this is an edit
+			location.href = "#///!";
+		}
+	},
+		
 	
 	logout : function() {
 		this.set({id:"", loggedIn:false});

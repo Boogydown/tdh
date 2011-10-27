@@ -1,4 +1,4 @@
-VU.InitViews = function () {
+VU.InitPopupViews = function () {
 /////////////////////////////////////////////////////////////////////////////}
 /// VIEWS DECLARATION ///////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////{
@@ -170,9 +170,6 @@ VU.EventListingView = VU.ListingView.extend({
 	
 	// called once, after all add/remove callbacks have been processed
 	filtered : function() {
-		//if ( this.collection.length == 0 )
-			//this.el.innerHTML = this.emptyMsg;		
-		//utils.waitingUI.hide();	
 		if ( _.size(this.listingViews) == this.collection.length ) 
 			this.numPerPage = this.collection.length;
 		this._updateSpacer();
@@ -243,22 +240,34 @@ VU.EventListingView = VU.ListingView.extend({
 });
 
 /**
- * View for a popup
+ * BASE CLASS View for a popup
  * instanciate once, use openPopup to open; it will close on its own
- * TODO: refactor this
+ * SubClasses MUST provide:
+ * 		this.popTemplate
+ *		this.getCaption
  **/
 VU.PopupView = VU.DustView.extend({
 	el : $("#popup_block"),
 	
-	initialize : function ( options ) {
+	// we want this to be static, so all use of it will refer to the prototype
+	// in other words, only one popup can be active at once
+	active : false,
+	
+	initialize : function ( ) {
 		//Set up Close for Popup and Fade for all future instances
 		_.bindAll(this, "closePopup");
-		$('a.close, #fade').live('click', this.closePopup );
-		this.active = false;
+		
+		// only needs to be set up once
+		// TODO: refactor this to more appropriately use our current framework
+		if ( !VU.PopupView.prototype.initialized ) {
+			$('a.close, #fade').live('click', this.closePopup );
+			VU.PopupView.prototype.initialized = true;
+		}
+		this.registerTemplate( this.popTemplate );	
 	},
 	
 	closePopup : function () {
-		this.active = false;
+		VU.PopupView.prototype.active = false;
 		var fade = $('#fade , .popup_block');
 		if ( fade && fade.length ) 
 			fade.fadeOut('fast', null, function() {
@@ -272,33 +281,22 @@ VU.PopupView = VU.DustView.extend({
 	
 	render : function () {
 		$(this.el).empty();
-		VU.DustView.prototype.render.call(this);
-		
-		// if events exist in model then init the events-list view
-		if ( this.model ) this.list = this.model.get("events"); 
-		if ( this.list ) {
-			(this.eventlistView = new VU.FilteredListView({
-				el:"#popuplist",
-				emptyMsg: "<i>No upcoming dances scheduled</i>",
-				listingClass:VU.EventListingView,
-				collection: this.list
-			})).render();			
-		}
-		this.delegateEvents({
-			"click #nav-left" : "nav",
-			"click #nav-right" : "nav"
-		});
+		VU.DustView.prototype.render.call(this);		
 	},
 	
-	openPopup : function ( model, popTemplate, navColl, navCaption ) {
-		this.active = true;
-		this.registerTemplate( popTemplate ); 
-		this.model = model;
-		if ( this.model )
-			this.model.set({
-				navCaption: "&#9668;&nbsp; " + navCaption + " &nbsp;&#9658;"
-			});
-		this.navColl = navColl;
+	//stub; this should be extended for popup-type-specific captions
+	getCaption : function () {
+		return "";
+	},
+	
+	openPopup : function ( model ) {
+		if ( model ) this.model = model;
+		// only one allowed to be open at a time
+		if ( VU.PopupView.prototype.active ) {
+			location.href="#///!";
+			return;
+		}
+		VU.PopupView.prototype.active = true;
 		this.render();
 
 		//Fade Background
@@ -308,22 +306,8 @@ VU.PopupView = VU.DustView.extend({
 
 		//Fade Popup in and add close button
 		this.el.fadeIn('fast').prepend('<a href="#" class="close"><img class="close_popup" title="Close Window" /></a>');
-		this.miniMapView = new VU.MapView({collection: this.list, el: "#detailmap"});
-
 		return false;
-	},
-	
-	nav : function ( event ) {
-		var coll = this.navColl;
-		if ( coll ){
-			var index = coll.indexOf( this.model );
-			if ( event.target.id == "nav-left" )
-				index -= index > 0;
-			else
-				index += index < coll.length - 1;
-			location.hrexf="#///" + this.model.myType + "&" + coll.at(index).id;
-		}
-	}
+	}	
 });
 
 VU.MapView = Backbone.View.extend({
@@ -385,12 +369,12 @@ VU.MapView = Backbone.View.extend({
 			
 		} else {
 			// now try its address instead
-			return; //Removed, for now...
+			return; //TODO: Removed, for now...
 			var address = hall.get( "address" );
 			if ( ! address )
 				hall.bind( "change", this.addMarker );
 			else
-				this.geocoder.geocode( { 'address': address}, this.attachToMap );
+				VU.MapView.prototype.geocoder.geocode( { 'address': address}, this.attachToMap );
 		}
 	},
 	

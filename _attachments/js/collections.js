@@ -117,6 +117,7 @@ VU.LocalFilteredCollection = VU.Collection.extend({
 		options.model && (this.model = options.model);
 		_.bindAll( this, "refreshed", "applyFilters", "onGotFiltered" );
 		this.masterCollection = options.collection;
+		this.model = this.masterCollection.model;
 	},
 	
 	// completely reload

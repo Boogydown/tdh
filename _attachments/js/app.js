@@ -168,6 +168,7 @@
 			editMember : VU.EditPopupView,
 			addEvent : VU.AddEventPopupView,
 			hall : VU.HallPopupView,
+			dancehall : VU.HallPopupView,
 			band : VU.BandPopupView
 		},
 		

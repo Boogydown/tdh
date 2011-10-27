@@ -17,6 +17,7 @@ VU.EventsContainerPopupView = VU.PopupView.extend({
 	// initialize must be extended to load this.collection
 	initialize : function ( options ) {
 		_.bindAll( this, "_modelLoaded" );
+		this.colls = options.colls;
 		VU.PopupView.prototype.initialize.call( this, options );
 	},
 	
@@ -29,7 +30,7 @@ VU.EventsContainerPopupView = VU.PopupView.extend({
 	
 	_modelLoaded : function ( model ) {		
 		if ( model && _.isFunction(model.loadEvents) )
-				model.loadEvents( this.navColl.masterCollection );
+				model.loadEvents( this.colls.events );
 		VU.PopupView.prototype.openPopup.call( this, model );		
 	},
 	
@@ -68,7 +69,7 @@ VU.HallPopupView = VU.EventsContainerPopupView.extend( {
 	navPrefix : "hall",
 
 	initialize : function ( options ) {
-		this.collection = options.colls.halls;
+		this.collection = this.colls.halls;
 		VU.EventsContainerPopupView.prototype.initialize.call( this, options );
 	},
 	
@@ -83,7 +84,7 @@ VU.BandPopupView = VU.EventsContainerPopupView.extend( {
 	navPrefix : "band",
 
 	initialize : function ( options ) {
-		this.collection = options.colls.bands;
+		this.collection = this.colls.bands;
 		VU.EventsContainerPopupView.prototype.initialize.call( this, options );
 	},
 	

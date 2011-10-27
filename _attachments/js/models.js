@@ -125,18 +125,26 @@ VU.MemberModel = VU.CookieModel.extend({
 	},
 	
 	loginSuccess : function(resp) {
+		var route = "#///!";
 		if ( resp.userCtx && resp.userCtx.name == this.get("name") ) {
-			//alert("Success!  you're logged in, " + this.get("realName") );		
 			if ( !this.id ) 
 				this.set( {id: this.ID_PREFIX + this.get( "name" ) } );
-			this.set( { loggedIn: true, lastLogin: new Date().getTime() } );
-			this.loadDCard();
-			this.writeCookies();
-			location.href="#///!" //to make login window go away
+		} else if ( "ok" in resp ) {
+			this.set({
+				id: resp.id,
+				_id: resp.id,
+				_rev: resp.rev
+			}, {silent:true});
+			route = "#///member";
 		} else {
 			alert( "Error logging in: " + resp );
 			this.prepAnon();
+			return false;
 		}
+		this.set( { loggedIn: true, lastLogin: new Date().getTime() } );
+		this.loadDCard();
+		this.writeCookies();
+		location.href = route;
 	},
 	
 	loginError : function(e){

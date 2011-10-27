@@ -53,25 +53,25 @@ VU.EventsContainerPopupView = VU.PopupView.extend({
 	
 	nav : function ( event ) {
 		// navcoll is used to get the next/prev index... but we're still going to pull from this.collection
-		var coll = this.navColl;
+		var coll = this.navColl, id;
 		if ( coll ){
-			var index;
-			if ( this.navColl.model === VU.EventModel )
+			var index, incDec:function(){
+				if ( event.target.id == "nav-left" )
+					index = index > 0 ? index - 1 : coll.length - 1;
+				else
+					index = index < coll.length - 1 ? index + 1 : 0;
+			};
+			if ( this.navColl.model === VU.EventModel ){
 				index = this.navColl.pluck( this.navPrefix ).indexOf( this.model.id );
-			else
+				incDec();
+				location.href="#///" + this.navPrefix + "&" + this.navColl.at(index).get( this.navPrefix );
+			}
+			else {
 				index = this.navColl.indexOf( this.model );
-				
-			if ( event.target.id == "nav-left" )
-				index = index > 0 ? index - 1 : coll.length - 1;
-			else
-				index = index < coll.length - 1 ? index + 1 : 0;
-			location.href="#///" + this.navPrefix + "&" + this.collection.at(index).id;
+				location.href="#///" + this.navPrefix + "&" + this.collection.at(index).id;
+			}
 		}
-	},
-	
-	_getIndex : function( model ) {
-	}
-	
+	}	
 });
 
 VU.HallPopupView = VU.EventsContainerPopupView.extend( {

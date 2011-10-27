@@ -211,7 +211,7 @@ VU.MemberModel = VU.CookieModel.extend({
 			delete data.password2;
 			
 			if ( !this.id )
-				this.set({id: this.ID_PREFIX + data.name )});				
+				this.set({id: this.ID_PREFIX + data.name});
 			
 			this.save( 
 				data, 

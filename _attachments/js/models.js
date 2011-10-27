@@ -128,7 +128,7 @@ VU.MemberModel = VU.CookieModel.extend({
 			//alert("Success!  you're logged in, " + this.get("realName") );		
 			if ( !this.id ) 
 				this.set( {id: this.ID_PREFIX + this.get( "name" ) } );
-			this.set( { loggedIn: true } );
+			this.set( { loggedIn: true, lastLogin: new Date().getTime() } );
 			this.loadDCard();
 			this.writeCookies();
 			location.href="#///!" //to make login window go away
@@ -162,7 +162,8 @@ VU.MemberModel = VU.CookieModel.extend({
 			alert("Passwords must match!");
 			return false;
 		}
-		this.clear();
+		//TODO: maybe this should just be this.set( this.defaults )?
+		//this.clear();
 		this.submitEdit( form );
 		return false;
 	},		

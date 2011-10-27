@@ -104,7 +104,7 @@ VU.BandPopupView = VU.EventsContainerPopupView.extend( {
 		var caption = "All bands";
 
 		// by event
-		if ( this.navColl.model === VU.ModelEvent )
+		if ( this.navColl.model === VU.EventModel )
 			caption = "All bands with upcoming events";
 		else {
 			var cf = this.navColl.currentFilters;
@@ -157,6 +157,13 @@ VU.EditPopupView = VU.SignupPopupView.extend({
 	popTemplate : "popupTemplate_editMember",
 	getCaption: function() {
 		return "Edit Profile";
+	}
+});
+
+VU.MemberPopupView = VU.SignupPopupView.extend({
+	popTemplate : "popupTemplate_member",
+	getCaption: function() {
+		return "Member Profile";
 	}
 });
 

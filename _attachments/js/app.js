@@ -165,6 +165,7 @@
 		popupMap : {
 			login : VU.LoginPopupView,
 			signup : VU.SignupPopupView,
+			member : VU.MemberPopupView,
 			editMember : VU.EditPopupView,
 			addEvent : VU.AddEventPopupView,
 			hall : VU.HallPopupView,

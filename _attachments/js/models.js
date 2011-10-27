@@ -157,9 +157,14 @@ VU.MemberModel = VU.CookieModel.extend({
 	},		
 	
 	submitSignup : function ( form ) {
-		this.clear();
 		this.form = form;
+		if ( form.password.value != form.password2.value ) {
+			alert("Passwords must match!");
+			return false;
+		}
+		this.clear();
 		this.submitEdit( form );
+		return false;
 	},		
 	
 	addAttachment : function ( form ) {
@@ -201,11 +206,12 @@ VU.MemberModel = VU.CookieModel.extend({
 			
 			// we do NOT want to save our plaintext password :)
 			delete data.password;
+			delete data.password2;
 			
 			this.save( 
 				data, 
 				{ 	success: this.editSaveSuccess,
-					error: loginError
+					error: this.loginError
 				}
 			);
 		}

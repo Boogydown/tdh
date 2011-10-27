@@ -54,14 +54,23 @@ VU.EventsContainerPopupView = VU.PopupView.extend({
 	nav : function ( event ) {
 		var coll = this.navColl;
 		if ( coll ){
-			var index = coll.indexOf( this.model );
+			var index;
+			if ( this.navColl.model === VU.EventModel )
+				index = this.navColl.pluck( this.navPrefix ).indexOf( model );
+			else
+				index = this.navColl.indexOf( model );		
+				
 			if ( event.target.id == "nav-left" )
 				index = index > 0 ? index - 1 : coll.length - 1;
 			else
 				index = index < coll.length - 1 ? index + 1 : 0;
 			location.href="#///" + this.navPrefix + "&" + coll.at(index).id;
 		}
-	}	
+	},
+	
+	_getIndex : function( model ) {
+	}
+	
 });
 
 VU.HallPopupView = VU.EventsContainerPopupView.extend( {
@@ -91,7 +100,7 @@ VU.BandPopupView = VU.EventsContainerPopupView.extend( {
 	getCaption : function() {
 		//TODO: customize this to the current filter
 		return "&#9668;&nbsp; All Bands &nbsp;&#9658;";
-	}
+	}	
 });
 
 //== Login Base Class ====================================================================

@@ -173,7 +173,7 @@ VU.MemberModel = VU.CookieModel.extend({
 			return false;
 		}
 		//TODO: maybe this should just be this.set( this.defaults )?
-		//this.clear();
+		this.clear();
 		this.set( this.defaults );
 		this.submitEdit( form );
 		return false;
@@ -220,11 +220,23 @@ VU.MemberModel = VU.CookieModel.extend({
 			delete data.password;
 			delete data.password2;
 			
+			var loginError = this.loginError,
+				loginSuccess = this.loginSuccess;
+			
 			if ( this._signup ) {
 				this._signup = false;
 				data.id = this.ID_PREFIX + data.name;
-				$.couch.signup( data, data.password, 
-					{ success: this.loginSuccess, error: this.loginError } );
+				$.couch.signup( data, data.password, { 
+					success: function () {
+						$.couch.login( {
+							name : form.name.value,
+							password : form.password.value,
+							success: loginSuccess, 
+							error: loginError
+						});
+					},
+					error: loginError
+				});					
 				this.form.reset();
 				location.href = "#///member";
 				return false;
@@ -246,7 +258,8 @@ VU.MemberModel = VU.CookieModel.extend({
 		
 	
 	logout : function() {
-		this.set({id:"", loggedIn:false});
+		this.clear();
+		this.set( this.defaults );
 		this.writeCookies();
 		$.couch.logout();
 	},

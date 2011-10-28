@@ -174,6 +174,7 @@ VU.MemberModel = VU.CookieModel.extend({
 		}
 		//TODO: maybe this should just be this.set( this.defaults )?
 		//this.clear();
+		this.set( this.defaults );
 		this.submitEdit( form );
 		return false;
 	},		

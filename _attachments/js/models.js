@@ -102,11 +102,12 @@ VU.MemberModel = VU.CookieModel.extend({
 
 	// doLogin and doSignup pulled from Futon v0.11.0 ////////////////////////////
     doLogin : function(name, password, callback) {
+		var model = this;
 		$.couch.login({
 			name : name,
 			password : password,
 			success : function() {
-				this._setLogin();
+				model._setLogin();
 				callback();
 			},
 			error : function(code, error, reason) {
@@ -117,11 +118,12 @@ VU.MemberModel = VU.CookieModel.extend({
     },
     
     doSignup : function(name, password, callback) {
+		var model = this;
 		$.couch.signup({
 			name : name
 		}, password, {
 			success : function() {
-				this.doLogin(name, password, callback);            
+				model.doLogin(name, password, callback);            
 			},
 			error : function(status, error, reason) {
 				if (error == "conflict") {

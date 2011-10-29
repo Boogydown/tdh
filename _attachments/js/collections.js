@@ -155,7 +155,8 @@ VU.LocalFilteredCollection = VU.Collection.extend({
 		//this.allPagesLoaded = lastPage;
 		this.allFiltered = filteredModels;
 		this.allPagesLoaded = this.allFiltered.length <= this.tail;
-		this.diff( this.allFiltered.slice(0,this.tail), {keepParent:true, ignoreDups:true} );
+		this.head = 0;
+		this.diff( this.allFiltered.slice(this.head,this.tail), {keepParent:true, ignoreDups:true} );
 		if ( this.firstPass ) {
 			this.masterCollection.bind( "keysChanged", this.applyFilters );
 			this.masterCollection.bind( "refresh", this.refreshed );
@@ -166,9 +167,10 @@ VU.LocalFilteredCollection = VU.Collection.extend({
 	
 	nextPage : function( num ) {
 		if ( this.tail >= this.allFiltered.length ) return;
+		this.head = this.tail;
 		num && (this.numPerPage = num);
 		//this.applyFilters( null, this.tail += this.numPerPage );
-		this.diff( this.allFiltered.slice(0,this.tail += this.numPerPage), {keepParent:true, ignoreDups:true} );
+		this.diff( this.allFiltered.slice(this.head,this.tail += this.numPerPage), {keepParent:true, ignoreDups:true} );
 	}
 });
 

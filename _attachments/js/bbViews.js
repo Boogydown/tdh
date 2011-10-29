@@ -360,9 +360,10 @@ VU.MapView = Backbone.View.extend({
 		}
 		
 		//if collection already fetched then go ahead and render
-		if ( this.masterColl && this.masterColl.fetched || 
-			 this.collection.masterCollection && this.collection.masterCollection.fetched) 
-			 this.render();
+		if ( ( this.masterColl && this.masterColl.fetched ) || 
+			 ( this.collection.fetched ) ||
+			 ( this.collection.masterCollection && this.collection.masterCollection.fetched ) )
+			this.render();
 		
 	},
 

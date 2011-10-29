@@ -91,7 +91,7 @@
 				VU.ParentView.prototype.activate.call(this);
 				this.listView.applyFilters( filters );
 				if ( !this.mapView ) 
-					this.mapView = new VU.MapView({collection: this.colls.halls, el: "#hallsMap"});
+					this.mapView = new VU.MapView({collection: this.navColl, masterColl: this.colls.halls, el: "#hallsMap"});
 			}
 		}),
 		

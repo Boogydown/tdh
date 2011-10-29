@@ -336,7 +336,7 @@ VU.MapView = Backbone.View.extend({
 	//geocoder: new google.maps.Geocoder(),
 	
 	initialize : function( options ){
-		_.bindAll(this, 'render', "addMarker");
+		_.bindAll( this, 'render', "addMarker", "fAddMarker" );
 		var center = new google.maps.LatLng(30.274338, -97.744675);
 		var myOptions = {
 		  zoom: 6,

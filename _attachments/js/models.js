@@ -141,7 +141,8 @@ VU.MemberModel = VU.CookieModel.extend({
 		$.couch.session({
 			success : function(resp) {
 				if ( resp.userCtx && resp.userCtx.name ) {
-					model.set( { id: model.ID_PREFIX + resp.name } );
+					var id = model.ID_PREFIX + resp.name;
+					model.set( { id:id, _id:id } );
 					model.fetch( {success: model.userFetched} );
 				} else {
 					alert( "Error logging in: " + resp );

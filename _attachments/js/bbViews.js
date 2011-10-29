@@ -8,7 +8,6 @@ VU.DustView = Backbone.View.extend({
 		// Relies on inline templates on the page
 		dust.compileFn( $('#'+name).html() , name);
 		this.template = name;
-		_.bindAll(this, "getData");
 	},
 	
 	getData : function(){
@@ -256,7 +255,7 @@ VU.PopupView = VU.DustView.extend({
 	
 	initialize : function ( ) {
 		//Set up Close for Popup and Fade for all future instances
-		_.bindAll(this, "closePopup");
+		_.bindAll(this, "closePopup", "render");
 		
 		// only needs to be set up once
 		// TODO: refactor this to more appropriately use our current framework

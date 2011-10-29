@@ -271,10 +271,8 @@
 				// open and pass respective info depending on popup type
 				if ( popView instanceof VU.EventsContainerPopupView )
 					popView.openPopup( popID, this.currentView.navColl );
-				else if ( popView instanceof VU.LoginPopupView )
-					popView.openPopup( this.mySession );
 				else
-					popView.openPopup();
+					popView.openPopup( this.mySession );
 					
 			} else {
 				// ensure popup is closed

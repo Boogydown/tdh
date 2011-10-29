@@ -68,6 +68,7 @@ VU.MemberModel = VU.CookieModel.extend({
 	cookieKeys : [ "dCard" ],
 	ID_PREFIX: "org.couchdb.user:",
 	defaults : {
+		id: "",
 		realName: "",
 		name: "",
 		group: "",

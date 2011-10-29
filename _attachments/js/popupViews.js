@@ -147,7 +147,7 @@ VU.LoginPopupView = VU.PopupView.extend({
 
 	initialize : function() {
 		VU.PopupView.prototype.initialize.call( this );
-		_.bindAll( this, "submitPrep" );
+		_.bindAll( this, "submitPrep", "processSuccessFail" );
 		this.delegateEvents( {"submit form": "submitPrep"} );
 	},
 	

@@ -238,7 +238,8 @@ VU.EditPopupView = VU.LoginPopupView.extend({
 		this.delegateEvents( {"change :file": "addAttachment"} );
 	},
 		
-	addAttachment : function ( form ) {
+	addAttachment : function ( e ) {
+		var form = e.target.form;
 		var model = this.model;
 		$("#main-photo", this.el).html("<div class='spinner' style='top:45px;left:75px;position:relative;'></div>");
 		var picFile = form._attachments.value.match(/([^\/\\]+\.\w+)$/gim)[0];

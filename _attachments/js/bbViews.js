@@ -526,11 +526,11 @@ VU.SearchBoxView = Backbone.View.extend({
 				} else {
 					var filter = _.detect(filters, function(f){return f.key == filterKey;})
 					if ( filter )
-						filter.str = input.value;
+						filter.str = input.value.toLowerCase();
 					else
 						filters.push ({
 							key: filterKey,
-							str: input.value
+							str: input.value.toLowerCase()
 						});
 				}
 				

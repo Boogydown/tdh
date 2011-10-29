@@ -80,10 +80,13 @@ VU.EventListingView = VU.ListingView.extend({
 	render : function () {
 		VU.ListingView.prototype.render.call(this);
 		// this is called AFTER the val is set
-		if ( this.model.get( "onDCard" ) )
+		if ( this.model.get( "onDCard" ) ) {
 			$(".twostepphoto", this.el).addClass("active");
-		else
+			$(".addToDanceCard", this.el).html("Remove<br/>From Card");
+		} else {
 			$(".twostepphoto", this.el).removeClass("active");
+			$(".addToDanceCard", this.el).html("Add to<br/>Dance Card");
+		}
 		return this;
 	}		
 });

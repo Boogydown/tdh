@@ -75,7 +75,7 @@ VU.MemberModel = VU.CookieModel.extend({
 		lastLogin: new Date().getTime(),
 		dateCreated: new Date().getTime(),
 		memberStatus: "unpaid",
-		profilePic: "images/genericSilhouette.jpg",
+		profilePic: "/tdh/_design/tdh_public/images/genericSilhouette.jpg",
 		dCard: [],
 		roles: [],
 		type: "user",

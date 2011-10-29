@@ -218,12 +218,12 @@ VU.KeyedCollection = VU.Collection.extend({
 		for ( i in this.filterableKeys ) {
 			key = this.filterableKeys[i];
 			value = model.get(key);
-			if ( _.isString(value) ) value = value.toLowerCase();
 			if ( value !== undefined ) {
 				// in case an attribute is actually an array of values....
 				values = _.isArray( value ) ? value : [value];
 				for ( j in values ) {
 					value = values[j];
+					if ( _.isString(value) ) value = value.toLowerCase();
 					if ( key in this.keys ) {
 						if ( value in this.keys[key] )
 							this.keys[key][value].push(model);

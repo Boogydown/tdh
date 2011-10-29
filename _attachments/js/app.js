@@ -281,7 +281,7 @@
 			}
 			
 			if ( !this.colls.halls.fetched && !this.colls.halls.fetching )
-				setTimeout( this.colls.halls.fetch({add:true}),3500 );
+				setTimeout( this.colls.halls.fetch({add:true}),5000 );
 		}
     });
 

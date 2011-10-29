@@ -349,15 +349,21 @@ VU.MapView = Backbone.View.extend({
 			
 		this.map = new google.maps.Map(this.el, myOptions);
 
+		if ( this.collection ){
+			this.collection.bind("add", this.addMarker );
+			this.collection.bind("refresh", this.render );
+		}
+		
 		if ( this.masterColl ) {
 			this.masterColl.bind("add", function(model){that.addMarker(model,true)} );
 			this.masterColl.bind("refresh", this.render );
 		}
 		
-		if ( this.collection ){
-			this.collection.bind("add", this.addMarker );
-			this.collection.bind("refresh", this.render );
-		}
+		//if collection already fetched then go ahead and render
+		if ( this.masterColl && this.masterColl.fetched || 
+			 this.collection.masterCollection && this.collection.masterCollection.fetched) 
+			 this.render();
+		
 	},
 
 	render: function(){

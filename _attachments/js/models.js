@@ -137,6 +137,38 @@ VU.MemberModel = VU.CookieModel.extend({
     },
 	//////////////////////////////////////////////////////////////////////////////	
 	
+	doUpdate : function ( data, callback ) {
+		// we don't want to overwrite attachments; we got appropriate attachments sig
+		//	in the fetch() call at the end of addAttachments
+		delete data._attachments;
+		var loginError = this.loginError,
+			loginSuccess = this.loginSuccess;
+			
+		this.save( 
+			data, 
+			{ 	success: this.editSaveSuccess,
+				error: this.loginError
+			}
+		);
+		return false;
+	},
+
+	logout : function() {
+		this.clear( {silent:true} );
+		this.set( this.defaults );
+		this.writeCookies();
+		$.couch.logout();
+	},
+	
+	// for anonymous sessions
+	prepAnon : function() {
+		this.clear({silent:true});
+		this.set( this.defaults );
+		this._loadDCard();
+		// save, in case the dCard was from cookie or user
+		this.writeCookies();
+	},
+
 	// Last stop for logging in; called during login, login via signup, or page load
 	// 	at this point, we have nothing in the model, yet
 	_setLogin : function() {
@@ -161,68 +193,6 @@ VU.MemberModel = VU.CookieModel.extend({
 		this.writeCookies();
 	},
 
-	// for anonymous sessions
-	prepAnon : function() {
-		this.clear({silent:true});
-		this.set( this.defaults );
-		this._loadDCard();
-		// save, in case the dCard was from cookie or user
-		this.writeCookies();
-	},
-	
-	submitEdit : function ( form ) {
-		if ( form ) {			
-			var data = {};
-			$.each($("form :input").serializeArray(), function(i, field) {
-				data[field.name] = field.value;
-			});
-			
-			// attachments are handled separately by addAttachments
-			delete data._attachments;
-			
-			// we do NOT want to save our plaintext password :)
-			delete data.password;
-			delete data.password2;
-			
-			var loginError = this.loginError,
-				loginSuccess = this.loginSuccess;
-			
-			if ( this._signup ) {
-				this._signup = false;
-				data.id = this.ID_PREFIX + data.name;
-				$.couch.signup( data, data.password, { 
-					success: function () {
-						$.couch.login( {
-							name : form.name.value,
-							password : form.password.value,
-							success: loginSuccess, 
-							error: loginError
-						});
-					},
-					error: loginError
-				});					
-				this.form.reset();
-				location.href = "#///member";
-				return false;
-			}				
-			
-			this.save( 
-				data, 
-				{ 	success: this.editSaveSuccess,
-					error: this.loginError
-				}
-			);
-		}
-		return false;
-	},
-				
-	logout : function() {
-		this.clear( {silent:true} );
-		this.set( this.defaults );
-		this.writeCookies();
-		$.couch.logout();
-	},
-	
 	// intended to break until the events are loaded, then we can continue to set them
 	_loadDCard : function() {
 		if ( this.eventsMain.fetched ) {

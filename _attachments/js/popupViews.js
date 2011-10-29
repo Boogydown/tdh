@@ -224,6 +224,8 @@ VU.SignupPopupView = VU.LoginPopupView.extend({
 	}
 });
 
+// Editing a profile...
+//	We can safely assume that a user session exists when this is opened
 VU.EditPopupView = VU.LoginPopupView.extend({
 	popTemplate : "popupTemplate_editMember",
 	
@@ -237,25 +239,25 @@ VU.EditPopupView = VU.LoginPopupView.extend({
 	},
 		
 	addAttachment : function ( form ) {
+		var model = this.model;
 		$("#main-photo", this.el).html("<div class='spinner' style='top:45px;left:75px;position:relative;'></div>");
 		var picFile = form._attachments.value.match(/([^\/\\]+\.\w+)$/gim)[0];
-		this.set( {profilePic: picFile } );
-		var model = this;
+		model.set( {profilePic: picFile } );
 		$(form).ajaxSubmit({
-			url:  "/_users" + (this.id ? "/" + this.id : ""),
+			url:  "/_users" + (model.id ? "/" + model.id : ""),
 			success: function(resp) {
 				// strip out <pre> tags
 				var json = JSON.parse(resp = resp.replace(/\<.+?\>/g,''));
 				if ("ok" in json) {
-					// update our model; set the id in case this is on a signup and attachment is creating a doc
+					// update our form;
 					form._rev.value = json.rev;
 					form.profilePic.value = picFile;
-					model.set( { id: json.id } );
+					//model.set( { id: json.id } ); don't need this since we aren't allowing pic upload on signup
+					
 					// this will allow us to grab the updated _attachments signature from couch so we can save() later
 					model.fetch( {success: function() {
 						$("#main-photo",model.el).html('<img src="/_users/' + model.id + '/' + picFile + '"/>' );
 					}} );
-					//location.href="#";
 				}
 				else 
 					alert("Upload Failed: " + resp);
@@ -263,7 +265,8 @@ VU.EditPopupView = VU.LoginPopupView.extend({
 		});
 	},
 		
-	submitEdit : function ( form ) {
+	submit : function ( data, callback ) {
+		this.model.doUpdate( data, callback );
 	},
 	
 	editSaveSuccess : function () {

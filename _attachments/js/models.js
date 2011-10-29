@@ -137,12 +137,11 @@ VU.MemberModel = VU.CookieModel.extend({
 	// Last stop for logging in; called during login, login via signup, or page load
 	// 	at this point, we have nothing in the model, yet
 	setLogin : function() {
-		var model = this;
+		var model = this, id = 
 		$.couch.session({
 			success : function(resp) {
 				if ( resp.userCtx && resp.userCtx.name ) {
-					var id = model.ID_PREFIX + resp.name;
-					model.set( { id:id, _id:id } );
+					model.set( { id: model.ID_PREFIX + resp.userCtx.name } );
 					model.fetch( {success: model.userFetched} );
 				} else {
 					alert( "Error logging in: " + resp );

@@ -187,7 +187,7 @@
 		<div id="info">
 			<h2>Login</h2>
 			<div class="detailtext">
-				<form id="loginForm" action="" onsubmit="return(mySession.submitLogin(this));">
+				<form id="loginForm" action="">
 					Email: <input name="name" type="text"></input><br/>
 					Password: <input name="password" type="password"></input><br/>
 					<button type="submit">Login</button>
@@ -201,12 +201,11 @@
 		<div id="info">
 			<h2>Sign up as a member!</h2>
 			<div class="memberDetail">
-				<form id="signupForm" action="" onsubmit="return(mySession.submitSignup(this));">
+				<form id="signupForm" action="">
 					<table><tbody>
 						<tr><td>Email:</td><td><input name="name" type="text"></input></td></tr>
 						<tr><td>Password:</td><td> <input name="password" type="password"></input></td></tr>
 						<tr><td>Confirm password:</td><td> <input name="password2" type="password"></input></td></tr>
-						<tr><td>Name:</td><td> <input name="realName" type="text"</input></td></tr>
 					</tbody></table>
 					<button type="submit">Create User</button>
 				</form>
@@ -219,14 +218,14 @@
 		<div id="info">
 			<h2>Edit profile info...</h2>
 			<div class="memberDetail">
-				<form id="editMember" action="" onsubmit="return(mySession.submitEdit(this));">
+				<form id="editMember" action="">
 					<table><tbody>
 						<!--<tr><td>Email:</td><td><input name="name" type="text" value="{name}"></input></td></tr>-->
 						<!--<tr><td>Password:</td><td> <input name="password" type="password" value="{password}"></input></td></tr>-->
 						<tr><td>Name:</td><td> <input name="realName" type="text" value="{realName}"></input></td></tr>
 						<tr><td>Phone number:</td><td> <input name="phone" type="text" value="{phone}"></input></td></tr>
 						<tr><td>Zipcode:</td><td> <input name="zip" type="text" value="{zip}"></input></td></tr>
-						<tr><td>Profile pic:</td><td> <input name="_attachments" type="file" value="{profilePic}" onchange="mySession.addAttachment(this.form)"></input></td></tr>
+						<tr><td>Profile pic:</td><td> <input name="_attachments" type="file" value="{profilePic}"></input></td></tr>
 					</tbody></table><br/>
 					<input type="hidden" name="profilePic" value="{profilePic}"></input>
 					<input type="hidden" name="_rev" value="{_rev}"></input>
@@ -294,7 +293,7 @@
 					<a href="#///login">LOGIN</a>&nbsp;&bull;&nbsp;<a href="#///signup">SIGN UP!</a>
 				</div>
 				<div id="loggedInNav">
-					<a href="#" onclick="mySession.logout()">LOGOUT</a>&nbsp;&bull;&nbsp;<a href="#///member">PROFILE</a>&nbsp;&bull;&nbsp;<a href="#///addEvent">ADD EVENT</a>
+					<a href="#" id="logoutLink">LOGOUT</a>&nbsp;&bull;&nbsp;<a href="#///member">PROFILE</a>&nbsp;&bull;&nbsp;<a href="#///addEvent">ADD EVENT</a>
 				</div>
 			</div>
 			<div id="nav-tabs">

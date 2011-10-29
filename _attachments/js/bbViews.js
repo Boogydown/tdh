@@ -296,11 +296,12 @@ VU.PopupView = VU.DustView.extend({
 	},
 	
 	openPopup : function ( model ) {
-		if ( model ) this.model = model;
+		if ( model ) this.model = model;		
 		VU.PopupView.prototype.active = true;
 
 		// this will overwrite any existing popups
 		this.render();
+		//this.form.reset();  don't think we need this; when rendered the form starts clean		
 
 		//Fade Background
 		$('body').append('<div id="fade"></div>');
@@ -309,8 +310,16 @@ VU.PopupView = VU.DustView.extend({
 
 		//Fade Popup in and add close button
 		this.el.fadeIn('fast').prepend('<a href="#" class="close"><img class="close_popup" title="Close Window" /></a>');
+		
+		this.onOpened();
+		
 		return false;
-	}	
+	},
+	
+	onOpened : function() {
+		//stub; subclasses can extend this if they want
+	}
+	
 });
 
 VU.MapView = Backbone.View.extend({

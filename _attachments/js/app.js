@@ -125,22 +125,32 @@
 	};
 	
 	var FloatNavView = Backbone.View.extend({
+		events : {
+			"click #logoutLink": "logout"
+		},
+		
 		initialize : function () {
-			mySession.bind( "change:loggedIn", this.toggleLogView )
-			mySession.bind( "change:realName", this.toggleLogView )
+			_.bindAll( this, "toggleLogView", "logout" );
+			this.model.bind( "change:loggedIn", this.toggleLogView )
+			this.model.bind( "change:realName", this.toggleLogView )
 		},
 		
 		toggleLogView : function() {
-			if ( mySession.get( "loggedIn" ) ) {
+			if ( this.model.get( "loggedIn" ) ) {
 				$("#loggedOutNav").hide();
 				$("#loggedInNav").show();
-				$("#memberName").text( "Welcome " + mySession.get("realName") + "!" ).show();
+				$("#memberName").text( "Welcome " + this.model.get("realName") + "!" ).show();
 			} else {
 				$("#loggedOutNav").show();
 				$("#loggedInNav").hide();
 				$("#memberName").text( "" );
 			}
+		},
+		
+		logout : function() {
+			this.model.logout();
 		}
+		
 	});
     
 /////////////////////////////////////////////////////////////////////////////}
@@ -169,7 +179,6 @@
 		
 		instanciatedViews : {},
 		instanciatedPops : {},
-		mySession : {},
 		
 		// Initialize happens at page load; think RESTful: every time this is called we're starting from scratch
         initialize : function(){
@@ -188,9 +197,8 @@
 			utils.waitingUI.init( ".loadingGIF" );
 			
 			// Authenticate session and create session state model
-			window.mySession = new VU.MemberModel( null, { dCard: this.colls.dCard, events: this.colls.events } );
-			
-			var floatNav = new FloatNavView();
+			this.mySession = new VU.MemberModel( null, { dCard: this.colls.dCard, events: this.colls.events } );			
+			var floatNav = new FloatNavView( { model:this.mySession} );
 		},
 		
 		routeHandler : function( tab, dates, coords, popID, style ) {
@@ -250,7 +258,6 @@
 			
 			//TODO: put this into mySession
 			window.TDHP_tab = tab;
-			window.TDHP_filters = filters;
 			myView.activate( filters );
 			this.instanciatedViews[ tab ] = this.currentView = myView;
 			
@@ -265,7 +272,7 @@
 				if ( popView instanceof VU.EventsContainerPopupView )
 					popView.openPopup( popID, this.currentView.navColl );
 				else if ( popView instanceof VU.LoginPopupView )
-					popView.openPopup( window.mySession );
+					popView.openPopup( this.mySession );
 				else
 					popView.openPopup();
 					

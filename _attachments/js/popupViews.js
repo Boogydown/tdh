@@ -144,39 +144,134 @@ VU.BandPopupView = VU.EventsContainerPopupView.extend( {
 //== Login Base Class ====================================================================
 VU.LoginPopupView = VU.PopupView.extend({
 	popTemplate : "popupTemplate_login",
-	//events : {
-		//"submit #loginForm", "submitLogin"
-	//},
-	//
+
 	initialize : function() {
-		_.bindAll( this, "submitLogin" );
 		VU.PopupView.prototype.initialize.call( this );
+		_.bindAll( this, "submitPrep" );
+		this.delegateEvents( {"submit form": "submitPrep"} );
 	},
 	
 	getCaption: function() {
 		return "Login";
 	},
 	
-	submitLogin : function() {
-		
+	submitPrep : function(e) {
+		e.preventDefault();
+		var data = {};
+		$.each($("form :input", dialog).serializeArray(), function(i, field) {
+		  data[field.name] = field.value;
+		});
+		$("form :file", dialog).each(function() {
+		  data[this.name] = this.value; // file inputs need special handling
+		});
+		this.submit(data, this.processSuccessFail);
+	},
+	
+    validateUsernameAndPassword : function (data, callback) {
+      if (!data.name || data.name.length == 0) {
+        callback({name: "Please enter a name."});
+        return false;
+      };
+      return this.validatePassword(data, callback);
+    },
+
+    validatePassword : function (data, callback) {
+      if (!data.password || data.password.length == 0) {
+        callback({password: "Please enter a password."});
+        return false;
+      };
+      return true;
+    },	
+	
+	processSuccessFail : function( errors, href ) {
+		if ($.isEmptyObject(errors)) {
+			if ( href )
+				location.href = href;
+			else
+				this.closePopup();
+		} else {
+			var completeMsg = "";
+			for (var name in errors) {
+				completeMsg += name + ": " + errors[name] + "\n";
+			}
+			alert( completeMsg );
+		}
+	},
+	
+	submit : function(data, callback) {
+		if (!this.validateUsernameAndPassword(data, callback)) return;
+		this.model.doLogin(data.name, data.password, callback);
+		return false;		
 	}
 });
 
 VU.SignupPopupView = VU.LoginPopupView.extend({
 	popTemplate : "popupTemplate_signup",
+
 	getCaption: function() {
 		return "Sign Up!";
+	},
+		
+	submit : function ( data, callback ) {
+		if (this.validateUsernameAndPassword(data, callback)) return;
+		if ( data.password != data.password2 ) {
+			callback({password2: "Passwords must match"});
+			return false;
+		}
+		this.model.doSignup(data.name, data.password, function(errors){
+			callback(errors, "#///member");
+		});
 	}
 });
 
-VU.EditPopupView = VU.SignupPopupView.extend({
+VU.EditPopupView = VU.LoginPopupView.extend({
 	popTemplate : "popupTemplate_editMember",
+	
 	getCaption: function() {
 		return "Edit Profile";
-	}
+	},
+	
+	initialize : function() {
+		VU.LoginPopupView.prototype.initialize.call( this );
+		this.delegateEvents( {"change :file": "addAttachment"} );
+	},
+		
+	addAttachment : function ( form ) {
+		$("#main-photo", this.el).html("<div class='spinner' style='top:45px;left:75px;position:relative;'></div>");
+		var picFile = form._attachments.value.match(/([^\/\\]+\.\w+)$/gim)[0];
+		this.set( {profilePic: picFile } );
+		var model = this;
+		$(form).ajaxSubmit({
+			url:  "/_users" + (this.id ? "/" + this.id : ""),
+			success: function(resp) {
+				// strip out <pre> tags
+				var json = JSON.parse(resp = resp.replace(/\<.+?\>/g,''));
+				if ("ok" in json) {
+					// update our model; set the id in case this is on a signup and attachment is creating a doc
+					form._rev.value = json.rev;
+					form.profilePic.value = picFile;
+					model.set( { id: json.id } );
+					// this will allow us to grab the updated _attachments signature from couch so we can save() later
+					model.fetch( {success: function() {
+						$("#main-photo",model.el).html('<img src="/_users/' + model.id + '/' + picFile + '"/>' );
+					}} );
+					//location.href="#";
+				}
+				else 
+					alert("Upload Failed: " + resp);
+			}
+		});
+	},
+		
+	submitEdit : function ( form ) {
+	},
+	
+	editSaveSuccess : function () {
+		location.href = "#///!";
+	}			
 });
 
-VU.MemberPopupView = VU.SignupPopupView.extend({
+VU.MemberPopupView = VU.PopupView.extend({
 	popTemplate : "popupTemplate_member",
 	getCaption: function() {
 		return "Member Profile";

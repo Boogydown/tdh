@@ -65,7 +65,7 @@ VU.MemberModel = VU.CookieModel.extend({
 	databaseName : "_users",
 	url: "_users",
 	fetched : false,
-	cookieKeys : [ "id", "dCard" ],
+	cookieKeys : [ "dCard" ],
 	ID_PREFIX: "org.couchdb.user:",
 	defaults : {
 		realName: "",
@@ -83,129 +83,89 @@ VU.MemberModel = VU.CookieModel.extend({
 	
 	initialize : function( attrs, options ) {
 		VU.CookieModel.prototype.initialize.call( this, attrs, options );
-		_.bindAll( this, "fetchUser", "prepAnon", "userLoaded", "loginSuccess", "loginError", "editSaveSuccess",
-						 "submitLogin", "submitSignup", "addAttachment", "submitEdit", "logout", "loadDCard", "syncDCard" );
+		_.bindAll( this, "userFetched" );
+		
+		//_.bindAll( this, "fetchUser", "prepAnon", "userLoaded", "loginSuccess", "loginError", "editSaveSuccess",
+						 //"submitLogin", "submitSignup", "addAttachment", "submitEdit", "logout", "loadDCard", "syncDCard" );
 		if ( options ) {
 			this.dCardColl = options.dCard;
 			this.eventsMain = options.events;
 		}
 		
 		if ( this.readCookies() ) {
-			// any cookies loaded?  dcard?  userID?
+			// any cookies loaded?  dcard?
 			this.cookieDCard = this.get("dCard");
-			if ( this.id )
-				// ooh, a userID!  let's attempt to fetch it...
-				this.fetchUser();
-			else
-				// we're running anon....
-				this.prepAnon();
-		} else 
-			// no cookies loaded, so anonymous all the way
-			this.prepAnon();
+		}
+		
+		this.setLogin();
 	},
 
-	fetchUser : function() {
-		if ( !this.id )
-			this.set({id: this.ID_PREFIX + this.get( "name" )});
-		this.fetch( {success: this.userLoaded, error: this.prepAnon} );
-	},	
+	// doLogin and doSignup pulled from Futon v0.11.0 ////////////////////////////
+    doLogin : function(name, password, callback) {
+		$.couch.login({
+			name : name,
+			password : password,
+			success : function() {
+				this.setLogin();
+				callback();
+			},
+			error : function(code, error, reason) {
+				//this.processError( code, error, reason );
+				callback({name : "Error logging in: "+reason});
+			}
+		});
+    },
+    
+    doSignup : function(name, password, callback) {
+		$.couch.signup({
+			name : name
+		}, password, {
+			success : function() {
+				this.doLogin(name, password, callback);            
+			},
+			error : function(status, error, reason) {
+				if (error == "conflict") {
+					callback({name : "Name '" + name + "' is taken"});
+				} else {
+					callback({name : "Signup error:  " + reason});
+				}
+			}
+		});
+    },
+	//////////////////////////////////////////////////////////////////////////////	
 	
-	// for anonymous sessions
-	prepAnon : function() {
-		this.set( {id:null} );
-		this.loadDCard();
-		// save, in case the dCard was from cookie or user
-		this.writeCookies();			
+	// Last stop for logging in; called during login, login via signup, or page load
+	// 	at this point, we have nothing in the model, yet
+	setLogin : function() {
+		$.couch.session({
+			success : function(resp) {
+				if ( resp.userCtx && resp.userCtx.name ) {
+					this.set( { id: this.ID_PREFIX + resp.name } );
+					this.fetch( {success: this.userFetched} );
+				} else {
+					alert( "Error logging in: " + resp );
+					this.prepAnon();
+				}
+			}
+		});
+		return false;
 	},
 	
-	userLoaded : function () {
-		// this should attempt to write to _users, which will return an error if not authed any more
-		$.couch.session( { success: this.loginSuccess, error: this.prepAnon } );
-		//this.save( {}, {success: this.loginSuccess, error: this.prepAnon} );
-	},
-	
-	loginSuccess : function(resp) {
-		var route = "#///!";
-		if ( resp.userCtx && resp.userCtx.name == this.get("name") ) {
-			if ( !this.id ) 
-				this.set( {id: this.ID_PREFIX + this.get( "name" ) } );
-		} else if ( "ok" in resp ) {
-			this.set({
-				id: resp.id,
-				_id: resp.id,
-				_rev: resp.rev
-			}, {silent:true});
-			route = "#///member";
-		} else {
-			alert( "Error logging in: " + resp );
-			this.prepAnon();
-			return false;
-		}
+	userFetched : function() {
 		this.set( { loggedIn: true, lastLogin: new Date().getTime() } );
 		this.loadDCard();
 		this.writeCookies();
-		location.href = route;
 	},
-	
-	loginError : function(e){
-		alert("Uh oh!! Unable to login.  Username and password incorrect?\n" + e);
-		this.prepAnon();
-	},
-	
-	submitLogin : function ( form ) {
-		if ( form ) this.set({ name: form.name.value });
-		$.couch.login( {
-			name: this.get("name"), 
-			password: form.password.value, 
-			success: this.fetchUser, 
-			error: this.loginError 
-		});
-		form.reset();
-		location.href = "#///!";
-		return false;
-	},		
-	
-	submitSignup : function ( form ) {
-		this.form = form;
-		this._signup = true;
-		if ( form.password.value != form.password2.value ) {
-			alert("Passwords must match!");
-			return false;
-		}
-		//TODO: maybe this should just be this.set( this.defaults )?
-		this.clear();
+
+	// for anonymous sessions
+	prepAnon : function() {
+		this.clear({silent:true});
 		this.set( this.defaults );
-		this.submitEdit( form );
-		return false;
-	},		
-	
-	addAttachment : function ( form ) {
-		$("#main-photo", this.el).html("<div class='spinner' style='top:45px;left:75px;position:relative;'></div>");
-		var picFile = form._attachments.value.match(/([^\/\\]+\.\w+)$/gim)[0];
-		this.set( {profilePic: picFile } );
-		var model = this;
-		$(form).ajaxSubmit({
-			url:  "/_users" + (this.id ? "/" + this.id : ""),
-			success: function(resp) {
-				// strip out <pre> tags
-				var json = JSON.parse(resp = resp.replace(/\<.+?\>/g,''));
-				if ("ok" in json) {
-					// update our model; set the id in case this is on a signup and attachment is creating a doc
-					form._rev.value = json.rev;
-					form.profilePic.value = picFile;
-					model.set( { id: json.id } );
-					// this will allow us to grab the updated _attachments signature from couch so we can save() later
-					model.fetch( {success: function() {
-						$("#main-photo",model.el).html('<img src="/_users/' + model.id + '/' + picFile + '"/>' );
-					}} );
-					//location.href="#";
-				}
-				else 
-					alert("Upload Failed: " + resp);
-			}
-		});
+		this.loadDCard();
+		// save, in case the dCard was from cookie or user
+		this.writeCookies();
 	},
-		
+	
 	submitEdit : function ( form ) {
 		if ( form ) {			
 			var data = {};
@@ -251,14 +211,9 @@ VU.MemberModel = VU.CookieModel.extend({
 		}
 		return false;
 	},
-	
-	editSaveSuccess : function () {
-		location.href = "#///!";
-	},
-		
-	
+				
 	logout : function() {
-		this.clear();
+		this.clear( {silent:true} );
 		this.set( this.defaults );
 		this.writeCookies();
 		$.couch.logout();

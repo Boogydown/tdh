@@ -132,22 +132,23 @@ $(function(){
 			}
 			
 			var coll = this.collection;
+			var updateSession = function(model) {
+				if ( coll instanceof VU.EventCollection && mySession.get("loggedIn") ){
+					mySession.get("owns").events.push({
+						id: model.id,
+						caption: model.eventType + " event on " + model.date
+					});
+					mySession.save();
+					//location.href="tdhmockup.html";
+				}
+			};				
+				
 			if ( this.docModel ){
-				this.docModel.save(values, {
-					success: function(model){
-						if ( coll instanceof VU.EventCollection && mySession.get("loggedIn") ){
-							mySession.get("owns").events.push({
-								id: model.id,
-								caption: model.eventType + " event on " + model.date
-							});
-							//location.href="tdhmockup.html";
-						}
-					}
-				});
+				this.docModel.save(values, { success: updateSession });
 				if ( ! this.collection.get(this.docModel) )
                    this.collection.add(this.docModel, {silent: true});
 			}
-			else this.collection.create(values);
+			else this.collection.create(values, {success:updateSession});
 			
 			document.forms[0].reset();
 			location.href = "#list";

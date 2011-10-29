@@ -140,7 +140,7 @@ VU.EventListingView = VU.ListingView.extend({
 			index = this.collection.indexOf( firstModel );
 		else {
 			if ( ! this.collection.allPagesLoaded ) {
-				this.collection.nextPage( this.bootLoad );
+				this.collection.nextPage();
 				this.scrollTo( attribute, startValue );
 				return;
 			}
@@ -219,7 +219,7 @@ VU.EventListingView = VU.ListingView.extend({
 		// if there's still some spacer left then that means we have more stuff to render,
 		//	so hit up the next page (after some time...)
 		if ( newSpacerHt && !this.stID)// && this.spacer.position().top < $(this.el).height() )
-			this.stID = setTimeout( this._nextPage, 1, 3 ) + "ID";
+			this.stID = setTimeout( this._nextPage, 1000 ) + "ID";
 		else
 			utils.waitingUI.hide();
 	},
@@ -240,7 +240,7 @@ VU.EventListingView = VU.ListingView.extend({
 	
 	_nextPage : function( limit ) {
 		this.stID = false;
-		this.collection.nextPage( limit || this.bootLoad );
+		this.collection.nextPage( limit );
 		this._updateSpacer();
 	}
 });

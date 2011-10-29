@@ -401,7 +401,7 @@ VU.MapView = Backbone.View.extend({
 					markerURL, null, null, null, 
 					master ? new google.maps.Size(15,15) : null 
 				),
-				zIndex : master ? -1 : 999
+				zIndex : master ? -999 : 999
 			};
 			var hallID = hall.collection.url + "&" + hall.id;
 			if ( hallID in this.markers )

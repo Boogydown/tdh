@@ -151,7 +151,7 @@ VU.LoginPopupView = VU.PopupView.extend({
 	},
 	
 	onOpened : function() {
-		$(":form", this.el).submit( this.submitPrep );
+		$("form", this.el).submit( this.submitPrep );
 	},
 		
 	getCaption: function() {

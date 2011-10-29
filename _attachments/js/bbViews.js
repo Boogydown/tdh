@@ -349,7 +349,7 @@ VU.MapView = Backbone.View.extend({
 		this.markers = {};
 
 		if ( this.masterColl ) {
-			this.masterColl.bind("add", this.addMarker );
+			this.masterColl.bind("add", function(model){this.addMarker(model,true)} );
 			this.masterColl.bind("refresh", this.render );
 		}
 		
@@ -362,19 +362,20 @@ VU.MapView = Backbone.View.extend({
 	},
 
 	render: function(){
-		// TODO: addMarker for all halls in filtered coll
+		// addMarker for all halls in filtered coll
 		if ( this.collection.models.length > 0 )
 			this.collection.each( this.addMarker );
 			
-		// TODO: addMarker for all halls in master Coll without filteredColl
+		// addMarker for all halls in master Coll without filteredColl
 		if ( this.masterColl ) {
 			var filteredIDs = this.collection.pluck("hall");
 			this.masterColl.each( function(hall){if ( filteredIDs.indexOf(hall.id) == -1 ) this.addMarker(hall, true);}, this );
 		}
 	},
 	
-	addMarker : function ( hall, master ) {		
+	addMarker : function ( hall, i ) {		
 		// convert gps to LatLng
+		var master = _.isBoolean(i) && i;
 		var gps = hall.get( "GPS Coordinates" ) || hall.get( "gpsCoordinates" );			
 		if ( gps ){
 			gps = gps.split(" ");

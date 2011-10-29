@@ -8,6 +8,7 @@ VU.DustView = Backbone.View.extend({
 		// Relies on inline templates on the page
 		dust.compileFn( $('#'+name).html() , name);
 		this.template = name;
+		_.bindAll(this, "getData");
 	},
 	
 	getData : function(){

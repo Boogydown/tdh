@@ -275,6 +275,8 @@ VU.PopupView = VU.DustView.extend({
 				if ( fc && fc.length ) 
 					fc.remove();
 			});
+			
+		this.onClosed();
 		window.location = "#///!";
 		return false;		
 	},
@@ -317,6 +319,10 @@ VU.PopupView = VU.DustView.extend({
 	},
 	
 	onOpened : function() {
+		//stub; subclasses can extend this if they want
+	},
+	
+	onClosed : function() {
 		//stub; subclasses can extend this if they want
 	}
 	

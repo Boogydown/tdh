@@ -148,7 +148,10 @@ VU.LoginPopupView = VU.PopupView.extend({
 	initialize : function() {
 		VU.PopupView.prototype.initialize.call( this );
 		_.bindAll( this, "submitPrep", "processSuccessFail" );
-		this.delegateEvents( {"submit form": "submitPrep"} );
+	},
+	
+	onOpened : function() {
+		this.delegateEvents( {"submit form": "submitPrep"} );		
 	},
 	
 	getCaption: function() {
@@ -237,13 +240,21 @@ VU.EditPopupView = VU.LoginPopupView.extend({
 		VU.LoginPopupView.prototype.initialize.call( this );
 		this.delegateEvents( {"change :file": "addAttachment"} );
 	},
+	
+	onOpened : function() {
+		this.model.bind( "change", this.render );
+	},
+	
+	onClosed : function() {
+		this.model.unbind( "change", this.render );
+	},
 		
 	addAttachment : function ( e ) {
 		var form = e.target.form;
 		var model = this.model;
 		$("#main-photo", this.el).html("<div class='spinner' style='top:45px;left:75px;position:relative;'></div>");
 		var picFile = form._attachments.value.match(/([^\/\\]+\.\w+)$/gim)[0];
-		model.set( {profilePic: picFile } );
+		model.set( {profilePic: picFile}, {silent:true} );
 		$(form).ajaxSubmit({
 			url:  "/_users" + (model.id ? "/" + model.id : ""),
 			success: function(resp) {
@@ -256,7 +267,7 @@ VU.EditPopupView = VU.LoginPopupView.extend({
 					//model.set( { id: json.id } ); don't need this since we aren't allowing pic upload on signup
 					
 					// this will allow us to grab the updated _attachments signature from couch so we can save() later
-					model.fetch( {success: function() {
+					model.fetch({silent:true, success: function() {
 						$("#main-photo",model.el).html('<img src="/_users/' + model.id + '/' + picFile + '"/>' );
 					}} );
 				}
@@ -279,7 +290,15 @@ VU.MemberPopupView = VU.PopupView.extend({
 	popTemplate : "popupTemplate_member",
 	getCaption: function() {
 		return "Member Profile";
-	}
+	},
+	
+	onOpened : function() {
+		this.model.bind( "change", this.render );
+	},
+	
+	onClosed : function() {
+		this.model.unbind( "change", this.render );
+	}	
 });
 
 };

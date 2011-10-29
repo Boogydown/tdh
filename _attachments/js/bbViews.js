@@ -109,7 +109,7 @@ VU.EventListingView = VU.ListingView.extend({
 		_.bindAll(this, 'addRow', "removeRow", "scrollUpdate", "filtered", "_nextPage", "_updateSpacer");
 		this.emptyMsg = options.emptyMsg || "<i>This list is empty</i>";
 		this.listingClass = options.listingClass || VU.ListingView;
-		this.pageLimit = options.limit || 20;
+		this.bootLoad = options.limit || 20;
 		this.listingViews = {};
 		this.listingHeight = options.listingHeight || this.LISTING_HEIGHT;
 		this.collection.bind("add", this.addRow);
@@ -127,7 +127,7 @@ VU.EventListingView = VU.ListingView.extend({
 			utils.waitingUI.show();
 		}
 		
-		this.collection.applyFilters( filters, limit || this.pageLimit );		
+		this.collection.applyFilters( filters, limit || this.bootLoad );		
 	},
 	
 	// scrolls the listing to the first model of attribute >= startValue, or 
@@ -140,7 +140,7 @@ VU.EventListingView = VU.ListingView.extend({
 			index = this.collection.indexOf( firstModel );
 		else {
 			if ( ! this.collection.allPagesLoaded ) {
-				this.collection.nextPage( this.pageLimit );
+				this.collection.nextPage( this.bootLoad );
 				this.scrollTo( attribute, startValue );
 				return;
 			}
@@ -219,7 +219,7 @@ VU.EventListingView = VU.ListingView.extend({
 		// if there's still some spacer left then that means we have more stuff to render,
 		//	so hit up the next page (after some time...)
 		if ( newSpacerHt && !this.stID)// && this.spacer.position().top < $(this.el).height() )
-			this.stID = setTimeout( this._nextPage, 3000, 200 ) + "ID";
+			this.stID = setTimeout( this._nextPage, 1, 3 ) + "ID";
 		else
 			utils.waitingUI.hide();
 	},
@@ -240,7 +240,7 @@ VU.EventListingView = VU.ListingView.extend({
 	
 	_nextPage : function( limit ) {
 		this.stID = false;
-		this.collection.nextPage( limit || this.pageLimit );
+		this.collection.nextPage( limit || this.bootLoad );
 		this._updateSpacer();
 	}
 });

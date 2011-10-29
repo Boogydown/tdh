@@ -339,16 +339,18 @@ VU.MapView = Backbone.View.extend({
 		_.bindAll( this, 'render', "addMarker" );
 		this.masterColl = options.masterColl;		
 		this.markers = {};
-		var center = new google.maps.LatLng(30.274338, -97.744675);
-		var myOptions = {
-		  zoom: 6,
-		  center: center,
-		  mapTypeId: google.maps.MapTypeId.ROADMAP
-		};
+		var center = new google.maps.LatLng(30.274338, -97.744675),
+			myOptions = {
+				zoom: 6,
+				center: center,
+				mapTypeId: google.maps.MapTypeId.ROADMAP
+			},
+			that = this;
+			
 		this.map = new google.maps.Map(this.el, myOptions);
 
 		if ( this.masterColl ) {
-			this.masterColl.bind("add", function(model){this.addMarker(model,true)} );
+			this.masterColl.bind("add", function(model){that.addMarker(model,true)} );
 			this.masterColl.bind("refresh", this.render );
 		}
 		

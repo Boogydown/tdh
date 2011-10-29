@@ -251,8 +251,8 @@
 			if ( style ) {
 				filters.push({
 					key: "stylesPlayed",
-					start: style,
-					end: style
+					start: decodeURI(style),
+					end: decodeURI(style)
 				});
 			}
 			

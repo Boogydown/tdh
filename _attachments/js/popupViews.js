@@ -302,7 +302,26 @@ VU.MemberPopupView = VU.PopupView.extend({
 	
 	onClosed : function() {
 		this.model.unbind( "change", this.render );
-	}	
+	},
+	
+	getData : function() {
+		// we need to format the ownership data to be display-friendly		
+		var data = VU.LoginPopupView.prototype.getData.call(this),
+			owns = [], i = 0,
+			e = data.owns.events, el = e.length,
+			v = data.owns.vyntors, vl = v.length;
+		if ( el || vl ) {
+			var maxLen = Math.max(el, vl);
+			for ( ;i < maxLen; i++ ){
+				owns.push({ 
+					event: i < el ? e[i] : null,
+					vyntor: i < vl ? v[i] : null
+				});
+			}
+			data.owns = owns;
+		}		
+		return data;
+	}
 });
 
 };

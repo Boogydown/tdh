@@ -131,12 +131,24 @@ $(function(){
 				alert("File uploading has been disabled temporarily\nThe remaining data that you entered will be saved to the server.\nWe greatly apologize for the inconvenience.");
 			}
 			
+			var coll = this.collection;
 			if ( this.docModel ){
-				this.docModel.save(values);
+				this.docModel.save(values, {
+					success: function(model){
+						if ( coll instanceof VU.EventCollection && mySession.get("loggedIn") ){
+							mySession.get("owns").events.push({
+								id: model.id,
+								caption: model.eventType + " event on " + model.date
+							});
+							//location.href="tdhmockup.html";
+						}
+					}
+				});
 				if ( ! this.collection.get(this.docModel) )
                    this.collection.add(this.docModel, {silent: true});
 			}
 			else this.collection.create(values);
+			
 			document.forms[0].reset();
 			location.href = "#list";
 		},
@@ -481,6 +493,8 @@ $(function(){
 			this.colls.events.query = 
 				"?startkey=" + JSON.stringify( ["event",new Date().getTime() - 2*24*60*60*1000] ) + 
 				"&endkey=" + JSON.stringify( ["event",[]] );
+				
+			window.mySession = new VU.MemberModel();
         },
 
 		updateShow : function( showType, collName, schemaName, docID, curPage, numPerPage, hidden ) {

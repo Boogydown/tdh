@@ -621,11 +621,25 @@ div#popuplist{
 
 .memberDetail {
     color: white;
-	bottom: 20px;
-	width: 337px;
+	height: 180px;
+	width: 360px;
     font-family: Arial,sans-serif;
     font-size: 14px;
 	overflow: auto;
+}
+
+.ownershipBox {
+	width: 625px;
+	height:200px;
+	overflow:auto;
+}
+
+.ownershipTable {
+	text-align:center;
+}
+
+.ownershipTable th{
+	color: white;
 }
 
 #vuFrame {

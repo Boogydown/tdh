@@ -479,7 +479,7 @@ $(function(){
 			this.colls.events = new VU.EventCollection( null, { colls:this.colls, schema:VU.schemas.events.listing });
 			this.colls.events.viewName = "crossFilter";
 			this.colls.events.query = 
-				"?startkey=" + JSON.stringify( ["event",new Date().getTime()] ) + 
+				"?startkey=" + JSON.stringify( ["event",new Date().getTime() - 2*24*60*60*1000] ) + 
 				"&endkey=" + JSON.stringify( ["event",[]] );
         },
 

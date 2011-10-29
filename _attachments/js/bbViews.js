@@ -263,7 +263,7 @@ VU.PopupView = VU.DustView.extend({
 		// only needs to be set up once
 		// TODO: refactor this to more appropriately use our current framework
 		if ( !VU.PopupView.prototype.initialized ) {
-			$('a.close, #fade').live('click', this.closePopup );
+			$('div.close_popup, #fade').live('click', this.closePopup );
 			VU.PopupView.prototype.initialized = true;
 		}
 		this.registerTemplate( this.popTemplate );	
@@ -314,7 +314,7 @@ VU.PopupView = VU.DustView.extend({
 		$('#fade').css({'filter' : 'alpha(opacity=80)'}).fadeIn('fast'); 
 
 		//Fade Popup in and add close button
-		this.el.fadeIn('fast').prepend('<a href="#" class="close"><img class="close_popup" title="Close Window" /></a>');
+		this.el.fadeIn('fast').prepend('<div class="close_popup" title="Close Window"></div>');
 		
 		this.onOpened();
 		

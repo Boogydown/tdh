@@ -109,15 +109,13 @@ VU.Collection = Backbone.Collection.extend({
 VU.LocalFilteredCollection = VU.Collection.extend({
 	initialize : function( models, options ) {
 		this.currentFilters = [];
-		this.numPerPage = 20;
-		this.tail = this.numPerPage;
+		this.bootLoad = 20;
 		this.name = _.uniqueId(options.name);
-		this.firstPass = true;
 		this.allPagesLoaded = false;
 		options.model && (this.model = options.model);
-		_.bindAll( this, "refreshed", "applyFilters", "onGotFiltered" );
 		this.masterCollection = options.collection;
 		this.model = this.masterCollection.model;
+		_.bindAll( this, "refreshed", "applyFilters", "onGotFiltered" );
 	},
 	
 	// completely reload
@@ -132,45 +130,44 @@ VU.LocalFilteredCollection = VU.Collection.extend({
 		this.allPagesLoaded = true;
 		filters && ( this.currentFilters = filters );
 		
-		// Use the first limit as our new numPerPage
-		if ( limit > 0 ) {
-			if ( this.firstPass ) this.numPerPage = limit;
-			this.tail = limit;
-		} else
-			this.tail = this.numPerPage;
+		// if we already have a bunch of stuff in the coll then just diff from here
+		if ( this.length )
+			limit = -1;
 			
+		this.tail = limit || this.bootLoad;
+
 		if ( _.isArray(this.currentFilters) )
 			this.masterCollection.getFiltered( { 
 				filters: this.currentFilters, 
-				//tail: this.tail,
 				callback: this.onGotFiltered,
 				name: this.name //for debugging 
-			});
+			} );
 	},
 	
 	onGotFiltered : function ( filteredModels, totalFiltered, lastPage ) {
 		// keepParent: we don't want the model's parent collection to change: it belongs to the master collection
 		console.log( this.name + ".onGotFiltered( " + filteredModels.length + " models recieved, last page: " + lastPage + ")");
 		this.fullLength = totalFiltered;
-		//this.allPagesLoaded = lastPage;
 		this.allFiltered = filteredModels;
-		this.allPagesLoaded = this.allFiltered.length <= this.tail;
 		this.head = 0;
+		if (this.tail < 1)
+			this.tail = this.allFiltered.length;
+		this.allPagesLoaded = this.allFiltered.length <= this.tail;
+		
 		this.diff( this.allFiltered.slice(this.head,this.tail), {keepParent:true, ignoreDups:true} );
-		if ( this.firstPass ) {
+		if ( !this.attached ) {
 			this.masterCollection.bind( "keysChanged", this.applyFilters );
 			this.masterCollection.bind( "refresh", this.refreshed );
-			this.firstPass = false;
+			this.attached = false;
 		}
 		this.trigger( "filtered" );
 	},
 	
 	nextPage : function( num ) {
 		if ( this.tail >= this.allFiltered.length ) return;
-		this.head = this.tail;
-		num && (this.numPerPage = num);
-		//this.applyFilters( null, this.tail += this.numPerPage );
-		this.diff( this.allFiltered.slice(this.head,this.tail += this.numPerPage), {keepParent:true, ignoreDups:true} );
+		this.head = this.tail + 1;
+		num || ( num = this.allFiltered.length );
+		this.add( this.allFiltered.slice(this.head,this.tail += num), {keepParent:true, ignoreDups:true} );
 	}
 });
 

@@ -213,7 +213,7 @@ VU.SignupPopupView = VU.LoginPopupView.extend({
 	},
 		
 	submit : function ( data, callback ) {
-		if (this.validateUsernameAndPassword(data, callback)) return;
+		if (!this.validateUsernameAndPassword(data, callback)) return;
 		if ( data.password != data.password2 ) {
 			callback({password2: "Passwords must match"});
 			return false;

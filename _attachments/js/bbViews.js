@@ -344,7 +344,7 @@ VU.MapView = Backbone.View.extend({
 		  mapTypeId: google.maps.MapTypeId.ROADMAP
 		};
 		
-		this.masterColl = options.master;		
+		this.masterColl = options.masterColl;		
 		this.map = new google.maps.Map(this.el, myOptions);
 		this.markers = {};
 
@@ -367,6 +367,7 @@ VU.MapView = Backbone.View.extend({
 			this.collection.each( this.addMarker );
 			
 		// TODO: addMarker for all halls in master Coll without filteredColl
+		//var filteredIDs = this.collection.pluck
 		var masterColl = _.difference( this.masterColl.models, this.collection.models );
 		_.each( masterColl, this.addMarker );
 	},

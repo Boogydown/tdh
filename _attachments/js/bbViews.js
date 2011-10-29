@@ -219,7 +219,7 @@ VU.EventListingView = VU.ListingView.extend({
 		// if there's still some spacer left then that means we have more stuff to render,
 		//	so hit up the next page (after some time...)
 		if ( newSpacerHt && this.spacer.position().top < $(this.el).height() )
-			setTimeout( this._nextPage, 1500, 120 );
+			setTimeout( this._nextPage, 5000, 300 );
 		else
 			utils.waitingUI.hide();
 	},
@@ -232,7 +232,7 @@ VU.EventListingView = VU.ListingView.extend({
 		//if scrolling down and see spacer then load some more stuff			
 		if ( this.spacer.position().top < $(this.el).height() ){
 			utils.waitingUI.show();
-			this._nextPage( );
+			//this._nextPage( );
 		}
 	},
 	
@@ -354,9 +354,11 @@ VU.MapView = Backbone.View.extend({
 			this.collection.bind("refresh", this.render );
 		}
 		
-		if ( this.masterColl ) {
+		if ( this.masterColl ) {			
 			this.masterColl.bind("add", function(model){that.addMarker(model,true)} );
 			this.masterColl.bind("refresh", this.render );
+			// remove events in collection mean add events here
+			this.collection.bind("remove", function(model){that.addMarker(model,true)} );
 		}
 		
 		//if collection already fetched then go ahead and render

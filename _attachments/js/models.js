@@ -83,10 +83,10 @@ VU.MemberModel = VU.CookieModel.extend({
 	
 	initialize : function( attrs, options ) {
 		VU.CookieModel.prototype.initialize.call( this, attrs, options );
-		_.bindAll( this, "userFetched" );
+		_.bindAll( this, "_userFetched", "doLogin", "doSignup", "_syncDCard", "_loadDCard" );
 		
 		//_.bindAll( this, "fetchUser", "prepAnon", "userLoaded", "loginSuccess", "loginError", "editSaveSuccess",
-						 //"submitLogin", "submitSignup", "addAttachment", "submitEdit", "logout", "loadDCard", "syncDCard" );
+						 //"submitLogin", "submitSignup", "addAttachment", "submitEdit", "logout", "_loadDCard", "_syncDCard" );
 		if ( options ) {
 			this.dCardColl = options.dCard;
 			this.eventsMain = options.events;
@@ -97,7 +97,7 @@ VU.MemberModel = VU.CookieModel.extend({
 			this.cookieDCard = this.get("dCard");
 		}
 		
-		this.setLogin();
+		this._setLogin();
 	},
 
 	// doLogin and doSignup pulled from Futon v0.11.0 ////////////////////////////
@@ -106,7 +106,7 @@ VU.MemberModel = VU.CookieModel.extend({
 			name : name,
 			password : password,
 			success : function() {
-				this.setLogin();
+				this._setLogin();
 				callback();
 			},
 			error : function(code, error, reason) {
@@ -136,13 +136,13 @@ VU.MemberModel = VU.CookieModel.extend({
 	
 	// Last stop for logging in; called during login, login via signup, or page load
 	// 	at this point, we have nothing in the model, yet
-	setLogin : function() {
+	_setLogin : function() {
 		var model = this, id = 
 		$.couch.session({
 			success : function(resp) {
 				if ( resp.userCtx && resp.userCtx.name ) {
 					model.set( { id: model.ID_PREFIX + resp.userCtx.name } );
-					model.fetch( {success: model.userFetched} );
+					model.fetch( {success: model._userFetched} );
 				} else {
 					alert( "Error logging in: " + resp );
 					model.prepAnon();
@@ -152,9 +152,9 @@ VU.MemberModel = VU.CookieModel.extend({
 		return false;
 	},
 	
-	userFetched : function() {
+	_userFetched : function() {
 		this.set( { loggedIn: true, lastLogin: new Date().getTime() } );
-		this.loadDCard();
+		this._loadDCard();
 		this.writeCookies();
 	},
 
@@ -162,7 +162,7 @@ VU.MemberModel = VU.CookieModel.extend({
 	prepAnon : function() {
 		this.clear({silent:true});
 		this.set( this.defaults );
-		this.loadDCard();
+		this._loadDCard();
 		// save, in case the dCard was from cookie or user
 		this.writeCookies();
 	},
@@ -221,11 +221,11 @@ VU.MemberModel = VU.CookieModel.extend({
 	},
 	
 	// intended to break until the events are loaded, then we can continue to set them
-	loadDCard : function() {
+	_loadDCard : function() {
 		if ( this.eventsMain.fetched ) {
 			
 			// once events are fetched then we set the dCard for all matching ids in the dCard array
-			this.eventsMain.unbind( "refresh", this.loadDCard );
+			this.eventsMain.unbind( "refresh", this._loadDCard );
 			
 			// cookie dCard takes precedence over logged-in one
 			if ( this.cookieDCard && this.cookieDCard.length > 0 ) {
@@ -245,14 +245,14 @@ VU.MemberModel = VU.CookieModel.extend({
 			this.dCardColl.applyFilters( [{key:"onDCard", start:"true", end:"true"}] );
 			
 			// to keep us in sync as things are added
-			this.dCardColl.bind( "add", this.syncDCard );
-			this.dCardColl.bind( "remove", this.syncDCard );			
+			this.dCardColl.bind( "add", this._syncDCard );
+			this.dCardColl.bind( "remove", this._syncDCard );			
 		}
 		else
-			this.eventsMain.bind( "refresh", this.loadDCard );
+			this.eventsMain.bind( "refresh", this._loadDCard );
 	},
 	
-	syncDCard : function() {
+	_syncDCard : function() {
 		this.set( {dCard: this.dCardColl.pluck( "id" )} );
 		this.writeCookies();
 	}

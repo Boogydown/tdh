@@ -158,10 +158,10 @@ VU.LoginPopupView = VU.PopupView.extend({
 	submitPrep : function(e) {
 		e.preventDefault();
 		var data = {};
-		$.each($("form :input", dialog).serializeArray(), function(i, field) {
+		$.each($("form :input", this.el).serializeArray(), function(i, field) {
 		  data[field.name] = field.value;
 		});
-		$("form :file", dialog).each(function() {
+		$("form :file", this.el).each(function() {
 		  data[this.name] = this.value; // file inputs need special handling
 		});
 		this.submit(data, this.processSuccessFail);

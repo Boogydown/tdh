@@ -280,7 +280,7 @@
 					VU.PopupView.prototype.closePopup();
 			}
 			
-			if ( !this.colls.halls.fetched )
+			if ( !this.colls.halls.fetched && !this.colls.halls.fetching )
 				setTimeout( this.colls.halls.fetch({add:true}),3500 );
 		}
     });

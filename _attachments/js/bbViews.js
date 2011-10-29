@@ -364,12 +364,16 @@ VU.MapView = Backbone.View.extend({
 	render: function(){
 		// TODO: addMarker for all halls in filtered coll
 		if ( this.collection.models.length > 0 )
-			this.collection.each( this.addMarker );
+			this.collection.each( this.fAddMarker );
 			
 		// TODO: addMarker for all halls in master Coll without filteredColl
 		//var filteredIDs = this.collection.pluck
 		var masterColl = _.difference( this.masterColl.models, this.collection.models );
-		_.each( masterColl, this.addMarker );
+		_.each( masterColl, this.fAddMarker );
+	},
+	
+	fAddMarker : function ( value, index, coll ) {
+		this.addMarker( value, coll );
 	},
 	
 	addMarker : function ( hall, coll, options ) {

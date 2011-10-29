@@ -403,9 +403,9 @@ VU.MapView = Backbone.View.extend({
 				),
 				zIndex : master ? -1 : 999
 			};
-			var hallID = hall.myType + "&" + hall.id;
+			var hallID = hall.collection.url + "&" + hall.id;
 			if ( hallID in this.markers )
-				markers[ hallID ].setOptions( mOptions );
+				this.markers[ hallID ].setOptions( mOptions );
 			else {
 				var marker = new google.maps.Marker( mOptions );
 				this.markers[ hallID ] = marker;

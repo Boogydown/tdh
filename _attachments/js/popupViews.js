@@ -47,7 +47,9 @@ VU.EventsContainerPopupView = VU.PopupView.extend({
 				collection: this.list
 			})).render();			
 		}
-		
+	},
+	
+	onOpened : function() {
 		this.miniMapView = new VU.MapView({collection: this.list, el: "#detailmap"});		
 	},
 	

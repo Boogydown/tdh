@@ -279,6 +279,9 @@
 				if ( VU.PopupView.prototype.active )
 					VU.PopupView.prototype.closePopup();
 			}
+			
+			if ( !this.colls.halls.fetched )
+				setTimeout( this.colls.halls.fetch({add:true}),3500 );
 		}
     });
 
@@ -286,17 +289,7 @@
 /// INSTACIATION & EXECUTION ////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////{
 	window.app = new AppController();
-	app.colls.bands.fetch({
-		success: function() {
-			app.colls.halls.fetch({
-				success: function() {
-					Backbone.history.start();
-				}
-			});
-		}
-	});
-	
-	
+	Backbone.history.start();	
 });
 /////////////////////////////////////////////////////////////////////////////}
 

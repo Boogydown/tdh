@@ -258,7 +258,7 @@ VU.PopupView = VU.DustView.extend({
 	
 	initialize : function ( ) {
 		//Set up Close for Popup and Fade for all future instances
-		_.bindAll(this, "closePopup", "render");
+		_.bindAll(this, "closePopup", "render", "onOpened");
 		
 		// only needs to be set up once
 		// TODO: refactor this to more appropriately use our current framework
@@ -314,9 +314,9 @@ VU.PopupView = VU.DustView.extend({
 		$('#fade').css({'filter' : 'alpha(opacity=80)'}).fadeIn('fast'); 
 
 		//Fade Popup in and add close button
-		this.el.fadeIn('fast').prepend('<div class="close_popup" title="Close Window"></div>');
+		this.el.fadeIn('fast', this.onOpened()).prepend('<div class="close_popup" title="Close Window"></div>');
 		
-		this.onOpened();
+		//this.onOpened();
 		
 		return false;
 	},
@@ -337,16 +337,15 @@ VU.MapView = Backbone.View.extend({
 	
 	initialize : function( options ){
 		_.bindAll( this, 'render', "addMarker" );
+		this.masterColl = options.masterColl;		
+		this.markers = {};
 		var center = new google.maps.LatLng(30.274338, -97.744675);
 		var myOptions = {
 		  zoom: 6,
 		  center: center,
 		  mapTypeId: google.maps.MapTypeId.ROADMAP
 		};
-		
-		this.masterColl = options.masterColl;		
 		this.map = new google.maps.Map(this.el, myOptions);
-		this.markers = {};
 
 		if ( this.masterColl ) {
 			this.masterColl.bind("add", function(model){this.addMarker(model,true)} );
@@ -357,11 +356,11 @@ VU.MapView = Backbone.View.extend({
 			this.collection.bind("add", this.addMarker );
 			this.collection.bind("refresh", this.render );
 		}
-		else
-			this.addMarker( this.model );			
 	},
 
 	render: function(){
+		this.clearMarkers();
+		
 		// addMarker for all halls in filtered coll
 		if ( this.collection.models.length > 0 )
 			this.collection.each( this.addMarker );
@@ -373,10 +372,15 @@ VU.MapView = Backbone.View.extend({
 		}
 	},
 	
-	addMarker : function ( hall, i ) {		
+	clearMarkers : function() {
+		_.each( this.markers, function(m){m.setMap(null);});		
+		this.markers = {};
+	},
+	
+	addMarker : function ( model, m ) {		
 		// convert gps to LatLng
-		var master = _.isBoolean(i) && i;
-		var gps = hall.get( "GPS Coordinates" ) || hall.get( "gpsCoordinates" );			
+		var master = _.isBoolean(m) && m;
+		var gps = model.get( "GPS Coordinates" ) || model.get( "gpsCoordinates" );			
 		if ( gps ){
 			gps = gps.split(" ");
 			if ( gps.length < 2 ) 
@@ -385,7 +389,7 @@ VU.MapView = Backbone.View.extend({
 		}
 		
 		// see if there's a custom marker icon
-		var markerURL = hall.get( "styleMarker" );
+		var markerURL = model.get( "styleMarker" );
 		if ( markerURL )
 			markerURL = "http://maps.google.com/mapfiles/ms/micons/" + markerURL + ".png";
 		else
@@ -396,20 +400,22 @@ VU.MapView = Backbone.View.extend({
 			var mOptions = {
 				map: this.map, 
 				position: gps,
-				title: hall.get("danceHallName"),
+				title: model.get("dancemodelName"),
 				icon: new google.maps.MarkerImage( 
-					markerURL, null, null, null, 
+					markerURL,
+					master ? new google.maps.Size(30.20) : null,
+					null, null, 
 					master ? new google.maps.Size(15,15) : null 
 				),
 				zIndex : master ? -999 : 999
 			};
-			var hallID = hall.collection.url + "&" + hall.id;
-			if ( hallID in this.markers )
-				this.markers[ hallID ].setOptions( mOptions );
+			var modelID = model.collection.url + "&" + model.id;
+			if ( modelID in this.markers )
+				this.markers[ modelID ].setOptions( mOptions );
 			else {
 				var marker = new google.maps.Marker( mOptions );
-				this.markers[ hallID ] = marker;
-				google.maps.event.addListener( marker, "click", function () { location.href = "#///" + hallID; } );
+				this.markers[ modelID ] = marker;
+				google.maps.event.addListener( marker, "click", function () { location.href = "#///" + modelID; } );
 			}
 		}
 	}

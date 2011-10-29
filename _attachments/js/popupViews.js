@@ -16,7 +16,7 @@ VU.EventsContainerPopupView = VU.PopupView.extend({
 	
 	// initialize must be extended to load this.collection
 	initialize : function ( options ) {
-		_.bindAll( this, "_modelLoaded" );
+		_.bindAll( this, "_modelLoaded", "nav" );
 		this.colls = options.colls;
 		VU.PopupView.prototype.initialize.call( this, options );
 	},

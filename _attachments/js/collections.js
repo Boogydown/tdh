@@ -32,8 +32,8 @@ VU.Collection = Backbone.Collection.extend({
 			success( model );
 		} else {
 			model = new this.model( { id:modelID } ); 
-			this.add( myRef );
-			myRef.fetch({
+			this.add( model );
+			model.fetch({
 				success: success,
 				error: failure
 			});

@@ -141,15 +141,10 @@ VU.MemberModel = VU.CookieModel.extend({
 		// we don't want to overwrite attachments; we got appropriate attachments sig
 		//	in the fetch() call at the end of addAttachments
 		delete data._attachments;
-		var loginError = this.loginError,
-			loginSuccess = this.loginSuccess;
-			
-		this.save( 
-			data, 
-			{ 	success: this.editSaveSuccess,
-				error: this.loginError
-			}
-		);
+		this.save( data,{ 
+			success: function() {callback();},
+			error: function (model, resp, options) {callback({submit:"Error saving: " + resp});}
+		});
 		return false;
 	},
 

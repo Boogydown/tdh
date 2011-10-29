@@ -242,10 +242,12 @@ VU.EditPopupView = VU.LoginPopupView.extend({
 	},
 	
 	onOpened : function() {
+		VU.LoginPopupView.prototype.onOpened.call(this);
 		this.model.bind( "change", this.render );
 	},
 	
 	onClosed : function() {
+		VU.LoginPopupView.prototype.onClosed.call(this);
 		this.model.unbind( "change", this.render );
 	},
 		

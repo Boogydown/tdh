@@ -333,81 +333,85 @@ VU.PopupView = VU.DustView.extend({
 
 VU.MapView = Backbone.View.extend({
 	// static
-	geocoder: new google.maps.Geocoder(),
+	//geocoder: new google.maps.Geocoder(),
 	
-	initialize : function(){
-		_.bindAll(this, 'render', "addMarker", "attachToMap");
-		var latlng = new google.maps.LatLng(30.274338, -97.744675);
+	initialize : function( options ){
+		_.bindAll(this, 'render', "addMarker");
+		var center = new google.maps.LatLng(30.274338, -97.744675);
 		var myOptions = {
 		  zoom: 6,
-		  center: latlng,
+		  center: center,
 		  mapTypeId: google.maps.MapTypeId.ROADMAP
 		};
 		
+		this.masterColl = options.master;		
 		this.map = new google.maps.Map(this.el, myOptions);
-		this.totalMapped = 0;
-		//this.geocoder = new google.maps.Geocoder();
+
+		if ( this.masterColl ) {
+			this.masterColl.bind("add", this.addMarker );
+			this.masterColl.bind("refresh", this.render );
+		}
 		
 		if ( this.collection ){
 			this.collection.bind("add", this.addMarker );
 			this.collection.bind("refresh", this.render );
 		}
 		else
-			this.addMarker( this.model );
+			this.addMarker( this.model );			
 	},
 
 	render: function(){
-		// now add the first 10 markers
-		//if(this.collection.length > 0) 
-			//for ( var i = 0; i++ < 5; )
-				//this.addMarker( this.collection.at(i) );
+		// TODO: addMarker for all halls in filtered coll
 		if ( this.collection.models.length > 0 )
 			this.collection.each( this.addMarker );
+			
+		// TODO: addMarker for all halls in master Coll without filteredColl
+		var masterColl = _.difference( this.masterColl.models, this.collection.models );
+		_.each( masterColl, this.addMarker );
 	},
 	
-	addMarker : function ( hall ) {
-		// unbind, just in case came in from the else, below...
-		hall.unbind( "change", this.addMarker );
+	addMarker : function ( hall, coll, options ) {
+		var master = coll instanceof VU.KeyedCollection;
 		
-		// try gps, first
-		var gps = hall.get( "GPS Coordinates" ) || hall.get( "gpsCoordinates" );
-		var title = hall.get("danceHallName");
+		// convert gps to LatLng
+		var gps = hall.get( "GPS Coordinates" ) || hall.get( "gpsCoordinates" );			
 		if ( gps ){
 			gps = gps.split(" ");
 			if ( gps.length < 2 ) 
 				gps = gps[0].split(",");
 			gps = gps.length > 1 ? new google.maps.LatLng( gps[1], gps[0] ) : null;
 		}
+		
+		// see if there's a custom marker icon
+		var markerURL = hall.get( "styleMarker" );
+		if ( markerURL )
+			markerURL = "http://maps.google.com/mapfiles/ms/micons/" + markerURL + ".png";
+		else
+			markerURL = "http://maps.google.com/mapfiles/ms/micons/red-dot.png";
+		
+		// map it!
 		if ( gps ) {
-			// TODO: if marker var needs to stay alive then put into hall model
-			var marker = new google.maps.Marker({
+			var mOptions = {
 				map: this.map, 
 				position: gps,
-				title: title
-			});
+				title: hall.get("danceHallName"),
+				icon: new google.maps.MarkerImage( 
+					markerURL, null, null, null, 
+					master ? new google.maps.Size(15,15) : null 
+				),
+				zIndex : master ? -1 : 999
+			};
 			var hallID = hall.myType + "&" + hall.id;
-			google.maps.event.addListener( marker, "click", function () { window.location = "#///" + hallID; } );
-			
-		} else {
-			// now try its address instead
-			return; //TODO: Removed, for now...
-			var address = hall.get( "address" );
-			if ( ! address )
-				hall.bind( "change", this.addMarker );
-			else
-				VU.MapView.prototype.geocoder.geocode( { 'address': address}, this.attachToMap );
+			if ( hallID in this.markers )
+				markers[ hallID ].setOptions( mOptions );
+			else {
+				var marker = new google.maps.Marker( mOptions );
+				this.markers[ hallID ] = marker;
+				google.maps.event.addListener( marker, "click", function () { location.href = "#///" + hallID; } );
+			}
 		}
-	},
+	}
 	
-	attachToMap: function(results, status) {
-		if (status == google.maps.GeocoderStatus.OK) {
-			var marker = new google.maps.Marker({
-				map: this.map, 
-				position: results[0].geometry.location
-			});
-			console.log("Geocode found for " + results[0].formatted_address);
-		}
-	}	
 });
 
 VU.CalView = Backbone.View.extend({

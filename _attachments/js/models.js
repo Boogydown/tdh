@@ -298,13 +298,10 @@ VU.LinkingModel = Backbone.Model.extend({
 					// if reference not loaded yet, then create and fetch it
 					if ( ! myRef ) {
 						myRef = new coll.model( { id:docID } ); 
-						//myRef.bind( "change", this.loadLinkVals);
 						myRef.linkRef = this.linkRefs[attr];
+						myRef.bind( "change", this.loadLinkVals);
 						coll.add( myRef );
-						coll.bind( "refresh", this.loadLinkVals);
-						//myRef.fetch();
-						coll.fetch();
-						
+						myRef.fetch();
 					}
 					// otherwise, load the old one
 					else {

@@ -1,4 +1,4 @@
-VU.InitViews = function () {
+VU.InitPopupViews = function () {
 
 VU.AddEventPopupView = VU.PopupView.extend({
 	popTemplate : "popupTemplate_addEvent",

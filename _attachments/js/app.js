@@ -198,7 +198,7 @@
 			
 			// Authenticate session and create session state model
 			this.mySession = new VU.MemberModel( null, { dCard: this.colls.dCard, events: this.colls.events } );			
-			var floatNav = new FloatNavView( { model:this.mySession} );
+			var floatNav = new FloatNavView( { el: "#loginLinks", model:this.mySession} );
 		},
 		
 		routeHandler : function( tab, dates, coords, popID, style ) {

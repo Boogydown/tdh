@@ -336,7 +336,7 @@ VU.MapView = Backbone.View.extend({
 	//geocoder: new google.maps.Geocoder(),
 	
 	initialize : function( options ){
-		_.bindAll( this, 'render', "addMarker", "fAddMarker" );
+		_.bindAll( this, 'render', "addMarker" );
 		var center = new google.maps.LatLng(30.274338, -97.744675);
 		var myOptions = {
 		  zoom: 6,
@@ -364,21 +364,21 @@ VU.MapView = Backbone.View.extend({
 	render: function(){
 		// TODO: addMarker for all halls in filtered coll
 		if ( this.collection.models.length > 0 )
-			this.collection.each( this.fAddMarker );
+			this.collection.each( this.addMarker );
 			
 		// TODO: addMarker for all halls in master Coll without filteredColl
 		//var filteredIDs = this.collection.pluck
-		var masterColl = _.difference( this.masterColl.models, this.collection.models );
-		_.each( masterColl, this.fAddMarker );
+		if ( this.masterColl ) {
+			var masterColl = _.difference( this.masterColl.models, this.collection.models );
+			_.each( masterColl, this.mAddMarker, this );
+		}
 	},
 	
-	fAddMarker : function ( value, index, coll ) {
-		this.addMarker( value, coll );
+	mAddMarker : function ( hall ) {
+		this.addMarker( hall, true );
 	},
 	
-	addMarker : function ( hall, coll, options ) {
-		var master = coll instanceof VU.KeyedCollection;
-		
+	addMarker : function ( hall, master ) {		
 		// convert gps to LatLng
 		var gps = hall.get( "GPS Coordinates" ) || hall.get( "gpsCoordinates" );			
 		if ( gps ){

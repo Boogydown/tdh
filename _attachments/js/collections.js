@@ -321,7 +321,7 @@ VU.EventCollection = VU.KeyedCollection.extend({
 	url : "event",
 	model : VU.EventModel,
 	viewName : "crossFilter",
-	query : '?startkey=["event",' + new Date().getTime() + ',null,null]&endkey=["event",[],[],[]]',
+	query : '?startkey=["event",' + (new Date().getTime() - 2*24*60*60*1000) + ',null,null]&endkey=["event",[],[],[]]',
 	filterableKeys: ["dateUnix", "lat", "lng", "band", "hall", "onDCard"],
 	
 	// The events should be ordered by date

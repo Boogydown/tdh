@@ -346,6 +346,7 @@ VU.MapView = Backbone.View.extend({
 		
 		this.masterColl = options.master;		
 		this.map = new google.maps.Map(this.el, myOptions);
+		this.markers = {};
 
 		if ( this.masterColl ) {
 			this.masterColl.bind("add", this.addMarker );

@@ -78,6 +78,7 @@ VU.MemberModel = VU.CookieModel.extend({
 		profilePic: "/tdh/_design/tdh_public/images/genericSilhouette.jpg",
 		dCard: [],
 		roles: [],
+		owns: [],
 		type: "user",
 		loggedIn: false
 	},

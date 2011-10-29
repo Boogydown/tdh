@@ -396,7 +396,7 @@ VU.schemas = {
     			},
 				"time":{
 					"description": "Starts at",
-					"type":"string",
+					"type":"time",
 					"optional":true,
 					"_inputex": {
 						"value":"8:00 PM"

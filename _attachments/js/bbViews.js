@@ -384,7 +384,7 @@ VU.MapView = Backbone.View.extend({
 		var master = _.isBoolean(m) && m;
 		var gps = model.get( "GPS Coordinates" ) || model.get( "gpsCoordinates" );			
 		if ( gps ){
-			gps = gps.split(" ");
+			gps = gps.replace(/(^\s*)|(\s*$)/g, "").split(" ");
 			if ( gps.length < 2 ) 
 				gps = gps[0].split(",");
 			gps = gps.length > 1 ? new google.maps.LatLng( gps[1], gps[0] ) : null;
@@ -405,7 +405,7 @@ VU.MapView = Backbone.View.extend({
 				title: model.get("dancemodelName"),
 				icon: new google.maps.MarkerImage( 
 					markerURL,
-					master ? new google.maps.Size(30.20) : null,
+					master ? new google.maps.Size(30,20) : null,
 					null, null, 
 					master ? new google.maps.Size(15,15) : null 
 				),

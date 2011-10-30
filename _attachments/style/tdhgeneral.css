@@ -177,6 +177,10 @@ div.list2{
 	width: 428px;
 }
 
+#dCardList{
+	bottom:35px;
+}
+
 .listing {
     background-color: black;
     	behavior: url(border-radius.htc);
@@ -421,7 +425,7 @@ div#hallsMap, #dCardMap {
 }
 
 #dCardMap {
-	bottom:35px;
+	bottom: 5px;
 }
 
 #removeAllButton {

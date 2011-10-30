@@ -99,7 +99,7 @@
 			el : $("#danceCardDiv"),
 			tabEl : $("#dCardTabBtn"),
 			initialize : function() {
-				_.bindAll( this, "render" );
+				_.bindAll( this, "render", "activateRemoveAllButton" );
 				VU.ParentView.prototype.initialize.call(this);
 				var nc = this.navColl = this.colls.dCard;
 
@@ -114,7 +114,8 @@
 				nc.bind("change",this.activateRemoveAllButton);				
 				$("#removeAllButton").click( function(e){
 					if ( !e.target.disabled )
-						nc.each( function(m){m.set({onDCard:false})} );
+						while ( nc.length > 0 )
+							nc.at(0).set({onDCard:false});
 				});
 			},
 			
@@ -129,7 +130,10 @@
 			},
 			
 			activateRemoveAllButton : function() {
-				$("#removeAllButton").attr("disabled",this.navColl.length == 0);
+				if ( this.navColl.length == 0 )
+					$("#removeAllButton").disable();
+				else
+					$("#removeAllButton").enable();
 			}
 		})
 	};

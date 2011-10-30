@@ -230,7 +230,7 @@
 					</tbody></table><br/>
 					<input type="hidden" name="profilePic" value="{profilePic}"></input>
 					<input type="hidden" name="_rev" value="{_rev}"></input>
-					<button type="submit" name="submit">Save Edits</button>
+					<button type="submit" name="submit_button">Save Edits</button>
 					<button type="reset" onclick="location.href='#///member'">Cancel</button>
 				</form>
 			</div>
@@ -257,8 +257,8 @@
 					</tr>
 					{#owns}
 					<tr>
-						<td>{?event}<a href="schemaForm.html#form/events/{event.id}">{event.label}</a>{/event}</td>
-						<td>{?vyntor}<a href="schemaForm.html#form/{vyntor.type}/{vyntor.id}">{vyntor.label}</a>{/vyntor}</td>
+						<td>{?event}<a href="schemaForm.html#form/events/{event.id}">{event.caption}</a>{/event}</td>
+						<td>{?vyntor}<a href="schemaForm.html#form/{vyntor.type}/{vyntor.id}">{vyntor.caption}</a>{/vyntor}</td>
 					</tr>
 					{/owns}
 					<tr>

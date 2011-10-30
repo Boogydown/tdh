@@ -410,7 +410,7 @@ div.itemImage img{
 	height: 75px;
 }
 
-div#hallsMap {
+div#hallsMap, #dCardMap {
     right: 24px;
 	top: 206px;
 		behavior: url(border-radius.htc);
@@ -418,6 +418,10 @@ div#hallsMap {
     -webkit-border-radius: 10px;
     -khtml-border-radius: 10px;
     border-radius: 10px;
+}
+
+#dCardMap {
+	bottom:5px;
 }
 
 div#bandsTags{
@@ -570,7 +574,7 @@ div#item-main-map {
 /* *******************Dance Card Stuff******************** */
 
 div.dancebox {
-	left: 26%;
+/*	left: 26%;*/
 	bottom: 5px;
 }
 div.share {

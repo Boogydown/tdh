@@ -119,7 +119,8 @@
 					this.listView.render();
 				else
 					this.listView.applyFilters( [{key:"onDCard", start:"true", end:"true"}] );
-				//this.mainMapView = new VU.MapView({collection:this.colls.halls, mapNode: "hallsMap"});
+				if ( !this.mapView ) 
+					this.mapView = new VU.MapView( {el: "#dCardMap", collection:this.navColl});
 			}
 		})
 	};

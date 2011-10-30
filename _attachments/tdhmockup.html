@@ -246,7 +246,7 @@
 				<b>Email - </b>{name}<br/><br/>
 				<b>Phone - </b>{phone}<br/><br/>
 				<b>Zip - </b>{zip}<br/><br/>
-				<b>Member  - </b>{memberStatus}<br/><br/>
+				<b>Member  - </b>{memberStatus} <i><a href="http://texasdancehall.org/join.html">Find out how to support</a></i><br/><br/>
 				<a href="#///editMember"><b><u>Edit</u></b></a>
 			</div>
 			<div class="ownershipBox">
@@ -257,8 +257,8 @@
 					</tr>
 					{#owns}
 					<tr>
-						<td>{?event}<a href="schemaForm.html#form/events/{event.id}">{event.caption}</a>{/event}</td>
-						<td>{?vyntor}<a href="schemaForm.html#form/{vyntor.type}/{vyntor.id}">{vyntor.caption}</a>{/vyntor}</td>
+						<td>{?event}<a href="schemaForm.html#form/events//{event.id}">{event.caption}</a>{/event}</td>
+						<td>{?vyntor}<a href="schemaForm.html#form/{vyntor.type}//{vyntor.id}">{vyntor.caption}</a>{/vyntor}</td>
 					</tr>
 					{/owns}
 					<tr>
@@ -341,11 +341,12 @@
 			</div>
 			<div id="danceCardDiv" class="info-area" style="display:none">
 				<div class="box dancebox list" id="dCardList" listing-template="dCardListingTemplate"></div>
+				<div class="box" id="hallsMap"></div>
 				<div class="share">
-					<span  class='st_twitter' displayText='Tweet'></span>
-					<span  class='st_facebook' displayText='Facebook'></span>
-					<span  class='st_myspace' displayText='MySpace'></span>
-					<span  class='st_gbuzz' displayText='Google Buzz'></span>
+					<span  class='st_twitter' st_title="My Dance Card - Texas Dance Halls" displayText='Tweet'></span>
+					<span  class='st_facebook' st_title="My Dance Card - Texas Dance Halls" displayText='Facebook'></span>
+					<span  class='st_myspace' st_title="My Dance Card - Texas Dance Halls" displayText='MySpace'></span>
+					<span  class='st_email' st_title="My Dance Card - Texas Dance Halls" displayText='Email'></span>
 				</div>
 			</div>
 		

@@ -85,10 +85,10 @@ VU.MemberModel = VU.CookieModel.extend({
 	
 	initialize : function( attrs, options ) {
 		VU.CookieModel.prototype.initialize.call( this, attrs, options );
-		_.bindAll( this, "_userFetched", "doLogin", "doSignup", "_syncDCard", "_loadDCard" );
+		_.bindAll( this, "_userFetched", "doLogin", "doSignup", "_syncDCard", "loadDCard" );
 		
 		//_.bindAll( this, "fetchUser", "prepAnon", "userLoaded", "loginSuccess", "loginError", "editSaveSuccess",
-						 //"submitLogin", "submitSignup", "addAttachment", "submitEdit", "logout", "_loadDCard", "_syncDCard" );
+						 //"submitLogin", "submitSignup", "addAttachment", "submitEdit", "logout", "loadDCard", "_syncDCard" );
 		if ( options ) {
 			this.dCardColl = options.dCard;
 			this.eventsMain = options.events;
@@ -160,7 +160,7 @@ VU.MemberModel = VU.CookieModel.extend({
 	prepAnon : function() {
 		this.clear({silent:true});
 		this.set( this.defaults );
-		this._loadDCard();
+		this.loadDCard();
 		// save, in case the dCard was from cookie or user
 		this.writeCookies();
 	},
@@ -185,16 +185,17 @@ VU.MemberModel = VU.CookieModel.extend({
 	
 	_userFetched : function() {
 		this.set( { loggedIn: true, lastLogin: new Date().getTime() } );
-		this._loadDCard();
+		this.loadDCard();
 		this.writeCookies();
 	},
 
 	// intended to break until the events are loaded, then we can continue to set them
-	_loadDCard : function() {
+	loadDCard : function( dCard ) {
+		if ( dCard && _.isString(dCard) ) this.cookieDCard = dCard.split("&");
 		if ( this.eventsMain.fetched ) {
 			
 			// once events are fetched then we set the dCard for all matching ids in the dCard array
-			this.eventsMain.unbind( "refresh", this._loadDCard );
+			this.eventsMain.unbind( "refresh", this.loadDCard );
 			
 			// cookie dCard takes precedence over logged-in one
 			if ( this.cookieDCard && this.cookieDCard.length > 0 ) {
@@ -218,7 +219,7 @@ VU.MemberModel = VU.CookieModel.extend({
 			this.dCardColl.bind( "remove", this._syncDCard );			
 		}
 		else
-			this.eventsMain.bind( "refresh", this._loadDCard );
+			this.eventsMain.bind( "refresh", this.loadDCard );
 	},
 	
 	_syncDCard : function() {

@@ -163,7 +163,8 @@
 			dates : new Date().getTime().toString(),
 			coords : "",
 			popID : "",
-			style : ""
+			style : "",
+			dCard : null //null means don't save/persist this one
 		},
 		
 		popupMap : {
@@ -184,7 +185,7 @@
         initialize : function(){
 			VU.PersistentRouter.prototype.initialize.call(this);
 			_.bindAll( this, "routeHandler" );
-			
+						
 			// create all master collections (these hold all models are filtered locally)
 			var colls = this.colls = {
 				bands : new VU.BandCollection(null, {name:"bandsMaster"}),
@@ -201,7 +202,9 @@
 			var floatNav = new FloatNavView( { el: "#loginLinks", model:this.mySession} );
 		},
 		
-		routeHandler : function( tab, dates, coords, popID, style ) {
+		routeHandler : function( tab, dates, coords, popID, style, dCard ) {
+			if ( dCard ) mySession.loadDCard( dCard );
+			
 			var viewClass = ParentViews[ tab + "View" ] || ParentViews[ (tab = this.routeParams.tab) + "View" ],
 				myView = this.instanciatedViews[ tab ] || new viewClass( {colls:this.colls} ),
 				filters = [];

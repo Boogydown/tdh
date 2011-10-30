@@ -636,10 +636,19 @@ div#popuplist{
 
 .ownershipTable {
 	text-align:center;
+	
 }
 
 .ownershipTable th{
 	color: white;
+}
+
+.ownershipTable td{
+	font-size: 12px;
+}
+
+.ownershipTable td a {
+	color:wheat;
 }
 
 #vuFrame {

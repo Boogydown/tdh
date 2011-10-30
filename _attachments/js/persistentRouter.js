@@ -23,7 +23,7 @@ VU.PersistentRouter = Backbone.Controller.extend({
 		var i, arg, newArgs = [];
 		for ( i in this.persistedRoutes ) {
 			arg = (arguments.length > i && arguments[i]) || "";
-			if ( arg === undefined || arg == "" ) newArgs.push(this.persistedRoutes[i]);
+			if ( ( arg === undefined || arg == "" ) && this.defaultParams[i] != null ) newArgs.push(this.persistedRoutes[i]);
 			else if ( arg == "!" ) newArgs.push(this.defaultParams[i]);
 			else newArgs.push( arg );
 		}

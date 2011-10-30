@@ -175,11 +175,19 @@ VU.EventListingView = VU.ListingView.extend({
 	filtered : function() {
 		if ( _.size(this.listingViews) == this.collection.length ) 
 			this.numPerPage = this.collection.length;
+		if ( this.collection.length == 0 ){
+			this.emptyEl = $( this.emptyMsg );
+			$(this.el).append( this.emptyEl );
+		}
 		this._updateSpacer();
 	},
 	
 	// Adds a sorted row in its respective place in the DOM
-	addRow : function(model, options){		
+	addRow : function(model, options){
+		if ( this.emptyEl ){
+			this.emptyEl.remove();
+			this.emptyEl = null;
+		}
 		var lc, template = (this.el.getAttribute("listing-template") || "");
 		if ( !template ) 
 			console.log("listing-template attribute not given in " + this.el);

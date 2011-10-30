@@ -101,7 +101,7 @@
 			initialize : function() {
 				_.bindAll( this, "render" );
 				VU.ParentView.prototype.initialize.call(this);
-				this.navColl = this.colls.dCard;
+				var nc = this.navColl = this.colls.dCard;
 
 				// create our main list and map views and attach the collection to them
 				this.listView = new VU.FilteredListView({
@@ -109,7 +109,12 @@
 					emptyMsg: "<i>No dances on your card yet!<br/>Go to the Dances tab and add some!</i>",
 					listingHeight: 92,
 					listingClass:VU.EventListingView,
-					collection: this.navColl 
+					collection: nc
+				});
+				nc.bind("change",this.activateRemoveAllButton);				
+				$("#removeAllButton").click( function(e){
+					if ( !e.target.disabled )
+						nc.each( function(m){m.set({onDCard:false})} );
 				});
 			},
 			
@@ -120,7 +125,11 @@
 				else
 					this.listView.applyFilters( [{key:"onDCard", start:"true", end:"true"}] );
 				if ( !this.mapView ) 
-					this.mapView = new VU.MapView( {el: "#dCardMap", collection:this.navColl});
+					this.mapView = new VU.MapView( {el: "#dCardMap", collection:this.navColl});					
+			},
+			
+			activateRemoveAllButton : function() {
+				$("#removeAllButton").attr("disabled",this.navColl.length == 0);
 			}
 		})
 	};

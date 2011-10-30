@@ -424,6 +424,12 @@ div#hallsMap, #dCardMap {
 	bottom:5px;
 }
 
+#removeAllButton {
+	bottom: 5px;
+	position: absolute;
+	left: 18%;
+}
+
 div#bandsTags{
 	height: 370px;
 	width: 167px;

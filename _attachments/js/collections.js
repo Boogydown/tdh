@@ -168,6 +168,7 @@ VU.LocalFilteredCollection = VU.Collection.extend({
 		this.head = this.tail + 1;
 		num || ( num = this.allFiltered.length );
 		this.add( this.allFiltered.slice(this.head,this.tail += num), {keepParent:true, ignoreDups:true} );
+		this.allPagesLoaded = this.allFiltered.length <= this.tail;
 	}
 });
 

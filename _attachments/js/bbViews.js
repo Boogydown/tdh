@@ -226,8 +226,8 @@ VU.EventListingView = VU.ListingView.extend({
 		
 		// if there's still some spacer left then that means we have more stuff to render,
 		//	so hit up the next page (after some time...)
-		if ( newSpacerHt && !this.stID)// && this.spacer.position().top < $(this.el).height() )
-			this.stID = setTimeout( this._nextPage, 5000, 200 ) + "ID";
+		if ( !this.collection.allPagesLoaded && !this.stID)// && this.spacer.position().top < $(this.el).height() )
+			this.stID = setTimeout( this._nextPage, 500, 100 ) + "ID";
 		else
 			utils.waitingUI.hide();
 	},

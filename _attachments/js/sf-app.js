@@ -136,7 +136,7 @@ $(function(){
 				if ( coll instanceof VU.EventCollection && mySession.get("loggedIn") ){
 					mySession.get("owns").events.push({
 						id: model.id,
-						caption: model.eventType + " event on " + model.date
+						label: (model.eventType || "An") + " event on " + model.date
 					});
 					mySession.save();
 					//location.href="tdhmockup.html";

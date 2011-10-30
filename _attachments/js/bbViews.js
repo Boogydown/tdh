@@ -175,7 +175,7 @@ VU.EventListingView = VU.ListingView.extend({
 	filtered : function() {
 		if ( _.size(this.listingViews) == this.collection.length ) 
 			this.numPerPage = this.collection.length;
-		if ( this.collection.length == 0 ){
+		if ( this.collection.length == 0 && !this.emptyEl ){
 			this.emptyEl = $( this.emptyMsg );
 			$(this.el).append( this.emptyEl );
 		}

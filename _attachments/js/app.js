@@ -203,7 +203,7 @@
 		},
 		
 		routeHandler : function( tab, dates, coords, popID, style, dCard ) {
-			if ( dCard ) mySession.loadDCard( dCard );
+			if ( dCard ) this.mySession.loadDCard( dCard );
 			
 			var viewClass = ParentViews[ tab + "View" ] || ParentViews[ (tab = this.routeParams.tab) + "View" ],
 				myView = this.instanciatedViews[ tab ] || new viewClass( {colls:this.colls} ),

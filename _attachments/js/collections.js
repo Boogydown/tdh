@@ -158,7 +158,7 @@ VU.LocalFilteredCollection = VU.Collection.extend({
 		if ( !this.attached ) {
 			this.masterCollection.bind( "keysChanged", this.applyFilters );
 			this.masterCollection.bind( "refresh", this.refreshed );
-			this.attached = false;
+			this.attached = true;
 		}
 		this.trigger( "filtered" );
 	},

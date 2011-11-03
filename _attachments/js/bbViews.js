@@ -407,11 +407,10 @@ VU.MapView = Backbone.View.extend({
 	},
 	
 	addMarker : function ( model, m ) {	
-		model.unbind( "change", this.addMarker );
 		var hallID = model.get("hall"), hall;
 		if ( hallID )
 			hall = model.collection.colls.halls.get( hallID );	
-		hall && ( model = hall );
+		hall && hall.unbind( "change", this.addMarker );
 		
 		// convert gps to LatLng
 		var master = _.isBoolean(m) && m;
@@ -456,10 +455,10 @@ VU.MapView = Backbone.View.extend({
 			}
 			
 		//no gps, so let's try the address, on navColl halls only!
-		} else if ( this.addyOn && !master ) {
-			var address = model.get( "address" );
+		} else if ( this.addyOn && !master && hall ) {
+			var address = hall.get( "address" );
 			if ( ! address )
-				model.bind( "change", this.addMarker );
+				hall.bind( "change", this.addMarker );
 			else {
 				address = address.replace('\n', ' ');
 				if ( !(address in this.gcs) ){

@@ -434,19 +434,21 @@ VU.MapView = Backbone.View.extend({
 				title: model.get("danceHallName"),
 				icon: new google.maps.MarkerImage( 
 					markerURL,
-					master ? new google.maps.Size(15,10) : null,
+					master ? new google.maps.Size(15,9) : null,
 					null, null, 
 					master ? new google.maps.Size(15,15) : null 
 				),
 				zIndex : master ? -999 : 999
 			};
-			var modelID = model.collection.url + "&" + model.id;
+			var modelID = model.id;
 			if ( modelID in this.markers )
 				this.markers[ modelID ].setOptions( mOptions );
 			else {
 				var marker = new google.maps.Marker( mOptions );
 				this.markers[ modelID ] = marker;
-				google.maps.event.addListener( marker, "click", function () { location.href = "#///" + modelID; } );
+				google.maps.event.addListener( marker, "click", function () { 
+					location.href = "#///" + model.collection.url + "&" + modelID; 
+				});
 			}
 			
 		//no gps, so let's try the address, on navColl halls only!

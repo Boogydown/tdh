@@ -132,9 +132,9 @@
 			
 			activateRemoveAllButton : function() {
 				if ( this.navColl.length == 0 )
-					$("#removeAllButton").disable();
+					$("#removeAllButton").attr("disabled", true);
 				else
-					$("#removeAllButton").enable();
+					$("#removeAllButton").attr("disabled", false);
 			}
 		})
 	};

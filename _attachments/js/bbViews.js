@@ -479,7 +479,7 @@ VU.MapView = Backbone.View.extend({
 				map: this.map, 
 				position: results[0].geometry.location
 			});
-			console.log("Geocode found for " + results[0].formatted_address);
+			console.log("[MapView] Geocode found for " + results[0].formatted_address);
 			if ( model )
 				this.markers[ model.id ] = marker;
 		}

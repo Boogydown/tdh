@@ -408,8 +408,8 @@ VU.MapView = Backbone.View.extend({
 	
 	addMarker : function ( model, m ) {	
 		model.unbind( "change", this.addMarker );
-		
-		if ( var hallID = model.get("hall") )
+		var hallID = model.get("hall");
+		if ( hallID )
 			model = model.collection.colls.halls.get( hallID );	
 		
 		// convert gps to LatLng

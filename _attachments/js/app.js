@@ -41,7 +41,7 @@
 				this.listView.applyFilters( [{}] );
 				this.listView.scrollTo("dateUnix", _.detect( filters, function(f){return f.key == "dateUnix";} ).start);
 				if ( !this.mapView ) 
-					this.mapView = new VU.MapView( {el: "#dancesMap", collection:this.colls.events, masterColl:this.colls.halls});
+					this.mapView = new VU.MapView( {el: "#dancesMap", collection:this.navColl, masterColl:this.colls.halls});
 			}
 		}),
 

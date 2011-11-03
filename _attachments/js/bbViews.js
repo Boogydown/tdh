@@ -434,7 +434,8 @@ VU.MapView = Backbone.View.extend({
 			var mOptions = {
 				map: this.map, 
 				position: gps,
-				title: model.get("danceHallName"),
+				title: master ? null : model.get("danceHallName"),
+				clickable : !master,
 				icon: new google.maps.MarkerImage( 
 					markerURL,
 					master ? new google.maps.Size(15,9) : null,

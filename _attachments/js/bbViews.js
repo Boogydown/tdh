@@ -451,7 +451,7 @@ VU.MapView = Backbone.View.extend({
 				var marker = new google.maps.Marker( mOptions );
 				this.markers[ modelID ] = marker;
 				google.maps.event.addListener( marker, "click", function () { 
-					location.href = "#///" + model.collection.url + "&" + modelID; 
+					location.href = "#///" + hall.collection.url + "&" + modelID; 
 				});
 			}
 			

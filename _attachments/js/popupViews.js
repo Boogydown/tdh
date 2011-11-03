@@ -107,7 +107,8 @@ VU.HallPopupView = VU.EventsContainerPopupView.extend( {
 			if ( filter )
 				caption += " in county " + filter.str;
 		}
-		return "&#9668;&nbsp; " + caption + " &nbsp;&#9658;";
+		//return "&#9668;&nbsp; " + caption + " &nbsp;&#9658;";
+		return "- " + caption + " -";
 	}
 });
 
@@ -139,7 +140,8 @@ VU.BandPopupView = VU.EventsContainerPopupView.extend( {
 			if ( filter )
 				caption += " matching " + filter.str;
 		}							
-		return "&#9668;&nbsp; " + caption + " &nbsp;&#9658;";
+		//return "&#9668;&nbsp; " + caption + " &nbsp;&#9658;";
+		return "- " + caption + " -";
 	}	
 });
 

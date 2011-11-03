@@ -143,7 +143,7 @@ div#loginLinks{
 div#loggedOutNav a, div#loggedInNav a{
 	text-decoration: none;
 		color: white;
-	font-family: georgia, serif;
+	font-family: Arial,sans-serif;
 	font-size: 14px;
 }
 
@@ -500,7 +500,7 @@ div.listing-time3, div.listing-time4{
 	position: relative;
 	width: 97px;
 	color: #CCCCCC;
-	font-family: arial, sans-serif;
+	font-family: georgia, serif;
 	font-size: 32px;
 	line-height: 0.8em;
 	text-decoration: bold;
@@ -1004,5 +1004,13 @@ div.close_popup {
 	transform: scaleY(-1);
 	filter: FlipV;
 	-ms-filter: "FlipV";
+}
+
+
+
+
+table.ownershipTable tr th{
+	border-style:solid;
+border-bottom:thick dotted #ff0000;
 }
 

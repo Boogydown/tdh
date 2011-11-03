@@ -447,7 +447,7 @@ VU.MapView = Backbone.View.extend({
 		} else if ( this.addyOn && !master ) {
 			var address = model.get( "address" );
 			if ( ! address )
-				hall.bind( "change", this.addMarker );
+				model.bind( "change", this.addMarker );
 			else {
 				this.gcs[address] = model;
 				this.geocoder.geocode( { 'address': address}, this.attachToMap );

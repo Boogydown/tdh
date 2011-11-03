@@ -311,9 +311,11 @@ VU.KeyedCollection = VU.Collection.extend({
 		
 		// if not found then was empty, so give all
 		finalModels || (finalModels = this.models);
-		fp.tail || ( fp.tail = finalModels.length );
-		if ( _.isFunction(fp.callback) )
-			fp.callback( finalModels.slice( 0, fp.tail ), finalModels.length, fp.tail >= finalModels.length );
+		if ( fp ) {
+			fp.tail || ( fp.tail = finalModels.length );
+			if ( _.isFunction(fp.callback) )
+				fp.callback( finalModels.slice( 0, fp.tail ), finalModels.length, fp.tail >= finalModels.length );
+		}
 		if ( this.filterQueue.length > 0 )
 			this.getFiltered();
 	}	

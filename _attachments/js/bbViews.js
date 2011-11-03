@@ -347,7 +347,7 @@ VU.MapView = Backbone.View.extend({
 	geocoder: new google.maps.Geocoder(),
 	
 	initialize : function( options ){
-		_.bindAll( this, 'render', "addMarker", "attachToMap" );
+		_.bindAll( this, 'render', "addMarker", "removeMarker", "attachToMap" );
 		this.masterColl = options.masterColl;		
 		this.markers = {};
 		this.gcs = {};

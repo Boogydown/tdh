@@ -372,7 +372,7 @@ VU.MapView = Backbone.View.extend({
 			this.masterColl.bind("refresh", this.render );
 			// remove events in collection mean add events here
 			this.collection.bind("remove", function(model){that.addMarker(model,true)} );
-		} else {
+		} else
 			this.collection.bind("remove", this.removeMarker );
 		
 		//if collection already fetched then go ahead and render

@@ -401,9 +401,9 @@ VU.MapView = Backbone.View.extend({
 		this.markers = {};
 	},
 	
-	removeMarker : function(mID) {
-		if ( mID in this.markers )
-			this.markers[mID].setMap(null);
+	removeMarker : function(m) {
+		if ( m.id in this.markers )
+			this.markers[m.id].setMap(null);
 	},
 	
 	addMarker : function ( model, m ) {		

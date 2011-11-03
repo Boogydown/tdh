@@ -344,12 +344,14 @@ VU.PopupView = VU.DustView.extend({
 
 VU.MapView = Backbone.View.extend({
 	// static
-	//geocoder: new google.maps.Geocoder(),
+	geocoder: new google.maps.Geocoder(),
 	
 	initialize : function( options ){
-		_.bindAll( this, 'render', "addMarker" );
+		_.bindAll( this, 'render', "addMarker", "attachToMap" );
 		this.masterColl = options.masterColl;		
 		this.markers = {};
+		this.gcs = {};
+		this.addyOn = options.addressFallback;
 		var center = new google.maps.LatLng(30.274338, -97.744675),
 			myOptions = {
 				zoom: 6,
@@ -377,7 +379,6 @@ VU.MapView = Backbone.View.extend({
 			 ( this.collection.fetched ) ||
 			 ( this.collection.masterCollection && this.collection.masterCollection.fetched ) )
 			this.render();
-		
 	},
 
 	render: function(){
@@ -400,6 +401,8 @@ VU.MapView = Backbone.View.extend({
 	},
 	
 	addMarker : function ( model, m ) {		
+		model.unbind( "change", this.addMarker );
+		
 		// convert gps to LatLng
 		var master = _.isBoolean(m) && m;
 		var gps = model.get( "GPS Coordinates" ) || model.get( "gpsCoordinates" );			
@@ -422,10 +425,10 @@ VU.MapView = Backbone.View.extend({
 			var mOptions = {
 				map: this.map, 
 				position: gps,
-				title: model.get("dancemodelName"),
+				title: model.get("danceHallName"),
 				icon: new google.maps.MarkerImage( 
 					markerURL,
-					master ? new google.maps.Size(30,20) : null,
+					master ? new google.maps.Size(15,10) : null,
 					null, null, 
 					master ? new google.maps.Size(15,15) : null 
 				),
@@ -439,6 +442,29 @@ VU.MapView = Backbone.View.extend({
 				this.markers[ modelID ] = marker;
 				google.maps.event.addListener( marker, "click", function () { location.href = "#///" + modelID; } );
 			}
+			
+		//no gps, so let's try the address, on navColl halls only!
+		} else if ( this.addyOn && !master ) {
+			var address = model.get( "address" );
+			if ( ! address )
+				hall.bind( "change", this.addMarker );
+			else {
+				this.gcs[address] = model;
+				this.geocoder.geocode( { 'address': address}, this.attachToMap );
+			}
+		}
+	},
+	
+	attachToMap: function(results, status) {
+		var model = this.gcs[ results[0].formatted_address ];
+		if (status == google.maps.GeocoderStatus.OK) {
+			var marker = new google.maps.Marker({
+				map: this.map, 
+				position: results[0].geometry.location
+			});
+			console.log("Geocode found for " + results[0].formatted_address);
+			if ( model )
+				this.markers[ model.id ] = marker;
 		}
 	}
 	

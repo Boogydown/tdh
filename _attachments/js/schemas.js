@@ -474,6 +474,160 @@ VU.schemas = {
 				}
 			}
 		},
+		
+		admin: {
+			"description":"A basic event is an attraction, a venues, a time",
+			"type":"object",
+			"properties":{
+				"band":{
+					"description": "Band Name",
+					"type":"string",
+					"required":true,
+					"linkRef": "bands",
+					"hidden": true,
+					"choices": [ {"value":"foo","label":"bar"} ]
+				},
+				"bandName":{
+					"description": "Band Name",
+					"type":"string",
+					"required":true,
+					"linkVal": { 
+						linkRef: "band",
+						cell: "bandName"
+					},
+					"_inputex": {
+						"_type": "hidden"
+					}					
+				},
+				"hall":{
+					"description": "Dance Hall",
+					"type":"string",
+					"required": true,
+					"linkRef": "halls",
+					"hidden": true,
+					"choices": [ {"value":"foo","label":"bar"} ]
+				},
+				"hallName":{
+					"description": "Dance Hall Name",
+					"type":"string",
+					"required":true,
+					"linkVal": { 
+						linkRef: "hall",
+						cell: "bandName"
+					},
+					"_inputex": {
+						"_type": "hidden"
+					}
+				},
+				"gpsCoordinates":{
+					"description": "GPS coords",
+					"type":"string",
+					"optional":true,
+					"hidden":true,
+					"linkVal": { 
+						linkRef: "hall",
+						cell: "gpsCoordinates"
+					},
+					"_inputex": {
+						"_type": "hidden"
+					}					
+				},
+				"date":{
+					"description": "Date of event",
+					"type":"string",
+					"required":true,
+					//"format":"date",
+					"_inputex": {
+						//"_type": "datepicker", 
+						//valueFormat: 'd-m-Y', 
+						//label: 'Date of event'
+						"value":"December 31, 2011"
+					}
+    			},
+				"time":{
+					"description": "Starts at",
+					"type":"string",
+					"optional":true,
+					"choices": [ 
+						{'value':'12:00 AM','label':'12:00 AM'},
+						{'value':'12:30 AM','label':'12:30 AM'},
+						{'value':'1:00 AM','label':'1:00 AM'},
+						{'value':'1:30 AM','label':'1:30 AM'},
+						{'value':'2:00 AM','label':'2:00 AM'},
+						{'value':'2:30 AM','label':'2:30 AM'},
+						{'value':'3:00 AM','label':'3:00 AM'},
+						{'value':'3:30 AM','label':'3:30 AM'},
+						{'value':'4:00 AM','label':'4:00 AM'},
+						{'value':'4:30 AM','label':'4:30 AM'},
+						{'value':'5:00 AM','label':'5:00 AM'},
+						{'value':'5:30 AM','label':'5:30 AM'},
+						{'value':'6:00 AM','label':'6:00 AM'},
+						{'value':'6:30 AM','label':'6:30 AM'},
+						{'value':'7:00 AM','label':'7:00 AM'},
+						{'value':'7:30 AM','label':'7:30 AM'},
+						{'value':'8:00 AM','label':'8:00 AM'},
+						{'value':'8:30 AM','label':'8:30 AM'},
+						{'value':'9:00 AM','label':'9:00 AM'},
+						{'value':'9:30 AM','label':'9:30 AM'},
+						{'value':'10:00 AM','label':'10:00 AM'},
+						{'value':'10:30 AM','label':'10:30 AM'},
+						{'value':'11:00 AM','label':'11:00 AM'},
+						{'value':'11:30 AM','label':'11:30 AM'},
+						{'value':'12:00 PM','label':'12:00 PM'},
+						{'value':'12:30 PM','label':'12:30 PM'},
+						{'value':'1:00 PM','label':'1:00 PM'},
+						{'value':'1:30 PM','label':'1:30 PM'},
+						{'value':'2:00 PM','label':'2:00 PM'},
+						{'value':'2:30 PM','label':'2:30 PM'},
+						{'value':'3:00 PM','label':'3:00 PM'},
+						{'value':'3:30 PM','label':'3:30 PM'},
+						{'value':'4:00 PM','label':'4:00 PM'},
+						{'value':'4:30 PM','label':'4:30 PM'},
+						{'value':'5:00 PM','label':'5:00 PM'},
+						{'value':'5:30 PM','label':'5:30 PM'},
+						{'value':'6:00 PM','label':'6:00 PM'},
+						{'value':'6:30 PM','label':'6:30 PM'},
+						{'value':'7:00 PM','label':'7:00 PM'},
+						{'value':'7:30 PM','label':'7:30 PM'},
+						{'value':'8:00 PM','label':'8:00 PM'},
+						{'value':'8:30 PM','label':'8:30 PM'},
+						{'value':'9:00 PM','label':'9:00 PM'},
+						{'value':'9:30 PM','label':'9:30 PM'},
+						{'value':'10:00 PM','label':'10:00 PM'},
+						{'value':'10:30 PM','label':'10:30 PM'},
+						{'value':'11:00 PM','label':'11:00 PM'},
+						{'value':'11:30 PM','label':'11:30 PM'}
+					],
+					"_inputex": {
+						"value":"8:00 PM"
+					}
+				},
+				"eventType":{
+					"description": "Type of event",
+					"type":"string",
+					"choices": [ 
+						{"value":"","label":""},
+						{"value":"Dance","label":"Dance"},
+						{"value":"Music Show","label":"Music Show"},
+						{"value":"Festival","label":"Festival"} 
+					]
+				},
+				"ageLimit":{
+					"description": "Age limit",
+					"type":"string",
+					"choices": [ 
+						{"value":"","label":""},
+						{"value":"All ages","label":"All ages"},
+						{"value":"18 and up","label":"18 and up"},
+						{"value":"21 and up","label":"21 and up"} 
+					]
+				},
+				"featured":{
+					"description": "Featured listing",
+					"type":"boolean"
+				}
+			}
+		},
 			
 		listing: {
 			"description":"Display event info as part of a listing",

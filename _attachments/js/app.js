@@ -126,7 +126,7 @@
 				else
 					this.listView.applyFilters( [{key:"onDCard", start:"true", end:"true"}] );
 				if ( !this.mapView ) 
-					this.mapView = new VU.MapView( {el: "#dCardMap", collection:this.navColl});					
+					this.mapView = new VU.MapView( {el: "#dCardMap", collection:this.navColl, addressFallback:true});
 			},
 			
 			activateRemoveAllButton : function() {

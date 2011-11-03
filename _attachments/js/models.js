@@ -158,6 +158,7 @@ VU.MemberModel = VU.CookieModel.extend({
 	
 	// for anonymous sessions
 	prepAnon : function() {
+		console.log( "Setting up an anonymous session." );
 		this.clear({silent:true});
 		this.set( this.defaults );
 		this.loadDCard();
@@ -175,7 +176,6 @@ VU.MemberModel = VU.CookieModel.extend({
 					model.set( { id: model.ID_PREFIX + resp.userCtx.name }, {silent:true} );
 					model.fetch( {success: model._userFetched} );
 				} else {
-					alert( "Error logging in: " + resp );
 					model.prepAnon();
 				}
 			}
@@ -476,8 +476,7 @@ VU.VenueModel = VU.EventsContainerModel.extend({
 // Event model
 VU.EventModel = VU.LinkingModel.extend({
 	defaults : {
-		date: new Date().getTime(),
-		time: "8:00 PM",
+		featured: false,
 		onDCard: false // for local use, only
 	},
 	

@@ -464,7 +464,8 @@ VU.MapView = Backbone.View.extend({
 				address = address.replace('\n', ' ');
 				if ( !(address in this.gcs) ){
 					console.log("[MapView] Attempting to find geocode for " + address);
-					this.gcs[address] = model;
+					// HACK: using only the first 4 chars of addy, to give better chance of matchin properly-formatted addy in attachToMap
+					this.gcs[address.substr(0,4)] = model;
 					this.geocoder.geocode( { 'address': address}, this.attachToMap );
 				}
 			}
@@ -472,7 +473,7 @@ VU.MapView = Backbone.View.extend({
 	},
 	
 	attachToMap: function(results, status) {
-		var model = this.gcs[ results[0].formatted_address ];
+		var model = this.gcs[ results[0].formatted_address.substr(0,4) ];
 		if (status == google.maps.GeocoderStatus.OK) {
 			var marker = new google.maps.Marker({
 				map: this.map, 

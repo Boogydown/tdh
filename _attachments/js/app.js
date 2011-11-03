@@ -111,7 +111,8 @@
 					listingClass:VU.EventListingView,
 					collection: nc
 				});
-				nc.bind("change",this.activateRemoveAllButton);				
+				nc.bind("add",this.activateRemoveAllButton);
+				nc.bind("remove",this.activateRemoveAllButton);
 				$("#removeAllButton").click( function(e){
 					if ( !e.target.disabled )
 						while ( nc.length > 0 )

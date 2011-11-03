@@ -460,9 +460,12 @@ VU.MapView = Backbone.View.extend({
 			if ( ! address )
 				model.bind( "change", this.addMarker );
 			else {
-				console.log("[MapView] Attempting to find geocode for " + address);
-				this.gcs[address] = model;
-				this.geocoder.geocode( { 'address': address}, this.attachToMap );
+				address = address.replace('\n', ' ');
+				if ( !address in this.gcs ){
+					console.log("[MapView] Attempting to find geocode for " + address);
+					this.gcs[address] = model;
+					this.geocoder.geocode( { 'address': address}, this.attachToMap );
+				}
 			}
 		}
 	},

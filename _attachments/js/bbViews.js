@@ -347,7 +347,7 @@ VU.MapView = Backbone.View.extend({
 	geocoder: new google.maps.Geocoder(),
 	
 	initialize : function( options ){
-		_.bindAll( this, 'render', "addMarker", "attachToMap" );
+		_.bindAll( this, 'render', "addMarker", "removeMarker", "attachToMap" );
 		this.masterColl = options.masterColl;		
 		this.markers = {};
 		this.gcs = {};
@@ -372,7 +372,8 @@ VU.MapView = Backbone.View.extend({
 			this.masterColl.bind("refresh", this.render );
 			// remove events in collection mean add events here
 			this.collection.bind("remove", function(model){that.addMarker(model,true)} );
-		}
+		} else
+			this.collection.bind("remove", this.removeMarker );
 		
 		//if collection already fetched then go ahead and render
 		if ( ( this.masterColl && this.masterColl.fetched ) || 
@@ -398,6 +399,11 @@ VU.MapView = Backbone.View.extend({
 	clearMarkers : function() {
 		_.each( this.markers, function(m){m.setMap(null);});		
 		this.markers = {};
+	},
+	
+	removeMarker : function(mID) {
+		if ( mID in this.markers )
+			this.markers[mID].setMap(null);
 	},
 	
 	addMarker : function ( model, m ) {		
@@ -449,6 +455,7 @@ VU.MapView = Backbone.View.extend({
 			if ( ! address )
 				model.bind( "change", this.addMarker );
 			else {
+				console.log("[MapView] Attempting to find geocode for " + address);
 				this.gcs[address] = model;
 				this.geocoder.geocode( { 'address': address}, this.attachToMap );
 			}

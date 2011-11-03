@@ -408,9 +408,10 @@ VU.MapView = Backbone.View.extend({
 	
 	addMarker : function ( model, m ) {	
 		model.unbind( "change", this.addMarker );
-		var hallID = model.get("hall");
+		var hallID = model.get("hall"), hall;
 		if ( hallID )
-			model = model.collection.colls.halls.get( hallID );	
+			hall = model.collection.colls.halls.get( hallID );	
+		hall && ( model = hall );
 		
 		// convert gps to LatLng
 		var master = _.isBoolean(m) && m;
@@ -461,7 +462,7 @@ VU.MapView = Backbone.View.extend({
 				model.bind( "change", this.addMarker );
 			else {
 				address = address.replace('\n', ' ');
-				if ( !address in this.gcs ){
+				if ( !(address in this.gcs) ){
 					console.log("[MapView] Attempting to find geocode for " + address);
 					this.gcs[address] = model;
 					this.geocoder.geocode( { 'address': address}, this.attachToMap );

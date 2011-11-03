@@ -1011,6 +1011,6 @@ div.close_popup {
 
 table.ownershipTable tr th{
 	border-style:solid;
-border-bottom:thick dotted #ff0000;
+border-bottom:thin rgba(64,64,64,0.5);
 }
 

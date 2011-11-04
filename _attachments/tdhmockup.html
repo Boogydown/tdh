@@ -155,7 +155,7 @@
 			<h2>{bandName}</h2>
 			<div class="detailtext">
 				{#stylesPlayed}{.}<br/>{/stylesPlayed}
-				<a href="http://{website}">{website}</a><br/>
+				<a href="http://{website}" target="_blank">{website}</a><br/>
 				{description}
 			</div>
 		</div>
@@ -171,7 +171,7 @@
 		<div id="info">
 			<h2>{danceHallName}</h2> {yearBuilt}
 			<div class="detailtext">
-				<a href="http://{website}">{website}</a><br/>
+				<a href="http://{website}" target="_blank">{website}</a><br/>
 				{historicalNarrative}<br/>
 				{address}
 			</div>
@@ -257,8 +257,8 @@
 					</tr>
 					{#owns}
 					<tr>
-						<td>{?event}<a href="schemaForm.html#form/events//{event.id}">{event.caption}</a>{/event}</td>
-						<td>{?vyntor}<a href="schemaForm.html#form/{vyntor.type}//{vyntor.id}">{vyntor.caption}</a>{/vyntor}</td>
+						<td>{?event}<a href="schemaForm.html#form/events//{event.id}" target="_blank">{event.caption}</a>{/event}</td>
+						<td>{?vyntor}<a href="schemaForm.html#form/{vyntor.type}//{vyntor.id}" target="_blank">{vyntor.caption}</a>{/vyntor}</td>
 					</tr>
 					{/owns}
 					<tr>

@@ -238,46 +238,52 @@
 				//style: style
 			//});
 			
-			// create filters from route
-			if ( dates ) {
-				// "start-date,end-date
-				dates = dates.split(",");
-				filters.push({
-					key: "dateUnix", 
-					//per client request, show up to two days previous:
-					start: parseInt(dates[0]) - 2 * 24 * 60 * 60 * 1000,
-					end: dates.length == 1 ? "zzz" : parseInt(dates[1])
-				});
+			// only process filters is they're changed...
+			var curFilterStr = tab + dates + coords + style;
+			if ( curFilterStr != this.lastFilterStr )
+			{
+				// create filters from route
+				if ( dates ) {
+					// "start-date,end-date
+					dates = dates.split(",");
+					filters.push({
+						key: "dateUnix", 
+						//per client request, show up to two days previous:
+						start: parseInt(dates[0]) - 2 * 24 * 60 * 60 * 1000,
+						end: dates.length == 1 ? "zzz" : parseInt(dates[1])
+					});
+				}
+				
+				//TODO: will have to split up model.gpscoord to .lat and .long
+				if ( coords ) {
+					// "top-lat,left-long,bottom-lat,right-long"
+					coords = coords.split(",");
+					filters.push({
+						key: "lat",
+						start: parseFloat(coords[0]),
+						end: parseFloat(coords[2])
+					});
+					filters.push({
+						key: "lng",
+						start: parseFloat(coords[1]),
+						end: parseFloat(coords[3])
+					});
+				};
+				
+				if ( style ) {
+					filters.push({
+						key: "stylesPlayed",
+						start: decodeURI(style).toLowerCase(),
+						end: decodeURI(style).toLowerCase()
+					});
+				}
+				
+				//TODO: put this into mySession
+				window.TDHP_tab = tab;
+				myView.activate( filters );
+				this.instanciatedViews[ tab ] = this.currentView = myView;
 			}
-			
-			//TODO: will have to split up model.gpscoord to .lat and .long
-			if ( coords ) {
-				// "top-lat,left-long,bottom-lat,right-long"
-				coords = coords.split(",");
-				filters.push({
-					key: "lat",
-					start: parseFloat(coords[0]),
-					end: parseFloat(coords[2])
-				});
-				filters.push({
-					key: "lng",
-					start: parseFloat(coords[1]),
-					end: parseFloat(coords[3])
-				});
-			};
-			
-			if ( style ) {
-				filters.push({
-					key: "stylesPlayed",
-					start: decodeURI(style).toLowerCase(),
-					end: decodeURI(style).toLowerCase()
-				});
-			}
-			
-			//TODO: put this into mySession
-			window.TDHP_tab = tab;
-			myView.activate( filters );
-			this.instanciatedViews[ tab ] = this.currentView = myView;
+			this.lastFilterStr = curFilterStr;
 			
 			if ( popID ) {
 				var popAry = popID.split('&'),

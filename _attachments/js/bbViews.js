@@ -305,9 +305,10 @@ VU.PopupView = VU.DustView.extend({
 		if ( fade && fade.length ) 
 			fade.fadeOut('fast', null, function() {
 				$('#fade').remove();
-				onClosed();
-				window.location = "#///!";				
 			});
+
+		onClosed();
+		window.location = "#///!";				
 		return false;		
 	},
 	

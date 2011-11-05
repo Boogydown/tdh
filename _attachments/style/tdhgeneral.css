@@ -959,7 +959,6 @@ div.close_popup {
 	position: absolute;
 	top: 170px;
 	background: url(../images/cssSprite.png);
-	opacity: 0.8;
 	cursor:pointer;
 }
 
@@ -971,10 +970,6 @@ div.close_popup {
 #nav-right{
 	right: -65px;
 	background-position: -540px -10px;
-}
-
-#nav-left:hover, #nav-right:hover{
-	opacity:1;
 }
 
 #nav-left:hover{

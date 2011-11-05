@@ -415,13 +415,12 @@ VU.MapView = Backbone.View.extend({
 	},
 	
 	getHall : function( model ) {
-		var hallID = model.get("hall"), hall;
+		var hallID = model.get("hall");
 		if ( hallID )
-			hall = model.collection.colls.halls.get( hallID );
+			return model.collection.colls.halls.get( hallID );
 		else if ( model instanceof VU.VenueModel )
-			hall = model;
-		else
-			return null;
+			return model;
+		return null;
 	},
 	
 	clearMarkers : function() {

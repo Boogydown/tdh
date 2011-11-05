@@ -343,7 +343,7 @@ VU.PopupView = VU.DustView.extend({
 		$('#fade').css({'filter' : 'alpha(opacity=80)'}).fadeIn('fast'); 
 
 		//Fade Popup in and add close button
-		this.el.fadeIn('fast', this.onOpened()).prepend('<div class="close_popup" title="Close Window"></div>');
+		this.el.fadeIn('fast', this.onOpened).prepend('<div class="close_popup" title="Close Window"></div>');
 		
 		//this.onOpened();
 		

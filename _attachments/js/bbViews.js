@@ -381,7 +381,8 @@ VU.MapView = Backbone.View.extend({
 			
 		this.map = new google.maps.Map(this.el, myOptions);
 
-		google.maps.event.addListener(this.map, 'idle', this.fitBounds );
+		// turn this off, for now, until I figure out how to make it work properly!
+		//google.maps.event.addListener(this.map, 'idle', this.fitBounds );
 		
 		if ( this.collection ){
 			this.collection.bind("add", this.addMarker );

@@ -137,7 +137,7 @@
 					$("#removeAllButton").attr("disabled", true);
 				else
 					$("#removeAllButton").attr("disabled", false);
-				$(".stLink").attr("st_url",location.href + "/" + this.navColl.pluck("id").join("&"));
+				$('span[class^="st_"]').attr("st_url", location.href + "/" + this.navColl.pluck("id").join("&"));
 			}
 		})
 	};

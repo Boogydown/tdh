@@ -167,10 +167,11 @@
 	<script type="application/dust-template" id="popupTemplate_hall">
 		<div id="popupTitle">{navCaption|s}</div>
 		<div id="info">
-			<h2>{danceHallName}</h2> {yearBuilt}
+			<h2>{danceHallName}</h2>
 			<div class="detailtext">
-				<a href="http://{website}" target="_blank">{website}</a><br/>
-				{historicalNarrative}<br/>
+				{?website}<a href="http://{website}" target="_blank">{website}</a><br/>{/website}
+				(?yearBuilt}cir. {yearBuilt}{/yearBuilt}{?county}{county} county. {/county}{historicalNarrative}<br/>
+				<hr/>
 				{address}
 			</div>
 		</div>

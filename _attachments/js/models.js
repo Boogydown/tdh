@@ -445,9 +445,11 @@ VU.VenueModel = VU.EventsContainerModel.extend({
 			hallPic = "../../" + hallID + "/thumbs/" + encodeURI( hallPic );
 			// TODO: check to see if this URL exists... ?  perhaps try <img src.... onerror=""/>
 			
-		var entryDescription = this.get("dateBuilt");
-		if ( entryDescription ) 
-			entryDescription = "cir. " + entryDescription + ". ";
+		var entryDescription, str = this.get("dateBuilt");
+		if ( str ) 
+			entryDescription = "cir. " + str + ". ";
+		if ( str = this.get("county") )
+			entryDescription += str + " county. ";
 		entryDescription += this.get("historicalNarrative");
 		
 		var lat, lng, gps = this.get( "GPS Coordinates" ) || this.get( "gpsCoordinates" );

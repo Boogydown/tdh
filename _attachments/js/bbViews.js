@@ -365,7 +365,7 @@ VU.MapView = Backbone.View.extend({
 	geocoder: new google.maps.Geocoder(),
 	
 	initialize : function( options ){
-		_.bindAll( this, 'render', "addMarker", "removeMarker", "attachToMap" );
+		_.bindAll( this, 'render', "addMarker", "removeMarker", "attachToMap", "fitBounds" );
 		this.masterColl = options.masterColl;		
 		this.clearMarkers();
 		this.gcs = {};
@@ -381,6 +381,8 @@ VU.MapView = Backbone.View.extend({
 			
 		this.map = new google.maps.Map(this.el, myOptions);
 
+		google.maps.event.addListener(this.map, 'idle', this.fitBounds );
+		
 		if ( this.collection ){
 			this.collection.bind("add", this.addMarker );
 			this.collection.bind("refresh", this.render );
@@ -413,6 +415,11 @@ VU.MapView = Backbone.View.extend({
 			var filteredIDs = this.collection.pluck("hall");
 			this.masterColl.each( function(hall){if ( filteredIDs.indexOf(hall.id) == -1 ) this.addMarker(hall, true);}, this );
 		}
+	},
+	
+	fitBounds : function() {
+		if ( this.bounds && ! this.bounds.isEmpty() )
+			this.map.fitBounds( this.bounds );
 	},
 	
 	getHall : function( model ) {
@@ -472,10 +479,9 @@ VU.MapView = Backbone.View.extend({
 				),
 				zIndex : master ? -999 : 999
 			};
-			if ( master ) {
+			if ( master )
 				this.bounds.extend( gps );
-				this.map.fitBounds( this.bounds );
-			}
+				
 			var modelID = hall.id;
 			if ( modelID in this.markers )
 				this.markers[ modelID ].setOptions( mOptions );
@@ -497,8 +503,11 @@ VU.MapView = Backbone.View.extend({
 				if ( !(address in this.gcs) ){
 					console.log("[MapView] Attempting to find geocode for " + address);
 					// HACK: using only the first 4 chars of addy, to give better chance of matchin properly-formatted addy in attachToMap
-					this.gcs[address.substr(0,4)] = hall;
-					this.geocoder.geocode( { 'address': address}, this.attachToMap );
+					var mini = address.substr(0,4);
+					if ( ! mini in this.gcs ){
+						this.gcs[mini] = hall;
+						this.geocoder.geocode( { 'address': address}, this.attachToMap );
+					}
 				}
 			}
 		}

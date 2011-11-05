@@ -128,18 +128,17 @@
 					this.listView.applyFilters( [{key:"onDCard", start:"true", end:"true"}] );
 				if ( !this.mapView ) 
 					this.mapView = new VU.MapView( {el: "#dCardMap", collection:this.navColl, addressFallback:true});
-					
-				$(".stLink").attr("link",location.href);
+
+				this.activateRemoveAllButton();
 			},
 			
 			activateRemoveAllButton : function() {
 				if ( this.navColl.length == 0 )
 					$("#removeAllButton").attr("disabled", true);
-				else {
+				else
 					$("#removeAllButton").attr("disabled", false);
-					var dcstr = this.navColl.pluck("id").join("&");
-					$(".stLink").attr("url",location.href + dcstr);					
-				}
+				var dcstr = this.navColl.pluck("id").join("&");
+				$(".stLink").attr("url",location.href + dcstr);
 			}
 		})
 	};

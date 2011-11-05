@@ -367,7 +367,7 @@ VU.MapView = Backbone.View.extend({
 	initialize : function( options ){
 		_.bindAll( this, 'render', "addMarker", "removeMarker", "attachToMap" );
 		this.masterColl = options.masterColl;		
-		this.markers = {};
+		this.clearMarkers();
 		this.gcs = {};
 		this.addyOn = options.addressFallback;
 		var center = new google.maps.LatLng(30.274338, -97.744675),
@@ -425,7 +425,7 @@ VU.MapView = Backbone.View.extend({
 	},
 	
 	clearMarkers : function() {
-		_.each( this.markers, function(m){m.setMap(null);});		
+		if ( this.markers ) _.each( this.markers, function(m){m.setMap(null);});		
 		this.markers = {};
 		this.bounds = new google.maps.LatLngBounds();
 	},

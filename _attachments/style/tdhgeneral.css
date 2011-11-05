@@ -626,7 +626,7 @@ div#popuplist{
 
 .detailtext {
     color: white;
-	height: 145px;
+	height: 165px;
 	width: 360px;
     font-family: Arial,sans-serif;
     font-size: 14px;
@@ -748,6 +748,7 @@ h2 {
     font-size: 26px;
 	color: #C1D8F5;
     width: 337px;
+	margin-bottom: 5px;
 }
 
 .details {

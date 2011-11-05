@@ -61,7 +61,10 @@ VU.EventsContainerPopupView = VU.PopupView.extend({
 	},
 	
 	onOpened : function() {
-		//this.miniMapView = new VU.MapView({collection: this.list, el: $("#detailmap"), addressFallback: true});		
+		var that = this;
+		_.defer( function() {
+			that.miniMapView = new VU.MapView({collection: that.list, el: $("#detailmap"), addressFallback: true});
+		});
 	},
 	
 	nav : function ( event ) {

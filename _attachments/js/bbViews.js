@@ -472,8 +472,10 @@ VU.MapView = Backbone.View.extend({
 				),
 				zIndex : master ? -999 : 999
 			};
-			this.bounds.extend( gps );
-			this.map.fitBounds( this.bounds );
+			if ( master ) {
+				this.bounds.extend( gps );
+				this.map.fitBounds( this.bounds );
+			}
 			var modelID = hall.id;
 			if ( modelID in this.markers )
 				this.markers[ modelID ].setOptions( mOptions );

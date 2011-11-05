@@ -409,12 +409,16 @@ VU.MapView = Backbone.View.extend({
 	addMarker : function ( model, m ) {	
 		var hallID = model.get("hall"), hall;
 		if ( hallID )
-			hall = model.collection.colls.halls.get( hallID );	
+			hall = model.collection.colls.halls.get( hallID );
+		else if ( model instanceof VU.VenueModel )
+			hall = model;
+		else
+			return;
 		hall && hall.unbind( "change", this.addMarker );
 		
 		// convert gps to LatLng
 		var master = _.isBoolean(m) && m;
-		var gps = model.get( "GPS Coordinates" ) || model.get( "gpsCoordinates" );			
+		var gps = hall.get( "GPS Coordinates" ) || hall.get( "gpsCoordinates" );			
 		if ( gps ){
 			gps = gps.replace(/(^\s*)|(\s*$)/g, "").split(" ");
 			if ( gps.length < 2 ) 
@@ -423,7 +427,7 @@ VU.MapView = Backbone.View.extend({
 		}
 		
 		// see if there's a custom marker icon
-		var markerURL = model.get( "styleMarker" );
+		var markerURL = hall.get( "styleMarker" );
 		if ( markerURL )
 			markerURL = "http://maps.google.com/mapfiles/ms/micons/" + markerURL + ".png";
 		else
@@ -434,7 +438,7 @@ VU.MapView = Backbone.View.extend({
 			var mOptions = {
 				map: this.map, 
 				position: gps,
-				title: master ? null : model.get("danceHallName"),
+				title: master ? null : hall.get("danceHallName"),
 				clickable : !master,
 				icon: new google.maps.MarkerImage( 
 					markerURL,
@@ -444,7 +448,7 @@ VU.MapView = Backbone.View.extend({
 				),
 				zIndex : master ? -999 : 999
 			};
-			var modelID = model.id;
+			var modelID = hall.id;
 			if ( modelID in this.markers )
 				this.markers[ modelID ].setOptions( mOptions );
 			else {
@@ -465,7 +469,7 @@ VU.MapView = Backbone.View.extend({
 				if ( !(address in this.gcs) ){
 					console.log("[MapView] Attempting to find geocode for " + address);
 					// HACK: using only the first 4 chars of addy, to give better chance of matchin properly-formatted addy in attachToMap
-					this.gcs[address.substr(0,4)] = model;
+					this.gcs[address.substr(0,4)] = hall;
 					this.geocoder.geocode( { 'address': address}, this.attachToMap );
 				}
 			}

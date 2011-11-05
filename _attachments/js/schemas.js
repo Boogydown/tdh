@@ -748,12 +748,12 @@ VU.schemas = {
                             { value: "Tejano", label: "Tejano" },
                             { value: "Rock & Roll", label: "Rock & Roll" },
                             { value: "Polka", label: "Polka" },
-                            { value: "R&B/Soul", label: "R&B/Soul" },
+                            { value: "R&B-Soul", label: "R&B-Soul" },
                             { value: "Honky Tonk", label: "Honky Tonk" },
                             { value: "Western Swing", label: "Western Swing" },
-                            { value: "Cajun/Zydeco", label: "Cajun/Zydeco" },
+                            { value: "Cajun-Zydeco", label: "Cajun-Zydeco" },
                             { value: "Rockabilly", label: "Rockabilly" },
-                            { value: "Singer/Songwriter", label: "Singer/Songwriter" },
+                            { value: "Singer-Songwriter", label: "Singer-Songwriter" },
                             { value: "Blues", label: "Blues" },
                             { value: "Countryk", label: "Country" }
                         ]

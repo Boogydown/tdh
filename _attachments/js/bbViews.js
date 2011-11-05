@@ -32,6 +32,21 @@ VU.ListingView = VU.DustView.extend({
 		_.bindAll(this, 'render', 'finalize');
 		this.model.bind('change', this.render);
 		this.registerTemplate( this.options.template );
+		
+		// find the text limits, if any
+		var textLimits = $(this.options.template).attr("textLimits"),
+			i, limitPair;
+		if ( textLimits ){
+			textLimits = textLimits.split(";");
+			for ( var i in textLimits ){
+				limitPair = textLimits[i].split(":");
+				textLimits[i] = {
+					datum: limitPair[0],
+					limit: limitPair[1]
+				};
+			}
+			this.textLimits = textLimits;
+		}
 	},
 	
 	finalize : function() {
@@ -39,13 +54,15 @@ VU.ListingView = VU.DustView.extend({
 		this.remove();
 	},
 	
-	render : function() {
-		//TODO: somehow incorporate this into the templating language		
-		this.model.set( {
-			name : window.utils.elipsesStr( this.model.get( "name" ), 18 ),
-			entryDescription : window.utils.elipsesStr( this.model.get( "entryDescription" ), 180 )
-		}, {silent:true});
-		return VU.DustView.prototype.render.call(this);
+	getData : function() {
+		var data = this.model.toJSON(), datum, limit;
+		for ( var i in this.textLimits ) {
+			datum = this.textLimits[i].datum;
+			limit = parseInt(this.textLimits[i].limit);
+			if ( datum in data )
+				data[datum] = window.utils.elipsesStr( this.model.get( datum ), limit );
+		}
+		return data;
 	}
 });	
 
@@ -355,6 +372,7 @@ VU.MapView = Backbone.View.extend({
 		var center = new google.maps.LatLng(30.274338, -97.744675),
 			myOptions = {
 				zoom: 6,
+				minZoom: 5,
 				center: center,
 				mapTypeId: google.maps.MapTypeId.ROADMAP
 			},
@@ -396,24 +414,30 @@ VU.MapView = Backbone.View.extend({
 		}
 	},
 	
-	clearMarkers : function() {
-		_.each( this.markers, function(m){m.setMap(null);});		
-		this.markers = {};
-	},
-	
-	removeMarker : function(m) {
-		if ( m.id in this.markers )
-			this.markers[m.id].setMap(null);
-	},
-	
-	addMarker : function ( model, m ) {	
+	getHall : function( model ) {
 		var hallID = model.get("hall"), hall;
 		if ( hallID )
 			hall = model.collection.colls.halls.get( hallID );
 		else if ( model instanceof VU.VenueModel )
 			hall = model;
 		else
-			return;
+			return null;
+	},
+	
+	clearMarkers : function() {
+		_.each( this.markers, function(m){m.setMap(null);});		
+		this.markers = {};
+		this.bounds = new google.maps.LatLngBounds();
+	},
+	
+	removeMarker : function(m) {
+		var hall = this.getHall( m );
+		if ( hall && hall.id in this.markers )
+			this.markers[hall.id].setMap(null);
+	},
+	
+	addMarker : function ( model, m ) {	
+		var hall = this.getHall( model );
 		hall && hall.unbind( "change", this.addMarker );
 		
 		// convert gps to LatLng
@@ -448,6 +472,8 @@ VU.MapView = Backbone.View.extend({
 				),
 				zIndex : master ? -999 : 999
 			};
+			this.bounds.extends( gps );
+			this.map.fitBounds( this.bounds );
 			var modelID = hall.id;
 			if ( modelID in this.markers )
 				this.markers[ modelID ].setOptions( mOptions );

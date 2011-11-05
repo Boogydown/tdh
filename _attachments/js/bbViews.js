@@ -34,16 +34,17 @@ VU.ListingView = VU.DustView.extend({
 		this.registerTemplate( this.options.template );
 		
 		// find the text limits, if any
-		var textLimits = $(this.options.template).attr("textLimits"),
+		var textLimits = $("#" + this.options.template).attr("textLimits"),
 			i, limitPair;
 		if ( textLimits ){
 			textLimits = textLimits.split(";");
 			for ( var i in textLimits ){
 				limitPair = textLimits[i].split(":");
-				textLimits[i] = {
-					datum: limitPair[0],
-					limit: limitPair[1]
-				};
+				if ( limitPair.length > 1 )
+					textLimits[i] = {
+						datum: limitPair[0],
+						limit: limitPair[1]
+					};
 			}
 			this.textLimits = textLimits;
 		}

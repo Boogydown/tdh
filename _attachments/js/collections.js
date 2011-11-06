@@ -126,7 +126,7 @@ VU.LocalFilteredCollection = VU.Collection.extend({
 	
 	//filterObj: [{key:, start:, end:}]
 	applyFilters : function( filters, limit ) {
-		console.log( this.name + ".applyFilters( " + filters, limit + " )");
+		utils.logger.log( this.name + ".applyFilters( " + filters, limit + " )");
 		this.allPagesLoaded = true;
 		filters && ( this.currentFilters = filters );
 		
@@ -146,7 +146,7 @@ VU.LocalFilteredCollection = VU.Collection.extend({
 	
 	onGotFiltered : function ( filteredModels, totalFiltered, lastPage ) {
 		// keepParent: we don't want the model's parent collection to change: it belongs to the master collection
-		console.log( this.name + ".onGotFiltered( " + filteredModels.length + " models recieved, last page: " + lastPage + ")");
+		utils.logger.log( this.name + ".onGotFiltered( " + filteredModels.length + " models recieved, last page: " + lastPage + ")");
 		this.fullLength = totalFiltered;
 		this.allFiltered = filteredModels;
 		this.head = 0;
@@ -271,11 +271,11 @@ VU.KeyedCollection = VU.Collection.extend({
 		if ( filterParams && filterParams !== this ) 
 			this.filterQueue.push( filterParams );
 
-		console.log( this.name + ".getFiltered(" + ( filterParams && filterParams.name), this.filterQueue.length + " queued )" );
+		utils.logger.log( this.name + ".getFiltered(" + ( filterParams && filterParams.name), this.filterQueue.length + " queued )" );
 		
 		if ( !this.fetched ) {
 			this.fetch( {success: this.getFiltered} );
-			console.log( this.name + ".getFiltered( fetch! )" );
+			utils.logger.log( this.name + ".getFiltered( fetch! )" );
 			return;
 		}
 		if ( !this.keyed ) this.reloadKeys();
@@ -286,7 +286,7 @@ VU.KeyedCollection = VU.Collection.extend({
 			fp = this.filterQueue.shift();
 		if ( fp && fp.filters )
 		{
-			console.log( this.name + ".getFiltered(), processing " + fp.name );
+			utils.logger.log( this.name + ".getFiltered(), processing " + fp.name );
 			for( fl = fp.filters.length; i < fl, filter = fp.filters[i++]; ) {
 				curVals = this.keys[filter.key];
 				if ( curVals ){

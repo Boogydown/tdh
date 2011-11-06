@@ -64,5 +64,12 @@ window.utils = {
 			left: destOff.left,
 			top: destOff.top
 		}, null, null, function () { $(this).remove(); } );
+	},
+	
+	logger : {
+		log : function(msg) {
+			if ( window.console !== undefined ) 
+				console.log(msg);
+		}
 	}
 };

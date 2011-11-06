@@ -208,7 +208,7 @@ VU.EventListingView = VU.ListingView.extend({
 		}
 		var lc, template = (this.el.getAttribute("listing-template") || "");
 		if ( !template ) 
-			console.log("listing-template attribute not given in " + this.el);
+			utils.logger.log("listing-template attribute not given in " + this.el);
 		else if ( model.id in this.listingViews )
 			$(this.listingViews[model.id].el).css("display","block");
 		else {
@@ -499,7 +499,7 @@ VU.MapView = Backbone.View.extend({
 			else {
 				address = address.replace('\n', ' ');
 				if ( !(address in this.gcs) ){
-					console.log("[MapView] Attempting to find geocode for " + address);
+					utils.logger.log("[MapView] Attempting to find geocode for " + address);
 					// HACK: using only the first 4 chars of addy, to give better chance of matchin properly-formatted addy in attachToMap
 					var mini = address.substr(0,4);
 					if ( ! mini in this.gcs ){
@@ -518,7 +518,7 @@ VU.MapView = Backbone.View.extend({
 				map: this.map, 
 				position: results[0].geometry.location
 			});
-			console.log("[MapView] Geocode found for " + results[0].formatted_address);
+			utils.logger.log("[MapView] Geocode found for " + results[0].formatted_address);
 			if ( model )
 				this.markers[ model.id ] = marker;
 		}
@@ -619,7 +619,7 @@ VU.SearchBoxView = Backbone.View.extend({
 	
 	handleSearch : function( searchField ) {
 		var input = searchField.target;
-		console.log(searchField.type);
+		utils.logger.log(searchField.type);
 		switch ( searchField.type ) {
 			case "focusout" : 
 			case "blur" : 
@@ -651,7 +651,7 @@ VU.SearchBoxView = Backbone.View.extend({
 				}
 				
 				this.model.applyFilters();
-				console.log(input.value);
+				utils.logger.log(input.value);
 				break;
 		}
 	}

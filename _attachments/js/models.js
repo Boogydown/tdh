@@ -29,7 +29,7 @@ VU.CookieModel = Backbone.Model.extend({
 			if ( val !== undefined ){
 				cookie = this.prefix + key + "=" + JSON.stringify(val);
 				document.cookie = cookie;
-				console.log("writeCookies() is writing cookie: " + cookie );
+				utils.logger.log("writeCookies() is writing cookie: " + cookie );
 			}
 		}
 		if ( this.id ) this.save();
@@ -54,7 +54,7 @@ VU.CookieModel = Backbone.Model.extend({
 			}
 		}
 		//tmp.cookiesObj = cookiesObj;  deprected - don't need it added to the model, anymore
-		console.log( "readCookies() is setting: " + JSON.stringify( tmp ) );
+		utils.logger.log( "readCookies() is setting: " + JSON.stringify( tmp ) );
 		this.set( tmp );
 		return success;
 	}
@@ -158,7 +158,7 @@ VU.MemberModel = VU.CookieModel.extend({
 	
 	// for anonymous sessions
 	prepAnon : function() {
-		console.log( "Setting up an anonymous session." );
+		utils.logger.log( "Setting up an anonymous session." );
 		this.clear({silent:true});
 		this.set( this.defaults );
 		this.loadDCard();
@@ -320,7 +320,7 @@ VU.LinkingModel = Backbone.Model.extend({
 	
 	loadLinkVals : function ( myRef ) {
 		if ( !myRef )
-			console.log("myRef undefined");
+			utils.logger.log("myRef undefined");
 		myRef.fetched = true;
 		var linkMatch, destAttr, linkVals = myRef.linkRef.linkVals;
 		
@@ -395,7 +395,7 @@ VU.BandModel = VU.EventsContainerModel.extend({
 			this.imageSearch.execute(this.get( "bandName" ));
 			//google.search.Search.getBranding('branding');
 		}
-		catch (e) {console.log("Cannot load Google Images API: " + e);}
+		catch (e) {utils.logger.log("Cannot load Google Images API: " + e);}
 	},
 	
 	searchComplete : function() {
@@ -506,7 +506,7 @@ VU.EventModel = VU.LinkingModel.extend({
 		var myDateStr = this.get("date");
 		var myDate = myDateStr instanceof Date ? myDateStr : new Date( myDateStr );
 		if ( myDate.toString() == "Invalid Date" || ! myDate.getTime() ) {
-			console.log( "Invalid date: " + (myDateStr == "" ? "(empty string)" : myDateStr) + ".  Using today's date." );
+			utils.logger.log( "Invalid date: " + (myDateStr == "" ? "(empty string)" : myDateStr) + ".  Using today's date." );
 			myDate = new Date();
 		}
 		

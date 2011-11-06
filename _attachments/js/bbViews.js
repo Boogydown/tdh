@@ -411,7 +411,7 @@ VU.MapView = Backbone.View.extend({
 		// addMarker for all halls in master Coll without filteredColl
 		if ( this.masterColl ) {
 			var filteredIDs = this.collection.pluck("hall");
-			this.masterColl.each( function(hall){if ( filteredIDs.indexOf(hall.id) == -1 ) this.addMarker(hall, true);}, this );
+			this.masterColl.each( function(hall){if ( _(filteredIDs).indexOf(hall.id) == -1 ) this.addMarker(hall, true);}, this );
 		}
 	},
 	

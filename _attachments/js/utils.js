@@ -1,3 +1,12 @@
+_.mixin({
+	splice:function(ary,start,end){
+		if ( ary.splice !== undefined )
+			return art.splice( start, end );
+		else
+			return _(ary).chain().rest(start).first(end - start + 1).value();
+	}
+});
+
 window.utils = {
 
 	// Useful get-var parser by Josh Fraser

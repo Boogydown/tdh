@@ -44,7 +44,7 @@ VU.CookieModel = Backbone.Model.extend({
 				if ( cookary[0].substr(0,plen) == this.prefix ) {
 					key = cookary[0].substr(plen);
 					cookiesObj[key] = cookary[1];
-					if ( this.cookieKeys.indexOf(key) > -1 ) {
+					if ( _(this.cookieKeys).indexOf(key) > -1 ) {
 						try{
 							tmp[key] = JSON.parse( cookary[1] );
 							success = true;

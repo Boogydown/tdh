@@ -252,7 +252,7 @@ VU.KeyedCollection = VU.Collection.extend({
 				// we can assume that it must be in here, if not then just ignore
 				valModels = this.keys[key][value];
 				if ( valModels && _.size(valModels) > 1 )
-					valModels.splice( valModels.indexOf(model), 1 );
+					valModels.splice( _(valModels).indexOf(model), 1 );
 				else{
 					//cleanup
 					delete this.keys[key][value];
@@ -297,7 +297,7 @@ VU.KeyedCollection = VU.Collection.extend({
 							if ( (value >= filter.start && value <= filter.end) )
 								innerModels = innerModels.concat( curVals[value] );
 						} else if ( filter.str && filter.str != "" ) {
-							if ( value.indexOf( filter.str ) > -1 )
+							if ( _(value).indexOf( filter.str ) > -1 )
 								innerModels = innerModels.concat( curVals[value] );
 						}
 					}

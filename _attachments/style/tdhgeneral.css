@@ -238,6 +238,11 @@ div.standardListing2{
 	background-position: -10px -190px;
 }
 
+div.featuredListing2{
+	height:75px;
+	background-position: -10px -190px;
+}
+
 div.listingBG{	    
     position: absolute;
     left: 0px;

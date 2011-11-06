@@ -402,7 +402,8 @@ div#hallsDiv div.list, div#bandsDiv div.list{
 }
 
 .iteminfo {
-    font-size: 10px;
+	color: #FFFFFF;
+    font-size: 11px;
     left: 45px;
     position: absolute;    
     top: 40px;

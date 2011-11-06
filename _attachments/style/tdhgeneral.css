@@ -1005,7 +1005,7 @@ div.close_popup {
 
 
 
-table.ownershipTable tr th{
+table.ownershipTable tr th span{
 	border-style:solid;
 border-bottom-width:2px; 
               border-color:#3D3D45;

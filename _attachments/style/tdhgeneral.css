@@ -484,7 +484,7 @@ div.day{
 
 div.listing-time{
 	top: 24px;
-	font-family: arial, sans-serif;
+	font-family: Verdana;
 	font-size: 10px;
 	line-height:11px;
 }
@@ -628,7 +628,7 @@ div#popuplist{
     color: white;
 	height: 165px;
 	width: 360px;
-    font-family: Arial,sans-serif;
+    font-family: Verdana;
     font-size: 14px;
 	overflow: auto;
 }
@@ -699,7 +699,7 @@ div#main-photo img{
 }
 
 div.popup-time{
-	font-family: georgia, serif;
+	font-family: Verdana;
 	font-size: 35px;
 	position:relative;
 	top:5px;

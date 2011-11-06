@@ -242,7 +242,7 @@ div.featuredListing2{
 	height:75px;
 	background-position: -10px -390px;
 }
-div.featuredListing2 div.listing-date{
+div.featuredListing2 div.listing-date, div.featuredListing div.listing-date{
 	top: 20px;
 }
 

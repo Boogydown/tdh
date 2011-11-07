@@ -29,9 +29,8 @@ div.loadingGIF {
 }
 
 div#main-container {
-    bottom: 50px;
     font-family: Arial,sans-serif;
-    position: absolute;
+    position: fixed;
     top: 170px;
     width: 760px;
     bottom: 50px;

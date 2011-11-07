@@ -31,7 +31,7 @@ div.loadingGIF {
 div#main-container {
     bottom: 50px;
     font-family: Arial,sans-serif;
-    position: fixed;
+    position: absolute;
     top: 170px;
     width: 760px;
     bottom: 50px;

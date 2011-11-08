@@ -29,7 +29,6 @@ div.loadingGIF {
 }
 
 div#main-container {
-    bottom: 50px;
     font-family: Arial,sans-serif;
     position: fixed;
     top: 170px;
@@ -238,6 +237,14 @@ div.standardListing2{
 	background-position: -10px -190px;
 }
 
+div.featuredListing2{
+	height:75px;
+	background-position: -10px -390px;
+}
+div.featuredListing2 div.listing-date, div.featuredListing div.listing-date{
+	top: 20px;
+}
+
 div.listingBG{	    
     position: absolute;
     left: 0px;
@@ -394,7 +401,9 @@ div#hallsDiv div.list, div#bandsDiv div.list{
 }
 
 .iteminfo {
-    font-size: 10px;
+	color: #FFFFFF;
+	font-weight:bold;
+    font-size: 11px;
     left: 45px;
     position: absolute;    
     top: 40px;
@@ -484,7 +493,7 @@ div.day{
 
 div.listing-time{
 	top: 24px;
-	font-family: arial, sans-serif;
+	font-family: Verdana;
 	font-size: 10px;
 	line-height:11px;
 }
@@ -500,7 +509,7 @@ div.listing-time3, div.listing-time4{
 	position: relative;
 	width: 97px;
 	color: #CCCCCC;
-	font-family: georgia, serif;
+	font-family: Verdana;
 	font-size: 32px;
 	line-height: 0.8em;
 	text-decoration: bold;
@@ -628,7 +637,7 @@ div#popuplist{
     color: white;
 	height: 165px;
 	width: 360px;
-    font-family: Arial,sans-serif;
+    font-family: Verdana;
     font-size: 14px;
 	overflow: auto;
 }
@@ -699,7 +708,7 @@ div#main-photo img{
 }
 
 div.popup-time{
-	font-family: georgia, serif;
+	font-family: Verdana;
 	font-size: 35px;
 	position:relative;
 	top:5px;
@@ -1005,14 +1014,14 @@ div.close_popup {
 
 
 
-table.ownershipTable tr th{
+table.ownershipTable tr th span{
 	border-style:solid;
-border-bottom-width:2px; 
+border-width:0px 0px 2px 0px; 
               border-color:#3D3D45;
 }
 
 table.ownershipTable tr td.mark{
 	border-style:solid;
-border-left-width:2px; 
+border-width:0px 0px 0px 3px;
               border-color:#3D3D45;
 }

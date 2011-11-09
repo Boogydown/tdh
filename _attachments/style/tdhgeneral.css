@@ -3,12 +3,12 @@ div {
 }
 
 /**************Fixed Positioning for IE6*************/
-*html #fade {
+/* *html #fade {
 	position: absolute;
 }
 *html .popup_block {
 	position: absolute;
-}
+} */
 
 /**************** Main Container ****************/
 #loggedInNav {

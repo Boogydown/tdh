@@ -66,7 +66,7 @@
 			activate : function ( filters ) {
 				VU.ParentView.prototype.activate.call(this);
 				this.listView.applyFilters( filters );
-				//this.tagView.render();  this happens at refresh, within tagView
+				//this.tagView.render();  this happens at reset, within tagView
 			}
 		}),
 		

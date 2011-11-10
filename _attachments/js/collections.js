@@ -4,7 +4,7 @@ VU.InitColls = function () {
 /////////////////////////////////////////////////////////////////////////////{
 /* Backbone.Collection extension that adds:
  * 	fetched flag to signal whether it was recently fetched
- *	diff as an option to fetch, which will add or remove models without refreshing
+ *	diff as an option to fetch, which will add or remove models without reseting
  *  index to model, which is the index at which it was placed when added
  */
 VU.Collection = Backbone.Collection.extend({
@@ -18,7 +18,7 @@ VU.Collection = Backbone.Collection.extend({
 		options.success = function(resp) {
 			collection.fetched = true;
 			collection.fetching = false;
-			collection[options.add ? 'add' : options.diff ? 'diff' : 'refresh'](collection.parse(resp), options);
+			collection[options.add ? 'add' : options.diff ? 'diff' : 'reset'](collection.parse(resp), options);
 			if (success) success(collection, resp);
 		};
 		options.error = this.wrapError(options.error, collection, options);
@@ -54,7 +54,7 @@ VU.Collection = Backbone.Collection.extend({
     // Diff a model, or list of models to the set. Pass **silent** to avoid
     // firing the `added` or 'removed' events for every different model.
 	// Pass **keepParent** to avoid reparenting when adding
-	// Diff means it will add or remove models without having to refresh
+	// Diff means it will add or remove models without having to reset
 	diff : function( models, options ) {
 		// add new models...
 		this.add( models, options );
@@ -115,11 +115,11 @@ VU.LocalFilteredCollection = VU.Collection.extend({
 		options.model && (this.model = options.model);
 		this.masterCollection = options.collection;
 		this.model = this.masterCollection.model;
-		_.bindAll( this, "refreshed", "applyFilters", "onGotFiltered" );
+		_.bindAll( this, "reseted", "applyFilters", "onGotFiltered" );
 	},
 	
 	// completely reload
-	refreshed : function( ) {
+	reseted : function( ) {
 		this.remove( this.models, {keepParent:true} );
 		this.applyFilters();
 	},
@@ -157,7 +157,7 @@ VU.LocalFilteredCollection = VU.Collection.extend({
 		this.diff( this.allFiltered.slice(this.head,this.tail), {keepParent:true, ignoreDups:true} );
 		if ( !this.attached ) {
 			this.masterCollection.bind( "keysChanged", this.applyFilters );
-			this.masterCollection.bind( "refresh", this.refreshed );
+			this.masterCollection.bind( "reset", this.reseted );
 			this.attached = true;
 		}
 		this.trigger( "filtered" );
@@ -186,7 +186,7 @@ VU.KeyedCollection = VU.Collection.extend({
 		this.filterQueue = [];
 		
 		_.bindAll( this, "reloadKeys", "changeKeys", "removeKeys", "addKeys", "getFiltered" );
-		this.bind( "refresh", this.reloadKeys )
+		this.bind( "reset", this.reloadKeys )
 	},
 	
 	finalize : function() {

@@ -1,6 +1,6 @@
 VU.InitPersistentRouter = function () {
 
-VU.PersistentRouter = Backbone.Controller.extend({
+VU.PersistentRouter = Backbone.Router.extend({
 	persistedRoutes : [],
 	defaultParams : [],
 	
@@ -38,7 +38,7 @@ VU.PersistentRouter = Backbone.Controller.extend({
 	saveRoutes : function (/* arg list */) {
 		var i, url="";
 		for ( i in arguments ) url += (this.persistedRoutes[i] = arguments[i]) + "/";
-		this.saveLocation( url = url.substr(0, url.length - 1 ) ); //nix trailing slash
+		this.navigate( url = url.substr(0, url.length - 1 ) ); //nix trailing slash
 		this._savedLoc = true;
 		return url;
 	}

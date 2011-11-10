@@ -53,9 +53,9 @@ $(function(){
 			var colls = this.options.collection.colls;
 			if ( colls ) {
 				this.collsToFetch = 2;
-				if ( !colls.bands.fetched ) { colls.bands.bind( "refresh", this.fetched ); colls.bands.fetch({field:0}) }
+				if ( !colls.bands.fetched ) { colls.bands.bind( "reset", this.fetched ); colls.bands.fetch({field:0}) }
 				else this.fetched( colls.bands, {field:0});
-				if ( !colls.halls.fetched ) { colls.halls.bind( "refresh", this.fetched ); colls.halls.fetch({field:2}) }
+				if ( !colls.halls.fetched ) { colls.halls.bind( "reset", this.fetched ); colls.halls.fetch({field:2}) }
 				else this.fetched( colls.halls, {field:2});
 			}
 			else 
@@ -71,7 +71,7 @@ $(function(){
 		
 		fetched : function( coll, options ) {
 			coll.fetched = true;
-			coll.unbind( "refresh", this.fetched );
+			coll.unbind( "reset", this.fetched );
 			this.form.fields[options.field].choices = _.map( coll.models, function(model) {
 				// TODO: yeaaaahhh.... this needs to be fixed.  Should not have hardcoded values here.  Perhaps make "name" mandatory on all docs?
 				var name = model.get("bandName") || model.get("danceHallName");
@@ -195,7 +195,7 @@ $(function(){
             this.collection.bind("add", this.reRender);
             this.collection.bind("remove", this.deleted);
 			if ( !this.collection.fetched ){
-				this.collection.bind("refresh", this.render);
+				this.collection.bind("reset", this.render);
 				this.collection.fetch( );
 			}
 			else
@@ -533,9 +533,9 @@ $(function(){
 			// if doc requested, but no docID, then revert back to list
 			if ( showType == "doc" && !docID ) showType = "list";
 			
-			// since incomplete hashes are filled out via saved values, we need to refresh the hash in the actual 
+			// since incomplete hashes are filled out via saved values, we need to reset the hash in the actual 
 			// URL so that it reflects the full, actual hash url that we're at.  This maintains the RESTful functionality
-			this.saveLocation( showType + 
+			this.navigate( showType + 
 							   "/" + collName + 
 							   "/" + schemaName + 
 							   "/" + docID + 

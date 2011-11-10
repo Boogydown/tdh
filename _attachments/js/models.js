@@ -195,7 +195,7 @@ VU.MemberModel = VU.CookieModel.extend({
 		if ( this.eventsMain.fetched ) {
 			
 			// once events are fetched then we set the dCard for all matching ids in the dCard array
-			this.eventsMain.unbind( "refresh", this.loadDCard );
+			this.eventsMain.unbind( "reset", this.loadDCard );
 			
 			// cookie dCard takes precedence over logged-in one
 			if ( this.cookieDCard && this.cookieDCard.length > 0 ) {
@@ -219,7 +219,7 @@ VU.MemberModel = VU.CookieModel.extend({
 			this.dCardColl.bind( "remove", this._syncDCard );			
 		}
 		else
-			this.eventsMain.bind( "refresh", this.loadDCard );
+			this.eventsMain.bind( "reset", this.loadDCard );
 	},
 	
 	_syncDCard : function() {

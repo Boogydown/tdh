@@ -111,7 +111,7 @@ VU.EventListingView = VU.ListingView.extend({
 
 /**
  * This view is intended for wrapping a filtered list (LocalFilteredCollection)
- *  It is intended to only increase or decrease its contents, with refreshes
+ *  It is intended to only increase or decrease its contents, with resetes
  *	being very rare.  Thus, it listenes to Add and Remove events on the filtered
  *	list
  */
@@ -383,12 +383,12 @@ VU.MapView = Backbone.View.extend({
 		
 		if ( this.collection ){
 			this.collection.bind("add", this.addMarker );
-			this.collection.bind("refresh", this.render );
+			this.collection.bind("reset", this.render );
 		}
 		
 		if ( this.masterColl ) {			
 			this.masterColl.bind("add", function(model){that.addMarker(model,true)} );
-			this.masterColl.bind("refresh", this.render );
+			this.masterColl.bind("reset", this.render );
 			// remove events in collection mean add events here
 			this.collection.bind("remove", function(model){that.addMarker(model,true)} );
 		} else
@@ -550,7 +550,7 @@ VU.TagCloudView = Backbone.View.extend({
 		_.bindAll( this, "render", "addTags", "removeTags" );
 		this.tags = [];
 		this.tagsHash = [];
-		this.collection.bind( "refresh", this.render );
+		this.collection.bind( "reset", this.render );
 	},
 	
 	render : function( ) {

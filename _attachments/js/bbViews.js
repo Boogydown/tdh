@@ -442,6 +442,7 @@ VU.MapView = Backbone.View.extend({
 	},
 	
 	addMarker : function ( model, m ) {	
+		return;
 		var hall = this.getHall( model );
 		hall && hall.unbind( "change", this.addMarker );
 		

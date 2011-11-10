@@ -591,7 +591,7 @@ VU.ParentView = Backbone.View.extend({
 	activate : function( filter ) {
 		if ( this.active ) return;
 		this.tabEl.addClass( "active-link" );
-		this.el.show();
+		this.el.css("display","block");
 		this.active = true;
 	},
 	

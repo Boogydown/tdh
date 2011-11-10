@@ -29,7 +29,9 @@ VU.PersistentRouter = Backbone.Router.extend({
 		}
 		
 		// call user's handler
+		try {
 		this.routeHandler.apply( this, newArgs );
+		} catch(e){alert(e.description);}
 		
 		// save persistent routes (if not called earlier, by user's handler)
 		if ( ! this._savedLoc ) this.saveRoutes.apply( this, newaArgs );

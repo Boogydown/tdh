@@ -449,9 +449,9 @@ div#hallsMap, #dCardMap {
 
 div#bandsTags{
 		height: 370px;
-		width: 340px;
+		width: 256px;
 		top: 16px;
-		left: 510px;
+		left: 490px;
 }
 
 #bandsTagsList li a {

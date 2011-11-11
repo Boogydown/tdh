@@ -152,7 +152,8 @@ div.box {
 	width: 340px;
 	position: absolute;
 	top: 50px;
-	bottom: -20px;
+	height:500px;
+	/*bottom: -20px;*/
 	/*behavior: url(border-radius.htc);*/
 	-moz-border-radius: 10px;
     -webkit-border-radius: 10px;

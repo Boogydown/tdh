@@ -298,7 +298,7 @@ input#searchHallCounty{
 	margin-left: 10px;
 }
 
-div#hallsDiv div.box, div#bandsDiv div.box {
+div#hallsDiv div.list, div#bandsDiv div.list {
 	background-color: transparent;
 	width: 466px;
 	position: absolute;
@@ -448,10 +448,10 @@ div#hallsMap, #dCardMap {
 }
 
 div#bandsTags{
-	height: 370px;
-	width: 167px;
-	top: 16px;
-	left: 510px;
+		height: 370px;
+		width: 340px;
+		top: 16px;
+		left: 510px;
 }
 
 #bandsTagsList li a {

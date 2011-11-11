@@ -300,7 +300,7 @@ input#searchHallCounty{
 
 div#hallsDiv div.box, div#bandsDiv div.box {
 	background-color: transparent;
-	width: 240px;
+	width: 466px;
 	position: absolute;
 	top: 50px;
 	bottom: -20px;
@@ -435,6 +435,10 @@ div#hallsMap, #dCardMap {
 
 #dCardMap {
 	bottom: 5px;
+}
+
+#hallsMap {
+	width:240px;
 }
 
 #removeAllButton {

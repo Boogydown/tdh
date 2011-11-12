@@ -445,7 +445,7 @@ $(function(){
 	 * All values are saved to the controller and on hashChange, incomplete hashes (i.e. #list or #////5) have
 	 * blank values filled in, respectively, from the saved version
 	 */
-    var App = Backbone.Controller.extend({
+    var App = Backbone.Router.extend({
 		// default params:
 		showType : "list",
 		collName : "events",

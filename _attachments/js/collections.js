@@ -174,7 +174,8 @@ VU.LocalFilteredCollection = VU.Collection.extend({
 
 VU.KeyedCollection = VU.Collection.extend({
 	initialize : function(models, options) {
-		options.name && (this.name = _.uniqueId(options.name));
+		if ( options.name !== undefined )
+			this.name = _.uniqueId(options.name);
 		
 		// hash for quickly cross-referencing key matches
 		this.keys = {};

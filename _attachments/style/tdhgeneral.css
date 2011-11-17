@@ -538,6 +538,7 @@ div.twostepphoto{
     left: 300px;
     top: 15px;
     position: absolute;
+	cursor: pointer:
 }
 
 div.twostepphoto2{
@@ -561,6 +562,7 @@ div.addToDanceCard{
 	font-size: 10px;
 	color: #F8C898;
 	letter-spacing: -0.05em;
+	cursor: pointer:
 }
 
 div.addToDanceCard2{

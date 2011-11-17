@@ -582,8 +582,8 @@ div#dancesCal div {
 }
 
 div#dancesMap {
-    right: 14px;
-	top: 230px;
+    right: 15px;
+	top: 212px;
 	/*behavior: url(border-radius.htc);*/
 	-moz-border-radius: 10px;
     -webkit-border-radius: 10px;

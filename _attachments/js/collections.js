@@ -298,7 +298,7 @@ VU.KeyedCollection = VU.Collection.extend({
 							if ( (value >= filter.start && value <= filter.end) )
 								innerModels = innerModels.concat( curVals[value] );
 						} else if ( filter.str && filter.str != "" ) {
-							if ( _(value).indexOf( filter.str ) > -1 )
+							if ( value.indexOf( filter.str ) > -1 )
 								innerModels = innerModels.concat( curVals[value] );
 						}
 					}

@@ -41,7 +41,6 @@ div.info-area{ /*Contains everything under the tabs */
     background-repeat:repeat;
     height:100%;
     width: 100%;
-    position: relative;
 }
 
 div#dance-card-info-area{ /*Contains everything under the tabs */

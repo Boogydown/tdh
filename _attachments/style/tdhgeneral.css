@@ -1036,9 +1036,9 @@ border-width:0px 0px 0px 3px;
 
 /* ******************calendar override******************* */
 
-.ui-datepicker table
+.ui-widget
 {
-    font-size: 0.5em !important;
+    font-size: 0.6em !important;
 }
 .ui-datepicker
 {

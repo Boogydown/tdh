@@ -275,10 +275,12 @@ input.searchName, input.searchCounty{
 	background-position: -140px -240px;
 	background-repeat: no-repeat;*/
 	background-color: #404040;
-	width: 226px;
+	width: 220px;
 	height: 30px;
+	padding-left: 6px;
 	border: 0px;
 	position: relative;
+	line-height: 30px !important;
 	/*behavior: url(border-radius.htc);*/
 	-moz-border-radius: 5px;
     -webkit-border-radius: 5px;

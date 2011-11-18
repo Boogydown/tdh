@@ -424,8 +424,8 @@ div.itemImage img{
 }
 
 div#hallsMap, #dCardMap {
-    right: 24px;
-	top: 206px;
+    right: 15px;
+	top: 85px;
 		/*behavior: url(border-radius.htc);*/
 	-moz-border-radius: 10px;
     -webkit-border-radius: 10px;
@@ -438,7 +438,7 @@ div#hallsMap, #dCardMap {
 }
 
 #hallsMap {
-	width:240px;
+	width:248px;
 }
 
 #removeAllButton {

@@ -257,9 +257,10 @@ div.listingBG{
 div.searchFor{
 	background-color: transparent;
 
-	width: 470px;
+	width: 466px;
+	height: 30px;
 	position: absolute;
-	left: 20px;
+	left: 15px;
 	top: 50px;
 	bottom: -20px;
 	/*behavior: url(border-radius.htc);*/
@@ -274,9 +275,10 @@ input.searchName, input.searchCounty{
 	background-position: -140px -240px;
 	background-repeat: no-repeat;*/
 	background-color: #404040;
-	width: 210px;
+	width: 220px;
 	height: 30px;
 	border: 0px;
+	padding-left: 8px;
 	position: relative;
 	/*behavior: url(border-radius.htc);*/
 	-moz-border-radius: 5px;
@@ -314,7 +316,7 @@ div#hallsDiv div.list, div#bandsDiv div.list {
 div#hallsDiv div.box.list, div#bandsDiv div.box.list{
 	background-color: transparent;
 	position: absolute;
-	top: 85px;
+	top: 92px;
 	bottom: -20px;
 	/*behavior: url(border-radius.htc);*/
 	-moz-border-radius: 10px;
@@ -425,7 +427,7 @@ div.itemImage img{
 
 div#hallsMap, #dCardMap {
     right: 15px;
-	top: 85px;
+	top: 50px;
 		/*behavior: url(border-radius.htc);*/
 	-moz-border-radius: 10px;
     -webkit-border-radius: 10px;
@@ -771,6 +773,10 @@ h2 {
     padding: 0 20px;
     position: absolute;
     top: 13px;
+}
+
+.details a {
+    text-decoration: none;
 }
 
 .bandphoto {

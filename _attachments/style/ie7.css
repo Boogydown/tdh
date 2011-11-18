@@ -1,0 +1,17 @@
+/* styles for IE7 */
+div.info-area 
+{
+    position: absolute !important;
+    top: 36px !important;
+}
+
+div#nav-tabs 
+{
+    top: -18px !important;
+}
+
+div.box
+{
+    top: 15px !important;
+    bottom: 15px !important;
+}

@@ -16,7 +16,24 @@ div.box
     bottom: 15px;
 }
 
+div#dancesCal
+{
+    top: 15px;
+}
+
 div#dancesMap
 {
     top: 177px;
+}
+
+div.searchFor
+{
+    top: 15px;
+}
+
+div#bandsDiv div.list.box
+div#hallsDiv div.list.box
+{
+    top: 64px;
+    bottom: 15px;
 }

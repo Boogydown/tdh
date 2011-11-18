@@ -1,17 +1,22 @@
 /* styles for IE7 */
 div.info-area 
 {
-    position: absolute !important;
-    top: 36px !important;
+    position: absolute;
+    top: 36px;
 }
 
 div#nav-tabs 
 {
-    top: -18px !important;
+    top: -18px
 }
 
 div.box
 {
-    top: 15px !important;
-    bottom: 15px !important;
+    top: 15px;
+    bottom: 15px;
+}
+
+div#dancesCal
+{
+    top: 177px;
 }

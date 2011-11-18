@@ -78,7 +78,7 @@ VU.EventsContainerPopupView = VU.PopupView.extend({
 					index = index < coll.length - 1 ? index + 1 : 0;
 			};
 			if ( this.navColl.model === VU.EventModel ){
-				index = this.navColl.pluck( this.navPrefix ).indexOf( this.model.id );
+				index = _(this.navColl.pluck( this.navPrefix )).indexOf( this.model.id );
 				incDec();
 				location.href="#///" + this.navPrefix + "&" + this.navColl.at(index).get( this.navPrefix );
 			}

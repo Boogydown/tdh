@@ -819,7 +819,7 @@ h2 {
 }
 
 .bandinfo2 {
-		background-color: rgba(64,64,64,0.5);
+		background-color: #222;
 		/*behavior: url(border-radius.htc);*/
 		-moz-border-radius: 2px;
 		-webkit-border-radius: 2px;
@@ -844,7 +844,7 @@ h2 {
 }
 
 .venueinfo2 {
-	background-color: rgba(64,64,64,0.5);
+	background-color: #222;
 	/*behavior: url(border-radius.htc);*/
 	-moz-border-radius: 2px;
     -webkit-border-radius: 2px;

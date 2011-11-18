@@ -278,7 +278,6 @@ input.searchName, input.searchCounty{
 	width: 226px;
 	height: 30px;
 	border: 0px;
-	text-indent: 8px;
 	position: relative;
 	/*behavior: url(border-radius.htc);*/
 	-moz-border-radius: 5px;

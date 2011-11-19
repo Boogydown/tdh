@@ -83,9 +83,11 @@ VU.EventListingView = VU.ListingView.extend({
 		if ( this.model.get( "onDCard" ) ) {
 			var shoes = $(".twostepphoto", this.el);
 			if ( window.TDHP_tab == "DanceCard" )
-				utils.flyAway( $(this.el), $("#dancesTabBtn") );
+			    utils.flyAway($(this.el), $("#dancesTabBtn"));
+                console.log('case 1');
 			else
-			    utils.flyAway(shoes, $("#dCardTabBtn"), shoes);
+				utils.flyAway( $("#dCardTabBtn"), shoes, shoes );
+                console.log('case 1');
 		} else
 			utils.flyAway( $(".twostepphoto", this.el), $("#dCardTabBtn") );
 		this.model.toggleDCard();

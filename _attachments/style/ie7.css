@@ -32,9 +32,29 @@ div.searchFor
 }
 
 div#bandsDiv div.list.box,
-div#hallsDiv div.list.box,
-div#danceCardDiv div.list.box
+div#hallsDiv div.list.box
 {
     top: 64px;
     bottom: 15px;
+}
+
+#dCardList
+{
+    top: 15px;
+    bottom: 70px;
+}
+
+#dCardMap
+{
+    top: 15px;
+}
+
+#removeAllButton
+{
+    width: 110px;
+}
+
+#danceCardDiv div.share
+{
+    bottom: 10px;
 }

@@ -263,17 +263,12 @@ div.searchFor{
 	left: 15px;
 	top: 50px;
 	bottom: -20px;
-	/*behavior: url(border-radius.htc);*/
-	-moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    -khtml-border-radius: 5px;
-    border-radius: 5px;	
 }
 
 input.searchName, input.searchCounty{
-	/*background-image: url(../images/cssSprite.png);
+	background-image: url(../images/cssSprite.png);
 	background-position: -140px -240px;
-	background-repeat: no-repeat;*/
+	background-repeat: no-repeat;
 	background-color: #404040;
 	width: 220px;
 	height: 30px;
@@ -285,7 +280,7 @@ input.searchName, input.searchCounty{
 	-moz-border-radius: 5px;
     -webkit-border-radius: 5px;
     -khtml-border-radius: 5px;
-    border-radius: 5px;	
+    /*border-radius: 5px;	*/
     font-family: Arial,sans-serif;
     font-size: 14px;
     color: #FFFFFF;

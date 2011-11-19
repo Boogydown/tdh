@@ -778,6 +778,7 @@ h2 {
 
 .details a {
     text-decoration: none;
+    cursor: pointer;
 }
 
 .bandphoto {

@@ -68,8 +68,6 @@ div#hallsDiv div.list.box
 
 #popup_block
 {
-    position: absolute;
-    z-index: 999999999999;
 }
 
 #fade

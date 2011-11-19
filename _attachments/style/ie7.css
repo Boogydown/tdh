@@ -74,5 +74,5 @@ div#hallsDiv div.list.box
 
 #fade
 {
-    z-index: 100 !important;
+    z-index: -1;
 }

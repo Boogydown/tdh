@@ -614,7 +614,7 @@ div.share {
 div.share span{
     font-family: Arial,sans-serif;
 	font-size: 17px;
-	color: #CCCCCC;
+	color: #CCCCCC !important;
 }
 /* ******************************************************* */
 

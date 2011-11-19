@@ -38,20 +38,27 @@ div#hallsDiv div.list.box
     bottom: 15px;
 }
 
+#hallsMap
+{
+    top: 15px !important;
+}
+
 #dCardList
 {
     top: 15px;
-    bottom: 70px;
+    bottom: 65px;
 }
 
 #dCardMap
 {
     top: 15px;
+    bottom: 35px;
 }
 
 #removeAllButton
 {
     width: 110px;
+    bottom: 35px;
 }
 
 #danceCardDiv div.share

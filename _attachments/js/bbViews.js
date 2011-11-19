@@ -73,9 +73,10 @@ VU.EventListingView = VU.ListingView.extend({
 		"click .addToDanceCardDiv" : "toggleDCard"
 	},
 	
-	initialize : function() {
+	initialize : function(options) {
+		this.listOf = options && options.listOf;
 		VU.ListingView.prototype.initialize.call(this);
-		_.bindAll( this, "toggleDCard", "render" );
+		_.bindAll( this, "toggleDCard", "render", "getData" );
 	},
 	
 	toggleDCard : function () {
@@ -110,9 +111,9 @@ VU.EventListingView = VU.ListingView.extend({
 	
 	getData : function() {
 		var data = VU.ListingView.prototype.getData.call(this);
-		if ( data.type == "band" )
+		if ( this.listOf == "band" )
 			data.tab = window.TDHP_tab == "Bands" ? "Halls" : window.TDHP_tab;
-		else if ( data.type == "hall" )
+		else if ( this.listOf == "hall" )
 			data.tab = window.TDHP_tab == "Halls" ? "Bands" : window.TDHP_tab;
 		return data;
 	}		
@@ -138,6 +139,7 @@ VU.EventListingView = VU.ListingView.extend({
 		this.listingClass = options.listingClass || VU.ListingView;
 		this.bootLoad = options.limit || 20;
 		this.listingViews = {};
+		this.options = options;
 		this.listingHeight = options.listingHeight || this.LISTING_HEIGHT;
 		this.collection.bind("add", this.addRow);
 		this.collection.bind("remove", this.removeRow);
@@ -221,7 +223,11 @@ VU.EventListingView = VU.ListingView.extend({
 		else if ( model.id in this.listingViews )
 			$(this.listingViews[model.id].el).css("display","block");
 		else {
-			this.listingViews[model.id] = lc = new this.listingClass( {model: model, template: template} );
+			this.listingViews[model.id] = lc = new this.listingClass({
+				model: model, 
+				template: template,
+				listOf: this.options.navPrefix
+			});
 			lc = lc.render().el;
 			if ( this.el.childNodes.length > model.index + 1 ) //+1 for the spacer
 				$(this.el.childNodes[ model.index ]).before( lc );

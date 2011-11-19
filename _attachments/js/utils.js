@@ -67,7 +67,7 @@ window.utils = {
 		var srcOff = src.offset(),
 			destOff = dest.offset();
 		flier.attr("style", "position:absolute;z-index:999;left:" + srcOff.left + ";top:" + srcOff.top );
-		flier.appendTo("body");
+		flier.appendTo(src.parent());
 		flier.animate( {
 			opacity: 0.25,
 			left: destOff.left,

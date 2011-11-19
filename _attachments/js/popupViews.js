@@ -127,7 +127,7 @@ VU.HallPopupView = VU.EventsContainerPopupView.extend( {
 	
 	getData : function() {
 		var data = VU.EventsContainerPopupView.prototype.getData.call(this);
-		data.tab = window.TDHP_tab == "Halls" ? "Bands" : window.TDHP_tab;
+		data.tab = "#" + (window.TDHP_tab == "Halls" ? "Bands" : window.TDHP_tab);
 		return data;
 	}
 });
@@ -166,7 +166,7 @@ VU.BandPopupView = VU.EventsContainerPopupView.extend( {
 	
 	getData : function() {
 		var data = VU.EventsContainerPopupView.prototype.getData.call(this);
-		data.tab = window.TDHP_tab == "Bands" ? "Halls" : window.TDHP_tab;
+		data.tab = "#" + (window.TDHP_tab == "Bands" ? "Halls" : window.TDHP_tab);
 		return data;
 	}
 });

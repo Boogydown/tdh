@@ -87,7 +87,7 @@ VU.EventListingView = VU.ListingView.extend({
 			else
 				utils.flyAway( $("#dCardTabBtn"), shoes, shoes );
 		} else
-			utils.flyAway( shoes, $("#dCardTabBtn") );
+			utils.flyAway( $(".twostepphoto", this.el), $("#dCardTabBtn") );
 		this.model.toggleDCard();
 	},
 	

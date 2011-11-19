@@ -74,7 +74,7 @@ VU.RSBListingView = Backbone.View.extend({
 		this.model.bind('change', this.render);
 		this.template = $("#" + this.options.template);
 		// find the text limits, if any
-		var textLimits = this.template).attr("textLimits"),
+		var textLimits = this.template.attr("textLimits"),
 			i, limitPair;
 		if ( textLimits ){
 			textLimits = textLimits.split(";");

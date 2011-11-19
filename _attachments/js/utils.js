@@ -66,7 +66,7 @@ window.utils = {
 		flier = flier ? flier.clone() : src.clone();
 		var srcOff = src.offset(),
 			destOff = dest.offset();
-		flier.attr("style", "position:fixed;z-index:999;left:" + srcOff.left + ";top:" + srcOff.top );
+		flier.attr("style", "position:relative;z-index:999;left:" + srcOff.left + ";top:" + srcOff.top );
 		flier.appendTo("body");
 		flier.animate( {
 			opacity: 0.25,

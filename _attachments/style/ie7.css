@@ -32,7 +32,8 @@ div.searchFor
 }
 
 div#bandsDiv div.list.box,
-div#hallsDiv div.list.box
+div#hallsDiv div.list.box,
+div#danceCardDiv div.list.box
 {
     top: 64px;
     bottom: 15px;

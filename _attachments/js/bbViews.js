@@ -67,47 +67,6 @@ VU.ListingView = VU.DustView.extend({
 	}
 });	
 
-VU.RSBListingView = Backbone.View.extend({
-	// If there's a change in our model, rerender it
-	initialize : function(){
-		_.bindAll(this, 'render', 'finalize');
-		this.model.bind('change', this.render);
-		this.template = $("#" + this.options.template);
-		// find the text limits, if any
-		var textLimits = this.template.attr("textLimits"),
-			i, limitPair;
-		if ( textLimits ){
-			textLimits = textLimits.split(";");
-			for ( var i in textLimits ){
-				limitPair = textLimits[i].split(":");
-				//if ( limitPair.length > 1 )  speed up
-					textLimits[i] = {
-						datum: limitPair[0],
-						limit: limitPair[1]
-					};
-			}
-			this.textLimits = textLimits;
-		}
-	},
-	
-	finalize : function() {
-		this.model.unbind('change',this.render);
-		this.remove();
-	},
-	
-	render : function() {
-		var data = this.model.toJSON(), datum, limit;
-		for ( var i in this.textLimits ) {
-			datum = this.textLimits[i].datum;
-			limit = parseInt(this.textLimits[i].limit);
-			if ( datum in data )
-				data[datum] = window.utils.elipsesStr( this.model.get( datum ), limit );
-		}
-		data.featured = data.featured ? "featured" : "standard";
-		$(this.el).html( _.template(this.template.html(), data) );
-	}
-});	
-
 // An extension of ListingView that simply updates the feet button
 VU.EventListingView = VU.ListingView.extend({
 	events : {
@@ -177,7 +136,7 @@ VU.EventListingView = VU.ListingView.extend({
 	initialize : function( options ) {
 		_.bindAll(this, 'addRow', "removeRow", "scrollUpdate", "filtered", "_nextPage", "_updateSpacer");
 		this.emptyMsg = options.emptyMsg || "<i>This list is empty</i>";
-		this.listingClass = options.listingClass || VU.RSBListingView;
+		this.listingClass = options.listingClass || VU.ListingView;
 		this.bootLoad = options.limit || 20;
 		this.listingViews = {};
 		this.options = options;

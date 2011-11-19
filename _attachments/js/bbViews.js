@@ -106,6 +106,15 @@ VU.EventListingView = VU.ListingView.extend({
 			$(".addToDanceCard", this.el).html("Add to<br/>Dance Card");
 		}
 		return this;
+	},
+	
+	getData : function() {
+		var data = VU.ListingView.prototype.getData.call(this);
+		if ( data.type == "band" )
+			data.tab = window.TDHP_tab == "Bands" ? "Halls" : window.TDHP_tab;
+		else if ( data.type == "hall" )
+			data.tab = window.TDHP_tab == "Halls" ? "Bands" : window.TDHP_tab;
+		return data;
 	}		
 });
 

@@ -123,12 +123,6 @@ VU.HallPopupView = VU.EventsContainerPopupView.extend( {
 		}
 		//return "&#9668;&nbsp; " + caption + " &nbsp;&#9658;";
 		return "- " + caption + " -";
-	},
-	
-	getData : function() {
-		var data = VU.EventsContainerPopupView.prototype.getData.call(this);
-		data.tab = "#" + (window.TDHP_tab == "Halls" ? "Bands" : window.TDHP_tab);
-		return data;
 	}
 });
 
@@ -162,12 +156,6 @@ VU.BandPopupView = VU.EventsContainerPopupView.extend( {
 		}							
 		//return "&#9668;&nbsp; " + caption + " &nbsp;&#9658;";
 		return "- " + caption + " -";
-	},
-	
-	getData : function() {
-		var data = VU.EventsContainerPopupView.prototype.getData.call(this);
-		data.tab = "#" + (window.TDHP_tab == "Bands" ? "Halls" : window.TDHP_tab);
-		return data;
 	}
 });
 

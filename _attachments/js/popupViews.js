@@ -156,7 +156,7 @@ VU.BandPopupView = VU.EventsContainerPopupView.extend( {
 		}							
 		//return "&#9668;&nbsp; " + caption + " &nbsp;&#9658;";
 		return "- " + caption + " -";
-	}	
+	}
 });
 
 //== Login Base Class ====================================================================

@@ -257,7 +257,7 @@ div.listingBG{
 div.searchFor{
 	background-color: transparent;
 
-	width: 466px;
+	width: 475px;
 	height: 30px;
 	position: absolute;
 	left: 15px;
@@ -269,7 +269,7 @@ input.searchName, input.searchCounty{
 	background-image: url(../images/cssSprite.png);
 	background-position: -240px -140px;
 	background-repeat: no-repeat;
-	background-color: #404040;
+	background-color: transparent;
 	width: 225px;
 	height: 26px;
 	padding-left: 6px;

@@ -55,6 +55,7 @@ VU.EventsContainerPopupView = VU.PopupView.extend({
 				el:"#popuplist",
 				emptyMsg: "<i>No upcoming dances scheduled</i>",
 				listingClass:VU.EventListingView,
+				navPrefix: this.navPrefix,
 				collection: this.list
 			})).render();			
 		}

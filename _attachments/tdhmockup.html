@@ -141,6 +141,18 @@
 		</div>{~n}{~n}
 	</script>
 		
+	<script type="application/dust-template" id="vyntorEntryTemplate_rsb" textLimits="name:25;entryDescription:230">
+		<div class="itemlisting">
+			<div class="<%=featured%>" onclick="window.location='#///<%=type%>&<%=_id%>'" style="cursor:pointer">
+				<div class="itemImage"><img src="<%=thumbPic%>" border="0" /></div>
+				<div class="details" style="top:-10px">
+					<div class="itemtitle"><%=name%></div>
+					<div class="iteminfo"><%=entryDescription%></div>
+				</div>
+			</div>
+		</div>
+	</script>
+		
 	<script type="application/dust-template" id="entitiesOwned">
 		<div class="itemlisting">
 			<div class="standardListing" onclick="window.location='#///{type}&{_id}'" style="cursor:pointer">

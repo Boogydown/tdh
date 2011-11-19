@@ -3,11 +3,19 @@ VU.InitViews = function () {
 /// VIEWS DECLARATION ///////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////{
 // This is the base class for any View using a dust template
-VU.DustView = Backbone.View.extend({		
+VU.DustView = Backbone.View.extend({
+	compiledTemplates : {},
+	
 	registerTemplate : function(name) {
+		var templates = VU.DustView.prototype.compiledTemplates;		
 		// Relies on inline templates on the page
-		dust.compileFn( $('#'+name).html() , name);
 		this.template = name;
+		this.templateEl = $("#" + name);
+		var th = this.templateEl.html();
+		if ( !(name in templates) ){
+			dust.compileFn( th , name);
+			templates[name] = th;
+		}
 	},
 	
 	getData : function(){

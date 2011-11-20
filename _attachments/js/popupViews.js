@@ -257,12 +257,12 @@ VU.EditPopupView = VU.LoginPopupView.extend({
 	
 	initialize : function() {
 		VU.LoginPopupView.prototype.initialize.call( this );
-		$(":file", this.el).change( this.addAttachment );
 		//this.delegateEvents( {"change :file": "addAttachment"} );
 	},
 	
 	onOpened : function() {
 		VU.LoginPopupView.prototype.onOpened.call(this);
+		$(":file", this.el).change( this.addAttachment );
 		this.model.bind( "change", this.render );
 	},
 	

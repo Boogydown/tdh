@@ -314,25 +314,11 @@ VU.PopupView = VU.DustView.extend({
 		
 		// only needs to be set up once
 		// TODO: refactor this to more appropriately use our current framework
-		if ( !VU.PopupView.prototype.initialized ) {
+/*		if ( !VU.PopupView.prototype.initialized ) {
 			$('div.close_popup, #fade').live('click', this.closePopup );
 			VU.PopupView.prototype.initialized = true;
 		}
-		this.registerTemplate( this.popTemplate );	
-	},
-	
-	closePopup : function () {
-		VU.PopupView.prototype.active = false;
-		var fade = $('#fade , .popup_block'),
-			onClosed = this.onClosed;
-		if ( fade && fade.length ) 
-			fade.fadeOut('fast', null, function() {
-				$('#fade').remove();
-			});
-
-		onClosed();
-		window.location = "#///!";				
-		return false;		
+*/		this.registerTemplate( this.popTemplate );	
 	},
 	
 	render : function () {
@@ -367,8 +353,27 @@ VU.PopupView = VU.DustView.extend({
 		//Fade Popup in and add close button
 		this.el.fadeIn('fast', this.onOpened);
 		
+		$('div.close_popup, #fade').click( this.closePopup );
+		
 		return false;
 	},
+	
+	closePopup : function () {
+		VU.PopupView.prototype.active = false;
+		$('div.close_popup, #fade').unbind();
+		var fade = $('#fade , .popup_block'),
+			onClosed = this.onClosed;
+		if ( fade && fade.length ) 
+			fade.fadeOut('fast', null, function() {
+				$('#fade').remove();
+				onClosed();
+				window.location = "#///!";				
+			});
+
+		//onClosed();
+		//window.location = "#///!";				
+		return false;		
+	},	
 	
 	onOpened : function() {
 		//stub; subclasses can extend this if they want

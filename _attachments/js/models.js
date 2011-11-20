@@ -223,7 +223,7 @@ VU.MemberModel = VU.CookieModel.extend({
 	},
 	
 	_syncDCard : function() {
-		this.set( {dCard: this.dCardColl.pluck( "id" )} );
+		this.set( {dCard: this.dCardColl.pluck( "id" )}, {silent:true} );
 		this.writeCookies();
 	}
 });

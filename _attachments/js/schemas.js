@@ -471,6 +471,10 @@ VU.schemas = {
 						{"value":"18 and up","label":"18 and up"},
 						{"value":"21 and up","label":"21 and up"} 
 					]
+				},
+				"admission":{
+					"description": "Admission $",
+					"type":"string"
 				}
 			}
 		},

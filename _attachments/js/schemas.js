@@ -391,7 +391,7 @@ VU.schemas = {
 						//"_type": "datepicker", 
 						//valueFormat: 'd-m-Y', 
 						//label: 'Date of event'
-						"value":"December 31, 2011"
+						//"value":"December 31, 2011"
 					}
     			},
 				"time":{
@@ -622,6 +622,10 @@ VU.schemas = {
 						{"value":"21 and up","label":"21 and up"} 
 					]
 				},
+				"admission":{
+					"description": "Admission $",
+					"type":"string"
+				},
 				"featured":{
 					"description": "Featured listing",
 					"type":"boolean"
@@ -741,7 +745,7 @@ VU.schemas = {
 				"stylesPlayed":{
 					"description": "What are the different styles played",
 					"type":"array",
-					"optional":true,
+					"required":true,
 					"items": {
 						"type":"string",
                         choices: [
@@ -756,6 +760,7 @@ VU.schemas = {
                             { value: "Singer-Songwriter", label: "Singer-Songwriter" },
                             { value: "Blues", label: "Blues" },
                             { value: "Country", label: "Country" }
+                            { value: "Other", label: "Other" }
                         ]
 					}
 				}

@@ -129,7 +129,7 @@
 		</div>{~n}{~n}
 	</script>
 	
-	<script type="application/dust-template" id="vyntorEntryTemplate" textLimits="name:25;entryDescription:230">
+	<script type="application/dust-template" id="vyntorEntryTemplate" textLimits="name:25;entryDescription:220">
 		<div class="itemlisting">
 			<div class="{?featured}featuredListing{:else}standardListing{/featured}" onclick="window.location='#///{type}&{_id}'" style="cursor:pointer">
 				<div class="itemImage"><img src="{thumbPic}" border="0" /></div>
@@ -286,7 +286,7 @@
 					{/owns}
 					<tr>
 						<td><i>Clich here to <a href="#///addEvent">Add an event</a></i></td>
-						<td class="mark"><i>Request ownership by emailing the <a href="emailto:psparks@texasdancehall.org">admin</a>.</i></td>
+						<td class="mark"><i>Request ownership by emailing the <a href="mailto:psparks@texasdancehall.org?Subject=Ownership">admin</a>.</i></td>
 					</tr>
 				</tbody></table>
 			</div>
@@ -328,10 +328,10 @@
 		<div id="main-container">
 			<div id="loginLinks">
 				<div id="loggedOutNav">
-					<a href="#///login">LOGIN</a>&nbsp;&bull;&nbsp;<a href="#///signup">SIGN UP!</a>
+					<a href="#///login">Login</a>&nbsp;&bull;&nbsp;<a href="#///signup">Sign Up!</a>
 				</div>
 				<div id="loggedInNav">
-					<a href="#" id="logoutLink">LOGOUT</a>&nbsp;&bull;&nbsp;<a href="#///member">PROFILE</a>&nbsp;&bull;&nbsp;<a href="#///addEvent">ADD EVENT</a>
+					<a href="#" id="logoutLink">Logout</a>&nbsp;&bull;&nbsp;<a href="#///member">Profile</a>&nbsp;&bull;&nbsp;<a href="#///addEvent">Add Event</a>
 				</div>
 			</div>
 			<div id="nav-tabs">
@@ -371,8 +371,10 @@
 					<span class="st_facebook" st_title="My Dance Card - Texas Dance Halls" displayText="Facebook"></span>
 					<span class="st_myspace" st_title="My Dance Card - Texas Dance Halls" displayText="MySpace"></span>
 					<span class="st_email" st_title="My Dance Card - Texas Dance Halls" displayText="Email"></span>
+					<span st_title="My Dance Card - Texas Dance Halls" displayText="Print"><a href="javascript:window.print()">Print</a></span>
 				</div>
-				<button id="removeAllButton" disabled="true">Remove All</button>
+				<button id="removeAllButton" class="dCardActionBtn" disabled="true">Remove All</button>
+				<!--<button id="printDCardButton" class="dCardActionBtn" disabled="true">Print</button>-->
 			</div>
 		
 		</div>

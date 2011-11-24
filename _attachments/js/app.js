@@ -120,6 +120,7 @@
 						while ( nc.length > 0 )
 							nc.at(0).set({onDCard:false});
 				});
+				$("#printDCardButton").click( window.print );
 			},
 			
 			activate : function ( filters ) {
@@ -136,9 +137,9 @@
 			
 			activateRemoveAllButton : function() {
 				if ( this.navColl.length == 0 )
-					$("#removeAllButton").attr("disabled", true);
+					$(".dCardActionBtn").attr("disabled", true);
 				else
-					$("#removeAllButton").attr("disabled", false);
+					$(".dCardActionBtn").attr("disabled", false);
 				$('span[class^="st_"]').attr("st_url", location.href + "/" + this.navColl.pluck("id").join("&"));
 			}
 		})
@@ -159,7 +160,7 @@
 			if ( this.model.get( "loggedIn" ) ) {
 				$("#loggedOutNav").hide();
 				$("#loggedInNav").show();
-				$("#memberName").text( "Welcome " + this.model.get("realName") + "!" ).show();
+				$("#memberName").text( "Welcome " + this.model.get("realName") ).show();
 			} else {
 				$("#loggedOutNav").show();
 				$("#loggedInNav").hide();

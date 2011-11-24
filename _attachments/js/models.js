@@ -392,7 +392,7 @@ VU.BandModel = VU.EventsContainerModel.extend({
 		try {
 			this.imageSearch = new google.search.ImageSearch();
 			this.imageSearch.setSearchCompleteCallback(this, this.searchComplete, null);
-			this.imageSearch.execute(this.get( "bandName" ));
+			this.imageSearch.execute(this.get( "bandName" ) + " band");
 			//google.search.Search.getBranding('branding');
 		}
 		catch (e) {utils.logger.log("Cannot load Google Images API: " + e);}
@@ -426,6 +426,7 @@ VU.VenueModel = VU.EventsContainerModel.extend({
 		this.bind( "change:dateBuilt", this.normalizeAttributes );		
 		this.bind( "change:historicalNarrative", this.normalizeAttributes );		
 		this.bind( "change:website", this.normalizeAttributes );		
+		this.bind( "change:styleMarker", this.normalizeAttributes );		
 		this.bind( "change:danceHallName", this.normalizeAttributes );		
 		// kick it off once for those that came in at init
 		this.normalizeAttributes();
@@ -462,7 +463,10 @@ VU.VenueModel = VU.EventsContainerModel.extend({
 				lat = gps[1];
 				lng = gps[0];
 			}
-		}		
+		}
+		
+		var styleMarker = this.get("styleMarker");
+		if ( styleMarker == "pink" ) styleMarker = "grey";
 		
 		this.set( { 
 			thumbPic: hallPic,
@@ -470,6 +474,7 @@ VU.VenueModel = VU.EventsContainerModel.extend({
 			website: (this.get("website")||"").split("://").pop(),
 			name: this.get("danceHallName"),
 			entryDescription: entryDescription,
+			styleMarker: styleMarker,
 			lat: lat,
 			lng: lng
 		}, { silent: true } );

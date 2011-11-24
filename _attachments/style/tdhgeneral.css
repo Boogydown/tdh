@@ -131,6 +131,7 @@ div#memberName {
 	position: relative;
 	right: -158px;
 	font-weight: bold;
+	font-size: 12px;
 }
 
 div#loginLinks{
@@ -143,7 +144,7 @@ div#loggedOutNav a, div#loggedInNav a{
 	text-decoration: none;
 		color: white;
 	font-family: Arial,sans-serif;
-	font-size: 14px;
+	font-size: 12px;
 }
 
 /**************** Listings area ****************/

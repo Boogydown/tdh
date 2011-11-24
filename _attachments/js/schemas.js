@@ -759,7 +759,7 @@ VU.schemas = {
                             { value: "Rockabilly", label: "Rockabilly" },
                             { value: "Singer-Songwriter", label: "Singer-Songwriter" },
                             { value: "Blues", label: "Blues" },
-                            { value: "Country", label: "Country" }
+                            { value: "Country", label: "Country" },
                             { value: "Other", label: "Other" }
                         ]
 					}

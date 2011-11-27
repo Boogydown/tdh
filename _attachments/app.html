@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html>
+  <!--$sitebuilder version="2.6" extra="Java(1.6.0_07)" md5="e144c2039c06018caada22abc9b3bbd3"$-->
+  <!--$templateKey Generic|Plain Tones - Black|1.0$-->
+  <head>
+    <title>Texas Dance Hall Calendar</title>
+    <meta name="generator" content="Yahoo! SiteBuilder/2.6/1.6.0_07">
+    <meta name="author" content="Texas Dance Hall Preservation, Inc.">
+    <meta name="description" content="Events listing for traditional Texas dance halls.">
+    <meta name="keywords" content="calendar, texas,dance hall,two step,dancing,honky tonk,live music,texas swing,bands,historic,preservation,country music,czech,dancehall">
+    <!--$page size 768, 3000$-->
+    <!--$page margin 0, 0, 20, 0$-->
+    <!--$centered$-->
+    <!--$fontFamily Verdana$-->
+    <!--$fontSize 12$-->
+		
+    <style type="text/css"><!--
+      BODY {font-family:"Verdana"; font-size:12;margin:0px;padding:0px;text-align:center;min-width:768px;}
+      P {font-family:"Verdana"; font-size:12;}
+      FORM {margin:0;padding:0;}
+      #centerwrapper {text-align:left;width:768px;margin-left:auto;margin-right:auto;}
+    --></style>
+
+	<link type="text/css" href="style/tdhgeneral.css" rel="stylesheet" />
+
+    <!--[if lt IE 8]>
+    	<link type="text/css" href="style/ie7.css" rel="stylesheet" />
+    <![EndIf]-->
+
+	<link type="text/css" href="style/dark-hive/jquery-ui-1.8.16.custom.css" rel="stylesheet" />
+	<!--<link type="text/css" href="style/ui-darkness/jquery-ui-1.8.16.custom.css" rel="stylesheet" />-->
+	<link type="text/css" href="style/jqcloud.css" rel="stylesheet" />	
+	<script type="text/javascript" src="vendor/couchapp/loader.js"></script>
+	<!--<script type="text/javascript" src="../vendor/couchapp/_attachments/local-loader.js"></script>-->
+	
+	<!-- Sharethis buttons for danceCard -->
+	<script type="text/javascript">var switchTo5x=true;</script>
+	<script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+	<script type="text/javascript">stLight.options({publisher:'e97d50c4-d80c-4623-9de8-dc3a56aaaa40'});</script>
+
+	<!-- TEMPLATES START -->
+	<script type="application/dust-template" id="mainEventEntryTemplate">
+		<div class="listing listing2">
+			<div class="{?featured}featuredListing featuredListing2{:else}standardListing standardListing2{/featured}">
+				<div class="listing-date">
+					<div class="date" style="top: -3px;">{dateDay}</div>
+					<div class="day">{dateDate}</div>
+					<div class="date">{dateMonth}</div>
+				</div>
+				<div class="details" style="top:-10px">
+					<a href="#///band&{band}"><div class="bandinfo bandinfo2"><br/>{bandName}</div></a><br/>	
+					<div class="atvenue atvenue2">@</div>
+					<div class="listing-time listing-time2">{time}</div>
+					<a href="#///hall&{hall}"><div class="venueinfo venueinfo2"><br/>{hallName}</div></a><br/>		
+				</div>
+			</div>
+			<div class="addToDanceCardDiv">
+				<div class="twostepphoto twostepphoto2"></div>
+				<div class="addToDanceCard addToDanceCard2">Add to<br/>Dance Card</div>
+			</div>
+		</div>{~n}{~n}
+	</script>
+	
+	<script type="application/dust-template" id="mainEventEntryTemplateBandPopup">
+		<div class="listing">
+			<div class="{?featured}featuredListing{:else}standardListing{/featured}">
+				<div class="listing-date">
+					<div class="date" style="top: -3px;">{dateDay}</div>
+					<div class="day">{dateDate}</div>
+					<div class="date">{dateMonth}</div>
+				</div>
+					<div class="details" style="top:-10px">
+						<div class="listing-time listing-time3">{time}</div><br/>
+						<div class="atvenue">@</div>
+						<a href="#{tab}///hall&{hall}"><img class="venuephoto" src="{hallPic}" /></a><br/>
+						<div class="venueinfo">{hallName}</div>
+					</div>
+				</div>
+				<div class="addToDanceCardDiv">
+				<div class="twostepphoto"></div>
+				<div class="addToDanceCard">Add to<br/>Dance Card</div>
+			</div>
+		</div>{~n}{~n}
+	</script>
+
+	<script type="application/dust-template" id="mainEventEntryTemplateHallPopup">
+		<div class="listing">
+			<div class="{?featured}featuredListing{:else}standardListing{/featured}">
+				<div class="listing-date">
+					<div class="date" style="top: -3px;">{dateDay}</div>
+					<div class="day">{dateDate}</div>
+					<div class="date">{dateMonth}</div>
+				</div>
+					<div class="details" style="top:-10px">
+						<a href="#{tab}///band&{band}"><img class="bandphoto" src="{bandPic}" /></a><br/>
+						<div class="bandinfo">{bandName}</div>
+						<div class="atvenue">@</div>
+						<div class="listing-time listing-time4">{time}</div><br/>
+					</div>
+				</div>
+				<div class="addToDanceCardDiv">
+				<div class="twostepphoto"></div>
+				<div class="addToDanceCard">Add to<br/>Dance Card</div>
+			</div>
+		</div>{~n}{~n}
+	</script>
+	
+	<script type="application/dust-template" id="dCardListingTemplate">
+		<div class="listing">
+			<div class="{?featured}featuredListing{:else}standardListing{/featured}">
+				<div class="listing-date">
+					<div class="date" style="top: -3px;">{dateDay}</div>
+					<div class="day">{dateDate}</div>
+					<div class="date">{dateMonth}</div>
+				</div>
+				<div class="listing-time">{time}</div>
+				<div class="details" style="top:-10px">
+					<a href="#///band&{band}"><img class="bandphoto" src="{bandPic}" /></a><br/>
+					<div class="bandinfo">{bandName}</div>
+					<div class="atvenue">@</div>
+					<a href="#///hall&{hall}"><img class="venuephoto" src="{hallPic}" /></a><br/>
+					<div class="venueinfo">{hallName}</div>
+				</div>
+			</div>
+			<div class="addToDanceCardDiv">
+				<div class="twostepphoto"></div>
+				<div class="addToDanceCard">Remove from<br/>Dance Card</div>
+			</div>
+		</div>{~n}{~n}
+	</script>
+	
+	<script type="application/dust-template" id="vyntorEntryTemplate" textLimits="name:25;entryDescription:230">
+		<div class="itemlisting">
+			<div class="{?featured}featuredListing{:else}standardListing{/featured}" onclick="window.location='#///{type}&{_id}'" style="cursor:pointer">
+				<div class="itemImage"><img src="{thumbPic}" border="0" /></div>
+				<div class="details" style="top:-10px">
+					<div class="itemtitle">{name}</div>
+					<div class="iteminfo">{entryDescription}</div>
+				</div>
+			</div>
+		</div>{~n}{~n}
+	</script>
+		
+	<script type="application/dust-template" id="vyntorEntryTemplate_rsb" textLimits="name:25;entryDescription:230">
+		<div class="itemlisting">
+			<div class="<%=featured%>" onclick="window.location='#///<%=type%>&<%=_id%>'" style="cursor:pointer">
+				<div class="itemImage"><img src="<%=thumbPic%>" border="0" /></div>
+				<div class="details" style="top:-10px">
+					<div class="itemtitle"><%=name%></div>
+					<div class="iteminfo"><%=entryDescription%></div>
+				</div>
+			</div>
+		</div>
+	</script>
+		
+	<script type="application/dust-template" id="entitiesOwned">
+		<div class="itemlisting">
+			<div class="standardListing" onclick="window.location='#///{type}&{_id}'" style="cursor:pointer">
+				<div class="itemImage"><img src="{thumbPic}" border="0" /></div>
+				<div class="details" style="top:-10px">
+					<div class="itemtitle">{name}</div>
+					<div class="iteminfo">{entryDescription}</div>
+				</div>
+			</div>
+		</div>{~n}{~n}
+	</script>
+		
+	<script type="application/dust-template" id="popupTemplate_band">
+		<div class="close_popup" title="Close Window"></div>
+		<div id="popupTitle">{navCaption|s}</div>
+		<div id="info">
+			<h2>{bandName}</h2>
+			<div class="detailtext">
+				{#stylesPlayed}{.}<br/>{/stylesPlayed}
+				<a href="http://{website}" target="_blank">{website}</a><br/>
+				{description}
+			</div>
+		</div>
+		<div id="main-photo"><img src="{mainPic}" /></div>
+		<div class="box" id="popuplist" listing-template="mainEventEntryTemplateBandPopup"></div>
+		<div class="detailmap" id="detailmap"></div>
+		<div id="nav-left"></div>
+		<div id="nav-right"></div>
+	</script>
+	
+	<script type="application/dust-template" id="popupTemplate_hall">
+		<div class="close_popup" title="Close Window"></div>
+		<div id="popupTitle">{navCaption|s}</div>
+		<div id="info">
+			<h2>{danceHallName}</h2>
+			<div class="detailtext">
+				{?website}<a href="http://{website}" target="_blank">{website}</a><br/>{/website}
+				{?dateBuilt}cir. {dateBuilt}. {/dateBuilt}{?county}{county} county. {/county}{historicalNarrative}<br/>
+				<hr/>
+				{address}
+			</div>
+		</div>
+		<div id="main-photo"><img src="{mainPic}" /></div>
+		<div class="box" id="popuplist" listing-template="mainEventEntryTemplateHallPopup"></div>
+		<div id="detailmap" class="detailmap"></div>
+		<div id="nav-left"></div>
+		<div id="nav-right"></div>
+	</script>
+	
+	<script type="application/dust-template" id="popupTemplate_login">
+		<div class="close_popup" title="Close Window"></div>
+		<div id="popupTitle">{navCaption|s}</div>
+		<div id="info">
+			<h2>Login</h2>
+			<div class="detailtext">
+				<form id="loginForm" action="">
+					Email: <input name="name" type="text"></input><br/>
+					Password: <input name="password" type="password"></input><br/>
+					<button type="submit">Login</button>
+				</form>
+			</div>
+		</div>
+		<div id="main-photo"><img src="images/TDHP_Logo_BW_gray_reverse-1.JPG" /></div>
+	</script>
+	
+	<script type="application/dust-template" id="popupTemplate_signup">
+		<div class="close_popup" title="Close Window"></div>
+		<div id="info">
+			<h2>Sign up as a member!</h2>
+			<div class="memberDetail">
+				<form id="signupForm" action="">
+					<table><tbody>
+						<tr><td>Email:</td><td><input name="name" type="text"></input></td></tr>
+						<tr><td>Password:</td><td> <input name="password" type="password"></input></td></tr>
+						<tr><td>Confirm password:</td><td> <input name="password2" type="password"></input></td></tr>
+					</tbody></table>
+					<button type="submit">Create User</button>
+				</form>
+			</div>
+		</div>
+		<div id="main-photo"><img src="images/TDHP_Logo_BW_gray_reverse-1.JPG" /></div>
+	</script>
+	
+	<script type="application/dust-template" id="popupTemplate_editMember">
+		<div class="close_popup" title="Close Window"></div>
+		<div id="info">
+			<h2>Edit profile info...</h2>
+			<div class="memberDetail">
+				<form id="editMember" action="" enctype="multipart/form-data" method="POST">
+					<table><tbody>
+						<!--<tr><td>Email:</td><td><input name="name" type="text" value="{name}"></input></td></tr>-->
+						<!--<tr><td>Password:</td><td> <input name="password" type="password" value="{password}"></input></td></tr>-->
+						<tr><td>Name:</td><td> <input name="realName" type="text" value="{realName}"></input></td></tr>
+						<tr><td>Phone number:</td><td> <input name="phone" type="text" value="{phone}"></input></td></tr>
+						<tr><td>Zipcode:</td><td> <input name="zip" type="text" value="{zip}"></input></td></tr>
+						<tr><td>Profile pic:</td><td> <input name="_attachments" type="file" value="{profilePic}"></input></td></tr>
+					</tbody></table><br/>
+					<input type="hidden" name="profilePic" value="{profilePic}"></input>
+					<input type="hidden" name="_rev" value="{_rev}"></input>
+					<button type="submit" name="submit_button">Save Edits</button>
+					<button type="reset" onclick="location.href='#///member'">Cancel</button>
+				</form>
+			</div>
+		</div>
+		<div id="main-photo"><img src="/_users/{id}/{profilePic}" /></div>
+	</script>
+	
+	<script type="application/dust-template" id="popupTemplate_member">
+		<div class="close_popup" title="Close Window"></div>
+		<div id="info">
+			<h2>User Profile</h2>
+			<div class="memberDetail">
+				<b>Name - </b>{realName}<br/><br/>
+				<b>Email - </b>{name}<br/><br/>
+				<b>Phone - </b>{phone}<br/><br/>
+				<b>Zip - </b>{zip}<br/><br/>
+				<b>Member  - </b>{memberStatus} <i><a href="http://texasdancehall.org/join.html">Find out how to support</a></i><br/><br/>
+				<a href="#///editMember"><b><u>Edit</u></b></a>
+			</div>
+			<div class="ownershipBox">
+				<table class="ownershipTable"><tbody>
+					<tr>
+						<th><span>Events currently posted</span></th>
+						<th><span>Bands or Halls that I own</span></th>
+					</tr>
+					{#owns}
+					<tr>
+						<td>{?event}<a href="schemaForm.html#form/events//{event.id}" target="_blank">{event.caption}</a>{/event}</td>
+						<td class="mark">{?vyntor}<a href="schemaForm.html#form/{vyntor.type}//{vyntor.id}" target="_blank">{vyntor.caption}</a>{/vyntor}</td>
+					</tr>
+					{/owns}
+					<tr>
+						<td><i>Clich here to <a href="#///addEvent">Add an event</a></i></td>
+						<td class="mark"><i>Request ownership by emailing the <a href="emailto:psparks@texasdancehall.org">admin</a>.</i></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+		<div id="main-photo"><img src="/_users/{id}/{profilePic}" /></div>
+	</script>
+	
+	<script type="application/dust-template" id="popupTemplate_addEvent">
+		<div class="close_popup" title="Close Window"></div>
+		<div id="popupTitle">{navCaption|s}</div>
+		<div id="info">
+			<IFRAME ID="vuFrame" SRC="http://dev.vyncup.t9productions.com:44384/tdh/_design/tdh_public/schemaForm.html#form/events/full" ALIGN="left" HEIGHT="350" WIDTH="618" STYLE="background-color:#E0E0E0"></IFRAME>
+		</div>
+	<!--<div id="main-photo"><img src="images/TDHP_Logo_BW_gray_reverse-1.JPG" /></div>-->
+	</script>
+	
+	<!-- TEMPLATES END -->
+  </head>
+  <body bgcolor="#000000" text="#CCCCCC" link="#0000FF" vlink="#800080" topmargin="0" leftmargin="0">
+
+	  
+<!--=========== START ORIGINAL HTML ===========-->	  
+    
+<!--=========== END ORIGINAL HTML ===========-->	  
+
+<!--=========== START VYNC-UP ===========-->
+	<!-- Main App Container-->
+		<div id="main-container">
+			<div id="loginLinks">
+				<div id="loggedOutNav">
+					<a href="#///login">LOGIN</a>&nbsp;&bull;&nbsp;<a href="#///signup">SIGN UP!</a>
+				</div>
+				<div id="loggedInNav">
+					<a href="#" id="logoutLink">LOGOUT</a>&nbsp;&bull;&nbsp;<a href="#///member">PROFILE</a>&nbsp;&bull;&nbsp;<a href="#///addEvent">ADD EVENT</a>
+				</div>
+			</div>
+			<div id="nav-tabs">
+				<ul id="tab-list">
+					<li id="dancesTabBtn" onclick="location.href='#Dances'"><a id="dances-button">Dances</a></li>
+					<li id="bandsTabBtn" onclick="location.href='#Bands'"><a id="bands-button">Bands</a></li>
+					<li id="hallsTabBtn" onclick="location.href='#Halls'"><a id="halls-button">Halls</a></li>
+				</ul>
+				<div id="dCardTabBtn" onclick="location.href='#DanceCard'">My Dance Card</div>
+			</div>
+			<div id="memberName"></div>
+			
+			<div id="dancesDiv" class="info-area" style="display:none">
+				<div class="loadingGIF spinner" id="dancesSpinner"></div>
+				<div class="box box2 list list2" id="dancesList" listing-template="mainEventEntryTemplate"></div>
+				<div class="box box2" id="dancesCal"></div>
+				<div class="box box2" id="dancesMap"></div>
+			</div>
+			<div id="hallsDiv" class="info-area" style="display:none">
+				<div class="loadingGIF spinner" id="hallsSpinner"></div>
+				<div class="searchFor"><input class="searchName" id="searchHallName" type="text" name="name" value="Search by Name" /><input class="searchCounty" id="searchHallCounty" type="text" value="Search by County" name="county" /></div>
+				<div class="box list" id="hallsList" listing-template="vyntorEntryTemplate"></div>
+				<div class="box" id="hallsMap"></div>
+			</div>
+			<div id="bandsDiv" class="info-area" style="display:none">
+				<div class="loadingGIF spinner" id="bandsSpinner"></div>
+				<div class="searchFor"><input class="searchName" id="searchBandName" type="text" name="name" value="Search by Name" /></div>
+				<div class="box list" id="bandsList" listing-template="vyntorEntryTemplate"></div>
+				<div class="box tagCloud" id="bandsTags"></div>
+				<!--<div class="box" id="bandsCal"></div>-->
+			</div>
+			<div id="danceCardDiv" class="info-area" style="display:none">
+				<div class="box dancebox list" id="dCardList" listing-template="dCardListingTemplate"></div>
+				<div class="box" id="dCardMap"></div>
+				<div class="share">
+					<span class="st_twitter" st_title="My Dance Card - Texas Dance Halls" displayText="Tweet"></span>
+					<span class="st_facebook" st_title="My Dance Card - Texas Dance Halls" displayText="Facebook"></span>
+					<span class="st_myspace" st_title="My Dance Card - Texas Dance Halls" displayText="MySpace"></span>
+					<span class="st_email" st_title="My Dance Card - Texas Dance Halls" displayText="Email"></span>
+				</div>
+				<button id="removeAllButton" disabled="true">Remove All</button>
+			</div>
+		
+		</div>
+
+	<!-- Popup (hidden) -->
+		<div id="popup_block" class="popup_block"></div>
+		
+<!--=========== END MAIN APP ===========-->
+
+
+<!--=========== START ORIGINAL HTML ===========-->	  
+	<!--$begin exclude$-->
+	  </div>
+	</div>
+	<!--$end exclude$-->
+<!--=========== END ORIGINAL HTML ===========-->	  		
+  </body>
+</html>

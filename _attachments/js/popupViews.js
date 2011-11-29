@@ -257,23 +257,25 @@ VU.EditPopupView = VU.LoginPopupView.extend({
 	
 	initialize : function() {
 		VU.LoginPopupView.prototype.initialize.call( this );
-		this.delegateEvents( {"change :file": "addAttachment"} );
+		//this.delegateEvents( {"click #uploadFileBtn": "addAttachment"} );
 	},
 	
 	onOpened : function() {
 		VU.LoginPopupView.prototype.onOpened.call(this);
+		$(":file",this.el).change({model:this.model, el:this.el}, this.addAttachment);
 		this.model.bind( "change", this.render );
 	},
 	
 	onClosed : function() {
 		VU.LoginPopupView.prototype.onClosed.call(this);
+		$(":file",this.el).unbind();
 		this.model.unbind( "change", this.render );
 	},
 		
 	addAttachment : function ( e ) {
-		var form = e.target.form;
-		var model = this.model;
-		$("#main-photo", this.el).html("<div class='spinner' style='top:45px;left:75px;position:relative;'></div>");
+		var form = this.form;
+		var model = e.data.model;
+		$("#main-photo", e.data.el).html("<div class='spinner' style='top:45px;left:75px;position:relative;'></div>");
 		var picFile = form._attachments.value.match(/([^\/\\]+\.\w+)$/gim)[0];
 		model.set( {profilePic: picFile}, {silent:true} );
 		$(form).ajaxSubmit({

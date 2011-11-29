@@ -131,6 +131,7 @@ div#memberName {
 	position: relative;
 	right: -158px;
 	font-weight: bold;
+	font-size: 12px;
 }
 
 div#loginLinks{
@@ -143,7 +144,7 @@ div#loggedOutNav a, div#loggedInNav a{
 	text-decoration: none;
 		color: white;
 	font-family: Arial,sans-serif;
-	font-size: 14px;
+	font-size: 12px;
 }
 
 /**************** Listings area ****************/
@@ -674,7 +675,7 @@ div#popuplist{
 }
 
 #vuFrame {
-	height:350px;
+	height:403px;
 	position:relative;
 	top:20px;
 	width:618px
@@ -817,7 +818,7 @@ h2 {
 }
 
 .bandinfo2 {
-		background-color: #222;
+		background-color: #090909;
 		/*behavior: url(border-radius.htc);*/
 		-moz-border-radius: 2px;
 		-webkit-border-radius: 2px;
@@ -842,7 +843,7 @@ h2 {
 }
 
 .venueinfo2 {
-	background-color: #222;
+	background-color: #090909;
 	/*behavior: url(border-radius.htc);*/
 	-moz-border-radius: 2px;
     -webkit-border-radius: 2px;

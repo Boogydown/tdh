@@ -354,8 +354,9 @@ VU.PopupView = VU.DustView.extend({
 
 		//Fade Popup in and add close button
 		this.el.fadeIn('fast', this.onOpened);
-		
-		$('div.close_popup, #fade').click( this.closePopup );
+
+		$('div.close_popup').click(this.closePopup);
+		$('#fade', window.parent.document).click(this.closePopup);
 		
 		return false;
 	},
@@ -367,7 +368,7 @@ VU.PopupView = VU.DustView.extend({
 			onClosed = this.onClosed;
 		if ( fade && fade.length ) 
 			fade.fadeOut('fast', null, function() {
-				$('#fade').remove();
+			    $('#fade', window.parent.document).remove();
 				onClosed();
 				window.location = "#///!";				
 			});

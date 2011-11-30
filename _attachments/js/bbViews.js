@@ -347,7 +347,7 @@ VU.PopupView = VU.DustView.extend({
 
 		//Fade Background
 		console.log($('body', window.parent.document).html());
-		$('body', window.parent.document).append('<div id="fade"></div>');
+		$('body', window.parent.document).append('<div id="fade" style="background: #000; position: fixed; top:0px; left:0px; width: 100%; height: 100%; opacity: .80; z-index: 9999;"></div>');
 		//Fade in the fade layer - used to fix the IE Bug on fading transparencies 
 		console.log($('#fade', window.parent.document).attr("id"));
 		$('#fade', window.parent.document).css({ 'filter': 'alpha(opacity=80)' }).fadeIn('fast'); 

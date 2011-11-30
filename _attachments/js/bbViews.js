@@ -346,17 +346,14 @@ VU.PopupView = VU.DustView.extend({
 		//this.form.reset();  don't think we need this; when rendered the form starts clean		
 
 		//Fade Background
-		console.log($('body', window.parent.document).html());
-		$('body', window.parent.document).append('<div id="fade" style="background: #000; position: fixed; top:0px; left:0px; width: 100%; height: 100%; opacity: .80; z-index: 9999;"></div>');
+		$('body').append('<div id="fade"></div>');
 		//Fade in the fade layer - used to fix the IE Bug on fading transparencies 
-		console.log($('#fade', window.parent.document).attr("id"));
-		$('#fade', window.parent.document).css({ 'filter': 'alpha(opacity=80)' }).fadeIn('fast'); 
+		$('#fade').css({'filter' : 'alpha(opacity=80)'}).fadeIn('fast'); 
 
 		//Fade Popup in and add close button
 		this.el.fadeIn('fast', this.onOpened);
-
-		$('div.close_popup').click(this.closePopup);
-		$('#fade', window.parent.document).click(this.closePopup);
+		
+		$('div.close_popup, #fade').click( this.closePopup );
 		
 		return false;
 	},
@@ -364,12 +361,11 @@ VU.PopupView = VU.DustView.extend({
 	closePopup : function () {
 		VU.PopupView.prototype.active = false;
 		$('div.close_popup, #fade').unbind();
-		var fade = $('#fade', window.parent.document),
+		var fade = $('#fade , .popup_block'),
 			onClosed = this.onClosed;
-		if (fade && fade.length) 
-            $('.popup_block').fadeOut('fast');
+		if ( fade && fade.length ) 
 			fade.fadeOut('fast', null, function() {
-			    $('#fade', window.parent.document).remove();
+				$('#fade').remove();
 				onClosed();
 				window.location = "#///!";				
 			});

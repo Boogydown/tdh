@@ -346,9 +346,9 @@ VU.PopupView = VU.DustView.extend({
 		//this.form.reset();  don't think we need this; when rendered the form starts clean		
 
 		//Fade Background
-		$('body').append('<div id="fade"></div>');
+		$('body', window.parent.document).append('<div id="fade"></div>');
 		//Fade in the fade layer - used to fix the IE Bug on fading transparencies 
-		$('#fade').css({'filter' : 'alpha(opacity=80)'}).fadeIn('fast'); 
+		$('#fade', window.parent.document).css({ 'filter': 'alpha(opacity=80)' }).fadeIn('fast'); 
 
 		//Fade Popup in and add close button
 		this.el.fadeIn('fast', this.onOpened);

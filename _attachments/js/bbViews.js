@@ -7,11 +7,9 @@ VU.DustView = Backbone.View.extend({
 	compiledTemplates : {},
 	
 	registerTemplate : function(name) {
-		var templates = VU.DustView.prototype.compiledTemplates;		
-		// Relies on inline templates on the page
+		var templates = VU.DustView.prototype.compiledTemplates,
+			th = (this.templateEl = $("#" + name)).html();
 		this.template = name;
-		this.templateEl = $("#" + name);
-		var th = this.templateEl.html();
 		if ( !(name in templates) ){
 			dust.compileFn( th , name);
 			templates[name] = th;
@@ -64,8 +62,8 @@ VU.ListingView = VU.DustView.extend({
 	},
 	
 	getData : function() {
-		var data = this.model.toJSON(), datum, limit;
-		for ( var i in this.textLimits ) {
+		var data = this.model.toJSON(), datum, limit, i;
+		for ( i in this.textLimits ) {
 			datum = this.textLimits[i].datum;
 			limit = parseInt(this.textLimits[i].limit);
 			if ( datum in data )
@@ -137,11 +135,11 @@ VU.EventListingView = VU.ListingView.extend({
 	scrollLoadThreshold : 100,
 	LISTING_HEIGHT: 92,
 	
-	events : { 
+/*	events : { 
 		"scroll" : "scrollUpdate" 
 	},
 	
-	initialize : function( options ) {
+*/	initialize : function( options ) {
 		_.bindAll(this, 'addRow', "removeRow", "scrollUpdate", "filtered", "_nextPage", "_updateSpacer");
 		this.emptyMsg = options.emptyMsg || "<i>This list is empty</i>";
 		this.listingClass = options.listingClass || VU.ListingView;
@@ -149,6 +147,8 @@ VU.EventListingView = VU.ListingView.extend({
 		this.listingViews = {};
 		this.options = options;
 		this.listingHeight = options.listingHeight || this.LISTING_HEIGHT;
+		if ( !(this.template = (this.el.getAttribute("listing-template") || "")))
+			utils.logger.log("listing-template attribute not given in " + this.el);		
 		this.collection.bind("add", this.addRow);
 		this.collection.bind("remove", this.removeRow);
 		this.collection.bind("filtered", this.filtered);
@@ -159,10 +159,9 @@ VU.EventListingView = VU.ListingView.extend({
 	// This will apply filters to the coll and trigger add/remove events, 
 	//	respectively, which will then trigger our add/remove rows
 	applyFilters : function( filters, limit ) {
-		if ( this.collection.length == 0 ){
-			//this.el.innerHTML = "";
+		this.firstRow = true;
+		if ( this.collection.length == 0 )
 			utils.waitingUI.show();
-		}
 		
 		this.collection.applyFilters( filters, limit || this.bootLoad );		
 	},
@@ -221,28 +220,29 @@ VU.EventListingView = VU.ListingView.extend({
 	
 	// Adds a sorted row in its respective place in the DOM
 	addRow : function(model, options){
-		if ( this.emptyEl ){
-			this.emptyEl.remove();
-			this.emptyEl = null;
+		if ( this.firstRow ) {
+			if ( this.emptyEl ){
+				this.emptyEl.remove();
+				this.emptyEl = null;
+			}
+			utils.waitingUI.hide();
+			this.firstRow = false;
 		}
-		var lc, template = (this.el.getAttribute("listing-template") || "");
-		if ( !template ) 
-			utils.logger.log("listing-template attribute not given in " + this.el);
-		else if ( model.id in this.listingViews )
+		
+		var lc;
+		if ( model.id in this.listingViews )
 			$(this.listingViews[model.id].el).css("display","block");
 		else {
 			this.listingViews[model.id] = lc = new this.listingClass({
 				model: model, 
-				template: template,
+				template: this.template,
 				listOf: this.options.navPrefix
 			});
 			lc = lc.render().el;
 			if ( this.el.childNodes.length > model.index + 1 ) //+1 for the spacer
 				$(this.el.childNodes[ model.index ]).before( lc );
 			else 
-				//this.el.appendChild( lc );
 				this.spacer.before( lc );
-			//model.trigger("change", model);
 		}
 	},
 	
@@ -269,8 +269,8 @@ VU.EventListingView = VU.ListingView.extend({
 		//	so hit up the next page (after some time...)
 		if ( !this.collection.allPagesLoaded && !this.stID)// && this.spacer.position().top < $(this.el).height() )
 			this.stID = setTimeout( this._nextPage, 500, 100 ) + "ID";
-		else
-			utils.waitingUI.hide();
+		//else
+			//utils.waitingUI.hide();
 	},
 	
 	scrollUpdate : function () {

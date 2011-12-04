@@ -505,10 +505,11 @@ div.listing-time2{
 
 div.listing-info {
 	color: #ccc;
-	line-height: 1.2em;
+	line-height: 1.3em;
 	font-family: Verdana;
 	font-size: 16px;
-	top: 33px;
+	position: relative;
+	top: 9px;
 }
 
 div.listing-time3, div.listing-time4{

@@ -54,7 +54,7 @@
 			</div>
 		</div>{~n}{~n}
     </script>
-    <script type="application/dust-template" id="mainEventEntryTemplateBandPopup">
+    <script type="application/dust-template" id="mainEventEntryTemplateBandPopup" textlimits="hallName:32">
 		<div class="listing">
 			<div class="{?featured}featuredListing{:else}standardListing{/featured}">
 				<div class="listing-date">
@@ -78,7 +78,7 @@
 			</div>
 		</div>{~n}{~n}
     </script>
-    <script type="application/dust-template" id="mainEventEntryTemplateHallPopup">
+    <script type="application/dust-template" id="mainEventEntryTemplateHallPopup" textlimits="bandName:32">
 		<div class="listing">
 			<div class="{?featured}featuredListing{:else}standardListing{/featured}">
 				<div class="listing-date">
@@ -90,7 +90,9 @@
 						<a href="#{tab}///band&{band}"><img class="bandphoto" src="{bandPic}" /></a><br/>
 						<div class="bandinfo">{bandName}</div>
 						<div class="atvenue">@</div>
-						<div class="listing-time listing-time4">{time}</div><br/>
+						<div class="listing-time listing-time4">{time}
+							<div class="listing-info">{ageLimit}<br/>{admission}</div>
+						</div><br/>
 					</div>
 				</div>
 				<div class="addToDanceCardDiv">

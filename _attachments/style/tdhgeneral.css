@@ -503,19 +503,27 @@ div.listing-time2{
 	font-size: 11px;
 }
 
+div.listing-info {
+	color: #ccc;
+	line-height: 1.2em;
+	font-family: Verdana;
+	font-size: 16px;
+	top: 33px;
+}
+
 div.listing-time3, div.listing-time4{
 	position: relative;
 	width: 97px;
-	color: #CCCCCC;
-	font-family: Verdana;
-	font-size: 32px;
+	color: white;
+	font-family: Georgia;
+	font-size: 22px;
 	line-height: 0.8em;
 	text-decoration: bold;
 	word-wrap: break-word;
 }
 
 div.listing-time3{
-	top: 30px;
+	top: 24px;
 	left: -20px;
 }
 

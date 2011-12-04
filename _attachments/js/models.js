@@ -426,7 +426,6 @@ VU.VenueModel = VU.EventsContainerModel.extend({
 		this.bind( "change:dateBuilt", this.normalizeAttributes );		
 		this.bind( "change:historicalNarrative", this.normalizeAttributes );		
 		this.bind( "change:website", this.normalizeAttributes );		
-		this.bind( "change:styleMarker", this.normalizeAttributes );		
 		this.bind( "change:danceHallName", this.normalizeAttributes );		
 		// kick it off once for those that came in at init
 		this.normalizeAttributes();
@@ -465,16 +464,12 @@ VU.VenueModel = VU.EventsContainerModel.extend({
 			}
 		}
 		
-		var styleMarker = this.get("styleMarker");
-		if ( styleMarker == "pink" ) styleMarker = "grey";
-		
 		this.set( { 
 			thumbPic: hallPic,
 			mainPic: hallPic.replace( "\/thumbs\/", "\/files\/" ), 
 			website: (this.get("website")||"").split("://").pop(),
 			name: this.get("danceHallName"),
 			entryDescription: entryDescription,
-			styleMarker: styleMarker,
 			lat: lat,
 			lng: lng
 		}, { silent: true } );

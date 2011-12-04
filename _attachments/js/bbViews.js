@@ -484,31 +484,46 @@ VU.MapView = Backbone.View.extend({
 		}
 		
 		// see if there's a custom marker icon
-		var markerURL = hall.get( "styleMarker" );
-		if ( markerURL )
+		var markerURL = master ? "grey" : hall.get( "styleMarker" );
+		if ( markerURL ){
+			//if ( markerURL == "pink" ) markerURL = "grey";
 			markerURL = "http://maps.google.com/mapfiles/ms/micons/" + markerURL + ".png";
-		else
+		} else {
 			markerURL = "http://maps.google.com/mapfiles/ms/micons/red-dot.png";
+		}
 		
 		// map it!
 		if ( gps ) {
-			var mOptions = {
-				map: this.map, 
-				position: gps,
-				title: master ? null : hall.get("danceHallName"),
-				clickable : !master,
-				icon: new google.maps.MarkerImage( 
-					markerURL,
-					master ? new google.maps.Size(15,9) : null,
-					null, null, 
-					master ? new google.maps.Size(15,15) : null 
-				),
-				zIndex : master ? -999 : 999
-			};
-			if ( master )
-				this.bounds.extend( gps );
+			var modelID = hall.id,
+				mOptions = master ? {
+					map: this.map, 
+					position: gps,
+					title: null,
+					clickable : false,
+					icon: new google.maps.MarkerImage( 
+						markerURL,
+						new google.maps.Size(15,9),
+						null, null, 
+						new google.maps.Size(15,15)
+					),
+					zIndex : -999
+				} : {
+					map: this.map, 
+					position: gps,
+					title: hall.get("danceHallName"),
+					clickable : true,
+					icon: new google.maps.MarkerImage( 
+						markerURL,
+						null,
+						null, null, 
+						null 
+					),
+					zIndex : 999
+				};
 				
-			var modelID = hall.id;
+			//if ( !master )
+				//this.bounds.extend( gps );
+				
 			if ( modelID in this.markers )
 				this.markers[ modelID ].setOptions( mOptions );
 			else {

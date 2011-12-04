@@ -58,8 +58,9 @@ VU.schemas = {
 				"county":{
 					"description": "County",
 					"type":"string",
-					"optional":true,
+					"required":true,
 					"choices": [ 
+						{'value':'','label':''},
 						{'value':'Anderson','label':'Anderson'},
 						{'value':'Andrews','label':'Andrews'},
 						{'value':'Angelina','label':'Angelina'},

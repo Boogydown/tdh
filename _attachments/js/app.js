@@ -204,6 +204,8 @@
 		
 		// Initialize happens at page load; think RESTful: every time this is called we're starting from scratch
         initialize : function(){
+			if ( window.parent )
+				location.hash = window.parent.location.hash;
 			VU.PersistentRouter.prototype.initialize.call(this);
 			_.bindAll( this, "routeHandler" );
 						
@@ -324,7 +326,7 @@
 /// INSTACIATION & EXECUTION ////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////{
 	window.app = new AppController();
-	Backbone.history.start();	
+	Backbone.history.start({{pushState:true});	
 });
 /////////////////////////////////////////////////////////////////////////////}
 

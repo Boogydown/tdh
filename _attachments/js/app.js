@@ -194,6 +194,7 @@
 			member : VU.MemberPopupView,
 			editMember : VU.EditPopupView,
 			addEvent : VU.AddEventPopupView,
+			addEventSF : VU.SchemaFormPopupView,
 			hall : VU.HallPopupView,
 			dancehall : VU.HallPopupView,
 			band : VU.BandPopupView

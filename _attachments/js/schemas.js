@@ -994,8 +994,8 @@ VU.schemas = {
 					"optional":true,
                     "choices": [
                         {"value":"Active","label":"Active"},
-                        {"value":"Inactive","label":"Inactive"},
-                        {"value":"Gone but Not Forgotten","label":"Gone but Not Forgotten"}
+                        {"value":"Not currently active","label":"Not currently active"},
+                        {"value":"Gone but not forgotten","label":"Gone but not forgotten"}
                     ]
 				},
 				"website":{

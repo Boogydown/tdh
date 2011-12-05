@@ -305,7 +305,7 @@
 					popClass = this.popupMap[popType],
 					popView = this.instanciatedPops[ popType ] || (this.instanciatedPops[ popType ] = new popClass( {
 						colls:this.colls, 
-						el:$("#popup_block",this.popupContext)
+						context: this.popupContext)
 					} ));
 				popID = popAry.length > 1 ? popAry[1] : null;
 				

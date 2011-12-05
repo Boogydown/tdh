@@ -302,15 +302,18 @@ VU.EventListingView = VU.ListingView.extend({
  *		this.getCaption
  **/
 VU.PopupView = VU.DustView.extend({
-	//el : $("#popup_block"),
+	el : $("#popup_block"),
 	
 	// we want this to be static, so all use of it will refer to the prototype
 	// in other words, only one popup can be active at once
 	active : false,
 	
-	initialize : function ( ) {
+	initialize : function ( options ) {
 		//Set up Close for Popup and Fade for all future instances
 		_.bindAll(this, "closePopup", "render", "onOpened", "onClosed" );
+		
+		this.context = options.context;
+		this.el = $(this.el, this.context);
 		
 		// only needs to be set up once
 		// TODO: refactor this to more appropriately use our current framework
@@ -322,7 +325,7 @@ VU.PopupView = VU.DustView.extend({
 	},
 	
 	render : function () {
-		$(this.el).empty();
+		this.el.empty();
 		VU.DustView.prototype.render.call(this);		
 	},
 	
@@ -346,32 +349,29 @@ VU.PopupView = VU.DustView.extend({
 		//this.form.reset();  don't think we need this; when rendered the form starts clean		
 
 		//Fade Background
-		$(this.el).append('<div id="fade"></div>');
+		$('body', this.context).append('<div id="fade"></div>');
 		//Fade in the fade layer - used to fix the IE Bug on fading transparencies 
-		$('#fade', this.el).css({'filter' : 'alpha(opacity=80)'}).fadeIn('fast'); 
+		$('#fade', this.context).css({'filter' : 'alpha(opacity=80)'}).fadeIn('fast'); 
 
 		//Fade Popup in and add close button
 		this.el.fadeIn('fast', this.onOpened);
 		
-		$('div.close_popup, #fade', this.el).click( this.closePopup );
+		$('div.close_popup, #fade', this.context).click( this.closePopup );
 		
 		return false;
 	},
 	
 	closePopup : function () {
 		VU.PopupView.prototype.active = false;
-		$('div.close_popup, #fade', this.el).unbind();
-		var fade = $('#fade , .popup_block', this.el),
+		$('div.close_popup, #fade', this.context).unbind();
+		var fade = $('#fade , .popup_block', this.context),
 			onClosed = this.onClosed;
 		if ( fade && fade.length ) 
 			fade.fadeOut('fast', null, function() {
-				$('#fade', this.el).remove();
+				$('#fade', this.context).remove();
 				onClosed();
 				window.location = "#///!";				
 			});
-
-		//onClosed();
-		//window.location = "#///!";				
 		return false;		
 	},	
 	

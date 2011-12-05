@@ -302,7 +302,7 @@ VU.EventListingView = VU.ListingView.extend({
  *		this.getCaption
  **/
 VU.PopupView = VU.DustView.extend({
-	el : $("#popup_block"),
+	el : "#popup_block",
 	
 	// we want this to be static, so all use of it will refer to the prototype
 	// in other words, only one popup can be active at once
@@ -313,7 +313,7 @@ VU.PopupView = VU.DustView.extend({
 		_.bindAll(this, "closePopup", "render", "onOpened", "onClosed" );
 		
 		this.context = options.context;
-		this.el = $(this.el, this.context);
+		this.el = $("#popup_block", this.context);
 		
 		// only needs to be set up once
 		// TODO: refactor this to more appropriately use our current framework

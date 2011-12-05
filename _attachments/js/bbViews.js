@@ -311,9 +311,8 @@ VU.PopupView = VU.DustView.extend({
 	initialize : function ( options ) {
 		//Set up Close for Popup and Fade for all future instances
 		_.bindAll(this, "closePopup", "render", "onOpened", "onClosed" );
-		
-		this.context = options.context;
-		this.el = $("#popup_block", this.context);
+		//this.context = window.parent && window.parent.document || window.document;		
+		this.context = window.document;
 		
 		// only needs to be set up once
 		// TODO: refactor this to more appropriately use our current framework
@@ -376,6 +375,8 @@ VU.PopupView = VU.DustView.extend({
 	},	
 	
 	onOpened : function() {
+		$("body", window.parent.document).append( this.el );
+		
 		//stub; subclasses can extend this if they want
 	},
 	

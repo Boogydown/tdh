@@ -299,15 +299,10 @@
 			this.lastFilterStr = curFilterStr;
 			
 			if ( popID ) {
-				//this.popupContext || (this.popupContext = (window.parent && window.parent.document || window.document));
-				this.popupContext || (this.popupContext = window.document);
 				var popAry = popID.split('&'),
 					popType = popAry[0],
 					popClass = this.popupMap[popType],
-					popView = this.instanciatedPops[ popType ] || (this.instanciatedPops[ popType ] = new popClass( {
-						colls:this.colls, 
-						context: this.popupContext
-					} ));
+					popView = this.instanciatedPops[ popType ] || (this.instanciatedPops[ popType ] = new popClass({colls:this.colls}));
 				popID = popAry.length > 1 ? popAry[1] : null;
 				
 				// open and pass respective info depending on popup type

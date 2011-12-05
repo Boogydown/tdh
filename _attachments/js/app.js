@@ -284,6 +284,15 @@
 					});
 				}
 				
+				filters.push({
+					key: "status",
+					str: "active"
+				});
+				filters.push({
+					key: "status",
+					str: "inactive"
+				});
+				
 				//TODO: put this into mySession
 				window.TDHP_tab = tab;
 				myView.activate( filters );

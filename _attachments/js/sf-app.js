@@ -160,7 +160,7 @@ $(function(){
 			if ( window.location === window.parent.location )
 				location.href = "#list";
 			else
-				window.parent.location.href="#Dances///!";
+				window.parent.parent.location.reload();
 		},
 
 		injectFiles : function( filelist, property, fileKey, values ) {

@@ -175,4 +175,4 @@ VU.InitSFV = function () {
 			}			
         }
     });
-}
+};

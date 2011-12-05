@@ -14,7 +14,7 @@ Top priority: Dances in traditional Texas dance halls; With live music and a woo
 Lower priority: Events where there is no dancing, e.g., a music show or other event where people sit and listen to music. If you submit one of these, please note clearly that there is no dancing.\n\n\
 Please do not post events that are not in Texas, that are not in a dance hall (exceptions include the traditional church festivals), are urban honky tonks or chain night clubs.\n\n\
 Texas Dance Hall Preservation, Inc. reserves the right to reject any submission.\n\n\
-Please click OK if you agree to these terms.')) location.href="#///!";
+Please click OK if you agree to these terms.')) {location.href="#///!"; return;}
 		var att = {
 			el : $("#model_edit"),
 			collName : "events",

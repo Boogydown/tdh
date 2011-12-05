@@ -667,12 +667,14 @@ div#popuplist{
 }
 
 .ownershipTable {
-	text-align:center;
-	
+	text-align: center;
+	width: 100%;
 }
 
 .ownershipTable th{
 	color: white;
+	font-family: Georgia;
+	font-size: 20px;
 }
 
 .ownershipTable td{

@@ -139,7 +139,9 @@ $(function(){
 						caption: (model.get("eventType") || "An") + " event on " + model.get("date")
 					});
 					mySession.save();
-					//location.href="tdhmockup.html";
+					window.parent.location.href="#Dances";
+					window.parent.location.reload();
+					//location.href="";
 				}
 			};				
 				
@@ -155,7 +157,10 @@ $(function(){
 		},
 		
 		onCancel : function(){
-			location.href = "#list";
+			if ( window.location === window.parent.location )
+				location.href = "#list";
+			else
+				window.parent.location.href="#Dances///!";
 		},
 
 		injectFiles : function( filelist, property, fileKey, values ) {

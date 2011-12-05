@@ -153,7 +153,7 @@ $(function(){
 			else this.collection.create(values, {success:updateSession});
 			
 			document.forms[0].reset();
-			location.href = "#list";
+			this.onCancel();
 		},
 		
 		onCancel : function(){

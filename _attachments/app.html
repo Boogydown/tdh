@@ -290,20 +290,9 @@
     </script>
     <!-- TEMPLATES END -->
 </head>
-<body bgcolor="#000000" text="#CCCCCC" link="#0000FF" vlink="#800080" topmargin="0"
-    leftmargin="0">
-    <!--=========== START ORIGINAL HTML ===========-->
-    <!--$begin exclude$-->
+<body bgcolor="#000000" text="#CCCCCC" link="#0000FF" vlink="#800080" topmargin="0" leftmargin="0">
     <div id="centerwrapper">
         <div id="root" style="position: absolute; width: 768px; height: 332px;">
-            <!--$end exclude$-->
-            
-            
-            
-            
-            
-            
-            <!--=========== END ORIGINAL HTML ===========-->
             <!--=========== START VYNC-UP ===========-->
             <!-- Main App Container-->
             <div id="main-container">
@@ -322,42 +311,31 @@
                         <li id="bandsTabBtn" onclick="location.href='#Bands'"><a id="bands-button">Bands</a></li>
                         <li id="hallsTabBtn" onclick="location.href='#Halls'"><a id="halls-button">Halls</a></li>
                     </ul>
-                    <div id="dCardTabBtn" onclick="location.href='#DanceCard'">
-                        My Dance Card</div>
+                    <div id="dCardTabBtn" onclick="location.href='#DanceCard'">My Dance Card</div>
                 </div>
-                <div id="memberName">
-                </div>
+                <div id="memberName"></div>
                 <div id="dancesDiv" class="info-area" style="display: none">
-                    <div class="loadingGIF spinner" id="dancesSpinner">
-                    </div>
-                    <div class="box box2 list list2" id="dancesList" listing-template="mainEventEntryTemplate">
-                    </div>
-                    <div class="box box2" id="dancesCal">
-                    </div>
-                    <div class="box box2" id="dancesMap">
-                    </div>
+                    <div class="loadingGIF spinner" id="dancesSpinner"></div>
+                    <div class="box box2 list list2" id="dancesList" listing-template="mainEventEntryTemplate"></div>
+                    <div class="box box2" id="dancesCal"></div>
+                    <div class="box box2" id="dancesMap"></div>
                 </div>
                 <div id="hallsDiv" class="info-area" style="display: none">
-                    <div class="loadingGIF spinner" id="hallsSpinner">
-                    </div>
+                    <div class="loadingGIF spinner" id="hallsSpinner"></div>
                     <div class="searchFor">
-                        <input class="searchName" id="searchHallName" type="text" name="name" value="Search by Name" /><input
-                            class="searchCounty" id="searchHallCounty" type="text" value="Search by County"
-                            name="county" /></div>
-                    <div class="box list" id="hallsList" listing-template="vyntorEntryTemplate">
-                    </div>
-                    <div class="box" id="hallsMap">
-                    </div>
+                        <input class="searchName" id="searchHallName" type="text" name="name" value="Search by Name" />
+						<input class="searchCounty" id="searchHallCounty" type="text" value="Search by County" name="county" />
+					</div>
+                    <div class="box list" id="hallsList" listing-template="vyntorEntryTemplate"></div>
+                    <div class="box" id="hallsMap"></div>
                 </div>
                 <div id="bandsDiv" class="info-area" style="display: none">
-                    <div class="loadingGIF spinner" id="bandsSpinner">
-                    </div>
+                    <div class="loadingGIF spinner" id="bandsSpinner"></div>
                     <div class="searchFor">
-                        <input class="searchName" id="searchBandName" type="text" name="name" value="Search by Name" /></div>
-                    <div class="box list" id="bandsList" listing-template="vyntorEntryTemplate">
-                    </div>
-                    <div class="box tagCloud" id="bandsTags">
-                    </div>
+                        <input class="searchName" id="searchBandName" type="text" name="name" value="Search by Name" />
+					</div>
+                    <div class="box list" id="bandsList" listing-template="vyntorEntryTemplate"></div>
+                    <div class="box tagCloud" id="bandsTags"></div>
                     <!--<div class="box" id="bandsCal"></div>-->
                 </div>
                 <div id="danceCardDiv" class="info-area" style="display: none">
@@ -370,23 +348,16 @@
                         </span><span class="st_facebook" st_title="My Dance Card - Texas Dance Halls" displaytext="Facebook">
                         </span><span class="st_myspace" st_title="My Dance Card - Texas Dance Halls" displaytext="MySpace">
                         </span><span class="st_email" st_title="My Dance Card - Texas Dance Halls" displaytext="Email">
-                        </span><span st_title="My Dance Card - Texas Dance Halls" displaytext="Print"><a
-                            href="javascript:window.print()">Print</a></span>
+                        </span><span st_title="My Dance Card - Texas Dance Halls" displaytext="Print"><a href="javascript:window.print()">Print</a></span>
                     </div>
-                    <button id="removeAllButton" class="dCardActionBtn" disabled="true">
-                        Remove All</button>
+                    <button id="removeAllButton" class="dCardActionBtn" disabled="true">Remove All</button>
                     <!--<button id="printDCardButton" class="dCardActionBtn" disabled="true">Print</button>-->
                 </div>
             </div>
             <!-- Popup (hidden) -->
-            <div id="popup_block" class="popup_block">
-            </div>
+            <div id="popup_block" class="popup_block"></div>
             <!--=========== END MAIN APP ===========-->
-            <!--=========== START ORIGINAL HTML ===========-->
-            <!--$begin exclude$-->
         </div>
     </div>
-    <!--$end exclude$-->
-    <!--=========== END ORIGINAL HTML ===========-->
 </body>
 </html>

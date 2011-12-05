@@ -302,7 +302,7 @@ VU.EventListingView = VU.ListingView.extend({
  *		this.getCaption
  **/
 VU.PopupView = VU.DustView.extend({
-	el : $("#popup_block"),
+	//el : $("#popup_block"),
 	
 	// we want this to be static, so all use of it will refer to the prototype
 	// in other words, only one popup can be active at once
@@ -346,26 +346,26 @@ VU.PopupView = VU.DustView.extend({
 		//this.form.reset();  don't think we need this; when rendered the form starts clean		
 
 		//Fade Background
-		$('body').append('<div id="fade"></div>');
+		$(this.el).append('<div id="fade"></div>');
 		//Fade in the fade layer - used to fix the IE Bug on fading transparencies 
-		$('#fade').css({'filter' : 'alpha(opacity=80)'}).fadeIn('fast'); 
+		$('#fade', this.el).css({'filter' : 'alpha(opacity=80)'}).fadeIn('fast'); 
 
 		//Fade Popup in and add close button
 		this.el.fadeIn('fast', this.onOpened);
 		
-		$('div.close_popup, #fade').click( this.closePopup );
+		$('div.close_popup, #fade', this.el).click( this.closePopup );
 		
 		return false;
 	},
 	
 	closePopup : function () {
 		VU.PopupView.prototype.active = false;
-		$('div.close_popup, #fade').unbind();
-		var fade = $('#fade , .popup_block'),
+		$('div.close_popup, #fade', this.el).unbind();
+		var fade = $('#fade , .popup_block', this.el),
 			onClosed = this.onClosed;
 		if ( fade && fade.length ) 
 			fade.fadeOut('fast', null, function() {
-				$('#fade').remove();
+				$('#fade', this.el).remove();
 				onClosed();
 				window.location = "#///!";				
 			});

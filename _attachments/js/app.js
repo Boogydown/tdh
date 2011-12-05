@@ -286,11 +286,7 @@
 				
 				filters.push({
 					key: "status",
-					str: "active"
-				});
-				filters.push({
-					key: "status",
-					str: "inactive"
+					notStr: "gone"
 				});
 				
 				//TODO: put this into mySession

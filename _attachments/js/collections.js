@@ -300,6 +300,9 @@ VU.KeyedCollection = VU.Collection.extend({
 						} else if ( filter.str && filter.str != "" ) {
 							if ( value.indexOf( filter.str ) > -1 )
 								innerModels = innerModels.concat( curVals[value] );
+						} else if ( filter.notStr && filter.notStr != "" ) {
+							if ( value.indexOf( filter.notStr ) == -1 )
+								innerModels = innerModels.concat( curVals[value] );
 						}
 					}
 					if ( finalModels )

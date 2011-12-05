@@ -395,9 +395,9 @@ VU.MapView = Backbone.View.extend({
 		this.clearMarkers();
 		this.gcs = {};
 		this.addyOn = options.addressFallback;
-		var center = new google.maps.LatLng(30.274338, -97.744675),
+		var center = new google.maps.LatLng(31.6508, -100.0476),
 			myOptions = {
-				zoom: 6,
+				zoom: 5,
 				minZoom: 5,
 				center: center,
 				mapTypeId: google.maps.MapTypeId.ROADMAP

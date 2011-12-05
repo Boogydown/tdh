@@ -299,7 +299,8 @@
 			this.lastFilterStr = curFilterStr;
 			
 			if ( popID ) {
-				this.popupContext || (this.popupContext = (window.parent && window.parent.document || window.document));
+				//this.popupContext || (this.popupContext = (window.parent && window.parent.document || window.document));
+				this.popupContext || (this.popupContext = window.document);
 				var popAry = popID.split('&'),
 					popType = popAry[0],
 					popClass = this.popupMap[popType],

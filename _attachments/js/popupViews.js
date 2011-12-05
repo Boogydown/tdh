@@ -22,7 +22,7 @@ Please click OK if you agree to these terms.')) location.href="#///!";
 			schemaName : "full",
 			schema : VU.schemas.events.full,
 			docID : this.options.docID,
-			hidden = true
+			hidden : true
 		};
 		this.sF = new VU.SchemaFormView( att );	
 	}	

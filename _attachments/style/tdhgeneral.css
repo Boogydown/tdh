@@ -257,11 +257,10 @@ div.listingBG{
 /**************** Halls/Bands Listings ****************/
 div.searchFor{
 	background-color: transparent;
-
-	width: 475px;
+	width: 476px;
 	height: 30px;
 	position: absolute;
-	left: 15px;
+	left: 11px;
 	top: 50px;
 	bottom: -20px;
 }

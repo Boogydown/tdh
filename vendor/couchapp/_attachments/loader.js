@@ -23,6 +23,7 @@ couchapp_load([
   "js/utils.js",
   "js/schemas.js",
   "js/models.js",
+  "js/views/SchemaFormView.js",
   "js/collections.js",
   "js/bbViews.js",
   "js/popupViews.js",

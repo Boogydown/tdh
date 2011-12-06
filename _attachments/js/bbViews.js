@@ -409,13 +409,15 @@ VU.MapView = Backbone.View.extend({
 
 		// turn this off, for now, until I figure out how to make it work properly!
 		//google.maps.event.addListener(this.map, 'idle', this.fitBounds );
-		
+		utils.logger.log("instanciating mapView:[[");
 		if ( this.collection ){
+			utils.logger.log("coll:" + this.collection.length );
 			this.collection.bind("add", this.addMarker );
 			this.collection.bind("reset", this.render );
 		}
 		
 		if ( this.masterColl ) {			
+			utils.logger.log("masterColl:" + this.masterColl.length );
 			this.masterColl.bind("add", function(model){that.addMarker(model,true)} );
 			this.masterColl.bind("reset", this.render );
 			// remove events in collection mean add events here
@@ -431,6 +433,7 @@ VU.MapView = Backbone.View.extend({
 	},
 
 	render: function(){
+		utils.logger.log("]]map rendering!");
 		this.clearMarkers();
 		
 		// addMarker for all halls in filtered coll

@@ -7,12 +7,12 @@ VU.InitSFV = function () {
 	 * The View for input form based on a doc's schema
 	 */
 	VU.SchemaFormView = Backbone.View.extend({
-        builder: new inputEx.JsonSchema.Builder(),
 		docModel: "",
 
         initialize : function(){
 			this.el.html("");
             _.bindAll(this, "onSubmit", "fetched", "fillMe", "attach");
+			this.builder = new inputEx.JsonSchema.Builder();
             this.render();
         },
         

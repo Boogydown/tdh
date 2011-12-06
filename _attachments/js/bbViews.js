@@ -411,13 +411,13 @@ VU.MapView = Backbone.View.extend({
 		//google.maps.event.addListener(this.map, 'idle', this.fitBounds );
 		utils.logger.log("instanciating mapView:[[");
 		if ( this.collection ){
-			utils.loggler.log("coll:" + this.collection.length );
+			utils.logger.log("coll:" + this.collection.length );
 			this.collection.bind("add", this.addMarker );
 			this.collection.bind("reset", this.render );
 		}
 		
 		if ( this.masterColl ) {			
-			utils.loggler.log("masterColl:" + this.masterColl.length );
+			utils.logger.log("masterColl:" + this.masterColl.length );
 			this.masterColl.bind("add", function(model){that.addMarker(model,true)} );
 			this.masterColl.bind("reset", this.render );
 			// remove events in collection mean add events here

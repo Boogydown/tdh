@@ -659,6 +659,15 @@ div#popuplist{
 	overflow: auto;
 }
 
+#claimLink {
+	bottom: 2px;
+	position: absolute;
+	font-size: 9pt;
+	font-style: italic;
+	width: 100%;
+	text-align: center;
+}
+
 .ownershipBox {
 	width: 625px;
 	height:200px;

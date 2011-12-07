@@ -482,7 +482,7 @@ VU.MapView = Backbone.View.extend({
 		var modelID = hall.id;
 		
 		//shortcut out if marker already exists and is in same mode, OR overwrite isn't allowed
-		if ( modelID in this.markers && (!overwrite || m == this.markers[ modelID ].collMode ) return;
+		if ( modelID in this.markers && (!overwrite || m == this.markers[ modelID ].collMode )) return;
 		
 		// convert gps to LatLng
 		var master = _.isBoolean(m) && m,

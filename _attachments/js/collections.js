@@ -273,7 +273,7 @@ VU.KeyedCollection = VU.Collection.extend({
 		if ( filterParams && filterParams !== this ) 
 			this.filterQueue.push( filterParams );
 
-		utils.logger.log( this.name + ".getFiltered(" + ( filterParams && filterParams.name) + this.filterQueue.length + " queued )" );
+		utils.logger.log( this.name + ".getFiltered(" + ( filterParams && filterParams.name) + ", " + this.filterQueue.length + " queued )" );
 		
 		if ( !this.fetched ) {
 			utils.logger.log( this.name + ".getFiltered( fetch! )" );

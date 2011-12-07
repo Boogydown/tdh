@@ -413,6 +413,7 @@ VU.MapView = Backbone.View.extend({
 		if ( this.collection ){
 			utils.logger.log("coll:" + this.collection.length );
 			this.collection.bind("add", this.addMarker );
+			this.collection.bind("change:gpsCoordinates", this.addMarker );
 			this.collection.bind("reset", this.render );
 		}
 		
@@ -478,10 +479,14 @@ VU.MapView = Backbone.View.extend({
 		overwrite === undefined && (overwrite = true); //default to true
 		var hall = this.getHall( model );
 		hall && hall.unbind( "change", this.addMarker );
+		var modelID = hall.id;
+		
+		//shortcut out if we're not allowed to overwrite and the marker already exists
+		if ( modelID in this.markers && !overwrite ) return;
 		
 		// convert gps to LatLng
-		var master = _.isBoolean(m) && m;
-		var gps = hall.get( "GPS Coordinates" ) || hall.get( "gpsCoordinates" );			
+		var master = _.isBoolean(m) && m,
+			gps = hall.get( "GPS Coordinates" ) || hall.get( "gpsCoordinates" );			
 		if ( gps ){
 			gps = gps.replace(/(^\s*)|(\s*$)/g, "").split(" ");
 			if ( gps.length < 2 ) 
@@ -500,8 +505,7 @@ VU.MapView = Backbone.View.extend({
 		
 		// map it!
 		if ( gps ) {
-			var modelID = hall.id,
-				mOptions = master ? {
+			var mOptions = master ? {
 					map: this.map, 
 					position: gps,
 					title: null,
@@ -529,10 +533,11 @@ VU.MapView = Backbone.View.extend({
 				
 			//if ( !master )
 				//this.bounds.extend( gps );
+			
+			//utils.logger.log( "Adding markerID: " + modelID + " master:" + m );
 				
 			if ( modelID in this.markers ){
-				if ( overwrite )
-					this.markers[ modelID ].setOptions( mOptions );
+				this.markers[ modelID ].setOptions( mOptions );
 			} else {
 				var marker = new google.maps.Marker( mOptions );
 				this.markers[ modelID ] = marker;

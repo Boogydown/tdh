@@ -475,7 +475,7 @@ VU.MapView = Backbone.View.extend({
 	
 	// m = master, overwrite = if marker already exists then overwrite
 	addMarker : function ( model, m, overwrite ) {
-		( overwrite === undefined ) && overwrite = true; //default to true
+		overwrite === undefined && (overwrite = true); //default to true
 		var hall = this.getHall( model );
 		hall && hall.unbind( "change", this.addMarker );
 		

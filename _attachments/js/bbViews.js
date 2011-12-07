@@ -413,7 +413,7 @@ VU.MapView = Backbone.View.extend({
 		if ( this.collection ){
 			utils.logger.log("coll:" + this.collection.length );
 			this.collection.bind("add", this.addMarker );
-			this.collection.bind("change:gpsCoordinates", this.addMarker );
+			this.collection.bind("change", this.addMarker );
 			this.collection.bind("reset", this.render );
 		}
 		
@@ -474,15 +474,15 @@ VU.MapView = Backbone.View.extend({
 			this.markers[hall.id].setMap(null);
 	},
 	
-	// m = master, overwrite = if marker already exists then overwrite
+	// m = in masterColl (i.e. background), overwrite = if marker already exists then overwrite
 	addMarker : function ( model, m, overwrite ) {
 		overwrite === undefined && (overwrite = true); //default to true
 		var hall = this.getHall( model );
 		hall && hall.unbind( "change", this.addMarker );
 		var modelID = hall.id;
 		
-		//shortcut out if we're not allowed to overwrite and the marker already exists
-		if ( modelID in this.markers && !overwrite ) return;
+		//shortcut out if marker already exists and is in same mode, OR overwrite isn't allowed
+		if ( modelID in this.markers && (!overwrite || m == this.markers[ modelID ].collMode ) return;
 		
 		// convert gps to LatLng
 		var master = _.isBoolean(m) && m,
@@ -545,6 +545,7 @@ VU.MapView = Backbone.View.extend({
 					location.href = "#///" + hall.collection.url + "&" + modelID; 
 				});
 			}
+			this.markers[ modelID ].collMode = m;
 			
 		//no gps, so let's try the address, on navColl halls only!
 		} else if ( this.addyOn && !master && hall ) {

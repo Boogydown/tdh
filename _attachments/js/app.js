@@ -140,7 +140,7 @@
 					$(".dCardActionBtn").attr("disabled", true);
 				else
 					$(".dCardActionBtn").attr("disabled", false);
-				$('span[class^="st_"]').attr("st_url", encodeURIComponent( window.parent.location.href + "/" + this.navColl.pluck("id").join("&"));
+				$('span[class^="st_"]').attr("st_url", encodeURIComponent( window.parent.location.href + "/" + this.navColl.pluck("id").join("&")));
 			}
 		})
 	};

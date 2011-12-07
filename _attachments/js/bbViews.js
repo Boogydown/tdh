@@ -418,7 +418,7 @@ VU.MapView = Backbone.View.extend({
 		
 		if ( this.masterColl ) {			
 			utils.logger.log("masterColl:" + this.masterColl.length );
-			this.masterColl.bind("add", function(model){that.addMarker(model,true)} );
+			this.masterColl.bind("add", function(model){that.addMarker(model,true,false)} );
 			this.masterColl.bind("reset", this.render );
 			// remove events in collection mean add events here
 			this.collection.bind("remove", function(model){that.addMarker(model,true)} );
@@ -473,7 +473,9 @@ VU.MapView = Backbone.View.extend({
 			this.markers[hall.id].setMap(null);
 	},
 	
-	addMarker : function ( model, m ) {	
+	// m = master, overwrite = if marker already exists then overwrite
+	addMarker : function ( model, m, overwrite ) {
+		( overwrite === undefined ) && overwrite = true; //default to true
 		var hall = this.getHall( model );
 		hall && hall.unbind( "change", this.addMarker );
 		
@@ -528,9 +530,10 @@ VU.MapView = Backbone.View.extend({
 			//if ( !master )
 				//this.bounds.extend( gps );
 				
-			if ( modelID in this.markers )
-				this.markers[ modelID ].setOptions( mOptions );
-			else {
+			if ( modelID in this.markers ){
+				if ( overwrite )
+					this.markers[ modelID ].setOptions( mOptions );
+			} else {
 				var marker = new google.maps.Marker( mOptions );
 				this.markers[ modelID ] = marker;
 				google.maps.event.addListener( marker, "click", function () { 

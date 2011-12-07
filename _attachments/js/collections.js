@@ -269,14 +269,15 @@ VU.KeyedCollection = VU.Collection.extend({
 	
 	//filterParams: {filters:[{key, start, end}], tail:int, callback:func}
 	getFiltered: function ( filterParams ) {
+		//we add to a queue in case multiple filter requests come in while we're waiting on the fetch to return
 		if ( filterParams && filterParams !== this ) 
 			this.filterQueue.push( filterParams );
 
-		utils.logger.log( this.name + ".getFiltered(" + ( filterParams && filterParams.name), this.filterQueue.length + " queued )" );
+		utils.logger.log( this.name + ".getFiltered(" + ( filterParams && filterParams.name) + this.filterQueue.length + " queued )" );
 		
 		if ( !this.fetched ) {
-			this.fetch( {success: this.getFiltered} );
 			utils.logger.log( this.name + ".getFiltered( fetch! )" );
+			this.fetch( {success: this.getFiltered} );
 			return;
 		}
 		if ( !this.keyed ) this.reloadKeys();

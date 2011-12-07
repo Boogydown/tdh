@@ -356,13 +356,14 @@ VU.PopupView = VU.DustView.extend({
 		this.el.fadeIn('fast', this.onOpened);
 		
 		$('div.close_popup, #fade', this.context).click( this.closePopup );
-		
+		$("body", window.parent.document).click(this.closePopup);
 		return false;
 	},
 	
 	closePopup : function () {
 		VU.PopupView.prototype.active = false;
 		$('div.close_popup, #fade', this.context).unbind();
+		$("body", window.parent.document).unbind("click");
 		var fade = $('#fade , .popup_block', this.context),
 			onClosed = this.onClosed;
 		if ( fade && fade.length ) 
@@ -375,7 +376,7 @@ VU.PopupView = VU.DustView.extend({
 	},	
 	
 	onOpened : function() {
-		$("body", window.parent.document).append( this.el );
+		//$("body", window.parent.document).append( this.el );
 		
 		//stub; subclasses can extend this if they want
 	},

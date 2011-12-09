@@ -622,6 +622,13 @@ div.share {
 	left: 29%;
 }
 
+div.share img {
+	position: relative;
+	top: 6px;
+	margin-left: 6px;
+	margin-right: 2px;
+}
+
 div.share span{
     font-family: Arial,sans-serif;
 	font-size: 12px;

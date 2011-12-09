@@ -98,10 +98,11 @@
 		}),
 		
 		DanceCardView : VU.ParentView.extend({
+			ST_PREFIX : "http://rest.sharethis.com/share/sharer.php?pub_key=0d37266b-9e92-4ecd-82e7-1ac5fb707fd0&access_key=9b10faf230c5eeae9fce93e224871d15&title=My%20Texas%20Dance%20Hall%20Events&url=",
 			el : $("#danceCardDiv"),
 			tabEl : $("#dCardTabBtn"),
 			initialize : function() {
-				_.bindAll( this, "render", "activateRemoveAllButton" );
+				_.bindAll( this, "render", "processDCardChange" );
 				VU.ParentView.prototype.initialize.call(this);
 				var nc = this.navColl = this.colls.dCard;
 
@@ -113,8 +114,8 @@
 					listingClass:VU.EventListingView,
 					collection: nc
 				});
-				nc.bind("add",this.activateRemoveAllButton);
-				nc.bind("remove",this.activateRemoveAllButton);
+				nc.bind("add",this.processDCardChange);
+				nc.bind("remove",this.processDCardChange);
 				$("#removeAllButton").click( function(e){
 					if ( !e.target.disabled )
 						while ( nc.length > 0 )
@@ -132,15 +133,24 @@
 				if ( !this.mapView ) 
 					this.mapView = new VU.MapView( {el: "#dCardMap", collection:this.navColl, addressFallback:true});
 
-				this.activateRemoveAllButton();
+				this.processDCardChange();
 			},
 			
-			activateRemoveAllButton : function() {
+			processDCardChange : function() {
+				// update removeall button
 				if ( this.navColl.length == 0 )
 					$(".dCardActionBtn").attr("disabled", true);
 				else
 					$(".dCardActionBtn").attr("disabled", false);
-				$('span[class^="st_"]').attr("st_url", encodeURIComponent( window.parent.location.href + "/" + this.navColl.pluck("id").join("&")));
+				
+				// update sharethis buttons
+				var url = this.ST_PREFIX + encodeURIComponent( window.parent.location.href + "/" + this.navColl.pluck("id").join("&")) + "&destination=";
+				$("span.chicklets").unbind();
+				$("span.twitter").click(function(){window.open(url + "twitter");});
+				$("span.facebook").click(function(){window.open(url + "facebook");});
+				$("span.myspace").click(function(){window.open(url + "myspace");});
+				$("span.email").click(function(){window.open(url + "email");});
+				//$('span[class^="st_"]').attr("st_url", encodeURIComponent( window.parent.location.href + "/" + this.navColl.pluck("id").join("&")));
 			}
 		})
 	};

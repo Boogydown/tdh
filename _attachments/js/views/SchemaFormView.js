@@ -11,6 +11,16 @@ VU.InitSFV = function () {
 
         initialize : function(){
 			this.el.html("");
+			if ( ! inputEx )
+				couchapp_load({
+					"js/lib/inputex/lib/yui/yuiloader/yuiloader.js",
+					"js/lib/inputex/lib/yui/dom/dom.js",
+					"js/lib/inputex/lib/yui/event/event.js",
+					"js/lib/inputex/build/inputex.js",
+					"js/lib/inputex/js/fields/FileField.js"
+					//"js/lib/inputex/js/fields/DatePickerField.js",
+				});
+
             _.bindAll(this, "onSubmit", "fetched", "fillMe", "attach");
 			this.builder = new inputEx.JsonSchema.Builder();
             this.render();

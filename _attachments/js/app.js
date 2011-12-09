@@ -133,6 +133,7 @@
 				if ( !this.mapView ) 
 					this.mapView = new VU.MapView( {el: "#dCardMap", collection:this.navColl, addressFallback:true});
 
+				this.actualURL = location.hash;
 				this.processDCardChange();
 			},
 			
@@ -143,13 +144,14 @@
 				else
 					$(".dCardActionBtn").attr("disabled", false);
 				
+				window.parent.location.hash = location.hash = this.actualURL + "/" + this.navColl.pluck("id").join("&");
 				// update sharethis buttons
-				var url = this.ST_PREFIX + encodeURIComponent( window.parent.location.href + "/" + this.navColl.pluck("id").join("&")) + "&destination=";
-				$("span.chicklets").unbind();
-				$("span.twitter").click(function(){window.open(url + "twitter");});
-				$("span.facebook").click(function(){window.open(url + "facebook");});
-				$("span.myspace").click(function(){window.open(url + "myspace");});
-				$("span.email").click(function(){window.open(url + "email");});
+				//var url = this.ST_PREFIX + encodeURIComponent( window.parent.location.href + "/" + this.navColl.pluck("id").join("&")) + "&destination=";
+				//$("span.chicklets").unbind();
+				//$("span.twitter").click(function(){window.open(url + "twitter");});
+				//$("span.facebook").click(function(){window.open(url + "facebook");});
+				//$("span.myspace").click(function(){window.open(url + "myspace");});
+				//$("span.email").click(function(){window.open(url + "email");});
 				//$('span[class^="st_"]').attr("st_url", encodeURIComponent( window.parent.location.href + "/" + this.navColl.pluck("id").join("&")));
 			}
 		})

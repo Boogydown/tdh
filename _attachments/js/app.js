@@ -144,7 +144,11 @@
 				else
 					$(".dCardActionBtn").attr("disabled", false);
 				
-				window.parent.location.hash = location.hash = this.actualURL + "/" + this.navColl.pluck("id").join("&");
+				if ( this.active ) 
+				{
+					Backbone.history.navigate( this.actualURL + "/" + this.navColl.pluck("id").join("&") );
+					window.parent.location.hash = location.hash;
+				}
 				// update sharethis buttons
 				//var url = this.ST_PREFIX + encodeURIComponent( window.parent.location.href + "/" + this.navColl.pluck("id").join("&")) + "&destination=";
 				//$("span.chicklets").unbind();

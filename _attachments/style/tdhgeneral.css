@@ -123,7 +123,7 @@ ul#tab-list li{
 	float:left;
 }
 
-ul#tab-list li a{
+ul#tab-list li span{
 	position: relative;
 	left: -7px;
 }

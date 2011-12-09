@@ -11,7 +11,7 @@ VU.InitSFV = function () {
 
         initialize : function(){
 			this.el.html("");
-			if ( ! inputEx )
+			if ( inputEx === undefined )
 				couchapp_load([
 					"js/lib/inputex/lib/yui/yuiloader/yuiloader.js",
 					"js/lib/inputex/lib/yui/dom/dom.js",

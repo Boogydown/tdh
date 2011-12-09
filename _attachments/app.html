@@ -219,8 +219,9 @@
 						<tr><td>Email:</td><td><input name="name" type="text"></input></td></tr>
 						<tr><td>Password:</td><td> <input name="password" type="password"></input></td></tr>
 						<tr><td>Confirm password:</td><td> <input name="password2" type="password"></input></td></tr>
+						<tr><td>I would like the newsletter:</td><td><input name="newsletter" type="checkbox"/></td></tr>
 					</tbody></table>
-					<button type="submit">Create User</button>
+					<button type="submit" onclick="(function(b){if (b.form.newsletter.checked) window.open('http://visitor.constantcontact.com/d.jsp?m=1101828274784&p=oi')})(this)">Create User</button>
 				</form>
 			</div>
 		</div>
@@ -255,7 +256,7 @@
 			<h2>User Profile</h2>
 			<div class="memberDetail">
 				<b>Name - </b>{realName}<br/><br/>
-				<b>Email - </b>{name}<br/><br/>
+				<b>Email - </b>{name} - <i><a href="http://visitor.constantcontact.com/d.jsp?m=1101828274784&p=oi" target="_blank">(join newsletter)</a></i><br/><br/>
 				<b>Phone - </b>{phone}<br/><br/>
 				<b>Zip - </b>{zip}<br/><br/>
 				<b>Member  - </b>{memberStatus} <i><a href="http://texasdancehall.org/join.html">Find out how to support</a></i><br/><br/>
@@ -317,9 +318,9 @@
                 </div>
                 <div id="nav-tabs">
                     <ul id="tab-list">
-                        <li id="dancesTabBtn" onclick="location.href='#Dances'"><a id="dances-button">Dances</a></li>
-                        <li id="bandsTabBtn" onclick="location.href='#Bands'"><a id="bands-button">Bands</a></li>
-                        <li id="hallsTabBtn" onclick="location.href='#Halls'"><a id="halls-button">Halls</a></li>
+                        <li id="dancesTabBtn" onclick="location.href='#Dances'">Dances</li>
+                        <li id="bandsTabBtn" onclick="location.href='#Bands'">Bands</li>
+                        <li id="hallsTabBtn" onclick="location.href='#Halls'">Halls</li>
                     </ul>
                     <div id="dCardTabBtn" onclick="location.href='#DanceCard'">My Dance Card</div>
                 </div>
@@ -349,24 +350,21 @@
                     <!--<div class="box" id="bandsCal"></div>-->
                 </div>
                 <div id="danceCardDiv" class="info-area" style="display: none">
-                    <div class="box dancebox list" id="dCardList" listing-template="dCardListingTemplate">
-                    </div>
-                    <div class="box" id="dCardMap">
-                    </div>
+                    <div class="box dancebox list" id="dCardList" listing-template="dCardListingTemplate"></div>
+                    <div class="box" id="dCardMap"></div>
                     <div class="share">
-						
-                        <span class="st_twitter" st_title="My Dance Card - Texas Dance Halls" displaytext="Tweet">
-                        </span><span class="st_facebook" st_title="My Dance Card - Texas Dance Halls" displaytext="Facebook">
-                        </span><span class="st_myspace" st_title="My Dance Card - Texas Dance Halls" displaytext="MySpace">
-                        </span><span class="st_email" st_title="My Dance Card - Texas Dance Halls" displaytext="Email">
-                        </span><span st_title="My Dance Card - Texas Dance Halls" displaytext="Print"><a href="javascript:window.print()">Print</a></span>
-						
 						<!--
+                        <span class="st_twitter" st_title="My Dance Card - Texas Dance Halls" displaytext="Tweet"></span>
+						<span class="st_facebook" st_title="My Dance Card - Texas Dance Halls" displaytext="Facebook"></span>
+						<span class="st_myspace" st_title="My Dance Card - Texas Dance Halls" displaytext="MySpace"></span>
+						<span class="st_email" st_title="My Dance Card - Texas Dance Halls" displaytext="Email"></span>
+						<span st_title="My Dance Card - Texas Dance Halls" displaytext="Print"><a href="javascript:window.print()">Print</a></span>
 						<span class="chicklets twitter">Tweet</span>
-						<span class="chicklets facebook">Facebook</span>
 						<span class="chicklets myspace">MySpace</span>
 						<span class="chicklets email">E-mail</span>
 						-->
+						<span class="chicklets facebook"><a id="st_fb" href="">Facebook</a></span>
+						<span st_title="My Dance Card - Texas Dance Halls" displaytext="Print"><a href="javascript:window.print()">Print</a></span>						
                     </div>
                     <button id="removeAllButton" class="dCardActionBtn" disabled="true">Remove All</button>
                     <!--<button id="printDCardButton" class="dCardActionBtn" disabled="true">Print</button>-->

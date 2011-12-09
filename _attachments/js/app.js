@@ -149,6 +149,9 @@
 					Backbone.history.navigate( this.actualURL + "/" + this.navColl.pluck("id").join("&") );
 					window.parent.location.hash = location.hash;
 				}
+				
+				$("#st_fb").attr("href","http://rest.sharethis.com/share/sharer.php?destination=email&url=" + encodeURIComponent(location.href) + "&title=DanceCard%20-%20Texas%20Dance%20Halls&pub_key=0d37266b-9e92-4ecd-82e7-1ac5fb707fd0&access_key=9b10faf230c5eeae9fce93e224871d15")
+				
 				// update sharethis buttons
 				//var url = this.ST_PREFIX + encodeURIComponent( window.parent.location.href + "/" + this.navColl.pluck("id").join("&")) + "&destination=";
 				//$("span.chicklets").unbind();

@@ -2,6 +2,18 @@ div {
     color: #CCCCCC;
 }
 
+a {
+	color: #ccc;
+}
+
+a:hover {
+	color:#5d911f;
+}
+
+a:active {
+	color: #91581f;
+}
+
 /**************Fixed Positioning for IE6*************/
 /* *html #fade {
 	position: absolute;

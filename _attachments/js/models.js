@@ -258,7 +258,7 @@ VU.LinkingModel = Backbone.Model.extend({
 		//	value is a dict where key is linkval property name (i.e. band name) and value
 		//	is its cell lookup name (within the linkref model)
 		var fields = this.options && this.options.schema && this.options.schema.properties || 
-					 this.collection.schema && this.collection.schema.properties ||
+					 this.collection && this.collection.schema && this.collection.schema.properties ||
 					 {};
 		var curLinkVal;
 		for ( var attr in fields )

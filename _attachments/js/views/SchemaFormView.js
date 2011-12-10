@@ -39,7 +39,7 @@ VU.InitSFV = function () {
 			
 			// doc ID given?  Then this is an Edit action...
 			if ( this.options.docID )
-				this.collection.serverGet( this.options.docID, this.fillMe );
+				this.collection.serverGet( this.options.docID, this.fillMe, function(e){alert(e);} );
 			
 			// Fills in the pull-down menus
 			// TODO: rewrite these to be more generic; i.e. is a linkRef in the schema
@@ -135,10 +135,16 @@ VU.InitSFV = function () {
 			var coll = this.collection;
 			var updateSession = function(model) {
 				if ( coll instanceof VU.EventCollection && app.mySession && app.mySession.get("loggedIn") ){
-					app.mySession.get("owns").events.push({
-						id: model.id,
-						caption: (model.get("eventType") || "An") + " event on " + model.get("date")
-					});
+					var events = app.mySession.get("owns").events,
+						loc = _(events).chain().pluck("id").indexOf(model.id).value(),
+						newOwn = {
+							id: model.id,
+							caption: (model.get("eventType") || "An") + " event on " + model.get("date")
+						};
+					if ( loc > -1 )
+						events[loc] = newOwn;
+					else
+						events.push(newOwn);
 					app.mySession.save();
 					window.parent.location.href="#Dances";
 					window.parent.location.reload();
@@ -161,10 +167,13 @@ VU.InitSFV = function () {
 			location.href = "#///!";
 		},
 		
-		deleteMe : function() {
-			// TODO: delete me
-		},
-
+        deleteMe : function(){
+			if ( confirm( "This will permanently delete this entry!\n" + 
+						  "Are you SURE you want to do this?" ) ) 
+				if(this.docModel) this.docModel.destroy();
+			location.href="#///!";
+        },
+		
 		injectFiles : function( filelist, property, fileKey, values ) {
 			if ( ! filelist ) filelist = [];
 			if ( filelist.length == undefined ) filelist = [ filelist ];

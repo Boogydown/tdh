@@ -174,7 +174,7 @@ VU.InitSFV = function () {
 					success:function(){
 						window.parent.location.href = "#Dances";
 						window.parent.location.reload();
-					};
+					}
 				});
 			}
         },

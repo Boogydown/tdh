@@ -169,8 +169,10 @@ VU.InitSFV = function () {
 					owns.events = _.reject(owns.events, function(e){ return e.id == modelID; });
 					owns.vyntors = _.reject(owns.vyntors, function(e){ return e.id == modelID; });
 				}
+				app.mySession.save();
 				this.docModel.destroy();
-				location.href="#///!";
+				window.parent.location.href = location.href="#///!";
+				window.parent.location.reload();
 			}
         },
 		

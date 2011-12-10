@@ -183,9 +183,17 @@
 			<h2>{danceHallName}</h2>
 			<div class="detailtext">
 				{?website}<a href="http://{website}" target="_blank">{website}</a><br/>{/website}
-				{?dateBuilt}cir. {dateBuilt}. {/dateBuilt}{?county}{county} county. {/county}{historicalNarrative}<br/>
+				{?dateBuilt}cir. {dateBuilt}. {/dateBuilt}{?county}{county} county. {/county}<br/>
+				{?publicContactPhone}Public contact phone: {publicContactPhone}<br/>{publicContactPhone}
+				{?publicContactEmail}Public contact email: {publicContactEmail}<br/>{publicContactEmail}
+				{?currentOwner}Current owner:{currentOwner}<br/>
+					{?currentOwnerAddress}{currentOwnerAddress}<br/>{/currentOwnerAddress}
+					{?currentOwnerPhone}{currentOwnerPhone}<br/>{/currentOwnerPhone}
+				{/currentOwner}				
+				{historicalNarrative}<br/>
 				<hr/>
 				{address}
+				{?mailingAddress}Mailing address:<br/>{mailingAddress}{/mailingAddress}
 			</div>
 		</div>
 		<div id="main-photo"><img src="{mainPic}" /></div>
@@ -267,7 +275,7 @@
 				<table class="ownershipTable"><tbody>
 					<tr>
 						<th><span>Events currently posted</span></th>
-						<th>{?owns.vyntor}<span>Bands or Halls that I own</span>{/owns.vyntor}</th>
+						<th>{?owns[0].vyntor}<span>Bands or Halls that I own</span>{/owns[0].vyntor}</th>
 					</tr>
 					{#owns}
 					<tr>

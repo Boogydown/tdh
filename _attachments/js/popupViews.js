@@ -49,6 +49,28 @@ VU.SchemaFormHallView = VU.PopupView.extend({
 	}	
 });	
 	
+VU.SchemaFormBandView = VU.PopupView.extend({
+	popTemplate : "popupTemplate_addEvent2",
+	getCaption: function() {
+		return "Edit Band";
+	},
+	
+	onOpened : function() {
+		if ( this.modelID )
+			this.sF = new VU.SchemaFormView({
+				el : $("#model_edit"),
+				collName : "bands",
+				collection : this.options.colls.bands,
+				schemaName : "full",
+				schema : VU.schemas.bands.full,
+				docID : this.modelID,
+				hidden : true
+			});
+		else
+			location.href="#///!";
+	}	
+});	
+	
 VU.AddEventPopupView = VU.PopupView.extend({
 	popTemplate : "popupTemplate_addEvent",
 	getCaption: function() {
@@ -244,6 +266,10 @@ VU.LoginPopupView = VU.PopupView.extend({
         callback({name: "Please enter a name."});
         return false;
       };
+	  if ( data.name.match(/([\w-+\.]+)@((?:[\w]+\.)+)([a-zA-Z]{2,4})/g) == null ) {
+		callback({name: "Must be a proper email address"});
+		return false;
+	  };
       return this.validatePassword(data, callback);
     },
 

@@ -38,17 +38,8 @@ VU.InitSFV = function () {
             this.form.enctype        = 'multipart/form-data';
 			
 			// doc ID given?  Then this is an Edit action...
-			if ( this.options.docID ) {
-				this.docModel = this.collection.get( this.options.docID );
-				if ( ! this.docModel ) {
-					this.docModel = new this.collection.model({id:this.options.docID});
-					this.docModel.collection = this.collection;
-					this.docModel.bind( "change", this.fillMe );
-					this.docModel.fetch();
-				}
-				else
-					this.fillMe( this.docModel );					
-			}
+			if ( this.options.docID )
+				this.collection.serverGet( modelID, this.fillMe );
 			
 			// Fills in the pull-down menus
 			// TODO: rewrite these to be more generic; i.e. is a linkRef in the schema
@@ -66,7 +57,7 @@ VU.InitSFV = function () {
         },
 		
 		fillMe : function( model, options ) {
-            this.docModel.unbind("change", this.fillMe);
+			this.docModel = model;
 			this.modelJSON = this.docModel.toJSON();
 			if ( this.inputex ) this.inputex.setValue( this.modelJSON() );
 		},
@@ -98,18 +89,26 @@ VU.InitSFV = function () {
 
             // YUI onClick used instead of Backbone delegateEvents, because it worked first
             new inputEx.widget.Button({
-                id:             'send',
-                parentEl:       'model_edit',
-                type:           'submit',
-                onClick:        this.onSubmit,
-                value:          'Send'
+                id:         'send',
+                parentEl:   'model_edit',
+                type:       'submit',
+                onClick:    this.onSubmit,
+                value:      'Send'
             });			
             new inputEx.widget.Button({
-                id:             'cancel',
-                parentEl:       'model_edit',
-                onClick:        this.onCancel,
-                value:          'Cancel'
-            });			
+                id:         'cancel',
+                parentEl:   'model_edit',
+                onClick:    this.onCancel,
+                value:      'Cancel'
+            });
+			
+			if ( this.docModel ) 
+				new inputEx.widget.Button({
+					id:			'delete',
+					parentEl:	'model_edit',
+					onClick:	this.deleteMe,
+					value:		"Delete"
+				});
 		},
 
         // Takes the vals from the input fields and submits them to the Collection
@@ -160,6 +159,10 @@ VU.InitSFV = function () {
 		
 		onCancel : function(){
 			location.href = "#///!";
+		},
+		
+		deleteMe : function() {
+			// TODO: delete me
 		},
 
 		injectFiles : function( filelist, property, fileKey, values ) {

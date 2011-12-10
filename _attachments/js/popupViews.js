@@ -7,7 +7,7 @@ VU.SchemaFormPopupView = VU.PopupView.extend({
 	},
 	
 	onOpened : function() {
-		if (!confirm('Texas Dance Hall Preservation, Inc.\n\
+		if ( !this.modelID && !confirm('Texas Dance Hall Preservation, Inc.\n\
 EVENT CALENDAR POLICY\n\n\
 Texas Dance Hall Preservation, Inc. exists to support traditional family-oriented dance halls. We ask that you keep this in mind when submitting an event for our calendar. We give our member halls and bands priority. \n\n\
 Top priority: Dances in traditional Texas dance halls; With live music and a wood floor; and open to all ages\n\

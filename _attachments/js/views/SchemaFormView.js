@@ -11,7 +11,7 @@ VU.InitSFV = function () {
 
         initialize : function(){
 			this.el.html("");
-            _.bindAll(this, "onSubmit", "fetched", "fillMe", "attach", "inputexLoaded");
+            _.bindAll(this, "onSubmit", "fetched", "fillMe", "attach", "inputexLoaded", "deleteMe");
 			
 /*			if ( window.inputEx === undefined )
 				utils.bulkLoad([
@@ -39,7 +39,7 @@ VU.InitSFV = function () {
 			
 			// doc ID given?  Then this is an Edit action...
 			if ( this.options.docID )
-				this.collection.serverGet( this.options.docID, this.fillMe, function(e){alert(e);} );
+				this.collection.serverGet( this.options.docID, this.fillMe, function(m,r,o){alert("Error looking up event: " + r);} );
 			
 			// Fills in the pull-down menus
 			// TODO: rewrite these to be more generic; i.e. is a linkRef in the schema

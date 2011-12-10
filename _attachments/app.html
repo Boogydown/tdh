@@ -184,8 +184,8 @@
 			<div class="detailtext">
 				{?website}<a href="http://{website}" target="_blank">{website}</a><br/>{/website}
 				{?dateBuilt}cir. {dateBuilt}. {/dateBuilt}{?county}{county} county. {/county}<br/>
-				{?publicContactPhone}Public contact phone: {publicContactPhone}<br/>{publicContactPhone}
-				{?publicContactEmail}Public contact email: {publicContactEmail}<br/>{publicContactEmail}
+				{?publicContactPhone}Public contact phone: {publicContactPhone}<br/>{/publicContactPhone}
+				{?publicContactEmail}Public contact email: {publicContactEmail}<br/>{/publicContactEmail}
 				{?currentOwner}Current owner:{currentOwner}<br/>
 					{?currentOwnerAddress}{currentOwnerAddress}<br/>{/currentOwnerAddress}
 					{?currentOwnerPhone}{currentOwnerPhone}<br/>{/currentOwnerPhone}
@@ -269,7 +269,7 @@
 				<b>Phone - </b>{phone}<br/><br/>
 				<b>Zip - </b>{zip}<br/><br/>
 				<b>Member  - </b>{memberStatus} <i><a href="http://texasdancehall.org/join.html" target="_blank">(find out how to support)</a></i><br/><br/>
-				<a href="#///editMember"><b><u>Edit</u></b></a>
+				<button onclick="location.href='#///editMember'">Edit</button>
 			</div>
 			<div class="ownershipBox">
 				<table class="ownershipTable"><tbody>

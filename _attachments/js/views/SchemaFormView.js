@@ -159,10 +159,7 @@ VU.InitSFV = function () {
 		},
 		
 		onCancel : function(){
-			if ( window.location === window.parent.location )
-				location.href = "#list";
-			else
-				window.parent.parent.location.reload();
+			location.href = "#///!";
 		},
 
 		injectFiles : function( filelist, property, fileKey, values ) {

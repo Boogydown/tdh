@@ -1081,3 +1081,12 @@ border-width:0px 0px 0px 3px;
 {
     width: auto !important;
 }
+
+
+/**************** Schema Form Integration ****************/
+#model_edit label{
+	display:none;
+}
+#model_edit {
+	font-size:10pt;
+}

@@ -15,7 +15,7 @@ Lower priority: Events where there is no dancing, e.g., a music show or other ev
 Please do not post events that are not in Texas, that are not in a dance hall (exceptions include the traditional church festivals), are urban honky tonks or chain night clubs.\n\n\
 Texas Dance Hall Preservation, Inc. reserves the right to reject any submission.\n\n\
 Please click OK if you agree to these terms.')) {location.href="#///!"; return;}
-		var att = {
+		this.sF = new VU.SchemaFormView({
 			el : $("#model_edit"),
 			collName : "events",
 			collection : this.options.colls.events,
@@ -23,8 +23,29 @@ Please click OK if you agree to these terms.')) {location.href="#///!"; return;}
 			schema : VU.schemas.events.full,
 			docID : this.modelID,
 			hidden : true
-		};
-		this.sF = new VU.SchemaFormView( att );	
+		});
+	}	
+});	
+
+VU.SchemaFormHallView = VU.PopupView.extend({
+	popTemplate : "popupTemplate_addEvent2",
+	getCaption: function() {
+		return "Edit Hall";
+	},
+	
+	onOpened : function() {
+		if ( this.modelID )
+			this.sF = new VU.SchemaFormView({
+				el : $("#model_edit"),
+				collName : "halls",
+				collection : this.options.colls.halls,
+				schemaName : "full",
+				schema : VU.schemas.halls.full,
+				docID : this.modelID,
+				hidden : true
+			});
+		else
+			location.href="#///!";
 	}	
 });	
 	

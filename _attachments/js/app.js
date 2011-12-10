@@ -214,7 +214,7 @@
 			signup : VU.SignupPopupView,
 			member : VU.MemberPopupView,
 			editMember : VU.EditPopupView,
-			//addEvent : VU.AddEventPopupView,
+			edithall : VU.SchemaFormHallView,
 			addEvent : VU.SchemaFormPopupView,
 			hall : VU.HallPopupView,
 			dancehall : VU.HallPopupView,

@@ -135,7 +135,7 @@ VU.InitSFV = function () {
 			
 			var coll = this.collection;
 			var updateSession = function(model) {
-				if ( coll instanceof VU.EventCollection && mySession.get("loggedIn") ){
+				if ( coll instanceof VU.EventCollection && app.mySession && app.mySession.get("loggedIn") ){
 					mySession.get("owns").events.push({
 						id: model.id,
 						caption: (model.get("eventType") || "An") + " event on " + model.get("date")

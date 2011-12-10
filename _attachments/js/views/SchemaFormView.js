@@ -170,9 +170,12 @@ VU.InitSFV = function () {
 					owns.vyntors = _.reject(owns.vyntors, function(e){ return e.id == modelID; });
 				}
 				app.mySession.save();
-				this.docModel.destroy();
-				window.parent.location.href = "#";
-				window.parent.location.reload();
+				this.docModel.destroy({
+					success:function(){
+						window.parent.location.href = "#Dances";
+						window.parent.location.reload();
+					};
+				});
 			}
         },
 		

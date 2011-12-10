@@ -85,7 +85,7 @@ window.utils = {
 	bulkLoad : function( fileList, callback ) {
 		if ( fileList.length )
 			$.getScript( fileList.pop(), function() {
-				bulkload( fileList, callback );
+				utils.bulkload( fileList, callback );
 			});
 		else
 			callback();

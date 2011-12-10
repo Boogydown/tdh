@@ -80,5 +80,14 @@ window.utils = {
 			if ( window.console !== undefined ) 
 				console.log(msg);
 		}
+	},
+
+	bulkLoad : function( fileList, callback ) {
+		if ( fileList.length )
+			$.getScript( fileList.pop(), function() {
+				bulkload( fileList, callback );
+			});
+		else
+			callback();
 	}
 };

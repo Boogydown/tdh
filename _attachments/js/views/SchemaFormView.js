@@ -171,7 +171,7 @@ VU.InitSFV = function () {
 				}
 				app.mySession.save();
 				this.docModel.destroy();
-				window.parent.location.href = location.href="#///!";
+				window.parent.location.href = "#";
 				window.parent.location.reload();
 			}
         },

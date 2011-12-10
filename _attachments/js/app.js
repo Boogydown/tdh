@@ -328,10 +328,8 @@
 				popID = popAry.length > 1 ? popAry[1] : null;
 				
 				// open and pass respective info depending on popup type
-				if ( popView instanceof VU.EventsContainerPopupView )
-					popView.openPopup( popID, this.currentView.navColl );
-				else
-					popView.openPopup( this.mySession );
+				//if ( popView instanceof VU.EventsContainerPopupView )
+				popView.openPopup( this.mySession, popID, this.currentView.navColl );
 					
 			} else {
 				// ensure popup is closed

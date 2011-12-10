@@ -21,7 +21,7 @@ Please click OK if you agree to these terms.')) {location.href="#///!"; return;}
 			collection : this.options.colls.events,
 			schemaName : "full",
 			schema : VU.schemas.events.full,
-			docID : this.options.docID,
+			docID : this.model,
 			hidden : true
 		};
 		this.sF = new VU.SchemaFormView( att );	
@@ -60,7 +60,8 @@ VU.EventsContainerPopupView = VU.PopupView.extend({
 		VU.PopupView.prototype.initialize.call( this, options );
 	},
 	
-	openPopup : function ( modelID, navColl ) {
+	openPopup : function ( mySession, modelID, navColl ) {
+		this.mySession = mySession;
 		if ( !modelID ) return;
 		this.navColl = navColl;
 		//TODO: show waiting spinner (put into base class; will put spinner in empty popup)
@@ -70,7 +71,7 @@ VU.EventsContainerPopupView = VU.PopupView.extend({
 	_modelLoaded : function ( model ) {		
 		if ( model && _.isFunction(model.loadEvents) )
 				model.loadEvents( this.colls.events );
-		VU.PopupView.prototype.openPopup.call( this, model );		
+		VU.PopupView.prototype.openPopup.call( this, this.mySession, model );		
 	},
 	
 	render : function() {
@@ -250,7 +251,7 @@ VU.LoginPopupView = VU.PopupView.extend({
 	
 	submit : function(data, callback) {
 		if (!this.validateUsernameAndPassword(data, callback)) return;
-		this.model.doLogin(data.name, data.password, callback);
+		this.mySession.doLogin(data.name, data.password, callback);
 		return false;		
 	}
 });
@@ -268,7 +269,7 @@ VU.SignupPopupView = VU.LoginPopupView.extend({
 			callback({password2: "Passwords must match"});
 			return false;
 		}
-		this.model.doSignup(data.name, data.password, function(errors){
+		this.mySession.doSignup(data.name, data.password, function(errors){
 			callback(errors, "#///member");
 		});
 	}
@@ -290,14 +291,14 @@ VU.EditPopupView = VU.LoginPopupView.extend({
 	
 	onOpened : function() {
 		VU.LoginPopupView.prototype.onOpened.call(this);
-		$(":file",this.el).change({model:this.model, el:this.el}, this.addAttachment);
-		this.model.bind( "change", this.render );
+		$(":file",this.el).change({model:this.mySession, el:this.el}, this.addAttachment);
+		this.mySession.bind( "change", this.render );
 	},
 	
 	onClosed : function() {
 		VU.LoginPopupView.prototype.onClosed.call(this);
 		$(":file",this.el).unbind();
-		this.model.unbind( "change", this.render );
+		this.mySession.unbind( "change", this.render );
 	},
 		
 	addAttachment : function ( e ) {
@@ -344,11 +345,11 @@ VU.MemberPopupView = VU.PopupView.extend({
 	},
 	
 	onOpened : function() {
-		this.model.bind( "change", this.render );
+		this.mySession.bind( "change", this.render );
 	},
 	
 	onClosed : function() {
-		this.model.unbind( "change", this.render );
+		this.mySession.unbind( "change", this.render );
 	},
 	
 	getData : function() {

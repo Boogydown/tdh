@@ -313,14 +313,7 @@ VU.PopupView = VU.DustView.extend({
 		_.bindAll(this, "closePopup", "render", "onOpened", "onClosed" );
 		//this.context = window.parent && window.parent.document || window.document;		
 		this.context = window.document;
-		
-		// only needs to be set up once
-		// TODO: refactor this to more appropriately use our current framework
-/*		if ( !VU.PopupView.prototype.initialized ) {
-			$('div.close_popup, #fade').live('click', this.closePopup );
-			VU.PopupView.prototype.initialized = true;
-		}
-*/		this.registerTemplate( this.popTemplate );	
+		this.registerTemplate( this.popTemplate );	
 	},
 	
 	render : function () {
@@ -339,7 +332,8 @@ VU.PopupView = VU.DustView.extend({
 		return data;
 	},
 	
-	openPopup : function ( model ) {
+	openPopup : function ( mySession, model ) {
+		this.mySession = mySession;
 		if ( model ) this.model = model;		
 		VU.PopupView.prototype.active = true;
 

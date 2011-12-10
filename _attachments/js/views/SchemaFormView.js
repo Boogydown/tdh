@@ -39,7 +39,7 @@ VU.InitSFV = function () {
 			
 			// doc ID given?  Then this is an Edit action...
 			if ( this.options.docID )
-				this.collection.serverGet( this.modelID, this.fillMe );
+				this.collection.serverGet( this.options.docID, this.fillMe );
 			
 			// Fills in the pull-down menus
 			// TODO: rewrite these to be more generic; i.e. is a linkRef in the schema

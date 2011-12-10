@@ -333,7 +333,7 @@ VU.PopupView = VU.DustView.extend({
 	},
 	
 	openPopup : function ( mySession, modelID ) {
-		this.mySession = mySession;
+		this.model = this.mySession = mySession;
 		this.modelID = modelID;
 		VU.PopupView.prototype.active = true;
 

@@ -199,7 +199,6 @@ VU.LoginPopupView = VU.PopupView.extend({
 	},
 	
 	onOpened : function() {
-		this.model = this.mySession;
 		$("form", this.el).submit( this.submitPrep );
 	},
 		
@@ -346,7 +345,6 @@ VU.MemberPopupView = VU.PopupView.extend({
 	},
 	
 	onOpened : function() {
-		this.model = this.mySession;
 		this.model.bind( "change", this.render );
 	},
 	

@@ -116,12 +116,6 @@ VU.InitSFV = function () {
 			var values = this.inputex.getValue();
 			values.type = this.options.collection.url;
 			
-			// inject the files from the from into the JSON that we're going to send to the db
-			// (inputex.getValue() returns arrays as...well, arrays.  However, the POST JSON 
-			//	requires ONLY objects )
-			//this.injectFiles( this.el[0].image, "images", "image", values );
-			//this.injectFiles( this.el[0].attachedReferenceDocument, "documents", "attachedReferenceDocument", values );
-
 			// Nuke an empty ID, so it doesn't kill initial creation
 			if(values._id === "") delete values._id;
 			
@@ -170,8 +164,11 @@ VU.InitSFV = function () {
         deleteMe : function(){
 			if ( this.docModel && confirm( "This will permanently delete this entry!\n" + 
 						  "Are you SURE you want to do this?" ) ) {
-				var owns = app.mySession.get("owns"), modelID = this.docModel.id;
-				owns.events = _.reject(owns.events, function(e){ return e.id == modelID; });
+				if ( app.mySession && app.mySession.get("loggedIn") ) {
+					var owns = app.mySession.get("owns"), modelID = this.docModel.id;
+					owns.events = _.reject(owns.events, function(e){ return e.id == modelID; });
+					owns.vyntors = _.reject(owns.vyntors, function(e){ return e.id == modelID; });
+				}
 				this.docModel.destroy();
 				location.href="#///!";
 			}

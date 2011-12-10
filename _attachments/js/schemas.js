@@ -578,6 +578,53 @@ VU.schemas = {
 					}
 				}
 			}
+		},
+		
+		app: {
+			"description":"A dancehall is a venue dedicated to musical performances and dancing",
+			"type":"object",
+			"properties":{
+				"publicContactPhone":{
+					"description": "Public Contact - phone",
+					"type":"string",
+					"optional":true
+				},
+				"publicContactEmail":{
+					"description": "Public Contact - email",
+					"type":"string",
+					"optional":true
+				},
+				"address":{
+					"description": "Street Address",
+					"type":"string",
+					"optional":true
+				},
+				"mailingAddress":{
+					"description": "Mailing Address",
+					"type":"string",
+					"optional":true
+				},
+				"website":{
+					"description": "Website",
+					"type":"url",
+					"optional":true
+				},
+				"currentOwner":{
+					"description": "Current Owner",
+					"type":"string",
+					"optional":true
+				},
+				"currentOwnerAddress":{
+					"description": "Current Owner Address",
+					"type":"string",
+					"optional":true
+				},
+				"currentOwnerPhone":{
+					"description": "Current Owner Phone",
+					"type":"string",
+					"optional":true
+				}
+			}
 		}
 	},
 	

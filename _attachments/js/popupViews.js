@@ -39,8 +39,8 @@ VU.SchemaFormHallView = VU.PopupView.extend({
 				el : $("#model_edit"),
 				collName : "halls",
 				collection : this.options.colls.halls,
-				schemaName : "full",
-				schema : VU.schemas.halls.full,
+				schemaName : "app",
+				schema : VU.schemas.halls.app,
 				docID : this.modelID,
 				hidden : true
 			});

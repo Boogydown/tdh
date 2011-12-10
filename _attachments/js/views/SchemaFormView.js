@@ -168,10 +168,13 @@ VU.InitSFV = function () {
 		},
 		
         deleteMe : function(){
-			if ( confirm( "This will permanently delete this entry!\n" + 
-						  "Are you SURE you want to do this?" ) ) 
-				if(this.docModel) this.docModel.destroy();
-			location.href="#///!";
+			if ( this.docModel && confirm( "This will permanently delete this entry!\n" + 
+						  "Are you SURE you want to do this?" ) ) {
+				var owns = app.mySession.get("owns"), modelID = this.docModel.id;
+				owns.events = _.reject(owns.events, function(e){ return e.id == modelID; });
+				this.docModel.destroy();
+				location.href="#///!";
+			}
         },
 		
 		injectFiles : function( filelist, property, fileKey, values ) {

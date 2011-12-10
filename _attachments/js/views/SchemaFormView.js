@@ -13,7 +13,7 @@ VU.InitSFV = function () {
 			this.el.html("");
             _.bindAll(this, "onSubmit", "fetched", "fillMe", "attach", "inputexLoaded");
 			
-			if ( window.inputEx === undefined )
+/*			if ( window.inputEx === undefined )
 				utils.bulkLoad([
 					"js/lib/inputex/lib/yui/yuiloader/yuiloader.js",
 					"js/lib/inputex/lib/yui/dom/dom.js",
@@ -23,7 +23,7 @@ VU.InitSFV = function () {
 					//"js/lib/inputex/js/fields/DatePickerField.js",
 				], this.inputexLoaded);
 			else
-				this.inputexLoaded();
+*/				this.inputexLoaded();
 		},
 		
 		inputexLoaded : function() {

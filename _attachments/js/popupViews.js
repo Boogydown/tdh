@@ -21,7 +21,7 @@ Please click OK if you agree to these terms.')) {location.href="#///!"; return;}
 			collection : this.options.colls.events,
 			schemaName : "full",
 			schema : VU.schemas.events.full,
-			docID : this.model,
+			docID : this.modelID,
 			hidden : true
 		};
 		this.sF = new VU.SchemaFormView( att );	
@@ -199,6 +199,7 @@ VU.LoginPopupView = VU.PopupView.extend({
 	},
 	
 	onOpened : function() {
+		this.model = this.mySession;
 		$("form", this.el).submit( this.submitPrep );
 	},
 		
@@ -251,7 +252,7 @@ VU.LoginPopupView = VU.PopupView.extend({
 	
 	submit : function(data, callback) {
 		if (!this.validateUsernameAndPassword(data, callback)) return;
-		this.mySession.doLogin(data.name, data.password, callback);
+		this.model.doLogin(data.name, data.password, callback);
 		return false;		
 	}
 });
@@ -269,7 +270,7 @@ VU.SignupPopupView = VU.LoginPopupView.extend({
 			callback({password2: "Passwords must match"});
 			return false;
 		}
-		this.mySession.doSignup(data.name, data.password, function(errors){
+		this.model.doSignup(data.name, data.password, function(errors){
 			callback(errors, "#///member");
 		});
 	}
@@ -291,14 +292,14 @@ VU.EditPopupView = VU.LoginPopupView.extend({
 	
 	onOpened : function() {
 		VU.LoginPopupView.prototype.onOpened.call(this);
-		$(":file",this.el).change({model:this.mySession, el:this.el}, this.addAttachment);
-		this.mySession.bind( "change", this.render );
+		$(":file",this.el).change({model:this.model, el:this.el}, this.addAttachment);
+		this.model.bind( "change", this.render );
 	},
 	
 	onClosed : function() {
 		VU.LoginPopupView.prototype.onClosed.call(this);
 		$(":file",this.el).unbind();
-		this.mySession.unbind( "change", this.render );
+		this.model.unbind( "change", this.render );
 	},
 		
 	addAttachment : function ( e ) {
@@ -345,11 +346,12 @@ VU.MemberPopupView = VU.PopupView.extend({
 	},
 	
 	onOpened : function() {
-		this.mySession.bind( "change", this.render );
+		this.model = this.mySession;
+		this.model.bind( "change", this.render );
 	},
 	
 	onClosed : function() {
-		this.mySession.unbind( "change", this.render );
+		this.model.unbind( "change", this.render );
 	},
 	
 	getData : function() {

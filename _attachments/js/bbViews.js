@@ -332,9 +332,9 @@ VU.PopupView = VU.DustView.extend({
 		return data;
 	},
 	
-	openPopup : function ( mySession, model ) {
+	openPopup : function ( mySession, modelID ) {
 		this.mySession = mySession;
-		if ( model ) this.model = model;		
+		this.modelID = modelID;
 		VU.PopupView.prototype.active = true;
 
 		// this will overwrite any existing popups

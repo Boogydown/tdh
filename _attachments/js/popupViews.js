@@ -114,7 +114,7 @@ VU.EventsContainerPopupView = VU.PopupView.extend({
 	_modelLoaded : function ( model ) {		
 		if ( model && _.isFunction(model.loadEvents) )
 				model.loadEvents( this.colls.events );
-		VU.PopupView.prototype.openPopup.call( this, this.mySession, model );		
+		VU.PopupView.prototype.openPopup.call( this, model );		
 	},
 	
 	render : function() {

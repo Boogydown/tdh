@@ -272,10 +272,9 @@ VU.BandPopupView = VU.EventsContainerPopupView.extend( {
 
 //== Login Base Class ====================================================================
 VU.LoginPopupView = VU.PopupView.extend( VU.FormView, {
-	popTemplate : "popupTemplate_login",
-
-	//override FormView's init
+	
 	initialize : function() {
+		this.popTemplate = "popupTemplate_login";
 		VU.PopupView.prototype.initialize.call( this );
 	},
 	

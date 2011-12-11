@@ -111,8 +111,8 @@ VU.InitSFV = function () {
 				});
 				
 			$(":file",this.el).change({model:this.docModel, el:this.el}, this.addAttachment);
-			this.el.append('<input type="hidden" name="image" value="{image}"></input>' + 
-						   '<input type="hidden" name="_rev" value="{_rev}"></input>');
+			this.el.append('<input type="hidden" name="image" value="' + this.docModel.get("image") + '"></input>' + 
+						   '<input type="hidden" name="_rev" value="' + this.docModel.get("_rev") + '"></input>');
 
 			//this.model.bind( "change", this.render );				
 		},

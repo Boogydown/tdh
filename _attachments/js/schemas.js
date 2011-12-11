@@ -1050,10 +1050,9 @@ VU.schemas = {
 					"type":"string",
 					"optional":true
 				},
-				"image":{
+				"_attachments":{
 					"description":"Image file",
 					"type":"file",
-					"name":"_attachments",
 					"clickable":true,
 					"enctype":"multipart/form-data",
 					"optional":true/*,

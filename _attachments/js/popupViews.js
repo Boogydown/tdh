@@ -274,9 +274,9 @@ VU.BandPopupView = VU.EventsContainerPopupView.extend( {
 VU.LoginPopupView = VU.PopupView.extend( VU.FormView, {
 	popTemplate : "popupTemplate_login",
 
+	//override FormView's init
 	initialize : function() {
 		VU.PopupView.prototype.initialize.call( this );
-		_.bindAll( this, "processSuccessFail" );
 	},
 	
 	getCaption: function() {

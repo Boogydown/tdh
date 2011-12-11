@@ -9,7 +9,7 @@ VU.InitSFV = function () {
 	 */
 	VU.FormView = Backbone.View.extend({
 		initialize : function() {
-			_.bindAll( this, "submitPrep", "validate" );
+			_.bindAll( this, "submitPrep", "validate", "processSuccessFail" );
 			this.form = $(this.el).is("form") ? $(this.el) : $("form", this.el);
 			this.form.submit( this.submitPrep );
 			$(":file",this.form).change({model:this.model, el:this.form}, this.addAttachment);

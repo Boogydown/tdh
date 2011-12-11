@@ -103,7 +103,8 @@ VU.EventsContainerPopupView = VU.PopupView.extend({
 		VU.PopupView.prototype.initialize.call( this, options );
 	},
 	
-	openPopup : function ( mySession, modelID, navColl ) {
+	openPopup : function ( mySession, modelID, navColl, popAry ) {
+		this.params = popAry;
 		this.mySession = mySession;
 		if ( !modelID ) return;
 		this.navColl = navColl;
@@ -150,8 +151,11 @@ VU.EventsContainerPopupView = VU.PopupView.extend({
 				else
 					index = index < coll.length - 1 ? index + 1 : 0;
 			};
+			
+			//TODO: for events, its index is the index of its element
 			if ( this.navColl.model === VU.EventModel ){
-				index = _(this.navColl.pluck( this.navPrefix )).indexOf( this.model.id );
+				//index = _(this.navColl.pluck( this.navPrefix )).indexOf( this.model.id );
+				index = this.params[2];
 				incDec();
 				location.href="#///" + this.navPrefix + "&" + this.navColl.at(index).get( this.navPrefix );
 			}

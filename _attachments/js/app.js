@@ -330,7 +330,7 @@
 				
 				// open and pass respective info depending on popup type
 				//if ( popView instanceof VU.EventsContainerPopupView )
-				popView.openPopup( this.mySession, popID, this.currentView.navColl );
+				popView.openPopup( this.mySession, popID, this.currentView.navColl, popAry );
 					
 			} else {
 				// ensure popup is closed

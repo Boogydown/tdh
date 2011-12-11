@@ -104,7 +104,7 @@ VU.EventsContainerPopupView = VU.PopupView.extend({
 	},
 	
 	openPopup : function ( mySession, modelID, navColl, popAry ) {
-		this.ncIndex = popAry.length > 1 ? popAry[2] : null;
+		this.ncIndex = popAry.length > 1 ? parseInt(popAry[2]) : null;
 		this.mySession = mySession;
 		if ( !modelID ) return;
 		this.navColl = navColl;

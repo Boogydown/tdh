@@ -110,7 +110,7 @@ VU.InitSFV = function () {
 					value:		"Delete"
 				});
 				
-			$(":file",this.el).change({model:this.model, el:this.el}, this.addAttachment);
+			$(":file",this.el).change({model:this.docModel, el:this.el}, this.addAttachment);
 			//this.model.bind( "change", this.render );				
 		},
 		

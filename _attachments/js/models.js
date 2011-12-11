@@ -75,7 +75,7 @@ VU.MemberModel = VU.CookieModel.extend({
 		lastLogin: new Date().getTime(),
 		dateCreated: new Date().getTime(),
 		memberStatus: "unpaid",
-		profilePic: "/tdh/_design/tdh_public/images/genericSilhouette.jpg",
+		image: "/tdh/_design/tdh_public/images/genericSilhouette.jpg",
 		dCard: [],
 		roles: [],
 		owns: { events:[], vyntors:[] },
@@ -375,13 +375,15 @@ VU.BandModel = VU.EventsContainerModel.extend({
 			entryDescription: entryDescription
 		}, { silent: true } );
 		
-		if ( image && image != this.defaults.image && image.substr(0, 4) != "http" ) {
-			image = "../../" + bandID + "/thumbs/" + encodeURI( image );
-			//image = "../../" + bandID + "/" + encodeURI( image );
-			this.set( { 
-				thumbPic: image, 
-				image: image.replace( "\/thumbs\/", "\/" )
-			}, { silent: true } );
+		if ( image && image != this.defaults.image ) {
+			if (  image.substr(0, 4) != "http" ) {
+				//image = "../../" + bandID + "/thumbs/" + encodeURI( image );
+				image = "../../" + bandID + "/" + encodeURI( image );
+				this.set( { 
+					thumbPic: image, 
+					image: image
+				}, { silent: true } );
+			}
 		}
 		else
 			if ( window.google ) this.getGoogleImage();

@@ -1,6 +1,6 @@
 VU.InitPopupViews = function () {
 
-VU.SchemaFormPopupView = VU.PopupView.extend({
+VU.SchemaFormEventView = VU.PopupView.extend({
 	popTemplate : "popupTemplate_addEvent2",
 	getCaption: function() {
 		return "Add event";
@@ -88,6 +88,41 @@ Texas Dance Hall Preservation, Inc. reserves the right to reject any submission.
 Please click OK if you agree to these terms.')) location.href="#///!";
 	}
 });	
+
+VU.MemberPopupView = VU.PopupView.extend({
+	popTemplate : "popupTemplate_member",
+	getCaption: function() {
+		return "Member Profile";
+	},
+	
+	onOpened : function() {
+		this.model.bind( "change", this.render );
+	},
+	
+	onClosed : function() {
+		this.model.unbind( "change", this.render );
+	},
+	
+	getData : function() {
+		// we need to format the ownership data to be display-friendly		
+		var data = VU.LoginPopupView.prototype.getData.call(this),
+			owns = [], i = 0,
+			e = data.owns.events, el = e.length,
+			v = data.owns.vyntors, vl = v.length;
+		if ( el || vl ) {
+			var maxLen = Math.max(el, vl);
+			for ( ;i < maxLen; i++ ){
+				owns.push({ 
+					event: i < el ? e[i] : null,
+					vyntor: i < vl ? v[i] : null
+				});
+			}
+			data.owns = owns;
+			if ( vl ) data.ownsVyntor = true;
+		}		
+		return data;
+	}
+});
 
 //== Events Container Base Class ====================================================================
 VU.EventsContainerPopupView = VU.PopupView.extend({
@@ -236,35 +271,28 @@ VU.BandPopupView = VU.EventsContainerPopupView.extend( {
 });
 
 //== Login Base Class ====================================================================
-VU.LoginPopupView = VU.PopupView.extend({
+VU.LoginPopupView = VU.PopupView.extend( VU.FormView, {
 	popTemplate : "popupTemplate_login",
 
 	initialize : function() {
 		VU.PopupView.prototype.initialize.call( this );
-		_.bindAll( this, "submitPrep", "processSuccessFail" );
+		_.bindAll( this, "processSuccessFail" );
 	},
 	
-	onOpened : function() {
-		$("form", this.el).submit( this.submitPrep );
-	},
-		
 	getCaption: function() {
 		return "Login";
 	},
 	
-	submitPrep : function(e) {
-		e.preventDefault();
-		var data = {};
-		$.each($("form :input", this.el).serializeArray(), function(i, field) {
-		  data[field.name] = field.value;
-		});
-		$("form :file", this.el).each(function() {
-		  data[this.name] = this.value; // file inputs need special handling
-		});
-		this.submit(data, this.processSuccessFail);
+	onOpened : function() {
+		VU.FormView.prototype.initialize.call( this );
 	},
 	
-    validateUsernameAndPassword : function (data, callback) {
+	onClosed : function() {
+		VU.FormView.prototype.finalize.call( this );
+	},		
+		
+	//override
+    validate : function (data, callback) {
       if (!data.name || data.name.length == 0) {
         callback({name: "Please enter a name."});
         return false;
@@ -284,6 +312,7 @@ VU.LoginPopupView = VU.PopupView.extend({
       return true;
     },	
 	
+	//override
 	processSuccessFail : function( errors, href ) {
 		if ($.isEmptyObject(errors)) {
 			if ( href )
@@ -299,8 +328,9 @@ VU.LoginPopupView = VU.PopupView.extend({
 		}
 	},
 	
+	//override
 	submit : function(data, callback) {
-		if (!this.validateUsernameAndPassword(data, callback)) return;
+		if (!this.validate(data, callback)) return;
 		this.model.doLogin(data.name, data.password, callback);
 		return false;		
 	}
@@ -334,92 +364,8 @@ VU.EditPopupView = VU.LoginPopupView.extend({
 		return "Edit Profile";
 	},
 	
-	initialize : function() {
-		VU.LoginPopupView.prototype.initialize.call( this );
-		//this.delegateEvents( {"click #uploadFileBtn": "addAttachment"} );
-	},
-	
-	onOpened : function() {
-		VU.LoginPopupView.prototype.onOpened.call(this);
-		$(":file",this.el).change({model:this.model, el:this.el}, this.addAttachment);
-		this.model.bind( "change", this.render );
-	},
-	
-	onClosed : function() {
-		VU.LoginPopupView.prototype.onClosed.call(this);
-		$(":file",this.el).unbind();
-		this.model.unbind( "change", this.render );
-	},
-		
-	addAttachment : function ( e ) {
-		var form = this.form;
-		var model = e.data.model;
-		$("#main-photo", e.data.el).html("<div class='spinner' style='top:45px;left:75px;position:relative;'></div>");
-		var picFile = form._attachments.value.match(/([^\/\\]+\.\w+)$/gim)[0];
-		model.set( {profilePic: picFile}, {silent:true} );
-		$(form).ajaxSubmit({
-			url:  "/_users" + (model.id ? "/" + model.id : ""),
-			success: function(resp) {
-				// strip out <pre> tags
-				var json = JSON.parse(resp = resp.replace(/\<.+?\>/g,''));
-				if ("ok" in json) {
-					// update our form;
-					form._rev.value = json.rev;
-					form.profilePic.value = picFile;
-					//model.set( { id: json.id } ); don't need this since we aren't allowing pic upload on signup
-					
-					// this will allow us to grab the updated _attachments signature from couch so we can save() later
-					model.fetch({silent:true, success: function() {
-						$("#main-photo",model.el).html('<img src="/_users/' + model.id + '/' + picFile + '"/>' );
-					}} );
-				}
-				else 
-					alert("Upload Failed: " + resp);
-			}
-		});
-	},
-		
 	submit : function ( data, callback ) {
 		this.model.doUpdate( data, callback );
-	},
-	
-	editSaveSuccess : function () {
-		location.href = "#///!";
-	}			
-});
-
-VU.MemberPopupView = VU.PopupView.extend({
-	popTemplate : "popupTemplate_member",
-	getCaption: function() {
-		return "Member Profile";
-	},
-	
-	onOpened : function() {
-		this.model.bind( "change", this.render );
-	},
-	
-	onClosed : function() {
-		this.model.unbind( "change", this.render );
-	},
-	
-	getData : function() {
-		// we need to format the ownership data to be display-friendly		
-		var data = VU.LoginPopupView.prototype.getData.call(this),
-			owns = [], i = 0,
-			e = data.owns.events, el = e.length,
-			v = data.owns.vyntors, vl = v.length;
-		if ( el || vl ) {
-			var maxLen = Math.max(el, vl);
-			for ( ;i < maxLen; i++ ){
-				owns.push({ 
-					event: i < el ? e[i] : null,
-					vyntor: i < vl ? v[i] : null
-				});
-			}
-			data.owns = owns;
-			if ( vl ) data.ownsVyntor = true;
-		}		
-		return data;
 	}
 });
 

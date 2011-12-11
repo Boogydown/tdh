@@ -248,16 +248,16 @@
 						<tr><td>Name:</td><td> <input name="realName" type="text" value="{realName}"></input></td></tr>
 						<tr><td>Phone number:</td><td> <input name="phone" type="text" value="{phone}"></input></td></tr>
 						<tr><td>Zipcode:</td><td> <input name="zip" type="text" value="{zip}"></input></td></tr>
-						<tr><td>Profile pic:</td><td> <input name="_attachments" type="file" value="{profilePic}"></input></td></tr>
+						<tr><td>Profile pic:</td><td> <input name="_attachments" type="file" value="{image}"></input></td></tr>
 					</tbody></table><br/>
-					<input type="hidden" name="profilePic" value="{profilePic}"></input>
+					<input type="hidden" name="image" value="{image}"></input>
 					<input type="hidden" name="_rev" value="{_rev}"></input>
 					<button type="submit" name="submit_button">Save Edits</button>
 					<button type="reset" onclick="location.href='#///member'">Cancel</button>
 				</form>
 			</div>
 		</div>
-		<div id="main-photo"><img src="/_users/{id}/{profilePic}" /></div>
+		<div id="main-photo"><img src="/_users/{id}/{image}" /></div>
     </script>
     <script type="application/dust-template" id="popupTemplate_member">
 		<div class="close_popup" title="Close Window"></div>
@@ -290,7 +290,7 @@
 				</tbody></table>
 			</div>
 		</div>
-		<div id="main-photo"><img src="/_users/{id}/{profilePic}" /></div>
+		<div id="main-photo"><img src="/_users/{id}/{image}" /></div>
     </script>
     <script type="application/dust-template" id="popupTemplate_addEvent">
 		<div class="close_popup" title="Close Window"></div>

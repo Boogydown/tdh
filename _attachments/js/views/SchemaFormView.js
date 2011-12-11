@@ -3,10 +3,103 @@
  * @author Dimitri Hammond
  */
 VU.InitSFV = function () {
-	/*
-	 * The View for input form based on a doc's schema
+	
+	/**
+	 * Base class for anything using a form
 	 */
-	VU.SchemaFormView = Backbone.View.extend({
+	VU.FormView = Backbone.View.extend({
+		initialize : function() {
+			_.bindAll( this, "submitPrep", "validate" );
+			this.form = $(this.el).is("form") ? $(this.el) : $("form", this.el);
+			this.form.submit( this.submitPrep );
+			$(":file",this.form).change({model:this.model, el:this.form}, this.addAttachment);
+			//this.model.bind( "change", this.render );
+		},
+		
+		finalize : function() {
+			this.form.unbind( "submit" );
+			$(":file",this.form).unbind();
+			//this.model.unbind( "change", this.render );
+		},
+		
+		// taken from Futon
+		submitPrep : function(e) {
+			e.preventDefault();
+			var data = {};
+			$.each($(":input", this.form).serializeArray(), function(i, field) {
+				data[field.name] = field.value;
+			});
+			$(":file", this.form).each(function() {
+				data[this.name] = this.value; // file inputs need special handling
+			});
+			this.submit(data, this.processSuccessFail);
+		},
+		
+		// Stub
+		validate : function (data, callback) {
+			return true;
+		},
+		
+		// only works for single-file forms, for now
+		addAttachment : function ( e ) {
+			var form = this.form,
+				model = e.data.model,
+				picFile = form._attachments.value.match(/([^\/\\]+\.\w+)$/gim)[0],
+				url = (model.url ? "/" + model.url : "../..") + (model.id ? "/" + model.id : "");
+				
+			$("#main-photo", form).html("<div class='spinner' style='top:45px;left:75px;position:relative;'></div>");
+			model.set( {image: picFile}, {silent:true} );
+			$(form).ajaxSubmit({
+				url:  url,
+				success: function(resp) {
+					// strip out <pre> tags
+					var json = JSON.parse(resp = resp.replace(/\<.+?\>/g,''));
+					if ("ok" in json) {
+						// update our form;
+						form._rev.value = json.rev;
+						form.image.value = picFile;
+						//model.set( { id: json.id } ); don't need this since we aren't allowing pic upload on signup
+						
+						// this will allow us to grab the updated _attachments signature from couch so we can save() later
+						model.fetch({silent:true, success: function() {
+							$("#main-photo",model.el).html('<img src="' + url + '/' + picFile + '"/>' );
+						}} );
+					}
+					else 
+						alert("Upload Failed: " + resp);
+				}
+			});
+		},
+
+		processSuccessFail : function( errors, href ) {
+			if ($.isEmptyObject(errors)) {
+				if ( href )
+					location.href = href;
+				else
+					location.hash = "";
+			} else {
+				var completeMsg = "";
+				for (var name in errors) {
+					completeMsg += name + ": " + errors[name] + "\n";
+				}
+				alert( completeMsg );
+			}
+		},
+		
+		submit : function(data, callback) {
+			if (!this.validate(data, callback)) return;
+			this.model.save(data, {
+				success: function(){callback();},
+				error: callback
+			});
+			return false;		
+		}		
+	};
+
+	/**
+	 * View that uses inputex to generate a form
+	 */
+	VU.SchemaFormView = Backbone.View.extend( VU.FormView, {
 		docModel: "",
 
         initialize : function(){
@@ -32,7 +125,7 @@ VU.InitSFV = function () {
         },
         
         render : function(){
-			this.el.html("<div class='loadingBar'>Loading...</div>");
+			this.el.append("<div class='loadingBar'>Loading...</div>");
             this.form = this.builder.schemaToInputEx(this.options.schema);
             this.form.parentEl       = 'model_edit';
             this.form.enctype        = 'multipart/form-data';
@@ -58,7 +151,10 @@ VU.InitSFV = function () {
 		
 		fillMe : function( model, options ) {
 			this.docModel = model;
+			
+			// for filling model in case inputex is created later
 			this.modelJSON = this.docModel.toJSON();
+			
 			if ( this.inputex ) this.inputex.setValue( this.modelJSON() );
 		},
 		
@@ -77,7 +173,7 @@ VU.InitSFV = function () {
 		},
 		
 		attach : function () {
-			this.el.html("");
+			$(".loadingBar",this.els).css("display","none");
             this.inputex = inputEx(this.form);
 			if (this.modelJSON) this.inputex.setValue(this.modelJSON);
 			$(document.forms[0].date).datepicker({
@@ -110,44 +206,12 @@ VU.InitSFV = function () {
 					value:		"Delete"
 				});
 				
-			$(":file",this.el).change({model:this.docModel, el:this.el}, this.addAttachment);
 			this.el.append('<input type="hidden" name="image" value="' + this.docModel.get("image") + '"></input>' + 
 						   '<input type="hidden" name="_rev" value="' + this.docModel.get("_rev") + '"></input>');
-
-			//this.model.bind( "change", this.render );				
 		},
-		
-		addAttachment : function ( e ) {
-			var form = this.form;
-			var model = e.data.model;
-			$("#main-photo", e.data.el).html("<div class='spinner' style='top:45px;left:75px;position:relative;'></div>");
-			var picFile = form._attachments.value.match(/([^\/\\]+\.\w+)$/gim)[0];
-			model.set( {image: picFile}, {silent:true} );
-			$(form).ajaxSubmit({
-				url:  "../../" + (model.id ? "/" + model.id : ""),
-				success: function(resp) {
-					// strip out <pre> tags
-					var json = JSON.parse(resp = resp.replace(/\<.+?\>/g,''));
-					if ("ok" in json) {
-						// update our form;
-						form._rev.value = json.rev;
-						form.image.value = picFile;
-						//model.set( { id: json.id } ); don't need this since we aren't allowing pic upload on signup
-						
-						// this will allow us to grab the updated _attachments signature from couch so we can save() later
-						model.fetch({silent:true, success: function() {
-							$("#main-photo",model.el).html('<img src="../../' + model.id + '/' + picFile + '"/>' );
-						}} );
-					}
-					else 
-						alert("Upload Failed: " + resp);
-				}
-			});
-		},		
 
         // Takes the vals from the input fields and submits them to the Collection
         onSubmit : function(){
-			$(":file",this.el).unbind();
 			//this.model.unbind( "change", this.render );
 			
 			var values = this.inputex.getValue();

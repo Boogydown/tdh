@@ -94,7 +94,7 @@ VU.InitSFV = function () {
 			});
 			return false;		
 		}		
-	};
+	});
 
 	/**
 	 * View that uses inputex to generate a form

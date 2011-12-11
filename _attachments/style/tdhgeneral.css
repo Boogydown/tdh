@@ -768,6 +768,10 @@ div.popup-time{
 	bottom: 21px;
 }
 
+.inputEx-List-link {
+	background-color: #369;
+}
+
 
 /* ****************** Event List ******************* */
 .listing div.detail-standard{

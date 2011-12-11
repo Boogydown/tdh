@@ -376,7 +376,8 @@ VU.BandModel = VU.EventsContainerModel.extend({
 		}, { silent: true } );
 		
 		if ( bandPic && bandPic != this.defaults.image && bandPic.substr(0, 4) != "http" ) {
-			bandPic = "../../" + bandID + "/thumbs/" + encodeURI( bandPic );
+			//bandPic = "../../" + bandID + "/thumbs/" + encodeURI( bandPic );
+			bandPic = "../../" + bandID + "/" + encodeURI( bandPic );
 			this.set( { 
 				thumbPic: bandPic, 
 				mainPic: bandPic.replace( "\/thumbs\/", "\/files\/" )

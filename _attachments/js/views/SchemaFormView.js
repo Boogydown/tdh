@@ -109,23 +109,54 @@ VU.InitSFV = function () {
 					onClick:	this.deleteMe,
 					value:		"Delete"
 				});
+				
+			$(":file",this.el).change({model:this.model, el:this.el}, this.addAttachment);
+			//this.model.bind( "change", this.render );				
 		},
+		
+		addAttachment : function ( e ) {
+			var form = this.form;
+			var model = e.data.model;
+			$("#main-photo", e.data.el).html("<div class='spinner' style='top:45px;left:75px;position:relative;'></div>");
+			var picFile = form._attachments.value.match(/([^\/\\]+\.\w+)$/gim)[0];
+			model.set( {image: picFile}, {silent:true} );
+			$(form).ajaxSubmit({
+				url:  "../../" + (model.id ? "/" + model.id : ""),
+				success: function(resp) {
+					// strip out <pre> tags
+					var json = JSON.parse(resp = resp.replace(/\<.+?\>/g,''));
+					if ("ok" in json) {
+						// update our form;
+						form._rev.value = json.rev;
+						form.image.value = picFile;
+						//model.set( { id: json.id } ); don't need this since we aren't allowing pic upload on signup
+						
+						// this will allow us to grab the updated _attachments signature from couch so we can save() later
+						model.fetch({silent:true, success: function() {
+							$("#main-photo",model.el).html('<img src="../../' + model.id + '/' + picFile + '"/>' );
+						}} );
+					}
+					else 
+						alert("Upload Failed: " + resp);
+				}
+			});
+		},		
 
         // Takes the vals from the input fields and submits them to the Collection
         onSubmit : function(){
+			$(":file",this.el).unbind();
+			//this.model.unbind( "change", this.render );
+			
 			var values = this.inputex.getValue();
 			values.type = this.options.collection.url;
 			
 			// Nuke an empty ID, so it doesn't kill initial creation
 			if(values._id === "") delete values._id;
-			
+
+			// we got attachments earlier, so remove it from here
 			if ( values._attachments ) delete values._attachments;
-			if ( values.images )  {
-				delete values.images;
-				delete values.documents;
-				alert("File uploading has been disabled temporarily\nThe remaining data that you entered will be saved to the server.\nWe greatly apologize for the inconvenience.");
-			}
 			
+			// update ownership
 			var coll = this.collection;
 			var updateSession = function(model) {
 				if ( coll instanceof VU.EventCollection && app.mySession && app.mySession.get("loggedIn") ){
@@ -145,7 +176,8 @@ VU.InitSFV = function () {
 					//location.href="";
 				}
 			};				
-				
+
+			// update model
 			if ( this.docModel ){
 				this.docModel.save(values, { success: updateSession });
 				if ( ! this.collection.get(this.docModel) )
@@ -177,31 +209,6 @@ VU.InitSFV = function () {
 					}
 				});
 			}
-        },
-		
-		injectFiles : function( filelist, property, fileKey, values ) {
-			if ( ! filelist ) filelist = [];
-			if ( filelist.length == undefined ) filelist = [ filelist ];
-			var len = filelist.length;
-			if ( len ) {
-				if (!values._attachments) values._attachments = {};
-				var ifn = "";
-				//var accept = {"image/jpeg": 23, "image/png": 22}
-
-				//iterate through list of image files and upload as attachments	
-				for ( var i = 0; i < len; i++ ) {
-					if ( filelist[i].files && filelist[i].files.length > 0 && _.isFunction( filelist[i].files[0].getAsDataURL ) ) {
-						ifn = filelist[i].files[0].name;
-						values[property][i][fileKey] = ifn;
-						values._attachments["files/" + ifn] = {
-							"content_type": "image/jpeg", 
-							"data": filelist[i].files[0].getAsDataURL().slice(23)
-						};
-					} else
-						// remove empty files from here
-						delete filelist[i];
-				}
-			}			
         }
     });
 };

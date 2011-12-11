@@ -1050,6 +1050,17 @@ VU.schemas = {
 					"type":"string",
 					"optional":true
 				},
+				"image":{
+					"description":"Image file",
+					"type":"file",
+					"clickable":true,
+					"enctype":"multipart/form-data",
+					"optional":true/*,
+					"buttons": {
+						"type": "submit", 
+						"value": "Upload"
+					} */
+				},				
 				"stylesPlayed":{
 					"description": "What are the different styles played",
 					"type":"array",

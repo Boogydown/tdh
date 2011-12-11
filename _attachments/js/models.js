@@ -365,7 +365,7 @@ VU.BandModel = VU.EventsContainerModel.extend({
 	normalizeAttributes : function () {
 		// image and website
 		var bandID = this.id;
-		var bandPic = this.get("image");
+		var image = this.get("image");
 		var entryDescription = this.get("stylesPlayed");
 		if ( _.isArray(entryDescription) ) entryDescription = entryDescription.join(", ") + ". ";
 		
@@ -375,12 +375,12 @@ VU.BandModel = VU.EventsContainerModel.extend({
 			entryDescription: entryDescription
 		}, { silent: true } );
 		
-		if ( bandPic && bandPic != this.defaults.image && bandPic.substr(0, 4) != "http" ) {
-			//bandPic = "../../" + bandID + "/thumbs/" + encodeURI( bandPic );
-			bandPic = "../../" + bandID + "/" + encodeURI( bandPic );
+		if ( image && image != this.defaults.image && image.substr(0, 4) != "http" ) {
+			image = "../../" + bandID + "/thumbs/" + encodeURI( image );
+			//image = "../../" + bandID + "/" + encodeURI( image );
 			this.set( { 
-				thumbPic: bandPic, 
-				mainPic: bandPic.replace( "\/thumbs\/", "\/files\/" )
+				thumbPic: image, 
+				image: image.replace( "\/thumbs\/", "\/" )
 			}, { silent: true } );
 		}
 		else
@@ -404,7 +404,7 @@ VU.BandModel = VU.EventsContainerModel.extend({
 			var result = this.imageSearch.results[0];
 			this.set({
 				thumbPic: result.tbUrl,
-				mainPic: result.url
+				image: result.url
 			});
 		}
 	}

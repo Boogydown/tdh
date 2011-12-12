@@ -6,9 +6,10 @@ VU.InitSFV = function () {
 	
 	/**
 	 * Base class for anything using a form
+	 * Must be composed with a Backbone.View subclass
 	 */
-	VU.FormView = Backbone.View.extend({
-		initialize : function() {
+	VU.FormView = {
+		formViewInit : function() {
 			_.bindAll( this, "submitPrep", "validate", "processSuccessFail" );
 			this.form = $(this.el).is("form") ? $(this.el) : $("form", this.el);
 			this.form.submit( this.submitPrep );
@@ -99,7 +100,7 @@ VU.InitSFV = function () {
 	/**
 	 * View that uses inputex to generate a form
 	 */
-	VU.SchemaFormView = Backbone.View.extend( VU.FormView, {
+	VU.SchemaFormView = VU.FormView.extend({
 		docModel: "",
 
         initialize : function(){
@@ -208,6 +209,7 @@ VU.InitSFV = function () {
 				
 			this.el.append('<input type="hidden" name="image" value="' + this.docModel.get("image") + '"></input>' + 
 						   '<input type="hidden" name="_rev" value="' + this.docModel.get("_rev") + '"></input>');
+			this.formViewInit();
 		},
 
         // Takes the vals from the input fields and submits them to the Collection

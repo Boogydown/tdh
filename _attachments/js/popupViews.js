@@ -24,7 +24,12 @@ Please click OK if you agree to these terms.')) {location.href="#///!"; return;}
 			docID : this.modelID,
 			hidden : true
 		});
-	}	
+	},
+	
+	onClosed : function() {
+		this.sF.finalize();
+		this.sF = null;
+	}
 });	
 
 VU.SchemaFormHallView = VU.PopupView.extend({
@@ -46,6 +51,11 @@ VU.SchemaFormHallView = VU.PopupView.extend({
 			});
 		else
 			location.href="#///!";
+	},
+	
+	onClosed : function() {
+		this.sF.finalize();
+		this.sF = null;
 	}	
 });	
 	
@@ -68,6 +78,11 @@ VU.SchemaFormBandView = VU.PopupView.extend({
 			});
 		else
 			location.href="#///!";
+	},
+	
+	onClosed : function() {
+		this.sF.finalize();
+		this.sF = null;
 	}	
 });	
 	
@@ -270,26 +285,22 @@ VU.BandPopupView = VU.EventsContainerPopupView.extend( {
 	}
 });
 
-//== Login Base Class ====================================================================
+//== Popup Form Base Class ====================================================================
 VU.LoginPopupView = VU.PopupView.extend( VU.FormView, {
-	
-	initialize : function() {
-		this.popTemplate = "popupTemplate_login";
-		VU.PopupView.prototype.initialize.call( this );
-	},
-	
+	popTemplate = "popupTemplate_login";
+
 	getCaption: function() {
 		return "Login";
 	},
 	
 	onOpened : function() {
-		VU.FormView.prototype.initialize.call( this );
+		this.formViewInit();
 	},
 	
 	onClosed : function() {
-		VU.FormView.prototype.finalize.call( this );
-	},		
-		
+		this.formViewInit();
+	},
+	
 	//override
     validate : function (data, callback) {
       if (!data.name || data.name.length == 0) {
@@ -300,10 +311,6 @@ VU.LoginPopupView = VU.PopupView.extend( VU.FormView, {
 		callback({name: "Must be a proper email address"});
 		return false;
 	  };
-      return this.validatePassword(data, callback);
-    },
-
-    validatePassword : function (data, callback) {
       if (!data.password || data.password.length == 0) {
         callback({password: "Please enter a password."});
         return false;
@@ -331,7 +338,7 @@ VU.LoginPopupView = VU.PopupView.extend( VU.FormView, {
 	submit : function(data, callback) {
 		if (!this.validate(data, callback)) return;
 		this.model.doLogin(data.name, data.password, callback);
-		return false;		
+		return false;
 	}
 });
 

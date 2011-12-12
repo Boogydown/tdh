@@ -669,13 +669,20 @@ div#popuplist{
 	overflow: auto;
 }
 
-.memberDetail {
+.memberDetail,.popupForm{
     color: white;
-	height: 190px;
-	width: 360px;
     font-family: Arial,sans-serif;
     font-size: 14px;
 	overflow: auto;
+}
+
+.memberDetail {
+	height: 190px;
+	width: 360px;
+}
+
+.popupForm{
+	width:620px;
 }
 
 #claimLink {
@@ -720,7 +727,6 @@ div#popuplist{
 }
 
 div#main-photo{
-
 	background-color: black;
 		/*behavior: url(border-radius.htc);*/
 	-moz-border-radius: 15px;
@@ -743,6 +749,12 @@ div#main-photo img{
     position: absolute;
     top: 20px;
     left: 20px;
+}
+
+form #main-photo {
+	left: 370px;
+	top: 20px;
+	position: absolute;
 }
 
 div.popup-time{

@@ -105,7 +105,7 @@ VU.InitSFV = function () {
 
         initialize : function(){
 			this.el.html("");
-            _.bindAll(this, "onSubmit", "fetched", "fillMe", "attach", "inputexLoaded", "deleteMe");
+            _.bindAll(this, "onSubmit", "onCancel", "fetched", "fillMe", "attach", "inputexLoaded", "deleteMe");
 			
 /*			if ( window.inputEx === undefined )
 				utils.bulkLoad([
@@ -207,9 +207,7 @@ VU.InitSFV = function () {
 					value:		"Delete"
 				});
 				
-			this.el.append('<input type="hidden" name="image" value="' + this.model.get("image") + '"></input>' + 
-						   '<input type="hidden" name="_rev" value="' + this.model.get("_rev") + '"></input>');
-			this.formViewInit();
+			VU.FormView.prototype.initialize.call( this );
 		},
 
         // Takes the vals from the input fields and submits them to the Collection
@@ -260,6 +258,7 @@ VU.InitSFV = function () {
 		},
 		
 		onCancel : function(){
+			this.finalize();
 			location.href = "#///!";
 		},
 		
@@ -273,10 +272,7 @@ VU.InitSFV = function () {
 				}
 				app.mySession.save();
 				this.model.destroy({
-					success:function(){
-						window.parent.location.href = "#Dances";
-						window.parent.location.reload();
-					}
+					success:this.onCancel
 				});
 			}
         }

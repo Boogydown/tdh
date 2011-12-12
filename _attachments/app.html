@@ -241,23 +241,23 @@
 		<div id="info">
 			<h2>Edit profile info...</h2>
 			<div class="memberDetail">
-				<form id="editMember" action="" enctype="multipart/form-data" method="POST">
+				<form id="editMember" class="formPopup" action="" enctype="multipart/form-data" method="POST">
 					<table><tbody>
 						<!--<tr><td>Email:</td><td><input name="name" type="text" value="{name}"></input></td></tr>-->
 						<!--<tr><td>Password:</td><td> <input name="password" type="password" value="{password}"></input></td></tr>-->
 						<tr><td>Name:</td><td> <input name="realName" type="text" value="{realName}"></input></td></tr>
 						<tr><td>Phone number:</td><td> <input name="phone" type="text" value="{phone}"></input></td></tr>
 						<tr><td>Zipcode:</td><td> <input name="zip" type="text" value="{zip}"></input></td></tr>
-						<tr><td>Profile pic:</td><td> <input name="_attachments" type="file" value="{profilePic}"></input></td></tr>
+						<tr><td>Profile pic:</td><td> <input name="_attachments" type="file" value="{image}"></input></td></tr>
 					</tbody></table><br/>
-					<input type="hidden" name="profilePic" value="{profilePic}"></input>
+					<input type="hidden" name="image" value="{image}"></input>
 					<input type="hidden" name="_rev" value="{_rev}"></input>
 					<button type="submit" name="submit_button">Save Edits</button>
 					<button type="reset" onclick="location.href='#///member'">Cancel</button>
+					<div id="main-photo"><img src="/_users/{id}/{image}" /></div>
 				</form>
 			</div>
 		</div>
-		<div id="main-photo"><img src="/_users/{id}/{profilePic}" /></div>
     </script>
     <script type="application/dust-template" id="popupTemplate_member">
 		<div class="close_popup" title="Close Window"></div>
@@ -290,7 +290,7 @@
 				</tbody></table>
 			</div>
 		</div>
-		<div id="main-photo"><img src="/_users/{id}/{profilePic}" /></div>
+		<div id="main-photo"><img src="/_users/{id}/{image}" /></div>
     </script>
     <script type="application/dust-template" id="popupTemplate_addEvent">
 		<div class="close_popup" title="Close Window"></div>
@@ -304,9 +304,12 @@
 		<div class="close_popup" title="Close Window"></div>
 		<div id="popupTitle">{navCaption|s}</div>
 		<div id="info">
-			<form id="model_edit"></form>
+			<form id="model_edit">
+				<input type="hidden" name="image" value="{image}"></input>
+				<input type="hidden" name="_rev" value="{_rev}"></input>
+				<div id="main-photo"><img src="{image}" /></div>		
+			</form>
 		</div>
-		<div id="main-photo"><img src="{image}" /></div>
     </script>
     <!--========================== TEMPLATES END ==========================-->
 </head>

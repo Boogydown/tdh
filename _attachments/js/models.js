@@ -362,12 +362,10 @@ VU.BandModel = VU.EventsContainerModel.extend({
 	
 	//url : function () { return "https://dev.vyncup.t9productions.com:44384/tdh/" + this.id; },
 
-	normalizeAttributes : function () {
+	normalizeAttributes : function ( val, options ) {
 		// image and website
-		if ( this.fromIS ) {
-			this.fromIS = false;
-			return;
-		}
+		if ( options.skipNormalize ) return;
+
 		var bandID = this.id;
 		var image = this.get("image");
 		var entryDescription = this.get("stylesPlayed");
@@ -412,6 +410,8 @@ VU.BandModel = VU.EventsContainerModel.extend({
 			this.set({
 				thumbPic: result.tbUrl,
 				image: result.url
+			}, {
+				skipNormalize: true
 			});
 		}
 	}

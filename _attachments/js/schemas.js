@@ -1053,7 +1053,8 @@ VU.schemas = {
 					"type":"string",
 					"required":true,
 					"_inputex": {
-						"label": "Band Name"
+						"label": "Band Name",
+						"size":40
 					}
 				},
 				"status":{
@@ -1069,7 +1070,7 @@ VU.schemas = {
 					}
 				},
 				"website":{
-					"type":"string",
+					"type":"url",
 					"optional":true,
 					"_inputex": {
 						"label": "Website"

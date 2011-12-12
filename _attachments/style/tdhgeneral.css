@@ -780,11 +780,6 @@ div.popup-time{
 	bottom: 21px;
 }
 
-.inputEx-List-link {
-	background-color: #369;
-}
-
-
 /* ****************** Event List ******************* */
 .listing div.detail-standard{
 	position:relative;
@@ -1100,9 +1095,30 @@ border-width:0px 0px 0px 3px;
 
 
 /**************** Schema Form Integration ****************/
-#model_edit label{
-	color:white;
-}
 #model_edit {
 	font-size:10pt;
+}
+
+#model_edit label {
+	position:relative;
+	top:8px;
+}
+
+.inputEx-label {
+	height:23px;
+}
+
+.inputEx-List-link {
+	background-color: #369;
+}
+
+.inputEx-ListField .inputEx-label {
+	display: none;
+}
+
+.inputEx-ListField-childContainer .inputEx-List-link {
+	top: -18px;
+	left: 158px;
+	background-color: #933;
+	position: relative;
 }

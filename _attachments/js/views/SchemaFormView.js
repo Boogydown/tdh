@@ -11,7 +11,8 @@ VU.InitSFV = function () {
 	VU.FormView = Backbone.View.extend({
 		initialize : function() {
 			_.bindAll( this, "submitPrep", "validate", "processSuccessFail" );
-			this.form = $(this.el).is("form") ? $(this.el) : $("form", this.el)[0];
+			this.form = $(this.el).is("form") ? $(this.el) : $("form", this.el);
+			if ( _.isArray(this.form) ) this.form = this.form[0];
 			this.form.submit( this.submitPrep );
 			if ( this.form._rev ) this.form._rev.value = this.model.get("_rev");
 			if ( this.form.image ) this.form.image.value = this.model.get("image");
@@ -219,7 +220,7 @@ VU.InitSFV = function () {
 			//this.model.unbind( "change", this.render );
 			
 			var values = this.inputex.getValue();
-			values.image = this.form[0].image.value;
+			values.image = this.form.image.value;
 			values.type = this.options.collection.url;
 			
 			// Nuke an empty ID, so it doesn't kill initial creation

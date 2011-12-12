@@ -364,7 +364,10 @@ VU.BandModel = VU.EventsContainerModel.extend({
 
 	normalizeAttributes : function () {
 		// image and website
-		if ( this.fromIS ) return;
+		if ( this.fromIS ) {
+			this.fromIS = false;
+			return;
+		}
 		var bandID = this.id;
 		var image = this.get("image");
 		var entryDescription = this.get("stylesPlayed");

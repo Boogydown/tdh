@@ -190,7 +190,7 @@ VU.InitSFV = function () {
                 value:      'Cancel'
             });
 			
-			if ( this.model ) 
+			if ( this.options.docID ) 
 				new inputEx.widget.Button({
 					id:			'delete',
 					parentEl:	'model_edit',
@@ -201,10 +201,12 @@ VU.InitSFV = function () {
 			// doc ID given?  Then this is an Edit action...
 			if ( this.options.docID )
 				this.collection.serverGet( this.options.docID, this.fillMe, function(m,r,o){alert("Error looking up event: " + r);} );
+			else
+				this.fillMe();
 		},
 
 		fillMe : function( model, options ) {
-			this.model = model;
+			model && (this.model = model);
 			if ( this.inputex ) this.inputex.setValue( this.model.toJSON() );
 			VU.FormView.prototype.initialize.call( this );
 		},

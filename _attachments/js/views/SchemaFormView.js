@@ -12,6 +12,11 @@ VU.InitSFV = function () {
 		initialize : function() {
 			_.bindAll( this, "submitPrep", "validate", "processSuccessFail" );
 			this.form = $(this.el).is("form") ? $(this.el) : $("form", this.el);
+			//FIXME: this is cheating.  We shuold have these in the templates
+			this.form.append('<input type="hidden" name="image" value="'+ this.model.get("image") +'"></input>' + 
+							 '<input type="hidden" name="_rev" value="'+ this.model.get("_rev") +'"></input>' + 
+							 '<div id="main-photo"><img src="'+ this.model.get("image") +'" /></div>');
+			
 			this.form.submit( this.submitPrep );
 			$(":file",this.form).change({model:this.model, el:this.form}, this.addAttachment);
 			//this.model.bind( "change", this.render );
@@ -104,7 +109,7 @@ VU.InitSFV = function () {
 		docModel: "",
 
         initialize : function(){
-			//this.el.html("");
+			this.el.html("");
             _.bindAll(this, "onSubmit", "onCancel", "fetched", "fillMe", "attach", "inputexLoaded", "deleteMe");
 			
 /*			if ( window.inputEx === undefined )
@@ -174,7 +179,7 @@ VU.InitSFV = function () {
 		},
 		
 		attach : function () {
-			$(".loadingBar",this.els).css("display","none");
+			$(".loadingBar",this.el).css("display","none");
             this.inputex = inputEx(this.form);
 			if (this.modelJSON) this.inputex.setValue(this.modelJSON);
 			$(document.forms[0].date).datepicker({

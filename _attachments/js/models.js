@@ -379,11 +379,11 @@ VU.BandModel = VU.EventsContainerModel.extend({
 			if (  image[0] != "." && image[0] != '/' && image.substr(0, 4) != "http" ) {
 				//image = "../../" + bandID + "/thumbs/" + encodeURI( image );
 				image = "../../" + bandID + "/" + encodeURI( image );
-				this.set( { 
-					thumbPic: image, 
-					image: image
-				}, { silent: true } );
 			}
+			this.set( { 
+				thumbPic: image, 
+				image: image
+			}, { silent: true } );
 		}
 		else
 			if ( window.google ) this.getGoogleImage();

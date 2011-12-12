@@ -1073,14 +1073,14 @@ VU.schemas = {
                         {"value":"Gone but not forgotten","label":"Gone but not forgotten"}
                     ],
 					"_inputex": {
-						"label": "Active?"
+						"label": "Status"
 					}
 				},
 				"website":{
 					"type":"url",
 					"optional":true,
 					"_inputex": {
-						"label": "Website"
+						"label": "Band website"
 					}					
 				},
 				"_attachments":{

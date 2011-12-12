@@ -26,6 +26,7 @@ VU.InitSFV = function () {
 		finalize : function() {
 			this.form.unbind( "submit" );
 			$(":file",this.form).unbind();
+			this.form.get().reset();
 			//this.model.unbind( "change", this.render );
 		},
 		
@@ -258,8 +259,6 @@ VU.InitSFV = function () {
                    this.collection.add(this.model, {silent: true});
 			}
 			else this.collection.create(values, {success:updateSession});
-			
-			document.forms[0].reset();
 			this.onCancel();
 		},
 		

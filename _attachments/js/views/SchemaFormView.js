@@ -168,7 +168,6 @@ VU.InitSFV = function () {
 		attach : function () {
 			this.contentEl.html("");
             this.inputex = inputEx(this.form);
-			if (this.modelJSON) this.inputex.setValue(this.modelJSON);
 			$(document.forms[0].date).datepicker({
 				dateFormat: "MM d, yy",
 				showOn: "both",
@@ -206,9 +205,7 @@ VU.InitSFV = function () {
 
 		fillMe : function( model, options ) {
 			this.model = model;
-			// for filling model in case inputex is created later
-			this.modelJSON = this.model.toJSON();
-			if ( this.inputex ) this.inputex.setValue( this.modelJSON() );
+			if ( this.inputex ) this.inputex.setValue( this.model.toJSON() );
 			VU.FormView.prototype.initialize.call( this );
 		},
 		

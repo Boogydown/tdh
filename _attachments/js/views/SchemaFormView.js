@@ -26,7 +26,7 @@ VU.InitSFV = function () {
 		finalize : function() {
 			this.form.unbind( "submit" );
 			$(":file",this.form).unbind();
-			this.form.get().reset();
+			this.form.get()[0].reset();
 			//this.model.unbind( "change", this.render );
 		},
 		
@@ -135,9 +135,9 @@ VU.InitSFV = function () {
         
         render : function(){
 			this.contentEl.html("<div class='loadingBar'>Loading...</div>");
-            this.form = this.builder.schemaToInputEx(this.options.schema);
-            this.form.parentEl       = 'inputExContent';
-            this.form.enctype        = 'multipart/form-data';
+            this.sform = this.builder.schemaToInputEx(this.options.schema);
+            this.sform.parentEl       = 'inputExContent';
+            this.sform.enctype        = 'multipart/form-data';
 			
 			// Fills in the pull-down menus
 			// TODO: rewrite these to be more generic; i.e. is a linkRef in the schema
@@ -157,20 +157,20 @@ VU.InitSFV = function () {
 		fetched : function( coll, options ) {
 			coll.fetched = true;
 			coll.unbind( "reset", this.fetched );
-			this.form.fields[options.field].choices = _.map( coll.models, function(model) {
+			this.sform.fields[options.field].choices = _.map( coll.models, function(model) {
 				// TODO: yeaaaahhh.... this needs to be fixed.  Should not have hardcoded values here.  Perhaps make "name" mandatory on all docs?
 				var name = model.get("bandName") || model.get("danceHallName");
 				return { label:name , value:model.get("_id") };
 			} );
             // add blanks to beginning
-			this.form.fields[options.field].choices.unshift({value:"", label: ""});
+			this.sform.fields[options.field].choices.unshift({value:"", label: ""});
             if ( --this.collsToFetch == 0 )
 				this.attach();
 		},
 		
 		attach : function () {
 			this.contentEl.html("");
-            this.inputex = inputEx(this.form);
+            this.inputex = inputEx(this.sform);
 			$(document.forms[0].date).datepicker({
 				dateFormat: "MM d, yy",
 				showOn: "both",

@@ -51,7 +51,7 @@ VU.InitSFV = function () {
 			var form = this.form,
 				model = e.data.model,
 				picFile = form._attachments.value.match(/([^\/\\]+\.\w+)$/gim)[0],
-				url = (model.url ? "/" + model.url : "../..") + (model.id ? "/" + model.id : "");
+				url = (_.isString(model.url) ? "/" + model.url : "../..") + (model.id ? "/" + model.id : "");
 				
 			$("#main-photo", form).html("<div class='spinner' style='top:45px;left:75px;position:relative;'></div>");
 			model.set( {image: picFile}, {silent:true} );

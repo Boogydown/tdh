@@ -286,7 +286,7 @@ VU.BandPopupView = VU.EventsContainerPopupView.extend( {
 });
 
 //== Popup Form Base Class ====================================================================
-VU.LoginPopupView = _.extend( VU.FormView, VU.PopupView, {
+VU.LoginPopupView = VU.PopupView.extend({
 	popTemplate : "popupTemplate_login",
 
 	getCaption: function() {
@@ -294,11 +294,15 @@ VU.LoginPopupView = _.extend( VU.FormView, VU.PopupView, {
 	},
 	
 	onOpened : function() {
-		this.formViewInit();
+		this.formView = new VU.FormView({el:this.el, model:this.model});
+		this.formView.validate = this.validate;
+		this.formView.processSuccessFail = this.processSuccessFail;
+		this.formView.submit = this.submit;
 	},
 	
 	onClosed : function() {
-		this.formViewInit();
+		this.formView.finalize();
+		this.formView = null;
 	},
 	
 	//override

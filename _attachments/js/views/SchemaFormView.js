@@ -8,8 +8,8 @@ VU.InitSFV = function () {
 	 * Base class for anything using a form
 	 * Must be composed with a Backbone.View subclass
 	 */
-	VU.FormView = {
-		formViewInit : function() {
+	VU.FormView = Backbone.View.extend({
+		initialize : function() {
 			_.bindAll( this, "submitPrep", "validate", "processSuccessFail" );
 			this.form = $(this.el).is("form") ? $(this.el) : $("form", this.el);
 			this.form.submit( this.submitPrep );
@@ -95,7 +95,7 @@ VU.InitSFV = function () {
 			});
 			return false;		
 		}		
-	};
+	});
 
 	/**
 	 * View that uses inputex to generate a form
@@ -151,10 +151,10 @@ VU.InitSFV = function () {
         },
 		
 		fillMe : function( model, options ) {
-			this.docModel = model;
+			this.model = model;
 			
 			// for filling model in case inputex is created later
-			this.modelJSON = this.docModel.toJSON();
+			this.modelJSON = this.model.toJSON();
 			
 			if ( this.inputex ) this.inputex.setValue( this.modelJSON() );
 		},
@@ -199,7 +199,7 @@ VU.InitSFV = function () {
                 value:      'Cancel'
             });
 			
-			if ( this.docModel ) 
+			if ( this.model ) 
 				new inputEx.widget.Button({
 					id:			'delete',
 					parentEl:	'model_edit',
@@ -207,8 +207,8 @@ VU.InitSFV = function () {
 					value:		"Delete"
 				});
 				
-			this.el.append('<input type="hidden" name="image" value="' + this.docModel.get("image") + '"></input>' + 
-						   '<input type="hidden" name="_rev" value="' + this.docModel.get("_rev") + '"></input>');
+			this.el.append('<input type="hidden" name="image" value="' + this.model.get("image") + '"></input>' + 
+						   '<input type="hidden" name="_rev" value="' + this.model.get("_rev") + '"></input>');
 			this.formViewInit();
 		},
 
@@ -248,10 +248,10 @@ VU.InitSFV = function () {
 			};				
 
 			// update model
-			if ( this.docModel ){
-				this.docModel.save(values, { success: updateSession });
-				if ( ! this.collection.get(this.docModel) )
-                   this.collection.add(this.docModel, {silent: true});
+			if ( this.model ){
+				this.model.save(values, { success: updateSession });
+				if ( ! this.collection.get(this.model) )
+                   this.collection.add(this.model, {silent: true});
 			}
 			else this.collection.create(values, {success:updateSession});
 			
@@ -264,15 +264,15 @@ VU.InitSFV = function () {
 		},
 		
         deleteMe : function(){
-			if ( this.docModel && confirm( "This will permanently delete this entry!\n" + 
+			if ( this.model && confirm( "This will permanently delete this entry!\n" + 
 						  "Are you SURE you want to do this?" ) ) {
 				if ( app.mySession && app.mySession.get("loggedIn") ) {
-					var owns = app.mySession.get("owns"), modelID = this.docModel.id;
+					var owns = app.mySession.get("owns"), modelID = this.model.id;
 					owns.events = _.reject(owns.events, function(e){ return e.id == modelID; });
 					owns.vyntors = _.reject(owns.vyntors, function(e){ return e.id == modelID; });
 				}
 				app.mySession.save();
-				this.docModel.destroy({
+				this.model.destroy({
 					success:function(){
 						window.parent.location.href = "#Dances";
 						window.parent.location.reload();

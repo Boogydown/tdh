@@ -104,7 +104,7 @@ VU.InitSFV = function () {
 		docModel: "",
 
         initialize : function(){
-			this.el.html("");
+			//this.el.html("");
             _.bindAll(this, "onSubmit", "onCancel", "fetched", "fillMe", "attach", "inputexLoaded", "deleteMe");
 			
 /*			if ( window.inputEx === undefined )

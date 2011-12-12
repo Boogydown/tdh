@@ -287,7 +287,7 @@ VU.BandPopupView = VU.EventsContainerPopupView.extend( {
 
 //== Popup Form Base Class ====================================================================
 VU.LoginPopupView = VU.PopupView.extend( VU.FormView, {
-	popTemplate = "popupTemplate_login";
+	popTemplate : "popupTemplate_login",
 
 	getCaption: function() {
 		return "Login";

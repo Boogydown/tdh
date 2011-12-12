@@ -14,10 +14,12 @@ VU.InitSFV = function () {
 			this.form = $(this.el).is("form") ? $(this.el) : $("form", this.el);
 			if ( $(this.form[0]).is("form") ) this.form = $(this.form[0]);
 			this.form.submit( this.submitPrep );
-			if ( this.form._rev ) this.form._rev.value = this.model.get("_rev");
-			if ( this.form.image ) this.form.image.value = this.model.get("image");
-			if ($("#main-photo img", this.form)) $("#main-photo img", this.form).attr("src", this.model.get("image"));
-			$(":file",this.form).change({model:this.model, el:this.form}, this.addAttachment);
+			if ( this.model ) {
+				if ( this.form._rev ) this.form._rev.value = this.model.get("_rev");
+				if ( this.form.image ) this.form.image.value = this.model.get("image");
+				if ($("#main-photo img", this.form)) $("#main-photo img", this.form).attr("src", this.model.get("image"));
+				$(":file",this.form).change({model:this.model, el:this.form}, this.addAttachment);
+			}
 			//this.model.bind( "change", this.render );
 		},
 		

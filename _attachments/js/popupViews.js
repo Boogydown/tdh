@@ -328,7 +328,7 @@ VU.LoginPopupView = VU.PopupView.extend({
 			if ( href )
 				location.href = href;
 			else
-				this.closePopup();
+				location.href = "#///!";
 		} else {
 			var completeMsg = "";
 			for (var name in errors) {

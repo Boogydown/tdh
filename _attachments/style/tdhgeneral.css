@@ -1101,7 +1101,7 @@ border-width:0px 0px 0px 3px;
 
 /**************** Schema Form Integration ****************/
 #model_edit label{
-	display:none;
+	color:white;
 }
 #model_edit {
 	font-size:10pt;

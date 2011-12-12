@@ -376,7 +376,7 @@ VU.BandModel = VU.EventsContainerModel.extend({
 		}, { silent: true } );
 		
 		if ( image && image != this.defaults.image ) {
-			if (  image.substr(0, 4) != "http" ) {
+			if (  image.substr(0, 4) != "http" && image.substr(0,2) != ".." ) {
 				//image = "../../" + bandID + "/thumbs/" + encodeURI( image );
 				image = "../../" + bandID + "/" + encodeURI( image );
 				this.set( { 

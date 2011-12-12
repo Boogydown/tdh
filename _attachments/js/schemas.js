@@ -585,42 +585,45 @@ VU.schemas = {
 			"type":"object",
 			"properties":{
 				"publicContactPhone":{
-					"description": "Public Contact - phone",
+					"label": "Public Contact - phone",
 					"type":"string",
 					"optional":true
 				},
 				"publicContactEmail":{
-					"description": "Public Contact - email",
+					"label": "Public Contact - email",
 					"type":"string",
 					"optional":true
 				},
 				"address":{
-					"description": "Street Address",
+					"label": "Street Address",
 					"type":"string",
+					"size":40,
 					"optional":true
 				},
 				"mailingAddress":{
-					"description": "Mailing Address",
+					"label": "Mailing Address",
 					"type":"string",
+					"size":40,
 					"optional":true
 				},
 				"website":{
-					"description": "Website",
+					"label": "Website",
 					"type":"url",
 					"optional":true
 				},
 				"currentOwner":{
-					"description": "Current Owner",
+					"label": "Current Owner",
 					"type":"string",
 					"optional":true
 				},
 				"currentOwnerAddress":{
-					"description": "Current Owner Address",
+					"label": "Current Owner Address",
 					"type":"string",
+					"size":40,
 					"optional":true
 				},
 				"currentOwnerPhone":{
-					"description": "Current Owner Phone",
+					"label": "Current Owner Phone",
 					"type":"string",
 					"optional":true
 				}

@@ -136,10 +136,6 @@ VU.InitSFV = function () {
             this.form.parentEl       = 'inputExContent';
             this.form.enctype        = 'multipart/form-data';
 			
-			// doc ID given?  Then this is an Edit action...
-			if ( this.options.docID )
-				this.collection.serverGet( this.options.docID, this.fillMe, function(m,r,o){alert("Error looking up event: " + r);} );
-			
 			// Fills in the pull-down menus
 			// TODO: rewrite these to be more generic; i.e. is a linkRef in the schema
 			var colls = this.options.collection.colls;
@@ -154,15 +150,6 @@ VU.InitSFV = function () {
 				this.attach();
 			return this;
         },
-		
-		fillMe : function( model, options ) {
-			this.model = model;
-			
-			// for filling model in case inputex is created later
-			this.modelJSON = this.model.toJSON();
-			
-			if ( this.inputex ) this.inputex.setValue( this.modelJSON() );
-		},
 		
 		fetched : function( coll, options ) {
 			coll.fetched = true;
@@ -211,10 +198,20 @@ VU.InitSFV = function () {
 					onClick:	this.deleteMe,
 					value:		"Delete"
 				});
-				
-			VU.FormView.prototype.initialize.call( this );
+
+			// doc ID given?  Then this is an Edit action...
+			if ( this.options.docID )
+				this.collection.serverGet( this.options.docID, this.fillMe, function(m,r,o){alert("Error looking up event: " + r);} );
 		},
 
+		fillMe : function( model, options ) {
+			this.model = model;
+			// for filling model in case inputex is created later
+			this.modelJSON = this.model.toJSON();
+			if ( this.inputex ) this.inputex.setValue( this.modelJSON() );
+			VU.FormView.prototype.initialize.call( this );
+		},
+		
         // Takes the vals from the input fields and submits them to the Collection
         onSubmit : function(){
 			//this.model.unbind( "change", this.render );

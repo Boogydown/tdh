@@ -653,15 +653,16 @@ VU.schemas = {
 			"type":"object",
 			"properties":{
 				"band":{
-					"description": "Band Name",
 					"type":"string",
 					"required":true,
 					"linkRef": "bands",
 					"hidden": true,
-					"choices": [ {"value":"foo","label":"bar"} ]
+					"choices": [ {"value":"foo","label":"bar"} ],
+					"_inputex": {
+						"label": "Band"
+					}
 				},
 				"bandName":{
-					"description": "Band Name",
 					"type":"string",
 					"required":true,
 					"linkVal": { 
@@ -673,15 +674,16 @@ VU.schemas = {
 					}					
 				},
 				"hall":{
-					"description": "Dance Hall",
 					"type":"string",
 					"required": true,
 					"linkRef": "halls",
 					"hidden": true,
-					"choices": [ {"value":"foo","label":"bar"} ]
+					"choices": [ {"value":"foo","label":"bar"} ],
+					"_inputex": {
+						"label": "Dance Hall"
+					}
 				},
 				"hallName":{
-					"description": "Dance Hall Name",
 					"type":"string",
 					"required":true,
 					"linkVal": { 
@@ -693,7 +695,6 @@ VU.schemas = {
 					}
 				},
 				"gpsCoordinates":{
-					"description": "GPS coords",
 					"type":"string",
 					"optional":true,
 					"hidden":true,
@@ -706,19 +707,17 @@ VU.schemas = {
 					}					
 				},
 				"date":{
-					"description": "Date of event",
 					"type":"string",
 					"required":true,
 					//"format":"date",
 					"_inputex": {
 						//"_type": "datepicker", 
 						//valueFormat: 'd-m-Y', 
-						//label: 'Date of event'
+						label: 'Date of event'
 						//"value":"December 31, 2011"
 					}
     			},
 				"time":{
-					"description": "Starts at",
 					"type":"string",
 					"optional":true,
 					"choices": [ 
@@ -772,32 +771,40 @@ VU.schemas = {
 						{'value':'11:30 PM','label':'11:30 PM'}
 					],
 					"_inputex": {
-						"value":"8:00 PM"
+						"value":"8:00 PM",
+						"label":"Starts at"
 					}
 				},
 				"eventType":{
-					"description": "Type of event",
 					"type":"string",
 					"choices": [ 
 						{"value":"","label":""},
 						{"value":"Dance","label":"Dance"},
 						{"value":"Music Show","label":"Music Show"},
 						{"value":"Festival","label":"Festival"} 
-					]
+					],
+					"_inputex": {
+						"label": "Type of event"
+					}
 				},
 				"ageLimit":{
-					"description": "Age limit",
 					"type":"string",
 					"choices": [ 
 						{"value":"","label":""},
 						{"value":"All ages","label":"All ages"},
 						{"value":"18 and up","label":"18 and up"},
 						{"value":"21 and up","label":"21 and up"} 
-					]
+					],
+					"_inputex": {
+						"label": "Age limit"
+					}
 				},
 				"admission":{
-					"description": "Admission $",
-					"type":"string"
+					"type":"string",
+					"_inputex": {
+						"label": "Admission",
+						"value":"$"
+					}
 				}
 			}
 		},
@@ -1074,8 +1081,7 @@ VU.schemas = {
 					"optional":true,
 					"_inputex": {
 						"label": "Website"
-					}
-					
+					}					
 				},
 				"_attachments":{
 					"type":"file",

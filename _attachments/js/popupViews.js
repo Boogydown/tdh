@@ -1,7 +1,7 @@
 VU.InitPopupViews = function () {
 
 VU.SchemaFormEventView = VU.PopupView.extend({
-	popTemplate : "popupTemplate_addEvent2",
+	popTemplate : "popupTemplate_editNoPic",
 	getCaption: function() {
 		return "Add event";
 	},
@@ -33,7 +33,7 @@ Please click OK if you agree to these terms.')) {location.href="#///!"; return;}
 });	
 
 VU.SchemaFormHallView = VU.PopupView.extend({
-	popTemplate : "popupTemplate_editHall",
+	popTemplate : "popupTemplate_editNoPic",
 	getCaption: function() {
 		return "Edit Hall";
 	},
@@ -60,7 +60,7 @@ VU.SchemaFormHallView = VU.PopupView.extend({
 });	
 	
 VU.SchemaFormBandView = VU.PopupView.extend({
-	popTemplate : "popupTemplate_addEvent2",
+	popTemplate : "popupTemplate_editWithPic",
 	getCaption: function() {
 		return "Edit Band";
 	},

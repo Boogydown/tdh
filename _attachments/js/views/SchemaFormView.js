@@ -220,7 +220,7 @@ VU.InitSFV = function () {
 			//this.model.unbind( "change", this.render );
 			
 			var values = this.inputex.getValue();
-			values.image = form.image.value;
+			values.image = this.form[0].image.value;
 			values.type = this.options.collection.url;
 			
 			// Nuke an empty ID, so it doesn't kill initial creation

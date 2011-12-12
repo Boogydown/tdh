@@ -105,7 +105,7 @@ VU.InitSFV = function () {
 
         initialize : function(){
 			this.contentEl = $("#inputExContent");
-			this.contentEl.html(""):
+			this.contentEl.html("");
             _.bindAll(this, "onSubmit", "onCancel", "fetched", "fillMe", "attach", "inputexLoaded", "deleteMe");
 			
 /*			if ( window.inputEx === undefined )

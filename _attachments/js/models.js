@@ -364,7 +364,7 @@ VU.BandModel = VU.EventsContainerModel.extend({
 
 	normalizeAttributes : function () {
 		// image and website
-		if ( this.imageSearch ) return;
+		if ( this.fromIS ) return;
 		var bandID = this.id;
 		var image = this.get("image");
 		var entryDescription = this.get("stylesPlayed");
@@ -405,6 +405,7 @@ VU.BandModel = VU.EventsContainerModel.extend({
 	searchComplete : function() {
 		if ( this.imageSearch.results && this.imageSearch.results.length > 0 ) {
 			var result = this.imageSearch.results[0];
+			this.fromIS = true;
 			this.set({
 				thumbPic: result.tbUrl,
 				image: result.url

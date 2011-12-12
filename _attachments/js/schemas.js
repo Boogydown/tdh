@@ -585,47 +585,63 @@ VU.schemas = {
 			"type":"object",
 			"properties":{
 				"publicContactPhone":{
-					"label": "Public Contact - phone",
 					"type":"string",
-					"optional":true
+					"optional":true,
+					"_inputex": {
+						"label": "Public Contact: phone"
+					}
 				},
 				"publicContactEmail":{
-					"label": "Public Contact - email",
 					"type":"string",
-					"optional":true
+					"optional":true,					
+					"_inputex": {
+						"label": "Public Contact: email"
+					}
 				},
 				"address":{
-					"label": "Street Address",
+					"optional":true,
 					"type":"string",
-					"size":40,
-					"optional":true
+					"_inputex": {
+						"label": "Street Address",
+						"size":40
+					}
 				},
 				"mailingAddress":{
-					"label": "Mailing Address",
 					"type":"string",
-					"size":40,
-					"optional":true
+					"optional":true,
+					"_inputex": {
+						"label": "Mailing Address",
+						"size":40
+					}
 				},
 				"website":{
-					"label": "Website",
 					"type":"url",
-					"optional":true
+					"optional":true,
+					"_inputex": {
+						"label": "Website"
+					}
 				},
 				"currentOwner":{
-					"label": "Current Owner",
 					"type":"string",
-					"optional":true
+					"optional":true,
+					"_inputex": {
+						"label": "Current Owner"
+					}
 				},
 				"currentOwnerAddress":{
-					"label": "Current Owner Address",
 					"type":"string",
-					"size":40,
-					"optional":true
+					"optional":true,
+					"_inputex": {
+						"label": "Current Owner's Address",
+						"size":40
+					}					
 				},
 				"currentOwnerPhone":{
-					"label": "Current Owner Phone",
 					"type":"string",
-					"optional":true
+					"optional":true,
+					"_inputex": {
+						"label": "Current Owner's Phone",
+					}
 				}
 			}
 		}
@@ -1034,38 +1050,42 @@ VU.schemas = {
 			"type":"object",
 			"properties":{
 				"bandName":{
-					"description": "Band Name",
 					"type":"string",
-					"required":true
+					"required":true,
+					"_inputex": {
+						"label": "Band Name"
+					}
 				},
 				"status":{
-					"description": "Active or Inactive",
 					"type":"string",
 					"optional":true,
                     "choices": [
                         {"value":"Active","label":"Active"},
                         {"value":"Not currently active","label":"Not currently active"},
                         {"value":"Gone but not forgotten","label":"Gone but not forgotten"}
-                    ]
+                    ],
+					"_inputex": {
+						"label": "Active?"
+					}
 				},
 				"website":{
-					"description": "Website for more info",
 					"type":"string",
-					"optional":true
+					"optional":true,
+					"_inputex": {
+						"label": "Website"
+					}
+					
 				},
 				"_attachments":{
-					"description":"Image file",
 					"type":"file",
 					"clickable":true,
 					"enctype":"multipart/form-data",
-					"optional":true/*,
-					"buttons": {
-						"type": "submit", 
-						"value": "Upload"
-					} */
+					"optional":true,
+					"_inputex": {
+						"label": "Image"
+					}
 				},				
 				"stylesPlayed":{
-					"description": "What are the different styles played",
 					"type":"array",
 					"required":true,
 					"items": {
@@ -1084,6 +1104,9 @@ VU.schemas = {
                             { value: "Country", label: "Country" },
                             { value: "Other", label: "Other" }
                         ]
+					},
+					"_inputex": {
+						"label": "Different styles played:"
 					}
 				}
 			}

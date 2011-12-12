@@ -357,12 +357,12 @@ VU.BandModel = VU.EventsContainerModel.extend({
 		this.bind( "change:website", this.normalizeAttributes );		
 		this.bind( "change:bandName", this.normalizeAttributes );		
 		// kick it off once for those that came in at init
-		this.normalizeAttributes( "", {} );
+		this.normalizeAttributes( this, "", {} );
 	},
 	
 	//url : function () { return "https://dev.vyncup.t9productions.com:44384/tdh/" + this.id; },
 
-	normalizeAttributes : function ( val, options ) {
+	normalizeAttributes : function ( model, val, options ) {
 		// image and website
 		if ( options.skipNormalize ) return;
 

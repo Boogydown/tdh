@@ -360,12 +360,14 @@ VU.PopupView = VU.DustView.extend({
 		VU.PopupView.prototype.active = false;
 		$('div.close_popup, #fade', this.context).unbind();
 		$("body", window.parent.document).unbind("click");
-		var fade = $('#fade , .popup_block', this.context),
+		var fade = $('#fade', this.context),
+			pb = $('.popup_block', this.context),
 			onClosed = this.onClosed;
-		if ( fade && fade.length ) 
-			fade.fadeOut('fast', null, function() {
-				$('#fade', this.context).remove();
+		pb && pb.fadeOut('fast', null, function() {
 				onClosed();
+			});
+		fade && fade.fadeOut('fast', function() {
+				fade.remove();
 				window.location = "#///!";				
 			});
 		return false;		

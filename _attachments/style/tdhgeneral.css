@@ -1112,6 +1112,12 @@ border-width:0px 0px 0px 3px;
 	background-color: #369;
 }
 
+.inputEx-Field.inputEx-ListField {
+	border: #777 1px dashed;
+	padding-left: 7px;
+	padding-bottom: 7px;
+}
+
 .inputEx-ListField .inputEx-label {
 	display: none;
 }
@@ -1121,4 +1127,8 @@ border-width:0px 0px 0px 3px;
 	left: 158px;
 	background-color: #933;
 	position: relative;
+}
+
+.inputEx-UrlField img {
+	display: none;
 }

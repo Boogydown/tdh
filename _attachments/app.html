@@ -312,6 +312,17 @@
 			</form>
 		</div>
     </script>
+    <script type="application/dust-template" id="popupTemplate_editHall">
+		<div class="close_popup" title="Close Window"></div>
+		<div id="popupTitle">{navCaption|s}</div>
+		<div id="info">
+			<form id="model_edit">
+				<div id="inputExContent"></div>
+				<input type="hidden" name="image" value="{image}"></input>
+				<input type="hidden" name="_rev" value="{_rev}"></input>
+			</form>
+		</div>
+    </script>
     <!--========================== TEMPLATES END ==========================-->
 </head>
 

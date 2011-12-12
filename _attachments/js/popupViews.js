@@ -33,7 +33,7 @@ Please click OK if you agree to these terms.')) {location.href="#///!"; return;}
 });	
 
 VU.SchemaFormHallView = VU.PopupView.extend({
-	popTemplate : "popupTemplate_addEvent2",
+	popTemplate : "popupTemplate_editHall",
 	getCaption: function() {
 		return "Edit Hall";
 	},

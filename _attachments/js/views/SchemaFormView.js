@@ -51,8 +51,8 @@ VU.InitSFV = function () {
 		addAttachment : function ( e ) {
 			var form = this.form,
 				model = e.data.model,
-				picFile = form._attachments.value.match(/([^\/\\]+\.\w+)$/gim)[0],
-				url = (_.isString(model.url) ? "/" + model.url : "../..") + (model.id ? "/" + model.id : "");
+				url = (_.isString(model.url) ? "/" + model.url : "../..") + (model.id ? "/" + model.id : ""),
+				picFile = url + "/" + form._attachments.value.match(/([^\/\\]+\.\w+)$/gim)[0];
 				
 			$("#main-photo", form).html("<div class='spinner' style='top:45px;left:75px;position:relative;'></div>");
 			model.set( {image: picFile}, {silent:true} );
@@ -69,7 +69,7 @@ VU.InitSFV = function () {
 						
 						// this will allow us to grab the updated _attachments signature from couch so we can save() later
 						model.fetch({silent:true, success: function() {
-							$("#main-photo",model.el).html('<img src="' + url + '/' + picFile + '"/>' );
+							$("#main-photo",model.el).html('<img src="' + picFile + '"/>' );
 						}} );
 					}
 					else 

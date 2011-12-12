@@ -206,8 +206,10 @@ VU.InitSFV = function () {
 		},
 
 		fillMe : function( model, options ) {
-			model && (this.model = model);
-			if ( this.inputex ) this.inputex.setValue( this.model.toJSON() );
+			if ( model ){
+				(this.model = model);
+				if ( this.inputex ) this.inputex.setValue( this.model.toJSON() );
+			}
 			VU.FormView.prototype.initialize.call( this );
 		},
 		

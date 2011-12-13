@@ -446,6 +446,13 @@ div#hallsMap, #dCardMap {
 	width:248px;
 }
 
+#mapLegend {
+	position: absolute;
+	bottom: 16px;
+	right: -5px;
+}
+
+
 #removeAllButton {
 	bottom: 5px;
 	position: absolute;

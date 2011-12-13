@@ -494,8 +494,10 @@ VU.MapView = Backbone.View.extend({
 		}
 		
 		// see if there's a custom marker icon
-		var markerURL = master ? "grey" : hall.get( "styleMarker" );
-		if ( markerURL ){
+		var markerURL = hall.get( "styleMarker" );
+		if ( master ) {
+			markerURL = "images/grey-circle.png";
+		} else if ( markerURL ){
 			//if ( markerURL == "pink" ) markerURL = "grey";
 			markerURL = "http://maps.google.com/mapfiles/ms/micons/" + markerURL + ".png";
 		} else {

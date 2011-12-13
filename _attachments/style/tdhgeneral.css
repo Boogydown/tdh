@@ -448,8 +448,8 @@ div#hallsMap, #dCardMap {
 
 #mapLegend {
 	position: absolute;
-	bottom: 16px;
-	right: -5px;
+	bottom: -3px;
+	right: 15px;
 }
 
 

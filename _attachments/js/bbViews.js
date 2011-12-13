@@ -513,9 +513,9 @@ VU.MapView = Backbone.View.extend({
 					clickable : false,
 					icon: new google.maps.MarkerImage( 
 						markerURL,
-						new google.maps.Size(15,9),
+						new google.maps.Size(9,9),
 						null, null, 
-						new google.maps.Size(15,15)
+						new google.maps.Size(9,9)
 					),
 					zIndex : -999
 				} : {

@@ -640,7 +640,7 @@ VU.schemas = {
 					"type":"string",
 					"optional":true,
 					"_inputex": {
-						"label": "Current Owner's Phone",
+						"label": "Current Owner's Phone"
 					}
 				}
 			}

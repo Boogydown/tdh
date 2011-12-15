@@ -27,7 +27,7 @@ $(function(){
 			this.el.html("");
             _.bindAll(this, "onSubmit", "fetched", "fillMe", "attach", "render");
 			if ( mySession.get("loggedIn") && mySession.get("roles").indexOf("admin") > -1 ){
-				if ( !mySession.users ) $.couch.db("_users").allDocs({ success: render });
+				if ( !mySession.users ) $.couch.db("_users").allDocs({ success: this.render });
 				else this.render();
 			}
             else this.render();

@@ -68,7 +68,6 @@ VU.MemberModel = VU.CookieModel.extend({
 	cookieKeys : [ "dCard" ],
 	ID_PREFIX: "org.couchdb.user:",
 	defaults : {
-		id: "",
 		realName: "",
 		name: "",
 		group: "",
@@ -84,12 +83,12 @@ VU.MemberModel = VU.CookieModel.extend({
 	},
 	
 	initialize : function( attrs, options ) {
+		// if this is being created from the coll fetch then skip login stuf
+		if ( !this.isNew() ) return;
+		
 		VU.CookieModel.prototype.initialize.call( this, attrs, options );
 		_.bindAll( this, "_userFetched", "doLogin", "doSignup", "_syncDCard", "loadDCard" );
 		
-		// if this is being created from the coll fetch then skip login stuf
-		if ( attrs ) return;
-						 
 		if ( options ) {
 			this.dCardColl = options.dCard;
 			this.eventsMain = options.events;

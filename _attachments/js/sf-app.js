@@ -139,9 +139,6 @@ $(function(){
 						caption: (model.get("eventType") || "An") + " event on " + model.get("date")
 					});
 					mySession.save();
-					window.parent.location.href="#Dances";
-					window.parent.location.reload();
-					//location.href="";
 				}
 			};				
 				

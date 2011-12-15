@@ -77,7 +77,7 @@ VU.MemberModel = VU.CookieModel.extend({
 		memberStatus: "unpaid",
 		image: "/tdh/_design/tdh_public/images/genericSilhouette.jpg",
 		dCard: [],
-		roles: [],
+		roles: ["tdhp_user"],
 		owns: { events:[], vyntors:[] },
 		type: "user",
 		loggedIn: false

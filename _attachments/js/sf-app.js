@@ -25,7 +25,7 @@ $(function(){
 
         initialize : function(){
 			this.el.html("");
-            _.bindAll(this, "onSubmit", "fetched", "fillMe", "attach");
+            _.bindAll(this, "onSubmit", "fetched", "fillMe", "attach", "render");
 			if ( mySession.get("loggedIn") && mySession.get("roles").indexOf("admin") > -1 ){
 				if ( !mySession.collection.fetched ) { mySession.collection.bind( "reset", this.render ); mySession.collection.fetch({field:"owners"});}
 				else this.render();

@@ -375,9 +375,4 @@ VU.HallCollection = VU.KeyedCollection.extend({
 		return hall.get("danceHallName");
 	}
 });
-
-VU.UsersCollection = VU.Collection.extend({
-	url : "/_users",
-	model : VU.MemberModel
-});
 };

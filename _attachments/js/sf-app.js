@@ -27,18 +27,21 @@ $(function(){
 			this.el.html("");
             _.bindAll(this, "onSubmit", "fetched", "fillMe", "attach", "render");
 			if ( mySession.get("loggedIn") && mySession.get("roles").indexOf("admin") > -1 ){
-				if ( !mySession.collection.fetched ) { mySession.collection.bind( "reset", this.render ); mySession.collection.fetch({field:"owners"});}
+				if ( !mySession.users ) $.couch.db("_users").allDocs({ success: render });
 				else this.render();
 			}
             else this.render();
         },
         
-        render : function(coll, options){
-			if ( options && options.field == "owners" ) {
-				this.options.schema.properties.owners.items.choices = _.map( coll.models, function(model) {
-					return { label:model.get("name"), value:model.get("_id") };
-				} );
+        render : function(data){
+			if ( data ) {
+				mySession.users = _.map(data.rows, function(datum) {
+					return { label:datum.key, value:datum.id };
+				});
 			}
+			if ( mySession.users )
+				this.options.schema.properties.owners.items.choices = mySession.users;
+			
 			this.el.html("<div class='loadingBar'>Loading...</div>");
             this.form = this.builder.schemaToInputEx(this.options.schema);
             this.form.parentEl       = 'model_edit';
@@ -508,7 +511,6 @@ $(function(){
 				"&endkey=" + JSON.stringify( ["event",[]] );
 				
 			window.mySession = new VU.MemberModel();
-			mySession.collection = new VU.UsersCollection();
         },
 
 		updateShow : function( showType, collName, schemaName, docID, curPage, numPerPage, hidden ) {

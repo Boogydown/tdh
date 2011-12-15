@@ -345,6 +345,7 @@ VU.BandModel = VU.EventsContainerModel.extend({
 		bandName: "Generic Band",
 		image: "images/genericSilhouette.jpg",
 		bio: "They play musical instruments.",
+		owners: [],
 		events: null
 	},
 	
@@ -422,7 +423,8 @@ VU.VenueModel = VU.EventsContainerModel.extend({
 	defaults : {
 		images: [{"credit":"generic", "image":"images/genericHall.JPG"}],
 		documents: [],
-		events: null
+		events: null,
+		owners: []
 	},	
 
 	initialize : function ( attrs, options ) { 
@@ -487,7 +489,8 @@ VU.VenueModel = VU.EventsContainerModel.extend({
 VU.EventModel = VU.LinkingModel.extend({
 	defaults : {
 		featured: false,
-		onDCard: false // for local use, only
+		onDCard: false, // for local use, only
+		owners: []
 	},
 	
 	initialize: function ( attrs, options ) {

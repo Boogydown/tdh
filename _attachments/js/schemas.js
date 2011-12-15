@@ -458,7 +458,6 @@ VU.schemas = {
 					"optional":true,
 					"items":{
 						"type":"string",
-						"optionsl":true,
 						"linkRef": "_users",
 						"choices": [ {"value":"foo","label":"bar"} ]
 					},

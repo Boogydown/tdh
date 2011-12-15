@@ -27,8 +27,7 @@ $(function(){
 			this.el.html("");
             _.bindAll(this, "onSubmit", "fetched", "fillMe", "attach");
 			if ( mySession.get("loggedIn") && mySession.get("roles").indexOf("admin") > -1 ){
-				var colls = this.options.collection.colls;
-				if ( !colls.users.fetched ) { colls.users.bind( "reset", this.render ); colls.users.fetch({field:"owners"});}
+				if ( !mySession.collection.fetched ) { mySession.collection.bind( "reset", this.render ); mySession.collection.fetch({field:"owners"});}
 				else this.render();
 			}
             else this.render();
@@ -500,8 +499,7 @@ $(function(){
 			_.bindAll( this, "updateShow" );
 			this.colls = {
 				bands : new VU.BandCollection(),
-				halls : new VU.HallCollection(),
-				users : new VU.UsersCollection()
+				halls : new VU.HallCollection()
 			};
 			this.colls.events = new VU.EventCollection( null, { colls:this.colls, schema:VU.schemas.events.listing });
 			this.colls.events.viewName = "crossFilter";
@@ -510,6 +508,7 @@ $(function(){
 				"&endkey=" + JSON.stringify( ["event",[]] );
 				
 			window.mySession = new VU.MemberModel();
+			mySession.collection = new VU.UsersCollection();
         },
 
 		updateShow : function( showType, collName, schemaName, docID, curPage, numPerPage, hidden ) {

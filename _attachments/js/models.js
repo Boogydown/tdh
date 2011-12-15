@@ -87,8 +87,9 @@ VU.MemberModel = VU.CookieModel.extend({
 		VU.CookieModel.prototype.initialize.call( this, attrs, options );
 		_.bindAll( this, "_userFetched", "doLogin", "doSignup", "_syncDCard", "loadDCard" );
 		
-		//_.bindAll( this, "fetchUser", "prepAnon", "userLoaded", "loginSuccess", "loginError", "editSaveSuccess",
-						 //"submitLogin", "submitSignup", "addAttachment", "submitEdit", "logout", "loadDCard", "_syncDCard" );
+		// if this is being created from the coll fetch then skip login stuf
+		if ( attrs ) return;
+						 
 		if ( options ) {
 			this.dCardColl = options.dCard;
 			this.eventsMain = options.events;

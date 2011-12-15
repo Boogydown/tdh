@@ -452,7 +452,20 @@ VU.schemas = {
 							}
 						}
 					}
-				}
+				},
+				"owners":{
+					"type": "array",
+					"optional":true,
+					"items":{
+						"type":"string",
+						"optionsl":true,
+						"linkRef": "_users",
+						"choices": [ {"value":"foo","label":"bar"} ]
+					},
+					"_inputex": {
+						"label": "Owners"
+					}					
+				}				
 			}
 		},
 		

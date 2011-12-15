@@ -26,10 +26,20 @@ $(function(){
         initialize : function(){
 			this.el.html("");
             _.bindAll(this, "onSubmit", "fetched", "fillMe", "attach");
-            this.render();
+			if ( mySession.get("loggedIn") && mySession.get("roles").indexOf("admin") > -1 ){
+				var colls = this.options.collection.colls;
+				if ( !colls.users.fetched ) { colls.users.bind( "reset", this.render ); colls.users.fetch({field:"owners"});}
+				else this.render();
+			}
+            else this.render();
         },
         
-        render : function(){
+        render : function(coll, options){
+			if ( options && options.field == "owners" ) {
+				this.options.schema.properties.owners.items.choices = _.map( coll.models, function(model) {
+					return { label:model.get("name"), value:model.get("_id") };
+				} );
+			}
 			this.el.html("<div class='loadingBar'>Loading...</div>");
             this.form = this.builder.schemaToInputEx(this.options.schema);
             this.form.parentEl       = 'model_edit';
@@ -131,6 +141,7 @@ $(function(){
 				alert("File uploading has been disabled temporarily\nThe remaining data that you entered will be saved to the server.\nWe greatly apologize for the inconvenience.");
 			}
 			
+			//TODO: make this more generic, not just event; also set only on create
 			var coll = this.collection;
 			var updateSession = function(model) {
 				if ( coll instanceof VU.EventCollection && mySession.get("loggedIn") ){
@@ -489,7 +500,8 @@ $(function(){
 			_.bindAll( this, "updateShow" );
 			this.colls = {
 				bands : new VU.BandCollection(),
-				halls : new VU.HallCollection()
+				halls : new VU.HallCollection(),
+				users : new VU.UsersCollection()
 			};
 			this.colls.events = new VU.EventCollection( null, { colls:this.colls, schema:VU.schemas.events.listing });
 			this.colls.events.viewName = "crossFilter";

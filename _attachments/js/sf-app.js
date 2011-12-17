@@ -110,7 +110,7 @@ $(function(){
 				delFunc = function(userModel){
 					var otype = myType == "event" ? "events" : "vyntors",
 						owns = userModel.get("owns");
-					owns[otype] = _(owns[otype]).reject(function(m){return m.id==myID;})});
+					owns[otype] = _(owns[otype]).reject(function(m){return m.id==myID;});
 					userModel.save();
 				},
 				getting = function(mID,action){

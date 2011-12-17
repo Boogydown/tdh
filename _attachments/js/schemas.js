@@ -39,7 +39,7 @@ VU.schemas = {
 					"items":{
 						"type":"object",
 						"properties":{
-							"_attachments": {
+							"_attachments_stub": {
 								"description": "Image file",
 								"type":"file",
 								"clickable":true,

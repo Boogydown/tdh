@@ -79,7 +79,7 @@ $(function(){
             this.docModel.unbind("change", this.fillMe);
 			this.modelJSON = this.docModel.toJSON();
 			if ( this.inputex ) this.inputex.setValue( this.modelJSON() );
-			this.docModel.bind("change:ownerUsers", this.updateownerUsers );
+			this.docModel.bind("change:ownerUsers", this.updateUsersOwners );
 		},
 		
 		updateUsersOwners : function ( model, val, options )
@@ -193,7 +193,7 @@ $(function(){
 			// update/create model and cleanup
 			if ( this.docModel ){
 				this.docModel.save(values);
-				this.docModel.unbind("change:ownerUsers", this.updateownerUsers);
+				this.docModel.unbind("change:ownerUsers", this.updateUsersOwners);
 				if ( ! this.collection.get(this.docModel) )
                    this.collection.add(this.docModel, {silent: true});
 			}
@@ -208,32 +208,7 @@ $(function(){
 				location.href = "#list";
 			else
 				window.parent.parent.location.reload();
-		},
-
-		injectFiles : function( filelist, property, fileKey, values ) {
-			if ( ! filelist ) filelist = [];
-			if ( filelist.length == undefined ) filelist = [ filelist ];
-			var len = filelist.length;
-			if ( len ) {
-				if (!values._attachments) values._attachments = {};
-				var ifn = "";
-				//var accept = {"image/jpeg": 23, "image/png": 22}
-
-				//iterate through list of image files and upload as attachments	
-				for ( var i = 0; i < len; i++ ) {
-					if ( filelist[i].files && filelist[i].files.length > 0 && _.isFunction( filelist[i].files[0].getAsDataURL ) ) {
-						ifn = filelist[i].files[0].name;
-						values[property][i][fileKey] = ifn;
-						values._attachments["files/" + ifn] = {
-							"content_type": "image/jpeg", 
-							"data": filelist[i].files[0].getAsDataURL().slice(23)
-						};
-					} else
-						// remove empty files from here
-						delete filelist[i];
-				}
-			}			
-        }
+		}
     });
 
 	/*

@@ -106,7 +106,7 @@ $(function(){
 				
 			// find next field... it should be the filename holder
 			tmpID = "#yui-gen" + (parseInt(tmpID.match(/gen([0-9]+)/)[1]) + 1) + "-field";
-			$(tmpID,form).value( picFile );			
+			$(tmpID,form).val( picFile );			
 			//$("#main-photo", form).html("<div class='spinner' style='top:45px;left:75px;position:relative;'></div>");
 			//model.set( {image: picFile}, {silent:true} );  happens on the fetch...
 			

@@ -89,7 +89,8 @@ $(function(){
 			//if ( this.form._rev ) this.form._rev.value = this.docModel.get("_rev");
 			//if ( this.form.image ) this.form.image.value = this.docModel.get("image");
 			//if ($("#main-photo img", this.form)) $("#main-photo img", this.form).attr("src", this.docModel.get("image"));
-			$(":file",this.form).change({model:this.docModel, el:this.form}, this.addAttachment);
+			//$(":file",this.form).change({model:this.docModel, el:this.form}, this.addAttachment);
+			$(this.form).on("change",":file",{model:this.docModel, el:this.form},this.addAttachment);
 		},
 		
 		// this-context is of file input field

@@ -87,7 +87,7 @@ $(function(){
 			var prev = model.previous("ownerUsers"),
 				added = _(_.difference(val,prev)),
 				removed = _(_.difference(prev,val)),
-				loaded = {mySession.id:mySession},
+				loaded = {},
 				myID = model.id,
 				myType = model.myType,
 				addFunc = function(userModel){
@@ -116,6 +116,8 @@ $(function(){
 							success: function(m){action(m);}
 						});
 				};
+			// our current user is loaded, so add it
+			loaded[mySession.id] = mySession;
 			added.each( function(m){ getting(m,addFunc); } );
 			removed.each( function(m){ getting(m,delFunc); });		
 		},

@@ -1127,7 +1127,19 @@ VU.schemas = {
 					"_inputex": {
 						"label": "Different styles played:"
 					}
-				}
+				},
+				"ownerUsers":{
+					"type": "array",
+					"optional":true,
+					"items":{
+						"type":"string",
+						"linkRef": "_users",
+						"choices": [ {"value":"foo","label":"bar"} ]
+					},
+					"_inputex": {
+						"label": "Owner users"
+					}
+				}				
 			}
 		}
 	}

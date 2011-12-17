@@ -227,13 +227,8 @@ $(function(){
 			// Nuke an empty ID, so it doesn't kill initial creation
 			if(values._id === "") delete values._id;
 			
-			//FIXME: get uploads working!!
+			//we got these earlier, upon file upload
 			if ( values._attachments ) delete values._attachments;
-			if ( values.images )  {
-				delete values.images;
-				delete values.documents;
-				alert("File uploading has been disabled temporarily\nThe remaining data that you entered will be saved to the server.\nWe greatly apologize for the inconvenience.");
-			}
 			
 			// Helper func that adds a logged-in user as owner of an event
 			//TODO: make this more generic, not just event;

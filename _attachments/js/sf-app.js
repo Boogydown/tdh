@@ -101,7 +101,7 @@ $(function(){
 			var form = this.form,
 				model = e.data.model,
 				url = (_.isString(model.url) ? "/" + model.url : "../..") + (model.id ? "/" + model.id : ""),
-				picFile = url + "/" + this.target.value.match(/([^\/\\]+\.\w+)$/gim)[0],
+				picFile = url + "/" + e.target.value.match(/([^\/\\]+\.\w+)$/gim)[0],
 				tmpID = e.target.id;
 				
 			// find next field... it should be the filename holder

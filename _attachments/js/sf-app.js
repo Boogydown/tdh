@@ -252,11 +252,12 @@ $(function(){
 			}
 			else this.collection.create(values, {success:updateSession});
 			
-			document.forms[0].reset();
+			//document.forms[0].reset();
 			this.onCancel();
 		},
 		
 		onCancel : function(){
+			$(this.form).undelegate();
 			if ( window.location === window.parent.location )
 				location.href = "#list";
 			else

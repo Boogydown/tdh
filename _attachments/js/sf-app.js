@@ -224,11 +224,14 @@ $(function(){
 			var values = this.inputex.getValue();
 			values.type = this.options.collection.url;
 			
+			//not sure why inputex doesn't pull this... :-/
+			values._rev = this.form._rev.value;
+			
 			// Nuke an empty ID, so it doesn't kill initial creation
 			if(values._id === "") delete values._id;
 			
 			//we got these earlier, upon file upload
-			if ( values._attachments ) delete values._attachments;
+			delete values._attachments;
 			
 			// Helper func that adds a logged-in user as owner of an event
 			//TODO: make this more generic, not just event;
@@ -245,7 +248,7 @@ $(function(){
 				
 			// update/create model and cleanup
 			if ( this.docModel ){
-				this.docModel.save(values);
+				this.docModel.save(values,{error:function(e){alert("Error updating document!\n" + e.message);}});
 				this.docModel.unbind("change:ownerUsers", this.updateUsersOwners);
 				if ( ! this.collection.get(this.docModel) )
                    this.collection.add(this.docModel, {silent: true});

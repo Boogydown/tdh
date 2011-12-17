@@ -13,7 +13,15 @@ VU.schemas = {
 					"description": "ID",
 					"type":"string",
 					"format":"id",
-					"optional":true,
+					"hidden":true,
+					"_inputex": {
+						"_type": "hidden"
+					}
+				},
+				"_rev":{
+					"description": "Revision",
+					"type":"string",
+					"format":"id",
 					"hidden":true,
 					"_inputex": {
 						"_type": "hidden"
@@ -1096,6 +1104,15 @@ VU.schemas = {
 			"description":"A band profile",
 			"type":"object",
 			"properties":{
+				"_rev":{
+					"description": "Revision",
+					"type":"string",
+					"format":"id",
+					"hidden":true,
+					"_inputex": {
+						"_type": "hidden"
+					}
+				},
 				"bandName":{
 					"type":"string",
 					"required":true,

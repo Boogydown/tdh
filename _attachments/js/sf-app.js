@@ -24,9 +24,12 @@ $(function(){
 		docModel: "",
 
         initialize : function(){
+            _.bindAll(this, "onSubmit", "fetched", "fillMe", "attach", "render", "updateUsersOwners");
 			this.contentEl = $("#inputExContent");
 			this.contentEl.html("");
-            _.bindAll(this, "onSubmit", "fetched", "fillMe", "attach", "render", "updateUsersOwners");
+			this.form = $(this.el).is("form") ? $(this.el) : $("form", this.el);
+			if ( $(this.form[0]).is("form") ) this.form = this.form[0];
+			
 			if ( mySession.get("loggedIn") && mySession.get("roles").indexOf("admin") > -1 ){
 				if ( !mySession.users ) $.couch.db("_users").allDocs({ success: this.render });
 				else this.render();
@@ -44,9 +47,9 @@ $(function(){
 				this.options.schema.properties.ownerUsers.items.choices = mySession.users;
 			
 			this.contentEl.html("<div class='loadingBar'>Loading...</div>");
-            this.form = this.builder.schemaToInputEx(this.options.schema);
-            this.form.parentEl       = 'inputExContent';
-            this.form.enctype        = 'multipart/form-data';
+            this.iexDef = this.builder.schemaToInputEx(this.options.schema);
+            this.iexDef.parentEl       = 'inputExContent';
+            this.iexDef.enctype        = 'multipart/form-data';
 			
 			// doc ID given?  Then this is an Edit action...
 			if ( this.options.docID ) {
@@ -86,7 +89,7 @@ $(function(){
 			//if ( this.form._rev ) this.form._rev.value = this.docModel.get("_rev");
 			//if ( this.form.image ) this.form.image.value = this.docModel.get("image");
 			//if ($("#main-photo img", this.form)) $("#main-photo img", this.form).attr("src", this.docModel.get("image"));
-			//$(":file",this.form).change({model:this.docModel, el:this.form}, this.addAttachment);
+			$(":file",this.form).change({model:this.docModel, el:this.form}, this.addAttachment);
 		},
 		
 		// this-context is of file input field
@@ -94,11 +97,15 @@ $(function(){
 			var form = this.form,
 				model = e.data.model,
 				url = (_.isString(model.url) ? "/" + model.url : "../..") + (model.id ? "/" + model.id : ""),
-				//picFile = url + "/" + form._attachments.value.match(/([^\/\\]+\.\w+)$/gim)[0];
-				picFile = url + "/" + this.target.value.match(/([^\/\\]+\.\w+)$/gim)[0];
+				picFile = url + "/" + this.target.value.match(/([^\/\\]+\.\w+)$/gim)[0],
+				tmpID = e.target.id;
 				
+			// find next field... it should be the filename holder
+			tmpID = "#yui-gen" + (parseInt(tmpID.match(/gen([0-9]+)/)[1]) + 1) + "-field";
+			$(tmpID,form).value( picFile );			
 			//$("#main-photo", form).html("<div class='spinner' style='top:45px;left:75px;position:relative;'></div>");
-			model.set( {image: picFile}, {silent:true} );
+			//model.set( {image: picFile}, {silent:true} );  happens on the fetch...
+			
 			$(form).ajaxSubmit({
 				url:  url,
 				success: function(resp) {
@@ -107,12 +114,13 @@ $(function(){
 					if ("ok" in json) {
 						// update our form;
 						form._rev.value = json.rev;
-						form.image.value = picFile;
+						//form.image.value = picFile;
 						//model.set( { id: json.id } ); don't need this since we aren't allowing pic upload on signup
 						
 						// this will allow us to grab the updated _attachments signature from couch so we can save() later
 						model.fetch({silent:true, success: function() {
-							$("#main-photo",model.el).html('<img src="' + picFile + '"/>' );
+							//$("#main-photo",model.el).html('<img src="' + picFile + '"/>' );
+							alert("File uploaded successfully!");
 						}} );
 					}
 					else 
@@ -169,20 +177,20 @@ $(function(){
 		fetched : function( coll, options ) {
 			coll.fetched = true;
 			coll.unbind( "reset", this.fetched );
-			this.form.fields[options.field].choices = _.map( coll.models, function(model) {
+			this.iexDef.fields[options.field].choices = _.map( coll.models, function(model) {
 				// TODO: yeaaaahhh.... this needs to be fixed.  Should not have hardcoded values here.  Perhaps make "name" mandatory on all docs?
 				var name = model.get("bandName") || model.get("danceHallName");
 				return { label:name , value:model.get("_id") };
 			} );
             // add blanks to beginning
-			this.form.fields[options.field].choices.unshift({value:"", label: ""});
+			this.iexDef.fields[options.field].choices.unshift({value:"", label: ""});
             if ( --this.collsToFetch == 0 )
 				this.attach();
 		},
 		
 		attach : function () {
 			this.contentEl.html("");
-            this.inputex = inputEx(this.form);
+            this.inputex = inputEx(this.iexDef);
 			if (this.modelJSON) this.inputex.setValue(this.modelJSON);
 			$(document.forms[0].date).datepicker({
 				dateFormat: "MM d, yy",

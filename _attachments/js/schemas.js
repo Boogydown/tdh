@@ -1141,6 +1141,72 @@ VU.schemas = {
 					}
 				}				
 			}
+		},
+		app: {
+			"description":"A band profile",
+			"type":"object",
+			"properties":{
+				"bandName":{
+					"type":"string",
+					"required":true,
+					"_inputex": {
+						"label": "Band Name",
+						"size":40
+					}
+				},
+				"status":{
+					"type":"string",
+					"optional":true,
+                    "choices": [
+                        {"value":"Active","label":"Active"},
+                        {"value":"Not currently active","label":"Not currently active"},
+                        {"value":"Gone but not forgotten","label":"Gone but not forgotten"}
+                    ],
+					"_inputex": {
+						"label": "Status"
+					}
+				},
+				"website":{
+					"type":"url",
+					"optional":true,
+					"_inputex": {
+						"label": "Band website"
+					}					
+				},
+				"_attachments":{
+					"type":"file",
+					"clickable":true,
+					"enctype":"multipart/form-data",
+					"optional":true,
+					"_inputex": {
+						"label": "Image"
+					}
+				},				
+				"stylesPlayed":{
+					"type":"array",
+					"required":true,
+					"items": {
+						"type":"string",
+                        choices: [
+                            { value: "Tejano", label: "Tejano" },
+                            { value: "Rock & Roll", label: "Rock & Roll" },
+                            { value: "Polka", label: "Polka" },
+                            { value: "R&B-Soul", label: "R&B-Soul" },
+                            { value: "Honky Tonk", label: "Honky Tonk" },
+                            { value: "Western Swing", label: "Western Swing" },
+                            { value: "Cajun-Zydeco", label: "Cajun-Zydeco" },
+                            { value: "Rockabilly", label: "Rockabilly" },
+                            { value: "Singer-Songwriter", label: "Singer-Songwriter" },
+                            { value: "Blues", label: "Blues" },
+                            { value: "Country", label: "Country" },
+                            { value: "Other", label: "Other" }
+                        ]
+					},
+					"_inputex": {
+						"label": "Different styles played:"
+					}
+				}
+			}
 		}
 	}
 };

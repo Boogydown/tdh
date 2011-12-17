@@ -459,16 +459,6 @@ VU.schemas = {
 								},
 								"picUrl":true
 							},
-							"attachedDocumentRef": {
-								"description": "Document Url",
-								"type":"string",
-								"optional":true,
-								"hidden":true,
-								"_inputEx": {
-									"label": "Document"
-								},
-								"picUrl":true
-							},
 							"author":{
 								"description": "Author",
 								"type":"string",

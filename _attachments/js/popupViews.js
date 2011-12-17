@@ -72,7 +72,7 @@ VU.SchemaFormBandView = VU.PopupView.extend({
 				collName : "bands",
 				collection : this.options.colls.bands,
 				schemaName : "app",
-				schema : VU.schemas.bands.full,
+				schema : VU.schemas.bands.app,
 				docID : this.modelID,
 				hidden : true
 			});

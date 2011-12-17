@@ -110,7 +110,7 @@ $(function(){
 				},
 				delFunc = function(userModel){
 					var owns = _(userModel.get("owns"));
-					userModel.save({owns: owns.reject(function(m){return m.id==myID;}).value()});
+					userModel.save({owns: owns.reject(function(m){return m.id==myID;})});
 				},
 				getting = function(mID,action){
 					if ( mID in loaded )

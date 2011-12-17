@@ -88,16 +88,20 @@ $(function(){
 				added = _(_.difference(val,prev)),
 				removed = _(_.difference(prev,val)),
 				loaded = {},
+				otype = "vyntors",
 				myID = model.id,
 				myType = model.myType,
 				addFunc = function(userModel){
 					var owns = userModel.get("owns"), myCaption;
 					switch (myType){
-						case "event": myCaption = (model.get("eventType") || "An") + " event on " + model.get("date"); break;
+						case "event": 
+							myCaption = (model.get("eventType") || "An") + " event on " + model.get("date"); 
+							otype = "events";
+							break;
 						case "band": myCaption = model.get("bandName"); break;
 						case "hall": myCaption = model.get("danceHallName"); break;
 					};
-					owns.push({
+					owns[otype].push({
 						id: myID,
 						type: myType,
 						caption: myCaption

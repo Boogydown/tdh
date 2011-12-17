@@ -154,7 +154,7 @@ VU.EventsContainerPopupView = VU.PopupView.extend({
 	},
 	
 	openPopup : function ( mySession, modelID, navColl, popAry ) {
-		this.ncIndex = popAry.length > 1 ? parseInt(popAry[2]) : null;
+		this.ncIndex = popAry.length > 1 ? popAry[2] : null;
 		this.mySession = mySession;
 		if ( !modelID ) return;
 		this.navColl = navColl;
@@ -193,7 +193,7 @@ VU.EventsContainerPopupView = VU.PopupView.extend({
 	
 	nav : function ( event ) {
 		// navcoll is used to get the next/prev index... but we're still going to pull from this.collection
-		var coll = this.navColl, id;
+		var coll = this.navColl, id, model;
 		if ( coll ){
 			var index, incDec = function(){
 				if ( event.target.id == "nav-left" )
@@ -205,8 +205,8 @@ VU.EventsContainerPopupView = VU.PopupView.extend({
 			//TODO: for events, its index is the index of its element
 			if ( this.navColl.model === VU.EventModel ){
 				// We need to get index based on the event id cuz they're unique whereas the band/hall id is not
-				index = this.ncIndex ? _(this.navColl.pluck("id")).indexOf(this.ncIndex) 
-									 : _(this.navColl.pluck( this.navPrefix )).indexOf( this.model.id );
+				index = this.ncIndex ? _(this.navColl.pluck("id")).indexOf(this.ncIndex) : -1;
+				if (index == -1) index = _(this.navColl.pluck( this.navPrefix )).indexOf( this.model.id );
 				incDec();
 				model = this.navColl.at(index);
 				location.href="#///" + this.navPrefix + "&" + model.get( this.navPrefix ) + "&" + model.id;

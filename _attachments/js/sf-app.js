@@ -401,6 +401,7 @@ $(function(){
 			// cheat a little or the field type
 			var fieldType = schemaProp.type;
 			if ( schemaProp.linkVal ) fieldType = "linkVal";
+			if ( schemaProp.picUrl ) fieldType = "picUrl";
 				
 			// Switch on the schema property to determine how it's displayed
 			switch ( fieldType ) {
@@ -418,7 +419,8 @@ $(function(){
 						text += "<br/>";
 					}
 					break;
-				case "file" : 
+				//case "file" : 
+				case "picUrl" : 
 					if ( schemaProp.clickable )
 						text = '<a href="../../' + this.model.id + "/files/" + modelVal + '"><img src="../../' + this.model.id + "/thumbs/" + modelVal + '"/> ' + modelVal + '</a>';
 					else

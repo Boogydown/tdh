@@ -52,7 +52,8 @@ VU.schemas = {
 								"optional":true,
 								"_inputEx": {
 									"label": "Image"
-								}
+								},
+								"picUrl":true
 							},
 							"credit": {
 								"description": "Image credit",

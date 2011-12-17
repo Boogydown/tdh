@@ -205,7 +205,7 @@ VU.EventsContainerPopupView = VU.PopupView.extend({
 			//TODO: for events, its index is the index of its element
 			if ( this.navColl.model === VU.EventModel ){
 				// We need to get index based on the event id cuz they're unique whereas the band/hall id is not
-				index = this.ncIndex ? _(this.navColl.pluck("id").indexOf(this.ncIndex) 
+				index = this.ncIndex ? _(this.navColl.pluck("id")).indexOf(this.ncIndex) 
 									 : _(this.navColl.pluck( this.navPrefix )).indexOf( this.model.id );
 				incDec();
 				location.href="#///" + this.navPrefix + "&" + this.navColl.at(index).get( this.navPrefix ) + "&" + index;

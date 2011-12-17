@@ -32,7 +32,7 @@ VU.schemas = {
 						"type":"object",
 						"properties":{
 							"_attachments": {
-								"description":"Image file",
+								"description": "Image file",
 								"type":"file",
 								"clickable":true,
 								"enctype":"multipart/form-data",
@@ -40,7 +40,19 @@ VU.schemas = {
 								"buttons": {
 									"type": "submit", 
 									"value": "Upload"
-								} 
+								},
+								"_inputEx": {
+									"label": "Image file",
+									"className": "sF_image"
+								}
+							},
+							"image": {
+								"description": "Image Url",
+								"type":"string",
+								"optional":true,
+								"_inputEx": {
+									"label": "Image"
+								}
 							},
 							"credit": {
 								"description": "Image credit",
@@ -438,7 +450,11 @@ VU.schemas = {
 								"description": "Attached Reference Document",
 								"type":"file",
 								"clickable":true,
-								"required":true
+								"required":true,
+								"_inputEx": {
+									"label": "Document",
+									"className": "sF_doc"
+								}
 							},
 							"author":{
 								"description": "Author",

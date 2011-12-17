@@ -24,7 +24,8 @@ $(function(){
 		docModel: "",
 
         initialize : function(){
-			this.el.html("");
+			this.contentEl = $("#inputExContent");
+			this.contentEl.html("");
             _.bindAll(this, "onSubmit", "fetched", "fillMe", "attach", "render", "updateUsersOwners");
 			if ( mySession.get("loggedIn") && mySession.get("roles").indexOf("admin") > -1 ){
 				if ( !mySession.users ) $.couch.db("_users").allDocs({ success: this.render });
@@ -42,9 +43,9 @@ $(function(){
 			if ( mySession.users )
 				this.options.schema.properties.ownerUsers.items.choices = mySession.users;
 			
-			this.el.html("<div class='loadingBar'>Loading...</div>");
+			this.contentEl.html("<div class='loadingBar'>Loading...</div>");
             this.form = this.builder.schemaToInputEx(this.options.schema);
-            this.form.parentEl       = 'model_edit';
+            this.form.parentEl       = 'inputExContent';
             this.form.enctype        = 'multipart/form-data';
 			
 			// doc ID given?  Then this is an Edit action...
@@ -62,6 +63,7 @@ $(function(){
 			
 			// Fills in the pull-down menus
 			// TODO: rewrite these to be more generic; i.e. is a linkRef in the schema
+			// TODO: move these band and hall pulldown fills to init and have them fill the schema, like users
 			var colls = this.options.collection.colls;
 			if ( colls ) {
 				this.collsToFetch = 2;
@@ -80,6 +82,42 @@ $(function(){
 			this.modelJSON = this.docModel.toJSON();
 			if ( this.inputex ) this.inputex.setValue( this.modelJSON() );
 			this.docModel.bind("change:ownerUsers", this.updateUsersOwners );
+			
+			//if ( this.form._rev ) this.form._rev.value = this.docModel.get("_rev");
+			//if ( this.form.image ) this.form.image.value = this.docModel.get("image");
+			//if ($("#main-photo img", this.form)) $("#main-photo img", this.form).attr("src", this.docModel.get("image"));
+			//$(":file",this.form).change({model:this.docModel, el:this.form}, this.addAttachment);
+		},
+		
+		// this-context is of file input field
+		addAttachment : function ( e ) {
+			var form = this.form,
+				model = e.data.model,
+				url = (_.isString(model.url) ? "/" + model.url : "../..") + (model.id ? "/" + model.id : ""),
+				picFile = url + "/" + form._attachments.value.match(/([^\/\\]+\.\w+)$/gim)[0];
+				
+			//$("#main-photo", form).html("<div class='spinner' style='top:45px;left:75px;position:relative;'></div>");
+			model.set( {image: picFile}, {silent:true} );
+			$(form).ajaxSubmit({
+				url:  url,
+				success: function(resp) {
+					// strip out <pre> tags
+					var json = JSON.parse(resp = resp.replace(/\<.+?\>/g,''));
+					if ("ok" in json) {
+						// update our form;
+						form._rev.value = json.rev;
+						form.image.value = picFile;
+						//model.set( { id: json.id } ); don't need this since we aren't allowing pic upload on signup
+						
+						// this will allow us to grab the updated _attachments signature from couch so we can save() later
+						model.fetch({silent:true, success: function() {
+							$("#main-photo",model.el).html('<img src="' + picFile + '"/>' );
+						}} );
+					}
+					else 
+						alert("Upload Failed: " + resp);
+				}
+			});
 		},
 		
 		updateUsersOwners : function ( model, val, options )
@@ -142,7 +180,7 @@ $(function(){
 		},
 		
 		attach : function () {
-			this.el.html("");
+			this.contentEl.html("");
             this.inputex = inputEx(this.form);
 			if (this.modelJSON) this.inputex.setValue(this.modelJSON);
 			$(document.forms[0].date).datepicker({

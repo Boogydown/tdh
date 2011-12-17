@@ -49,6 +49,7 @@ VU.InitSFV = function () {
 		},
 		
 		// only works for single-file forms, for now
+		// this-context is of file input field
 		addAttachment : function ( e ) {
 			var form = this.form,
 				model = e.data.model,

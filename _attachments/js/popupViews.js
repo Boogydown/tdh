@@ -141,11 +141,6 @@ VU.MemberPopupView = VU.PopupView.extend({
 
 //== Events Container Base Class ====================================================================
 VU.EventsContainerPopupView = VU.PopupView.extend({
-	events : {
-		"click #nav-left" : "nav",
-		"click #nav-right" : "nav"
-	},
-	
 	// initialize must be extended to load this.collection
 	initialize : function ( options ) {
 		_.bindAll( this, "_modelLoaded", "nav", "onOpened" );
@@ -186,9 +181,16 @@ VU.EventsContainerPopupView = VU.PopupView.extend({
 	
 	onOpened : function() {
 		var that = this;
+		$("#nav-left").click(this.nav);
+		$("#nav-right").click(this.nav);
 		_.defer( function() {
 			that.miniMapView = new VU.MapView({collection: that.list, el: $("#detailmap",that.el).get(0), addressFallback: true});
 		});
+	},
+	
+	onClosed : function() {
+		$("#nav-left").unbind();
+		$("#nav-right").unbind();
 	},
 	
 	nav : function ( event ) {

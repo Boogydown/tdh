@@ -29,7 +29,7 @@ $(function(){
 			this.contentEl.html("");
 			this.form = $(this.el).is("form") ? $(this.el) : $("form", this.el);
 			if ( $(this.form[0]).is("form") ) this.form = this.form[0];
-			
+			$(this.form).undelegate();
 			if ( mySession.get("loggedIn") && mySession.get("roles").indexOf("admin") > -1 ){
 				if ( !mySession.users ) $.couch.db("_users").allDocs({ success: this.render });
 				else this.render();
@@ -260,7 +260,7 @@ $(function(){
 		},
 		
 		onCancel : function(){
-			$(this.form).undelegate();
+			//$(this.form).undelegate();
 			if ( window.location === window.parent.location )
 				location.href = "#list";
 			else

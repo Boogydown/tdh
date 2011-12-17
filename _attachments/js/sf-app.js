@@ -88,11 +88,10 @@ $(function(){
 				added = _(_.difference(val,prev)),
 				removed = _(_.difference(prev,val)),
 				loaded = {},
-				otype = "vyntors",
 				myID = model.id,
 				myType = model.myType,
 				addFunc = function(userModel){
-					var owns = userModel.get("owns"), myCaption;
+					var owns = userModel.get("owns"), myCaption, otype = "vyntors";
 					switch (myType){
 						case "event": 
 							myCaption = (model.get("eventType") || "An") + " event on " + model.get("date"); 
@@ -109,8 +108,10 @@ $(function(){
 					userModel.save();
 				},
 				delFunc = function(userModel){
-					var owns = _(userModel.get("owns"));
-					userModel.save({owns: owns.reject(function(m){return m.id==myID;})});
+					var otype = myType == "event" ? "events" : "vyntors",
+						owns = userModel.get("owns");
+					owns[otype] = _(owns[otype]).reject(function(m){return m.id==myID;})});
+					userModel.save();
 				},
 				getting = function(mID,action){
 					if ( mID in loaded )

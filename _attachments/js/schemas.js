@@ -456,7 +456,7 @@ VU.schemas = {
 								"type":"string",
 								"optional":true
 							},
-							"_attachments":{
+							"_attachments_stub":{
 								"description": "Attached Reference Document",
 								"type":"file",
 								"clickable":true,

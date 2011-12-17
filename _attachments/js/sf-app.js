@@ -111,6 +111,9 @@ $(function(){
 			// redundant, but useful
 			form._rev.value = model.get("_rev");
 			
+			// Cheat :)
+			$(e.target).attr("name","_attachments");
+			
 			//$("#main-photo", form).html("<div class='spinner' style='top:45px;left:75px;position:relative;'></div>");
 			//model.set( {image: picFile}, {silent:true} );  happens on the fetch...
 			

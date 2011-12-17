@@ -87,7 +87,7 @@ $(function(){
 			var prev = model.previous("ownerUsers"),
 				added = _(_.difference(val,prev)),
 				removed = _(_.difference(prev,val)),
-				loaded = {},
+				loaded = {mySession.id:mySession},
 				myID = model.id,
 				myType = model.myType,
 				addFunc = function(userModel){
@@ -112,7 +112,7 @@ $(function(){
 					if ( mID in loaded )
 						action(loaded[mID]);
 					else
-						(loaded[mID] = new MemberModel({id:mID})).fetch({
+						(loaded[mID] = new VU.MemberModel({id:mID})).fetch({
 							success: function(m){action(m);}
 						});
 				};

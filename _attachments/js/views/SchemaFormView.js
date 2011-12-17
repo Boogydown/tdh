@@ -12,8 +12,8 @@ VU.InitSFV = function () {
 		initialize : function() {
 			_.bindAll( this, "submitPrep", "validate", "processSuccessFail" );
 			this.form = $(this.el).is("form") ? $(this.el) : $("form", this.el);
-			if ( $(this.form[0]).is("form") ) this.form = $(this.form[0]);
-			this.form.submit( this.submitPrep );
+			if ( $(this.form[0]).is("form") ) this.form = this.form[0];
+			$(this.form).submit( this.submitPrep );
 			if ( this.model ) {
 				if ( this.form._rev ) this.form._rev.value = this.model.get("_rev");
 				if ( this.form.image ) this.form.image.value = this.model.get("image");
@@ -24,9 +24,9 @@ VU.InitSFV = function () {
 		},
 		
 		finalize : function() {
-			this.form.unbind( "submit" );
+			$(this.form).unbind( "submit" );
 			$(":file",this.form).unbind();
-			this.form.get()[0].reset();
+			this.form.reset();
 			//this.model.unbind( "change", this.render );
 		},
 		

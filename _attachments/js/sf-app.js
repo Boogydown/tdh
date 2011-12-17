@@ -94,7 +94,8 @@ $(function(){
 			var form = this.form,
 				model = e.data.model,
 				url = (_.isString(model.url) ? "/" + model.url : "../..") + (model.id ? "/" + model.id : ""),
-				picFile = url + "/" + form._attachments.value.match(/([^\/\\]+\.\w+)$/gim)[0];
+				//picFile = url + "/" + form._attachments.value.match(/([^\/\\]+\.\w+)$/gim)[0];
+				picFile = url + "/" + this.target.value.match(/([^\/\\]+\.\w+)$/gim)[0];
 				
 			//$("#main-photo", form).html("<div class='spinner' style='top:45px;left:75px;position:relative;'></div>");
 			model.set( {image: picFile}, {silent:true} );

@@ -346,6 +346,7 @@ VU.BandModel = VU.EventsContainerModel.extend({
 		image: "images/genericSilhouette.jpg",
 		bio: "They play musical instruments.",
 		ownerUsers: [],
+		stylesPlayed: [],
 		events: null
 	},
 	

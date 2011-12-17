@@ -31,7 +31,7 @@ VU.schemas = {
 					"items":{
 						"type":"object",
 						"properties":{
-							"image": {
+							"_attachments": {
 								"description":"Image file",
 								"type":"file",
 								"clickable":true,
@@ -434,7 +434,7 @@ VU.schemas = {
 								"type":"string",
 								"optional":true
 							},
-							"attachedReferenceDocument":{
+							"_attachments":{
 								"description": "Attached Reference Document",
 								"type":"file",
 								"clickable":true,

@@ -50,6 +50,7 @@ VU.schemas = {
 								"description": "Image Url",
 								"type":"string",
 								"optional":true,
+								"readonly":true,
 								"_inputEx": {
 									"label": "Image"
 								},
@@ -455,13 +456,13 @@ VU.schemas = {
 								"_inputEx": {
 									"label": "Document",
 									"className": "sF_doc"
-								},
-								"picUrl":true
+								}
 							},
 							"attachedReferenceDocument": {
 								"description": "Document Url",
 								"type":"string",
 								"optional":true,
+								"readonly":true,
 								"_inputEx": {
 									"label": "Document Url"
 								},
@@ -1130,7 +1131,15 @@ VU.schemas = {
 					"_inputex": {
 						"label": "Image"
 					}
-				},				
+				},	
+				"image":{
+					"type":"string",
+					"_inputex": {
+						"label": "Image Url"
+					},
+					"readonly":true,
+					"picUrl":true
+				},
 				"stylesPlayed":{
 					"type":"array",
 					"required":true,

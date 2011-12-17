@@ -453,7 +453,7 @@ VU.schemas = {
 						}
 					}
 				},
-				"owners":{
+				"ownerUsers":{
 					"type": "array",
 					"optional":true,
 					"items":{
@@ -462,7 +462,7 @@ VU.schemas = {
 						"choices": [ {"value":"foo","label":"bar"} ]
 					},
 					"_inputex": {
-						"label": "Owners"
+						"label": "Owner users"
 					}					
 				}				
 			}

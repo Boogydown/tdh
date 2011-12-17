@@ -25,7 +25,7 @@ $(function(){
 
         initialize : function(){
 			this.el.html("");
-            _.bindAll(this, "onSubmit", "fetched", "fillMe", "attach", "render");
+            _.bindAll(this, "onSubmit", "fetched", "fillMe", "attach", "render", "updateUsersOwners");
 			if ( mySession.get("loggedIn") && mySession.get("roles").indexOf("admin") > -1 ){
 				if ( !mySession.users ) $.couch.db("_users").allDocs({ success: this.render });
 				else this.render();
@@ -40,7 +40,7 @@ $(function(){
 				});
 			}
 			if ( mySession.users )
-				this.options.schema.properties.owners.items.choices = mySession.users;
+				this.options.schema.properties.ownerUsers.items.choices = mySession.users;
 			
 			this.el.html("<div class='loadingBar'>Loading...</div>");
             this.form = this.builder.schemaToInputEx(this.options.schema);
@@ -79,6 +79,45 @@ $(function(){
             this.docModel.unbind("change", this.fillMe);
 			this.modelJSON = this.docModel.toJSON();
 			if ( this.inputex ) this.inputex.setValue( this.modelJSON() );
+			this.docModel.bind("change:userOwners", this.updateUserOwners );
+		},
+		
+		updateUsersOwners : function ( model, val, options )
+		{
+			var prev = model.previous("userOwners"),
+				added = _(_.difference(val,prev)),
+				removed = _(_.difference(prev,val)),
+				loaded = {},
+				myID = model.id,
+				myType = model.myType,
+				addFunc = function(userModel){
+					var owns = userModel.get("owns"), myCaption;
+					switch (myType){
+						case "event": myCaption = (model.get("eventType") || "An") + " event on " + model.get("date"); break;
+						case "band": myCaption = model.get("bandName"); break;
+						case "hall": myCaption = model.get("danceHallName"); break;
+					};
+					owns.push({
+						id: myID,
+						type: myType,
+						caption: myCaption
+					});
+					userModel.save();
+				},
+				delFunc = function(userModel){
+					var owns = _(userModel.get("owns"));
+					userModel.save({owns: owns.reject(function(m){return m.id==myID;}).value()});
+				},
+				getting = function(mID,action){
+					if ( mID in loaded )
+						action(loaded[mID]);
+					else
+						(loaded[mID] = new MemberModel({id:mID})).fetch({
+							success: function(m){action(m);}
+						});
+				};
+			added.each( function(m){ getting(m,addFunc); } );
+			removed.each( function(m){ getting(m,delFunc); });		
 		},
 		
 		fetched : function( coll, options ) {
@@ -127,15 +166,10 @@ $(function(){
 			var values = this.inputex.getValue();
 			values.type = this.options.collection.url;
 			
-			// inject the files from the from into the JSON that we're going to send to the db
-			// (inputex.getValue() returns arrays as...well, arrays.  However, the POST JSON 
-			//	requires ONLY objects )
-			//this.injectFiles( this.el[0].image, "images", "image", values );
-			//this.injectFiles( this.el[0].attachedReferenceDocument, "documents", "attachedReferenceDocument", values );
-
 			// Nuke an empty ID, so it doesn't kill initial creation
 			if(values._id === "") delete values._id;
 			
+			//FIXME: get uploads working!!
 			if ( values._attachments ) delete values._attachments;
 			if ( values.images )  {
 				delete values.images;
@@ -143,7 +177,8 @@ $(function(){
 				alert("File uploading has been disabled temporarily\nThe remaining data that you entered will be saved to the server.\nWe greatly apologize for the inconvenience.");
 			}
 			
-			//TODO: make this more generic, not just event; also set only on create
+			// Helper func that adds a logged-in user as owner of an event
+			//TODO: make this more generic, not just event;
 			var coll = this.collection;
 			var updateSession = function(model) {
 				if ( coll instanceof VU.EventCollection && mySession.get("loggedIn") ){
@@ -155,8 +190,10 @@ $(function(){
 				}
 			};				
 				
+			// update/create model and cleanup
 			if ( this.docModel ){
-				this.docModel.save(values, { success: updateSession });
+				this.docModel.save(values);
+				this.docModel.unbind("change:userOwners", this.updateUserOwners);
 				if ( ! this.collection.get(this.docModel) )
                    this.collection.add(this.docModel, {silent: true});
 			}

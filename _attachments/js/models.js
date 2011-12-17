@@ -487,6 +487,7 @@ VU.VenueModel = VU.EventsContainerModel.extend({
 
 // Event model
 VU.EventModel = VU.LinkingModel.extend({
+	myType: "event",
 	defaults : {
 		featured: false,
 		onDCard: false, // for local use, only

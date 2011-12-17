@@ -191,6 +191,7 @@ VU.EventsContainerPopupView = VU.PopupView.extend({
 	onClosed : function() {
 		$("#nav-left").unbind();
 		$("#nav-right").unbind();
+		this.navColl = null;
 	},
 	
 	nav : function ( event ) {

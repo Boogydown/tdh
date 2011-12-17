@@ -79,12 +79,12 @@ $(function(){
             this.docModel.unbind("change", this.fillMe);
 			this.modelJSON = this.docModel.toJSON();
 			if ( this.inputex ) this.inputex.setValue( this.modelJSON() );
-			this.docModel.bind("change:userOwners", this.updateUserOwners );
+			this.docModel.bind("change:ownerUsers", this.updateownerUsers );
 		},
 		
 		updateUsersOwners : function ( model, val, options )
 		{
-			var prev = model.previous("userOwners"),
+			var prev = model.previous("ownerUsers"),
 				added = _(_.difference(val,prev)),
 				removed = _(_.difference(prev,val)),
 				loaded = {},
@@ -193,7 +193,7 @@ $(function(){
 			// update/create model and cleanup
 			if ( this.docModel ){
 				this.docModel.save(values);
-				this.docModel.unbind("change:userOwners", this.updateUserOwners);
+				this.docModel.unbind("change:ownerUsers", this.updateownerUsers);
 				if ( ! this.collection.get(this.docModel) )
                    this.collection.add(this.docModel, {silent: true});
 			}

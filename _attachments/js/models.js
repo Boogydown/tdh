@@ -90,10 +90,10 @@ VU.MemberModel = VU.CookieModel.extend({
 		VU.CookieModel.prototype.initialize.call( this, attrs, options );
 		_.bindAll( this, "_userFetched", "doLogin", "doSignup", "_syncDCard", "loadDCard" );
 		
-		if ( options ) {
-			this.dCardColl = options.dCard;
-			this.eventsMain = options.events;
-		}
+		options || (options = {});
+		this.dCardColl = options.dCard;
+		this.eventsMain = options.events;
+		this.doneCallback = options.doneCallback || function(){};
 		
 		if ( this.readCookies() ) {
 			// any cookies loaded?  dcard?
@@ -166,6 +166,7 @@ VU.MemberModel = VU.CookieModel.extend({
 		this.loadDCard();
 		// save, in case the dCard was from cookie or user
 		this.writeCookies();
+		this.doneCallback();
 	},
 
 	// Last stop for logging in; called during login, login via signup, or page load
@@ -190,6 +191,7 @@ VU.MemberModel = VU.CookieModel.extend({
 		this.isAdmin = _(this.get("roles")).indexOf("admin") > -1;
 		this.loadDCard();
 		this.writeCookies();
+		this.doneCallback();
 	},
 
 	// intended to break until the events are loaded, then we can continue to set them

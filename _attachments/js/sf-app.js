@@ -588,7 +588,7 @@ $(function(){
 				"?startkey=" + JSON.stringify( ["event",new Date().getTime() - 2*24*60*60*1000] ) + 
 				"&endkey=" + JSON.stringify( ["event",[]] );
 				
-			window.mySession = new VU.MemberModel();
+			window.mySession = new VU.MemberModel({doneCallback:Backbone.history.start});
         },
 
 		updateShow : function( showType, collName, schemaName, docID, curPage, numPerPage, hidden ) {
@@ -693,6 +693,6 @@ $(function(){
 /////////////////////////////////////////////////////////////////////////////{    
 
 	window.app = new App();
-	Backbone.history.start();
+	//Backbone.history.start();
 	
 });

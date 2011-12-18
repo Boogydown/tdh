@@ -495,7 +495,7 @@ VU.schemas = {
 					"items":{
 						"type":"string",
 						"linkRef": "_users",
-						"choices": [ {"value":"foo","label":"bar"} ]
+						"choices": [ {"value":"unauthorized","label":"You are not authorized to see this list"} ]
 					},
 					"_inputex": {
 						"label": "Owner users"
@@ -1187,7 +1187,7 @@ VU.schemas = {
 					"items":{
 						"type":"string",
 						"linkRef": "_users",
-						"choices": [ {"value":"foo","label":"bar"} ]
+						"choices": [ {"value":"unauthorized","label":"You are not authorized to see this list"} ]
 					},
 					"_inputex": {
 						"label": "Owner users"

@@ -213,14 +213,14 @@ $(function(){
             // YUI onClick used instead of Backbone delegateEvents, because it worked first
             new inputEx.widget.Button({
                 id:             'send',
-                parentEl:       'model_edit',
+                parentEl:       'inputExContent',
                 type:           'submit',
                 onClick:        this.onSubmit,
                 value:          'Send'
             });			
             new inputEx.widget.Button({
                 id:             'cancel',
-                parentEl:       'model_edit',
+                parentEl:       'inputExContent',
                 onClick:        this.onCancel,
                 value:          'Cancel'
             });			

@@ -72,8 +72,8 @@
 					document.getElementById("vuFrame").height = docHeight - 141;
 					console.log(docHeight);
 				}
-				window.onresize=resizeVUApp;
-				document.onload=resizeVUApp;
+				window.onresize="resizeVUApp();";
+				document.onload="resizeVUApp();";
 			</script>
 			<IFRAME ID="vuFrame" SRC="http://dev.vyncup.t9productions.com:44384/tdh/_design/tdh_public/app.html" ALIGN="left" HEIGHT="540" WIDTH="780" STYLE="top:9px;background-color:#E0E0E0; border: 0px none; position: absolute; z-index: 0;" marginheight="0" marginwidth="0" frameborder="0"></IFRAME>
         </div>

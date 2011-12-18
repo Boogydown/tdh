@@ -30,7 +30,7 @@ $(function(){
 			this.form = $(this.el).is("form") ? $(this.el) : $("form", this.el);
 			if ( $(this.form[0]).is("form") ) this.form = this.form[0];
 			$(this.form).undelegate();
-			if ( mySession.get("loggedIn") && mySession.get("roles").indexOf("admin") > -1 ){
+			if ( mySession.get("loggedIn") && _.(mySession.get("roles")).indexOf("admin") > -1 ){
 				if ( !mySession.users ) $.couch.db("_users").allDocs({ success: this.render });
 				else this.render();
 			}

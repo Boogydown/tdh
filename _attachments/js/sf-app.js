@@ -43,7 +43,7 @@ $(function(){
 					return { label:datum.key, value:datum.id };
 				});
 			}
-			if ( mySession.users )
+			if ( mySession.users && this.options.schema.properties.ownerUsers )
 				this.options.schema.properties.ownerUsers.items.choices = mySession.users;
 			
 			this.contentEl.html("<div class='loadingBar'>Loading...</div>");

@@ -197,6 +197,7 @@ VU.MemberModel = VU.CookieModel.extend({
 	// intended to break until the events are loaded, then we can continue to set them
 	loadDCard : function( dCard ) {
 		if ( dCard && _.isString(dCard) ) this.cookieDCard = dCard.split("&");
+		if ( !this.eventsMain ) return;
 		if ( this.eventsMain.fetched ) {
 			
 			// once events are fetched then we set the dCard for all matching ids in the dCard array

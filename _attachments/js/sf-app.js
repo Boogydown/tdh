@@ -612,6 +612,7 @@ $(function(){
 				curType, att, curView;
 				
 			if ( hidden == 2 && (!mySession || !mySession.isAdmin ))
+				hidden = 1;
 				
 			// point this.hideStyle to the actual CSS rule stored in the HTML, so we can alter it on the fly
 			if ( ! this.hideStyle ) {

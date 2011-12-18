@@ -30,7 +30,7 @@ $(function(){
 			this.form = $(this.el).is("form") ? $(this.el) : $("form", this.el);
 			if ( $(this.form[0]).is("form") ) this.form = this.form[0];
 			$(this.form).undelegate();
-			if ( mySession.get("loggedIn") && _(mySession.get("roles")).indexOf("admin") > -1 ){
+			if ( mySession && mySession.isAdmin ){
 				if ( !mySession.users ) $.couch.db("_users").allDocs({ success: this.render });
 				else this.render();
 			}
@@ -610,6 +610,8 @@ $(function(){
 				numPerPage 	= numPerPage|| this.numPerPage,
 				hidden		= hidden 	|| this.hidden,
 				curType, att, curView;
+				
+			if ( hidden == 2 && (!mySession || !mySession.isAdmin ))
 				
 			// point this.hideStyle to the actual CSS rule stored in the HTML, so we can alter it on the fly
 			if ( ! this.hideStyle ) {

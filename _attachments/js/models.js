@@ -67,6 +67,7 @@ VU.MemberModel = VU.CookieModel.extend({
 	fetched : false,
 	cookieKeys : [ "dCard" ],
 	ID_PREFIX: "org.couchdb.user:",
+	isAdmin: false,
 	defaults : {
 		realName: "",
 		name: "",
@@ -152,6 +153,7 @@ VU.MemberModel = VU.CookieModel.extend({
 	logout : function() {
 		this.clear( {silent:true} );
 		this.set( this.defaults );
+		this.isAdmin = false;
 		this.writeCookies();
 		$.couch.logout();
 	},
@@ -185,6 +187,7 @@ VU.MemberModel = VU.CookieModel.extend({
 	
 	_userFetched : function() {
 		this.set( { loggedIn: true, lastLogin: new Date().getTime() } );
+		this.isAdmin = _(this.get("roles")).indexOf("admin") > -1;
 		this.loadDCard();
 		this.writeCookies();
 	},

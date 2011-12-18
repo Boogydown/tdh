@@ -66,10 +66,11 @@
         <div id="e14" style="position:absolute;left:227;top:169;width:306;height:39;z-index:1"></div>
         <div id="e15" style="position:absolute;left:-6px;top:125px;width:763;height:100;">
 			<script>
-				var resizeVUApp = function(){
+				function resizeVUApp()={
 					var db = document.body,document.documentElement,
 						docHeight = Math.max(db.scrollHeight, dde.scrollHeight, db.offsetHeight, dde.offsetHeight, db.clientHeight, dde.clientHeight);
 					document.getElementById("vuFrame").height = docHeight - 141;
+					console.log(docHeight);
 				}
 				window.onresize=resizeVUApp;
 				document.onload=resizeVUApp;

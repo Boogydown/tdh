@@ -41,7 +41,7 @@ VU.PersistentRouter = Backbone.Router.extend({
 		var i = 0, len = Math.min(arguments.length, this.persistedRoutes.length), url = "";
 		for ( ; i < len; i++) url += (this.persistedRoutes[i] = arguments[i]) + "/";
 		this.navigate( url = url.substr(0, url.length - 1 ) ); //nix trailing slash
-		window.parent.location.hash = location.hash;
+		try{window.parent.location.hash = location.hash;}catch(e){};
 		this._savedLoc = true;
 		return url;
 	}

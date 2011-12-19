@@ -147,12 +147,12 @@
 				if ( this.active ) 
 				{
 					Backbone.history.navigate( this.actualURL + "/" + this.navColl.pluck("id").join("&") );
-					window.parent.location.hash = location.hash;
+					try{window.parent.location.hash = location.hash;}catch(e){};
 				}
-				
-				$("#st_fb").attr("href","http://rest.sharethis.com/share/sharer.php?destination=facebook&url=" + encodeURIComponent(location.href) + "&title=My%20Dance%20Card%20-%20Texas%20Dance%20Halls&pub_key=0d37266b-9e92-4ecd-82e7-1ac5fb707fd0&access_key=9b10faf230c5eeae9fce93e224871d15");
-				$("#st_tw").attr("href","http://rest.sharethis.com/share/sharer.php?destination=twitter&url=" + encodeURIComponent(location.href) + "&title=My%20Dance%20Card%20-%20Texas%20Dance%20Halls&pub_key=0d37266b-9e92-4ecd-82e7-1ac5fb707fd0&access_key=9b10faf230c5eeae9fce93e224871d15");
-				$("#st_em").attr("href","mailto:?subject=My%20Dance%20Card%20-%20Texas%20Dance%20Halls&body=See%20my%20favorite%20upcoming%20events%20at%20historic%20Texas%20Dance%20Halls%3A%0A" + encodeURIComponent(location.href));
+				var dcUrl = encodeURIComponent("http://www.TexasDanceHall.org/calendar.html" + location.hash);
+				$("#st_fb").attr("href","http://rest.sharethis.com/share/sharer.php?destination=facebook&url=" + dcUrl + "&title=My%20Dance%20Card%20-%20Texas%20Dance%20Halls&pub_key=0d37266b-9e92-4ecd-82e7-1ac5fb707fd0&access_key=9b10faf230c5eeae9fce93e224871d15");
+				$("#st_tw").attr("href","http://rest.sharethis.com/share/sharer.php?destination=twitter&url=" + dcUrl + "&title=My%20Dance%20Card%20-%20Texas%20Dance%20Halls&pub_key=0d37266b-9e92-4ecd-82e7-1ac5fb707fd0&access_key=9b10faf230c5eeae9fce93e224871d15");
+				$("#st_em").attr("href","mailto:?subject=My%20Dance%20Card%20-%20Texas%20Dance%20Halls&body=See%20my%20favorite%20upcoming%20events%20at%20historic%20Texas%20Dance%20Halls%3A%0A" + dcUrl);
 				
 				// update sharethis buttons
 				//var url = this.ST_PREFIX + encodeURIComponent( window.parent.location.href + "/" + this.navColl.pluck("id").join("&")) + "&destination=";

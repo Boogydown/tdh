@@ -65,13 +65,12 @@
         <div id="e13" style="position:absolute;left:188;top:0;width:572;height:133;z-index:1"><!--$img %ImageAssetImpl:/images/DSC01410-1.JPG$--><img src="sitebuilder/images/DSC01410-1-572x133.jpg" width="572" height="133" alt=""></div>
         <div id="e14" style="position:absolute;left:227;top:169;width:306;height:39;z-index:1"></div>
         <div id="e15" style="position:absolute;left:-6px;top:125px;width:763;height:100;">
-<IFRAME ID="vuFrame" SRC="http://dev.vyncup.t9productions.com:44384/tdh/_design/tdh_public/app.html" ALIGN="left" HEIGHT="540" WIDTH="780" STYLE="top:9px;background-color:#E0E0E0; border: 0px none; position: absolute; z-index: 0;" marginheight="0" marginwidth="0" frameborder="0"></IFRAME>
+<IFRAME ID="vuFrame" SRC="http://dev.vyncup.t9productions.com:44384/tdh/_design/tdh_public/app.html" ALIGN="left" HEIGHT="540" WIDTH="780" STYLE="top:-29px;background-color:#E0E0E0; border: 0px none; position: absolute; z-index: 0;" marginheight="0" marginwidth="0" frameborder="0"></IFRAME>
 <script>
-	resizeVUApp = function(e){var db = document.body,dde = document.documentElement,
+	window.onload=function(){window.resizeVUApp = function(){var db = document.body,dde = document.documentElement,
 			docHeight = Math.max(db.scrollHeight, dde.scrollHeight, db.offsetHeight, dde.offsetHeight, db.clientHeight, dde.clientHeight);
-			document.getElementById("vuFrame").height = String(docHeight - 141);}
-	window.onresize=resizeVUApp;
-	window.onload=resizeVUApp;
+			document.getElementById("vuFrame").height = String(docHeight - 160);}; 
+			window.resizeVUApp(); window.onresize=resizeVUApp; window.frames[0].location.hash = location.hash;
 </script>
         </div>
         <!--$begin exclude$-->

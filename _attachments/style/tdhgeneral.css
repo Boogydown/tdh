@@ -139,9 +139,9 @@ ul#tab-list li:hover{
 
 div#memberName {
 	float: right;
-	top: -76px;
+	top: -23px;
 	position: relative;
-	right: -158px;
+	right: 18px;
 	font-weight: bold;
 	font-size: 12px;
 }
@@ -614,7 +614,7 @@ div#dancesMap {
 
 div#item-main-map {
     right: 14px;
-	top: 50px;
+	top: 19px;
 }
 
 /* *******************Dance Card Stuff******************** */

@@ -702,11 +702,12 @@ div#popuplist{
 }
 
 .ownershipBox {
-	width: 625px;
-	height:200px;
-	overflow:auto;
+    bottom: 44px;
+    overflow: auto;
+    position: fixed;
+    top: 296px;
+    width: 625px;
 }
-
 .ownershipTable {
 	text-align: center;
 	width: 100%;

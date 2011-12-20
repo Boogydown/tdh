@@ -121,6 +121,7 @@ VU.EventListingView = VU.ListingView.extend({
 			data.tab = window.TDHP_tab == "Bands" ? "Halls" : window.TDHP_tab;
 		else if ( this.listOf == "hall" )
 			data.tab = window.TDHP_tab == "Halls" ? "Bands" : window.TDHP_tab;
+		if ( data.admission == "$" ) data.admission = "";
 		return data;
 	}		
 });

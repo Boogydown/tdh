@@ -217,10 +217,11 @@ $(function(){
 				this.docModel.save(values,{error:function(xhr,msg){alert("Error updating document!\n" + msg);}});
 				if ( ! this.collection.get(this.docModel) )
 				   this.collection.add(this.docModel, {silent: true});
+				this.docModel.updateOwners();
 			} else {
 				this.docModel = this.collection.create(values,{error:function(xhr,msg){alert("Error updating document!\n" + msg);}});
+				this.docModel.updateOwners(true);
 			}
-			this.docModel.updateOwners && this.docModel.updateOwners();
 			
 			//document.forms[0].reset();
 			this.onCancel();

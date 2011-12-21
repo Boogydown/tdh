@@ -241,10 +241,10 @@ VU.OwnableModel = Backbone.Model.extend({
 		//stub: should be overridden
 	},
 	
-	updateOwners : function ( )
+	updateOwners : function ( isNew )
 	{
 		var model = this,
-			prev = model.previous("ownerUsers"),
+			prev = isNew ? [] : model.previous("ownerUsers"),
 			val = model.get("ownerUsers"),
 			added = _(_.difference(val,prev)),
 			removed = _(_.difference(prev,val)),

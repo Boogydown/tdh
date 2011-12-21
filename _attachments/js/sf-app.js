@@ -219,8 +219,9 @@ $(function(){
 				   this.collection.add(this.docModel, {silent: true});
 				this.docModel.updateOwners();
 			} else {
-				this.docModel = this.collection.create(values,{error:function(xhr,msg){alert("Error updating document!\n" + msg);}});
-				this.docModel.updateOwners(true);
+				this.docModel = this.collection.create(values,{
+					success: function(model){model.updateOwners(true);},
+					error:function(xhr,msg){alert("Error updating document!\n" + msg);}});
 			}
 			
 			//document.forms[0].reset();
@@ -229,6 +230,7 @@ $(function(){
 		
 		onCancel : function(){
 			//$(this.form).undelegate();
+			this.docModel = null;
 			if ( window.location === window.parent.location )
 				location.href = "#list";
 			else

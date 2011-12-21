@@ -254,7 +254,7 @@ $(function(){
 			delete values._attachments;
 			
 			// Is this model new and not have an owner yet?  Then make creator the owner
-			if ( this.loggedIn && this.isNew && !values.ownerUsers.length )
+			if ( this.loggedIn && this.isNew && (!values.ownerUsers || !values.ownerUsers.length ))
 				values.ownerUsers = [this.loggedIn];
 				
 			// update/create model and cleanup

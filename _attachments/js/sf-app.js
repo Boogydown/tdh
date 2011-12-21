@@ -30,9 +30,9 @@ $(function(){
 			this.form = $(this.el).is("form") ? $(this.el) : $("form", this.el);
 			if ( $(this.form[0]).is("form") ) this.form = this.form[0];
 			$(this.form).undelegate();
-			if ( mySession && mySession.get("loggedIn") ) {
-				this.loggedIn = mySession.id;
-				if ( mySession.isAdmin && !mySession.users ) {
+			if ( app.mySession && app.mySession.get("loggedIn") ) {
+				this.loggedIn = app.mySession.id;
+				if ( app.mySession.isAdmin && !app.mySession.users ) {
 					$.couch.db("_users").allDocs({ success: this.render });
 					return;
 				}
@@ -43,12 +43,12 @@ $(function(){
         render : function(data){
 			// populate ownerUsers drop-down
 			if ( data ) {
-				mySession.users = _.map(data.rows, function(datum) {
+				app.mySession.users = _.map(data.rows, function(datum) {
 					return { label:datum.key, value:datum.id };
 				});
 			}
-			if ( mySession.users && this.options.schema.properties.ownerUsers )
-				this.options.schema.properties.ownerUsers.items.choices = mySession.users;
+			if ( app.mySession.users && this.options.schema.properties.ownerUsers )
+				this.options.schema.properties.ownerUsers.items.choices = app.mySession.users;
 			
 			// set elements
 			this.contentEl.html("<div class='loadingBar'>Loading...</div>");
@@ -56,9 +56,8 @@ $(function(){
             this.iexDef.parentEl       = 'inputExContent';
             this.iexDef.enctype        = 'multipart/form-data';
 			
-			// doc ID given?  Then this is an Edit action...
+			// doc ID given?  Then this is an Edit action and we need to fill the form...
 			if ( this.options.docID ) {
-				this.isNew = false;
 				this.docModel = this.collection.get( this.options.docID );
 				if ( ! this.docModel ) {
 					this.docModel = new this.collection.model({id:this.options.docID});
@@ -69,8 +68,6 @@ $(function(){
 				else
 					this.fillMe( this.docModel );					
 			}
-			else
-				this.isNew = true;
 			
 			// Fills in the pull-down menus
 			// TODO: rewrite these to be more generic; i.e. is a linkRef in the schema
@@ -105,6 +102,12 @@ $(function(){
 		
 		// this-context is of file input field
 		addAttachment : function ( e ) {
+			if ( !e.data.model ){
+				alert("Please create this, first, by\n" + 
+					  "clicking Submit, then come back\n" +
+					  "and upload your file." );
+				return;
+			}
 			var form = this.form,
 				model = e.data.model,
 				url = (_.isString(model.url) ? "/" + model.url : "../..") + (model.id ? "/" + model.id : ""),
@@ -147,52 +150,6 @@ $(function(){
 			});
 		},
 		
-		// called on change:ownerUsers for hall & band
-		updateUsersOwners : function ( model, val, options )
-		{
-			var prev = model.previous("ownerUsers"),
-				added = _(_.difference(val,prev)),
-				removed = _(_.difference(prev,val)),
-				loaded = {},
-				myID = model.id,
-				myType = model.myType,
-				addFunc = function(userModel){
-					var owns = userModel.get("owns"), myCaption, otype = "vyntors";
-					switch (myType){
-						case "event": 
-							myCaption = (model.get("eventType") || "An") + " event on " + model.get("date"); 
-							otype = "events";
-							break;
-						case "band": myCaption = model.get("bandName"); break;
-						case "hall": myCaption = model.get("danceHallName"); break;
-					};
-					owns[otype].push({
-						id: myID,
-						type: myType,
-						caption: myCaption
-					});
-					userModel.save();
-				},
-				delFunc = function(userModel){
-					var otype = myType == "event" ? "events" : "vyntors",
-						owns = userModel.get("owns");
-					owns[otype] = _(owns[otype]).reject(function(m){return m.id==myID;});
-					userModel.save();
-				},
-				getting = function(mID,action){
-					if ( mID in loaded )
-						action(loaded[mID]);
-					else
-						(loaded[mID] = new VU.MemberModel({id:mID})).fetch({
-							success: function(m){action(m);}
-						});
-				};
-			// our current user is loaded, so add it to loaded list for quick reference
-			loaded[mySession.id] = mySession;
-			added.each( function(m){ getting(m,addFunc); } );
-			removed.each( function(m){ getting(m,delFunc); });		
-		},
-		
 		fetched : function( coll, options ) {
 			coll.fetched = true;
 			coll.unbind( "reset", this.fetched );
@@ -217,8 +174,6 @@ $(function(){
 				buttonImage: "js/lib/inputex/images/calendar.gif",
 				buttonImageOnly: true
 			});
-			if ( this.isNew || !this.docModel )
-				this.docModel = this.collection.create({});//, {success:updateSession}); 
 
             // YUI onClick used instead of Backbone delegateEvents, because it worked first
             new inputEx.widget.Button({
@@ -236,7 +191,6 @@ $(function(){
             });
 			
 			$(this.form).delegate(":file","change",{model:this.docModel, el:this.form},this.addAttachment);
-			this.docModel.bind("change:ownerUsers", this.updateUsersOwners );
 		},
 
         // Takes the vals from the input fields and submits them to the Collection
@@ -255,14 +209,17 @@ $(function(){
 			delete values._attachments;
 			
 			// Is this model new and not have an owner yet?  Then make creator the owner
-			if ( this.loggedIn && this.isNew && (!values.ownerUsers || !values.ownerUsers.length ))
+			if ( this.loggedIn && !this.docModel && (!values.ownerUsers || !values.ownerUsers.length ))
 				values.ownerUsers = [this.loggedIn];
 				
 			// update/create model and cleanup
-			this.docModel.save(values,{error:function(xhr,msg){alert("Error updating document!\n" + msg);}});
-			this.docModel.unbind("change:ownerUsers", this.updateUsersOwners);
-			if ( ! this.collection.get(this.docModel) )
-			   this.collection.add(this.docModel, {silent: true});
+			if ( this.docModel ) {
+				this.docModel.save(values,{error:function(xhr,msg){alert("Error updating document!\n" + msg);}});
+				if ( ! this.collection.get(this.docModel) )
+				   this.collection.add(this.docModel, {silent: true});
+			} else {
+				this.docModel = this.collection.create({});//, {success:updateSession}); 
+			}
 			
 			//document.forms[0].reset();
 			this.onCancel();
@@ -590,7 +547,7 @@ $(function(){
 				"?startkey=" + JSON.stringify( ["event",new Date().getTime() - 2*24*60*60*1000] ) + 
 				"&endkey=" + JSON.stringify( ["event",[]] );
 				
-			window.mySession = new VU.MemberModel(null,{doneCallback:function(){Backbone.history.start();}});
+			this.mySession = new VU.MemberModel(null,{doneCallback:function(){Backbone.history.start();}});
         },
 
 		updateShow : function( showType, collName, schemaName, docID, curPage, numPerPage, hidden ) {
@@ -613,7 +570,7 @@ $(function(){
 				hidden		= hidden 	|| this.hidden,
 				curType, att, curView;
 				
-			if ( hidden == 2 && (!mySession || !mySession.isAdmin ))
+			if ( hidden == 2 && (!this.mySession || !this.mySession.isAdmin ))
 				hidden = 1;
 				
 			// point this.hideStyle to the actual CSS rule stored in the HTML, so we can alter it on the fly

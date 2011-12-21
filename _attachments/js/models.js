@@ -234,9 +234,69 @@ VU.MemberModel = VU.CookieModel.extend({
 	}
 });
 
+VU.OwnableModel = Backbone.Model.extend({
+	otype: "vyntors",
+	
+	initialize: function( attrs, options ){
+		_.bindAll( this, "updateUsersOwners" );
+		this.bind("change:ownerUsers", this.updateUsersOwners );
+	},
+	
+	finalize : function() {
+		this.unbind();
+	},
+	
+	getOwnerCaption : function() {
+		//stub: should be overridden
+	},
+	
+	// called on change:ownerUsers for hall & band
+	updateUsersOwners : function ( model, val, options )
+	{
+		var prev = model.previous("ownerUsers"),
+			added = _(_.difference(val,prev)),
+			removed = _(_.difference(prev,val)),
+			loaded = {},
+			addFunc = function(userModel){
+				var owns = userModel.get("owns");
+				owns[model.otype].push({
+					id: model.id,
+					type: model.myType,
+					caption: model.getOwnerCaption()
+				});
+				userModel.save();
+			},
+			delFunc = function(userModel){
+				var otype = myType == "event" ? "events" : "vyntors",
+					owns = userModel.get("owns");
+				owns[otype] = _(owns[otype]).reject(function(m){return m.id==myID;});
+				userModel.save();
+			},
+			getting = function(mID, action){
+				if ( mID in loaded )
+					action(loaded[mID]);
+				else
+					(loaded[mID] = new VU.MemberModel({id:mID})).fetch({
+						success: function(m){action(m);}
+					});
+			};
+		// our current user is loaded, so add it to loaded list for quick reference
+		loaded[app.mySession.id] = app.mySession;
+		added.each( function(m){ getting(m, addFunc); } );
+		removed.each( function(m){ getting(m, delFunc); });		
+	},
+	
+	destroy : function(options) {
+		this.set({ownerUsers:[]});
+		Backbone.Model.prototype.destroy.call(this, options);
+	}		
+});	
+	
+
 // An entity that has events associated to it
-VU.EventsContainerModel = Backbone.Model.extend({
+VU.EventsContainerModel = VU.OwnableModel.extend({
 	initialize : function( ) {
+		VU.OwnableModel.prototype.initialize.call(this);
 		_.bindAll( this, "loadEvents" );
 	},
 	
@@ -252,9 +312,10 @@ VU.EventsContainerModel = Backbone.Model.extend({
 });
 
 // A model with attributes that link to other models
-VU.LinkingModel = Backbone.Model.extend({
+VU.LinkingModel = VU.OwnableModel.extend({
 	linkRefs : {},
 	initialize : function ( attributes, options) {
+		VU.OwnableModel.prototype.initialize.call(this);
 		_.bindAll( this, "loadLinkRefs", "loadLinkVals" );
 		this.bind ( "change", this.loadLinkRefs );
 		this.bind ( "add", this.loadLinkRefs );
@@ -368,6 +429,10 @@ VU.BandModel = VU.EventsContainerModel.extend({
 		this.normalizeAttributes( this, "", {} );
 	},
 	
+	getOwnerCaption : function() {
+		return this.get("bandName");
+	},	
+	
 	//url : function () { return "https://dev.vyncup.t9productions.com:44384/tdh/" + this.id; },
 
 	normalizeAttributes : function ( model, val, options ) {
@@ -447,6 +512,10 @@ VU.VenueModel = VU.EventsContainerModel.extend({
 		this.normalizeAttributes();
 	},
 	
+	getOwnerCaption : function() {
+		return this.get("danceHallName");
+	},	
+	
 	//url : function () { return "https://dev.vyncup.t9productions.com:44384/tdh/" + this.id; }
 	
 	normalizeAttributes : function () {
@@ -495,6 +564,7 @@ VU.VenueModel = VU.EventsContainerModel.extend({
 // Event model
 VU.EventModel = VU.LinkingModel.extend({
 	myType: "event",
+	otype: "events",
 	defaults : {
 		featured: false,
 		onDCard: false, // for local use, only
@@ -511,6 +581,10 @@ VU.EventModel = VU.LinkingModel.extend({
 		// date comes in at init, silently, so we'll normalize it now
 		VU.LinkingModel.prototype.initialize.call(this, attrs, options);
 		this.normalizeData(); 
+	},
+	
+	getOwnerCaption : function() {
+		return (this.get("eventType") || "An") + " event on " + this.get("date"); 
 	},
 	
 	toggleDCard : function () {

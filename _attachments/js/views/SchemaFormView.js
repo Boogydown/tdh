@@ -270,16 +270,8 @@ VU.InitSFV = function () {
 		
         deleteMe : function(){
 			if ( this.model && confirm( "This will permanently delete this entry!\n" + 
-						  "Are you SURE you want to do this?" ) ) {
-				if ( app.mySession && app.mySession.get("loggedIn") ) {
-					var owns = app.mySession.get("owns"), modelID = this.model.id;
-					owns.events = _.reject(owns.events, function(e){ return e.id == modelID; });
-					owns.vyntors = _.reject(owns.vyntors, function(e){ return e.id == modelID; });
-				}
-				app.mySession.save();
-				this.model.destroy({
-					success:this.onCancel
-				});
+										"Are you SURE you want to do this?" ) ) {
+				this.model.destroy({ success:this.onCancel });
 			}
         }
     });

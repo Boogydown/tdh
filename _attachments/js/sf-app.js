@@ -247,8 +247,9 @@ $(function(){
 			//not sure why inputex doesn't pull this... :-/
 			values._rev = this.form._rev.value;
 			
-			// Nuke an empty ID, so it doesn't kill initial creation
+			// Nuke an empty ID and rev, so it doesn't kill initial creation
 			if(values._id === "") delete values._id;
+			if(values._rev === "") delete values._rev;
 			
 			//we got these earlier, upon file upload
 			delete values._attachments;
@@ -258,7 +259,7 @@ $(function(){
 				values.ownerUsers = [this.loggedIn];
 				
 			// update/create model and cleanup
-			this.docModel.save(values,{error:function(e){alert("Error updating document!\n" + e.message);}});
+			this.docModel.save(values,{error:function(xhr,msg){alert("Error updating document!\n" + msg);}});
 			this.docModel.unbind("change:ownerUsers", this.updateUsersOwners);
 			if ( ! this.collection.get(this.docModel) )
 			   this.collection.add(this.docModel, {silent: true});

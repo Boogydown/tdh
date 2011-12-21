@@ -214,9 +214,11 @@ $(function(){
 				
 			// update/create model and cleanup
 			if ( this.docModel ) {
+				this.docModel.startUpdater();
 				this.docModel.save(values,{error:function(xhr,msg){alert("Error updating document!\n" + msg);}});
 				if ( ! this.collection.get(this.docModel) )
 				   this.collection.add(this.docModel, {silent: true});
+				this.docModel.stopUpdater();
 			} else {
 				this.docModel = this.collection.create({});//, {success:updateSession}); 
 			}

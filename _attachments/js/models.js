@@ -237,17 +237,23 @@ VU.MemberModel = VU.CookieModel.extend({
 VU.OwnableModel = Backbone.Model.extend({
 	otype: "vyntors",
 	
-	initialize: function( attrs, options ){
-		_.bindAll( this, "updateUsersOwners" );
-		this.bind("change:ownerUsers", this.updateUsersOwners );
+	startUpdater: function( ){
+		this.updateOwners = true;
 	},
 	
-	finalize : function() {
-		this.unbind();
+	stopUpdater : function() {
+		this.updateOwners = false;
 	},
 	
 	getOwnerCaption : function() {
 		//stub: should be overridden
+	},
+	
+	// ties updater into ALL sets, even silent ones (i.e. create, fetch, etc)
+	set : function( attrs, options ){
+		Backbone.Model.prototype.set.call(this, attrs, options);
+		if ( ownerUsers in attrs && this.updateOwners )
+			this.updateUsersOwners( this, attrs.ownerUsers, options );
 	},
 	
 	// called on change:ownerUsers for hall & band
@@ -264,13 +270,12 @@ VU.OwnableModel = Backbone.Model.extend({
 					type: model.myType,
 					caption: model.getOwnerCaption()
 				});
-				userModel.save();
+				//userModel.save();
 			},
 			delFunc = function(userModel){
-				var otype = myType == "event" ? "events" : "vyntors",
-					owns = userModel.get("owns");
-				owns[otype] = _(owns[otype]).reject(function(m){return m.id==myID;});
-				userModel.save();
+				var owns = userModel.get("owns");
+				owns[model.otype] = _(owns[model.otype]).reject(function(m){return m.id==model.id;});
+				//userModel.save();
 			},
 			getting = function(mID, action){
 				if ( mID in loaded )
@@ -280,14 +285,21 @@ VU.OwnableModel = Backbone.Model.extend({
 						success: function(m){action(m);}
 					});
 			};
+			
 		// our current user is loaded, so add it to loaded list for quick reference
 		loaded[app.mySession.id] = app.mySession;
 		added.each( function(m){ getting(m, addFunc); } );
-		removed.each( function(m){ getting(m, delFunc); });		
+		removed.each( function(m){ getting(m, delFunc); });
+		
+		// save only after all of it
+		for ( var u in loaded )
+			loaded[u].save();
 	},
 	
 	destroy : function(options) {
-		this.set({ownerUsers:[]});
+		this.startUpdater();
+		this.set({ownerUsers:[]}, {silent:true});
+		this.stopUpdater();
 		Backbone.Model.prototype.destroy.call(this, options);
 	}		
 });	
@@ -296,7 +308,6 @@ VU.OwnableModel = Backbone.Model.extend({
 // An entity that has events associated to it
 VU.EventsContainerModel = VU.OwnableModel.extend({
 	initialize : function( ) {
-		VU.OwnableModel.prototype.initialize.call(this);
 		_.bindAll( this, "loadEvents" );
 	},
 	
@@ -315,7 +326,6 @@ VU.EventsContainerModel = VU.OwnableModel.extend({
 VU.LinkingModel = VU.OwnableModel.extend({
 	linkRefs : {},
 	initialize : function ( attributes, options) {
-		VU.OwnableModel.prototype.initialize.call(this);
 		_.bindAll( this, "loadLinkRefs", "loadLinkVals" );
 		this.bind ( "change", this.loadLinkRefs );
 		this.bind ( "add", this.loadLinkRefs );

@@ -700,15 +700,6 @@ VU.schemas = {
 			"description":"A basic event is an attraction, a venues, a time",
 			"type":"object",
 			"properties":{
-				"_rev":{
-					"description": "Revision",
-					"type":"string",
-					"format":"id",
-					"hidden":true,
-					"_inputex": {
-						"_type": "hidden"
-					}
-				},
 				"band":{
 					"type":"string",
 					"required":true,
@@ -862,7 +853,16 @@ VU.schemas = {
 						"label": "Admission",
 						"value":"$"
 					}
-				}
+				},
+				"_rev":{
+					"description": "Revision",
+					"type":"string",
+					"format":"id",
+					"hidden":true,
+					"_inputex": {
+						"_type": "hidden"
+					}
+				}				
 			}
 		},
 		
@@ -1113,6 +1113,15 @@ VU.schemas = {
 			"description":"A band profile",
 			"type":"object",
 			"properties":{
+				"_rev":{
+					"description": "Revision",
+					"type":"string",
+					"format":"id",
+					"hidden":true,
+					"_inputex": {
+						"_type": "hidden"
+					}
+				},
 				"bandName":{
 					"type":"string",
 					"required":true,
@@ -1192,16 +1201,7 @@ VU.schemas = {
 					"_inputex": {
 						"label": "Owner users"
 					}
-				},
-				"_rev":{
-					"description": "Revision",
-					"type":"string",
-					"format":"id",
-					"hidden":true,
-					"_inputex": {
-						"_type": "hidden"
-					}
-				}
+				}				
 			}
 		},
 

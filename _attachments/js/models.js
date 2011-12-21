@@ -241,17 +241,11 @@ VU.OwnableModel = Backbone.Model.extend({
 		//stub: should be overridden
 	},
 	
-	// ties updater into ALL sets, even silent ones (i.e. create, fetch, etc)
-	set : function( attrs, options ){
-		Backbone.Model.prototype.set.call(this, attrs, options);
-		if ( "ownerUsers" in attrs && options.updateOwners )
-			this.updateUsersOwners( this, attrs.ownerUsers, options );
-	},
-	
-	// called on change:ownerUsers for hall & band
-	updateUsersOwners : function ( model, val, options )
+	updateOwners : function ( )
 	{
-		var prev = model.previous("ownerUsers"),
+		var model = this,
+			prev = model.previous("ownerUsers"),
+			val = model.get("ownerUsers"),
 			added = _(_.difference(val,prev)),
 			removed = _(_.difference(prev,val)),
 			loaded = {},
@@ -289,7 +283,8 @@ VU.OwnableModel = Backbone.Model.extend({
 	},
 	
 	destroy : function(options) {
-		this.set({ownerUsers:[]}, {silent:true, updateOwners:true});
+		this.set({ownerUsers:[]}, {silent:true});
+		this.updateOwners();
 		Backbone.Model.prototype.destroy.call(this, options);
 	}		
 });	

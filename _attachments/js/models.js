@@ -237,14 +237,6 @@ VU.MemberModel = VU.CookieModel.extend({
 VU.OwnableModel = Backbone.Model.extend({
 	otype: "vyntors",
 	
-	startUpdater: function( ){
-		this.updateOwners = true;
-	},
-	
-	stopUpdater : function() {
-		this.updateOwners = false;
-	},
-	
 	getOwnerCaption : function() {
 		//stub: should be overridden
 	},
@@ -252,7 +244,7 @@ VU.OwnableModel = Backbone.Model.extend({
 	// ties updater into ALL sets, even silent ones (i.e. create, fetch, etc)
 	set : function( attrs, options ){
 		Backbone.Model.prototype.set.call(this, attrs, options);
-		if ( "ownerUsers" in attrs && this.updateOwners )
+		if ( "ownerUsers" in attrs && options.updateOwners )
 			this.updateUsersOwners( this, attrs.ownerUsers, options );
 	},
 	
@@ -297,9 +289,7 @@ VU.OwnableModel = Backbone.Model.extend({
 	},
 	
 	destroy : function(options) {
-		this.startUpdater();
-		this.set({ownerUsers:[]}, {silent:true});
-		this.stopUpdater();
+		this.set({ownerUsers:[]}, {silent:true, updateOwners:true});
 		Backbone.Model.prototype.destroy.call(this, options);
 	}		
 });	

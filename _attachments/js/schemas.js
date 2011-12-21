@@ -700,6 +700,15 @@ VU.schemas = {
 			"description":"A basic event is an attraction, a venues, a time",
 			"type":"object",
 			"properties":{
+				"_rev":{
+					"description": "Revision",
+					"type":"string",
+					"format":"id",
+					"hidden":true,
+					"_inputex": {
+						"_type": "hidden"
+					}
+				},
 				"band":{
 					"type":"string",
 					"required":true,
@@ -1195,6 +1204,7 @@ VU.schemas = {
 				}				
 			}
 		},
+
 		app: {
 			"description":"A band profile",
 			"type":"object",

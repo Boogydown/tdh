@@ -30,14 +30,18 @@ $(function(){
 			this.form = $(this.el).is("form") ? $(this.el) : $("form", this.el);
 			if ( $(this.form[0]).is("form") ) this.form = this.form[0];
 			$(this.form).undelegate();
-			if ( mySession && mySession.isAdmin ){
-				if ( !mySession.users ) $.couch.db("_users").allDocs({ success: this.render });
-				else this.render();
+			if ( mySession && mySession.get("loggedIn") ) {
+				this.loggedIn = mySession.id;
+				if ( mySession.isAdmin && !mySession.users ) {
+					$.couch.db("_users").allDocs({ success: this.render });
+					return;
+				}
 			}
-            else this.render();
+            this.render();
         },
         
         render : function(data){
+			// populate ownerUsers drop-down
 			if ( data ) {
 				mySession.users = _.map(data.rows, function(datum) {
 					return { label:datum.key, value:datum.id };
@@ -46,6 +50,7 @@ $(function(){
 			if ( mySession.users && this.options.schema.properties.ownerUsers )
 				this.options.schema.properties.ownerUsers.items.choices = mySession.users;
 			
+			// set elements
 			this.contentEl.html("<div class='loadingBar'>Loading...</div>");
             this.iexDef = this.builder.schemaToInputEx(this.options.schema);
             this.iexDef.parentEl       = 'inputExContent';
@@ -53,6 +58,7 @@ $(function(){
 			
 			// doc ID given?  Then this is an Edit action...
 			if ( this.options.docID ) {
+				this.isNew = false;
 				this.docModel = this.collection.get( this.options.docID );
 				if ( ! this.docModel ) {
 					this.docModel = new this.collection.model({id:this.options.docID});
@@ -63,6 +69,8 @@ $(function(){
 				else
 					this.fillMe( this.docModel );					
 			}
+			else
+				this.isNew = true;
 			
 			// Fills in the pull-down menus
 			// TODO: rewrite these to be more generic; i.e. is a linkRef in the schema
@@ -84,7 +92,6 @@ $(function(){
             this.docModel.unbind("change", this.fillMe);
 			this.modelJSON = this.docModel.toJSON();
 			if ( this.inputex ) this.inputex.setValue( this.modelJSON() );
-			this.docModel.bind("change:ownerUsers", this.updateUsersOwners );
 			
 			//if ( this.form._rev ) this.form._rev.value = this.docModel.get("_rev");
 			//if ( this.form.image ) this.form.image.value = this.docModel.get("image");
@@ -93,7 +100,7 @@ $(function(){
 			
 			//TODO: when update to jQuery1.7.0, use this:
 			//$(this.form).on("change",":file",{model:this.docModel, el:this.form},this.addAttachment);
-			$(this.form).delegate(":file","change",{model:this.docModel, el:this.form},this.addAttachment);
+			//$(this.form).delegate(":file","change",{model:this.docModel, el:this.form},this.addAttachment);
 		},
 		
 		// this-context is of file input field
@@ -140,6 +147,7 @@ $(function(){
 			});
 		},
 		
+		// called on change:ownerUsers for hall & band
 		updateUsersOwners : function ( model, val, options )
 		{
 			var prev = model.previous("ownerUsers"),
@@ -179,7 +187,7 @@ $(function(){
 							success: function(m){action(m);}
 						});
 				};
-			// our current user is loaded, so add it
+			// our current user is loaded, so add it to loaded list for quick reference
 			loaded[mySession.id] = mySession;
 			added.each( function(m){ getting(m,addFunc); } );
 			removed.each( function(m){ getting(m,delFunc); });		
@@ -209,6 +217,8 @@ $(function(){
 				buttonImage: "js/lib/inputex/images/calendar.gif",
 				buttonImageOnly: true
 			});
+			if ( this.isNew || !this.docModel )
+				this.docModel = this.collection.create({});//, {success:updateSession}); 
 
             // YUI onClick used instead of Backbone delegateEvents, because it worked first
             new inputEx.widget.Button({
@@ -223,7 +233,10 @@ $(function(){
                 parentEl:       'inputExContent',
                 onClick:        this.onCancel,
                 value:          'Cancel'
-            });			
+            });
+			
+			$(this.form).delegate(":file","change",{model:this.docModel, el:this.form},this.addAttachment);
+			this.docModel.bind("change:ownerUsers", this.updateUsersOwners );
 		},
 
         // Takes the vals from the input fields and submits them to the Collection
@@ -240,27 +253,15 @@ $(function(){
 			//we got these earlier, upon file upload
 			delete values._attachments;
 			
-			// Helper func that adds a logged-in user as owner of an event
-			//TODO: make this more generic, not just event;
-			var coll = this.collection;
-			var updateSession = function(model) {
-				if ( coll instanceof VU.EventCollection && mySession.get("loggedIn") ){
-					mySession.get("owns").events.push({
-						id: model.id,
-						caption: (model.get("eventType") || "An") + " event on " + model.get("date")
-					});
-					mySession.save();
-				}
-			};				
+			// Is this model new and not have an owner yet?  Then make creator the owner
+			if ( this.loggedIn && this.isNew && !values.ownerUsers.length )
+				values.ownerUsers = [this.loggedIn];
 				
 			// update/create model and cleanup
-			if ( this.docModel ){
-				this.docModel.save(values,{error:function(e){alert("Error updating document!\n" + e.message);}});
-				this.docModel.unbind("change:ownerUsers", this.updateUsersOwners);
-				if ( ! this.collection.get(this.docModel) )
-                   this.collection.add(this.docModel, {silent: true});
-			}
-			else this.collection.create(values, {success:updateSession});
+			this.docModel.save(values,{error:function(e){alert("Error updating document!\n" + e.message);}});
+			this.docModel.unbind("change:ownerUsers", this.updateUsersOwners);
+			if ( ! this.collection.get(this.docModel) )
+			   this.collection.add(this.docModel, {silent: true});
 			
 			//document.forms[0].reset();
 			this.onCancel();

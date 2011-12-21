@@ -24,7 +24,7 @@ $(function(){
 		docModel: "",
 
         initialize : function(){
-            _.bindAll(this, "onSubmit", "fetched", "fillMe", "attach", "render", "updateUsersOwners");
+            _.bindAll(this, "onSubmit", "fetched", "fillMe", "attach", "render");
 			this.contentEl = $("#inputExContent");
 			this.contentEl.html("");
 			this.form = $(this.el).is("form") ? $(this.el) : $("form", this.el);

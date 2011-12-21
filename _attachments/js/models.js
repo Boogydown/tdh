@@ -252,7 +252,7 @@ VU.OwnableModel = Backbone.Model.extend({
 	// ties updater into ALL sets, even silent ones (i.e. create, fetch, etc)
 	set : function( attrs, options ){
 		Backbone.Model.prototype.set.call(this, attrs, options);
-		if ( ownerUsers in attrs && this.updateOwners )
+		if ( "ownerUsers" in attrs && this.updateOwners )
 			this.updateUsersOwners( this, attrs.ownerUsers, options );
 	},
 	

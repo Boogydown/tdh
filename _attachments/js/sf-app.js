@@ -103,9 +103,8 @@ $(function(){
 		// this-context is of file input field
 		addAttachment : function ( e ) {
 			if ( !e.data.model ){
-				alert("Please create this, first, by\n" + 
-					  "clicking Submit, then come back\n" +
-					  "and upload your file." );
+				alert("Please finish creating this, first, by clicking \n" + 
+					  "Send, then come back and upload your file." );
 				return;
 			}
 			var form = this.form,

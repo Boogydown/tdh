@@ -63,7 +63,9 @@ VU.schemas = {
 								"optional":true,
 								"readonly":true,
 								"_inputex": {
-									"label": "Image"
+									"label": "Image URL",
+									typeInvite: "(auto-filled; do not edit)",
+									size:26
 								},
 								"picUrl":true
 							},
@@ -507,7 +509,9 @@ VU.schemas = {
 								"optional":true,
 								"readonly":true,
 								"_inputex": {
-									"label": "Document Url"
+									label: "Document Url",
+									typeInvite: "(auto-filled; do not edit)",
+									size:26
 								},
 								"picUrl":true
 							},

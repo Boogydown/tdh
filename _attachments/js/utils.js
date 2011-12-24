@@ -84,7 +84,7 @@ window.utils = {
 		errorHandler : function( e ) {
 			var errMsg = "Error: " + e.message;
 			alert( errMsg );
-			this.log( errMsg );
+			utils.logger.log( errMsg );
 		}
 	},
 

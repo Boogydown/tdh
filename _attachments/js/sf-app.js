@@ -633,6 +633,8 @@ $(function(){
 						att.numPerPage = Number(numPerPage);
 						att.hidden = hidden == 1;
 						this[ curView ] = new VU[att.viewClass]( att );
+					} else {
+						this[ curView ].render();
 					}
 				}
 				else

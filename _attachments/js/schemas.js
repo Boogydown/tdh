@@ -416,7 +416,7 @@ VU.schemas = {
 				},
 				"historicalNarrative":{
 					"description": "Historical Narrative",
-					"type":"textarea",
+					"type":"text",
 					"optional":true,
 					"_inputEx":{
 						"rows":6,

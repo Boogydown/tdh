@@ -213,10 +213,11 @@ $(function(){
 				
 			// update/create model and cleanup
 			if ( this.docModel ) {
-				this.docModel.save(values,{error:utils.logger.errorHandler});
+				this.docModel.set(values,{error:utils.logger.errorHandler});				
+				this.docModel.updateOwners();
+				this.docModel.save();
 				if ( ! this.collection.get(this.docModel) )
 				   this.collection.add(this.docModel, {silent: true});
-				this.docModel.updateOwners();
 			} else {
 				this.docModel = this.collection.create(values,{
 					success: function(model){model.updateOwners(true);},

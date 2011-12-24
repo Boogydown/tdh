@@ -407,20 +407,28 @@ VU.schemas = {
 				"description":{
 					"description": "Description",
 					"type":"string",
-					"optional":true
+					"optional":true,
+					"_inputEx":{
+						"rows":8,
+						"cols":80
+					}
 				},
 				"comments":{
 					"description": "Comments",
-					"type":"string",
-					"optional":true
+					"type":"text",
+					"optional":true,
+					"_inputEx":{
+						"rows":2,
+						"cols":50
+					}
 				},
 				"historicalNarrative":{
 					"description": "Historical Narrative",
 					"type":"text",
 					"optional":true,
 					"_inputEx":{
-						"rows":6,
-						"colls":80
+						"rows":12,
+						"cols":80
 					}
 				},
 				"yourName":{

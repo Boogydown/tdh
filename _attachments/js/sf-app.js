@@ -207,18 +207,19 @@ $(function(){
 			//we got these earlier, upon file upload
 			delete values._attachments;
 			
-			// Is this model new and not have an owner yet?  Then make creator the owner
-			if ( this.loggedIn && !this.docModel && (!values.ownerUsers || !values.ownerUsers.length ))
-				values.ownerUsers = [this.loggedIn];
-				
-			// update/create model and cleanup
+			//--- update... ---
 			if ( this.docModel ) {
 				var prev = this.docModel.get("ownerUsers");
 				this.docModel.save(values,{error:utils.logger.errorHandler});				
 				if ( ! this.collection.get(this.docModel) )
 				   this.collection.add(this.docModel, {silent: true});
 				this.docModel.updateOwners(prev);
+				
+			//--- ...or, create ---
 			} else {
+				if ( this.loggedIn && (!values.ownerUsers || !values.ownerUsers.length ))
+					// Is this model new and not have an owner yet?  Then make creator the owner
+					values.ownerUsers = [this.loggedIn];
 				this.docModel = this.collection.create(values,{
 					success: function(model){model.updateOwners([]);},
 					error:utils.logger.errorHandler

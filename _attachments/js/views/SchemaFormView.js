@@ -115,6 +115,8 @@ VU.InitSFV = function () {
 			this.contentEl = $("#inputExContent");
 			this.contentEl.html("");
             _.bindAll(this, "onSubmit", "onCancel", "fetched", "fillMe", "attach", "inputexLoaded", "deleteMe");
+			if ( app.mySession && app.mySession.get("loggedIn") )
+				this.loggedIn = app.mySession.id;
 			
 /*			if ( window.inputEx === undefined )
 				utils.bulkLoad([
@@ -228,38 +230,32 @@ VU.InitSFV = function () {
 			
 			// Nuke an empty ID, so it doesn't kill initial creation
 			if(values._id === "") delete values._id;
+			if(values._rev === "") delete values._rev;
 
 			// we got attachments earlier, so remove it from here
 			delete values._attachments;
 			
-			// update ownership
-			var coll = this.collection;
-			var updateSession = function(model) {
-				if ( coll instanceof VU.EventCollection && app.mySession && app.mySession.get("loggedIn") ){
-					var events = app.mySession.get("owns").events,
-						loc = _(events).chain().pluck("id").indexOf(model.id).value(),
-						newOwn = {
-							id: model.id,
-							caption: (model.get("eventType") || "An") + " event on " + model.get("date")
-						};
-					if ( loc > -1 )
-						events[loc] = newOwn;
-					else
-						events.push(newOwn);
-					app.mySession.save();
-					//window.parent.location.href="#Dances";
-					//window.parent.location.reload();
-					//location.href="";
-				}
-			};				
-
-			// update model
-			if ( this.model ){
-				this.model.save(values, { success: updateSession });
+			// update/create model and cleanup
+			// --- update... ---
+			if ( this.model ) {
+				var prev = this.model.get("ownerUsers");
+				this.model.save(values,{error:utils.logger.errorHandler});				
 				if ( ! this.collection.get(this.model) )
-                   this.collection.add(this.model, {silent: true});
+				   this.collection.add(this.model, {silent: true});
+				this.model.updateOwners(prev);
+				
+			// --- ...or, create ---
+			} else {
+				if ( this.loggedIn && (!values.ownerUsers || !values.ownerUsers.length ))
+					// Is this model new and not have an owner yet?  Then make creator the owner
+					values.ownerUsers = [this.loggedIn];
+				this.model = this.collection.create(values,{
+					success: function(model){model.updateOwners([]);},
+					error:utils.logger.errorHandler
+				});
 			}
-			else this.collection.create(values, {success:updateSession});
+			
+			//document.forms[0].reset();
 			this.onCancel();
 		},
 		

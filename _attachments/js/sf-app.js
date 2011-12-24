@@ -213,14 +213,15 @@ $(function(){
 				
 			// update/create model and cleanup
 			if ( this.docModel ) {
-				this.docModel.save(values,{error:function(xhr,msg){alert("Error updating document!\n" + msg);}});
+				this.docModel.save(values,{error:utils.logger.errorHandler});
 				if ( ! this.collection.get(this.docModel) )
 				   this.collection.add(this.docModel, {silent: true});
 				this.docModel.updateOwners();
 			} else {
 				this.docModel = this.collection.create(values,{
 					success: function(model){model.updateOwners(true);},
-					error:function(xhr,msg){alert("Error updating document!\n" + msg);}});
+					error:utils.logger.errorHandler
+				});
 			}
 			
 			//document.forms[0].reset();

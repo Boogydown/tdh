@@ -194,7 +194,7 @@ VU.InitSFV = function () {
                 value:      'Cancel'
             });
 			
-			if ( this.options.docID ) 
+			if ( this.options.docID && this.collection instanceOf VU.EventCollection ) 
 				new inputEx.widget.Button({
 					id:			'delete',
 					parentEl:	'model_edit',

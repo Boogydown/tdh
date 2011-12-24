@@ -79,6 +79,12 @@ window.utils = {
 		log : function(msg) {
 			if ( window.console !== undefined ) 
 				console.log(msg);
+		},
+		
+		errorHandler : function( e ) {
+			var errMsg = "Error: " + e.message;
+			alert( errMsg );
+			this.log( errMsg );
 		}
 	},
 

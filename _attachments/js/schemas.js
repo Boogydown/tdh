@@ -416,8 +416,12 @@ VU.schemas = {
 				},
 				"historicalNarrative":{
 					"description": "Historical Narrative",
-					"type":"string",
-					"optional":true
+					"type":"textarea",
+					"optional":true,
+					"_inputEx":{
+						"rows":6,
+						"colls":50
+					}
 				},
 				"yourName":{
 					"description": "Your name",

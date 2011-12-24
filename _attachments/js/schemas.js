@@ -30,7 +30,10 @@ VU.schemas = {
 				"danceHallName":{
 					"description": "Dance Hall Name",
 					"type":"string",
-					"required":true
+					"required":true,
+					"_inputex":{
+						"size":80
+					}
 				},
 				"images":{
 					"description":"Images",
@@ -49,7 +52,7 @@ VU.schemas = {
 									"type": "submit", 
 									"value": "Upload"
 								},
-								"_inputEx": {
+								"_inputex": {
 									"label": "Image file",
 									"className": "sF_image"
 								}
@@ -59,7 +62,7 @@ VU.schemas = {
 								"type":"string",
 								"optional":true,
 								"readonly":true,
-								"_inputEx": {
+								"_inputex": {
 									"label": "Image"
 								},
 								"picUrl":true
@@ -409,7 +412,7 @@ VU.schemas = {
 					"type":"string",
 					"format":"text",
 					"optional":true,
-					"_inputEx":{
+					"_inputex":{
 						"rows":8,
 						"cols":80
 					}
@@ -419,7 +422,7 @@ VU.schemas = {
 					"type":"string",
 					"format":"text",
 					"optional":true,
-					"_inputEx":{
+					"_inputex":{
 						"rows":2,
 						"cols":50
 					}
@@ -429,7 +432,7 @@ VU.schemas = {
 					"type":"string",
 					"format":"text",
 					"optional":true,
-					"_inputEx":{
+					"_inputex":{
 						"rows":12,
 						"cols":80
 					}
@@ -476,7 +479,7 @@ VU.schemas = {
 								"type":"file",
 								"clickable":true,
 								"required":true,
-								"_inputEx": {
+								"_inputex": {
 									"label": "Document",
 									"className": "sF_doc"
 								}
@@ -486,7 +489,7 @@ VU.schemas = {
 								"type":"string",
 								"optional":true,
 								"readonly":true,
-								"_inputEx": {
+								"_inputex": {
 									"label": "Document Url"
 								},
 								"picUrl":true

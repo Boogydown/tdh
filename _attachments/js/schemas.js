@@ -345,12 +345,22 @@ VU.schemas = {
 				"address":{
 					"description": "Address",
 					"type":"string",
-					"optional":true
+					"format":"text",
+					"optional":true,
+					"_inputex":{
+						rows:3,
+						cols:50
+					}
 				},
 				"directions":{
 					"description": "Directions",
 					"type":"string",
-					"optional":true
+					"format":"text",
+					"optional":true,
+					"_inputex":{
+						rows:2,
+						cols:50
+					}
 				},
 				"currentUse":{
 					"description": "Current Use",
@@ -445,12 +455,19 @@ VU.schemas = {
 				"yourEmail":{
 					"description": "Your email",
 					"type":"string",
-					"optional":true
+					"optional":true,
+					"_inputex":{
+						size:40
+					}
 				},
 				"gpsCoordinates":{
 					"description": "GPS Coordinates",
 					"type":"string",
-					"optional":true
+					"optional":true,
+					"_inputex":{
+						typeInvite: "long latt (i.e. -96.962776 31.813215)",
+						size:40
+					}
 				},
 				"nationalRegister":{
 					"description": "National Register",

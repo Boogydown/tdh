@@ -88,7 +88,7 @@ $(function(){
 		fillMe : function( model, options ) {
             this.docModel.unbind("change", this.fillMe);
 			this.modelJSON = this.docModel.toJSON();
-			if ( this.inputex ) this.inputex.setValue( this.modelJSON() );
+			if ( this.inputex ) this.inputex.setValue( this.modelJSON );
 			
 			//if ( this.form._rev ) this.form._rev.value = this.docModel.get("_rev");
 			//if ( this.form.image ) this.form.image.value = this.docModel.get("image");

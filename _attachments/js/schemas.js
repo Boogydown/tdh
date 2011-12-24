@@ -420,7 +420,7 @@ VU.schemas = {
 					"optional":true,
 					"_inputEx":{
 						"rows":6,
-						"colls":50
+						"colls":80
 					}
 				},
 				"yourName":{

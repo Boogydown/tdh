@@ -213,14 +213,14 @@ $(function(){
 				
 			// update/create model and cleanup
 			if ( this.docModel ) {
-				this.docModel.set(values,{error:utils.logger.errorHandler});				
-				this.docModel.updateOwners();
-				this.docModel.save();
+				var prev = this.docModel.get("ownerUsers");
+				this.docModel.save(values,{error:utils.logger.errorHandler});				
 				if ( ! this.collection.get(this.docModel) )
 				   this.collection.add(this.docModel, {silent: true});
+				this.docModel.updateOwners(prev);
 			} else {
 				this.docModel = this.collection.create(values,{
-					success: function(model){model.updateOwners(true);},
+					success: function(model){model.updateOwners([]);},
 					error:utils.logger.errorHandler
 				});
 			}

@@ -406,32 +406,32 @@ VU.schemas = {
 				},
 				"description":{
 					"description": "Description",
-					"type":"text",
+					"type":"string",
+					"format":"text",
 					"optional":true,
 					"_inputEx":{
 						"rows":8,
-						"cols":80,
-						"size":80
+						"cols":80
 					}
 				},
 				"comments":{
 					"description": "Comments",
-					"type":"text",
+					"type":"string",
+					"format":"text",
 					"optional":true,
 					"_inputEx":{
 						"rows":2,
-						"cols":50,
-						"size":50
+						"cols":50
 					}
 				},
 				"historicalNarrative":{
 					"description": "Historical Narrative",
-					"type":"text",
+					"type":"string",
+					"format":"text",
 					"optional":true,
 					"_inputEx":{
 						"rows":12,
-						"cols":80,
-						"size":80
+						"cols":80
 					}
 				},
 				"yourName":{

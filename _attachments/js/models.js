@@ -244,6 +244,7 @@ VU.OwnableModel = Backbone.Model.extend({
 	updateOwners : function ( prev )
 	{
 		var model = this,
+			//prev = isNew ? [] : model.previous("ownerUsers"),  for some reason, previous is not always giving previous value, but current value... which is useless
 			val = model.get("ownerUsers"),
 			added = _(_.difference(val,prev)),
 			removed = _(_.difference(prev,val)),

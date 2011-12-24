@@ -406,11 +406,12 @@ VU.schemas = {
 				},
 				"description":{
 					"description": "Description",
-					"type":"string",
+					"type":"text",
 					"optional":true,
 					"_inputEx":{
 						"rows":8,
-						"cols":80
+						"cols":80,
+						"size":80
 					}
 				},
 				"comments":{
@@ -419,7 +420,8 @@ VU.schemas = {
 					"optional":true,
 					"_inputEx":{
 						"rows":2,
-						"cols":50
+						"cols":50,
+						"size":50
 					}
 				},
 				"historicalNarrative":{
@@ -428,7 +430,8 @@ VU.schemas = {
 					"optional":true,
 					"_inputEx":{
 						"rows":12,
-						"cols":80
+						"cols":80,
+						"size":80
 					}
 				},
 				"yourName":{

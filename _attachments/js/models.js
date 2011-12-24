@@ -283,8 +283,9 @@ VU.OwnableModel = Backbone.Model.extend({
 	},
 	
 	destroy : function(options) {
+		var prev = this.get("ownerUsers");
 		this.set({ownerUsers:[]}, {silent:true});
-		this.updateOwners();
+		this.updateOwners(prev);
 		Backbone.Model.prototype.destroy.call(this, options);
 	}		
 });	

@@ -114,6 +114,7 @@ VU.LocalFilteredCollection = VU.Collection.extend({
 		this.allPagesLoaded = false;
 		options.model && (this.model = options.model);
 		this.masterCollection = options.collection;
+		this.comparator = this.masterCollection.comparator;
 		this.model = this.masterCollection.model;
 		_.bindAll( this, "reseted", "applyFilters", "onGotFiltered" );
 	},

@@ -202,7 +202,7 @@ VU.KeyedCollection = VU.Collection.extend({
 		this.each( this.addKeys );
 		this.keyed = true;
 		this.bind( "remove", this.removeKeys );
-		this.bind( "add", this.addKeys );
+		this.bind( "add", this.changeKeys );
 	},
 	
 	changeKeys : function( model ) {
@@ -242,8 +242,8 @@ VU.KeyedCollection = VU.Collection.extend({
 	},
 	
 	removeKeys : function( model, removePrev ) {
-		var key, value, i, valModels,
-			// if a model was updated then we want to remove its previous attrs
+		var key, value, i, valModels, loc,
+			// if a model was updated then we want to remove its previous attrs from keys
 			attrs = removePrev ? model.previousAttributes() : model.attributes;
 		for ( i in this.filterableKeys ) {
 			key = this.filterableKeys[i];
@@ -252,8 +252,8 @@ VU.KeyedCollection = VU.Collection.extend({
 			if ( value !== undefined ) {
 				// we can assume that it must be in here, if not then just ignore
 				valModels = this.keys[key][value];
-				if ( valModels && _.size(valModels) > 1 )
-					valModels.splice( _(valModels).indexOf(model), 1 );
+				if ( valModels && _.size(valModels) > 1 && (loc = _(valModels).indexOf(model)) > -1 )
+					valModels.splice( loc, 1 );
 				else{
 					//cleanup
 					delete this.keys[key][value];

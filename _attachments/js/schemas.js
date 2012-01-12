@@ -1231,35 +1231,35 @@ VU.schemas = {
 				},
 				"area":{
 					"type": "string",
-					"optional": true
+					"optional": true,
 					"_inputex": {
 						"label": "Area"
 					}					
 				},
 				"contactName":{
 					"type": "string",
-					"optional": true
+					"optional": true,
 					"_inputex": {
 						"label": "Contact Name"
 					}					
 				},
 				"phone":{
 					"type": "string",
-					"optional": true
+					"optional": true,
 					"_inputex": {
 						"label": "Phone"
 					}					
 				},
 				"email":{
 					"type": "string",
-					"optional": true
+					"optional": true,
 					"_inputex": {
 						"label": "E-Mail"
 					}					
 				},
 				"yearFounded":{
 					"type": "string",
-					"optional": true
+					"optional": true,
 					"_inputex": {
 						"label": "Year Founded"
 					}					

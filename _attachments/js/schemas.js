@@ -1277,6 +1277,9 @@ VU.schemas = {
 				"hallsPlayed":{
 					"type": "array",
 					"optional":true,
+					"items": {
+						"type":"string"
+					},
 					"_inputex": {
 						"label": "Halls Played"
 					}

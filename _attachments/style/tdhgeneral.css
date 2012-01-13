@@ -710,8 +710,9 @@ div#popuplist{
 }
 
 .ownershipFooter {
-	bottom: 44px;
+	bottom: 40px;
 	position:fixed;
+	font-size:11px;
 }
 
 .ownershipTable {

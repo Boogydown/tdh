@@ -68,7 +68,9 @@
 			activate : function ( filters ) {
 				VU.ParentView.prototype.activate.call(this);
 				this.listView.applyFilters( filters );
-				//this.tagView.render();  this happens at reset, within tagView
+				if ( !this.tagView.rendered )
+					// in case it never received the reset() command.
+					this.tagView.render();  
 			}
 		}),
 		
@@ -192,7 +194,6 @@
 		logout : function() {
 			this.model.logout();
 		}
-		
 	});
     
 /////////////////////////////////////////////////////////////////////////////}

@@ -631,6 +631,7 @@ VU.TagCloudView = Backbone.View.extend({
 			}
 		$(this.el).empty();
 		$(this.el).jQCloud( this.tags );
+		this.rendered = true;
 	},
 	
 	addTags : function( model ){

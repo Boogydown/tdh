@@ -9,6 +9,7 @@ VU.InitColls = function () {
  */
 VU.Collection = Backbone.Collection.extend({
 	fetch : function(options) {
+		utils.logger.log( this.name + ".fetch()" );		
 		if ( this.fetching ) return;
 		this.fetched = false;
 		this.fetching = true;
@@ -282,7 +283,6 @@ VU.KeyedCollection = VU.Collection.extend({
 				utils.logger.log( this.name + ".getFiltered( waiting for previous fetch... )" );
 				this.bind("reset", this.getFiltered);
 			} else {
-				utils.logger.log( this.name + ".getFiltered( fetch! )" );
 				this.fetch( {success: this.getFiltered} );
 			}
 			return;

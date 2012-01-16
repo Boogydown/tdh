@@ -123,13 +123,22 @@ VU.MemberPopupView = VU.PopupView.extend({
 		var data = VU.LoginPopupView.prototype.getData.call(this),
 			owns = [], i = 0,
 			e = data.owns.events, el = e.length,
-			v = data.owns.vyntors, vl = v.length;
+			v = data.owns.vyntors, vl = v.length,
+			etmp, vtmp, model;
 		if ( el || vl ) {
 			var maxLen = Math.max(el, vl);
 			for ( ;i < maxLen; i++ ){
+				if ( etmp = (i < el ? e[i] : null)) {
+					if ( model = this.colls.events.get(etmp.id) )
+						etmp.caption = model.getOwnerCaption();
+				}
+				if ( vtmp = (i < vl ? v[i] : null)){
+					if ( model = this.colls[vtmp.type + "s"].get(vtmp.id) )
+						vtmp.caption = model.getOwnerCaption();
+				}
 				owns.push({ 
-					event: i < el ? e[i] : null,
-					vyntor: i < vl ? v[i] : null
+					event: etmp,
+					vyntor: vtmp
 				});
 			}
 			data.owns = owns;
@@ -144,7 +153,6 @@ VU.EventsContainerPopupView = VU.PopupView.extend({
 	// initialize must be extended to load this.collection
 	initialize : function ( options ) {
 		_.bindAll( this, "_modelLoaded", "nav", "onOpened" );
-		this.colls = options.colls;
 		VU.PopupView.prototype.initialize.call( this, options );
 	},
 	

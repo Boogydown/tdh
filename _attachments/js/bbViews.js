@@ -313,6 +313,7 @@ VU.PopupView = VU.DustView.extend({
 		//Set up Close for Popup and Fade for all future instances
 		_.bindAll(this, "closePopup", "render", "onOpened", "onClosed" );
 		//this.context = window.parent && window.parent.document || window.document;		
+		this.colls = options ? options.colls : null;
 		this.context = window.document;
 		this.registerTemplate( this.popTemplate );	
 	},

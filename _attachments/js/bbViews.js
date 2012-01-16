@@ -355,7 +355,7 @@ VU.PopupView = VU.DustView.extend({
 	closePopup : function () {
 		VU.PopupView.prototype.active = false;
 		var fade = $('#fade'),
-			pb = $(this.el),
+			pb = $('#popup_block'),
 			onClosed = this.onClosed;
 		pb && pb.fadeOut('fast', null, function() {
 			});

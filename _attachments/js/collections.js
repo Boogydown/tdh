@@ -13,13 +13,18 @@ VU.Collection = Backbone.Collection.extend({
 		this.fetched = false;
 		this.fetching = true;
 		options || (options = {});
-		var collection = this;
-		var success = options.success;
+		var collection = this,
+			success = options.success;
+		// we collect a success queue in case multiple fetch()'s are called in a row and one of them is already fetching
+		if (success)
+			(this.successQueue || (this.successQueue = [])).push(success);
+		var sQ = this.successQueue;
 		options.success = function(resp) {
 			collection.fetched = true;
 			collection.fetching = false;
 			collection[options.add ? 'add' : options.diff ? 'diff' : 'reset'](collection.parse(resp), options);
-			if (success) success(collection, resp);
+			if (_.isArray(sQ))
+				_.each(sQ, function(f){f(collection, resp);});
 		};
 		options.error = this.wrapError(options.error, collection, options);
 		(this.sync || Backbone.sync)('read', this, options);

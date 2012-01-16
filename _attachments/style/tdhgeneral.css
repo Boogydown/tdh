@@ -1011,7 +1011,7 @@ h2 {
     -khtml-border-radius: 10px;
     border-radius: 10px;	
 }
-div.close_popup {
+#close_popup {
 	cursor:pointer;
 	background: url(../images/cssSprite.png);
 	background-position: -190px -140px;

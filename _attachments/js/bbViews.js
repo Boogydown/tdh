@@ -303,7 +303,7 @@ VU.EventListingView = VU.ListingView.extend({
  *		this.getCaption
  **/
 VU.PopupView = VU.DustView.extend({
-	el : $("#popup_block"),
+	el : $("#popup_content"),
 	
 	// we want this to be static, so all use of it will refer to the prototype
 	// in other words, only one popup can be active at once
@@ -312,11 +312,9 @@ VU.PopupView = VU.DustView.extend({
 	initialize : function ( options ) {
 		//Set up Close for Popup and Fade for all future instances
 		_.bindAll(this, "closePopup", "render", "onOpened", "onClosed" );
-		//this.context = window.parent && window.parent.document || window.document;		
 		this.colls = options ? options.colls : null;
-		this.context = window.document;
 		this.registerTemplate( this.popTemplate );	
-		$('div.close_popup, #fade', this.context).click( function(){location.href="#///!";} );
+		$('#close_popup, #fade').click( function(){location.href="#///!";} );
 	},
 	
 	render : function () {
@@ -346,18 +344,18 @@ VU.PopupView = VU.DustView.extend({
 		//this.form.reset();  don't think we need this; when rendered the form starts clean		
 
 		//Fade in the fade layer - used to fix the IE Bug on fading transparencies 
-		$('#fade', this.context).css({'filter' : 'alpha(opacity=80)'}).fadeIn('fast'); 
+		$('#fade').css({'filter' : 'alpha(opacity=80)'}).fadeIn('fast'); 
 
 		//Fade Popup in and add close button
-		this.el.fadeIn('fast', this.onOpened);
+		$("#popup_block").fadeIn('fast', this.onOpened);
 		
 		return false;
 	},
 	
 	closePopup : function () {
 		VU.PopupView.prototype.active = false;
-		var fade = $('#fade', this.context),
-			pb = $('.popup_block', this.context),
+		var fade = $('#fade'),
+			pb = $(this.el),
 			onClosed = this.onClosed;
 		pb && pb.fadeOut('fast', null, function() {
 			});
@@ -370,8 +368,6 @@ VU.PopupView = VU.DustView.extend({
 	},	
 	
 	onOpened : function() {
-		//$("body", window.parent.document).append( this.el );
-		
 		//stub; subclasses can extend this if they want
 	},
 	

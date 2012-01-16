@@ -18,7 +18,7 @@ a:active {
 /* *html #fade {
 	position: absolute;
 }
-*html .popup_block {
+*html #popup_block {
 	position: absolute;
 } */
 
@@ -985,7 +985,7 @@ h2 {
 	opacity: .80;
 	z-index: 9999;
 }
-.popup_block{
+#popup_block{
 	display: none; /*--hidden by default--*/
 	background-image: url('../images/stripedBG.jpg');
     background-repeat:repeat;

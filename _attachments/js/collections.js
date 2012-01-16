@@ -9,23 +9,17 @@ VU.InitColls = function () {
  */
 VU.Collection = Backbone.Collection.extend({
 	fetch : function(options) {
-		options || (options = {});
-		var success = options.success;
-		// we collect a success queue in case multiple fetch()'s are called in a row and one of them is already fetching
-		if (success)
-			(this.successQueue || (this.successQueue = [])).push(success);
-		if ( this.fetching ) 
-			return;
+		if ( this.fetching ) return;
 		this.fetched = false;
 		this.fetching = true;
-		var sQ = this.successQueue,
-			collection = this;
+		options || (options = {});
+		var collection = this;
+		var success = options.success;
 		options.success = function(resp) {
 			collection.fetched = true;
 			collection.fetching = false;
 			collection[options.add ? 'add' : options.diff ? 'diff' : 'reset'](collection.parse(resp), options);
-			if (_.isArray(sQ))
-				_.each(sQ, function(f){f(collection, resp);});
+			if (success) success(collection, resp);
 		};
 		options.error = this.wrapError(options.error, collection, options);
 		(this.sync || Backbone.sync)('read', this, options);
@@ -194,7 +188,7 @@ VU.KeyedCollection = VU.Collection.extend({
 		this.filterQueue = [];
 		
 		_.bindAll( this, "reloadKeys", "changeKeys", "removeKeys", "addKeys", "getFiltered" );
-		this.bind( "reset", this.reloadKeys )
+		this.bind( "reset", this.reloadKeys );
 	},
 	
 	finalize : function() {
@@ -276,6 +270,7 @@ VU.KeyedCollection = VU.Collection.extend({
 	
 	//filterParams: {filters:[{key, start, end}], tail:int, callback:func}
 	getFiltered: function ( filterParams ) {
+		this.unbind("reset", this.getFiltered);
 		//we add to a queue in case multiple filter requests come in while we're waiting on the fetch to return
 		if ( filterParams && filterParams !== this ) 
 			this.filterQueue.push( filterParams );
@@ -283,8 +278,13 @@ VU.KeyedCollection = VU.Collection.extend({
 		utils.logger.log( this.name + ".getFiltered(" + ( filterParams && filterParams.name) + ", " + this.filterQueue.length + " queued )" );
 		
 		if ( !this.fetched ) {
-			utils.logger.log( this.name + ".getFiltered( fetch! )" );
-			this.fetch( {success: this.getFiltered} );
+			if ( this.fetching ) {
+				utils.logger.log( this.name + ".getFiltered( waiting for previous fetch... )" );
+				this.bind("reset", this.getFiltered);
+			} else {
+				utils.logger.log( this.name + ".getFiltered( fetch! )" );
+				this.fetch( {success: this.getFiltered} );
+			}
 			return;
 		}
 		if ( !this.keyed ) this.reloadKeys();

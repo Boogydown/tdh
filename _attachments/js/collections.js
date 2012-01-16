@@ -9,16 +9,17 @@ VU.InitColls = function () {
  */
 VU.Collection = Backbone.Collection.extend({
 	fetch : function(options) {
-		if ( this.fetching ) return;
-		this.fetched = false;
-		this.fetching = true;
 		options || (options = {});
-		var collection = this,
-			success = options.success;
+		var success = options.success;
 		// we collect a success queue in case multiple fetch()'s are called in a row and one of them is already fetching
 		if (success)
 			(this.successQueue || (this.successQueue = [])).push(success);
-		var sQ = this.successQueue;
+		if ( this.fetching ) 
+			return;
+		this.fetched = false;
+		this.fetching = true;
+		var sQ = this.successQueue,
+			collection = this;
 		options.success = function(resp) {
 			collection.fetched = true;
 			collection.fetching = false;

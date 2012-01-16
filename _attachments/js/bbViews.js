@@ -240,10 +240,11 @@ VU.EventListingView = VU.ListingView.extend({
 				listOf: this.options.navPrefix
 			});
 			lc = lc.render().el;
-			if ( this.el.childNodes.length > model.index + 1 ) //+1 for the spacer
+			if ( this.el.childNodes.length > model.index )//+ 1 ) //+1 for the spacer
 				$(this.el.childNodes[ model.index ]).before( lc );
 			else 
-				this.spacer.before( lc );
+				//this.spacer.before( lc );
+				this.el.appendChild( lc );
 		}
 	},
 	
@@ -260,11 +261,13 @@ VU.EventListingView = VU.ListingView.extend({
 	},
 	
 	_updateSpacer : function () {
+		/* killing spacer for now
 		var fullHeight = this.collection.fullLength * this.listingHeight;
 		var dif = fullHeight - this.el.scrollHeight;
 		var newSpacerHt = this.spacer.height() + dif;
 		newSpacerHt < 1 && (newSpacerHt = 0);
 		this.spacer.height( newSpacerHt );
+		*/
 		
 		// if there's still some spacer left then that means we have more stuff to render,
 		//	so hit up the next page (after some time...)

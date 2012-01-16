@@ -159,7 +159,6 @@
 		</div>{~n}{~n}
     </script>
     <script type="application/dust-template" id="popupTemplate_band">
-		<div class="close_popup" title="Close Window"></div>
 		<div id="popupTitle">{navCaption|s}</div>
 		<div id="info">
 			<h2>{bandName}</h2>
@@ -177,7 +176,6 @@
 		<div id="claimLink">{?ownedBy}{:else}Is this your band?  Fill out the <a target="_blank" href="http://texasdancehall.org/Band_ownership_form.html">Band Claim</a> form.{/ownedBy}</div>
     </script>
     <script type="application/dust-template" id="popupTemplate_hall">
-		<div class="close_popup" title="Close Window"></div>
 		<div id="popupTitle">{navCaption|s}</div>
 		<div id="info">
 			<h2>{danceHallName}</h2>
@@ -204,7 +202,6 @@
 		<div id="claimLink">{?ownedBy}{:else}Is this your dancehall?  Email <a href="mailto:admin@texasdancehall.org?Subject=Ownership">admin</a> to claim.{/ownedBy}</div>
     </script>
     <script type="application/dust-template" id="popupTemplate_login">
-		<div class="close_popup" title="Close Window"></div>
 		<div id="popupTitle">{navCaption|s}</div>
 		<div id="info">
 			<h2>Login</h2>
@@ -219,7 +216,6 @@
 		<div id="main-photo"><img src="images/TDHP_Logo_BW_gray_reverse-1.JPG" /></div>
     </script>
     <script type="application/dust-template" id="popupTemplate_signup">
-		<div class="close_popup" title="Close Window"></div>
 		<div id="info">
 			<h2>Sign up as a user</h2>
 			<div class="memberDetail">
@@ -237,7 +233,6 @@
 		<div id="main-photo"><img src="images/TDHP_Logo_BW_gray_reverse-1.JPG" /></div>
     </script>
     <script type="application/dust-template" id="popupTemplate_editMember">
-		<div class="close_popup" title="Close Window"></div>
 		<div id="info">
 			<h2>Edit profile info...</h2>
 			<div class="memberDetail">
@@ -260,7 +255,6 @@
 		</div>
     </script>
     <script type="application/dust-template" id="popupTemplate_member">
-		<div class="close_popup" title="Close Window"></div>
 		<div id="info">
 			<h2>User Profile</h2>
 			<div class="memberDetail">
@@ -293,7 +287,6 @@
 		<div id="main-photo"><img src="{image}" /></div>
     </script>
     <script type="application/dust-template" id="popupTemplate_addEvent">
-		<div class="close_popup" title="Close Window"></div>
 		<div id="popupTitle">{navCaption|s}</div>
 		<div id="info">
 			<IFRAME ID="vuFrame" SRC="http://dev.vyncup.t9productions.com:44384/tdh/_design/tdh_public/schemaForm.html#form/events/full" ALIGN="left" HEIGHT="403" WIDTH="618" STYLE="background-color:#E0E0E0"></IFRAME>
@@ -301,7 +294,6 @@
 	<!--<div id="main-photo"><img src="images/TDHP_Logo_BW_gray_reverse-1.JPG" /></div>-->
     </script>
     <script type="application/dust-template" id="popupTemplate_editWithPic">
-		<div class="close_popup" title="Close Window"></div>
 		<div id="popupTitle">{navCaption|s}</div>
 		<div id="info">
 			<form id="model_edit" enctype="multipart/form-data">
@@ -313,7 +305,6 @@
 		</div>
     </script>
     <script type="application/dust-template" id="popupTemplate_editNoPic">
-		<div class="close_popup" title="Close Window"></div>
 		<div id="popupTitle">{navCaption|s}</div>
 		<div id="info">
 			<form id="model_edit">
@@ -399,9 +390,12 @@
                 </div>
             </div>
             <!-- Popup (hidden) -->
-            <div id="popup_block" class="popup_block"></div>
+            <div id="popup_block" class="popup_block">
+				<div id="close_popup" title="Close Window"></div>
+			</div>
             <!--=========== END MAIN APP ===========-->
         </div>
     </div>
+	<div id="fade"></div>
 </body>
 </html>

@@ -316,6 +316,7 @@ VU.PopupView = VU.DustView.extend({
 		this.colls = options ? options.colls : null;
 		this.context = window.document;
 		this.registerTemplate( this.popTemplate );	
+		$('div.close_popup, #fade', this.context).click( function(){location.href="#///!";} );
 	},
 	
 	render : function () {
@@ -344,24 +345,17 @@ VU.PopupView = VU.DustView.extend({
 		this.render();
 		//this.form.reset();  don't think we need this; when rendered the form starts clean		
 
-		//Fade Background
-		$('body', this.context).append('<div id="fade"></div>');
 		//Fade in the fade layer - used to fix the IE Bug on fading transparencies 
 		$('#fade', this.context).css({'filter' : 'alpha(opacity=80)'}).fadeIn('fast'); 
 
 		//Fade Popup in and add close button
 		this.el.fadeIn('fast', this.onOpened);
 		
-		//$('div.close_popup, #fade', this.context).click( this.closePopup );
-		$('div.close_popup, #fade', this.context).click( function(){location.href="#///!";} );
-		//$("body", window.parent.document).click(this.closePopup);
 		return false;
 	},
 	
 	closePopup : function () {
 		VU.PopupView.prototype.active = false;
-		$('div.close_popup, #fade', this.context).unbind();
-		//$("body", window.parent.document).unbind("click");
 		var fade = $('#fade', this.context),
 			pb = $('.popup_block', this.context),
 			onClosed = this.onClosed;

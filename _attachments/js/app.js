@@ -35,6 +35,10 @@
 					collection: this.navColl
 				});
 				this.calView = new VU.CalView( {el: "#dancesCal"});
+				
+				// we'll need to fetch this for the map.
+				if ( !this.colls.halls.fetched && !this.colls.halls.fetching )
+					this.colls.halls.fetch();				
 			},
 			
 			activate : function ( filters ) {
@@ -339,8 +343,8 @@
 					VU.PopupView.prototype.closePopup();
 			}
 			
-			if ( !this.colls.halls.fetched && !this.colls.halls.fetching )
-				setTimeout( this.colls.halls.fetch(/*{add:true}*/{}),5000 );
+			//if ( !this.colls.halls.fetched && !this.colls.halls.fetching )
+				//setTimeout( this.colls.halls.fetch(/*{add:true}*/{}),5000 );
 		}
     });
 

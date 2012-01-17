@@ -75,12 +75,18 @@ VU.SchemaFormCreateBandView = VU.PopupView.extend({
 			//docID : this.modelID,
 			hidden : true
 		});
+		this.sF.bind("onSubmit", this.onSubmit);
 	},
 	
 	onClosed : function() {
 		this.sF.finalize();
 		this.sF = null;
+	},
+	
+	onSubmit : function() {
+		location.href = "#///editband";
 	}	
+	
 });	
 
 VU.SchemaFormBandView = VU.PopupView.extend({

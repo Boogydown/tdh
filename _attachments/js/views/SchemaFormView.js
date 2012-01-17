@@ -254,14 +254,15 @@ VU.InitSFV = function () {
 					error:utils.logger.errorHandler
 				});
 			}
-			
 			//document.forms[0].reset();
 			this.onCancel();
+			this.trigger("onSubmit");
 		},
 		
 		onCancel : function(){
 			this.finalize();
 			location.href = "#///!";
+			this.trigger("onClose");
 		},
 		
         deleteMe : function(){

@@ -1240,7 +1240,8 @@ VU.schemas = {
 					"type": "string",
 					"optional": true,
 					"_inputex": {
-						"label": "Contact Name"
+						"label": "Contact Name",
+						"size": 40
 					}					
 				},
 				"phone":{
@@ -1254,7 +1255,8 @@ VU.schemas = {
 					"type": "string",
 					"optional": true,
 					"_inputex": {
-						"label": "E-Mail"
+						"label": "E-Mail",
+						"size": 40
 					}					
 				},
 				"yearFounded":{
@@ -1374,7 +1376,8 @@ VU.schemas = {
 					"type": "string",
 					"optional": true,
 					"_inputex": {
-						"label": "Contact Name"
+						"label": "Contact Name",
+						"size": 40
 					}					
 				},
 				"phone":{
@@ -1388,7 +1391,8 @@ VU.schemas = {
 					"type": "string",
 					"optional": true,
 					"_inputex": {
-						"label": "E-Mail"
+						"label": "E-Mail",
+						"size": 40
 					}					
 				},
 				"yearFounded":{
@@ -1442,7 +1446,8 @@ VU.schemas = {
 					"type": "string",
 					"optional": true,
 					"_inputex": {
-						"label": "Contact Name"
+						"label": "Contact Name",
+						"size": 40
 					}					
 				},
 				"phone":{
@@ -1456,7 +1461,8 @@ VU.schemas = {
 					"type": "string",
 					"optional": true,
 					"_inputex": {
-						"label": "E-Mail"
+						"label": "E-Mail",
+						"size": 40
 					}					
 				},
 				"yearFounded":{

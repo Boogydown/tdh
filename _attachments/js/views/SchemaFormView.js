@@ -249,14 +249,16 @@ VU.InitSFV = function () {
 				if ( this.loggedIn && (!values.ownerUsers || !values.ownerUsers.length ))
 					// Is this model new and not have an owner yet?  Then make creator the owner
 					values.ownerUsers = [this.loggedIn];
+				var that = this;
 				this.model = this.collection.create(values,{
-					success: function(model){model.updateOwners([]);},
+					success: function(model){
+						that.trigger("onSubmit", model.id);
+						model.updateOwners([]);},
 					error:utils.logger.errorHandler
 				});
 			}
 			//document.forms[0].reset();
 			this.onCancel();
-			this.trigger("onSubmit", this.model.id);
 		},
 		
 		onCancel : function(){

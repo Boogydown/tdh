@@ -110,6 +110,7 @@ VU.InitSFV = function () {
 	 */
 	VU.SchemaFormView = VU.FormView.extend({
 		docModel: "",
+		ADD_NEW_TOKEN: "(Add new)",
 
         initialize : function(){
 			this.contentEl = $("#inputExContent");
@@ -147,7 +148,7 @@ VU.InitSFV = function () {
 			var colls = this.options.collection.colls;
 			if ( colls ) {
 				this.collsToFetch = 2;
-				if ( !colls.bands.fetched ) { colls.bands.bind( "reset", this.fetched ); colls.bands.fetch({field:0}) }
+				if ( !colls.bands.fetched ) { colls.bands.bind( "reset", this.fetched ); colls.bands.fetch({field:0, insertAdd:true}) }
 				else this.fetched( colls.bands, {field:0});
 				if ( !colls.halls.fetched ) { colls.halls.bind( "reset", this.fetched ); colls.halls.fetch({field:2}) }
 				else this.fetched( colls.halls, {field:2});
@@ -166,6 +167,8 @@ VU.InitSFV = function () {
 				return { label:name , value:model.get("_id") };
 			} );
             // add blanks to beginning
+			if (options.insertAdd)
+				this.sform.fields[options.field].choices.unshift({value:this.ADD_NEW_TOKEN, label: "(Add new)"});
 			this.sform.fields[options.field].choices.unshift({value:"", label: ""});
             if ( --this.collsToFetch == 0 )
 				this.attach();
@@ -224,6 +227,10 @@ VU.InitSFV = function () {
 			//this.model.unbind( "change", this.render );
 			
 			var values = this.inputex.getValue();
+			if ( values.band == this.ADD_NEW_TOKEN ){
+				location.href="#///addband";
+				return;
+			}
 			if ( this.form.image ) 
 				values.image = this.form.image.value;
 			values.type = this.options.collection.url;

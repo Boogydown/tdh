@@ -12,7 +12,7 @@ VU.InitSFV = function () {
 		ADD_NEW_TOKEN: "(Add new)",
 
 		initialize : function() {
-			_.bindAll( this, "submitPrep", "validate", "processSuccessFail", "checkForAdd" );
+			_.bindAll( this, "submitPrep", "validate", "processSuccessFail" );
 			this.form = $(this.el).is("form") ? $(this.el) : $("form", this.el);
 			if ( $(this.form[0]).is("form") ) this.form = this.form[0];
 			$(this.form).submit( this.submitPrep );
@@ -28,7 +28,7 @@ VU.InitSFV = function () {
 		},
 		
 		checkForAdd: function(e) {
-		if ( $(this).val() == this.ADD_NEW_TOKEN )
+		if ( $(this).val() == VU.FormView.ADD_NEW_TOKEN )
 			location.href = "#///add" + $(this).attr("name");
 		},
 		

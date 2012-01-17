@@ -1416,30 +1416,11 @@ VU.schemas = {
 						"size":40
 					}
 				},
-				"status":{
-					"type":"string",
-					"optional":true,
-                    "choices": [
-                        {"value":"Active","label":"Active"},
-                        {"value":"Not currently active","label":"Not currently active"},
-                        {"value":"Gone but not forgotten","label":"Gone but not forgotten"}
-                    ],
-					"_inputex": {
-						"label": "Status"
-					}
-				},
 				"website":{
 					"type":"url",
 					"optional":true,
 					"_inputex": {
 						"label": "Band website"
-					}					
-				},
-				"area":{
-					"type": "string",
-					"optional": true,
-					"_inputex": {
-						"label": "Area/Region"
 					}					
 				},
 				"contactName":{
@@ -1465,13 +1446,6 @@ VU.schemas = {
 						"size": 40
 					}					
 				},
-				"yearFounded":{
-					"type": "string",
-					"optional": true,
-					"_inputex": {
-						"label": "Year Founded"
-					}					
-				},				
 				"stylesPlayed":{
 					"type":"array",
 					"required":true,

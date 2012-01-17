@@ -220,6 +220,7 @@
 			member : VU.MemberPopupView,
 			editMember : VU.EditPopupView,
 			edithall : VU.SchemaFormHallView,
+			addband : VU.SchemaFormBandCreateView,
 			editband : VU.SchemaFormBandView,
 			addEvent : VU.SchemaFormEventView,
 			hall : VU.HallPopupView,

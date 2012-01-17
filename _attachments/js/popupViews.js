@@ -59,6 +59,30 @@ VU.SchemaFormHallView = VU.PopupView.extend({
 	}	
 });	
 	
+VU.SchemaFormCreateBandView = VU.PopupView.extend({
+	popTemplate : "popupTemplate_editNoPic",
+	getCaption: function() {
+		return "Create Band";
+	},
+	
+	onOpened : function() {
+		this.sF = new VU.SchemaFormView({
+			el : $("#model_edit"),
+			collName : "bands",
+			collection : this.options.colls.bands,
+			schemaName : "app_create",
+			schema : VU.schemas.bands.app_create,
+			//docID : this.modelID,
+			hidden : true
+		});
+	},
+	
+	onClosed : function() {
+		this.sF.finalize();
+		this.sF = null;
+	}	
+});	
+
 VU.SchemaFormBandView = VU.PopupView.extend({
 	popTemplate : "popupTemplate_editWithPic",
 	getCaption: function() {

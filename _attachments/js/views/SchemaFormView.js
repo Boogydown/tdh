@@ -149,7 +149,7 @@ VU.InitSFV = function () {
 			if ( colls ) {
 				this.collsToFetch = 2;
 				if ( !colls.bands.fetched ) { colls.bands.bind( "reset", this.fetched ); colls.bands.fetch({field:0, insertAdd:true}) }
-				else this.fetched( colls.bands, {field:0});
+				else this.fetched( colls.bands, {field:0, insertAdd:true});
 				if ( !colls.halls.fetched ) { colls.halls.bind( "reset", this.fetched ); colls.halls.fetch({field:2}) }
 				else this.fetched( colls.halls, {field:2});
 			}

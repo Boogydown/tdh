@@ -410,6 +410,7 @@ VU.BandModel = VU.EventsContainerModel.extend({
 		bio: "They play musical instruments.",
 		ownerUsers: [],
 		stylesPlayed: [],
+		hallsPlayed: [],
 		events: null
 	},
 	

@@ -1119,6 +1119,12 @@ border-width:0px 0px 0px 3px;
 	top:8px;
 }
 
+#inputExContent {
+    height: 420px;
+    overflow: auto;
+    width: 370px;
+}
+
 .inputEx-label {
 	height:23px;
 }

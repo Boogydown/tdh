@@ -28,7 +28,7 @@ VU.InitSFV = function () {
 		},
 		
 		checkForAdd: function(e) {
-		if ( $(this).val() == VU.FormView.ADD_NEW_TOKEN )
+		if ( $(this).val() == VU.FormView.prototype.ADD_NEW_TOKEN )
 			location.href = "#///add" + $(this).attr("name");
 		},
 		
@@ -176,7 +176,7 @@ VU.InitSFV = function () {
 			} );
             // add blanks to beginning
 			if (options.insertAdd)
-				this.sform.fields[options.field].choices.unshift({value:VU.FormView.ADD_NEW_TOKEN, label: "(Add new)"});
+				this.sform.fields[options.field].choices.unshift({value:VU.FormView.prototype.ADD_NEW_TOKEN, label: "(Add new)"});
 			this.sform.fields[options.field].choices.unshift({value:"", label: ""});
             if ( --this.collsToFetch == 0 )
 				this.attach();

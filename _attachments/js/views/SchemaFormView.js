@@ -9,11 +9,15 @@ VU.InitSFV = function () {
 	 * Must be composed with a Backbone.View subclass
 	 */
 	VU.FormView = Backbone.View.extend({
+		ADD_NEW_TOKEN: "(Add new)",
+
 		initialize : function() {
-			_.bindAll( this, "submitPrep", "validate", "processSuccessFail" );
+			_.bindAll( this, "submitPrep", "validate", "processSuccessFail", "checkForAdd" );
 			this.form = $(this.el).is("form") ? $(this.el) : $("form", this.el);
 			if ( $(this.form[0]).is("form") ) this.form = this.form[0];
 			$(this.form).submit( this.submitPrep );
+			var a;
+			if ( a=$("select")) a.change(this.checkForAdd);
 			if ( this.model ) {
 				if ( this.form._rev ) this.form._rev.value = this.model.get("_rev");
 				if ( this.form.image ) this.form.image.value = this.model.get("image");
@@ -21,6 +25,11 @@ VU.InitSFV = function () {
 				$(":file",this.form).change({model:this.model, el:this.form}, this.addAttachment);
 			}
 			//this.model.bind( "change", this.render );
+		},
+		
+		checkForAdd: function(e) {
+		if ( $(this).val() == this.ADD_NEW_TOKEN )
+			location.href = "#///add" + $(this).attr("name");
 		},
 		
 		finalize : function() {
@@ -110,7 +119,6 @@ VU.InitSFV = function () {
 	 */
 	VU.SchemaFormView = VU.FormView.extend({
 		docModel: "",
-		ADD_NEW_TOKEN: "(Add new)",
 
         initialize : function(){
 			this.contentEl = $("#inputExContent");
@@ -168,7 +176,7 @@ VU.InitSFV = function () {
 			} );
             // add blanks to beginning
 			if (options.insertAdd)
-				this.sform.fields[options.field].choices.unshift({value:this.ADD_NEW_TOKEN, label: "(Add new)"});
+				this.sform.fields[options.field].choices.unshift({value:VU.FormView.ADD_NEW_TOKEN, label: "(Add new)"});
 			this.sform.fields[options.field].choices.unshift({value:"", label: ""});
             if ( --this.collsToFetch == 0 )
 				this.attach();
@@ -227,10 +235,6 @@ VU.InitSFV = function () {
 			//this.model.unbind( "change", this.render );
 			
 			var values = this.inputex.getValue();
-			if ( values.band == this.ADD_NEW_TOKEN ){
-				location.href="#///addband";
-				return;
-			}
 			if ( this.form.image ) 
 				values.image = this.form.image.value;
 			values.type = this.options.collection.url;

@@ -256,7 +256,7 @@ VU.InitSFV = function () {
 			}
 			//document.forms[0].reset();
 			this.onCancel();
-			this.trigger("onSubmit");
+			this.trigger("onSubmit", this.model.id);
 		},
 		
 		onCancel : function(){

@@ -273,7 +273,7 @@ div.listingBG{
 	border: 0px;
 	position: relative;
 	left: 141px;
-	top: 67px;
+	bottom: -30px;
 	border-image: initial;
 	font-size: 10pt;
 	color: #999;
@@ -339,24 +339,16 @@ div#hallsDiv div.box.list, div#bandsDiv div.box.list{
     -khtml-border-radius: 10px;
     border-radius: 10px;	
 }
-/*
-div#bandsDiv div.box.list  {
-	background-color: transparent;
-	position: absolute;
-	top: 50px;
-	bottom: -20px;
-	/*behavior: url(border-radius.htc);*/
-	-moz-border-radius: 10px;
-    -webkit-border-radius: 10px;
-    -khtml-border-radius: 10px;
-    border-radius: 10px;	
-}
-*/
+
 div#hallsDiv div.list, div#bandsDiv div.list{
 	left: 15px;
 	width: 470px;
 	overflow: auto;
 	border-radius: 0 0 0 0;
+}
+
+div#bandsDiv div.box.list  {
+	bottom: -10px;
 }
 
 .itemlisting {

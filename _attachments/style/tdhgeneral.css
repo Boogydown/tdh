@@ -268,18 +268,15 @@ div.listingBG{
 
 #addBandPlus{
 	cursor: pointer;
-	background: url(../images/button-plus.png);
 	border: 0px;
 	border-width: 0px;
 	border: 0px;
-	float: right;
-	height: 35px;
-	width: 35px;
 	position: relative;
-	left: -107px;
-	bottom: 45px;
-	top: 15px;
+	left: 141px;
+	top: 67px;
 	border-image: initial;
+	font-size: 10pt;
+	color: #999;
 }
 /**************** Halls/Bands Listings ****************/
 div.searchFor{

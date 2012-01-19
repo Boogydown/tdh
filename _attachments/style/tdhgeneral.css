@@ -266,6 +266,22 @@ div.listingBG{
     height: 65px;
 }
 
+#addBandPlus{
+	cursor: pointer;
+	background: url(../images/button-+.png);
+	background-position: -190px -140px;
+	border: 0px;
+	border-width: 0px;
+	border: 0px;
+	float: right;
+	height: 35px;
+	width: 35px;
+	position: relative;
+	left: 458px;
+	bottom: 45px;
+	top: 15px;
+	border-image: initial;
+}
 /**************** Halls/Bands Listings ****************/
 div.searchFor{
 	background-color: transparent;

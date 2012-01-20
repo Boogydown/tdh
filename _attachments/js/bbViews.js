@@ -363,8 +363,8 @@ VU.PopupView = VU.DustView.extend({
 		pb && pb.fadeOut('fast', null, function() {
 			});
 		fade && fade.fadeOut('fast', function() {
+				location.href = "#///!";				
 				onClosed();
-				window.location = "#///!";				
 			});
 		return false;		
 	},	

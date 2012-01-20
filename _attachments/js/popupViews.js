@@ -79,12 +79,14 @@ VU.SchemaFormCreateBandView = VU.PopupView.extend({
 	},
 	
 	onClosed : function() {
+		if ( this.sF.model ) location.href = "#///editband&" + this.sF.model.id;
 		this.sF.finalize();
 		this.sF = null;
+
 	},
 	
 	onSubmit : function(id) {
-		location.href = "#///editband&" + id;
+		//location.href = "#///editband&" + id;
 	}	
 	
 });	

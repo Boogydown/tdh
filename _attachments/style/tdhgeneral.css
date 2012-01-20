@@ -666,7 +666,7 @@ div#popuplist{
 
 #info {
     display: inline;
-    left: 20px;
+    left: 10px;
     position: absolute;
     float:left;
 }
@@ -771,7 +771,7 @@ div#main-photo img{
 }
 
 form #main-photo {
-	left: 370px;
+	left: 395px;
 	top: 20px;
 	position: absolute;
 }
@@ -1124,9 +1124,9 @@ border-width:0px 0px 0px 3px;
 }
 
 #inputExContent {
-    height: 420px;
+    height: 350px;
     overflow: auto;
-    width: 370px;
+    width: 390px;
 }
 
 .inputEx-label {

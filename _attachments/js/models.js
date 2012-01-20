@@ -411,7 +411,8 @@ VU.BandModel = VU.EventsContainerModel.extend({
 		ownerUsers: [],
 		stylesPlayed: [],
 		hallsPlayed: [],
-		events: null
+		events: null,
+		status: "Active"
 	},
 	
 	initialize : function ( attrs, options ) { 

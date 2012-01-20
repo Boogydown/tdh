@@ -1199,6 +1199,7 @@ VU.schemas = {
 				},	
 				"image":{
 					"type":"string",
+					"optional":true,
 					"_inputex": {
 						"label": "Image Url"
 					},

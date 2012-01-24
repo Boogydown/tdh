@@ -10,7 +10,8 @@ couchapp_load([
   "/_utils/script/sha1.js",
   "/_utils/script/json2.js",
   /*"/_utils/script/jquery.js",*/
-  "js/lib/jquery-1.6.2.min.js",
+  /*"js/lib/jquery-1.6.2.min.js",*/
+  "https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.js",
   "js/lib/jquery-ui-1.8.16.custom.min.js",
   "/_utils/script/jquery.couch.js",
   "js/lib/jquery.form.js",

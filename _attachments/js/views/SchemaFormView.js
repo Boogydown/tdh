@@ -35,7 +35,7 @@ VU.InitSFV = function () {
 		finalize : function() {
 			$(this.form).unbind( "submit" );
 			$(":file",this.form).unbind();
-			this.form.reset();
+			//this.form.reset();
 			//this.model.unbind( "change", this.render );
 		},
 		

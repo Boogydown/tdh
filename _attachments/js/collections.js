@@ -217,7 +217,7 @@ VU.KeyedCollection = VU.Collection.extend({
 		//TODO: add these keys in sorted order; use to speed up removekeys and query
 		//TODO: can also use underscore's chain().map().flatten().reduce() (see docs www)
 		//TODO: BETTER YET, have this come in diretly from couch, instead of building it by hand
-		var key, value, i, j;
+		var key, value, values, i, j;
 		for ( i in this.filterableKeys ) {
 			key = this.filterableKeys[i];
 			value = model.get(key);
@@ -244,25 +244,31 @@ VU.KeyedCollection = VU.Collection.extend({
 	},
 	
 	removeKeys : function( model, removePrev ) {
-		var key, value, i, valModels, loc,
+		var key, value, values, i, j, valModels, loc,
 			// if a model was updated then we want to remove its previous attrs from keys
 			attrs = removePrev ? model.previousAttributes() : model.attributes;
 		for ( i in this.filterableKeys ) {
 			key = this.filterableKeys[i];
 			value = attrs[key];
-			if ( _.isString(value) ) value = value.toLowerCase();
 			if ( value !== undefined ) {
-				// we can assume that it must be in here, if not then just ignore
-				valModels = this.keys[key][value];
-				if ( valModels && _.size(valModels) > 1 && (loc = _(valModels).indexOf(model)) > -1 )
-					valModels.splice( loc, 1 );
-				else{
-					//cleanup
-					delete this.keys[key][value];
-					if (_.size(this.keys[key]) == 0)
-					{
-						this.unbind( "change:" + key, this.changeKeys );
-						delete this.keys[key];
+				// in case an attribute is actually an array of values....
+				values = _.isArray( value ) ? value : [value];
+				for ( j in values ) {
+					value = values[j];
+					if ( _.isString(value) ) value = value.toLowerCase();
+					// we can assume that it must be in here, if not then just ignore
+					valModels = this.keys[key][value];
+					if ( valModels && _.size(valModels) > 1 ) {
+						if ( (loc = _(valModels).indexOf(model)) > -1 )
+							valModels.splice( loc, 1 );
+					} else {
+						//cleanup cuz array is empty
+						delete this.keys[key][value];
+						if (_.size(this.keys[key]) == 0)
+						{
+							this.unbind( "change:" + key, this.changeKeys );
+							delete this.keys[key];
+						}
 					}
 				}
 			}

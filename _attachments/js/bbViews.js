@@ -340,7 +340,7 @@ VU.PopupView = VU.DustView.extend({
 		this.params = popAry;
 		this.model = this.mySession = mySession;
 		this.modelID = modelID;
-		VU.PopupView.prototype.active = true;
+		VU.PopupView.prototype.active = this;
 
 		// this will overwrite any existing popups
 		this.render();
@@ -356,15 +356,15 @@ VU.PopupView = VU.DustView.extend({
 	},
 	
 	closePopup : function () {
-		VU.PopupView.prototype.active = false;
-		var fade = $('#fade'),
+		var currentPop = VU.PopupView.prototype.active,
+			fade = $('#fade'),
 			pb = $('#popup_block'),
-			onClosed = this.onClosed;
+		VU.PopupView.prototype.active = null;
 		pb && pb.fadeOut('fast', null, function() {
 			});
 		fade && fade.fadeOut('fast', function() {
 				location.href = "#///!";				
-				onClosed();
+				currentPop.onClosed();
 			});
 		return false;		
 	},	

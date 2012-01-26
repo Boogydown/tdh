@@ -437,9 +437,7 @@ $(function(){
 						  "Are you SURE you want to do this?" ) ) {
 				if(this.model)
 					this.model.destroy();
-				$(this.el).fadeOut("fast",function(){
-					$(this).remove();
-				});
+				$(this.el).remove();
 			}
 			location.href="#list";
         },

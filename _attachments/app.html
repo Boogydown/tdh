@@ -173,7 +173,7 @@
 		<div class="detailmap" id="detailmap"></div>
 		<div id="nav-left"></div>
 		<div id="nav-right"></div>
-		<div id="claimLink">{?ownedBy}{:else}Is this your band?  Fill out the <a target="_blank" href="http://texasdancehall.org/Band_ownership_form.html">Band Claim</a> form.{/ownedBy}</div>
+		<div id="claimLink">{?ownerUsers}{:else}Is this your band?  Fill out the <a target="_blank" href="http://texasdancehall.org/Band_ownership_form.html">Band Claim</a> form.{/ownerUsers}</div>
     </script>
     <script type="application/dust-template" id="popupTemplate_hall">
 		<div id="popupTitle">{navCaption|s}</div>
@@ -199,7 +199,7 @@
 		<div id="detailmap" class="detailmap"></div>
 		<div id="nav-left"></div>
 		<div id="nav-right"></div>
-		<div id="claimLink">{?ownedBy}{:else}Is this your dancehall?  Email <a href="mailto:admin@texasdancehall.org?Subject=Ownership">admin</a> to claim.{/ownedBy}</div>
+		<div id="claimLink">{?ownerUsers}{:else}Is this your dancehall?  Email <a href="mailto:admin@texasdancehall.org?Subject=Ownership">admin</a> to claim.{/ownerUsers}</div>
     </script>
     <script type="application/dust-template" id="popupTemplate_login">
 		<div id="popupTitle">{navCaption|s}</div>

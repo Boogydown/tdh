@@ -190,6 +190,13 @@ VU.EventsContainerPopupView = VU.PopupView.extend({
 		VU.PopupView.prototype.initialize.call( this, options );
 	},
 	
+	getData : function () {
+		var data = VU.PopupView.prototype.getData.call( this );
+		if ( data.ownerUsers == [] ) 
+			data.ownerUsers = null;
+		return data;
+	},
+	
 	openPopup : function ( mySession, modelID, navColl, popAry ) {
 		this.ncIndex = popAry.length > 1 ? popAry[2] : null;
 		this.mySession = mySession;

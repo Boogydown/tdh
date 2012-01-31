@@ -90,7 +90,7 @@ VU.SchemaFormCreateBandView = VU.PopupView.extend({
 	},
 	
 	onSubmit : function(id) {
-		this.options.colls.bands.get(id).normalizeAttributes();
+		app.colls.bands.get(id).normalizeAttributes();
 		location.href = "#///editband&" + id;
 	}	
 	

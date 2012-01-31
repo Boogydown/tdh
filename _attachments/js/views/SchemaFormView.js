@@ -227,6 +227,8 @@ VU.InitSFV = function () {
 				(this.model = model);
 				if ( this.inputex ) this.inputex.setValue( this.model.toJSON() );
 			}
+			else
+				this.model = null;
 			VU.FormView.prototype.initialize.call( this );
 		},
 		

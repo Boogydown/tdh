@@ -405,9 +405,8 @@ VU.LinkingModel = VU.OwnableModel.extend({
 VU.BandModel = VU.EventsContainerModel.extend({
 	myType : "band",
 	defaults : {
-		bandName: "Generic Band",
+		bandName: "Loading...",
 		image: "../images/loader-spinner-big.gif",
-		bio: "They play musical instruments.",
 		ownerUsers: [],
 		stylesPlayed: [],
 		hallsPlayed: [],
@@ -492,6 +491,7 @@ VU.VenueModel = VU.EventsContainerModel.extend({
 	myType : "hall",
 	defaults : {
 		images: [{"credit":"generic", "image":"images/genericHall.JPG"}],
+		danceHallName: "Loading...",
 		documents: [],
 		events: null,
 		ownerUsers: []

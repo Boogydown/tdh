@@ -406,7 +406,7 @@ VU.BandModel = VU.EventsContainerModel.extend({
 	myType : "band",
 	defaults : {
 		bandName: "Generic Band",
-		image: "http://dev.vyncup.t9productions.com:44384/tdh/_design/tdh_public/images/genericBand.jpg",
+		image: "../images/loader-spinner-big.gif",
 		bio: "They play musical instruments.",
 		ownerUsers: [],
 		stylesPlayed: [],

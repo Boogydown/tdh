@@ -80,18 +80,18 @@ VU.SchemaFormCreateBandView = VU.PopupView.extend({
 	
 	onClosed : function() {
 		// if model is already created and in the coll, and not already to edit window, then goto edit
-		if ( this.sF.model && this.options.colls.bands.get(this.sF.model.id) && _.indexOf(location.href,"editband") == -1 ) {
-			this.sF.model.normalizeAttributes();
-			location.href = "#///editband&" + this.sF.model.id;
-		}
+		if ( this.sF.model && this.options.colls.bands.get(this.sF.model.id) )
+			this.onSubmit( this.sF.model.id );
 		this.sF.finalize();
 		this.sF = null;
 
 	},
 	
 	onSubmit : function(id) {
-		app.colls.bands.get(id).normalizeAttributes();
-		location.href = "#///editband&" + id;
+		if ( _.indexOf(location.href, "editband") == -1 ) {
+			app.colls.bands.get(id).normalizeAttributes();
+			location.href = "#///editband&" + id;
+		}
 	}	
 	
 });	

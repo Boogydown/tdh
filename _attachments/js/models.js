@@ -435,7 +435,7 @@ VU.BandModel = VU.EventsContainerModel.extend({
 
 	normalizeAttributes : function ( model, val, options ) {
 		// image and website
-		if ( options.skipNormalize ) return;
+		if ( options && options.skipNormalize ) return;
 
 		var bandID = this.id;
 		var image = this.get("image");

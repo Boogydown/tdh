@@ -418,11 +418,8 @@ $(function(){
 				case "picUrl" : 
 					if ( schemaProp.clickable )
 						text = '<a href="../../' + this.model.id + "/files/" + modelVal + '"><img src="../../' + this.model.id + "/thumbs/" + modelVal + '"/> ' + modelVal + '</a>';
-					else {
+					else 
 						text = '<img src="../../' + this.model.id + "/thumbs/" + modelVal + '"/></a>';
-						if ( this.clickDest )
-							row.clickDest = this.clickDest;
-					}
 					break;
 				case "url" :
 					text = '<a href="http://' + modelVal + '">' + modelVal + '</a>';
@@ -438,9 +435,9 @@ $(function(){
 					// fixed width on long entries
 					if ( modelVal.length > 40 ) row.className="bigCell";
 					text = modelVal;
-					if ( this.clickDest )
-						row.clickDest = this.clickDest;
 			}
+			if ( this.clickDest && !schemaProp.clickable )
+				row.clickDest = this.clickDest;
 			row.value = text;
 			return row;
 		},

@@ -1246,6 +1246,7 @@ VU.schemas = {
 			"type":"object",
 			"properties":{
 				"image":{
+					description: "Image",
 					"type":"string",
 					"optional":true,
 					"_inputex": {
@@ -1255,6 +1256,7 @@ VU.schemas = {
 					"picUrl":true
 				},
 				"bandName":{
+					description: "Band name",
 					"type":"string",
 					"required":true,
 					"_inputex": {
@@ -1263,6 +1265,7 @@ VU.schemas = {
 					}
 				},
 				"status":{
+					description: "Status",
 					"type":"string",
 					"optional":true,
                     "choices": [
@@ -1275,6 +1278,7 @@ VU.schemas = {
 					}
 				},
 				"stylesPlayed":{
+					description: "Styles played",
 					"type":"array",
 					"required":true,
 					"items": {
@@ -1285,35 +1289,21 @@ VU.schemas = {
 					}
 				},
 				"area":{
+					description: "Area",
 					"type": "string",
 					"optional": true,
 					"_inputex": {
 						"label": "Area/Region"
 					}					
 				},
-				"contactName":{
+				"yearFounded":{
+					description: "Year founded",
 					"type": "string",
 					"optional": true,
 					"_inputex": {
-						"label": "Contact Name",
-						"size": 40
+						"label": "Year Founded"
 					}					
-				},
-				"phone":{
-					"type": "string",
-					"optional": true,
-					"_inputex": {
-						"label": "Phone"
-					}					
-				},
-				"email":{
-					"type": "string",
-					"optional": true,
-					"_inputex": {
-						"label": "E-Mail",
-						"size": 40
-					}					
-				}	
+				}
 			}
 		},
 

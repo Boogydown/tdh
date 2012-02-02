@@ -528,17 +528,20 @@ $(function(){
 		elAttachments : { 
 			form: {
 				viewClass: "SchemaFormView",
-				el : $("#model_edit")
+				el : $("#model_edit"),
+				schema : "full"
 			},
 			list: {
 				viewClass: "SchemaTableView",
 				el: $("#coll_table"),
-				templateName: "table-row"
+				templateName: "table-row",
+				schema : "mini"
 			},
 			doc: {
 				viewClass: "SchemaDocSoloView",
 				el:$("#model_table"),
-				templateName: "doc-table"
+				templateName: "doc-table",
+				schema : "full"
 			}
 		},
 		
@@ -571,7 +574,7 @@ $(function(){
 			// normalize the route based on any persistant values 
 			// (i.e. for urls without all the /params after the hash, we'll just used the previous, saved value)
 			var collName 	= collName 	|| this.collName,
-				schemaName 	= schemaName|| this.schemaName,
+				//schemaName 	= schemaName|| this.schemaName,
 				showType 	= showType 	|| this.showType,
 				docID 		= docID 	|| this.docID,
 				curPage 	= curPage 	|| this.curPage,
@@ -596,6 +599,9 @@ $(function(){
 			
 			// if doc requested, but no docID, then revert back to list
 			if ( showType == "doc" && !docID ) showType = "list";
+			
+			// allow each showType to have its own default schema
+			schemaName = schemaName || this.elAttachments[showType].schema || this.schemaName;
 			
 			// since incomplete hashes are filled out via saved values, we need to reset the hash in the actual 
 			// URL so that it reflects the full, actual hash url that we're at.  This maintains the RESTful functionality

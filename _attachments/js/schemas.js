@@ -1089,6 +1089,13 @@ VU.schemas = {
 			"description":"Display event info as part of a listing",
 			"type":"object",
 			"properties":{
+				"band":{
+					"description": "Band ID",
+					"type":"string",
+					"required":true,
+					"linkRef": "bands",
+					hidden:true
+				},
 				"bandName":{
 					"description": "Band Name",
 					"type":"string",
@@ -1097,6 +1104,13 @@ VU.schemas = {
 						linkRef: "band",
 						cell: "bandName"
 					}
+				},
+				"hall":{
+					"description": "Dancehall ID",
+					"type":"string",
+					"required":true,
+					"linkRef": "halls",
+					hidden:true
 				},
 				"hallName":{
 					"description": "DanceHall Name",

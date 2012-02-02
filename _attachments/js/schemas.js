@@ -1083,6 +1083,46 @@ VU.schemas = {
 					}
 				}
 			}
+		},
+			
+		mini: {
+			"description":"Display event info as part of a listing",
+			"type":"object",
+			"properties":{
+				"bandName":{
+					"description": "Band Name",
+					"type":"string",
+					"required":true,
+					"linkVal": { 
+						linkRef: "band",
+						cell: "bandName"
+					}
+				},
+				"hallName":{
+					"description": "DanceHall Name",
+					"type":"string",
+					"required":true,
+					"linkVal": { 
+						linkRef: "hall",
+						cell: "danceHallName"
+					}
+				},
+				"date":{
+					"description": "Date of event",
+					"type":"string",
+					"required":true
+				},
+				"time":{
+					"description": "Starts at",
+					"type":"string",
+					"optional":true
+				},
+				"eventType":{
+					"description": "Type of event",
+					"type":"string",
+					"optional":true
+				}
+			}
 		}
 	},
 	

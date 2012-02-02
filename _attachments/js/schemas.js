@@ -1131,6 +1131,14 @@ VU.schemas = {
 					"type":"string",
 					"optional":true
 				},
+				"ageLimit":{
+					"description": "Age limit",
+					"type":"string"
+				},
+				"admission":{
+					"description": "Admission",
+					"type":"string"
+				},
 				"eventType":{
 					"description": "Type of event",
 					"type":"string",

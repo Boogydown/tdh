@@ -435,9 +435,9 @@ $(function(){
         deleteMe : function(){
 			if ( confirm( "This will permanently delete this entry!\n" + 
 						  "Are you SURE you want to do this?" ) ) {
+				$(this.el).remove();
 				if(this.model)
 					this.model.destroy();
-				$(this.el).remove();
 			}
 			location.href="#list";
         },

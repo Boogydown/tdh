@@ -543,7 +543,7 @@ VU.schemas = {
 			}
 		},
 		
-		member: {
+		mini: {
 			"description":"A dancehall is a venue dedicated to musical performances and dancing",
 			"type":"object",
 			"properties":{
@@ -557,11 +557,6 @@ VU.schemas = {
 						"_type": "hidden"
 					}
 				},
-				"danceHallName":{
-					"description": "Dance Hall Name",
-					"type":"string",
-					"required":true
-				},
 				"images":{
 					"description":"Images",
 					"type": "array",
@@ -574,19 +569,14 @@ VU.schemas = {
 								"type":"file",
 								"clickable":false,
 								"enctype":"multipart/form-data",
-								"required":true,
-								"buttons": {
-									"type": "submit", 
-									"value": "Upload"
-								} 
-							},
-							"credit": {
-								"description": "Image credit",
-								"type":"string",
-								"optional":true
 							}
 						}
 					}
+				},
+				"danceHallName":{
+					"description": "Dance Hall Name",
+					"type":"string",
+					"required":true
 				},
 				"community":{
 					"description": "Community",
@@ -598,71 +588,10 @@ VU.schemas = {
 					"type":"string",
 					"optional":true
 				},
-				"address":{
-					"description": "Address",
-					"type":"string",
-					"optional":true
-				},
-				"directions":{
-					"description": "Directions",
-					"type":"string",
-					"optional":true
-				},
-				"currentUse":{
-					"description": "Current Use",
-					"type":"string",
-					"optional":true
-				},
-				"culturalOrigin":{
-					"description": "Cultural Origin",
-					"type":"string",
-					"optional":true
-				},
 				"dateBuilt":{
 					"description": "Date Built",
 					"type":"string",
 					"optional":true
-				},
-				"website":{
-					"description": "Website",
-					"type":"url",
-					"optional":true
-				},
-				"description":{
-					"description": "Description",
-					"type":"string",
-					"optional":true
-				},
-				"comments":{
-					"description": "Comments",
-					"type":"string",
-					"optional":true
-				},
-				"historicalNarrative":{
-					"description": "Historical Narrative",
-					"type":"string",
-					"optional":true
-				},
-				"documents":{
-					"description": "Documents",
-					"type":"array",
-					"optional":true,
-					"items":{
-						"type":"object",
-						"properties":{
-							"documentName":{
-								"description": "Document Name",
-								"type":"string",
-								"optional":true
-							},
-							"attachedReferenceDocument":{
-								"description": "Attached Reference Document",
-								"type":"file",
-								"clickable":false,
-								"required":true
-							}
-						}
-					}
 				}
 			}
 		},

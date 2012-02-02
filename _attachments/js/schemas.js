@@ -1132,6 +1132,7 @@ VU.schemas = {
 					"clickable":true,
 					"enctype":"multipart/form-data",
 					"optional":true,
+					hidden:true,
 					"_inputex": {
 						"label": "Image"
 					}

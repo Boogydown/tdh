@@ -655,7 +655,7 @@ $(function(){
 						});
 						this[ curView ] = new VU[att.viewClass]( att );
 					} else {
-						this[ curView ].render();
+						//this[ curView ].render();
 					}
 				}
 				else

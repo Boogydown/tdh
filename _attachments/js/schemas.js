@@ -558,7 +558,7 @@ VU.schemas = {
 					}
 				},
 				"images":{
-					"description":"Images",
+					"description":"Image",
 					"type": "array",
 					"optional":true,
 					"items":{
@@ -575,11 +575,12 @@ VU.schemas = {
 									size:26
 								},
 								"picUrl":true,
-								clickable: false,
-								takeOne: true
+								clickable: false
 							}
 						}
-					}
+					},
+					clickable: false,
+					takeOne: true					
 				},
 				"danceHallName":{
 					"description": "Dance Hall Name",

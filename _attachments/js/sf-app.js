@@ -401,8 +401,10 @@ $(function(){
 						else
 							text += this.renderValue( key, schemaProp.items, modelVal[x] ).value + ", ";
 						text += "<br/>";
-						if ( schemaProp.takeOne ) 
+						if ( schemaProp.takeOne ) {
+							row.className = "";
 							break;
+						}
 					}
 					break;
 				//case "file" : 

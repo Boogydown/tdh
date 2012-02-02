@@ -290,7 +290,7 @@ $(function(){
 			
 			// populate quickFindEntries
 			this.collection.forEach(function(e,i,l){ 
-				quickFindEntries.push( {value:e.id, label:e.get("bandName")||e.get("danceHallName")} );
+				quickFindEntries.push( {value:e.id, label:e.get("bandName")||e.get("danceHallName")||e.get("date")} );
 			});
 				
 			// bundle up and deliver

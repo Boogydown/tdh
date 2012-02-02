@@ -34,6 +34,16 @@
   
   <script type="application/dust-template" id="table-header">
     <tr>
+		<td colspan="2">
+			<form>
+				<select id="listQuickFind" name="listQuickFind" onchange="function(e){location.href='#doc///' + e.target.value;}">
+					<option value=""></option>
+					{#quickFindEntries}<option value="{value}">{label}</option>{/quickFindEntries}
+				</select>
+			</form>
+		</td>
+	</tr>
+	<tr>
 		<td style="border:0px"><div style="width:210px">
 			{?prevPage}<a href="#////{prevPage}">&lt Prev</a>{:else}&lt Prev{/prevPage}&nbsp
 			{pageList|s}

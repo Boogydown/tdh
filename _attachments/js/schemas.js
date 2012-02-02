@@ -67,7 +67,8 @@ VU.schemas = {
 									typeInvite: "(auto-filled; do not edit)",
 									size:26
 								},
-								"picUrl":true
+								"picUrl":true,
+								clickable:true
 							},
 							"credit": {
 								"description": "Image credit",

@@ -265,6 +265,7 @@ $(function(){
 				curPage = this.options.curPage || 0,
 				fields = this.options.schema.properties,
 				pageString = "",
+				quickFindEntries = [],
 				start, end, key;
 				
 			// grab all unhidden fields
@@ -287,11 +288,17 @@ $(function(){
 			if ( end  < maxPage ) 
 				pageString += "... <a href='#////" + maxPage + "'>" + (maxPage+1) + "</a>";
 			
+			// populate quickFindEntries
+			this.collection.forEach(function(e,i,l){ 
+				quickFindEntries.push( {value:e.id, label:e.get("bandName")||e.get("danceHallName")} );
+			});
+				
 			// bundle up and deliver
 			myData.fields = rowData;
 			myData.curPage = curPage;
 			myData.maxPage = maxPage;
 			myData.pageList = pageString;
+			myData.quickFindEntries = quickFindEntries;
 			return myData;
 		},		
 
@@ -401,10 +408,8 @@ $(function(){
 						else
 							text += this.renderValue( key, schemaProp.items, modelVal[x] ).value + ", ";
 						text += "<br/>";
-						if ( schemaProp.takeOne ) {
-							row.className = "";
+						if ( schemaProp.takeOne )
 							break;
-						}
 					}
 					break;
 				//case "file" : 
@@ -603,7 +608,7 @@ $(function(){
 			if ( showType == "doc" && !docID ) showType = "list";
 			
 			// allow each showType to have its own default schema
-			schemaName = this.elAttachments[showType].schema || schemaName || this.schemaName;
+			schemaName = schemaName || this.elAttachments[showType].schema || this.schemaName;
 			
 			// since incomplete hashes are filled out via saved values, we need to reset the hash in the actual 
 			// URL so that it reflects the full, actual hash url that we're at.  This maintains the RESTful functionality

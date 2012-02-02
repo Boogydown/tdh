@@ -634,15 +634,16 @@ $(function(){
 			
 						//TODO: remove the local var copies of these params (just keep them in this) and 
 						//		use _.extend( att, this, this.elAttachment[curType] );
-						att = this.elAttachments[curType];
-						att.collName = collName;
-						att.collection = coll;
-						att.schemaName = schemaName;
-						att.schema = schema;
-						att.docID = docID;
-						att.curPage = Number(curPage);
-						att.numPerPage = Number(numPerPage);
-						att.hidden = hidden == 1;
+						att = _.extend( {
+							collName : collName,
+							collection : coll,
+							schemaName : schemaName,
+							schema : schema,
+							docID : docID,
+							curPage : Number(curPage),
+							numPerPage : Number(numPerPage),
+							hidden : hidden == 1
+						}, this.elAttachments[curType] );
 						this[ curView ] = new VU[att.viewClass]( att );
 					} else {
 						this[ curView ].render();

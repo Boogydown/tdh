@@ -401,14 +401,19 @@ $(function(){
 						else
 							text += this.renderValue( key, schemaProp.items, modelVal[x] ).value + ", ";
 						text += "<br/>";
+						if ( schemaProp.takeOne ) 
+							break;
 					}
 					break;
 				//case "file" : 
 				case "picUrl" : 
 					if ( schemaProp.clickable )
 						text = '<a href="../../' + this.model.id + "/files/" + modelVal + '"><img src="../../' + this.model.id + "/thumbs/" + modelVal + '"/> ' + modelVal + '</a>';
-					else
+					else {
 						text = '<img src="../../' + this.model.id + "/thumbs/" + modelVal + '"/></a>';
+						if ( this.clickDest )
+							row.clickDest = this.clickDest;
+					}
 					break;
 				case "url" :
 					text = '<a href="http://' + modelVal + '">' + modelVal + '</a>';

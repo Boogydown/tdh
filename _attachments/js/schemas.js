@@ -565,10 +565,18 @@ VU.schemas = {
 						"type":"object",
 						"properties":{
 							"image": {
-								"description":"Image file",
-								"type":"file",
-								"clickable":false,
-								"enctype":"multipart/form-data",
+								"description": "Image Url",
+								"type":"string",
+								"optional":true,
+								"readonly":true,
+								"_inputex": {
+									"label": "Image URL",
+									typeInvite: "(auto-filled; do not edit)",
+									size:26
+								},
+								"picUrl":true,
+								clickable: false,
+								takeOne: true
 							}
 						}
 					}

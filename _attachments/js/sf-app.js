@@ -360,9 +360,9 @@ $(function(){
 			{
 				try {
 					//this.el.setAttribute("onclick", "location.href='#doc/"
-					this.clickDest = "location.href='#doc/"
-						+ this.options.collName + "/" 
-						+ this.options.schemaName + "/" 
+					this.clickDest = "location.href='#doc///"
+						//+ this.options.collName + "/" 
+						//+ this.options.schemaName + "/" 
 						+ this.model.id + "'";
 				} catch (e) {}
 			}
@@ -408,8 +408,10 @@ $(function(){
 						else
 							text += this.renderValue( key, schemaProp.items, modelVal[x] ).value + ", ";
 						text += "<br/>";
-						if ( schemaProp.takeOne )
+						if ( schemaProp.takeOne ) {
+							row.className = null;
 							break;
+						}
 					}
 					break;
 				//case "file" : 

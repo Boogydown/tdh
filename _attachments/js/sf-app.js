@@ -601,7 +601,7 @@ $(function(){
 			if ( showType == "doc" && !docID ) showType = "list";
 			
 			// allow each showType to have its own default schema
-			schemaName = schemaName || this.elAttachments[showType].schema || this.schemaName;
+			schemaName = this.elAttachments[showType].schema || schemaName || this.schemaName;
 			
 			// since incomplete hashes are filled out via saved values, we need to reset the hash in the actual 
 			// URL so that it reflects the full, actual hash url that we're at.  This maintains the RESTful functionality

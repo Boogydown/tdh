@@ -1240,6 +1240,82 @@ VU.schemas = {
 				}				
 			}
 		},
+		
+		mini: {
+			"description":"A band profile",
+			"type":"object",
+			"properties":{
+				"image":{
+					"type":"string",
+					"optional":true,
+					"_inputex": {
+						"label": "Image Url"
+					},
+					"readonly":true,
+					"picUrl":true
+				},
+				"bandName":{
+					"type":"string",
+					"required":true,
+					"_inputex": {
+						"label": "Band Name",
+						"size":40
+					}
+				},
+				"status":{
+					"type":"string",
+					"optional":true,
+                    "choices": [
+                        {"value":"Active","label":"Active"},
+                        {"value":"Not currently active","label":"Not currently active"},
+                        {"value":"Gone but not forgotten","label":"Gone but not forgotten"}
+                    ],
+					"_inputex": {
+						"label": "Status"
+					}
+				},
+				"stylesPlayed":{
+					"type":"array",
+					"required":true,
+					"items": {
+						"type":"string"
+					},
+					"_inputex": {
+						"label": "Different styles played:"
+					}
+				},
+				"area":{
+					"type": "string",
+					"optional": true,
+					"_inputex": {
+						"label": "Area/Region"
+					}					
+				},
+				"contactName":{
+					"type": "string",
+					"optional": true,
+					"_inputex": {
+						"label": "Contact Name",
+						"size": 40
+					}					
+				},
+				"phone":{
+					"type": "string",
+					"optional": true,
+					"_inputex": {
+						"label": "Phone"
+					}					
+				},
+				"email":{
+					"type": "string",
+					"optional": true,
+					"_inputex": {
+						"label": "E-Mail",
+						"size": 40
+					}					
+				}	
+			}
+		},
 
 		app: {
 			"description":"A band profile",

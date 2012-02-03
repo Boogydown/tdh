@@ -472,6 +472,7 @@ VU.MapView = Backbone.View.extend({
 	addMarker : function ( model, m, overwrite ) {
 		overwrite === undefined && (overwrite = true); //default to true
 		var hall = this.getHall( model );
+		if ( !hall ) return;
 		hall && hall.unbind( "change", this.addMarker );
 		var modelID = hall.id;
 		

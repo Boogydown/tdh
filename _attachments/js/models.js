@@ -405,7 +405,7 @@ VU.LinkingModel = VU.OwnableModel.extend({
 VU.BandModel = VU.EventsContainerModel.extend({
 	myType : "band",
 	defaults : {
-		//bandName: "Loading...",
+		bandName: " ",
 		image: "../images/loader-spinner-big.gif",
 		ownerUsers: [],
 		stylesPlayed: [],

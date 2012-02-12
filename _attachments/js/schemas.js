@@ -840,6 +840,18 @@ VU.schemas = {
 					"_inputex": {
 						"_type": "hidden"
 					}
+				},
+				"ownerUsers":{
+					"type": "array",
+					"optional":true,
+					"items":{
+						"type":"string",
+						"linkRef": "_users",
+						"choices": [ {"value":"unauthorized","label":"You are not authorized to see this list"} ]
+					},
+					"_inputex": {
+						"label": "Owner users"
+					}
 				}				
 			}
 		},

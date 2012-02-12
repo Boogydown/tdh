@@ -411,7 +411,8 @@ VU.BandModel = VU.EventsContainerModel.extend({
 		stylesPlayed: [],
 		hallsPlayed: [],
 		events: null,
-		status: "Active"
+		status: "Active",
+		dateCreated: new Date().getTime()
 	},
 	
 	initialize : function ( attrs, options ) { 

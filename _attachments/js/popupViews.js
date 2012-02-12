@@ -19,7 +19,7 @@ Please click OK if you agree to these terms.')) {location.href="#///!"; return;}
 			el : $("#model_edit"),
 			collName : "events",
 			collection : this.options.colls.events,
-			schemaName : "full",
+			schemaName : "full-app",
 			schema : VU.schemas.events.full,
 			docID : this.modelID,
 			hidden : true

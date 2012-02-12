@@ -856,7 +856,7 @@ VU.schemas = {
 			}
 		},
 		
-		full-app: {
+		full_app: {
 			"description":"A basic event is an attraction, a venues, a time",
 			"type":"object",
 			"properties":{

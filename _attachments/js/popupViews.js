@@ -20,7 +20,7 @@ Please click OK if you agree to these terms.')) {location.href="#///!"; return;}
 			collName : "events",
 			collection : this.options.colls.events,
 			schemaName : "full_app",
-			schema : VU.schemas.events.full,
+			schema : VU.schemas.events.full_app,
 			docID : this.modelID,
 			hidden : true
 		});

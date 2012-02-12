@@ -454,9 +454,9 @@ $(function(){
         },
 		
 		editMe : function() {
-			location.href="#form/"
-				+ this.options.collName + "/" 
-				+ this.options.schemaName + "/" 
+			location.href="#form///"
+				//+ this.options.collName + "/" 
+				//+ this.options.schemaName + "/" 
 				+ this.model.id;
 		}
     });

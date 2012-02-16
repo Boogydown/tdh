@@ -435,8 +435,8 @@ VU.BandModel = VU.EventsContainerModel.extend({
 	//url : function () { return "https://dev.vyncup.t9productions.com:44384/tdh/" + this.id; },
 
 	normalizeAttributes : function ( model, val, options ) {
-		_utils.logger.log( "Normalize " + model.name + ": " + val );
-		_utils.logger.log( this.attributes );
+		utils.logger.log( "Normalize " + model.name + ": " + val );
+		utils.logger.log( this.attributes );
 		
 		// image and website
 		if ( options && options.skipNormalize ) return;

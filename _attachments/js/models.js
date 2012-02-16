@@ -419,10 +419,11 @@ VU.BandModel = VU.EventsContainerModel.extend({
 		VU.EventsContainerModel.prototype.initialize.call( this, attrs, options );
 		this.name = _.uniqueId( "band" );
 		_.bindAll( this, "normalizeAttributes", "searchComplete" );
-		this.bind( "change:image", this.normalizeAttributes );		
-		this.bind( "change:stylesPlayed", this.normalizeAttributes );		
-		this.bind( "change:website", this.normalizeAttributes );		
-		this.bind( "change:bandName", this.normalizeAttributes );		
+		//this.bind( "change:image", this.normalizeAttributes );		
+		//this.bind( "change:stylesPlayed", this.normalizeAttributes );		
+		//this.bind( "change:website", this.normalizeAttributes );		
+		//this.bind( "change:bandName", this.normalizeAttributes );		
+		this.bind("change", this.normalizeAttributes );
 		// kick it off once for those that came in at init
 		this.normalizeAttributes( this, "", {} );
 	},
@@ -434,6 +435,7 @@ VU.BandModel = VU.EventsContainerModel.extend({
 	//url : function () { return "https://dev.vyncup.t9productions.com:44384/tdh/" + this.id; },
 
 	normalizeAttributes : function ( model, val, options ) {
+		//_utils.logger.log( "Normalize " + model.name + ": " + val );
 		// image and website
 		if ( options && options.skipNormalize ) return;
 
@@ -502,11 +504,12 @@ VU.VenueModel = VU.EventsContainerModel.extend({
 		VU.EventsContainerModel.prototype.initialize.call( this, attrs, options );
 		this.name = _.uniqueId( "hall" );
 		_.bindAll( this, "normalizeAttributes" );
-		this.bind( "change:images", this.normalizeAttributes );		
-		this.bind( "change:dateBuilt", this.normalizeAttributes );		
-		this.bind( "change:historicalNarrative", this.normalizeAttributes );		
-		this.bind( "change:website", this.normalizeAttributes );		
-		this.bind( "change:danceHallName", this.normalizeAttributes );		
+		//this.bind( "change:images", this.normalizeAttributes );		
+		//this.bind( "change:dateBuilt", this.normalizeAttributes );		
+		//this.bind( "change:historicalNarrative", this.normalizeAttributes );		
+		//this.bind( "change:website", this.normalizeAttributes );		
+		//this.bind( "change:danceHallName", this.normalizeAttributes );		
+		this.bind( "change", this.normalizeAttributes );
 		// kick it off once for those that came in at init
 		this.normalizeAttributes();
 	},

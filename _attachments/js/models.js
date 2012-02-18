@@ -625,7 +625,8 @@ VU.EventModel = VU.LinkingModel.extend({
 		}
 
 		var ownerUsers = this.get("ownerUsers");
-		for ( var user in ownerUsers ) {
+		for ( var i in ownerUsers ) {
+			var user = ownerUsers[i];
 			if ( !(user in app.ownerUsers ))
 				app.ownerUsers[user] = {events:{},vyntors:{}}
 			app.ownerUsers[user].events[this.id] = this;

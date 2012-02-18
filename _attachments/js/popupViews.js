@@ -159,6 +159,7 @@ VU.MemberPopupView = VU.PopupView.extend({
 		// we need to format the ownership data to be display-friendly		
 		var data = VU.LoginPopupView.prototype.getData.call(this),
 			owns = [], i = 0,
+			eventsOwn=[], vyntorsOwn=[],
 			e = data.owns.events, el = e.length,
 			v = data.owns.vyntors, vl = v.length,
 			etmp, vtmp, model;

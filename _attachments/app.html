@@ -273,20 +273,20 @@
 					</tr>
 					{#eventsOwn}
 					<tr>
-						<td><a href="#///addEvent&{event.id}">{event.caption}</a></td>
+						<td><a href="#///addEvent&{id}">{caption}</a></td>
 					</tr>
 					{/eventsOwn}
 				</tbody></table>
 			</div>
 			{?ownsVyntor}
 			<div class="ownershipBox">
-				<table class="ownershipTable"><tbody>
+				<table class="ownershipTable" style="left:312px"><tbody>
 					<tr>
 						<th><span>Bands or Halls that I own</span></th>
 					</tr>
 					{#vyntorsOwn}
 					<tr>
-						<td class="mark"><a href="#///edit{vyntor.type}&{vyntor.id}">{vyntor.caption}</a></td>
+						<td class="mark"><a href="#///edit{type}&{id}">{caption}</a></td>
 					</tr>
 					{/vyntorsOwn}
 				</tbody></table>

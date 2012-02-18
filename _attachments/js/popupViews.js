@@ -173,6 +173,8 @@ VU.MemberPopupView = VU.PopupView.extend({
 					if ( model = this.colls[vtmp.type + "s"].get(vtmp.id) )
 						vtmp.caption = model.getOwnerCaption();
 				}
+				eventsOwn.push(etmp);
+				vyntorsOwn.push(vtmp);
 				owns.push({ 
 					event: etmp,
 					vyntor: vtmp

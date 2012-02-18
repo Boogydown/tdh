@@ -270,16 +270,28 @@
 				<table class="ownershipTable"><tbody>
 					<tr>
 						<th><span>Events currently posted</span></th>
-						<th>{?ownsVyntor}<span>Bands or Halls that I own</span>{/ownsVyntor}</th>
 					</tr>
-					{#owns}
+					{#eventsOwn}
 					<tr>
-						<td>{?event}<a href="#///addEvent&{event.id}">{event.caption}</a>{/event}</td>
-						<td class="mark">{?vyntor}<a href="#///edit{vyntor.type}&{vyntor.id}">{vyntor.caption}</a>{/vyntor}</td>
+						<td><a href="#///addEvent&{event.id}">{event.caption}</a></td>
 					</tr>
-					{/owns}
+					{/eventsOwn}
 				</tbody></table>
 			</div>
+			{?ownsVyntor}
+			<div class="ownershipBox">
+				<table class="ownershipTable"><tbody>
+					<tr>
+						<th><span>Bands or Halls that I own</span></th>
+					</tr>
+					{#vyntorsOwn}
+					<tr>
+						<td class="mark"><a href="#///edit{vyntor.type}&{vyntor.id}">{vyntor.caption}</a></td>
+					</tr>
+					{/vyntorsOwn}
+				</tbody></table>
+			</div>
+			{/ownsVyntor}
 			<div class="ownershipFooter">
 				<i>Clich here to <a href="#///addEvent">Add an event</a></i></td>
 				<!--<td class="mark"><i>Request ownership by emailing the <a href="mailto:admin@texasdancehall.org?Subject=Ownership">admin</a>.</i></td>-->

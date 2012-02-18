@@ -346,7 +346,7 @@
 					VU.PopupView.prototype.closePopup();
 			}
 			
-			if ( !this.colls.halls.fetched && !this.colls.halls.fetching )
+			if ( !this.colls.bands.fetched && !this.colls.bands.fetching )
 				setTimeout( this.colls.bands.fetch(/*{add:true}*/{}),5000 );
 		}
     });

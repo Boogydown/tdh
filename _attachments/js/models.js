@@ -449,7 +449,8 @@ VU.BandModel = VU.EventsContainerModel.extend({
 		if ( _.isArray(entryDescription) ) entryDescription = entryDescription.join(", ") + ". ";
 		
 		var ownerUsers = this.get("ownerUsers");
-		for ( var user in ownerUsers ) {
+		for ( var i in ownerUsers ) {
+			var user = ownerUsers[i];
 			if ( !(user in app.ownerUsers ))
 				app.ownerUsers[user] = {events:{},vyntors:{}}
 			app.ownerUsers[user].vyntors[this.id] = this;
@@ -545,7 +546,8 @@ VU.VenueModel = VU.EventsContainerModel.extend({
 			// TODO: check to see if this URL exists... ?  perhaps try <img src.... onerror=""/>
 			
 		var ownerUsers = this.get("ownerUsers");
-		for ( var user in ownerUsers ) {
+		for ( var i in ownerUsers ) {
+			var user = ownerUsers[i];
 			if ( !(user in app.ownerUsers ))
 				app.ownerUsers[user] = {events:{},vyntors:{}}
 			app.ownerUsers[user].vyntors[this.id] = this;

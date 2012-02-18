@@ -182,6 +182,8 @@ VU.MemberPopupView = VU.PopupView.extend({
 				});
 			}
 			data.owns = owns;
+			data.eventsOwn = eventsOwn;
+			data.vyntorsOwn = vyntorsOwn;
 			if ( vl ) data.ownsVyntor = true;
 		}		
 		return data;

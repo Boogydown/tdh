@@ -172,8 +172,8 @@ VU.MemberPopupView = VU.PopupView.extend({
 			vyntorsOwn.push( {
 				id: id,
 				caption: e[id].getOwnerCaption(),
-				type:e[id].myType
-			) };
+				type: e[id].myType
+			} );
 			
 		data.eventsOwn = eventsOwn;
 		data.vyntorsOwn = vyntorsOwn;

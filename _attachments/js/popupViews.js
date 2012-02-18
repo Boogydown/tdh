@@ -158,7 +158,7 @@ VU.MemberPopupView = VU.PopupView.extend({
 	getData : function() {
 		// we need to format the ownership data to be display-friendly		
 		var data = VU.LoginPopupView.prototype.getData.call(this),
-			owns = app.ownerUsers[this.id] || {events:{},vyntors:{}},
+			owns = app.ownerUsers[this.model.id] || {events:{},vyntors:{}},
 			eventsOwn=[], vyntorsOwn=[],
 			e = owns.events,
 			v = owns.vyntors,

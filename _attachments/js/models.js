@@ -420,12 +420,12 @@ VU.BandModel = VU.EventsContainerModel.extend({
 		VU.EventsContainerModel.prototype.initialize.call( this, attrs, options );
 		this.name = _.uniqueId( "band" );
 		_.bindAll( this, "normalizeAttributes", "searchComplete" );
-		this.bind( "change:image", this.normalizeAttributes );		
-		this.bind( "change:stylesPlayed", this.normalizeAttributes );		
-		this.bind( "change:website", this.normalizeAttributes );		
-		this.bind( "change:bandName", this.normalizeAttributes );		
-		this.bind( "change:ownerUsers", this.normalizeAttributes );		
-		//this.bind("change", this.normalizeAttributes );
+		//this.bind( "change:image", this.normalizeAttributes );		
+		//this.bind( "change:stylesPlayed", this.normalizeAttributes );		
+		//this.bind( "change:website", this.normalizeAttributes );		
+		//this.bind( "change:bandName", this.normalizeAttributes );		
+		//this.bind( "change:ownerUsers", this.normalizeAttributes );		
+		this.bind("change", this.normalizeAttributes );
 		// kick it off once for those that came in at init
 		this.normalizeAttributes( this, "", {} );
 	},
@@ -516,13 +516,13 @@ VU.VenueModel = VU.EventsContainerModel.extend({
 		VU.EventsContainerModel.prototype.initialize.call( this, attrs, options );
 		this.name = _.uniqueId( "hall" );
 		_.bindAll( this, "normalizeAttributes" );
-		this.bind( "change:images", this.normalizeAttributes );		
-		this.bind( "change:dateBuilt", this.normalizeAttributes );		
-		this.bind( "change:historicalNarrative", this.normalizeAttributes );		
-		this.bind( "change:website", this.normalizeAttributes );		
-		this.bind( "change:danceHallName", this.normalizeAttributes );		
-		this.bind( "change:ownerUsers", this.normalizeAttributes );		
-		//this.bind( "change", this.normalizeAttributes );
+		//this.bind( "change:images", this.normalizeAttributes );		
+		//this.bind( "change:dateBuilt", this.normalizeAttributes );		
+		//this.bind( "change:historicalNarrative", this.normalizeAttributes );		
+		//this.bind( "change:website", this.normalizeAttributes );		
+		//this.bind( "change:danceHallName", this.normalizeAttributes );		
+		//this.bind( "change:ownerUsers", this.normalizeAttributes );		
+		this.bind( "change", this.normalizeAttributes );
 		// kick it off once for those that came in at init
 		this.normalizeAttributes();
 	},
@@ -597,11 +597,12 @@ VU.EventModel = VU.LinkingModel.extend({
 	initialize: function ( attrs, options ) {
 		this.name = _.uniqueId( "event" );
 		_.bindAll( this, "normalizeData" );
-		this.bind( "change:date", this.normalizeData );
-		this.bind( "change:hall", this.normalizeData );
-		this.bind( "change:date", this.normalizeData );
-		this.bind( "change:gpsCoordinates", this.normalizeData );
-		this.bind( "change:ownerUsers", this.normalizeData );
+		//this.bind( "change:date", this.normalizeData );
+		//this.bind( "change:hall", this.normalizeData );
+		//this.bind( "change:date", this.normalizeData );
+		//this.bind( "change:gpsCoordinates", this.normalizeData );
+		//this.bind( "change:ownerUsers", this.normalizeData );
+		this.bind( "change", this.normalizeData );
 		// date comes in at init, silently, so we'll normalize it now
 		VU.LinkingModel.prototype.initialize.call(this, attrs, options);
 		this.normalizeData(); 

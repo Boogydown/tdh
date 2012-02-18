@@ -158,34 +158,26 @@ VU.MemberPopupView = VU.PopupView.extend({
 	getData : function() {
 		// we need to format the ownership data to be display-friendly		
 		var data = VU.LoginPopupView.prototype.getData.call(this),
-			owns = [], i = 0,
+			owns = app.ownerUsers[this.id] || {events:{},vyntors:{}},
 			eventsOwn=[], vyntorsOwn=[],
-			e = data.owns.events, el = e.length,
-			v = data.owns.vyntors, vl = v.length,
-			etmp, vtmp, model;
-		if ( el || vl ) {
-			var maxLen = Math.max(el, vl);
-			for ( ;i < maxLen; i++ ){
-				if ( etmp = (i < el ? e[i] : null)) {
-					if ( model = this.colls.events.get(etmp.id) )
-						etmp.caption = model.getOwnerCaption();
-				}
-				if ( vtmp = (i < vl ? v[i] : null)){
-					if ( model = this.colls[vtmp.type + "s"].get(vtmp.id) )
-						vtmp.caption = model.getOwnerCaption();
-				}
-				eventsOwn.push(etmp);
-				vyntorsOwn.push(vtmp);
-				owns.push({ 
-					event: etmp,
-					vyntor: vtmp
-				});
-			}
-			data.owns = owns;
-			data.eventsOwn = eventsOwn;
-			data.vyntorsOwn = vyntorsOwn;
-			if ( vl ) data.ownsVyntor = true;
-		}		
+			e = owns.events,
+			v = owns.vyntors,
+			id;
+		for ( id in e )
+			eventsOwn.push( {
+				id: id,
+				caption: e[id].getOwnerCaption()
+			} );
+		for ( id in v )
+			vyntorsOwn.push( {
+				id: id,
+				caption: e[id].getOwnerCaption(),
+				type:e[id].myType
+			) };
+			
+		data.eventsOwn = eventsOwn;
+		data.vyntorsOwn = vyntorsOwn;
+		if ( vyntorsOwn.length ) data.ownsVyntor = true;
 		return data;
 	}
 });

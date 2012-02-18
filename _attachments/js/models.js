@@ -243,6 +243,7 @@ VU.OwnableModel = Backbone.Model.extend({
 	
 	updateOwners : function ( prev )
 	{
+		return;
 		var model = this,
 			//prev = isNew ? [] : model.previous("ownerUsers"),  for some reason, previous is not always giving previous value, but current value... which is useless
 			val = model.get("ownerUsers"),
@@ -406,7 +407,7 @@ VU.BandModel = VU.EventsContainerModel.extend({
 	myType : "band",
 	defaults : {
 		bandName: " ",
-		image: "../images/loader-spinner-big.gif",
+		image: "images/loader-spinner-big.gif",
 		ownerUsers: [],
 		stylesPlayed: [],
 		hallsPlayed: [],
@@ -423,6 +424,7 @@ VU.BandModel = VU.EventsContainerModel.extend({
 		this.bind( "change:stylesPlayed", this.normalizeAttributes );		
 		this.bind( "change:website", this.normalizeAttributes );		
 		this.bind( "change:bandName", this.normalizeAttributes );		
+		this.bind( "change:ownerUsers", this.normalizeAttributes );		
 		//this.bind("change", this.normalizeAttributes );
 		// kick it off once for those that came in at init
 		this.normalizeAttributes( this, "", {} );
@@ -445,6 +447,13 @@ VU.BandModel = VU.EventsContainerModel.extend({
 		var image = this.get("image");
 		var entryDescription = this.get("stylesPlayed");
 		if ( _.isArray(entryDescription) ) entryDescription = entryDescription.join(", ") + ". ";
+		
+		var ownerUsers = this.get("ownerUsers");
+		for ( var user in ownerUsers ) {
+			if ( !(user in app.ownerUsers ))
+				app.ownerUsers[user] = {events:{},vyntors:{}}
+			app.ownerUsers[user].vyntors[this.id] = this;
+		}		
 		
 		this.set( {
 			website: (this.get("website")||"").split("://").pop(),
@@ -511,6 +520,7 @@ VU.VenueModel = VU.EventsContainerModel.extend({
 		this.bind( "change:historicalNarrative", this.normalizeAttributes );		
 		this.bind( "change:website", this.normalizeAttributes );		
 		this.bind( "change:danceHallName", this.normalizeAttributes );		
+		this.bind( "change:ownerUsers", this.normalizeAttributes );		
 		//this.bind( "change", this.normalizeAttributes );
 		// kick it off once for those that came in at init
 		this.normalizeAttributes();
@@ -533,6 +543,13 @@ VU.VenueModel = VU.EventsContainerModel.extend({
 		if ( hallPic != this.defaults.images[0].image )
 			hallPic = "../../" + hallID + "/thumbs/" + encodeURI( hallPic );
 			// TODO: check to see if this URL exists... ?  perhaps try <img src.... onerror=""/>
+			
+		var ownerUsers = this.get("ownerUsers");
+		for ( var user in ownerUsers ) {
+			if ( !(user in app.ownerUsers ))
+				app.ownerUsers[user] = {events:{},vyntors:{}}
+			app.ownerUsers[user].vyntors[this.id] = this;
+		}
 			
 		var entryDescription = "", str = this.get("dateBuilt");
 		if ( str ) 
@@ -582,6 +599,7 @@ VU.EventModel = VU.LinkingModel.extend({
 		this.bind( "change:hall", this.normalizeData );
 		this.bind( "change:date", this.normalizeData );
 		this.bind( "change:gpsCoordinates", this.normalizeData );
+		this.bind( "change:ownerUsers", this.normalizeData );
 		// date comes in at init, silently, so we'll normalize it now
 		VU.LinkingModel.prototype.initialize.call(this, attrs, options);
 		this.normalizeData(); 
@@ -604,6 +622,13 @@ VU.EventModel = VU.LinkingModel.extend({
 		if ( myDate.toString() == "Invalid Date" || ! myDate.getTime() ) {
 			utils.logger.log( "Invalid date: " + (myDateStr == "" ? "(empty string)" : myDateStr) + ".  Using today's date." );
 			myDate = new Date();
+		}
+
+		var ownerUsers = this.get("ownerUsers");
+		for ( var user in ownerUsers ) {
+			if ( !(user in app.ownerUsers ))
+				app.ownerUsers[user] = {events:{},vyntors:{}}
+			app.ownerUsers[user].events[this.id] = this;
 		}
 		
 		var lat, lng, gps = this.get( "gpsCoordinates" );

@@ -237,7 +237,9 @@
 				try{location.hash = window.parent.location.hash;}catch(e){};
 			VU.PersistentRouter.prototype.initialize.call(this);
 			_.bindAll( this, "routeHandler" );
-						
+			
+			this.ownerUsers = {};
+			
 			// create all master collections (these hold all models are filtered locally)
 			var colls = this.colls = {
 				bands : new VU.BandCollection(null, {name:"bandsMaster"}),

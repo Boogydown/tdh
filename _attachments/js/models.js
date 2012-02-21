@@ -451,7 +451,7 @@ VU.BandModel = VU.EventsContainerModel.extend({
 		var ownerUsers = this.get("ownerUsers");
 		for ( var i in ownerUsers ) {
 			var user = ownerUsers[i];
-			if ( !(user in app.ownerUsers ))
+			if ( !(app.ownerUsers.hasOwnProperty(user) ))
 				app.ownerUsers[user] = {events:{},vyntors:{}}
 			app.ownerUsers[user].vyntors[this.id] = this;
 		}		
@@ -551,7 +551,7 @@ VU.VenueModel = VU.EventsContainerModel.extend({
 		var ownerUsers = this.get("ownerUsers");
 		for ( var i in ownerUsers ) {
 			var user = ownerUsers[i];
-			if ( !(user in app.ownerUsers ))
+			if ( !(app.ownerUsers.hasOwnProperty(user) ))
 				app.ownerUsers[user] = {events:{},vyntors:{}}
 			app.ownerUsers[user].vyntors[this.id] = this;
 		}
@@ -633,7 +633,7 @@ VU.EventModel = VU.LinkingModel.extend({
 		var ownerUsers = this.get("ownerUsers");
 		for ( var i in ownerUsers ) {
 			var user = ownerUsers[i];
-			if ( !(user in app.ownerUsers ))
+			if ( !(app.ownerUsers.hasOwnProperty(user) ))
 				app.ownerUsers[user] = {events:{},vyntors:{}}
 			app.ownerUsers[user].events[this.id] = this;
 		}

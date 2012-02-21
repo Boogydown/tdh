@@ -555,6 +555,8 @@ $(function(){
 		
         initialize : function(){
 			_.bindAll( this, "updateShow" );
+			this.ownerUsers = {};
+
 			this.colls = {
 				bands : new VU.BandCollection(),
 				halls : new VU.HallCollection()

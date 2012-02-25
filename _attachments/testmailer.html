@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	
+  <head>
+    <title>Test Mailer</title>
+  </head>
+  
+  <body>
+	  <div id="status"></div>
+  </body>
+  
+  <script type="text/javascript" src="js/lib/jquery-1.6.2.min.js"></script>
+  <script type="text/javascript">
+	var callback = function( data, textStatus ){
+		$("#status").text(textStatus);
+	};
+	$.post( "/_mailer", {
+		"sender": {"VyncUp Bot": "vyncupbot@dev.vyncup.t9productions.com"},
+		"recipients": {
+			//"to": {"Patrick Sparks": "psparks@texasdancehall.org"},
+			"to": { "Dimitri": "boogydown@gmail.com"},
+			"cc": { "Jerry Jackson": "jerry.w.jackson@gmail.com"},
+			"bcc": {}
+		},
+		"subject": "Mailer Test",
+		"message": "If you are reading this then the mailer worked!",
+		"message-format": "plain"
+	}, callback );
+
+  </script>
+  
+</html>

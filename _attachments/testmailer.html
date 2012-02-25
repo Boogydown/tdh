@@ -14,7 +14,7 @@
 	var callback = function( data, textStatus ){
 		$("#status").text(textStatus);
 	};
-	$.post( "/_mailer", {
+	$.post( "/tdh/_mailer", {
 		"sender": {"VyncUp Bot": "vyncupbot@dev.vyncup.t9productions.com"},
 		"recipients": {
 			//"to": {"Patrick Sparks": "psparks@texasdancehall.org"},

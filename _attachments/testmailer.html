@@ -17,12 +17,13 @@
 	$.post( "/tdh/_mailer", {
 		"sender": {"VyncUp": "vyncup@gmail.com"},
 		"recipients": {
-			"to": { "Dimitri": "boogydown@gmail.com"},
-			"cc": { "Jerry Jackson": "jerry.w.jackson@gmail.com"},
+			"cc": { "Dimitri": "boogydown@gmail.com"},
+			"to": { "Jerry Jackson": "jerry.w.jackson@gmail.com"},
 			"bcc": {}
 		},
 		"subject": "Mailer Test",
-		"message": "If you are reading this then the mailer worked!"
+		"message": "If you are reading this then the mailer worked!",
+		"msgformat": "text/plain"
 	}, callback );
 
   </script>

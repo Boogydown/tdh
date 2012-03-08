@@ -15,6 +15,7 @@
 		$("#status").text(textStatus);
 	};
 	$.post( "/tdh/_mailer", {
+    'body': {
 		"sender": {"VyncUp": "vyncup@gmail.com"},
 		"recipients": {
 			"cc": { "Dimitri": "boogydown@gmail.com"},
@@ -24,7 +25,19 @@
 		"subject": "Mailer Test",
 		"message": "If you are reading this then the mailer worked!",
 		"msgformat": "text/plain"
-	}, callback );
+	},
+    'cookie': {
+        '__utma': '96992031.3087658685658095000.1224404084.1226129950.1226169567.5',
+        '__utmz': '96992031.1224404084.1.1.utmcsr'
+    },
+    'form': {},
+    'info': {
+        'db_name': 'tdh'
+	},
+    'path': [],
+    'query': {},
+    'method': 'POST'
+}, callback );
 
   </script>
   

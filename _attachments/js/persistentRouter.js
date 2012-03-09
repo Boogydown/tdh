@@ -34,7 +34,7 @@ VU.PersistentRouter = Backbone.Router.extend({
 		} catch(e){alert(e.message || e.description);}
 		
 		// save persistent routes (if not called earlier, by user's handler)
-		if ( ! this._savedLoc ) this.saveRoutes.apply( this, newaArgs );
+		if ( ! this._savedLoc ) this.saveRoutes.apply( this, newArgs );
 	},
 	
 	saveRoutes : function (/* arg list */) {

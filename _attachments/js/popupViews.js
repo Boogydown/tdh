@@ -1,5 +1,8 @@
 VU.InitPopupViews = function () {
 
+/**
+ * Popup for creating an event
+ */
 VU.SchemaFormEventView = VU.PopupView.extend({
 	popTemplate : "popupTemplate_editNoPic",
 	getCaption: function() {
@@ -32,6 +35,9 @@ Please click OK if you agree to these terms.')) {location.href="#///!"; return;}
 	}
 });	
 
+/**
+ * Popup for editing a hall
+ */
 VU.SchemaFormHallView = VU.PopupView.extend({
 	popTemplate : "popupTemplate_editNoPic",
 	getCaption: function() {
@@ -59,6 +65,9 @@ VU.SchemaFormHallView = VU.PopupView.extend({
 	}	
 });	
 	
+/**
+ * Popup for creating a band
+ */
 VU.SchemaFormCreateBandView = VU.PopupView.extend({
 	popTemplate : "popupTemplate_editNoPic",
 	getCaption: function() {
@@ -89,13 +98,28 @@ VU.SchemaFormCreateBandView = VU.PopupView.extend({
 	
 	onSubmit : function(id) {
 		if ( _.indexOf(location.href, "editband") == -1 ) {
-			app.colls.bands.get(id).normalizeAttributes();
+/*			$.post( "/_mailer", {
+				"sender": {"VyncUp Bot": "vyncupbot@dev.vyncup.t9productions.com"},
+				"recipients": {
+					//"to": {"Patrick Sparks": "psparks@texasdancehall.org"},
+					"to": {"Dimitri": "boogydown@gmail.com"},
+					"cc": {},
+					"bcc": {}
+				},
+				"subject": "Band Added",
+				"message": "Band added, id:" + id,
+				"message-format": "plain"
+			} );
+*/			app.colls.bands.get(id).normalizeAttributes();
 			location.href = "#///editband&" + id;
 		}
 	}	
 	
 });	
 
+/**
+ * Popup for editing a band
+ */
 VU.SchemaFormBandView = VU.PopupView.extend({
 	popTemplate : "popupTemplate_editWithPic",
 	getCaption: function() {
@@ -123,6 +147,9 @@ VU.SchemaFormBandView = VU.PopupView.extend({
 	}	
 });	
 	
+/**
+ * Deprecated Popup for creating an event
+ */
 VU.AddEventPopupView = VU.PopupView.extend({
 	popTemplate : "popupTemplate_addEvent",
 	getCaption: function() {
@@ -141,6 +168,9 @@ Please click OK if you agree to these terms.')) location.href="#///!";
 	}
 });	
 
+/**
+ * Popup for displaying a user's profile
+ */
 VU.MemberPopupView = VU.PopupView.extend({
 	popTemplate : "popupTemplate_member",
 	getCaption: function() {
@@ -243,6 +273,11 @@ VU.EventsContainerPopupView = VU.PopupView.extend({
 		this.navColl = null;
 	},
 	
+	/**
+	 * Handler for left and right nav-arrow buttons
+	 * This will traverse our navColl.  The navColl is usually the filtered list
+	 * that is on the tab behind the current popup
+	 */
 	nav : function ( event ) {
 		// navcoll is used to get the next/prev index... but we're still going to pull from this.collection
 		var coll = this.navColl, id, model;
@@ -272,6 +307,9 @@ VU.EventsContainerPopupView = VU.PopupView.extend({
 	}	
 });
 
+/**
+ * Popup for seeing more info about a dance hall
+ */
 VU.HallPopupView = VU.EventsContainerPopupView.extend( {
 	popTemplate : "popupTemplate_hall",
 	navPrefix : "hall",
@@ -307,6 +345,9 @@ VU.HallPopupView = VU.EventsContainerPopupView.extend( {
 	}
 });
 
+/**
+ * Popup for seeing more info about a band
+ */
 VU.BandPopupView = VU.EventsContainerPopupView.extend( {
 	popTemplate : "popupTemplate_band",
 	navPrefix : "band",
@@ -341,6 +382,9 @@ VU.BandPopupView = VU.EventsContainerPopupView.extend( {
 });
 
 //== Popup Form Base Class ====================================================================
+/**
+ * Popup for logging in
+ */
 VU.LoginPopupView = VU.PopupView.extend({
 	popTemplate : "popupTemplate_login",
 
@@ -360,7 +404,6 @@ VU.LoginPopupView = VU.PopupView.extend({
 		this.formView = null;
 	},
 	
-	//override
     validate : function (data, callback) {
       if (!data.name || data.name.length == 0) {
         callback({name: "Please enter a name."});
@@ -377,7 +420,6 @@ VU.LoginPopupView = VU.PopupView.extend({
       return true;
     },	
 	
-	//override
 	processSuccessFail : function( errors, href ) {
 		if ($.isEmptyObject(errors)) {
 			if ( href )
@@ -393,7 +435,6 @@ VU.LoginPopupView = VU.PopupView.extend({
 		}
 	},
 	
-	//override
 	submit : function(data, callback) {
 		if (!this.validate(data, callback)) return;
 		this.model.doLogin(data.name, data.password, callback);
@@ -401,6 +442,9 @@ VU.LoginPopupView = VU.PopupView.extend({
 	}
 });
 
+/**
+ * Popup for signing up
+ */
 VU.SignupPopupView = VU.LoginPopupView.extend({
 	popTemplate : "popupTemplate_signup",
 
@@ -420,8 +464,10 @@ VU.SignupPopupView = VU.LoginPopupView.extend({
 	}
 });
 
-// Editing a profile...
-//	We can safely assume that a user session exists when this is opened
+/**
+ * Editing a profile...
+ * We can safely assume that a user session exists when this is opened
+ */
 VU.EditPopupView = VU.LoginPopupView.extend({
 	popTemplate : "popupTemplate_editMember",
 	

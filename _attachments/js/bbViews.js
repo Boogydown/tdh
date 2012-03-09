@@ -2,10 +2,18 @@ VU.InitViews = function () {
 /////////////////////////////////////////////////////////////////////////////}
 /// VIEWS DECLARATION ///////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////{
-// This is the base class for any View using a dust template
+/**
+ * This is the base class for any View using a dust template
+ * Subclasses must registerTemplate() before rendering
+ */
 VU.DustView = Backbone.View.extend({
 	compiledTemplates : {},
 	
+	/**
+	 * Should call this in initialize.  This will compile the template
+	 *
+	 * @param (string) name ID of the template
+	 */
 	registerTemplate : function(name) {
 		var templates = VU.DustView.prototype.compiledTemplates,
 			th = (this.templateEl = $("#" + name)).html();
@@ -16,6 +24,12 @@ VU.DustView = Backbone.View.extend({
 		}
 	},
 	
+	/**
+	 * Override this as you see fit to customize your data parsing
+	 *	Parses the current model's values
+	 *
+	 * @return (object) The JSON-compatible object that the template will parse
+	 */
 	getData : function(){
 		return this.model ? this.model.toJSON() : {};
 	},
@@ -31,11 +45,14 @@ VU.DustView = Backbone.View.extend({
 	}
 });
 
-// Represents an event entry in an event listing; is a dust template
+/**
+ * Represents a single event entry in list of events
+ * Processes limits on long text and also has generic finalize
+ */
 VU.ListingView = VU.DustView.extend({
-	// If there's a change in our model, rerender it
 	initialize : function(){
 		_.bindAll(this, 'render', 'finalize');
+		// If there's a change in our model, rerender it
 		this.model.bind('change', this.render);
 		this.registerTemplate( this.options.template );
 		
@@ -73,7 +90,10 @@ VU.ListingView = VU.DustView.extend({
 	}
 });	
 
-// An extension of ListingView that simply updates the feet button
+/**
+ * An extension of ListingView that simply updates the feet button
+ * ("Add to dance card") and handles its animation
+ */
 VU.EventListingView = VU.ListingView.extend({
 	events : {
 		"click .addToDanceCardDiv" : "toggleDCard"
@@ -128,7 +148,7 @@ VU.EventListingView = VU.ListingView.extend({
 
 /**
  * This view is intended for wrapping a filtered list (LocalFilteredCollection)
- *  It is intended to only increase or decrease its contents, with resetes
+ *  It is intended to only increase or decrease its contents, with resets
  *	being very rare.  Thus, it listenes to Add and Remove events on the filtered
  *	list
  */
@@ -136,11 +156,12 @@ VU.EventListingView = VU.ListingView.extend({
 	scrollLoadThreshold : 100,
 	LISTING_HEIGHT: 92,
 	
-/*	events : { 
+/*	since we're just loading it all, anyway, we don't need to listen to scroll event
+	events : { 
 		"scroll" : "scrollUpdate" 
 	},
-	
-*/	initialize : function( options ) {
+*/	
+	initialize : function( options ) {
 		_.bindAll(this, 'addRow', "removeRow", "scrollUpdate", "filtered", "_nextPage", "_updateSpacer");
 		this.emptyMsg = options.emptyMsg || "<i>This list is empty</i>";
 		this.listingClass = options.listingClass || VU.ListingView;
@@ -157,8 +178,13 @@ VU.EventListingView = VU.ListingView.extend({
 		this.spacer = $("#spacer",this.el);
 	},
 	
-	// This will apply filters to the coll and trigger add/remove events, 
-	//	respectively, which will then trigger our add/remove rows
+	/**
+	 * This will apply filters to the collection and trigger add/remove events, 
+	 *	respectively, which will then trigger our add/remove rows
+	 * 
+	 * @param (array) filters Filters array, as assembled by AppController
+	 * @param (number) limit How many to limit our results to?
+	 */
 	applyFilters : function( filters, limit ) {
 		this.firstRow = true;
 		if ( this.collection.length == 0 )
@@ -167,9 +193,14 @@ VU.EventListingView = VU.ListingView.extend({
 		this.collection.applyFilters( filters, limit || this.bootLoad );		
 	},
 	
-	// scrolls the listing to the first model of attribute >= startValue, or 
-	//	the last model, whichever is first
-	// Assumes this.collection is sorted by that attribute
+	/** 
+	 * Scrolls the listing to the first model of attribute >= startValue, or 
+	 *	the last model, whichever is first
+	 * Assumes this.collection is sorted by that attribute
+	 *
+	 * @param (string) attribute Name of model's attribute to look through
+	 * @param startValue 
+	 */
 	scrollTo : function( attribute, startValue ) {
 		var firstModel = this.collection.find( function( model ){ return model.attributes[attribute] >= startValue; } ),
 			index;
@@ -191,7 +222,10 @@ VU.EventListingView = VU.ListingView.extend({
 		this.el.scrollTop = (index - 1) * delta;
 	},
 	
-	// for rendering colls that are already loaded (i.e. no add/remove listening)
+	/**
+	 * For rendering colls that are already loaded (i.e. no add/remove listening)
+	 * 	This is rarely used.
+	 */
 	render : function() {
 		//this.finalize();
 		var addRow = this.addRow;
@@ -208,7 +242,9 @@ VU.EventListingView = VU.ListingView.extend({
 		$(this.el).empty();
 	},	
 	
-	// called once, after all add/remove callbacks have been processed
+	/**
+	 * Called once, after all add/remove callbacks have been processed
+	 */
 	filtered : function() {
 		if ( _.size(this.listingViews) == this.collection.length ) 
 			this.numPerPage = this.collection.length;
@@ -219,7 +255,13 @@ VU.EventListingView = VU.ListingView.extend({
 		this._updateSpacer();
 	},
 	
-	// Adds a sorted row in its respective place in the DOM
+	/**
+	 * Adds a sorted row in its respective place in the DOM
+	 * 	(or just make it visible, if already there)
+	 *
+	 * @param (Model) model The model that was added
+	 * @param (object) options The passthrough options object (via backbone)
+	 */
 	addRow : function(model, options){
 		if ( this.firstRow ) {
 			if ( this.emptyEl ){
@@ -248,6 +290,13 @@ VU.EventListingView = VU.ListingView.extend({
 		}
 	},
 	
+	/**
+	 * Removes a row from the DOM
+	 * 	Well... actually we just hide it because it's expensize to remove/redraw
+	 *
+	 * @param (Model) model The model that was removed
+	 * @param (object) options The passthrough options object (via backbone)
+	 */
 	removeRow : function(model, options ){
 		var lv = this.listingViews[model.id];
 		if ( lv ) {
@@ -291,6 +340,11 @@ VU.EventListingView = VU.ListingView.extend({
 		}
 	},
 	
+	/**
+	 * Load the next page
+	 *
+	 * @param (number) limit The number of models to load for this page
+	 */
 	_nextPage : function( limit ) {
 		this.stID = false;
 		this.collection.nextPage( limit );
@@ -300,7 +354,8 @@ VU.EventListingView = VU.ListingView.extend({
 
 /**
  * BASE CLASS View for a popup
- * instanciate once, use openPopup to open; it will close on its own
+ * Instanciate ONLY ONCE for entire app!  Only one popup at a time.
+ * Use openPopup to open; it will close on its own
  * SubClasses MUST provide:
  * 		this.popTemplate
  *		this.getCaption
@@ -308,8 +363,10 @@ VU.EventListingView = VU.ListingView.extend({
 VU.PopupView = VU.DustView.extend({
 	el : $("#popup_content"),
 	
-	// we want this to be static, so all use of it will refer to the prototype
-	// in other words, only one popup can be active at once
+	/**
+	 * We want this to be static, so all use of it will refer to the prototype
+	 * in other words, only one popup can be active at once
+	 */
 	active : false,
 	
 	initialize : function ( options ) {
@@ -325,7 +382,12 @@ VU.PopupView = VU.DustView.extend({
 		VU.DustView.prototype.render.call(this);		
 	},
 	
-	//stub; this should be extended for popup-type-specific captions
+	/**
+	 * Stub; this should be extended for popup-type-specific captions
+	 *  that appear in the popup's title bar
+	 *
+	 * @return (string) Popup's title
+	 */
 	getCaption : function () {
 		return "";
 	},
@@ -336,6 +398,14 @@ VU.PopupView = VU.DustView.extend({
 		return data;
 	},
 	
+	/**
+	 * Open the popup!
+	 *
+	 * @param (MemberModel) mySession The current session
+	 * @param (string) modelID ID of the model to show in this popup
+	 * @param (FilteredList) navColl The collection to iterate over when navigating left/right on the popup nav arrows
+	 * @param (array) popAry The full array of parameters passed from the URL to this popup
+	 */
 	openPopup : function ( mySession, modelID, navColl, popAry ) {
 		this.params = popAry;
 		this.model = this.mySession = mySession;
@@ -355,6 +425,9 @@ VU.PopupView = VU.DustView.extend({
 		return false;
 	},
 	
+	/**
+	 * Will close and tear-down the popup
+	 */
 	closePopup : function () {
 		var currentPop = VU.PopupView.prototype.active,
 			fade = $('#fade'),
@@ -369,17 +442,25 @@ VU.PopupView = VU.DustView.extend({
 			});
 		return false;		
 	},	
-	
+
+	/**
+	 * An overridable callback that is called after the popup opens
+	 */
 	onOpened : function() {
 		//stub; subclasses can extend this if they want
 	},
 	
+	/**
+	 * An overridable callback that is called after the popup closes
+	 */
 	onClosed : function() {
 		//stub; subclasses can extend this if they want
 	}
-	
 });
 
+/**
+ * A view for displaying a Google map
+ */
 VU.MapView = Backbone.View.extend({
 	// static
 	geocoder: new google.maps.Geocoder(),
@@ -442,11 +523,18 @@ VU.MapView = Backbone.View.extend({
 		}
 	},
 	
+	// not used, at the moment...
 	fitBounds : function() {
 		if ( this.bounds && ! this.bounds.isEmpty() )
 			this.map.fitBounds( this.bounds );
 	},
 	
+	/**
+	 * Retrieve the actual hall given a particualr model
+	 * (even if it already IS a hall...)
+	 *
+	 * @return (VenueModel) the hall
+	 */
 	getHall : function( model ) {
 		var hallID = model.get("hall");
 		if ( hallID )
@@ -468,7 +556,13 @@ VU.MapView = Backbone.View.extend({
 			this.markers[hall.id].setMap(null);
 	},
 	
-	// m = in masterColl (i.e. background), overwrite = if marker already exists then overwrite
+	/**
+	 * Add a marker
+	 * 
+	 * @param (Model) model Model of hall to all
+	 * @param (boolean) m If true then this marker is in masterColl (i.e. background)
+	 * @param (boolean) overwrite If true the overwrite if marker already exists 
+	 */
 	addMarker : function ( model, m, overwrite ) {
 		overwrite === undefined && (overwrite = true); //default to true
 		var hall = this.getHall( model );
@@ -564,6 +658,9 @@ VU.MapView = Backbone.View.extend({
 		}
 	},
 	
+	/**
+	 * Callback for running a geocode on an address
+	 */
 	attachToMap: function(results, status) {
 		var model = this.gcs[ results[0].formatted_address.substr(0,4) ];
 		if (status == google.maps.GeocoderStatus.OK) {
@@ -576,9 +673,12 @@ VU.MapView = Backbone.View.extend({
 				this.markers[ model.id ] = marker;
 		}
 	}
-	
 });
 
+/**
+ * A view for displaying and interacting with the datePicker
+ *  calendar
+ */
 VU.CalView = Backbone.View.extend({
 	initialize : function() {
 		_.bindAll( this, "updateDateRoute" );
@@ -598,6 +698,9 @@ VU.CalView = Backbone.View.extend({
 	}
 });
 
+/**
+ * A view for wrapping the jQCloud
+ */
 VU.TagCloudView = Backbone.View.extend({
 	initialize : function() {
 		_.bindAll( this, "render", "addTags", "removeTags" );
@@ -635,6 +738,10 @@ VU.TagCloudView = Backbone.View.extend({
 	}
 });
 
+/**
+ * Base class for all tab views
+ *  Manages gui behind tab activation
+ */
 VU.ParentView = Backbone.View.extend({
 	initialize : function() {
 		_.bindAll( this, "activate", "deactivate" );
@@ -657,6 +764,9 @@ VU.ParentView = Backbone.View.extend({
 	}
 });
 
+/**
+ * Wraps a search box
+ */
 VU.SearchBoxView = Backbone.View.extend({
 	events : {
 		"focus" : "handleSearch",
@@ -671,6 +781,11 @@ VU.SearchBoxView = Backbone.View.extend({
 		this.filterKey = options.filterKey;
 	},
 	
+	/**
+	 * Event handler for all interaction with the searchfield
+	 *
+	 * @param (Event) searchField The jQuery event wrapping the interaction
+	 */
 	handleSearch : function( searchField ) {
 		var input = searchField.target;
 		utils.logger.log(searchField.type);
@@ -687,6 +802,7 @@ VU.SearchBoxView = Backbone.View.extend({
 			case "keyup" : 
 				//this.listView.scrollTo( "bandName", searchField.target.value );
 				
+				// This is a horrible HACK... once we get a real FilterModel up and running, this will go smoother
 				// find my bandName filter and either remove it (str=="") or replace it with new search
 				var filters = this.model.collection.currentFilters || [];
 				var filterKey = this.filterKey;

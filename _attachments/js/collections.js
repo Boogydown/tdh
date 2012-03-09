@@ -2,7 +2,8 @@ VU.InitColls = function () {
 /////////////////////////////////////////////////////////////////////////////}
 /// COLLECTIONS DECLARATION /////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////{
-/* Backbone.Collection extension that adds:
+/**
+ * Backbone.Collection extension that adds:
  * 	fetched flag to signal whether it was recently fetched
  *	diff as an option to fetch, which will add or remove models without reseting
  *  index to model, which is the index at which it was placed when added
@@ -27,6 +28,14 @@ VU.Collection = Backbone.Collection.extend({
 		return this;
     },
 	
+	/**
+	 * Get a model from this collection.  If the model doesn't exist then 
+	 * 	try to retrieve it from the server
+	 *
+	 * @param (string) modelID Id of model to get
+	 * @param (function) success Success callback
+	 * @param (function) failure Failure callback
+	 */
 	serverGet : function( modelID, success, failure ) {
 		var model = this.get( modelID );
 		if ( model ) {
@@ -41,7 +50,9 @@ VU.Collection = Backbone.Collection.extend({
 		}			
 	},
 
-	// copy of the BackBone private wrapError
+	/**
+	 * copy of the BackBone private wrapError
+	 */
 	wrapError : function(onError, model, options) {
 	  return function(resp) {
 		if (onError) {
@@ -52,10 +63,13 @@ VU.Collection = Backbone.Collection.extend({
 	  };
 	},	
 	
-    // Diff a model, or list of models to the set. Pass **silent** to avoid
-    // firing the `added` or 'removed' events for every different model.
-	// Pass **keepParent** to avoid reparenting when adding
-	// Diff means it will add or remove models without having to reset
+    /**
+	 * Diff a model, or list of models, to the set. 
+	 * Diff means it will add or remove models without having to reset
+	 * Pass **silent** to avoid firing the `added` or 'removed' 
+	 *	events for every different model.
+	 * Pass **keepParent** to avoid reparenting when adding
+	 */
 	diff : function( models, options ) {
 		// add new models...
 		this.add( models, options );
@@ -66,17 +80,21 @@ VU.Collection = Backbone.Collection.extend({
 		return this;
     },
 	
-	// wrapper for _remove that allows for keepParent
+	/**
+	 * wrapper for _remove that allows for keepParent
+	 */
 	_remove : function( model, options ) {
 		var parent = model.collection;
 		Backbone.Collection.prototype._remove.call( this, model, options );
 		if ( options.keepParent ) model.collection = parent;
 	},			
 	
-    // Override of backbone._add to get model.index, AND support
-	// 	passing **keepParent** to avoid reparenting when adding
-	// Internal implementation of adding a single model to the set, updating
-    // 	hash indexes for `id` and `cid` lookups.
+    /**
+	 * Override of backbone._add to get model.index, AND support
+	 * 	passing **keepParent** to avoid reparenting when adding
+	 * Internal implementation of adding a single model to the set, updating
+     * 	hash indexes for `id` and `cid` lookups.
+	 */
     _add : function(model, options) {
       options || (options = {});
       if (!(model instanceof Backbone.Model)) {
@@ -101,10 +119,11 @@ VU.Collection = Backbone.Collection.extend({
       if (!options.silent) model.trigger('add', model, this, options);
       return model;
     }
-	
 });
 
-/* A locally-filtered collection
+/**
+ * A collection that contains a filtered subset of models
+ * It must have a master collection, which holds all of the models, therefore
  * MUST instanciate with {masterCollection: myKeyedCollection} passed in options
  */
 VU.LocalFilteredCollection = VU.Collection.extend({
@@ -120,13 +139,22 @@ VU.LocalFilteredCollection = VU.Collection.extend({
 		_.bindAll( this, "reseted", "applyFilters", "onGotFiltered" );
 	},
 	
-	// completely reload
+	/**
+	 * Completely reload
+	 */
 	reseted : function( ) {
 		this.remove( this.models, {keepParent:true} );
 		this.applyFilters();
 	},
 	
-	//filterObj: [{key:, start:, end:}]
+	/**
+	 * Re-popuplate me with modules based on an array of filters
+	 * This is asynchronous as we may have to wait on the master collection to 
+	 * fully fetch all of its models from the server.
+	 * 
+	 * @param (array) filters Array of filterObjs: [{key:, start:, end:}]
+	 * @param (number) limit How many to retrieve?
+	 */
 	applyFilters : function( filters, limit ) {
 		utils.logger.log( this.name + ".applyFilters( " + filters, limit + " )");
 		this.allPagesLoaded = true;
@@ -174,6 +202,13 @@ VU.LocalFilteredCollection = VU.Collection.extend({
 	}
 });
 
+/**
+ * A master collection of all of the models for a given type (events,
+ *	bands, halls).
+ * A vast hash of the models' values for each attribute in this.filterableKeys, is built
+ * This will allow for quick lookup when filtering by those attributes.
+ * This is a cheat local way to have our own map/reduce like the couchdb views
+ */
 VU.KeyedCollection = VU.Collection.extend({
 	initialize : function(models, options) {
 		if ( options && options.name )
@@ -196,6 +231,11 @@ VU.KeyedCollection = VU.Collection.extend({
 		this.unbind();
 	},
 	
+	/**
+	 * Happens when this collection is reset (loaded in full from server)
+	 * This kicks off our keying (creating that hash table) of the entire collection
+	 * 	based off of this.filterableKeys
+	 */
 	reloadKeys : function( ) {
 		this.keyed = false;
 		this.keys = {};
@@ -207,6 +247,9 @@ VU.KeyedCollection = VU.Collection.extend({
 		this.bind( "add", this.changeKeys );
 	},
 	
+	/**
+	 * Called only if a model changes so we don't have to re-key the whole collection
+	 */
 	changeKeys : function( model ) {
 		this.removeKeys( model, true );
 		this.addKeys( model );
@@ -275,7 +318,13 @@ VU.KeyedCollection = VU.Collection.extend({
 		}
 	},
 	
-	//filterParams: {filters:[{key, start, end}], tail:int, callback:func}
+	/**
+	 * Retrieve a filtered subset of models
+	 * This is asynchronous because we may have to fetch all of the models if
+	 * we haven't done so, yet, or are still in the process of fetching
+	 *
+	 * @param (object) filterParams Looks like {filters:[{key, start, end}], tail:int, callback:func}
+	 */
 	getFiltered: function ( filterParams ) {
 		this.unbind("reset", this.getFiltered);
 		//we add to a queue in case multiple filter requests come in while we're waiting on the fetch to return
@@ -339,7 +388,9 @@ VU.KeyedCollection = VU.Collection.extend({
 	}	
 });
 
-// Now let's define a new Collection of Events
+/**
+ * Collection of Events
+ */
 VU.EventCollection = VU.KeyedCollection.extend({
 	url : "event",
 	model : VU.EventModel,
@@ -347,7 +398,10 @@ VU.EventCollection = VU.KeyedCollection.extend({
 	query : '?startkey=["event",' + (new Date().getTime() - 2*24*60*60*1000) + ',null,null]&endkey=["event",[],[],[]]',
 	filterableKeys: ["dateUnix", "lat", "lng", "band", "hall", "onDCard"],
 	
-	// The events should be ordered by date
+	/**
+	 * Used by backbone to determine sort order.
+	 * Events should be ordered by date
+	 */
 	comparator : function(event){
 		return new Date( event.get("date") ).getTime();
 	},
@@ -359,7 +413,9 @@ VU.EventCollection = VU.KeyedCollection.extend({
 		this.colls = options.colls;
 	},
 	
-	// overriden to pass colls down to the models
+	/**
+	 * Overriden to pass colls down to the models
+	 */
 	fetch : function( options ) {
 		options || (options = {});
 		options.colls = this.colls;

@@ -3,7 +3,9 @@ VU.InitModels = function () {
 /// MODEL DECLARATION ///////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////{
 
-//A Model that persists any keys stored in this.cookieKeys to the document cookies
+/**
+ * A Model that persists any keys stored in this.cookieKeys to the document cookies
+ */
 VU.CookieModel = Backbone.Model.extend({
 	prefix : "vu_",
 	
@@ -13,12 +15,16 @@ VU.CookieModel = Backbone.Model.extend({
 		this.bind( "change", this.setDirty );
 	},
 	
-	// isDirty is in context of the last writeCookies
+	/**
+	 * isDirty since the last writeCookies?
+	 */
 	setDirty : function() {
 		this.isDirty = true;
 	},
 	
-	//syntax: will write only model values that are in this.cookieKeys array
+	/**
+	 * Will write only model values that are in this.cookieKeys array
+	 */
 	writeCookies : function() {
 		if ( !this.isDirty ) return;
 		this.isDirty = false;
@@ -35,6 +41,9 @@ VU.CookieModel = Backbone.Model.extend({
 		if ( this.id ) this.save();
 	},
 	
+	/**
+	 * Read previously-saved values from the cookies, if exist
+	 */
 	readCookies : function() {
 		var cookies = document.cookie.split('; '), tmp = {}, plen = this.prefix.length,
 			cook, cookary, cookiesObj = {}, success = false, key;
@@ -60,7 +69,9 @@ VU.CookieModel = Backbone.Model.extend({
 	}
 });
 
-// contains current user info and auth stuff **Only one instance**
+/**
+ * Contains current user info and auth stuff **Only one instance**
+ */
 VU.MemberModel = VU.CookieModel.extend({
 	databaseName : "_users",
 	url: "_users",
@@ -103,7 +114,9 @@ VU.MemberModel = VU.CookieModel.extend({
 		this._setLogin();
 	},
 
-	// doLogin and doSignup pulled from Futon v0.11.0 ////////////////////////////
+	/**
+	 * doLogin and doSignup pulled from Futon v0.11.0 ////////////////////////////
+	 */
     doLogin : function(name, password, callback) {
 		var model = this;
 		$.couch.login({
@@ -120,6 +133,9 @@ VU.MemberModel = VU.CookieModel.extend({
 		});
     },
     
+	/**
+	 * doLogin and doSignup pulled from Futon v0.11.0 ////////////////////////////
+	 */
     doSignup : function(name, password, callback) {
 		var model = this;
 		$.couch.signup({
@@ -158,7 +174,9 @@ VU.MemberModel = VU.CookieModel.extend({
 		$.couch.logout();
 	},
 	
-	// for anonymous sessions
+	/**
+	 * for anonymous sessions
+	 */
 	prepAnon : function() {
 		utils.logger.log( "Setting up an anonymous session." );
 		this.clear({silent:true});
@@ -169,8 +187,10 @@ VU.MemberModel = VU.CookieModel.extend({
 		this.doneCallback();
 	},
 
-	// Last stop for logging in; called during login, login via signup, or page load
-	// 	at this point, we have nothing in the model, yet
+	/**
+	 * Last stop for logging in; called during login, login via signup, or page load
+	 * 	at this point, we have nothing in the model, yet
+	 */
 	_setLogin : function() {
 		var model = this; 
 		$.couch.session({
@@ -194,9 +214,15 @@ VU.MemberModel = VU.CookieModel.extend({
 		this.doneCallback();
 	},
 
-	// intended to break until the events are loaded, then we can continue to set them
+	/**
+	 * Load dance card events from saved session OR cookies
+	 *
+	 * @param (string) dCard A &-delimited list of events to add to the card; if not given then use the events saved in the cookies
+	 */
 	loadDCard : function( dCard ) {
 		if ( dCard && _.isString(dCard) ) this.cookieDCard = dCard.split("&");
+		
+		//intended to break until the events are loaded, then we can continue to set them
 		if ( !this.eventsMain ) return;
 		if ( this.eventsMain.fetched ) {
 			
@@ -234,9 +260,17 @@ VU.MemberModel = VU.CookieModel.extend({
 	}
 });
 
+/**
+ * A Model that can be "owned" by a user
+ */
 VU.OwnableModel = Backbone.Model.extend({
 	otype: "vyntors",
 	
+	/**
+	 * All subclasses should override this to provide their own
+	 * 	caption that shows up in the mini list on your user profile
+	 *	with the stuff you own
+	 */
 	getOwnerCaption : function() {
 		//stub: should be overridden
 	},
@@ -291,15 +325,20 @@ VU.OwnableModel = Backbone.Model.extend({
 	}		
 });	
 	
-
-// An entity that has events associated to it
+/**
+ * An entity that has events associated with it
+ */
 VU.EventsContainerModel = VU.OwnableModel.extend({
 	initialize : function( ) {
 		_.bindAll( this, "loadEvents" );
 	},
 	
-	// load all events that have a band or hall (ofType) of this id
-	//TODO: ofType needs to be more dependant on schema... we're currently assuming that the type is the same as the linkingRef
+	/**
+	 * load all events that have a band or hall (ofType) of this id
+	 * TODO: ofType needs to be more dependant on schema... we're currently assuming that the type is the same as the linkingRef
+	 *
+	 * @param (EventsCollection) eventsCollection Reference to the current events collection
+	 */
 	loadEvents : function ( eventsCollection ) {
 		var myEvents = new VU.LocalFilteredCollection( null, {collection: eventsCollection, name:this.name } ),
 			myId = this.id, 
@@ -309,7 +348,9 @@ VU.EventsContainerModel = VU.OwnableModel.extend({
 	}
 });
 
-// A model with attributes that link to other models
+/**
+ * A model with attributes that link to other models
+ */
 VU.LinkingModel = VU.OwnableModel.extend({
 	linkRefs : {},
 	initialize : function ( attributes, options) {
@@ -341,6 +382,10 @@ VU.LinkingModel = VU.OwnableModel.extend({
 		}
 	},
 	
+	/**
+	 * Loads all of the references (other, linked docs that we're pulling info
+	 *	from) and stores them in a hash table for later lookup
+	 */
 	loadLinkRefs : function (  ) {
 		// we only want to load on the first add
 		this.unbind ( "add", this.loadLinkRefs );
@@ -382,6 +427,9 @@ VU.LinkingModel = VU.OwnableModel.extend({
 		}
 	},
 	
+	/**
+	 * Load the actual values from those references loaded in loadLinkRefs
+	 */
 	loadLinkVals : function ( myRef ) {
 		if ( !myRef )
 			utils.logger.log("myRef undefined");
@@ -402,7 +450,9 @@ VU.LinkingModel = VU.OwnableModel.extend({
 	}
 });
 
-// Band model
+/**
+ * Band model
+ */
 VU.BandModel = VU.EventsContainerModel.extend({
 	myType : "band",
 	defaults : {
@@ -436,6 +486,10 @@ VU.BandModel = VU.EventsContainerModel.extend({
 	
 	//url : function () { return "https://dev.vyncup.t9productions.com:44384/tdh/" + this.id; },
 
+	/**
+	 * Used to normalizing different data in the doc in prep for displaying
+	 * 	and usage elsewhere, such as filtering
+	 */
 	normalizeAttributes : function ( model, val, options ) {
 		//utils.logger.log( "Normalize " + model.name + ":"  );
 		// image and website
@@ -504,7 +558,9 @@ VU.BandModel = VU.EventsContainerModel.extend({
 	}
 });
 
-// Venue model
+/**
+ * Venue model
+ */
 VU.VenueModel = VU.EventsContainerModel.extend({
 	myType : "hall",
 	defaults : {
@@ -536,6 +592,10 @@ VU.VenueModel = VU.EventsContainerModel.extend({
 	
 	//url : function () { return "https://dev.vyncup.t9productions.com:44384/tdh/" + this.id; }
 	
+	/**
+	 * Used to normalizing different data in the doc in prep for displaying
+	 * 	and usage elsewhere, such as filtering
+	 */
 	normalizeAttributes : function () {
 		// images and website
 		var hallID = this.id;
@@ -587,7 +647,9 @@ VU.VenueModel = VU.EventsContainerModel.extend({
 	}
 });
 
-// Event model
+/**
+ * Event model
+ */
 VU.EventModel = VU.LinkingModel.extend({
 	myType: "event",
 	otype: "events",
@@ -614,7 +676,7 @@ VU.EventModel = VU.LinkingModel.extend({
 	getOwnerCaption : function() {
 		return (this.get("eventType") || "An") + " event on " + this.get("date"); 
 	},
-	
+
 	toggleDCard : function () {
 		// no silent... we want listeners to pick it up
 		var newDCard = !this.get("onDCard");
@@ -622,6 +684,10 @@ VU.EventModel = VU.LinkingModel.extend({
 		return newDCard;
 	},
 	
+	/**
+	 * Used to normalizing different data in the doc in prep for displaying
+	 * 	and usage elsewhere, such as filtering
+	 */
 	normalizeData : function () {
 		var myDateStr = this.get("date");
 		var myDate = myDateStr instanceof Date ? myDateStr : new Date( myDateStr );
@@ -670,7 +736,9 @@ VU.EventModel = VU.LinkingModel.extend({
 	}
 });
 
-// Model that facilitates easy accessing and parsing of filter data as retrieved from the URL hash
+/**
+ * Model that facilitates easy accessing and parsing of filter data as retrieved from the URL hash
+ */
 VU.FilterModel = Backbone.Model.extend({
 	
 });

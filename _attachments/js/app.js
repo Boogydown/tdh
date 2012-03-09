@@ -277,7 +277,7 @@
 				//style: style
 			//});
 			
-			// only process filters is they're changed...
+			// only process filters if they're changed...
 			var curFilterStr = tab + dates + coords + style;
 			if ( curFilterStr != this.lastFilterStr )
 			{

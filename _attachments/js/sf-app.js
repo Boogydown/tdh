@@ -241,7 +241,7 @@ $(function(){
     });
 
 	/*
-	 * This is the View for a table of multiple docs
+	 * This is the View for a table of multiple docs 
 	 */
     VU.SchemaTableView = VU.DustView.extend({
         initialize : function(){

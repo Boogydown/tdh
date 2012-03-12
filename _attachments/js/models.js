@@ -3,6 +3,33 @@ VU.InitModels = function () {
 /// MODEL DECLARATION ///////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////{
 
+VU.MailerModel = Backbone.Model.extend({
+	databaseName : "mailspool",
+	url: "mailspool",
+	fetched : false,
+	defaults: {
+		date: {
+			sent: null,
+			created: new Date().toString()
+		},
+		message: "",
+		msgformat: "text/plain",
+		note: [],
+		notes: "Notes",
+		priority: null,
+		recipients: {
+			to: {},
+			cc: {},
+			bcc: {}
+		},
+		sender: {
+			"VyncUp Bot": "VyncUp@gmail.com"
+		},
+		state: "unsent",
+		subject: "Vync-Up message"
+	}
+});
+
 /**
  * A Model that persists any keys stored in this.cookieKeys to the document cookies
  */

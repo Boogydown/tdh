@@ -98,19 +98,17 @@ VU.SchemaFormCreateBandView = VU.PopupView.extend({
 	
 	onSubmit : function(id) {
 		if ( _.indexOf(location.href, "editband") == -1 ) {
-/*			$.post( "/_mailer", {
-				"sender": {"VyncUp Bot": "vyncupbot@dev.vyncup.t9productions.com"},
-				"recipients": {
+			new VU.MailerModel({
+				recipients: {
 					//"to": {"Patrick Sparks": "psparks@texasdancehall.org"},
 					"to": {"Dimitri": "boogydown@gmail.com"},
 					"cc": {},
 					"bcc": {}
 				},
 				"subject": "Band Added",
-				"message": "Band added, id:" + id,
-				"message-format": "plain"
-			} );
-*/			app.colls.bands.get(id).normalizeAttributes();
+				"message": "Band added, id:" + id
+			}).save();
+			app.colls.bands.get(id).normalizeAttributes();
 			location.href = "#///editband&" + id;
 		}
 	}	

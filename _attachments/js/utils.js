@@ -7,15 +7,25 @@ _.mixin({
 	}
 });
 
+/**
+ * Some handy utilities
+ */
 window.utils = {
 
-	// Useful get-var parser by Josh Fraser
+	/**
+	 * Useful get-var parser by Josh Fraser
+	 */
 	$_GET : function (q,s) {
 		s = (s) ? s : window.location.search;
 		var re = new RegExp('&'+q+'=([^&]*)','i');
 		return (s=s.replace(/^\?/,'&').match(re)) ? s=s[1] : s='';
 	},
 	
+	/**
+	 * Read browser cookie 
+	 * @param (string) name - key of cookie
+	 * @param (string) delimit - delimiter for multiple values within cookie
+	 */
 	readCookie : function (name,delimit){
 	  if (document.cookie == ''){
 		return false;
@@ -41,9 +51,9 @@ window.utils = {
 		return (str && str.length && (str.length + 3 > length) && str.substr(0, length) + "..." ) || str;
 	},
 	
-	/* Static class for managing some waiting UI (i.e. loading spinner, progress bar, etc)
+	/**
+	 * Static class for managing some waiting UI (i.e. loading spinner, progress bar, etc)
 	 * A stub for expanding in the future
-	 *
 	 */
 	waitingUI : {
 		el : {},
@@ -61,7 +71,9 @@ window.utils = {
 		}	
 	},
 	
-	// flier is optional
+	/**
+	 * flier is optional
+	 */
 	flyAway : function( src, dest, flier ) {
 		flier = flier ? flier.clone() : src.clone();
 		var srcOff = src.offset(),
@@ -75,6 +87,9 @@ window.utils = {
 		}, null, null, function () { $(this).remove(); } );
 	},
 	
+	/**
+	 * REALLY basic logger... just pipes to console if it exists
+	 */
 	logger : {
 		log : function(msg) {
 			if ( window.console !== undefined ) 

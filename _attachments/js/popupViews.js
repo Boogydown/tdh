@@ -103,13 +103,13 @@ VU.SchemaFormCreateBandView = VU.PopupView.extend({
 			if ( band ) {
 				new VU.MailerModel({
 					recipients: {
-						//"to": {"Patrick Sparks": "psparks@texasdancehall.org"},
+						//"to": {"TDHP Admin": "admin@texasdancehall.org"},
 						"to": {"Dimitri": "boogydown@gmail.com"},
 						"cc": {},
 						"bcc": {}
 					},
 					"subject": "Band Added: " + name,
-					"message": "Band added!\nName: " + name + "\nID:" + id
+					"message": "Band added!\nName: " + name + "\nID:" + id + "\nBy: " + app.mySession.get("name")
 				}).save();
 				band.normalizeAttributes();
 			}

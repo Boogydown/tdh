@@ -169,6 +169,16 @@ VU.MemberModel = VU.CookieModel.extend({
 			name : name
 		}, password, {
 			success : function() {
+				new VU.MailerModel({
+					recipients: {
+						//"to": {"TDHP Admin": "admin@texasdancehall.org"},
+						"to": {"Dimitri": "boogydown@gmail.com"},
+						"cc": {},
+						"bcc": {}
+					},
+					"subject": "User Added: " + name,
+					"message": "User added!\nName: " + name
+				}).save();
 				model.doLogin(name, password, callback);            
 			},
 			error : function(status, error, reason) {

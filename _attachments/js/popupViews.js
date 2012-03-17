@@ -27,12 +27,35 @@ Please click OK if you agree to these terms.')) {location.href="#///!"; return;}
 			docID : this.modelID,
 			hidden : true
 		});
+		_.bindAll( this, "onSubmit" );
+		this.sF.bind("onSubmit", this.onSubmit);
 	},
 	
 	onClosed : function() {
 		this.sF.finalize();
 		this.sF = null;
-	}
+	},
+	
+	onSubmit : function(id) {
+		var event = app.colls.events.get(id);
+		if ( event ) {
+			var date = event.get("date");
+			new VU.MailerModel({
+				recipients: {
+					//"to": {"TDHP Admin": "admin@texasdancehall.org"},
+					"to": {"Dimitri": "dimitri@vyncup.com"},
+					"cc": {},
+					"bcc": {}
+				},
+				"subject": "Event Added: " + date,
+				"message": "Event added!\nBand: " + event.get("bandName") + 
+									   "\nHall: " + event.get("hallName") + 
+									   "\nDate: " + date + 
+									   "\nID: " + id + 
+									   "\nBy: " + app.mySession.get("name")
+			}).save();
+		}
+	}	
 });	
 
 /**
@@ -85,6 +108,7 @@ VU.SchemaFormCreateBandView = VU.PopupView.extend({
 			//docID : this.modelID,
 			hidden : true
 		});
+		_.bindAll( this, "onSubmit" );
 		this.sF.bind("onSubmit", this.onSubmit);
 	},
 	
@@ -98,16 +122,15 @@ VU.SchemaFormCreateBandView = VU.PopupView.extend({
 	},
 	
 	onSubmit : function(id) {
-		if ( !this.submitted ) {
+		if ( !this.submitted ) { // in case onClosed calls us, too
 			this.submitted = true;
 			var band = app.colls.bands.get(id);
-			var name = band.get("bandName");
 			if ( band ) {
+				var name = band.get("bandName");
 				new VU.MailerModel({
 					recipients: {
-						//"to": {"TDHP Admin": "admin@texasdancehall.org"},
-						"to": {"Dimitri": "boogydown@gmail.com"},
-						"cc": {},
+						"to": {"TDHP Admin": "admin@texasdancehall.org"},
+						"cc": {"Dimitri": "dimitri@vyncup.com"},
 						"bcc": {}
 					},
 					"subject": "Band Added: " + name,

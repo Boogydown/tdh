@@ -23,7 +23,7 @@ VU.Collection = Backbone.Collection.extend({
 			collection[options.add ? 'add' : options.diff ? 'diff' : 'reset'](collection.parse(resp), options);
 			if (success) success(collection, resp);
 		};
-		options.error = wrapError(options.error, collection, options);
+		options.error = this.wrapError(options.error, collection, options);
 		(this.sync || Backbone.sync)('read', this, options);
 		return this;
     },

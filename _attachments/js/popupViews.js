@@ -75,6 +75,7 @@ VU.SchemaFormCreateBandView = VU.PopupView.extend({
 	},
 	
 	onOpened : function() {
+		this.submitted = false;
 		this.sF = new VU.SchemaFormView({
 			el : $("#model_edit"),
 			collName : "bands",
@@ -97,19 +98,20 @@ VU.SchemaFormCreateBandView = VU.PopupView.extend({
 	},
 	
 	onSubmit : function(id) {
-		if ( _.indexOf(location.href, "editband") == -1 ) {
+		if ( !this.submitted ) {
+			this.submitted = true;
 			var band = app.colls.bands.get(id);
 			var name = band.get("bandName");
 			if ( band ) {
 				new VU.MailerModel({
 					recipients: {
-						//"to": {"Patrick Sparks": "psparks@texasdancehall.org"},
+						//"to": {"TDHP Admin": "admin@texasdancehall.org"},
 						"to": {"Dimitri": "boogydown@gmail.com"},
 						"cc": {},
 						"bcc": {}
 					},
 					"subject": "Band Added: " + name,
-					"message": "Band added!\nName: " + name + "\nID:" + id
+					"message": "Band added!\nName: " + name + "\nID:" + id + "\nBy: " + app.mySession.get("name")
 				}).save();
 				band.normalizeAttributes();
 			}

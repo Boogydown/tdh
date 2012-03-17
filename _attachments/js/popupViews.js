@@ -42,9 +42,8 @@ Please click OK if you agree to these terms.')) {location.href="#///!"; return;}
 			var date = event.get("date");
 			new VU.MailerModel({
 				recipients: {
-					//"to": {"TDHP Admin": "admin@texasdancehall.org"},
-					"to": {"Dimitri": "dimitri@vyncup.com"},
-					"cc": {},
+					"to": {"TDHP Admin": "admin@texasdancehall.org"},
+					"cc": {"Dimitri": "dimitri@vyncup.com"},
 					"bcc": {}
 				},
 				"subject": "Event Added: " + date,

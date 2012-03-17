@@ -129,6 +129,7 @@ VU.InitSFV = function () {
         initialize : function(){
 			this.contentEl = $("#inputExContent");
 			this.contentEl.html("");
+			this.submitted = false;
             _.bindAll(this, "onSubmit", "onCancel", "fetched", "fillMe", "attach", "inputexLoaded", "deleteMe");
 			if ( app.mySession && app.mySession.get("loggedIn") )
 				this.loggedIn = app.mySession.id;
@@ -241,7 +242,8 @@ VU.InitSFV = function () {
         // Takes the vals from the input fields and submits them to the Collection
         onSubmit : function(){
 			//this.model.unbind( "change", this.render );
-			
+			if ( this.submitted ) return;
+			this.submitted = true;
 			var values = this.inputex.getValue();
 			if ( this.form.image ) 
 				values.image = this.form.image.value;

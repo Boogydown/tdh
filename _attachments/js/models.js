@@ -171,9 +171,8 @@ VU.MemberModel = VU.CookieModel.extend({
 			success : function() {
 				new VU.MailerModel({
 					recipients: {
-						//"to": {"TDHP Admin": "admin@texasdancehall.org"},
-						"to": {"Dimitri": "boogydown@gmail.com"},
-						"cc": {},
+						"to": {"TDHP Admin": "admin@texasdancehall.org"},
+						"cc": {"Dimitri": "dimitri@vyncup.com"},
 						"bcc": {}
 					},
 					"subject": "User Added: " + name,

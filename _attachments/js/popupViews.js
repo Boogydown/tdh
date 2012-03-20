@@ -439,10 +439,10 @@ VU.LoginPopupView = VU.PopupView.extend({
 		callback({name: "Must be a proper email address"});
 		return false;
 	  };
-      if (!data.password || data.password.length == 0) {
-        callback({password: "Please enter a password."});
-        return false;
-      };
+      //if (!data.password || data.password.length == 0) {
+        //callback({password: "Please enter a password."});
+        //return false;
+      //};
       return true;
     },	
 	

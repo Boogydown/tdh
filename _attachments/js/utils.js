@@ -51,6 +51,10 @@ window.utils = {
 		return (str && str.length && (str.length + 3 > length) && str.substr(0, length) + "..." ) || str;
 	},
 	
+	formatURL : function( url ) {
+		return url.replace( /((http:\/\/)?(www\.)?([\w\d-]*?\.)(\w{2,4})/?)/g, "http://www.$4$5" );
+	},
+	
 	/**
 	 * Static class for managing some waiting UI (i.e. loading spinner, progress bar, etc)
 	 * A stub for expanding in the future

@@ -547,7 +547,7 @@ VU.BandModel = VU.EventsContainerModel.extend({
 		}		
 		
 		this.set( {
-			website: (this.get("website")||"").split("://").pop(),
+			website: VU.utils.formatURL(this.get("website")),
 			name: this.get("bandName"),
 			entryDescription: entryDescription
 		}, { silent: true } );
@@ -674,7 +674,7 @@ VU.VenueModel = VU.EventsContainerModel.extend({
 		this.set( { 
 			thumbPic: hallPic,
 			mainPic: hallPic.replace( "\/thumbs\/", "\/files\/" ), 
-			website: (this.get("website")||"").split("://").pop(),
+			website: VU.utils.formatURL(this.get("website")),
 			name: this.get("danceHallName"),
 			entryDescription: entryDescription,
 			lat: lat,

@@ -52,7 +52,7 @@ window.utils = {
 	},
 	
 	formatURL : function( url ) {
-		url || return ""; 
+		if (!url) return ""; 
 		return url.replace( /((http:\/\/)?(www\.)?([\w\d-]*?\.)(\w{2,4})\/?)/, "http://www.$4$5" );
 	},
 	

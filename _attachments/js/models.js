@@ -674,7 +674,7 @@ VU.VenueModel = VU.EventsContainerModel.extend({
 		this.set( { 
 			thumbPic: hallPic,
 			mainPic: hallPic.replace( "\/thumbs\/", "\/files\/" ), 
-			website: VU.utils.formatURL(this.get("website")),
+			website: utils.formatURL(this.get("website")),
 			name: this.get("danceHallName"),
 			entryDescription: entryDescription,
 			lat: lat,

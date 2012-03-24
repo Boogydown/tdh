@@ -547,7 +547,7 @@ VU.BandModel = VU.EventsContainerModel.extend({
 		}		
 		
 		this.set( {
-			website: VU.utils.formatURL(this.get("website")),
+			website: utils.formatURL(this.get("website")),
 			name: this.get("bandName"),
 			entryDescription: entryDescription
 		}, { silent: true } );

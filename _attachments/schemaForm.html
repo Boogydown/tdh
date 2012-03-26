@@ -36,7 +36,7 @@
     <tr>
 		<td colspan="2">
 			<form>
-				Quick Jump: <select id="listQuickFind" name="listQuickFind" onchange="location.href='#doc///' + this.value;">
+				Quick Jump: <select id="listQuickFind" name="listQuickFind" onchange="var val=this.value;this.value="";location.href='#doc///' + val;">
 					<option value=""></option>
 					{#quickFindEntries}<option value="{value}">{label}</option>{/quickFindEntries}
 				</select>

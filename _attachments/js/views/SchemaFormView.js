@@ -233,7 +233,7 @@ VU.InitSFV = function () {
 			if ( model ){
 				(this.model = model);
 				if ( this.inputex ) this.inputex.setValue( this.model.toJSON() );
-				$("#popupDocName",this.el).text(this.model.get("danceHallName")||"");
+				$("#popupDocName").text(this.model.get("danceHallName")||"");
 			}
 			else
 				this.model = null;

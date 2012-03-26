@@ -208,8 +208,10 @@
 			<h2>Login</h2>
 			<div class="detailtext">
 				<form id="loginForm" action="">
-					Email: <input name="name" type="text"></input><br/>
-					Password: <input name="password" type="password"></input><br/>
+					<table><tbody>
+						<tr><td>Email: </td><td><input name="name" type="text"></input></td></tr>
+						<tr><td>Password: </td><td><input name="password" type="password"></input></td></tr>
+					</tbody></table>
 					<button type="submit">Login</button>
 				</form>
 			</div>
@@ -309,6 +311,7 @@
     <script type="application/dust-template" id="popupTemplate_editWithPic">
 		<div id="popupTitle">{navCaption|s}</div>
 		<div id="info">
+			<h2 id="popupDocName"></h2>
 			<form id="model_edit" enctype="multipart/form-data">
 				<div id="inputExContent"></div>
 				<input type="hidden" name="image" value=""></input>
@@ -320,6 +323,7 @@
     <script type="application/dust-template" id="popupTemplate_editNoPic">
 		<div id="popupTitle">{navCaption|s}</div>
 		<div id="info">
+			<h2 id="popupDocName"></h2>
 			<form id="model_edit">
 				<div id="inputExContent"></div>
 				<input type="hidden" name="_rev" value="{_rev}"></input>

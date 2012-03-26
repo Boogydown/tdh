@@ -547,7 +547,7 @@ VU.BandModel = VU.EventsContainerModel.extend({
 		}		
 		
 		this.set( {
-			website: (this.get("website")||"").split("://").pop(),
+			website: utils.formatURL(this.get("website")),
 			name: this.get("bandName"),
 			entryDescription: entryDescription
 		}, { silent: true } );
@@ -660,25 +660,17 @@ VU.VenueModel = VU.EventsContainerModel.extend({
 		if ( str = this.get("historicalNarrative") )
 			entryDescription += str;
 		
-		var lat, lng, gps = this.get( "GPS Coordinates" ) || this.get( "gpsCoordinates" );
-		if ( gps ){
-			gps = gps.split(" ");
-			if ( gps.length < 2 ) 
-				gps = gps[0].split(",");
-			if ( gps.length > 1 ) {
-				lat = gps[1];
-				lng = gps[0];
-			}
-		}
+		var gps = this.get( "GPS Coordinates" ) || this.get( "gpsCoordinates" );
+		gps = utils.parseGPS( gps );
 		
 		this.set( { 
 			thumbPic: hallPic,
 			mainPic: hallPic.replace( "\/thumbs\/", "\/files\/" ), 
-			website: (this.get("website")||"").split("://").pop(),
+			website: utils.formatURL(this.get("website")),
 			name: this.get("danceHallName"),
 			entryDescription: entryDescription,
-			lat: lat,
-			lng: lng
+			lat: gps.lat,
+			lng: gps.lng
 		}, { silent: true } );
 	}
 });

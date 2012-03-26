@@ -51,6 +51,33 @@ window.utils = {
 		return (str && str.length && (str.length + 3 > length) && str.substr(0, length) + "..." ) || str;
 	},
 	
+	formatURL : function( url ) {
+		if (!url) return ""; 
+		return url.replace( /((http:\/\/)?(www\.)?([\w\d-]*?\.)(\w{2,4})\/?)/, "http://www.$4$5" );
+	},
+	
+	parseGPS : function ( gpsString ) {
+		var gps = { lat:0, lng:0 };
+		if ( gpsString) {
+			gpsString = gpsString.replace(/(^\s*)|(\s*$)/g, "");
+			var gAry = gpsString.split(",");
+			if ( gAry.length < 2 ) 
+				gAry = gpsString.split(" ");
+			if ( gAry.length > 1 ) {
+				gAry = [parseFloat(gAry[0]), parseFloat(gAry[1])];
+				//HACK: in Texas, Longitude is negative, so we'll double-check to make sure we have lat/long in order
+				if ( gAry[1] > gAry[0] ) {
+					gps.lat = gAry[1];
+					gps.lng = gAry[0];
+				} else {
+					gps.lat = gAry[0];
+					gps.lng = gAry[1];
+				}				
+			}
+		}
+		return gps;
+	},
+	
 	/**
 	 * Static class for managing some waiting UI (i.e. loading spinner, progress bar, etc)
 	 * A stub for expanding in the future

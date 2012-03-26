@@ -64,7 +64,7 @@ window.utils = {
 			if ( gAry.length < 2 ) 
 				gAry = gpsString.split(" ");
 			if ( gAry.length > 1 ) {
-				gAry = [parseInt(gAry[0]), parseInt(gAry[1])];
+				gAry = [parseFloat(gAry[0]), parseFloat(gAry[1])];
 				//HACK: in Texas, Longitude is negative, so we'll double-check to make sure we have lat/long in order
 				if ( gAry[1] > gAry[0] ) {
 					gps.lat = gAry[1];

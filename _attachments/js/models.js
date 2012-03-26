@@ -666,8 +666,14 @@ VU.VenueModel = VU.EventsContainerModel.extend({
 			if ( gps.length < 2 ) 
 				gps = gps[0].split(",");
 			if ( gps.length > 1 ) {
-				lat = gps[1];
-				lng = gps[0];
+				//HACK: in Texas, Longitude is negative, so we'll double-check to make sure we have lat/long in order
+				if ( gps[1] > gps[0] ) {
+					lat = gps[1];
+					lng = gps[0];
+				} else {
+					lat = gps[0];
+					lng = gps[1];
+				}
 			}
 		}
 		

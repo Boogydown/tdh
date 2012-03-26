@@ -311,7 +311,7 @@
     <script type="application/dust-template" id="popupTemplate_editWithPic">
 		<div id="popupTitle">{navCaption|s}</div>
 		<div id="info">
-			<h2>{danceHallName}</h2>
+			<h2 id="popupDocName"></h2>
 			<form id="model_edit" enctype="multipart/form-data">
 				<div id="inputExContent"></div>
 				<input type="hidden" name="image" value=""></input>
@@ -323,7 +323,7 @@
     <script type="application/dust-template" id="popupTemplate_editNoPic">
 		<div id="popupTitle">{navCaption|s}</div>
 		<div id="info">
-			<h2>{danceHallName}</h2>
+			<h2 id="popupDocName"></h2>
 			<form id="model_edit">
 				<div id="inputExContent"></div>
 				<input type="hidden" name="_rev" value="{_rev}"></input>

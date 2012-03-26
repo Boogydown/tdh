@@ -576,12 +576,8 @@ VU.MapView = Backbone.View.extend({
 		// convert gps to LatLng
 		var master = _.isBoolean(m) && m,
 			gps = hall.get( "GPS Coordinates" ) || hall.get( "gpsCoordinates" );			
-		if ( gps ){
-			gps = gps.replace(/(^\s*)|(\s*$)/g, "").split(" ");
-			if ( gps.length < 2 ) 
-				gps = gps[0].split(",");
-			gps = gps.length > 1 ? new google.maps.LatLng( gps[1], gps[0] ) : null;
-		}
+		gps = parseGPS( gps );
+		gps = (gps.lat ? new google.maps.LatLng( gps.lat, gps.lng ) : null);
 		
 		// see if there's a custom marker icon
 		var markerURL = hall.get( "styleMarker" );

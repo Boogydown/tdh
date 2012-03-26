@@ -660,22 +660,8 @@ VU.VenueModel = VU.EventsContainerModel.extend({
 		if ( str = this.get("historicalNarrative") )
 			entryDescription += str;
 		
-		var lat, lng, gps = this.get( "GPS Coordinates" ) || this.get( "gpsCoordinates" );
-		if ( gps ){
-			gps = gps.split(" ");
-			if ( gps.length < 2 ) 
-				gps = gps[0].split(",");
-			if ( gps.length > 1 ) {
-				//HACK: in Texas, Longitude is negative, so we'll double-check to make sure we have lat/long in order
-				if ( gps[1] > gps[0] ) {
-					lat = gps[1];
-					lng = gps[0];
-				} else {
-					lat = gps[0];
-					lng = gps[1];
-				}
-			}
-		}
+		var gps = this.get( "GPS Coordinates" ) || this.get( "gpsCoordinates" );
+		gps = utils.parseGPS( gps );
 		
 		this.set( { 
 			thumbPic: hallPic,
@@ -683,8 +669,8 @@ VU.VenueModel = VU.EventsContainerModel.extend({
 			website: utils.formatURL(this.get("website")),
 			name: this.get("danceHallName"),
 			entryDescription: entryDescription,
-			lat: lat,
-			lng: lng
+			lat: gps.lat,
+			lng: gps.lng
 		}, { silent: true } );
 	}
 });

@@ -348,7 +348,7 @@
 			
 			var b = this.colls.bands;
 			if ( !b.fetched && !b.fetching )
-				setTimeout( function(){ b.fetch.call( b, /*{add:true}*/{} ); },5000 );
+				setTimeout( function(){ b.fetch.call( b, /*{add:true}*/{} ); },8000 );
 		}
     });
 

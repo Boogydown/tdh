@@ -24,6 +24,13 @@ VU.Collection = Backbone.Collection.extend({
 			if (success) success(collection, resp);
 		};
 		options.error = this.wrapError(options.error, collection, options);
+		//options.error = function(resp) {
+			//if (options.error) {
+				//options.error(collection, resp, options);
+			//} else {
+				//collection.trigger('error', collection, resp, options);
+			//}
+		//};
 		(this.sync || Backbone.sync)('read', this, options);
 		return this;
     },

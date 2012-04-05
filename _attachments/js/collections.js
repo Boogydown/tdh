@@ -30,8 +30,7 @@ VU.Collection = Backbone.Collection.extend({
 			} else {
 				collection.trigger('error', collection, resp, options);
 			}
-		}
-
+		};
 		(this.sync || Backbone.sync)('read', this, options);
 		return this;
     },

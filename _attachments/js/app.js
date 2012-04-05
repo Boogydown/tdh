@@ -346,10 +346,9 @@
 					VU.PopupView.prototype.closePopup();
 			}
 			
-			var f = this.colls.bands.fetch;
-			if ( !this.colls.bands.fetched && !this.colls.bands.fetching )
-				_.delay( f,5000 );
-				//setTimeout( this.colls.bands.fetch(/*{add:true}*/{}),5000 );
+			var b = this.colls.bands;
+			if ( !b.fetched && !b.fetching )
+				setTimeout( function(){ b.fetch.apply( b, /*{add:true}*/{} ); },5000 );
 		}
     });
 

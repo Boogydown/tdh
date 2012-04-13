@@ -581,37 +581,40 @@ VU.MapView = Backbone.View.extend({
 		
 		// Marker icon precedence: 1) status, 2) styleMarker, 3) grey-circle.png
 		var currentUse = hall.get( "currentUse" );
-		var markerURL = hall.get( "styleMarker" );
-		switch (currentUse) {
-			case "Bar":
-			case "Church Hall":
-			case "Community center":
-			case "Event rental":
-			case "Lodging":
-			case "Public dances":
-			case "Restaurant":
-			case "Social club":
-			case "Theater":
+		var markerURL;
+		switch (currentUse.toLowerCase()) {
+			case "bar":
+			case "church hall":
+			case "community center":
+			case "event rental":
+			case "lodging":
+			case "public dances":
+			case "restaurant":
+			case "social club":
+			case "theater":
+			case "dances, rentals, meetings":
+			case "event rental, public dances":
 				markerURL = "http://maps.google.com/mapfiles/ms/micons/blue-dot.png";
 				break;
-			case "Church services":
-			case "Commercial":
-			case "Dwelling":
-			case "Retail":
-			case "Storage":
-			case "Unknown":
-			case "Vacant":
+			case "church services":
+			case "commercial":
+			case "dwelling":
+			case "retail":
+			case "storage":
+			case "unknown":
+			case "vacant":
 				markerURL = "http://maps.google.com/mapfiles/ms/micons/yellow-dot.png";
 				break;
-			case "Gone":
+			case "gone":
 				markerURL = "http://maps.google.com/mapfiles/ms/micons/red-dot.png";
 				break;
 			default :
+				markerURL = hall.get( "styleMarker" );
 				if ( markerURL ){
-					//if ( markerURL == "pink" ) markerURL = "grey";
 					markerURL = "http://maps.google.com/mapfiles/ms/micons/" + markerURL + ".png";
 				} else {
-					markerURL = "http://maps.google.com/mapfiles/ms/micons/red-dot.png";
+					//markerURL = "http://maps.google.com/mapfiles/ms/micons/red-dot.png";
+					markerURL = "http://maps.google.com/mapfiles/ms/micons/blue-dot.png";
 				}
 		}
 		

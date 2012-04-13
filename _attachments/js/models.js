@@ -219,7 +219,6 @@ VU.MemberModel = VU.CookieModel.extend({
 		this.set( this.defaults );
 		this.loadDCard();
 		// save, in case the dCard was from cookie or user
-		this.writeCookies();
 		this.doneCallback();
 	},
 
@@ -246,7 +245,6 @@ VU.MemberModel = VU.CookieModel.extend({
 		this.set( { loggedIn: true, lastLogin: new Date().getTime() } );
 		this.isAdmin = _(this.get("roles")).indexOf("admin") > -1;
 		this.loadDCard();
-		this.writeCookies();
 		this.doneCallback();
 	},
 
@@ -284,7 +282,9 @@ VU.MemberModel = VU.CookieModel.extend({
 			
 			// to keep us in sync as things are added
 			this.dCardColl.bind( "add", this._syncDCard );
-			this.dCardColl.bind( "remove", this._syncDCard );			
+			this.dCardColl.bind( "remove", this._syncDCard );
+			
+			this.writeCookies();
 		}
 		else
 			this.eventsMain.bind( "reset", this.loadDCard );

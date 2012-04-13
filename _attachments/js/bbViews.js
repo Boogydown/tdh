@@ -579,15 +579,43 @@ VU.MapView = Backbone.View.extend({
 		gps = utils.parseGPS( gps );
 		gps = (gps.lat ? new google.maps.LatLng( gps.lat, gps.lng ) : null);
 		
-		// see if there's a custom marker icon
-		var markerURL = hall.get( "styleMarker" );
-		if ( master ) {
-			markerURL = "images/grey-circle.png";
-		} else if ( markerURL ){
-			//if ( markerURL == "pink" ) markerURL = "grey";
-			markerURL = "http://maps.google.com/mapfiles/ms/micons/" + markerURL + ".png";
-		} else {
-			markerURL = "http://maps.google.com/mapfiles/ms/micons/red-dot.png";
+		// Marker icon precedence: 1) status, 2) styleMarker, 3) grey-circle.png
+		var currentUse = hall.get( "currentUse" ) || "";
+		var markerURL;
+		switch (currentUse.toLowerCase()) {
+			case "bar":
+			case "church hall":
+			case "community center":
+			case "event rental":
+			case "lodging":
+			case "public dances":
+			case "restaurant":
+			case "social club":
+			case "theater":
+			case "dances, rentals, meetings":
+			case "event rental, public dances":
+				markerURL = "http://maps.google.com/mapfiles/ms/micons/blue-dot.png";
+				break;
+			case "church services":
+			case "commercial":
+			case "dwelling":
+			case "retail":
+			case "storage":
+			case "unknown":
+			case "vacant":
+				markerURL = "http://maps.google.com/mapfiles/ms/micons/yellow-dot.png";
+				break;
+			case "gone":
+				markerURL = "http://maps.google.com/mapfiles/ms/micons/red-dot.png";
+				break;
+			default :
+				markerURL = hall.get( "styleMarker" );
+				if ( markerURL ){
+					markerURL = "http://maps.google.com/mapfiles/ms/micons/" + markerURL + ".png";
+				} else {
+					//markerURL = "http://maps.google.com/mapfiles/ms/micons/red-dot.png";
+					markerURL = "http://maps.google.com/mapfiles/ms/micons/blue-dot.png";
+				}
 		}
 		
 		// map it!
@@ -598,7 +626,7 @@ VU.MapView = Backbone.View.extend({
 					title: null,
 					clickable : false,
 					icon: new google.maps.MarkerImage( 
-						markerURL,
+						"images/grey-circle.png",
 						new google.maps.Size(9,9),
 						null, null, 
 						new google.maps.Size(9,9)

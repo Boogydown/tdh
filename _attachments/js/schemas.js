@@ -368,7 +368,27 @@ VU.schemas = {
 				"currentUse":{
 					"description": "Current Use",
 					"type":"string",
-					"optional":true
+					"optional":true,
+					choices: [
+						{ value: "", 'label': "" },
+						{ value: "Bar", 'label': "Bar" },
+						{ value: "Church Hall", 'label': "Church Hall" },
+						{ value: "Church services", 'label': "Church services" },
+						{ value: "Commercial", 'label': "Commercial" },
+						{ value: "Community center", 'label': "Community center" },
+						{ value: "Dwelling", 'label': "Dwelling" },
+						{ value: "Event rental", 'label': "Event rental" },
+						{ value: "Gone", 'label': "Gone" },
+						{ value: "Lodging", 'label': "Lodging" },
+						{ value: "Public dances", 'label': "Public dances" },
+						{ value: "Restaurant", 'label': "Restaurant" },
+						{ value: "Retail", 'label': "Retail" },
+						{ value: "Social club", 'label': "Social club" },
+						{ value: "Storage", 'label': "Storage" },
+						{ value: "Theater", 'label': "Theater" },
+						{ value: "Unknown", 'label': "Unknown" },
+						{ value: "Vacant", 'label': "Vacant" }
+					]
 				},
 				"culturalOrigin":{
 					"description": "Cultural Origin",

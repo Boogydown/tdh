@@ -219,7 +219,6 @@ VU.MemberModel = VU.CookieModel.extend({
 		this.set( this.defaults );
 		this.loadDCard();
 		// save, in case the dCard was from cookie or user
-		this.writeCookies();
 		this.doneCallback();
 	},
 
@@ -246,7 +245,6 @@ VU.MemberModel = VU.CookieModel.extend({
 		this.set( { loggedIn: true, lastLogin: new Date().getTime() } );
 		this.isAdmin = _(this.get("roles")).indexOf("admin") > -1;
 		this.loadDCard();
-		this.writeCookies();
 		this.doneCallback();
 	},
 
@@ -284,7 +282,9 @@ VU.MemberModel = VU.CookieModel.extend({
 			
 			// to keep us in sync as things are added
 			this.dCardColl.bind( "add", this._syncDCard );
-			this.dCardColl.bind( "remove", this._syncDCard );			
+			this.dCardColl.bind( "remove", this._syncDCard );
+			
+			this.writeCookies();
 		}
 		else
 			this.eventsMain.bind( "reset", this.loadDCard );
@@ -505,6 +505,7 @@ VU.BandModel = VU.EventsContainerModel.extend({
 	initialize : function ( attrs, options ) { 
 		VU.EventsContainerModel.prototype.initialize.call( this, attrs, options );
 		this.name = _.uniqueId( "band" );
+		this.throttledGetGoogleImage = _.throttle( this.getGoogleImage, 100 );
 		_.bindAll( this, "normalizeAttributes", "searchComplete" );
 		//this.bind( "change:image", this.normalizeAttributes );		
 		//this.bind( "change:stylesPlayed", this.normalizeAttributes );		
@@ -563,7 +564,7 @@ VU.BandModel = VU.EventsContainerModel.extend({
 			}, { silent: true } );
 		}
 		else
-			if ( window.google ) this.getGoogleImage();
+			if ( window.google ) this.throttledGetGoogleImage();
 	},
 	
 	imageSearch: {}, 

@@ -579,15 +579,40 @@ VU.MapView = Backbone.View.extend({
 		gps = utils.parseGPS( gps );
 		gps = (gps.lat ? new google.maps.LatLng( gps.lat, gps.lng ) : null);
 		
-		// see if there's a custom marker icon
+		// Marker icon precedence: 1) status, 2) styleMarker, 3) grey-circle.png
+		var currentUse = hall.get( "currentUse" );
 		var markerURL = hall.get( "styleMarker" );
-		if ( master ) {
-			markerURL = "images/grey-circle.png";
-		} else if ( markerURL ){
-			//if ( markerURL == "pink" ) markerURL = "grey";
-			markerURL = "http://maps.google.com/mapfiles/ms/micons/" + markerURL + ".png";
-		} else {
-			markerURL = "http://maps.google.com/mapfiles/ms/micons/red-dot.png";
+		switch currentUse {
+			case "Bar":
+			case "Church Hall":
+			case "Community center":
+			case "Event rental":
+			case "Lodging":
+			case "Public dances":
+			case "Restaurant":
+			case "Social club":
+			case "Theater":
+				markerURL = "http://maps.google.com/mapfiles/ms/micons/blue-dot.png";
+				break;
+			case "Church services":
+			case "Commercial":
+			case "Dwelling":
+			case "Retail":
+			case "Storage":
+			case "Unknown":
+			case "Vacant":
+				markerURL = "http://maps.google.com/mapfiles/ms/micons/yellow-dot.png";
+				break;
+			case "Gone":
+				markerURL = "http://maps.google.com/mapfiles/ms/micons/red-dot.png";
+				break;
+			default :
+				if ( markerURL ){
+					//if ( markerURL == "pink" ) markerURL = "grey";
+					markerURL = "http://maps.google.com/mapfiles/ms/micons/" + markerURL + ".png";
+				} else {
+					markerURL = "http://maps.google.com/mapfiles/ms/micons/red-dot.png";
+				}
 		}
 		
 		// map it!
@@ -598,7 +623,7 @@ VU.MapView = Backbone.View.extend({
 					title: null,
 					clickable : false,
 					icon: new google.maps.MarkerImage( 
-						markerURL,
+						"images/grey-circle.png",
 						new google.maps.Size(9,9),
 						null, null, 
 						new google.maps.Size(9,9)

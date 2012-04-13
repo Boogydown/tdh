@@ -580,7 +580,7 @@ VU.MapView = Backbone.View.extend({
 		gps = (gps.lat ? new google.maps.LatLng( gps.lat, gps.lng ) : null);
 		
 		// Marker icon precedence: 1) status, 2) styleMarker, 3) grey-circle.png
-		var currentUse = hall.get( "currentUse" );
+		var currentUse = hall.get( "currentUse" ) || "";
 		var markerURL;
 		switch (currentUse.toLowerCase()) {
 			case "bar":

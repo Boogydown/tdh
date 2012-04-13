@@ -582,7 +582,7 @@ VU.MapView = Backbone.View.extend({
 		// Marker icon precedence: 1) status, 2) styleMarker, 3) grey-circle.png
 		var currentUse = hall.get( "currentUse" );
 		var markerURL = hall.get( "styleMarker" );
-		switch currentUse {
+		switch (currentUse) {
 			case "Bar":
 			case "Church Hall":
 			case "Community center":

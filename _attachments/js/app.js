@@ -264,7 +264,13 @@
 				filters = [];
 			if ( this.currentView && this.currentView != myView )
 				this.currentView.deactivate();
-			
+
+			// load all dates
+			if ( dates == "-1" ) {
+				this.colls.events.query = '?startkey=["event",null,null,null]&endkey=["event",[],[],[]]';
+				dates = this.routeParams.dates;
+			}
+				
 			// done manipulating params (tab, specifically) so we can now save the route
 			this.saveRoutes( tab, dates, coords, popID, style );
 			

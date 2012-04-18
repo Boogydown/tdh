@@ -579,6 +579,12 @@ $(function(){
 			if ( (collName && collName != this.collName) || (numPerPage && numPerPage != this.numPerPage) )
 				this.curPage = 0;
 
+			// load all dates
+			if ( collName == "events" && curPage == "-1" ) {
+				this.colls.events.query = '?startkey=["event",null,null,null]&endkey=["event",[],[],[]]';
+				curPage = 0;
+			}
+				
 			// normalize the route based on any persistant values 
 			// (i.e. for urls without all the /params after the hash, we'll just used the previous, saved value)
 			var collName 	= collName 	|| this.collName,

@@ -121,9 +121,10 @@ VU.CookieModel = Backbone.Model.extend({
 				value = c.substring(nameEQ.length,c.length);
 		}
 		try {
-			value = JSON.parse( value );
+			if ( value )
+				value = JSON.parse( value );
 		} catch (e) {}
-		return JSON.parse( value );
+		return value;
 	},
 
 	eraseCookie : function(name) {

@@ -103,7 +103,7 @@ VU.MemberModel = VU.CookieModel.extend({
 	databaseName : "_users",
 	url: "_users",
 	fetched : false,
-	cookieKeys : [ "dCard" ],
+	cookieKeys : [ "dCard", "test" ],
 	ID_PREFIX: "org.couchdb.user:",
 	isAdmin: false,
 	defaults : {
@@ -145,6 +145,10 @@ VU.MemberModel = VU.CookieModel.extend({
 	 * doLogin and doSignup pulled from Futon v0.11.0 ////////////////////////////
 	 */
     doLogin : function(name, password, callback) {
+		if ( !this.checkCookies() ) {
+			alert("Please enable 3rd party cookies if you'd like to log in!");
+			return;
+		}
 		var model = this;
 		$.couch.login({
 			name : name,
@@ -161,9 +165,26 @@ VU.MemberModel = VU.CookieModel.extend({
     },
     
 	/**
+	 * A utility to detect if 3rd party cookies are enabled
+	 **/
+	checkCookies : function()
+	{
+		this.set({test:"testing3rdPartyCookies"});
+		this.writeCookies();
+		this.set({test:"fail"});
+		this.readCookies();
+		var result = (this.get("test") != "testing3rdPartyCookies");
+		return result;
+	}
+
+	/**
 	 * doLogin and doSignup pulled from Futon v0.11.0 ////////////////////////////
 	 */
     doSignup : function(name, password, callback) {
+		if ( !this.checkCookies() ) {
+			alert("Please enable 3rd party cookies if you'd like to log in!");
+			return;
+		}
 		var model = this;
 		$.couch.signup({
 			name : name

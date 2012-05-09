@@ -419,6 +419,10 @@ VU.LoginPopupView = VU.PopupView.extend({
 	},
 	
 	onOpened : function() {
+		if ( ! this.model.checkCookies() )
+			alert("Please enable 3rd party cookies if you'd like to log in!");
+		}
+			
 		this.formView = new VU.FormView({el:this.el, model:this.model});
 		this.formView.validate = this.validate;
 		this.formView.processSuccessFail = this.processSuccessFail;

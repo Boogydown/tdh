@@ -167,15 +167,14 @@ VU.MemberModel = VU.CookieModel.extend({
 	/**
 	 * A utility to detect if 3rd party cookies are enabled
 	 **/
-	checkCookies : function()
-	{
+	checkCookies : function(){
 		this.set({test:"testing3rdPartyCookies"});
 		this.writeCookies();
 		this.set({test:"fail"});
 		this.readCookies();
 		var result = (this.get("test") != "testing3rdPartyCookies");
 		return result;
-	}
+	},
 
 	/**
 	 * doLogin and doSignup pulled from Futon v0.11.0 ////////////////////////////

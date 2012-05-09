@@ -53,13 +53,10 @@ VU.CookieModel = Backbone.Model.extend({
 	 * A utility to detect if 3rd party cookies are enabled
 	 **/
 	checkCookies : function(){
-		this.cookieKeys.push("__checkCookie");
-		this.set({__checkCookie:"testing3rdPartyCookies"});
-		this.writeCookies();
-		this.set({__checkCookie:"fail"});
-		this.readCookies();
-		var result = (this.get("__checkCookie") != "testing3rdPartyCookies");
-		return result;
+		this.createCookie( "__checkCookie", "testing3rdPartyCookies", 1 );
+		var result = this.readCookie( "__checkCookie" );
+		this.eraseCookie( "__checkCookie ");
+		return result == "testing3rdPartyCookies";
 	},
 
 	/**
@@ -68,45 +65,72 @@ VU.CookieModel = Backbone.Model.extend({
 	writeCookies : function() {
 		if ( !this.isDirty ) return;
 		this.isDirty = false;
-		var i, key, val, cookie;
+		var i, key, val;
 		for ( i in this.cookieKeys ){
 			key = this.cookieKeys[i];
 			val = this.get( key );
 			if ( val !== undefined ){
-				cookie = this.prefix + key + "=" + JSON.stringify(val);
-				document.cookie = cookie;
-				utils.logger.log("writeCookies() is writing cookie: " + cookie );
+				this.createCookie( key, val, 10 );
 			}
 		}
 		if ( this.id ) this.save();
 	},
-	
+
 	/**
 	 * Read previously-saved values from the cookies, if exist
 	 */
 	readCookies : function() {
-		var cookies = document.cookie.split('; '), tmp = {}, plen = this.prefix.length,
-			cook, cookary, cookiesObj = {}, success = false, key;
-		if ( cookies.length > 0 ) {
-			for ( cook in cookies ){
-				cookary = cookies[cook].split("=");
-				if ( cookary[0].substr(0,plen) == this.prefix ) {
-					key = cookary[0].substr(plen);
-					cookiesObj[key] = cookary[1];
-					if ( _(this.cookieKeys).indexOf(key) > -1 ) {
-						try{
-							tmp[key] = JSON.parse( cookary[1] );
-							success = true;
-						} catch(e) {}
-					}
-				}
-			}
+		var i, key, val;
+		var data = {};
+		for ( i in this.cookieKeys ){
+			key = this.cookieKeys[i];
+			val = this.readCookie( key );
+			if ( val !== "" )
+				data[ key ] = val;
+			else
+				return false;
 		}
-		//tmp.cookiesObj = cookiesObj;  deprected - don't need it added to the model, anymore
-		utils.logger.log( "readCookies() is setting: " + JSON.stringify( tmp ) );
-		this.set( tmp );
-		return success;
-	}
+		this.set( data );
+		return true;
+	},
+
+	//============================================================
+	/**
+	 * Ganked from here: http://www.quirksmode.org/js/cookies.html
+	 **/
+	createCookie : function( name, value, days ) {
+		if ( days ) {
+			var date = new Date();
+			date.setTime( date.getTime() + (days * 24 * 60 * 60 * 1000) );
+			var expires = "; expires=" + date.toGMTString();
+		}
+		else 
+			var expires = "";
+		document.cookie = name + "=" + JSON.stringify(value) + expires + "; path=/";
+	},
+
+	readCookie : function (name) {
+		var nameEQ = name + "=";
+		var ca = document.cookie.split(';');
+		var value = "";
+		for(var i=0;i < ca.length;i++) {
+			var c = ca[i];
+			while (c.charAt(0)==' ') 
+				c = c.substring(1,c.length);
+			if (c.indexOf(nameEQ) == 0) 
+				value = c.substring(nameEQ.length,c.length);
+		}
+		try {
+			value = JSON.parse( value );
+		} catch (e) {}
+		return JSON.parse( value );
+	},
+
+	eraseCookie : function(name) {
+		createCookie(name,"",-1);
+	},
+	//============================================================
+
 });
 
 /**

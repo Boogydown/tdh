@@ -1706,7 +1706,6 @@ VU.schemas = {
 					"type": "string",
 					"optional":true,
 					"_inputex":{
-					"_inputex":{
 						"label": "About The Band",
 						"rows":4,
 						"cols":60

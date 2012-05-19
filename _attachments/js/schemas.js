@@ -767,6 +767,7 @@ VU.schemas = {
 					"type":"string",
 					"optional":true,
 					"choices": [ 
+						{'value':'TBA','label':'TBA'},
 						{'value':'12:00 AM','label':'12:00 AM'},
 						{'value':'12:30 AM','label':'12:30 AM'},
 						{'value':'1:00 AM','label':'1:00 AM'},
@@ -949,6 +950,7 @@ VU.schemas = {
 					"type":"string",
 					"optional":true,
 					"choices": [ 
+						{'value':'TBA','label':'TBA'},
 						{'value':'12:00 AM','label':'12:00 AM'},
 						{'value':'12:30 AM','label':'12:30 AM'},
 						{'value':'1:00 AM','label':'1:00 AM'},
@@ -1120,6 +1122,7 @@ VU.schemas = {
 					"type":"string",
 					"optional":true,
 					"choices": [ 
+						{'value':'TBA','label':'TBA'},
 						{'value':'12:00 AM','label':'12:00 AM'},
 						{'value':'12:30 AM','label':'12:30 AM'},
 						{'value':'1:00 AM','label':'1:00 AM'},

@@ -1527,6 +1527,16 @@ VU.schemas = {
 						"label": "Year Founded"
 					}					
 				},
+				"aboutTheBand":{
+					"type": "string",
+					"format":"text",
+					"optional":true,
+					"_inputex":{
+						"label": "About The Band",
+						"rows":4,
+						"cols":60
+					}
+				},				
 				"bandHistory":{
 					"type": "string",
 					"format":"text",
@@ -1692,6 +1702,13 @@ VU.schemas = {
 						"label": "Different styles played:"
 					}
 				},
+				"aboutTheBand":{
+					"type": "string",
+					"optional":true,
+					"_inputex":{
+						"label": "About The Band"
+					}
+				},				
 				"area":{
 					"type": "string",
 					"optional": true,
@@ -1796,7 +1813,17 @@ VU.schemas = {
 					"_inputex": {
 						"label": "Different styles played:"
 					}
-				}
+				},
+				"aboutTheBand":{
+					"type": "string",
+					"format":"text",
+					"optional":true,
+					"_inputex":{
+						"label": "About The Band",
+						"rows":4,
+						"cols":60
+					}
+				}				
 			}
 		}
 	}

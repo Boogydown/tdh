@@ -1708,8 +1708,8 @@ VU.schemas = {
 					"optional":true,
 					"_inputex":{
 						"label": "About The Band",
-						"rows":4,
-						"cols":60
+						"rows":5,
+						"cols":40
 					}
 				},				
 				"area":{

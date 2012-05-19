@@ -393,22 +393,54 @@ VU.schemas = {
 				"culturalOrigin":{
 					"description": "Cultural Origin",
 					"type":"string",
-					"optional":true
+					"optional":true,
+					choices: [
+						{ value: "", 'label': "" },
+						{ value: "German", 'label': "German" },
+						{ value: "Czech", 'label': "Czech" },
+						{ value: "Polish", 'label': "Polish" },
+						{ value: "Tejano", 'label': "Tejano" },
+						{ value: "African-American", 'label': "African-American" },
+						{ value: "Other", 'label': "Other" },
+						{ value: "Unknown", 'label': "Unknown" }
+					]
 				},
 				"numberOfStories":{
 					"description": "Number of stories",
 					"type":"string",
-					"optional":true
+					"optional":true,
+					choices: [
+						{ value: "", 'label': "" },
+						{ value: "one story", 'label': "one story" },
+						{ value: "two story", 'label': "two story" },
+						{ value: "Unknown", 'label': "Unknown" }
+					]
 				},
 				"buildingForm":{
 					"description": "Building Form",
 					"type":"string",
-					"optional":true
+					"optional":true,
+					choices: [
+						{ value: "", 'label': "" },
+						{ value: "Rectangular", 'label': "Rectangular" },
+						{ value: "Octagonal", 'label': "Octagonal" },
+						{ value: "12-sided", 'label': "12-sided" },
+						{ value: "6-sided", 'label': "6-sided" },
+						{ value: "Other", 'label': "Other" },
+						{ value: "Not sure", 'label': "Not sure" }
+					]
 				},
 				"typeOfConstruction":{
 					"description": "Type of Construction",
 					"type":"string",
-					"optional":true
+					"optional":true,
+					choices: [
+						{ value: "", 'label': "" },
+						{ value: "Wood framed", 'label': "Wood framed" },
+						{ value: "Masonry", 'label': "Masonry" },
+						{ value: "Steel frame", 'label': "Steel frame" },
+						{ value: "Not sure", 'label': "Not sure" }
+					S]
 				},
 				"dateBuilt":{
 					"description": "Date Built",
@@ -418,7 +450,13 @@ VU.schemas = {
 				"certaintyOfDate":{
 					"description": "Certainty of Date",
 					"type":"string",
-					"optional":true
+					"optional":true,
+					choices: [
+						{ value: "", 'label': "" },
+						{ value: "Certain", 'label': "Certain" },
+						{ value: "Uncertain", 'label': "Uncertain" },
+						{ value: "Somewhat certain", 'label': "Somewhat certain" }
+					]
 				},
 				"builder":{
 					"description": "Builder",
@@ -495,7 +533,16 @@ VU.schemas = {
 				"nationalRegister":{
 					"description": "National Register",
 					"type":"string",
-					"optional":true
+					"optional":true,
+					choices: [
+						{ value: "", 'label': "" },
+						{ value: "Listed", 'label': "Listed" },
+						{ value: "Not eligible", 'label': "Not eligible" },
+						{ value: "Contributing", 'label': "Contributing" },
+						{ value: "Determined eligible", 'label': "Determined eligible" },
+						{ value: "Unknown", 'label': "Unknown" }
+					]
+					
 				},
 				"mapped":{
 					"description": "Mapped?",

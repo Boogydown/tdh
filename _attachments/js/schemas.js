@@ -1704,6 +1704,7 @@ VU.schemas = {
 				},
 				"aboutTheBand":{
 					"type": "string",
+					"format":"text",
 					"optional":true,
 					"_inputex":{
 						"label": "About The Band",

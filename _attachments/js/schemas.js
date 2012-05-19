@@ -440,7 +440,7 @@ VU.schemas = {
 						{ value: "Masonry", 'label': "Masonry" },
 						{ value: "Steel frame", 'label': "Steel frame" },
 						{ value: "Not sure", 'label': "Not sure" }
-					S]
+					]
 				},
 				"dateBuilt":{
 					"description": "Date Built",

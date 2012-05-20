@@ -247,7 +247,7 @@ $(function(){
         initialize : function(){
 			this.el.html("<div class='loadingBar'>Loading...</div>");
 			this.registerTemplate('table-header');			
-            _.bindAll(this, 'render', 'reRender', 'addRow');
+            _.bindAll(this, 'render', 'reRender', 'addRow', "submitLogin" );
             this.collection.bind("add", this.reRender);
             this.collection.bind("remove", this.deleted);
 			if ( !this.collection.fetched ){
@@ -326,7 +326,16 @@ $(function(){
 		
 		submitLogin : function(e) {
 			e.preventDefault();
-			app.mySession.doLogin( e.target.username.value, e.target.password.value, function() { location.href="#//////2"; } );
+			app.mySession.doLogin( e.target.username.value, e.target.password.value, this.handleLogin );
+		},
+		
+		handleLogin : function( result ) {
+			if ( result )
+				alert( result.name );
+			else {
+				this.loginBoxes.hide();
+				location.href = "#//////2";
+			}
 		},
         
 		reRender: function() {

@@ -573,7 +573,7 @@ VU.BandModel = VU.EventsContainerModel.extend({
 	normalizeAttributes : function ( model, val, options ) {
 		//utils.logger.log( "Normalize " + model.name + ":"  );
 		// image and website
-		if ( !this.isLoaded || ( options && options.skipNormalize ) ) return;
+		if ( !this.isLoaded() || ( options && options.skipNormalize ) ) return;
 		//utils.logger.log( val );
 		//utils.logger.log( this.attributes );
 		
@@ -686,7 +686,7 @@ VU.VenueModel = VU.EventsContainerModel.extend({
 	 * 	and usage elsewhere, such as filtering
 	 */
 	normalizeAttributes : function () {
-		if ( ! this.isLoaded ) 
+		if ( ! this.isLoaded() ) 
 			return;
 		
 		// images and website

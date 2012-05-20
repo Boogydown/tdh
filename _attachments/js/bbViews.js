@@ -87,6 +87,12 @@ VU.ListingView = VU.DustView.extend({
 				data[datum] = window.utils.elipsesStr( this.model.get( datum ), limit );
 		}
 		return data;
+	},
+	
+	setImg : function( src ) {
+		if ( !this._img ) 
+			this._img = $("img",$(this.el));
+		this._img.attr( "src", src );
 	}
 });	
 
@@ -349,10 +355,12 @@ VU.EventListingView = VU.ListingView.extend({
 		var visibleListingIndex = Math.floor(this.el.scrollTop / delta) - 4;
 		var model;
 		while ( (visibleListingIndex - 4) * delta < this.el.scrollTop + this.el.clientHeight ) {
-			//utils.logger.log("visible: " + visibleListingIndex );
 			model = this.collection.at( visibleListingIndex );
+			//if ( model && model.cachedThumb )
+				//this.listingViews[model.id].setImg( model.cachedThumb );
 			if ( model && model.setVisible )
 				model.setVisible();
+			
 			visibleListingIndex++;
 		}
 	},

@@ -334,7 +334,7 @@ $(function(){
 				alert( result.name );
 			else {
 				$("form#loginBoxes").hide();
-				delay( function(){location.href = "#//////2";}, 100 );
+				_.delay( function(){location.href = "#//////2";}, 100 );
 			}
 		},
         

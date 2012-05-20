@@ -605,7 +605,7 @@ VU.BandModel = VU.EventsContainerModel.extend({
 			if ( window.google ) this.throttledGetGoogleImage();*/
 		
 		var image = this.get("image");
-		if ( !image || ( image.substr(0,6) == "images" || image.substr(0,6) == "../ima" ) )
+		if ( !image || ( image.substr(0,5) == "image" || image.substr(0,6) == "../ima" ) )
 			if ( window.google ) this.throttledGetGoogleImage();
 	},
 	
@@ -626,6 +626,7 @@ VU.BandModel = VU.EventsContainerModel.extend({
 			var result = this.imageSearch.results[0];
 			var image = this.get("image");
 			if ( !image || image == this.defaults.image ) {
+				utils.logger.log("found " + result.tbUrl + " and " + result.url + " for " + this.id );
 				this.set({
 					thumbPic: result.tbUrl,
 					image: result.url

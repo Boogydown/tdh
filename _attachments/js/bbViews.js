@@ -343,10 +343,11 @@ VU.EventListingView = VU.ListingView.extend({
 			utils.waitingUI.hide();
 		}
 */
+		// call setVisible() on all items in the scroll window plus 4 before and 4 after
 		var delta = this.getListingHeight();
-		var visibleListingIndex = Math.floor(this.el.scrollTop / delta);
+		var visibleListingIndex = Math.floor(this.el.scrollTop / delta) - 4;
 		var model;
-		while ( (visibleListingIndex - 1) * delta < this.el.scrollTop + this.el.clientHeight ) {
+		while ( (visibleListingIndex - 4) * delta < this.el.scrollTop + this.el.clientHeight ) {
 			//utils.logger.log("visible: " + visibleListingIndex );
 			model = this.collection.at( visibleListingIndex );
 			if ( model && model.setVisible )

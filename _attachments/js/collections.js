@@ -11,7 +11,7 @@ VU.InitColls = function () {
 VU.Collection = Backbone.Collection.extend({
 	fetch : function(options) {
 		utils.logger.log( this.name + ".fetch()" );		
-		if ( this.fetching ) return;
+		if ( this.fetching || this.fetched ) return;
 		this.fetched = false;
 		this.fetching = true;
 		options || (options = {});

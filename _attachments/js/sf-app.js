@@ -315,7 +315,18 @@ $(function(){
 				if ( end > this.collection.length ) end = this.collection.length;
 				for ( var i = start; i <= end; i++ ) this.addRow( this.collection.models[i] );
 			}
+			
+			this.loginBoxes = $("form#loginBoxes");
+			if ( app.mySession && app.mySession.get("loggedIn") ) {
+				this.loginBoxes.hide();
+			} else {
+				this.loginBoxes.submit( this.submitLogin );
+			}
         },
+		
+		submitLogin : function(e) {
+			app.mySession.doLogin( e.target.username, e.target.password, function(){location.href="#/////2";} );
+		},
         
 		reRender: function() {
 			this.el.html("Loading...");

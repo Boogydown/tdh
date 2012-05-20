@@ -43,6 +43,15 @@
   </body>
   
   <script type="application/dust-template" id="table-header">
+	<tr>
+		<td colspan="2">
+			<form id="loginBoxes" action="">
+				<input id="loginName" name="username" type="text"/>
+				<input id="loginPass" name="password" type="password"/>
+				<button type="submit">Login</button>
+			</form>
+		</td>
+	</tr>
     <tr>
 		<td colspan="2">
 			<form>
@@ -50,13 +59,6 @@
 					<option value=""></option>
 					{#quickFindEntries}<option value="{value}">{label}</option>{/quickFindEntries}
 				</select>
-			</form>
-		</td>
-		<td>
-			<div id="loginLink"><u>Login</u></div><br/>
-			<form id="loginBoxes">
-				<input id="loginName" name="username" type="text"/>
-				<input id="loginPass" name="password" type="text"/>
 			</form>
 		</td>
 	</tr>

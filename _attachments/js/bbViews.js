@@ -156,11 +156,11 @@ VU.EventListingView = VU.ListingView.extend({
 	scrollLoadThreshold : 100,
 	LISTING_HEIGHT: 92,
 	
-/*	since we're just loading it all, anyway, we don't need to listen to scroll event
+	since we're just loading it all, anyway, we don't need to listen to scroll event
 	events : { 
 		"scroll" : "scrollUpdate" 
 	},
-*/	
+	
 	initialize : function( options ) {
 		_.bindAll(this, 'addRow', "removeRow", "scrollUpdate", "filtered", "_nextPage", "_updateSpacer");
 		this.emptyMsg = options.emptyMsg || "<i>This list is empty</i>";
@@ -216,10 +216,15 @@ VU.EventListingView = VU.ListingView.extend({
 				index = this.collection.length - 1;
 		}
 		
+		this.el.scrollTop = (index - 1) * this.getListingHeight();
+	},
+	
+	getListingHeight : function() {
+		if ( this.listingHeight )
+			return this.listingHeight;
 		var listings = $(".listing", this.el);
 		if ( listings.length < 2 ) return;
-		var delta = listings[1].offsetTop - listings[0].offsetTop;
-		this.el.scrollTop = (index - 1) * delta;
+		this.listingHeight = listings[1].offsetTop - listings[0].offsetTop;		
 	},
 	
 	/**
@@ -331,12 +336,19 @@ VU.EventListingView = VU.ListingView.extend({
 		//if ( this.el.scrollTop >= (this.el.scrollHeight - this.el.clientHeight - this.scrollLoadThreshold ) )
 			//this._nextPage();
 			
-		//if scrolling down and see spacer then load some more stuff			
-		if ( this.spacer.position().top < $(this.el).height() ){
+		//if scrolling down and see spacer then load some more stuff
+/*		if ( this.spacer.position().top < $(this.el).height() ){
 			utils.waitingUI.show();
 			//this._nextPage( );
 		}else{
 			utils.waitingUI.hide();
+		}
+*/
+		var delta = this.getListingHeight();
+		var visibleListingIndex = int(this.el.scrollTop / delta);
+		while ( visibleListingIndex * delta < this.el.scrollTop + this.el.height ) {
+			utils.logging.log("visible: " + visibleListingIndex );
+			visibleListingIndex++;
 		}
 	},
 	

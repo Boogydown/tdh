@@ -50,7 +50,7 @@ Please click OK if you agree to these terms.')) {location.href="#///!"; return;}
 		if (!data.ageLimit || data.ageLimit.length == 0)
 			result.ageLimit = "Please select an age limit.";
 			
-		if ( result ){
+		if ( _.size(result) > 0 ){
 			callback( result );
 			return false;
 		}

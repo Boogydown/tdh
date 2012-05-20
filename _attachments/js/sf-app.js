@@ -325,6 +325,7 @@ $(function(){
         },
 		
 		submitLogin : function(e) {
+			e.preventDefault();
 			app.mySession.doLogin( e.target.username.value, e.target.password.value, function(){location.href="#/////2";} );
 		},
         

@@ -544,8 +544,8 @@ VU.BandModel = VU.EventsContainerModel.extend({
 		VU.EventsContainerModel.prototype.initialize.call( this, attrs, options );
 		this.name = _.uniqueId( "band" );
 		this.throttledGetGoogleImage = _.throttle( this.getGoogleImage, 100 );
-		this.throttledShowImage = _.throttle( this.showImage, 50 );
-		_.bindAll( this, "normalizeAttributes", "searchComplete" );
+		this.throttledSetVisible = _.throttle( this.setVisible, 50 );
+		_.bindAll( this, "normalizeAttributes", "searchComplete", "setVisible" );
 		//this.bind( "change:image", this.normalizeAttributes );		
 		//this.bind( "change:stylesPlayed", this.normalizeAttributes );		
 		//this.bind( "change:website", this.normalizeAttributes );		
@@ -571,11 +571,7 @@ VU.BandModel = VU.EventsContainerModel.extend({
 	 * 	and usage elsewhere, such as filtering
 	 */
 	normalizeAttributes : function ( model, val, options ) {
-		//utils.logger.log( "Normalize " + model.name + ":"  );
-		// image and website
 		if ( !this.isLoaded() || ( options && options.skipNormalize ) ) return;
-		//utils.logger.log( val );
-		//utils.logger.log( this.attributes );
 		
 		var bandID = this.id;
 		var image = this.get("image");
@@ -602,7 +598,7 @@ VU.BandModel = VU.EventsContainerModel.extend({
 				this.set( { image: image }, { silent: true } );
 			}
 			this.cachedThumb = this.get("thumbPic") || image;
-			this.throttledShowImage();
+			//this.throttledSetVisible();
 		}
 		else
 			if ( window.google ) this.throttledGetGoogleImage();
@@ -610,8 +606,10 @@ VU.BandModel = VU.EventsContainerModel.extend({
 	
 	imageSearch: {},
 	
-	showImage: function() {
-		this.set( {thumbThrottled: this.cachedThumb }, { skipNormalize: true } );
+	setVisible: function() {
+		if ( this.cachedThumb )
+			this.set( {thumbThrottled: this.cachedThumb }, { skipNormalize: true } );
+		this.cachedThumb = null;
 	},
 	
 	getGoogleImage : function () {
@@ -658,8 +656,8 @@ VU.VenueModel = VU.EventsContainerModel.extend({
 	initialize : function ( attrs, options ) { 
 		VU.EventsContainerModel.prototype.initialize.call( this, attrs, options );
 		this.name = _.uniqueId( "hall" );
-		this.throttledShowImage = _.throttle( this.showImage, 50 );
-		_.bindAll( this, "normalizeAttributes" );
+		this.throttledSetVisible = _.throttle( this.setVisible, 50 );
+		_.bindAll( this, "normalizeAttributes", "setVisible" );
 		//this.bind( "change:images", this.normalizeAttributes );		
 		//this.bind( "change:dateBuilt", this.normalizeAttributes );		
 		//this.bind( "change:historicalNarrative", this.normalizeAttributes );		
@@ -730,11 +728,13 @@ VU.VenueModel = VU.EventsContainerModel.extend({
 		}, { silent: true } );
 		
 		this.cachedThumb = this.get("thumbPic");
-		this.throttledShowImage();
+		//this.throttledSetVisible();
 	},
 	
-	showImage: function() {
-		this.set( {thumbThrottled: this.cachedThumb }, { skipNormalize: true } );
+	setVisible: function() {
+		if ( this.cachedThumb )
+			this.set( {thumbThrottled: this.cachedThumb }, { skipNormalize: true } );
+		this.cachedThumb = null;
 	}
 	
 });

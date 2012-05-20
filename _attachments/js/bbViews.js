@@ -345,8 +345,12 @@ VU.EventListingView = VU.ListingView.extend({
 */
 		var delta = this.getListingHeight();
 		var visibleListingIndex = Math.floor(this.el.scrollTop / delta);
+		var model;
 		while ( (visibleListingIndex - 1) * delta < this.el.scrollTop + this.el.clientHeight ) {
-			utils.logger.log("visible: " + visibleListingIndex );
+			//utils.logger.log("visible: " + visibleListingIndex );
+			model = this.collection.at( visibleListingIndex );
+			if ( model && model.setVisible )
+				model.setVisible();
 			visibleListingIndex++;
 		}
 	},

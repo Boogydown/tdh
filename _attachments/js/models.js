@@ -607,7 +607,10 @@ VU.BandModel = VU.EventsContainerModel.extend({
 	imageSearch: {},
 	
 	setVisible: function() {
-		this.set( {thumbThrottled: this.cachedThumb }, { skipNormalize: true } );
+		if ( this.cachedThumb ) {
+			this.set( {thumbThrottled: this.cachedThumb }, { skipNormalize: true } );
+			this.cachedThumb = null;
+		}
 	},
 	
 	getGoogleImage : function () {
@@ -730,7 +733,10 @@ VU.VenueModel = VU.EventsContainerModel.extend({
 	},
 	
 	setVisible: function() {
-		this.set( {thumbThrottled: this.cachedThumb }, { skipNormalize: true } );
+		if ( this.cachedThumb ) {
+			this.set( {thumbThrottled: this.cachedThumb }, { skipNormalize: true } );
+			this.cachedThumb = null;
+		}
 	}
 	
 });

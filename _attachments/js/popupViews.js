@@ -38,17 +38,23 @@ Please click OK if you agree to these terms.')) {location.href="#///!"; return;}
 	},
 	
     validate : function (data, callback) {
-      if (!data.date || data.date.length == 0) {
-        callback({date: "Please enter a date."});
-        return false;
-      };
-	  
-      if (!data.band || data.band.length == 0) {
-        callback({band: "Please select a band."});
-        return false;
-      };
-	  
-      return true;
+		var result = {};
+		if (!data.date || data.date.length == 0)
+			result.date = "Please enter a date.";
+		if (!data.band || data.band.length == 0)
+			result.band = "Please select a band.";
+		if (!data.hall || data.hall.length == 0)
+			result.hall = "Please select a venue.";			
+		if (!data.eventType || data.eventType.length == 0)
+			result.eventType = "Please select an event type.";
+		if (!data.ageLimit || data.ageLimit.length == 0)
+			result.ageLimit = "Please select an age limit.";
+			
+		if ( result ){
+			callback( result );
+			return false;
+		}
+		return true;
     },	
 
 	onSubmit : function(id) {

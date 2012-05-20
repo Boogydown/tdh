@@ -257,6 +257,7 @@ VU.EventListingView = VU.ListingView.extend({
 			$(this.el).append( this.emptyEl );
 		}
 		this._updateSpacer();
+		this.scrollUpdate();
 	},
 	
 	/**

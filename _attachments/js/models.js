@@ -544,6 +544,7 @@ VU.BandModel = VU.EventsContainerModel.extend({
 		VU.EventsContainerModel.prototype.initialize.call( this, attrs, options );
 		this.name = _.uniqueId( "band" );
 		this.throttledGetGoogleImage = _.throttle( this.getGoogleImage, 100 );
+		this.throttledShowImage = _.throttle( this.showImage, 50 );
 		_.bindAll( this, "normalizeAttributes", "searchComplete" );
 		//this.bind( "change:image", this.normalizeAttributes );		
 		//this.bind( "change:stylesPlayed", this.normalizeAttributes );		
@@ -593,19 +594,21 @@ VU.BandModel = VU.EventsContainerModel.extend({
 		
 		if ( image && image != this.defaults.image ) {
 			if (  image[0] != "." && image[0] != '/' && image.substr(0, 4) != "http" ) {
-				//image = "../../" + bandID + "/thumbs/" + encodeURI( image );
 				image = "../../" + bandID + "/" + encodeURI( image );
+				this.set( { image: image }, { silent: true } );
 			}
-			this.set( { 
-				thumbPic: image, 
-				image: image
-			}, { silent: true } );
+			this.cachedThumb = this.get("thumbPic") || image;
+			this.throttledShowImage();
 		}
 		else
 			if ( window.google ) this.throttledGetGoogleImage();
 	},
 	
-	imageSearch: {}, 
+	imageSearch: {},
+	
+	showImage: function() {
+		this.set( {thumbThrottled: this.cachedThumb }, { skipNormalize: true } );
+	},
 	
 	getGoogleImage : function () {
 		try {
@@ -625,6 +628,7 @@ VU.BandModel = VU.EventsContainerModel.extend({
 				utils.logger.log( "Google image search found images for " + this.bandName + " (" + this.id + "): " + result.url );
 				this.set({
 					thumbPic: result.tbUrl,
+					thumbThrottled: result.tbUrl,
 					image: result.url
 				}, {
 					skipNormalize: true
@@ -650,6 +654,7 @@ VU.VenueModel = VU.EventsContainerModel.extend({
 	initialize : function ( attrs, options ) { 
 		VU.EventsContainerModel.prototype.initialize.call( this, attrs, options );
 		this.name = _.uniqueId( "hall" );
+		this.throttledShowImage = _.throttle( this.showImage, 50 );
 		_.bindAll( this, "normalizeAttributes" );
 		//this.bind( "change:images", this.normalizeAttributes );		
 		//this.bind( "change:dateBuilt", this.normalizeAttributes );		
@@ -712,7 +717,15 @@ VU.VenueModel = VU.EventsContainerModel.extend({
 			lat: gps.lat,
 			lng: gps.lng
 		}, { silent: true } );
+		
+		this.cachedThumb = this.get("thumbPic");
+		this.throttledShowImage();
+	},
+	
+	showImage: function() {
+		this.set( {thumbThrottled: this.cachedThumb }, { skipNormalize: true } );
 	}
+	
 });
 
 /**

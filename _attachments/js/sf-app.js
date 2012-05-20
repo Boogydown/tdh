@@ -333,8 +333,7 @@ $(function(){
 			if ( result )
 				alert( result.name );
 			else {
-				_.delay( function(){location.href = "#//////2";}, 500 );
-				_.delay( this.reRender, 1000 );
+				_.delay( function(){location.href = "#//////2"; location.reload()}, 500 );
 			}
 		},
         

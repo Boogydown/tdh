@@ -19,6 +19,7 @@ couchapp_load([
   "js/lib/inputex/lib/yui/yuiloader/yuiloader.js",
   "js/lib/inputex/lib/yui/dom/dom.js",
   "js/lib/inputex/lib/yui/event/event.js",
+  "js/lib/inputex/lib/yui/dragdrop/dragdrop.js",
   "js/lib/inputex/build/inputex.js",
   "js/lib/inputex/js/fields/FileField.js",
   "js/lib/inputex/js/fields/DatePickerField.js",

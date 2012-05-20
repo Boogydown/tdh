@@ -50,50 +50,88 @@ VU.CookieModel = Backbone.Model.extend({
 	},
 	
 	/**
+	 * A utility to detect if 3rd party cookies are enabled
+	 **/
+	checkCookies : function(){
+		this.createCookie( "__checkCookie", "testing3rdPartyCookies", 1 );
+		var result = this.readCookie( "__checkCookie" );
+		this.eraseCookie( "__checkCookie ");
+		return result == "testing3rdPartyCookies";
+	},
+
+	/**
 	 * Will write only model values that are in this.cookieKeys array
 	 */
 	writeCookies : function() {
 		if ( !this.isDirty ) return;
 		this.isDirty = false;
-		var i, key, val, cookie;
+		var i, key, val;
 		for ( i in this.cookieKeys ){
 			key = this.cookieKeys[i];
 			val = this.get( key );
 			if ( val !== undefined ){
-				cookie = this.prefix + key + "=" + JSON.stringify(val);
-				document.cookie = cookie;
-				utils.logger.log("writeCookies() is writing cookie: " + cookie );
+				this.createCookie( key, val, 10 );
 			}
 		}
 		if ( this.id ) this.save();
 	},
-	
+
 	/**
 	 * Read previously-saved values from the cookies, if exist
 	 */
 	readCookies : function() {
-		var cookies = document.cookie.split('; '), tmp = {}, plen = this.prefix.length,
-			cook, cookary, cookiesObj = {}, success = false, key;
-		if ( cookies.length > 0 ) {
-			for ( cook in cookies ){
-				cookary = cookies[cook].split("=");
-				if ( cookary[0].substr(0,plen) == this.prefix ) {
-					key = cookary[0].substr(plen);
-					cookiesObj[key] = cookary[1];
-					if ( _(this.cookieKeys).indexOf(key) > -1 ) {
-						try{
-							tmp[key] = JSON.parse( cookary[1] );
-							success = true;
-						} catch(e) {}
-					}
-				}
-			}
+		var i, key, val;
+		var data = {};
+		for ( i in this.cookieKeys ){
+			key = this.cookieKeys[i];
+			val = this.readCookie( key );
+			if ( val !== "" )
+				data[ key ] = val;
+			else
+				return false;
 		}
-		//tmp.cookiesObj = cookiesObj;  deprected - don't need it added to the model, anymore
-		utils.logger.log( "readCookies() is setting: " + JSON.stringify( tmp ) );
-		this.set( tmp );
-		return success;
-	}
+		this.set( data );
+		return true;
+	},
+
+	//============================================================
+	/**
+	 * Ganked from here: http://www.quirksmode.org/js/cookies.html
+	 **/
+	createCookie : function( name, value, days ) {
+		if ( days ) {
+			var date = new Date();
+			date.setTime( date.getTime() + (days * 24 * 60 * 60 * 1000) );
+			var expires = "; expires=" + date.toGMTString();
+		}
+		else 
+			var expires = "";
+		document.cookie = name + "=" + JSON.stringify(value) + expires + "; path=/";
+	},
+
+	readCookie : function (name) {
+		var nameEQ = name + "=";
+		var ca = document.cookie.split(';');
+		var value = "";
+		for(var i=0;i < ca.length;i++) {
+			var c = ca[i];
+			while (c.charAt(0)==' ') 
+				c = c.substring(1,c.length);
+			if (c.indexOf(nameEQ) == 0) 
+				value = c.substring(nameEQ.length,c.length);
+		}
+		try {
+			if ( value )
+				value = JSON.parse( value );
+		} catch (e) {}
+		return value;
+	},
+
+	eraseCookie : function(name) {
+		this.createCookie(name,"",-1);
+	},
+	//============================================================
+
 });
 
 /**
@@ -103,7 +141,7 @@ VU.MemberModel = VU.CookieModel.extend({
 	databaseName : "_users",
 	url: "_users",
 	fetched : false,
-	cookieKeys : [ "dCard" ],
+	cookieKeys : [ "dCard", "test" ],
 	ID_PREFIX: "org.couchdb.user:",
 	isAdmin: false,
 	defaults : {
@@ -492,8 +530,8 @@ VU.LinkingModel = VU.OwnableModel.extend({
 VU.BandModel = VU.EventsContainerModel.extend({
 	myType : "band",
 	defaults : {
-		bandName: " ",
-		image: "images/loader-spinner-big.gif",
+		bandName: "Loading...",
+		image: "http://dev.vyncup.t9productions.com:44384/tdh/_design/tdh_public/images/loader-spinner-big.gif",
 		ownerUsers: [],
 		stylesPlayed: [],
 		hallsPlayed: [],
@@ -506,7 +544,8 @@ VU.BandModel = VU.EventsContainerModel.extend({
 		VU.EventsContainerModel.prototype.initialize.call( this, attrs, options );
 		this.name = _.uniqueId( "band" );
 		this.throttledGetGoogleImage = _.throttle( this.getGoogleImage, 100 );
-		_.bindAll( this, "normalizeAttributes", "searchComplete" );
+		this.throttledSetVisible = _.throttle( this.setVisible, 50 );
+		_.bindAll( this, "normalizeAttributes", "searchComplete", "setVisible" );
 		//this.bind( "change:image", this.normalizeAttributes );		
 		//this.bind( "change:stylesPlayed", this.normalizeAttributes );		
 		//this.bind( "change:website", this.normalizeAttributes );		
@@ -519,7 +558,11 @@ VU.BandModel = VU.EventsContainerModel.extend({
 	
 	getOwnerCaption : function() {
 		return this.get("bandName");
-	},	
+	},
+	
+	isLoaded : function() {
+		return this.get("bandName") != this.defaults.bandName;
+	},
 	
 	//url : function () { return "https://dev.vyncup.t9productions.com:44384/tdh/" + this.id; },
 
@@ -528,11 +571,7 @@ VU.BandModel = VU.EventsContainerModel.extend({
 	 * 	and usage elsewhere, such as filtering
 	 */
 	normalizeAttributes : function ( model, val, options ) {
-		//utils.logger.log( "Normalize " + model.name + ":"  );
-		// image and website
-		if ( options && options.skipNormalize ) return;
-		//utils.logger.log( val );
-		//utils.logger.log( this.attributes );
+		if ( !this.isLoaded() || ( options && options.skipNormalize ) ) return;
 		
 		var bandID = this.id;
 		var image = this.get("image");
@@ -555,19 +594,23 @@ VU.BandModel = VU.EventsContainerModel.extend({
 		
 		if ( image && image != this.defaults.image ) {
 			if (  image[0] != "." && image[0] != '/' && image.substr(0, 4) != "http" ) {
-				//image = "../../" + bandID + "/thumbs/" + encodeURI( image );
 				image = "../../" + bandID + "/" + encodeURI( image );
+				this.set( { image: image }, { silent: true } );
 			}
-			this.set( { 
-				thumbPic: image, 
-				image: image
-			}, { silent: true } );
+			this.cachedThumb = this.get("thumbPic") || image;
+			//this.throttledSetVisible();
 		}
 		else
 			if ( window.google ) this.throttledGetGoogleImage();
 	},
 	
-	imageSearch: {}, 
+	imageSearch: {},
+	
+	setVisible: function() {
+		if ( this.cachedThumb )
+			this.set( {thumbThrottled: this.cachedThumb }, { skipNormalize: true } );
+		this.cachedThumb = null;
+	},
 	
 	getGoogleImage : function () {
 		try {
@@ -583,9 +626,11 @@ VU.BandModel = VU.EventsContainerModel.extend({
 		if ( this.imageSearch.results && this.imageSearch.results.length > 0 ) {
 			var result = this.imageSearch.results[0];
 			var image = this.get("image");
-			if ( !image || image == this.defaults.image ) {
+			if ( result ) {
+				utils.logger.log( "Google image search found images for " + this.get("bandName") + " (" + this.id + "): " + result.url );
 				this.set({
 					thumbPic: result.tbUrl,
+					thumbThrottled: result.tbUrl,
 					image: result.url
 				}, {
 					skipNormalize: true
@@ -611,7 +656,8 @@ VU.VenueModel = VU.EventsContainerModel.extend({
 	initialize : function ( attrs, options ) { 
 		VU.EventsContainerModel.prototype.initialize.call( this, attrs, options );
 		this.name = _.uniqueId( "hall" );
-		_.bindAll( this, "normalizeAttributes" );
+		this.throttledSetVisible = _.throttle( this.setVisible, 50 );
+		_.bindAll( this, "normalizeAttributes", "setVisible" );
 		//this.bind( "change:images", this.normalizeAttributes );		
 		//this.bind( "change:dateBuilt", this.normalizeAttributes );		
 		//this.bind( "change:historicalNarrative", this.normalizeAttributes );		
@@ -627,6 +673,10 @@ VU.VenueModel = VU.EventsContainerModel.extend({
 		return this.get("danceHallName");
 	},	
 	
+	isLoaded : function() {
+		return this.get("danceHallName") != this.defaults.danceHallName;
+	},
+	
 	//url : function () { return "https://dev.vyncup.t9productions.com:44384/tdh/" + this.id; }
 	
 	/**
@@ -634,6 +684,9 @@ VU.VenueModel = VU.EventsContainerModel.extend({
 	 * 	and usage elsewhere, such as filtering
 	 */
 	normalizeAttributes : function () {
+		if ( ! this.isLoaded() ) 
+			return;
+		
 		// images and website
 		var hallID = this.id;
 		var hallPic = this.get("images")[0];
@@ -673,7 +726,17 @@ VU.VenueModel = VU.EventsContainerModel.extend({
 			lat: gps.lat,
 			lng: gps.lng
 		}, { silent: true } );
+		
+		this.cachedThumb = this.get("thumbPic");
+		//this.throttledSetVisible();
+	},
+	
+	setVisible: function() {
+		if ( this.cachedThumb )
+			this.set( {thumbThrottled: this.cachedThumb }, { skipNormalize: true } );
+		this.cachedThumb = null;
 	}
+	
 });
 
 /**

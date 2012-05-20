@@ -393,22 +393,54 @@ VU.schemas = {
 				"culturalOrigin":{
 					"description": "Cultural Origin",
 					"type":"string",
-					"optional":true
+					"optional":true,
+					choices: [
+						{ value: "", 'label': "" },
+						{ value: "German", 'label': "German" },
+						{ value: "Czech", 'label': "Czech" },
+						{ value: "Polish", 'label': "Polish" },
+						{ value: "Tejano", 'label': "Tejano" },
+						{ value: "African-American", 'label': "African-American" },
+						{ value: "Other", 'label': "Other" },
+						{ value: "Unknown", 'label': "Unknown" }
+					]
 				},
 				"numberOfStories":{
 					"description": "Number of stories",
 					"type":"string",
-					"optional":true
+					"optional":true,
+					choices: [
+						{ value: "", 'label': "" },
+						{ value: "one story", 'label': "one story" },
+						{ value: "two story", 'label': "two story" },
+						{ value: "Unknown", 'label': "Unknown" }
+					]
 				},
 				"buildingForm":{
 					"description": "Building Form",
 					"type":"string",
-					"optional":true
+					"optional":true,
+					choices: [
+						{ value: "", 'label': "" },
+						{ value: "Rectangular", 'label': "Rectangular" },
+						{ value: "Octagonal", 'label': "Octagonal" },
+						{ value: "12-sided", 'label': "12-sided" },
+						{ value: "6-sided", 'label': "6-sided" },
+						{ value: "Other", 'label': "Other" },
+						{ value: "Not sure", 'label': "Not sure" }
+					]
 				},
 				"typeOfConstruction":{
 					"description": "Type of Construction",
 					"type":"string",
-					"optional":true
+					"optional":true,
+					choices: [
+						{ value: "", 'label': "" },
+						{ value: "Wood framed", 'label': "Wood framed" },
+						{ value: "Masonry", 'label': "Masonry" },
+						{ value: "Steel frame", 'label': "Steel frame" },
+						{ value: "Not sure", 'label': "Not sure" }
+					]
 				},
 				"dateBuilt":{
 					"description": "Date Built",
@@ -418,7 +450,13 @@ VU.schemas = {
 				"certaintyOfDate":{
 					"description": "Certainty of Date",
 					"type":"string",
-					"optional":true
+					"optional":true,
+					choices: [
+						{ value: "", 'label': "" },
+						{ value: "Certain", 'label': "Certain" },
+						{ value: "Uncertain", 'label': "Uncertain" },
+						{ value: "Somewhat certain", 'label': "Somewhat certain" }
+					]
 				},
 				"builder":{
 					"description": "Builder",
@@ -495,7 +533,16 @@ VU.schemas = {
 				"nationalRegister":{
 					"description": "National Register",
 					"type":"string",
-					"optional":true
+					"optional":true,
+					choices: [
+						{ value: "", 'label': "" },
+						{ value: "Listed", 'label': "Listed" },
+						{ value: "Not eligible", 'label': "Not eligible" },
+						{ value: "Contributing", 'label': "Contributing" },
+						{ value: "Determined eligible", 'label': "Determined eligible" },
+						{ value: "Unknown", 'label': "Unknown" }
+					]
+					
 				},
 				"mapped":{
 					"description": "Mapped?",
@@ -767,6 +814,7 @@ VU.schemas = {
 					"type":"string",
 					"optional":true,
 					"choices": [ 
+						{'value':'TBA','label':'TBA'},
 						{'value':'12:00 AM','label':'12:00 AM'},
 						{'value':'12:30 AM','label':'12:30 AM'},
 						{'value':'1:00 AM','label':'1:00 AM'},
@@ -949,6 +997,7 @@ VU.schemas = {
 					"type":"string",
 					"optional":true,
 					"choices": [ 
+						{'value':'TBA','label':'TBA'},
 						{'value':'12:00 AM','label':'12:00 AM'},
 						{'value':'12:30 AM','label':'12:30 AM'},
 						{'value':'1:00 AM','label':'1:00 AM'},
@@ -1120,6 +1169,7 @@ VU.schemas = {
 					"type":"string",
 					"optional":true,
 					"choices": [ 
+						{'value':'TBA','label':'TBA'},
 						{'value':'12:00 AM','label':'12:00 AM'},
 						{'value':'12:30 AM','label':'12:30 AM'},
 						{'value':'1:00 AM','label':'1:00 AM'},
@@ -1477,6 +1527,16 @@ VU.schemas = {
 						"label": "Year Founded"
 					}					
 				},
+				"aboutTheBand":{
+					"type": "string",
+					"format":"text",
+					"optional":true,
+					"_inputex":{
+						"label": "About The Band",
+						"rows":4,
+						"cols":60
+					}
+				},				
 				"bandHistory":{
 					"type": "string",
 					"format":"text",
@@ -1642,6 +1702,16 @@ VU.schemas = {
 						"label": "Different styles played:"
 					}
 				},
+				"aboutTheBand":{
+					"type": "string",
+					"format":"text",
+					"optional":true,
+					"_inputex":{
+						"label": "About The Band",
+						"rows":5,
+						"cols":40
+					}
+				},				
 				"area":{
 					"type": "string",
 					"optional": true,
@@ -1746,7 +1816,17 @@ VU.schemas = {
 					"_inputex": {
 						"label": "Different styles played:"
 					}
-				}
+				},
+				"aboutTheBand":{
+					"type": "string",
+					"format":"text",
+					"optional":true,
+					"_inputex":{
+						"label": "About The Band",
+						"rows":4,
+						"cols":60
+					}
+				}				
 			}
 		}
 	}

@@ -156,11 +156,10 @@ VU.EventListingView = VU.ListingView.extend({
 	scrollLoadThreshold : 100,
 	LISTING_HEIGHT: 92,
 	
-/*	since we're just loading it all, anyway, we don't need to listen to scroll event
 	events : { 
 		"scroll" : "scrollUpdate" 
 	},
-*/	
+	
 	initialize : function( options ) {
 		_.bindAll(this, 'addRow', "removeRow", "scrollUpdate", "filtered", "_nextPage", "_updateSpacer");
 		this.emptyMsg = options.emptyMsg || "<i>This list is empty</i>";
@@ -216,10 +215,15 @@ VU.EventListingView = VU.ListingView.extend({
 				index = this.collection.length - 1;
 		}
 		
+		this.el.scrollTop = (index - 1) * this.getListingHeight();
+	},
+	
+	getListingHeight : function() {
+		if ( this.listingHeight )
+			return this.listingHeight;
 		var listings = $(".listing", this.el);
 		if ( listings.length < 2 ) return;
-		var delta = listings[1].offsetTop - listings[0].offsetTop;
-		this.el.scrollTop = (index - 1) * delta;
+		this.listingHeight = listings[1].offsetTop - listings[0].offsetTop;		
 	},
 	
 	/**
@@ -253,6 +257,7 @@ VU.EventListingView = VU.ListingView.extend({
 			$(this.el).append( this.emptyEl );
 		}
 		this._updateSpacer();
+		this.scrollUpdate();
 	},
 	
 	/**
@@ -331,12 +336,24 @@ VU.EventListingView = VU.ListingView.extend({
 		//if ( this.el.scrollTop >= (this.el.scrollHeight - this.el.clientHeight - this.scrollLoadThreshold ) )
 			//this._nextPage();
 			
-		//if scrolling down and see spacer then load some more stuff			
-		if ( this.spacer.position().top < $(this.el).height() ){
+		//if scrolling down and see spacer then load some more stuff
+/*		if ( this.spacer.position().top < $(this.el).height() ){
 			utils.waitingUI.show();
 			//this._nextPage( );
 		}else{
 			utils.waitingUI.hide();
+		}
+*/
+		// call setVisible() on all items in the scroll window plus 4 before and 4 after
+		var delta = this.getListingHeight();
+		var visibleListingIndex = Math.floor(this.el.scrollTop / delta) - 4;
+		var model;
+		while ( (visibleListingIndex - 4) * delta < this.el.scrollTop + this.el.clientHeight ) {
+			//utils.logger.log("visible: " + visibleListingIndex );
+			model = this.collection.at( visibleListingIndex );
+			if ( model && model.setVisible )
+				model.setVisible();
+			visibleListingIndex++;
 		}
 	},
 	

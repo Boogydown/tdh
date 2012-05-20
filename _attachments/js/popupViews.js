@@ -27,6 +27,7 @@ Please click OK if you agree to these terms.')) {location.href="#///!"; return;}
 			docID : this.modelID,
 			hidden : true
 		});
+		this.sF.validate = this.validate;
 		_.bindAll( this, "onSubmit" );
 		this.sF.bind("onSubmit", this.onSubmit);
 	},
@@ -36,6 +37,26 @@ Please click OK if you agree to these terms.')) {location.href="#///!"; return;}
 		this.sF = null;
 	},
 	
+    validate : function (data, callback) {
+		var result = {};
+		if (!data.date || data.date.length == 0)
+			result.date = "Please enter a date.";
+		if (!data.band || data.band.length == 0)
+			result.band = "Please select a band.";
+		if (!data.hall || data.hall.length == 0)
+			result.hall = "Please select a venue.";			
+		if (!data.eventType || data.eventType.length == 0)
+			result.eventType = "Please select an event type.";
+		if (!data.ageLimit || data.ageLimit.length == 0)
+			result.ageLimit = "Please select an age limit.";
+			
+		if ( _.size(result) > 0 ){
+			callback( result );
+			return false;
+		}
+		return true;
+    },	
+
 	onSubmit : function(id) {
 		var event = app.colls.events.get(id);
 		if ( event ) {
@@ -107,6 +128,7 @@ VU.SchemaFormCreateBandView = VU.PopupView.extend({
 			//docID : this.modelID,
 			hidden : true
 		});
+		this.sF.validate = this.validate;
 		_.bindAll( this, "onSubmit" );
 		this.sF.bind("onSubmit", this.onSubmit);
 	},
@@ -119,6 +141,22 @@ VU.SchemaFormCreateBandView = VU.PopupView.extend({
 		this.sF = null;
 
 	},
+	
+    validate : function (data, callback) {
+		var result = {};
+		if (!data.bandName || data.bandName.length == 0)
+			result.bandName = "Please enter a band name.";
+		if ( data.email.match(/([\w-+\.]+)@((?:[\w]+\.)+)([a-zA-Z]{2,4})/g) == null )
+			result.email = "Please enter a valid, primary contact email address.";
+		if (!data.stylesPlayed || data.stylesPlayed.length == 0)
+			result.stylesPlayed = "Please select a style of music.";
+		
+		if ( _.size(result) > 0 ){
+			callback( result );
+			return false;
+		}
+		return true;
+    },
 	
 	onSubmit : function(id) {
 		if ( !this.submitted ) { // in case onClosed calls us, too
@@ -419,6 +457,9 @@ VU.LoginPopupView = VU.PopupView.extend({
 	},
 	
 	onOpened : function() {
+		if ( ! this.model.checkCookies() )
+			alert("Please enable 3rd party cookies if you'd like to log in!");
+			
 		this.formView = new VU.FormView({el:this.el, model:this.model});
 		this.formView.validate = this.validate;
 		this.formView.processSuccessFail = this.processSuccessFail;

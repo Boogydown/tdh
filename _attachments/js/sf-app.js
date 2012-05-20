@@ -247,7 +247,7 @@ $(function(){
         initialize : function(){
 			this.el.html("<div class='loadingBar'>Loading...</div>");
 			this.registerTemplate('table-header');			
-            _.bindAll(this, 'render', 'reRender', 'addRow');
+            _.bindAll(this, 'render', 'reRender', 'addRow', "submitLogin", "handleLogin" );
             this.collection.bind("add", this.reRender);
             this.collection.bind("remove", this.deleted);
 			if ( !this.collection.fetched ){
@@ -315,7 +315,27 @@ $(function(){
 				if ( end > this.collection.length ) end = this.collection.length;
 				for ( var i = start; i <= end; i++ ) this.addRow( this.collection.models[i] );
 			}
+			
+			var loginBoxes = $("form#loginBoxes");
+			if ( app.mySession && app.mySession.get("loggedIn") ) {
+				loginBoxes.hide();
+			} else {
+				loginBoxes.submit( this.submitLogin );
+			}
         },
+		
+		submitLogin : function(e) {
+			e.preventDefault();
+			app.mySession.doLogin( e.target.username.value, e.target.password.value, this.handleLogin );
+		},
+		
+		handleLogin : function( result ) {
+			if ( result )
+				alert( result.name );
+			else {
+				_.delay( function(){location.href = "#//////2"; location.reload()}, 500 );
+			}
+		},
         
 		reRender: function() {
 			this.el.html("Loading...");
@@ -416,10 +436,22 @@ $(function(){
 					break;
 				//case "file" : 
 				case "picUrl" : 
+					var mainPic, thumbPic;
+					if ( modelVal.substr(0,2) != ".." && modelVal.substr(0,4) != "http" ) {
+						mainPic = '../../' + this.model.id + "/files/" + modelVal;
+						thumbPic = '../../' + this.model.id + "/thumbs/" + modelVal;
+					} else {
+						mainPic = modelVal;
+						if ( this.model.get("thumbPic") )
+							thumbPic = this.model.get("thumbPic");
+						else
+							thumbPic = modelVal;
+					}
+						
 					if ( schemaProp.clickable )
-						text = '<a href="../../' + this.model.id + "/files/" + modelVal + '"><img src="../../' + this.model.id + "/thumbs/" + modelVal + '"/> ' + modelVal + '</a>';
+						text = '<a href="' + mainPic + '"><img src="' + thumbPic + '"/> ' + modelVal + '</a>';
 					else 
-						text = '<img src="../../' + this.model.id + "/thumbs/" + modelVal + '"/></a>';
+						text = '<img src="' + thumbPic + '"/></a>';
 					break;
 				case "url" :
 					text = '<a href="http://' + modelVal + '">' + modelVal + '</a>';

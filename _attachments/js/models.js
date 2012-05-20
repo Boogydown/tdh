@@ -625,7 +625,7 @@ VU.BandModel = VU.EventsContainerModel.extend({
 		if ( this.imageSearch.results && this.imageSearch.results.length > 0 ) {
 			var result = this.imageSearch.results[0];
 			var image = this.get("image");
-			if ( !image || image == this.defaults.image ) {
+			if ( result ) {
 				utils.logger.log("found " + result.tbUrl + " and " + result.url + " for " + this.id );
 				this.set({
 					thumbPic: result.tbUrl,

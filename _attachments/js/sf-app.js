@@ -440,8 +440,13 @@ $(function(){
 					if ( modelVal.substr(0,2) != ".." && modelVal.substr(0,4) != "http" ) {
 						mainPic = '../../' + this.model.id + "/files/" + modelVal;
 						thumbPic = '../../' + this.model.id + "/thumbs/" + modelVal;
-					} else
-						thumbPic = mainPic = modelVal;
+					} else {
+						mainPic = modelVal;
+						if ( this.model.get("thumbPic") )
+							thumbPic = this.model.get("thumbPic");
+						else
+							thumbPic = modelVal;
+					}
 						
 					if ( schemaProp.clickable )
 						text = '<a href="' + mainPic + '"><img src="' + thumbPic + '"/> ' + modelVal + '</a>';

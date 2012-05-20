@@ -436,10 +436,17 @@ $(function(){
 					break;
 				//case "file" : 
 				case "picUrl" : 
+					var mainPic, thumbPic;
+					if ( modelVal.substr(0,2) != ".." || modelVal.substr(0,4) != "http" ) {
+						mainPic = '../../' + this.model.id + "/files/" + modelVal;
+						thumbPic = '../../' + this.model.id + "/thumbs/" + modelVal;
+					} else
+						thumbPic = mainPic = modelVal;
+						
 					if ( schemaProp.clickable )
-						text = '<a href="../../' + this.model.id + "/files/" + modelVal + '"><img src="../../' + this.model.id + "/thumbs/" + modelVal + '"/> ' + modelVal + '</a>';
+						text = '<a href="' + mainPic + '"><img src="' + thumbPic + '"/> ' + modelVal + '</a>';
 					else 
-						text = '<img src="../../' + this.model.id + "/thumbs/" + modelVal + '"/></a>';
+						text = '<img src="' + thumbPic + '"/></a>';
 					break;
 				case "url" :
 					text = '<a href="http://' + modelVal + '">' + modelVal + '</a>';

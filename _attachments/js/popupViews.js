@@ -146,8 +146,8 @@ VU.SchemaFormCreateBandView = VU.PopupView.extend({
 		var result = {};
 		if (!data.bandName || data.bandName.length == 0)
 			result.bandName = "Please enter a band name.";
-		if (!data.email || data.email.length == 0)
-			result.email = "Please enter a primary contact email address.";
+		if ( data.email.match(/([\w-+\.]+)@((?:[\w]+\.)+)([a-zA-Z]{2,4})/g) == null )
+			result.email = "Please enter a valid, primary contact email address.";
 		if (!data.stylesPlayed || data.stylesPlayed.length == 0)
 			result.stylesPlayed = "Please select a style of music.";
 		

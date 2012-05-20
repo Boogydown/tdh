@@ -27,6 +27,7 @@ Please click OK if you agree to these terms.')) {location.href="#///!"; return;}
 			docID : this.modelID,
 			hidden : true
 		});
+		this.sF.validate = this.validate;
 		_.bindAll( this, "onSubmit" );
 		this.sF.bind("onSubmit", this.onSubmit);
 	},

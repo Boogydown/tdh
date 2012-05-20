@@ -316,11 +316,11 @@ $(function(){
 				for ( var i = start; i <= end; i++ ) this.addRow( this.collection.models[i] );
 			}
 			
-			this.loginBoxes = $("form#loginBoxes");
+			var loginBoxes = $("form#loginBoxes");
 			if ( app.mySession && app.mySession.get("loggedIn") ) {
-				this.loginBoxes.hide();
+				loginBoxes.hide();
 			} else {
-				this.loginBoxes.submit( this.submitLogin );
+				loginBoxes.submit( this.submitLogin );
 			}
         },
 		
@@ -333,8 +333,8 @@ $(function(){
 			if ( result )
 				alert( result.name );
 			else {
-				this.loginBoxes.hide();
-				location.href = "#//////2";
+				$("form#loginBoxes").hide();
+				delay( function(){location.href = "#//////2";}, 100 );
 			}
 		},
         

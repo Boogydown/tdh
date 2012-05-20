@@ -530,7 +530,7 @@ VU.LinkingModel = VU.OwnableModel.extend({
 VU.BandModel = VU.EventsContainerModel.extend({
 	myType : "band",
 	defaults : {
-		bandName: " ",
+		bandName: "Loading...",
 		image: "http://dev.vyncup.t9productions.com:44384/tdh/_design/tdh_public/images/loader-spinner-big.gif",
 		ownerUsers: [],
 		stylesPlayed: [],
@@ -558,7 +558,11 @@ VU.BandModel = VU.EventsContainerModel.extend({
 	
 	getOwnerCaption : function() {
 		return this.get("bandName");
-	},	
+	},
+	
+	isLoaded : function() {
+		return this.get("bandName") != this.defaults.bandName;
+	},
 	
 	//url : function () { return "https://dev.vyncup.t9productions.com:44384/tdh/" + this.id; },
 
@@ -569,7 +573,7 @@ VU.BandModel = VU.EventsContainerModel.extend({
 	normalizeAttributes : function ( model, val, options ) {
 		//utils.logger.log( "Normalize " + model.name + ":"  );
 		// image and website
-		if ( options && options.skipNormalize ) return;
+		if ( !this.isLoaded || ( options && options.skipNormalize ) ) return;
 		//utils.logger.log( val );
 		//utils.logger.log( this.attributes );
 		
@@ -625,7 +629,7 @@ VU.BandModel = VU.EventsContainerModel.extend({
 			var result = this.imageSearch.results[0];
 			var image = this.get("image");
 			if ( result ) {
-				utils.logger.log( "Google image search found images for " + this.bandName + " (" + this.id + "): " + result.url );
+				utils.logger.log( "Google image search found images for " + this.get("bandName") + " (" + this.id + "): " + result.url );
 				this.set({
 					thumbPic: result.tbUrl,
 					thumbThrottled: result.tbUrl,
@@ -671,6 +675,10 @@ VU.VenueModel = VU.EventsContainerModel.extend({
 		return this.get("danceHallName");
 	},	
 	
+	isLoaded : function() {
+		return this.get("danceHallName") != this.defaults.danceHallName;
+	},
+	
 	//url : function () { return "https://dev.vyncup.t9productions.com:44384/tdh/" + this.id; }
 	
 	/**
@@ -678,6 +686,9 @@ VU.VenueModel = VU.EventsContainerModel.extend({
 	 * 	and usage elsewhere, such as filtering
 	 */
 	normalizeAttributes : function () {
+		if ( ! this.isLoaded ) 
+			return;
+		
 		// images and website
 		var hallID = this.id;
 		var hallPic = this.get("images")[0];

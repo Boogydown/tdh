@@ -128,6 +128,7 @@ VU.SchemaFormCreateBandView = VU.PopupView.extend({
 			//docID : this.modelID,
 			hidden : true
 		});
+		this.sF.validate = this.validate;
 		_.bindAll( this, "onSubmit" );
 		this.sF.bind("onSubmit", this.onSubmit);
 	},
@@ -140,6 +141,22 @@ VU.SchemaFormCreateBandView = VU.PopupView.extend({
 		this.sF = null;
 
 	},
+	
+    validate : function (data, callback) {
+		var result = {};
+		if (!data.bandName || data.bandName.length == 0)
+			result.bandName = "Please enter a band name.";
+		if (!data.email || data.email.length == 0)
+			result.email = "Please enter a primary contact email address.";
+		if (!data.stylesPlayed || data.stylesPlayed.length == 0)
+			result.stylesPlayed = "Please select a style of music.";
+		
+		if ( _.size(result) > 0 ){
+			callback( result );
+			return false;
+		}
+		return true;
+    },
 	
 	onSubmit : function(id) {
 		if ( !this.submitted ) { // in case onClosed calls us, too

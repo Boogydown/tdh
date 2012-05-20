@@ -530,14 +530,14 @@ VU.LinkingModel = VU.OwnableModel.extend({
 VU.BandModel = VU.EventsContainerModel.extend({
 	myType : "band",
 	defaults : {
-		bandName: " ",
-		image: "images/loader-spinner-big.gif",
-		ownerUsers: [],
-		stylesPlayed: [],
-		hallsPlayed: [],
-		events: null,
-		status: "Active",
-		dateCreated: new Date().toString()
+		//bandName: " ",
+		//image: "images/loader-spinner-big.gif",
+		//ownerUsers: [],
+		//stylesPlayed: [],
+		//hallsPlayed: [],
+		//events: null,
+		//status: "Active",
+		//dateCreated: new Date().toString()
 	},
 	
 	initialize : function ( attrs, options ) { 
@@ -566,7 +566,7 @@ VU.BandModel = VU.EventsContainerModel.extend({
 	 * 	and usage elsewhere, such as filtering
 	 */
 	normalizeAttributes : function ( model, val, options ) {
-		//utils.logger.log( "Normalize " + model.name + ":"  );
+/*		//utils.logger.log( "Normalize " + model.name + ":"  );
 		// image and website
 		if ( options && options.skipNormalize ) return;
 		//utils.logger.log( val );
@@ -593,7 +593,7 @@ VU.BandModel = VU.EventsContainerModel.extend({
 		
 		if ( image && image != this.defaults.image ) {
 			if (  image[0] != "." && image[0] != '/' && image.substr(0, 4) != "http" ) {
-				//image = "../../" + bandID + "/thumbs/" + encodeURI( image );
+				image = "../../" + bandID + "/thumbs/" + encodeURI( image );
 				image = "../../" + bandID + "/" + encodeURI( image );
 			}
 			this.set( { 
@@ -602,6 +602,10 @@ VU.BandModel = VU.EventsContainerModel.extend({
 			}, { silent: true } );
 		}
 		else
+			if ( window.google ) this.throttledGetGoogleImage();*/
+		
+		var image = this.get("image");
+		if ( !image || ( image.substr(0,6) == "images" || image.substr(0,6) == "../ima" ) )
 			if ( window.google ) this.throttledGetGoogleImage();
 	},
 	

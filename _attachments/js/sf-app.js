@@ -437,7 +437,7 @@ $(function(){
 				//case "file" : 
 				case "picUrl" : 
 					var mainPic, thumbPic;
-					if ( modelVal.substr(0,2) != ".." || modelVal.substr(0,4) != "http" ) {
+					if ( modelVal.substr(0,2) != ".." && modelVal.substr(0,4) != "http" ) {
 						mainPic = '../../' + this.model.id + "/files/" + modelVal;
 						thumbPic = '../../' + this.model.id + "/thumbs/" + modelVal;
 					} else

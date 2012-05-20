@@ -36,6 +36,20 @@ Please click OK if you agree to these terms.')) {location.href="#///!"; return;}
 		this.sF = null;
 	},
 	
+    validate : function (data, callback) {
+      if (!data.date || data.date.length == 0) {
+        callback({date: "Please enter a date."});
+        return false;
+      };
+	  
+      if (!data.band || data.band.length == 0) {
+        callback({band: "Please select a band."});
+        return false;
+      };
+	  
+      return true;
+    },	
+
 	onSubmit : function(id) {
 		var event = app.colls.events.get(id);
 		if ( event ) {

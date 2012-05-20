@@ -257,6 +257,8 @@ VU.InitSFV = function () {
 			// we got attachments earlier, so remove it from here
 			delete values._attachments;
 			
+			if (!this.validate(values, this.processSuccessFail)) return;
+			
 			// update/create model and cleanup
 			// --- update... ---
 			if ( this.model ) {

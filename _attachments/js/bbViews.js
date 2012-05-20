@@ -156,7 +156,6 @@ VU.EventListingView = VU.ListingView.extend({
 	scrollLoadThreshold : 100,
 	LISTING_HEIGHT: 92,
 	
-	since we're just loading it all, anyway, we don't need to listen to scroll event
 	events : { 
 		"scroll" : "scrollUpdate" 
 	},

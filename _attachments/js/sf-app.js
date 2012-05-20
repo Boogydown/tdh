@@ -247,7 +247,7 @@ $(function(){
         initialize : function(){
 			this.el.html("<div class='loadingBar'>Loading...</div>");
 			this.registerTemplate('table-header');			
-            _.bindAll(this, 'render', 'reRender', 'addRow', "submitLogin" );
+            _.bindAll(this, 'render', 'reRender', 'addRow', "submitLogin", "handleLogin" );
             this.collection.bind("add", this.reRender);
             this.collection.bind("remove", this.deleted);
 			if ( !this.collection.fetched ){
@@ -333,8 +333,8 @@ $(function(){
 			if ( result )
 				alert( result.name );
 			else {
-				$("form#loginBoxes").hide();
 				_.delay( function(){location.href = "#//////2";}, 100 );
+				_.delay( this.reRender, 500 );
 			}
 		},
         

@@ -1684,18 +1684,24 @@ VU.schemas = {
 					"items": {
 						"type":"string",
                         choices: [
-                            { value: "Tejano", label: "Tejano" },
-                            { value: "Rock & Roll", label: "Rock & Roll" },
+                            { value: "", label: "" },
+                            { value: "Americana", label: "Americana" },
+                            { value: "Big Band", label: "Big Band" },
+                            { value: "Blues", label: "Blues" },
+                            { value: "Cajun-Zydeco", label: "Cajun-Zydeco" },
+                            { value: "Country", label: "Country" },
+                            { value: "Honky Tonk", label: "Honky Tonk" },
+                            { value: "New Country", label: "New Country" },
+                            { value: "Orchestra", label: "Orchestra" },
                             { value: "Polka", label: "Polka" },
                             { value: "R&B-Soul", label: "R&B-Soul" },
-                            { value: "Honky Tonk", label: "Honky Tonk" },
-                            { value: "Western Swing", label: "Western Swing" },
-                            { value: "Cajun-Zydeco", label: "Cajun-Zydeco" },
+                            { value: "Rock", label: "Rock" },
+                            { value: "Rock & Roll", label: "Rock & Roll" },
                             { value: "Rockabilly", label: "Rockabilly" },
                             { value: "Singer-Songwriter", label: "Singer-Songwriter" },
-                            { value: "Blues", label: "Blues" },
-                            { value: "Country", label: "Country" },
-                            { value: "Other", label: "Other" }
+                            { value: "Tejano", label: "Tejano" },
+                            { value: "Variety", label: "Variety" },
+                            { value: "Western Swing", label: "Western Swing" }
                         ]
 					},
 					"_inputex": {
@@ -1799,18 +1805,24 @@ VU.schemas = {
 					"items": {
 						"type":"string",
                         choices: [
-                            { value: "Tejano", label: "Tejano" },
-                            { value: "Rock & Roll", label: "Rock & Roll" },
+                            { value: "", label: "" },
+                            { value: "Americana", label: "Americana" },
+                            { value: "Big Band", label: "Big Band" },
+                            { value: "Blues", label: "Blues" },
+                            { value: "Cajun-Zydeco", label: "Cajun-Zydeco" },
+                            { value: "Country", label: "Country" },
+                            { value: "Honky Tonk", label: "Honky Tonk" },
+                            { value: "New Country", label: "New Country" },
+                            { value: "Orchestra", label: "Orchestra" },
                             { value: "Polka", label: "Polka" },
                             { value: "R&B-Soul", label: "R&B-Soul" },
-                            { value: "Honky Tonk", label: "Honky Tonk" },
-                            { value: "Western Swing", label: "Western Swing" },
-                            { value: "Cajun-Zydeco", label: "Cajun-Zydeco" },
+                            { value: "Rock", label: "Rock" },
+                            { value: "Rock & Roll", label: "Rock & Roll" },
                             { value: "Rockabilly", label: "Rockabilly" },
                             { value: "Singer-Songwriter", label: "Singer-Songwriter" },
-                            { value: "Blues", label: "Blues" },
-                            { value: "Country", label: "Country" },
-                            { value: "Other", label: "Other" }
+                            { value: "Tejano", label: "Tejano" },
+                            { value: "Variety", label: "Variety" },
+                            { value: "Western Swing", label: "Western Swing" }
                         ]
 					},
 					"_inputex": {

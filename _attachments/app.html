@@ -165,7 +165,7 @@
 			<h2>{bandName}</h2>
 			<div class="detailtext">
 				{#stylesPlayed}{.}<br/>{/stylesPlayed}
-				<a href="http://{website}" target="_blank">{website}</a><br/>
+				<a href="{website}" target="_blank">{website}</a><br/>
 				{aboutTheBand}<br/>
 				{description}
 			</div>
@@ -182,7 +182,7 @@
 		<div id="info">
 			<h2>{danceHallName}</h2>
 			<div class="detailtext">
-				{?website}<a href="http://{website}" target="_blank">{website}</a><br/>{/website}
+				{?website}<a href="{website}" target="_blank">{website}</a><br/>{/website}
 				{?dateBuilt}cir. {dateBuilt}. {/dateBuilt}{?county}{county} county. {/county}<br/>
 				{?publicContactPhone}Public contact phone: {publicContactPhone}<br/>{/publicContactPhone}
 				{?publicContactEmail}Public contact email: {publicContactEmail}<br/>{/publicContactEmail}

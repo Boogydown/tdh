@@ -1,19 +1,34 @@
-#Backbone Couchapp example:
+#Texas Dance Hall Preservation Calendar App
 
-- Install couchapp -> README at [https://github.com/couchapp/couchapp]
-- `couchapp generate PROJECTNAME`
-- Open the newly generated folder in your favorite editor
-- Remove some unnecessary scripts from vendor/ folder and remove them from vendor/couchapp/_attachements/loader.js
-- Add new view -> byCollection: Create a new folder in /views called `byCollection` and add a new file `map.js`.
-- Add this code to `map.js`:
-	function(doc){
-		if(doc.collection){
-			emit(doc.collection, doc);
-		}
-	};
-- Remove `evently` folder
-- Alter information in couchapp.json (if you want to)
-- Copy your Backbone App into `/_attachements` (you could also simply take this example app)
-- Push the couchapp to your CouchDB: `couchapp push http://user:pw@blahblah.couchone.com/DBNAME`
-- Go to the url couchapp just printed out
-- Et Voilà, your first backbone-couchapp
+This is live code for TexasDanceHall.org/calendar 
+
+It is a couchapp that is running on CouchDB (a no-SQL, map-reduce, self-serving database).
+
+App highlights:
+- Event listings
+- Band and User creation
+- List live-filtering by text search
+- List live-filtering by Calendar range selection
+- List live-filtering via tag/category cloud
+- Interactive Google map integration
+- Persistent data for Dance Card tab
+- Large dataset querying and management
+- Dynamic, schema-based form creation 
+
+Technology
+- CouchDB on basic Linux server (it serves its own HTTP)
+- CouchAPP for serving HTML and JS apps
+- Backbone.js front end (plus `backbone-couch` for tying into couchDB)
+- jQuery (plus `jquery-couch` for ajax mods for couchDB)
+- jQuery UI's Calendar plugin
+- Google Maps
+- Dustjs templates
+- jqCloud
+- InputEx for dynamic form creation
+
+Notable directories
+- /views : these are the map-reduce query views for couchDB
+- /vendor/couchapp/_attachments : contains loaders for the app
+- /_attachments : the main html path
+- /_attachments/js/app.js : the calendar app
+- /_attachments/js/sf-app.js : the "Schema Form" app for editing the db using the dynamically-created forms
